@@ -1269,6 +1269,65 @@ The group $F^\times$ is cyclic by Lemma 1.6. Let $\gamma$ be a generator of $F^\
 </p>
 </div>
 
+<div class="note" style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 20px 0;">
+<strong>例子：用定理 1.10 构造 $\mathbb{F}_9$</strong>
+
+<p>让我们具体构造一个 9 元有限域，看定理 1.10 如何工作。</p>
+
+<p><strong>第一步：确定参数</strong></p>
+<p>因为 $|F| = 9 = 3^2$，所以需要 $p = 3$（素数），$n = 2$（多项式次数）。</p>
+
+<p><strong>第二步：找不可约多项式</strong></p>
+<p>在 $\mathbb{F}_3[x]$ 中，首一二次不可约多项式有三个：</p>
+<ul>
+<li>$\pi_1(x) = x^2 + 1$</li>
+<li>$\pi_2(x) = x^2 + x + 2$</li>
+<li>$\pi_3(x) = x^2 + 2x + 2$</li>
+</ul>
+
+<p>验证不可约性（在 $\mathbb{F}_3 = \{0, 1, 2\}$ 中检验无根）：</p>
+<ul>
+<li>$x^2 + 1$: $0^2+1=1$, $1^2+1=2$, $2^2+1=2$ ✓</li>
+<li>$x^2 + x + 2$: $0^2+0+2=2$, $1^2+1+2=1$, $2^2+2+2=2$ ✓</li>
+<li>$x^2 + 2x + 2$: $0^2+0+2=2$, $1^2+2+2=2$, $2^2+4+2=2$ ✓</li>
+</ul>
+
+<p><strong>第三步：构造域 $\mathbb{F}_3[x]/(x^2 + x + 2)$</strong></p>
+<p>域的元素（共 9 个）：</p>
+<p>$$\{a_0 + a_1 x : a_0, a_1 \in \mathbb{F}_3\} = \{0, 1, 2, x, x+1, x+2, 2x, 2x+1, 2x+2\}$$</p>
+
+<p>运算规则：</p>
+<ul>
+<li>加法：正常多项式加法（系数模 3）</li>
+<li>乘法：多项式乘法，然后用关系 $x^2 + x + 2 \equiv 0$，即 $x^2 \equiv -x - 2 = 2x + 1$（模 3）</li>
+</ul>
+
+<p><strong>第四步：验证 $x$ 是生成元</strong></p>
+<p>计算 $x$ 的幂次（这正是定理 1.10 证明中要求的）：</p>
+
+<table style="border-collapse: collapse; margin: 10px 0;">
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^0 = 1$</td><td style="padding: 5px; border: 1px solid #ddd;">$x^1 = x$</td></tr>
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^2 = 2x + 1$</td><td style="padding: 5px; border: 1px solid #ddd;">（由 $x^2 + x + 2 = 0$）</td></tr>
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^3 = x(2x+1) = 2x^2 + x = 2(2x+1) + x = 2x + 2$</td><td style="padding: 5px; border: 1px solid #ddd;"></td></tr>
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^4 = x(2x+2) = 2x^2 + 2x = 2(2x+1) + 2x = 2$</td><td style="padding: 5px; border: 1px solid #ddd;"></td></tr>
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^5 = 2x$</td><td style="padding: 5px; border: 1px solid #ddd;">$x^6 = 2x^2 = x + 2$</td></tr>
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^7 = x(x+2) = x^2 + 2x = (2x+1) + 2x = x + 1$</td><td style="padding: 5px; border: 1px solid #ddd;"></td></tr>
+<tr><td style="padding: 5px; border: 1px solid #ddd;">$x^8 = x(x+1) = x^2 + x = (2x+1) + x = 1$</td><td style="padding: 5px; border: 1px solid #ddd;">✓ 回到 1</td></tr>
+</table>
+
+<p style="background: #e3f2fd; padding: 10px; border-radius: 5px; margin-top: 10px;">
+所以 $x$ 的阶是 8，恰好等于 $|\mathbb{F}_9^{\times}| = 8$，因此 $x \bmod (x^2+x+2)$ 生成了全部非零元素！这正是定理 1.10 证明中构造的同构 $\mathbb{F}_3[x]/(x^2+x+2) \cong \mathbb{F}_9$，其中 $x$ 对应 $F^\times$ 的生成元 $\gamma$。
+</p>
+
+<p><strong>对比：为什么 $x^2 + 1$ 不符合定理 1.10 的证明？</strong></p>
+<p>如果用 $\mathbb{F}_3[x]/(x^2 + 1)$：</p>
+<ul>
+<li>$x^2 = -1 = 2$（在 $\mathbb{F}_3$ 中）</li>
+<li>$x^4 = (x^2)^2 = 2^2 = 4 = 1$</li>
+</ul>
+<p>$x$ 的阶只有 4，无法生成所有 8 个非零元素。虽然 $\mathbb{F}_3[x]/(x^2 + 1)$ 也是 9 元域，但它不是定理 1.10 证明过程中自然构造出来的（证明要求 $x$ 对应生成元）。</p>
+</div>
+
 <p>Fields of size 9 that are of the form $\mathbb{F}_p[x]/(\pi(x))$ need $p = 3$ and $\deg \pi(x) = 2$. The monic irreducible quadratics in $\mathbb{F}_3[x]$ are $x^2 + 1$, $x^2 + x + 2$, and $x^2 + 2x + 2$. In
 $$\mathbb{F}_3[x]/(x^2 + 1), \quad \mathbb{F}_3[x]/(x^2 + x + 2), \quad \mathbb{F}_3[x]/(x^2 + 2x + 2),$$
 $x$ does not generate the nonzero elements in the first field but it generates the nonzero elements in the second and third fields. So although $\mathbb{F}_3[x]/(x^2 + 1)$ is the simplest choice among these three examples, it's not the one that would come out of the proof of Theorem 1.10 when we look for a model of fields of order 9 as $\mathbb{F}_3[x]/(\pi(x))$.</p>
@@ -1803,9 +1862,9 @@ This shows there is at most one subfield of order $p^d$ in $\mathbb{F}_{p^n}$.
   <line x1="280" y1="99" x2="280" y2="111" stroke="#666" stroke-width="1"/>
   <text x="288" y="108" font-size="9" fill="#666">2</text>
   <line x1="405" y1="99" x2="370" y2="111" stroke="#666" stroke-width="1"/>
-  <text x="395" y="108" font-size="9" fill="#666">2</text>
+  <text x="395" y="108" font-size="9" fill="#666">3</text>
   <line x1="420" y1="99" x2="420" y2="111" stroke="#666" stroke-width="1"/>
-  <text x="428" y="108" font-size="9" fill="#666">3</text>
+  <text x="428" y="108" font-size="9" fill="#666">2</text>
   <line x1="295" y1="136" x2="330" y2="153" stroke="#666" stroke-width="1"/>
   <text x="318" y="148" font-size="9" fill="#666">2</text>
   <line x1="405" y1="136" x2="370" y2="153" stroke="#666" stroke-width="1"/>
@@ -2142,6 +2201,283 @@ Each $a \in \mathbb{F}_p$ satisfies $a^p = a$, so the function $\varphi_p : \mat
 <strong>Frobenius 自同构：</strong>$\mathbb{F}_{p^n}$ 上的 $p$ 次幂映射叫做 <strong>Frobenius 自同构</strong>。这个映射的公式不涉及 $n$，却能生成所有 $n \geq 1$ 的 $\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)$。Frobenius 映射在代数几何和数论中极其重要。
 </div>
 
+<p>Galois theory makes Theorem 2.8 follow from Theorem 4.1: an extension with a cyclic Galois group has its lattice of intermediate fields resemble the lattice of subgroups of a cyclic group, with the unique subfield of degree $d$ over $\mathbb{F}_p$ corresponding to the unique subgroup of the Galois group with index $d$. In the diagram below are subfields of $\mathbb{F}_{p^{12}}$ on the left and corresponding subgroups of $\mathrm{Gal}(\mathbb{F}_{p^{12}}/\mathbb{F}_p) = \langle\varphi_p\rangle \cong \mathbb{Z}/(12)$ on the right.</p>
+
+<blockquote>Galois 理论使得定理 2.8 可以从定理 4.1 推出：具有循环 Galois 群的扩张，其中间域格类似于循环群的子群格，$\mathbb{F}_p$ 上次数为 $d$ 的唯一子域对应于 Galois 群中指标为 $d$ 的唯一子群。下图左边是 $\mathbb{F}_{p^{12}}$ 的子域，右边是 $\mathrm{Gal}(\mathbb{F}_{p^{12}}/\mathbb{F}_p) = \langle\varphi_p\rangle \cong \mathbb{Z}/(12)$ 的对应子群。</blockquote>
+
+<svg width="600" height="400" viewBox="0 0 600 400" style="display: block; margin: 1em auto;">
+  <rect x="0" y="0" width="600" height="400" fill="#fefefe"/>
+
+  <!-- Left side: Subfields of F_{p^12} -->
+  <text x="150" y="30" text-anchor="middle" font-size="14" font-weight="bold">$\mathbb{F}_{p^{12}}$ 的子域</text>
+
+  <ellipse cx="150" cy="70" rx="38" ry="18" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+  <text x="150" y="76" text-anchor="middle" font-size="13">$\mathbb{F}_{p^{12}}$</text>
+
+  <ellipse cx="80" cy="130" rx="32" ry="18" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="80" y="136" text-anchor="middle" font-size="12">$\mathbb{F}_{p^4}$</text>
+
+  <ellipse cx="220" cy="130" rx="32" ry="18" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="220" y="136" text-anchor="middle" font-size="12">$\mathbb{F}_{p^6}$</text>
+
+  <ellipse cx="80" cy="190" rx="32" ry="18" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="80" y="196" text-anchor="middle" font-size="12">$\mathbb{F}_{p^2}$</text>
+
+  <ellipse cx="220" cy="190" rx="32" ry="18" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="220" y="196" text-anchor="middle" font-size="12">$\mathbb{F}_{p^3}$</text>
+
+  <ellipse cx="150" cy="250" rx="32" ry="18" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="150" y="256" text-anchor="middle" font-size="12">$\mathbb{F}_p$</text>
+
+  <!-- Edges for subfields -->
+  <line x1="125" y1="82" x2="95" y2="115" stroke="#666" stroke-width="1.5"/>
+  <text x="105" y="95" font-size="10" fill="#666">3</text>
+  <line x1="175" y1="82" x2="205" y2="115" stroke="#666" stroke-width="1.5"/>
+  <text x="195" y="95" font-size="10" fill="#666">2</text>
+
+  <line x1="80" y1="148" x2="80" y2="172" stroke="#666" stroke-width="1.5"/>
+  <text x="88" y="162" font-size="10" fill="#666">2</text>
+
+  <line x1="205" y1="142" x2="165" y2="172" stroke="#666" stroke-width="1.5"/>
+  <text x="193" y="160" font-size="10" fill="#666">2</text>
+  <line x1="220" y1="148" x2="220" y2="172" stroke="#666" stroke-width="1.5"/>
+  <text x="228" y="162" font-size="10" fill="#666">3</text>
+
+  <line x1="95" y1="202" x2="135" y2="238" stroke="#666" stroke-width="1.5"/>
+  <text x="120" y="224" font-size="10" fill="#666">2</text>
+  <line x1="205" y1="202" x2="165" y2="238" stroke="#666" stroke-width="1.5"/>
+  <text x="193" y="224" font-size="10" fill="#666">3</text>
+
+  <!-- Right side: Subgroups of Gal(F_{p^12}/F_p) -->
+  <text x="450" y="30" text-anchor="middle" font-size="14" font-weight="bold">$\mathrm{Gal}(\mathbb{F}_{p^{12}}/\mathbb{F}_p)$ 的子群</text>
+
+  <ellipse cx="450" cy="70" rx="38" ry="18" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+  <text x="450" y="76" text-anchor="middle" font-size="13">$\langle\varphi_p^{12}\rangle$</text>
+
+  <ellipse cx="380" cy="130" rx="32" ry="18" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="380" y="136" text-anchor="middle" font-size="12">$\langle\varphi_p^4\rangle$</text>
+
+  <ellipse cx="520" cy="130" rx="32" ry="18" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="520" y="136" text-anchor="middle" font-size="12">$\langle\varphi_p^6\rangle$</text>
+
+  <ellipse cx="380" cy="190" rx="32" ry="18" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="380" y="196" text-anchor="middle" font-size="12">$\langle\varphi_p^2\rangle$</text>
+
+  <ellipse cx="520" cy="190" rx="32" ry="18" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="520" y="196" text-anchor="middle" font-size="12">$\langle\varphi_p^3\rangle$</text>
+
+  <ellipse cx="450" cy="250" rx="32" ry="18" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="450" y="256" text-anchor="middle" font-size="12">$\langle\varphi_p\rangle$</text>
+
+  <!-- Edges for subgroups -->
+  <line x1="425" y1="82" x2="395" y2="115" stroke="#666" stroke-width="1.5"/>
+  <text x="405" y="95" font-size="10" fill="#666">3</text>
+  <line x1="475" y1="82" x2="505" y2="115" stroke="#666" stroke-width="1.5"/>
+  <text x="495" y="95" font-size="10" fill="#666">2</text>
+
+  <line x1="380" y1="148" x2="380" y2="172" stroke="#666" stroke-width="1.5"/>
+  <text x="388" y="162" font-size="10" fill="#666">2</text>
+
+  <line x1="505" y1="142" x2="465" y2="172" stroke="#666" stroke-width="1.5"/>
+  <text x="493" y="160" font-size="10" fill="#666">2</text>
+  <line x1="520" y1="148" x2="520" y2="172" stroke="#666" stroke-width="1.5"/>
+  <text x="528" y="162" font-size="10" fill="#666">3</text>
+
+  <line x1="395" y1="202" x2="435" y2="238" stroke="#666" stroke-width="1.5"/>
+  <text x="420" y="224" font-size="10" fill="#666">2</text>
+  <line x1="505" y1="202" x2="465" y2="238" stroke="#666" stroke-width="1.5"/>
+  <text x="493" y="224" font-size="10" fill="#666">3</text>
+
+  <!-- Legend -->
+  <text x="300" y="320" text-anchor="middle" font-size="11" fill="#666">边上的数字表示扩张次数（左）或子群指标（右）</text>
+  <text x="300" y="340" text-anchor="middle" font-size="11" fill="#666">Galois 对应：子域 $F$ ↔ 固定 $F$ 的自同构的子群</text>
+  <text x="300" y="360" text-anchor="middle" font-size="11" fill="#666">$[\mathbb{F}_{p^k} : \mathbb{F}_p] = k$ ↔ $[\langle\varphi_p\rangle : \langle\varphi_p^k\rangle] = k$</text>
+</svg>
+
+<div class="note">
+<strong>Galois 对应的具体含义</strong>
+
+<p>对于 $\mathbb{F}_{p^{12}}/\mathbb{F}_p$ 的 Galois 对应：</p>
+<ul>
+<li><strong>子域 $\mathbb{F}_{p^d}$（其中 $d \mid 12$）：</strong>对应于子群 $\langle\varphi_p^d\rangle = \{\mathrm{id}, \varphi_p^d, \varphi_p^{2d}, \ldots\}$</li>
+<li><strong>固定关系：</strong>$\mathbb{F}_{p^d}$ 恰好是被 $\varphi_p^d$ 固定的元素集合</li>
+<li><strong>指标对应：</strong>$[\mathbb{F}_{p^{12}} : \mathbb{F}_{p^d}] = 12/d$ 对应 $[\langle\varphi_p\rangle : \langle\varphi_p^d\rangle] = 12/d$</li>
+</ul>
+
+<p><strong>例子：</strong></p>
+<ul>
+<li>$\mathbb{F}_{p^4}$ 对应 $\langle\varphi_p^4\rangle = \{\mathrm{id}, \varphi_p^4, \varphi_p^8\}$，指标 $12/3 = 4$</li>
+<li>$\mathbb{F}_{p^6}$ 对应 $\langle\varphi_p^6\rangle = \{\mathrm{id}, \varphi_p^6\}$，指标 $12/2 = 6$</li>
+</ul>
+</div>
+
+<p>Theorem 3.4 can be explained in a second, shorter, way as a corollary of Theorem 4.1 and we also get part of Theorem 2.5.</p>
+
+<blockquote>定理 3.4 可以用第二种更简短的方式来解释，作为定理 4.1 的推论，我们还能得到定理 2.5 的一部分。</blockquote>
+
+<div class="corollary">
+<p class="corollary-title">Corollary 4.2</p>
+<p>If $\pi(x) \in \mathbb{F}_p[x]$ is irreducible with degree $d$ then it is separable and if $\alpha$ is one of its roots in some extension field of $\mathbb{F}_p$ then its full set of roots is $\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$.</p>
+</div>
+
+<blockquote>如果 $\pi(x) \in \mathbb{F}_p[x]$ 是 $d$ 次不可约多项式，则它是可分的，且若 $\alpha$ 是它在某个 $\mathbb{F}_p$ 的扩域中的一个根，则它的全部根为 $\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$。</blockquote>
+
+<div class="proof">
+We have seen already that a finite field of $p$-power order is Galois over $\mathbb{F}_p$. The field $\mathbb{F}_p(\alpha)$ is finite, so it is Galois over $\mathbb{F}_p$ and the roots of $\pi(x)$ in $\mathbb{F}_p(\alpha)$ can be obtained from $\alpha$ by applying $\mathrm{Gal}(\mathbb{F}_p(\alpha)/\mathbb{F}_p)$ to this root. Since the Galois group is generated by the $p$-th power map, the roots of $\pi(x)$ are $\alpha, \alpha^p, \alpha^{p^2}, \ldots$. Once we reach $\alpha^{p^d}$ we have cycled back to the start: $\alpha^{p^d} = \alpha$ since $\mathbb{F}_p(\alpha) \cong \mathbb{F}_p[x]/(\pi(x))$ has order $p^d$ and all elements in a field of order $p^d$ satisfy $t^{p^d} = t$. Therefore the list $\alpha, \alpha^p, \alpha^{p^2}, \ldots$ of all possible roots of $\pi(x)$ is $\alpha, \alpha^p, \ldots, \alpha^{p^{d-1}}$. Since $\mathbb{F}_p(\alpha)/\mathbb{F}_p$ is Galois and $\pi(x)$ is irreducible over $\mathbb{F}_p$ with a root $\alpha$ in $\mathbb{F}_p(\alpha)$, $\pi(x)$ is separable over $\mathbb{F}_p$ and splits completely over $\mathbb{F}_p(\alpha)$. Therefore $\pi(x)$ has $d$ distinct roots in $\mathbb{F}_p(\alpha)$, so the list $\alpha, \alpha^p, \ldots, \alpha^{p^{d-1}}$ has to consist of distinct elements.
+</div>
+
+<blockquote>我们已经知道 $p$ 幂阶的有限域是 $\mathbb{F}_p$ 的 Galois 扩张。域 $\mathbb{F}_p(\alpha)$ 是有限的，所以它是 $\mathbb{F}_p$ 的 Galois 扩张，$\pi(x)$ 在 $\mathbb{F}_p(\alpha)$ 中的根可以通过对 $\alpha$ 应用 $\mathrm{Gal}(\mathbb{F}_p(\alpha)/\mathbb{F}_p)$ 得到。由于 Galois 群由 $p$ 次幂映射生成，$\pi(x)$ 的根是 $\alpha, \alpha^p, \alpha^{p^2}, \ldots$。当达到 $\alpha^{p^d}$ 时回到起点：$\alpha^{p^d} = \alpha$（因为 $|\mathbb{F}_p(\alpha)| = p^d$）。因为 $\mathbb{F}_p(\alpha)/\mathbb{F}_p$ 是 Galois 扩张且 $\pi(x)$ 不可约，所以 $\pi(x)$ 可分且在 $\mathbb{F}_p(\alpha)$ 上完全分解。因此 $\pi(x)$ 有 $d$ 个不同的根，列表 $\alpha, \alpha^p, \ldots, \alpha^{p^{d-1}}$ 由不同元素组成。</blockquote>
+
+<div class="note">
+<strong>两种证明方法的对比</strong>
+
+<p><strong>定理 3.4 的证明：</strong>直接通过多项式整除和同余关系</p>
+<p><strong>推论 4.2 的证明：</strong>使用 Galois 群的生成元 $\varphi_p$</p>
+
+<p style="background: #e3f2fd; padding: 10px; border-radius: 5px;">
+<strong>优势：</strong>推论 4.2 的证明更「概念性」，它揭示了不可约多项式的根通过 Frobenius 自同构相互关联的深层原因。定理 3.4 的证明更「计算性」，直接处理多项式和幂次。
+</p>
+</div>
+
+<p>The $p$-th power map on $\mathbb{F}_{p^n}$ is called the <strong>Frobenius automorphism</strong>. This function, whose formula doesn't involve $n$, generates $\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)$ for all $n \geq 1$.</p>
+
+<blockquote>$\mathbb{F}_{p^n}$ 上的 $p$ 次幂映射称为 <strong>Frobenius 自同构</strong>。这个函数的公式不涉及 $n$，却能生成所有 $n \geq 1$ 的 $\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)$。</blockquote>
+
+<p>Let's compute some concrete Galois groups over $\mathbb{F}_p$.</p>
+
+<blockquote>让我们计算一些 $\mathbb{F}_p$ 上的具体 Galois 群。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.3.</span> The polynomial $x^3 + x^2 + 1$ is irreducible over $\mathbb{F}_2$. If $\alpha$ is a root of it over $\mathbb{F}_2$ then $\mathbb{F}_2(\alpha)/\mathbb{F}_2$ is a cubic Galois extension and $\mathrm{Gal}(\mathbb{F}_2(\alpha)/\mathbb{F}_2) = \{\beta \mapsto \beta, \beta \mapsto \beta^2, \beta \mapsto \beta^4\}$. The second element is the Frobenius automorphism $\varphi_2$ and the third is $\varphi_2^2$. By Example 3.5 we have $\alpha^4 = \alpha^2 + \alpha + 1$, so we can make a table below describing each automorphism's effect on $\alpha$ in the $\mathbb{F}_2$-basis $\{1, \alpha, \alpha^2\}$.</p>
+
+<table style="border-collapse: collapse; margin: 10px auto; text-align: center;">
+<tr style="border-bottom: 1px solid #ccc;">
+<td style="padding: 8px; font-weight: bold;">$\sigma$</td>
+<td style="padding: 8px;">$\mathrm{id}$</td>
+<td style="padding: 8px;">$\varphi_2$</td>
+<td style="padding: 8px;">$\varphi_2^2$</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">$\sigma(\alpha)$</td>
+<td style="padding: 8px;">$\alpha$</td>
+<td style="padding: 8px;">$\alpha^2$</td>
+<td style="padding: 8px;">$\alpha^2 + \alpha + 1$</td>
+</tr>
+</table>
+</div>
+
+<blockquote>多项式 $x^3 + x^2 + 1$ 在 $\mathbb{F}_2$ 上不可约。若 $\alpha$ 是它的一个根，则 $\mathbb{F}_2(\alpha)/\mathbb{F}_2$ 是三次 Galois 扩张，$\mathrm{Gal}(\mathbb{F}_2(\alpha)/\mathbb{F}_2) = \{\beta \mapsto \beta, \beta \mapsto \beta^2, \beta \mapsto \beta^4\}$。第二个元素是 Frobenius 自同构 $\varphi_2$，第三个是 $\varphi_2^2$。由例 3.5，$\alpha^4 = \alpha^2 + \alpha + 1$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.4.</span> The polynomial $x^2 + 1$ is irreducible over $\mathbb{F}_3$. Let $\alpha$ be a root, so $\mathbb{F}_3(\alpha)/\mathbb{F}_3$ is a Galois extension of degree 2. Its Galois group is $\{\beta \mapsto \beta, \beta \mapsto \beta^3\}$. A basis of $\mathbb{F}_3(\alpha)$ over $\mathbb{F}_3$ is $\{1, \alpha\}$ and the Frobenius automorphism $\varphi_3$ on a typical element $\varphi_3(a + b\alpha) = (a + b\alpha)^3 = a + b\alpha^3$ since $a^3 = a$ and $b^3 = b$ for $a, b \in \mathbb{F}_3$.</p>
+
+<p>The two roots of $x^2 + 1$ are $\alpha$ and $\alpha^3$, but they are also $\alpha$ and $-\alpha$, so $\alpha^3 = -\alpha$. That can be seen by a direct calculation as well: $\alpha^3 = (\alpha^2)\alpha = -\alpha$. So we could also describe the Frobenius automorphism in $\mathrm{Gal}(\mathbb{F}_3(\alpha)/\mathbb{F}_3)$ by $\varphi_3(a + b\alpha) = a - b\alpha$.</p>
+</div>
+
+<blockquote>多项式 $x^2 + 1$ 在 $\mathbb{F}_3$ 上不可约。设 $\alpha$ 是一个根，则 $\mathbb{F}_3(\alpha)/\mathbb{F}_3$ 是 2 次 Galois 扩张，Galois 群是 $\{\beta \mapsto \beta, \beta \mapsto \beta^3\}$。$x^2 + 1$ 的两个根是 $\alpha$ 和 $\alpha^3$，但也是 $\alpha$ 和 $-\alpha$，所以 $\alpha^3 = -\alpha$。因此 Frobenius 自同构也可以描述为 $\varphi_3(a + b\alpha) = a - b\alpha$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.5.</span> The polynomial $x^3 - 2$ is irreducible over $\mathbb{F}_7$. If $\alpha$ is a root of it then $\mathbb{F}_7(\alpha)/\mathbb{F}_7$ is a Galois extension and $\mathrm{Gal}(\mathbb{F}_7(\alpha)/\mathbb{F}_7) = \{\beta \mapsto \beta, \beta \mapsto \beta^7, \beta \mapsto \beta^{49}\}$. From the work in Example 3.6, $\alpha^7 = 4\alpha$ and $\alpha^{49} = 2\alpha$. Therefore we can also describe the automorphisms in $\mathrm{Gal}(\mathbb{F}_7(\alpha)/\mathbb{F}_7)$ by their effect on $\alpha$ as in the table below.</p>
+
+<table style="border-collapse: collapse; margin: 10px auto; text-align: center;">
+<tr style="border-bottom: 1px solid #ccc;">
+<td style="padding: 8px; font-weight: bold;">$\sigma$</td>
+<td style="padding: 8px;">$\mathrm{id}$</td>
+<td style="padding: 8px;">$\varphi_7$</td>
+<td style="padding: 8px;">$\varphi_7^2$</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">$\sigma(\alpha)$</td>
+<td style="padding: 8px;">$\alpha$</td>
+<td style="padding: 8px;">$4\alpha$</td>
+<td style="padding: 8px;">$2\alpha$</td>
+</tr>
+</table>
+</div>
+
+<blockquote>多项式 $x^3 - 2$ 在 $\mathbb{F}_7$ 上不可约。若 $\alpha$ 是它的一个根，则 $\mathbb{F}_7(\alpha)/\mathbb{F}_7$ 是 Galois 扩张，$\mathrm{Gal}(\mathbb{F}_7(\alpha)/\mathbb{F}_7) = \{\beta \mapsto \beta, \beta \mapsto \beta^7, \beta \mapsto \beta^{49}\}$。由例 3.6，$\alpha^7 = 4\alpha$，$\alpha^{49} = 2\alpha$。</blockquote>
+
+<div class="note">
+<strong>为什么 $\alpha^7 = 4\alpha$ 而不是 $\alpha^7 = \alpha$？</strong>
+
+<p>在 $\mathbb{F}_7(\alpha)$ 中，$|\mathbb{F}_7(\alpha)| = 7^3 = 343$，所以 $t^{343} = t$ 对所有 $t \in \mathbb{F}_7(\alpha)$。</p>
+
+<p>但是 $\alpha^7 \neq \alpha$！因为 $\alpha$ 不在 $\mathbb{F}_7$ 中。只有 $\mathbb{F}_7$ 中的元素 $a$ 满足 $a^7 = a$。</p>
+
+<p><strong>计算：</strong>$\alpha^3 = 2$（由 $x^3 - 2 = 0$），所以</p>
+<ul>
+<li>$\alpha^7 = \alpha^6 \cdot \alpha = (\alpha^3)^2 \cdot \alpha = 2^2 \cdot \alpha = 4\alpha$</li>
+<li>$\alpha^{49} = (\alpha^7)^7 = (4\alpha)^7 = 4^7 \cdot \alpha^7 = 4 \cdot 4\alpha = 16\alpha = 2\alpha$（因为 $4^7 = 4$ 在 $\mathbb{F}_7$ 中）</li>
+</ul>
+
+<p><strong>几何解释：</strong>这类似于 $\mathbb{C}$ 中 $x^3 - 2$ 的三个根：$\sqrt[3]{2}, \omega\sqrt[3]{2}, \omega^2\sqrt[3]{2}$，其中 $\omega$ 是三次单位根。在 $\mathbb{F}_7$ 中，2 和 4 恰好是非平凡的三次单位根。</p>
+</div>
+
+<p>Using the Galois group, we obtain explicit formulas for the trace and norm maps on finite fields.</p>
+
+<blockquote>利用 Galois 群，我们可以得到有限域上迹映射和范数映射的显式公式。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 4.6</p>
+<p>The trace and norm maps for the extension $\mathbb{F}_{p^n}/\mathbb{F}_p$ are
+$$\mathrm{Tr}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(t) = t + t^p + t^{p^2} + \cdots + t^{p^{n-1}}$$
+and
+$$\mathrm{N}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(t) = t \cdot t^p \cdot t^{p^2} \cdots t^{p^{n-1}} = t^{1+p+p^2+\cdots+p^{n-1}} = t^{(p^n-1)/(p-1)}.$$
+Both maps are surjective.</p>
+</div>
+
+<blockquote>扩张 $\mathbb{F}_{p^n}/\mathbb{F}_p$ 的迹映射和范数映射为
+$$\mathrm{Tr}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(t) = t + t^p + t^{p^2} + \cdots + t^{p^{n-1}}$$
+以及
+$$\mathrm{N}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(t) = t \cdot t^p \cdot t^{p^2} \cdots t^{p^{n-1}} = t^{(p^n-1)/(p-1)}.$$
+两个映射都是满射。</blockquote>
+
+<div class="proof">
+The trace and norm formulas are special cases of the trace and norm formulas on any Galois extension: for a Galois extension $K/F$ with Galois group $G = \{\sigma_1, \ldots, \sigma_n\}$,
+$$\mathrm{Tr}_{K/F}(t) = \sum_{i=1}^n \sigma_i(t), \quad \mathrm{N}_{K/F}(t) = \prod_{i=1}^n \sigma_i(t).$$
+For $\mathbb{F}_{p^n}/\mathbb{F}_p$, the Galois group is $\{\mathrm{id}, \varphi_p, \varphi_p^2, \ldots, \varphi_p^{n-1}\}$ where $\varphi_p(t) = t^p$.
+
+To see that the trace map $\mathbb{F}_{p^n} \to \mathbb{F}_p$ is surjective, since it is $\mathbb{F}_p$-linear with values in $\mathbb{F}_p$, its image is either $\{0\}$ or $\mathbb{F}_p$. So if $\mathrm{Tr}_{\mathbb{F}_{p^n}/\mathbb{F}_p}$ is not surjective then it is identically zero, which makes $t + t^p + t^{p^2} + \cdots + t^{p^{n-1}} = 0$ for all $t \in \mathbb{F}_{p^n}$, and that's impossible: a polynomial with degree $p^{n-1}$ can't have $p^n$ roots in a field.
+
+To see that the norm map $\mathbb{F}_{p^n} \to \mathbb{F}_p$ is surjective, we can ignore the value at 0 and thus look at the norm map $\mathbb{F}_{p^n}^\times \to \mathbb{F}_p^\times$, which has the formula $t \mapsto t^{(p^n-1)/(p-1)}$. The groups $\mathbb{F}_{p^n}^\times$ and $\mathbb{F}_p^\times$ are both cyclic, with respective sizes $p^n - 1$ and $p - 1$. When we take $t$ to be a generator of $\mathbb{F}_{p^n}^\times$, so it has order $p^n - 1$, $\mathrm{N}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(t) = t^{(p^n-1)/(p-1)}$ has order $p - 1$ and thus this norm value in $\mathbb{F}_p^\times$ is a generator of $\mathbb{F}_p^\times$. In short, the norm map on nonzero numbers in a finite field sends a generator of $\mathbb{F}_{p^n}^\times$ to a generator of $\mathbb{F}_p^\times$ and thus it is onto.
+</div>
+
+<blockquote>迹和范数公式是任何 Galois 扩张上迹和范数公式的特例。对于 $\mathbb{F}_{p^n}/\mathbb{F}_p$，Galois 群是 $\{\mathrm{id}, \varphi_p, \varphi_p^2, \ldots, \varphi_p^{n-1}\}$。
+
+要证明迹映射满射：因为它是 $\mathbb{F}_p$-线性的且值在 $\mathbb{F}_p$ 中，其像要么是 $\{0\}$ 要么是 $\mathbb{F}_p$。若不满射则恒为零，但次数 $p^{n-1}$ 的多项式不能有 $p^n$ 个根，矛盾。
+
+要证明范数映射满射：考虑 $\mathbb{F}_{p^n}^\times \to \mathbb{F}_p^\times$，公式为 $t \mapsto t^{(p^n-1)/(p-1)}$。两个群都是循环群。取 $\mathbb{F}_{p^n}^\times$ 的生成元 $t$（阶为 $p^n - 1$），则 $\mathrm{N}(t) = t^{(p^n-1)/(p-1)}$ 的阶为 $p - 1$，因此是 $\mathbb{F}_p^\times$ 的生成元，所以范数映射满射。</blockquote>
+
+<div class="note">
+<strong>迹和范数的直观理解</strong>
+
+<p><strong>迹 (Trace)：</strong>对元素 $t$ 应用所有 Galois 自同构后求和</p>
+<ul>
+<li>$\mathrm{Tr}(t) = t + \varphi_p(t) + \varphi_p^2(t) + \cdots + \varphi_p^{n-1}(t)$</li>
+<li>结果固定在基域 $\mathbb{F}_p$ 中（因为 Galois 群的每个元素都保持 $\mathrm{Tr}(t)$ 不变）</li>
+<li>类似于「平均值」的概念</li>
+</ul>
+
+<p><strong>范数 (Norm)：</strong>对元素 $t$ 应用所有 Galois 自同构后求积</p>
+<ul>
+<li>$\mathrm{N}(t) = t \cdot \varphi_p(t) \cdot \varphi_p^2(t) \cdots \varphi_p^{n-1}(t) = t^{(p^n-1)/(p-1)}$</li>
+<li>结果固定在基域 $\mathbb{F}_p$ 中</li>
+<li>类似于「几何平均」的概念</li>
+</ul>
+
+<p><strong>例子：</strong>$\mathbb{F}_9/\mathbb{F}_3$（$p = 3$，$n = 2$）</p>
+<ul>
+<li>$\mathrm{Tr}_{\mathbb{F}_9/\mathbb{F}_3}(t) = t + t^3$</li>
+<li>$\mathrm{N}_{\mathbb{F}_9/\mathbb{F}_3}(t) = t \cdot t^3 = t^4$</li>
+</ul>
+
+<p>验证：若 $t = x \in \mathbb{F}_3[x]/(x^2+1)$，则</p>
+<ul>
+<li>$\mathrm{Tr}(x) = x + x^3 = x + (-x) = 0$</li>
+<li>$\mathrm{N}(x) = x^4 = (x^2)^2 = (-1)^2 = 1 \in \mathbb{F}_3$ ✓</li>
+</ul>
+</div>
+
 <!-- ==================== Section 5: General finite base fields ==================== -->
 <h2>5. General Finite Base Fields（一般有限基域）</h2>
 
@@ -2252,28 +2588,341 @@ $$\mathrm{N}_{\mathbb{F}_{q^n}/\mathbb{F}_q}(t) = t^{(q^n-1)/(q-1)}$$
 
 <blockquote>有限域在纯数学和应用数学中都很重要。以下是一些例子：</blockquote>
 
-<h3>(1) Number Theory（数论）</h3>
-<p>Many problems in $\mathbb{Z}$ are studied by reducing mod $p$, which puts us in the finite fields $\mathbb{Z}/(p)$.</p>
-<blockquote>$\mathbb{Z}$ 中的许多问题通过模 $p$ 约化来研究，这就把我们带入了有限域 $\mathbb{Z}/(p)$。</blockquote>
+<ol style="line-height: 1.8;">
+<li><strong>Number theory（数论）.</strong> Many problems in $\mathbb{Z}$ are studied by reducing mod $p$, which puts us in the finite fields $\mathbb{Z}/(p)$. In every finite extension $K$ of $\mathbb{Q}$ is a ring $\mathcal{O}_K$ playing a role analogous to that of $\mathbb{Z}$ in $\mathbb{Q}$. (For example, when $K = \mathbb{Q}(\sqrt{2})$, $\mathcal{O}_K = \mathbb{Z}[\sqrt{2}]$.) Problems in $\mathcal{O}_K$ can often be reduced to working in the fields $\mathcal{O}_K/\mathfrak{m}$ where $\mathfrak{m}$ is a maximal ideal. Every $\mathcal{O}_K/\mathfrak{m}$ is a finite field and often is not of prime order.
+<blockquote>$\mathbb{Z}$ 中的许多问题通过模 $p$ 约化来研究，这就进入了有限域 $\mathbb{Z}/(p)$。在 $\mathbb{Q}$ 的每个有限扩张 $K$ 中都有一个环 $\mathcal{O}_K$，它在 $K$ 中的作用类似于 $\mathbb{Z}$ 在 $\mathbb{Q}$ 中的作用。（例如，当 $K = \mathbb{Q}(\sqrt{2})$ 时，$\mathcal{O}_K = \mathbb{Z}[\sqrt{2}]$。）$\mathcal{O}_K$ 中的问题通常可以约化到域 $\mathcal{O}_K/\mathfrak{m}$ 中处理，其中 $\mathfrak{m}$ 是极大理想。每个 $\mathcal{O}_K/\mathfrak{m}$ 都是有限域，且通常不是素数阶。</blockquote>
+</li>
 
-<h3>(2) Group Theory（群论）</h3>
-<p>Most nonabelian finite simple groups besides $A_n$ ($n \geq 5$) come from matrix groups over finite fields.</p>
-<blockquote>除了 $A_n$（$n \geq 5$）之外，大多数非阿贝尔有限单群来自有限域上的矩阵群。</blockquote>
+<li><strong>Group theory（群论）.</strong> Most nonabelian finite simple groups besides $A_n$ ($n \geq 5$) come from matrix groups over finite fields, and their construction is analogous to that of simple Lie groups over $\mathbb{C}$. Galois created finite fields of nonprime order in order to describe primitive solvable permutation groups.
+<blockquote>除了 $A_n$（$n \geq 5$）之外，大多数非阿贝尔有限单群来自有限域上的矩阵群，其构造类似于 $\mathbb{C}$ 上的单李群。Galois 创造非素数阶有限域是为了描述本原可解置换群。</blockquote>
+</li>
 
-<h3>(3) Combinatorics（组合学）</h3>
-<p>Interesting <span class="vocab" data-tip="/ˌkɒmbɪnəˈtɔːriəl/ 组合的">combinatorial</span> structures are built using finite fields and their multiplicative groups.</p>
-<blockquote>许多有趣的组合结构是用有限域及其乘法群构建的。</blockquote>
-
-<h3>(4) Coding Theory（编码理论）</h3>
-<p>Reed-Solomon error-correcting codes operate on $\mathbb{F}_{2^8}$.</p>
-<blockquote>Reed-Solomon 纠错码在 $\mathbb{F}_{2^8}$ 上运算。</blockquote>
-
-<h3>(5) Cryptography（密码学）</h3>
-<p>The AES (Rijndael) encryption system uses arithmetic in $\mathbb{F}_{2^8} = \mathbb{F}_2[x]/(x^8 + x^4 + x^3 + x + 1)$. Elliptic curves over finite fields are the basis for elliptic curve cryptography (ECC), and the discrete logarithm problem in $\mathbb{F}_q^\times$ is the foundation of Diffie-Hellman key exchange.</p>
-<blockquote>AES (Rijndael) 加密系统使用 $\mathbb{F}_{2^8} = \mathbb{F}_2[x]/(x^8 + x^4 + x^3 + x + 1)$ 中的运算。有限域上的椭圆曲线是椭圆曲线密码学 (ECC) 的基础，$\mathbb{F}_q^\times$ 中的离散对数问题是 Diffie-Hellman 密钥交换的基础。</blockquote>
+<li><strong>Combinatorics（组合学）.</strong> An important theme in combinatorics is <em>$q$-analogues</em>, which are algebraic expressions in a variable $q$ that become classical objects when $q = 1$, or when $q \to 1$. For example, the <em>$q$-binomial coefficient</em> is
+$$\binom{n}{k}_q = \frac{(q^n - 1)(q^n - q) \cdots (q^n - q^{k-1})}{(q^k - 1)(q^k - q) \cdots (q^k - q^{k-1})},$$
+which for $n \geq k$ is a polynomial in $q$ with integer coefficients. When $q \to 1$ this has the value $\binom{n}{k}$. While $\binom{n}{k}$ counts the number of $k$-element subsets of a finite set, when $q$ is a prime power the number $\binom{n}{k}_q$ counts the number of $k$-dimensional subspaces of $\mathbb{F}_q^n$. Identities involving $q$-binomial coefficients can be proved by checking them when $q$ runs through prime powers, using linear algebra over the fields $\mathbb{F}_q$.
+<blockquote>组合学中的一个重要主题是 <em>$q$-类似</em>，即变量 $q$ 的代数表达式，当 $q = 1$ 或 $q \to 1$ 时变成经典对象。例如，<em>$q$-二项式系数</em>为
+$$\binom{n}{k}_q = \frac{(q^n - 1)(q^n - q) \cdots (q^n - q^{k-1})}{(q^k - 1)(q^k - q) \cdots (q^k - q^{k-1})}.$$
+当 $q \to 1$ 时值为 $\binom{n}{k}$。$\binom{n}{k}$ 计算有限集合的 $k$ 元子集个数，而当 $q$ 是素数幂时，$\binom{n}{k}_q$ 计算 $\mathbb{F}_q^n$ 的 $k$ 维子空间个数。涉及 $q$-二项式系数的恒等式可以通过让 $q$ 取遍素数幂来证明，利用域 $\mathbb{F}_q$ 上的线性代数。</blockquote>
 
 <div class="note">
-<strong>与椭圆曲线的联系：</strong>在配对密码学中，我们在有限域 $\mathbb{F}_q$ 上定义椭圆曲线，曲线上的点构成一个群。配对运算将椭圆曲线上的点映射到有限域的乘法群中。理解有限域的结构是理解配对密码学的基础。
+<strong>$q$-二项式系数的例子</strong>
+
+<p>考虑 $\binom{3}{1}_q$：</p>
+$$\binom{3}{1}_q = \frac{q^3 - 1}{q - 1} = \frac{(q-1)(q^2+q+1)}{q-1} = q^2 + q + 1$$
+
+<p><strong>组合解释：</strong>$\mathbb{F}_q^3$ 中有多少个 1 维子空间（即过原点的直线）？</p>
+<ul>
+<li>$\mathbb{F}_q^3$ 有 $q^3 - 1$ 个非零向量</li>
+<li>每条直线包含 $q - 1$ 个非零向量（$\lambda v$，$\lambda \in \mathbb{F}_q^\times$）</li>
+<li>所以有 $(q^3 - 1)/(q - 1) = q^2 + q + 1$ 条直线</li>
+</ul>
+
+<p>当 $q = 2$（即 $\mathbb{F}_2$）时：$\binom{3}{1}_2 = 4 + 2 + 1 = 7$</p>
+<p>确实，$\mathbb{F}_2^3 = \{(0,0,0), (1,0,0), (0,1,0), (0,0,1), (1,1,0), (1,0,1), (0,1,1), (1,1,1)\}$ 有 7 条过原点的直线。</p>
+</div>
+</li>
+
+<li><strong>Coding theory（编码理论）.</strong> This is the study of clear communication over noisy channels. Messages sent to earth by NASA space probes and signals allowing many mobile phone conversations on the same channel use codes whose code words are coefficients of a polynomial over a finite field. QR codes use $\mathbb{F}_2[x]/(x^8 + x^4 + x^3 + x^2 + 1)$, a field of order 256 in which $x$ is a generator.
+<blockquote>这是关于在有噪声信道上清晰通信的研究。NASA 空间探测器发送到地球的信息以及允许多个移动电话在同一信道上通话的信号，使用的码字是有限域上多项式的系数。二维码 (QR codes) 使用 $\mathbb{F}_2[x]/(x^8 + x^4 + x^3 + x^2 + 1)$，这是一个 256 阶的域，其中 $x$ 是生成元。</blockquote>
+</li>
+
+<li><strong>Cryptography（密码学）.</strong> This is the study of secret communication. The usual way information is stored securely on an ATM card involves elliptic curves over finite fields.
+<blockquote>这是关于秘密通信的研究。ATM 卡上信息的通常安全存储方式涉及有限域上的椭圆曲线。</blockquote>
+</li>
+</ol>
+
+<div class="note" style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 20px 0;">
+<strong>日常生活中的有限域</strong>
+
+<p>教训是：即使那些说「数学糟透了」的人每天也在不知不觉地使用有限域！</p>
+
+<ul>
+<li><strong>扫描二维码：</strong>使用 $\mathbb{F}_{256}$ 进行纠错</li>
+<li><strong>使用信用卡/ATM 卡：</strong>椭圆曲线密码学（有限域上的椭圆曲线）</li>
+<li><strong>打电话/上网：</strong>信道编码使用有限域上的纠错码</li>
+<li><strong>看视频/听音乐：</strong>数据压缩和传输中的 Reed-Solomon 码</li>
+</ul>
+
+<p style="background: #e8f5e9; padding: 10px; border-radius: 5px; margin-top: 10px;">
+<strong>有趣的事实：</strong>即使从未使用有限域的专业数学家可能也会轻视它们。例如，微分代数的创始人 Joseph Ritt 总是在实数和复数上工作，他称所有特征 $p$ 的域（不仅仅是有限域）为「猴子域」(monkey fields)！
+</p>
+</div>
+
+<div class="note">
+<strong>与椭圆曲线配对的联系</strong>
+
+<p>在配对密码学中：</p>
+<ul>
+<li>我们在有限域 $\mathbb{F}_q$ 上定义椭圆曲线 $E$</li>
+<li>曲线上的点构成一个群 $E(\mathbb{F}_q)$</li>
+<li><strong>配对运算：</strong>$e: E(\mathbb{F}_q)[r] \times E(\mathbb{F}_{q^k})[r] \to \mathbb{F}_{q^k}^\times$</li>
+<li>配对将椭圆曲线上的点映射到有限域的乘法群中</li>
+<li>$k$ 称为<strong>嵌入度</strong> (embedding degree)</li>
+</ul>
+
+<p><strong>例子：</strong>BLS12-381 曲线</p>
+<ul>
+<li>基域：381 位素数 $p$ 的 $\mathbb{F}_p$</li>
+<li>曲线：$E: y^2 = x^3 + 4$ 在 $\mathbb{F}_p$ 上</li>
+<li>嵌入度：$k = 12$</li>
+<li>配对目标群：$\mathbb{F}_{p^{12}}$ 的乘法群的一个子群</li>
+<li>需要在 $\mathbb{F}_{p^{12}}$ 中进行运算！</li>
+</ul>
+
+<p style="background: #e3f2fd; padding: 10px; border-radius: 5px;">
+<strong>关键洞察：</strong>理解有限域的结构（子域塔、Frobenius 自同构、迹和范数）是理解和优化配对计算的基础。$\mathbb{F}_{p^{12}}$ 可以构造为 $\mathbb{F}_{p^2}$ 的 6 次扩张，或 $\mathbb{F}_{p^6}$ 的 2 次扩张，这种塔式扩张结构对高效实现至关重要。
+</p>
+</div>
+
+<!-- ==================== Section 7: History ==================== -->
+<h2>7. History（历史）</h2>
+
+<p>Fields of prime order, namely $\mathbb{Z}/(p)$, were studied by many of the early number theorists such as Fermat, Euler, Lagrange, Legendre, and Gauss. The first mathematician to publish a paper on finite fields of non-prime order was <strong>Galois in 1830</strong>. Gauss had developed the theory of finite fields earlier, discovering such critical properties as Theorems 2.8 and Corollary 4.2, but this was learned only after his death in 1855 and published in 1863 without having much influence.</p>
+
+<blockquote>素数阶的域，即 $\mathbb{Z}/(p)$，由许多早期数论学家研究，如 Fermat、Euler、Lagrange、Legendre 和 Gauss。第一位发表关于非素数阶有限域论文的数学家是 <strong>Galois（1830 年）</strong>。Gauss 更早就发展了有限域理论，发现了定理 2.8 和推论 4.2 等关键性质，但这在他 1855 年去世后才被发现，并于 1863 年发表，没有产生太大影响。</blockquote>
+
+<p>Galois constructed finite fields as $\mathbb{F}_p(\alpha)$ where $\alpha$ is the root of an irreducible polynomial $\pi(x)$ in $\mathbb{F}_p[x]$ while Gauss worked with finite fields as $\mathbb{F}_p[x]/(\pi(x))$. Galois wrote that there is an irreducible in $\mathbb{F}_p[x]$ of every degree but he did not give a proof. Gauss gave a proof of this based on Theorem 3.3 and a counting argument.</p>
+
+<blockquote>Galois 将有限域构造为 $\mathbb{F}_p(\alpha)$，其中 $\alpha$ 是 $\mathbb{F}_p[x]$ 中不可约多项式 $\pi(x)$ 的根，而 Gauss 将有限域构造为 $\mathbb{F}_p[x]/(\pi(x))$。Galois 写道 $\mathbb{F}_p[x]$ 中存在每个次数的不可约多项式，但没有给出证明。Gauss 基于定理 3.3 和计数论证给出了证明。</blockquote>
+
+<div class="note">
+<strong>Galois 与 Gauss 的不同方法</strong>
+
+<table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+<tr style="border-bottom: 2px solid #666; background: #f5f5f5;">
+<td style="padding: 10px; font-weight: bold;">数学家</td>
+<td style="padding: 10px; font-weight: bold;">构造方法</td>
+<td style="padding: 10px; font-weight: bold;">说明</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 10px;"><strong>Galois (1830)</strong></td>
+<td style="padding: 10px;">$\mathbb{F}_p(\alpha)$</td>
+<td style="padding: 10px;">「域扩张」视角：在 $\mathbb{F}_p$ 中添加 $\alpha$（$\pi(\alpha) = 0$），形成扩域</td>
+</tr>
+<tr>
+<td style="padding: 10px;"><strong>Gauss (发表于 1863)</strong></td>
+<td style="padding: 10px;">$\mathbb{F}_p[x]/(\pi(x))$</td>
+<td style="padding: 10px;">「商环」视角：多项式环模不可约多项式</td>
+</tr>
+</table>
+
+<p><strong>现代观点：</strong>两种构造是同构的（定理 1.10），但 Galois 的方法更「几何」，Gauss 的方法更「代数」。现代计算机实现通常使用 Gauss 的方法，因为更容易编程实现。</p>
+</div>
+
+<p>In <strong>1893</strong>, at the International Mathematical Congress in Chicago, <strong>E. H. Moore</strong> proved that every finite field is isomorphic to a field of the form $\mathbb{F}_p[x]/(\pi(x))$, a theorem which he described with the comment &ldquo;This interesting result I have not seen stated elsewhere.&rdquo; Moore was the first person to use the word <em>field</em> in its algebraic sense, although he treated it as a synonym for the German term <em>endlicher Körper</em>, which means finite field. So to Moore, a field meant what we'd call a finite field.</p>
+
+<blockquote>在 <strong>1893 年</strong>，芝加哥国际数学大会上，<strong>E. H. Moore</strong> 证明了每个有限域都同构于形如 $\mathbb{F}_p[x]/(\pi(x))$ 的域，他评论这个定理说「我没有在其他地方见过这个有趣的结果」。Moore 是第一个在代数意义上使用「域」(field) 这个词的人，尽管他将其作为德语术语 <em>endlicher Körper</em>（意为有限域）的同义词。所以对 Moore 来说，「域」就是我们所说的「有限域」。</blockquote>
+
+<p>He called a field constructed in the concrete form $\mathbb{F}_p[x]/(\pi(x))$ a <em>Galois field</em>, so for Moore a Galois field was a particular concrete model for finite fields. Nowadays in algebra the word <em>field</em> is not limited to finite fields, and the term <em>Galois field</em> is obsolete. However, the term Galois field lives on today among coding theorists in computer science and electrical engineering as a synonym for finite field and Moore's notation $\mathrm{GF}(q)$ is often used in place of $\mathbb{F}_q$.</p>
+
+<blockquote>他称具体形式 $\mathbb{F}_p[x]/(\pi(x))$ 构造的域为 <em>Galois 域</em>，所以对 Moore 来说，Galois 域是有限域的一个特定具体模型。如今在代数中，「域」这个词不限于有限域，「Galois 域」这个术语已经过时。然而，在计算机科学和电气工程的编码理论学家中，「Galois 域」这个术语今天仍然作为有限域的同义词存在，Moore 的记号 $\mathrm{GF}(q)$ 经常被用来代替 $\mathbb{F}_q$。</blockquote>
+
+<div class="note" style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0;">
+<strong>术语演化</strong>
+
+<table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+<tr style="background: #f5f5f5; border-bottom: 2px solid #666;">
+<td style="padding: 10px; font-weight: bold;">时期</td>
+<td style="padding: 10px; font-weight: bold;">术语</td>
+<td style="padding: 10px; font-weight: bold;">含义</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 10px;">1830 年代（Galois）</td>
+<td style="padding: 10px;">没有统一术语</td>
+<td style="padding: 10px;">Galois 称之为「imaginary roots」(虚根)</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 10px;">1893 年（Moore）</td>
+<td style="padding: 10px;">"Field" = 有限域<br>"Galois field" = $\mathbb{F}_p[x]/(\pi(x))$</td>
+<td style="padding: 10px;">首次引入「field」一词</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 10px;">20 世纪（代数学）</td>
+<td style="padding: 10px;">"Field" = 一般的域<br>"Finite field" = 有限域</td>
+<td style="padding: 10px;">「Galois field」过时</td>
+</tr>
+<tr>
+<td style="padding: 10px;">现代（工程领域）</td>
+<td style="padding: 10px;">"Galois field" = 有限域<br>$\mathrm{GF}(q)$ = $\mathbb{F}_q$</td>
+<td style="padding: 10px;">编码理论、密码学中常用</td>
+</tr>
+</table>
+
+<p style="background: #fff3e0; padding: 10px; border-radius: 5px; margin-top: 10px;">
+<strong>注意：</strong>如果你在密码学或编码理论的文献中看到 $\mathrm{GF}(256)$ 或「Galois field」，不要惊讶——它们就是指 $\mathbb{F}_{256}$ 或有限域！这是历史遗留的术语。
+</p>
+</div>
+
+<div class="note">
+<strong>时间线总结</strong>
+
+<ul style="line-height: 2;">
+<li><strong>1770s-1800s:</strong> Fermat, Euler, Lagrange, Legendre, Gauss 研究 $\mathbb{Z}/(p)$</li>
+<li><strong>1796:</strong> Gauss 在《算术研究》中研究模 $p$ 算术</li>
+<li><strong>1830:</strong> <span style="background: #ffeb3b; padding: 2px 5px; border-radius: 3px;">Galois 发表第一篇关于非素数阶有限域的论文</span></li>
+<li><strong>1855:</strong> Gauss 去世</li>
+<li><strong>1863:</strong> Gauss 关于有限域的未发表手稿出版</li>
+<li><strong>1893:</strong> <span style="background: #ffeb3b; padding: 2px 5px; border-radius: 3px;">E. H. Moore 证明定理 1.10，引入「field」和「Galois field」术语</span></li>
+<li><strong>20 世纪:</strong> 有限域理论成为现代代数的基础部分</li>
+<li><strong>1970s-现在:</strong> 有限域在密码学、编码理论中广泛应用</li>
+</ul>
+</div>
+
+<!-- ==================== Appendix ==================== -->
+<h2>Appendix A. The maximal order in a finite abelian group（有限阿贝尔群中的最大阶）</h2>
+
+<p>In the proof that the nonzero elements in a finite field form a cyclic group (Lemma 1.6), we relied on the following property of finite abelian groups that we will prove here.</p>
+
+<blockquote>在证明有限域的非零元素构成循环群（引理 1.6）时，我们依赖于有限阿贝尔群的以下性质，我们将在这里证明它。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem A.1</p>
+<p>If $G$ is a finite abelian group and $m$ is the maximal order of the elements of $G$ then the order of every element of $G$ divides $m$.</p>
+</div>
+
+<blockquote>如果 $G$ 是有限阿贝尔群，$m$ 是 $G$ 的元素的最大阶，则 $G$ 的每个元素的阶都整除 $m$。</blockquote>
+
+<p>The proof of Theorem A.1 is based on a corollary of the following basic property of elements in a finite abelian group having relatively prime order.</p>
+
+<blockquote>定理 A.1 的证明基于以下关于有限阿贝尔群中互素阶元素的基本性质的一个推论。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem A.2</p>
+<p>Let $g_1$ and $g_2$ have respective orders $n_1$ and $n_2$ in an abelian group. If $(n_1, n_2) = 1$ then $g_1 g_2$ has order $n_1 n_2$.</p>
+</div>
+
+<blockquote>设 $g_1$ 和 $g_2$ 在阿贝尔群中的阶分别为 $n_1$ 和 $n_2$。如果 $(n_1, n_2) = 1$，则 $g_1 g_2$ 的阶为 $n_1 n_2$。</blockquote>
+
+<div class="proof">
+Let $n$ be the order of $g_1 g_2$. Since
+$$(g_1 g_2)^{n_1 n_2} = g_1^{n_1 n_2} g_2^{n_1 n_2} = (g_1^{n_1})^{n_2} (g_2^{n_2})^{n_1} = 1 \cdot 1 = 1,$$
+we have $n \mid n_1 n_2$.
+
+Since $(g_1 g_2)^n = 1$, by raising both sides to the $n_1$ power we get $g_2^{n n_1} = 1$. Therefore $n_2 \mid n n_1$, so from $(n_1, n_2) = 1$ we conclude $n_2 \mid n$. Exchanging the roles of $n_1$ and $n_2$, we get in a similar way that $n_1 \mid n$. Since $n_1 \mid n$ and $n_2 \mid n$ and $(n_1, n_2) = 1$, we get $n_1 n_2 \mid n$.
+
+We already showed $n \mid n_1 n_2$ (in the first paragraph), so $n = n_1 n_2$.
+</div>
+
+<blockquote>设 $n$ 是 $g_1 g_2$ 的阶。由 $(g_1 g_2)^{n_1 n_2} = 1$ 得 $n \mid n_1 n_2$。由 $(g_1 g_2)^n = 1$ 两边取 $n_1$ 次幂得 $g_2^{n n_1} = 1$，所以 $n_2 \mid n n_1$，由 $(n_1, n_2) = 1$ 得 $n_2 \mid n$。同理 $n_1 \mid n$。由 $n_1 \mid n$，$n_2 \mid n$，$(n_1, n_2) = 1$ 得 $n_1 n_2 \mid n$。结合 $n \mid n_1 n_2$ 得 $n = n_1 n_2$。</blockquote>
+
+<div class="note">
+<strong>定理 A.2 的直观理解</strong>
+
+<p><strong>关键条件：</strong>$(n_1, n_2) = 1$（互素）</p>
+
+<p><strong>例子：</strong></p>
+<ul>
+<li>$g_1$ 的阶是 6，$g_2$ 的阶是 5 → $(6, 5) = 1$ ✓ → $g_1 g_2$ 的阶是 $6 \times 5 = 30$</li>
+<li>$g_1$ 的阶是 6，$g_2$ 的阶是 4 → $(6, 4) = 2$ ✗ → $g_1 g_2$ 的阶<strong>不一定</strong>是 24</li>
+</ul>
+
+<p><strong>为什么需要互素？</strong>如果 $n_1$ 和 $n_2$ 有公因子，$g_1$ 和 $g_2$ 可能在某个小于 $n_1 n_2$ 的幂次就"同步"回到单位元了。</p>
+</div>
+
+<div class="note">
+<strong>Remark A.3.</strong> Commutativity is used in the proof of Theorem A.2 to say $(g_1 g_2)^r = g_1^r g_2^r$ for all $r \geq 1$. All we need is that $g_1$ and $g_2$ commute, not that the whole group is abelian.
+<blockquote>注：交换性在定理 A.2 的证明中用于说明对所有 $r \geq 1$ 有 $(g_1 g_2)^r = g_1^r g_2^r$。我们只需要 $g_1$ 和 $g_2$ 可交换，不需要整个群是阿贝尔群。</blockquote>
+</div>
+
+<div class="corollary">
+<p class="corollary-title">Corollary A.4</p>
+<p>In an abelian group, if there are elements of order $n_1$ and $n_2$ then there is an element with order $[n_1, n_2]$. More precisely, if $g_1$ and $g_2$ have respective orders $n_1$ and $n_2$ then there are $k_1$ and $k_2$ in $\mathbb{Z}^+$ such that $g_1^{k_1} g_2^{k_2}$ has order $[n_1, n_2]$.</p>
+</div>
+
+<blockquote>在阿贝尔群中，如果存在阶为 $n_1$ 和 $n_2$ 的元素，则存在阶为 $[n_1, n_2]$ 的元素。更确切地说，如果 $g_1$ 和 $g_2$ 的阶分别为 $n_1$ 和 $n_2$，则存在正整数 $k_1$ 和 $k_2$ 使得 $g_1^{k_1} g_2^{k_2}$ 的阶为 $[n_1, n_2]$。</blockquote>
+
+<div class="proof">
+The basic idea is to write $[n_1, n_2]$ as a product of two relatively prime factors and then find exponents $k_1$ and $k_2$ such that $g_1^{k_1}$ and $g_2^{k_2}$ have orders equal to those factors. Then the order of $g_1^{k_1} g_2^{k_2}$ is the product of the factors (Theorem A.2), which is $[n_1, n_2]$.
+
+Here are the details. Factor $n_1$ and $n_2$ into primes:
+$$n_1 = p_1^{e_1} \cdots p_r^{e_r}, \quad n_2 = p_1^{f_1} \cdots p_r^{f_r}.$$
+We use the same list of (distinct) primes in these factorizations, and use an exponent 0 on a prime that is not a factor of one of the integers. The least common multiple is
+$$[n_1, n_2] = p_1^{\max(e_1,f_1)} \cdots p_r^{\max(e_r,f_r)}.$$
+Break this into a product of two factors, one being a product of the prime powers where $e_i \geq f_i$ and the other using prime powers where $e_i < f_i$. Call these two numbers $\ell_1$ and $\ell_2$:
+$$\ell_1 = \prod_{e_i \geq f_i} p_i^{e_i}, \quad \ell_2 = \prod_{e_i < f_i} p_i^{f_i}.$$
+Then $[n_1, n_2] = \ell_1 \ell_2$ and $(\ell_1, \ell_2) = 1$ (since $\ell_1$ and $\ell_2$ have no common prime factors). By construction, $\ell_1 \mid n_1$ and $\ell_2 \mid n_2$. Then $g_1^{n_1/\ell_1}$ has order $\ell_1$ and $g_2^{n_2/\ell_2}$ has order $\ell_2$. Since these orders are relatively prime, $g_1^{n_1/\ell_1} g_2^{n_2/\ell_2}$ has order $\ell_1 \ell_2 = [n_1, n_2]$.
+</div>
+
+<blockquote>基本思想：将 $[n_1, n_2]$ 写成两个互素因子的乘积，然后找到指数 $k_1$ 和 $k_2$ 使得 $g_1^{k_1}$ 和 $g_2^{k_2}$ 的阶等于这些因子。则 $g_1^{k_1} g_2^{k_2}$ 的阶是因子的乘积（定理 A.2），即 $[n_1, n_2]$。将 $n_1$ 和 $n_2$ 分解为素数幂次，$[n_1, n_2]$ 的素因子分解中每个素数取两者指数的最大值。将 $[n_1, n_2]$ 分解为 $\ell_1 \ell_2$，其中 $\ell_1$ 包含 $e_i \geq f_i$ 的素数幂，$\ell_2$ 包含 $e_i < f_i$ 的素数幂。则 $(\ell_1, \ell_2) = 1$，$\ell_1 \mid n_1$，$\ell_2 \mid n_2$。$g_1^{n_1/\ell_1}$ 的阶为 $\ell_1$，$g_2^{n_2/\ell_2}$ 的阶为 $\ell_2$，所以 $g_1^{n_1/\ell_1} g_2^{n_2/\ell_2}$ 的阶为 $[n_1, n_2]$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example A.5.</span> If $g_1$ has order $n_1 = 60 = 2^2 \cdot 3 \cdot 5$ and $g_2$ has order $n_2 = 630 = 2 \cdot 3^2 \cdot 5 \cdot 7$ then $[n_1, n_2] = 2^2 \cdot 3^2 \cdot 5 \cdot 7 = (2^2 \cdot 5) \cdot (3^2 \cdot 7)$, where the first factor divides $n_1$, the second divides $n_2$, and the factors are relatively prime. Then $g_1^3$ has order $2^2 \cdot 5$ and $g_2^{10}$ has order $3^2 \cdot 7$, which are relatively prime, so $g_1^3 g_2^{10}$ has order $2^2 \cdot 5 \cdot 3^2 \cdot 7 = [n_1, n_2]$.</p>
+</div>
+
+<blockquote>若 $g_1$ 的阶为 $n_1 = 60 = 2^2 \cdot 3 \cdot 5$，$g_2$ 的阶为 $n_2 = 630 = 2 \cdot 3^2 \cdot 5 \cdot 7$，则 $[n_1, n_2] = 2^2 \cdot 3^2 \cdot 5 \cdot 7 = (2^2 \cdot 5) \cdot (3^2 \cdot 7)$，第一个因子整除 $n_1$，第二个整除 $n_2$，且互素。$g_1^3$ 的阶为 $2^2 \cdot 5$，$g_2^{10}$ 的阶为 $3^2 \cdot 7$，互素，所以 $g_1^3 g_2^{10}$ 的阶为 $[n_1, n_2]$。</blockquote>
+
+<p>We are ready to prove Theorem A.1.</p>
+
+<blockquote>我们现在可以证明定理 A.1 了。</blockquote>
+
+<div class="proof">
+<strong>Proof of Theorem A.1.</strong> Let $n$ be the order of an element of $G$. Since $m$ is also the order of an element in $G$, by Corollary A.4 some element in $G$ has order $[m, n]$. By maximality of $m$ as an order, $m \geq [m, n]$. Obviously $m \leq [m, n]$, so $[m, n] = m$, and that implies $n \mid m$.
+</div>
+
+<blockquote><strong>定理 A.1 的证明。</strong>设 $n$ 是 $G$ 的某个元素的阶。由于 $m$ 也是 $G$ 中某个元素的阶，由推论 A.4，$G$ 中某个元素的阶为 $[m, n]$。由 $m$ 作为阶的最大性，$m \geq [m, n]$。显然 $m \leq [m, n]$，所以 $[m, n] = m$，这意味着 $n \mid m$。</blockquote>
+
+<div class="note" style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0;">
+<strong>定理 A.1 的应用：为什么有限域的乘法群是循环的？</strong>
+
+<p><strong>引理 1.6 的证明思路：</strong></p>
+<ol>
+<li>设 $|F^\times| = q - 1$，设 $m$ 是 $F^\times$ 中元素阶的最大值</li>
+<li>由定理 A.1，$F^\times$ 的<strong>每个元素</strong>的阶都整除 $m$</li>
+<li>所以 $F^\times$ 的每个元素都满足 $t^m = 1$</li>
+<li>即 $F^\times$ 的所有 $q - 1$ 个元素都是 $x^m - 1$ 的根</li>
+<li>但 $\deg(x^m - 1) = m$，至多有 $m$ 个根</li>
+<li>所以 $q - 1 \leq m$</li>
+<li>又 $m$ 是某个元素的阶，由 Lagrange 定理 $m \mid (q-1)$，所以 $m \leq q - 1$</li>
+<li>因此 $m = q - 1$，存在阶为 $q - 1$ 的元素，即生成元 ✓</li>
+</ol>
+
+<p style="background: #e3f2fd; padding: 10px; border-radius: 5px; margin-top: 10px;">
+<strong>关键步骤：</strong>定理 A.1 告诉我们所有元素的阶都整除最大阶 $m$，这导致了多项式 $x^m - 1$ 有「太多」根的矛盾（除非 $m = q - 1$）。
+</p>
+</div>
+
+<!-- ==================== References ==================== -->
+<h2>References（参考文献）</h2>
+
+<ol style="line-height: 2;">
+<li>D. A. Cox, <em>Galois Theory</em>, 2nd ed., Wiley, Hoboken, 2012.</li>
+<li>D. A. Cox, <em>Évariste Galois and Solvable Permutation Groups</em>, <a href="https://dacox.people.amherst.edu/lectures/bilbao.pdf">https://dacox.people.amherst.edu/lectures/bilbao.pdf</a>.</li>
+<li>G. Frei, "The Unpublished Section Eight: On the Way to Function Fields over a Finite Field," pp. 159–198 in <em>The Shaping of Arithmetic after C. F. Gauss's Disquisitiones Arithmeticae</em>, ed. C. Goldstein, N. Schappacher, J. Schwermer, Springer-Verlag, Berlin, 2007.</li>
+<li>É. Galois, "Sur la théorie de nombres," <em>Bulletin des Sciences Mathématiques de Férussac</em> <strong>13</strong> (1830), 428–435. (Also Collected Works, 1897, pp. 15–23.)</li>
+<li>E. R. Kolchin, <em>Differential Algebra and Algebraic Groups</em>, Academic Press, New York, 1973.</li>
+<li>H. Lüneberg, "On the Early History of Galois Fields," pp. 341–355 of <em>Finite Fields and Applications</em> (Augsburg, 1999), Springer, Berlin, 1999.</li>
+<li>E. H. Moore, "A Doubly-Infinite System of Simple Groups," pp. 208–242 in <em>Mathematical papers read at the International Mathematical Congress held in connection with the World's Columbian Exposition, Chicago, 1893</em>, Macmillan & Co., New York, 1896. <a href="https://www.mathunion.org/fileadmin/ICM/Proceedings/ICM1893/ICM1893.ocr.pdf">https://www.mathunion.org/fileadmin/ICM/Proceedings/ICM1893/ICM1893.ocr.pdf</a>.</li>
+</ol>
+
+<div class="note" style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 20px 0;">
+<strong>扩展阅读建议</strong>
+
+<p><strong>初学者：</strong></p>
+<ul>
+<li>Cox 的《Galois Theory》是学习 Galois 理论的经典教材，包含有限域的详细介绍</li>
+<li>Keith Conrad 的讲义（本文档的原作者）：<a href="https://kconrad.math.uconn.edu/blurbs/">https://kconrad.math.uconn.edu/blurbs/</a></li>
+</ul>
+
+<p><strong>密码学应用：</strong></p>
+<ul>
+<li>了解椭圆曲线配对：Vitalik Buterin 的《Exploring Elliptic Curve Pairings》</li>
+<li>BLS 签名方案：IETF RFC draft</li>
+</ul>
+
+<p><strong>历史：</strong></p>
+<ul>
+<li>Cox 的《Évariste Galois and Solvable Permutation Groups》讲述 Galois 创造有限域的历史背景</li>
+<li>Lüneberg 的论文详细介绍 Galois 域的早期历史</li>
+</ul>
+</div>
+
+<hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;">
+
+<div style="text-align: center; color: #666; font-size: 0.9em; padding: 20px;">
+<p><strong>原文作者：</strong>Keith Conrad, University of Connecticut</p>
+<p><strong>原文链接：</strong><a href="https://kconrad.math.uconn.edu/blurbs/galoistheory/finitefields.pdf">https://kconrad.math.uconn.edu/blurbs/galoistheory/finitefields.pdf</a></p>
+<p><strong>中文翻译与注释：</strong>用于配对密码学学习</p>
+<p style="margin-top: 10px;">本文档在原文基础上添加了中文翻译、详细注释和与配对密码学相关的补充说明。</p>
 </div>
 
 </body>
