@@ -56,6 +56,14 @@
             border-left: 3px solid #4a90d9;
         }
         .example-title { font-weight: bold; color: #4a90d9; }
+        .remark {
+            background: #f5f5f5;
+            padding: 1em 1.2em;
+            margin: 1.2em 0;
+            border-left: 3px solid #9e9e9e;
+            font-style: italic;
+        }
+        .remark-title { font-weight: bold; font-style: normal; color: #666; }
         .warning {
             background: #fff8e1;
             padding: 1em 1.2em;
@@ -1185,6 +1193,106 @@ $$x, \quad x^2 = -1 = 2, \quad x^3 = 2x, \quad x^4 = 2x^2 = -2 = 1$$
 <strong>生成元的重要性：</strong>$F^\times$ 的生成元（也叫<strong>原根</strong>）在密码学中非常重要。例如在 Diffie-Hellman 密钥交换中，需要找到一个能生成整个乘法群的元素。
 </div>
 
+<div class="example">
+<p><span class="example-title">Example 1.8.</span> For prime $p$, $(\mathbb{Z}/(p))^\times$ is cyclic: $(\mathbb{Z}/(p))^\times = \{a, a^2, \ldots, a^{p-1} \bmod p\}$ for some $a \not\equiv 0 \bmod p$. A <span class="vocab" data-tip="/kənˈstrʌktɪv/ 构造性的">constructive</span> proof of this, using the prime factorization of $p - 1$, is in Section 6 of <a href="https://kconrad.math.uconn.edu/blurbs/grouptheory/cyclicmodp.pdf">https://kconrad.math.uconn.edu/blurbs/grouptheory/cyclicmodp.pdf</a>.</p>
+</div>
+
+<blockquote>对于素数 $p$，$(\mathbb{Z}/(p))^\times$ 是循环群：存在 $a \not\equiv 0 \pmod{p}$ 使得 $(\mathbb{Z}/(p))^\times = \{a, a^2, \ldots, a^{p-1}\}$。这个结论的构造性证明见引用链接。</blockquote>
+
+<div class="remark">
+<p class="remark-title">Remark 1.9</p>
+<p>For a finite field $F$, the multiplicative group $F^\times$ is cyclic but the additive group of $F$ is usually <em>not</em> cyclic. When $F$ contains $\mathbb{F}_p$, since $p = 0$ in $\mathbb{F}_p$ every nonzero element of $F$ has additive order $p$, so $F$ is not <span class="vocab" data-tip="/əˈdɪtɪvli/ 加法地">additively</span> cyclic unless $|F|$ is prime.</p>
+</div>
+
+<blockquote>对于有限域 $F$，乘法群 $F^\times$ 是循环群，但加法群通常不是循环群。当 $F$ 包含 $\mathbb{F}_p$ 时，由于 $p = 0$，$F$ 的每个非零元素的加法阶都是 $p$，所以除非 $|F|$ 是素数，$F$ 的加法群不是循环群。</blockquote>
+
+<div class="note">
+<strong>乘法群 vs 加法群</strong>
+
+<p>这是一个有趣的对比：</p>
+<table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+<tr style="background: #f5f5f5;">
+<th style="border: 1px solid #ddd; padding: 8px;">域 $F$</th>
+<th style="border: 1px solid #ddd; padding: 8px;">乘法群 $F^\times$</th>
+<th style="border: 1px solid #ddd; padding: 8px;">加法群 $(F, +)$</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{F}_5$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{Z}/4$（循环）</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{Z}/5$（循环）</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{F}_9$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{Z}/8$（循环）</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{Z}/3 \times \mathbb{Z}/3$（非循环）</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{F}_{p^n}$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$\mathbb{Z}/(p^n - 1)$（循环）</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$(\mathbb{Z}/p)^n$（$n > 1$ 时非循环）</td>
+</tr>
+</table>
+
+<p><strong>直观理解：</strong>加法群是「线性」的，形如 $\mathbb{F}_p$ 的 $n$ 维向量空间，所以同构于 $(\mathbb{Z}/p)^n$。而乘法群的结构更「紧凑」，恰好是循环的。</p>
+</div>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 1.10</p>
+<p>Every finite field is isomorphic to $\mathbb{F}_p[x]/(\pi(x))$ for some prime $p$ and some monic irreducible $\pi(x)$ in $\mathbb{F}_p[x]$.</p>
+</div>
+
+<blockquote>每个有限域都同构于某个 $\mathbb{F}_p[x]/(\pi(x))$，其中 $p$ 是素数，$\pi(x)$ 是 $\mathbb{F}_p[x]$ 中的首一不可约多项式。</blockquote>
+
+<div class="proof">
+Let $F$ be a finite field. By Theorem 1.5, $F$ has order $p^n$ for some prime $p$ and positive integer $n$, and there is a field embedding $\mathbb{F}_p \hookrightarrow F$.
+
+The group $F^\times$ is cyclic by Lemma 1.6. Let $\gamma$ be a generator of $F^\times$. Evaluation at $\gamma$, namely $f(x) \mapsto f(\gamma)$, is a ring homomorphism $\mathrm{ev}_\gamma: \mathbb{F}_p[x] \to F$ that fixes $\mathbb{F}_p$. Since every element of $F$ is $0$ or a power of $\gamma$, $\mathrm{ev}_\gamma$ is onto ($0 = \mathrm{ev}_\gamma(0)$ and $\gamma^r = \mathrm{ev}_\gamma(x^r)$ for all $r \geq 0$). Therefore $\mathbb{F}_p[x]/\ker\mathrm{ev}_\gamma \cong F$. Since $F$ is a field, the kernel of $\mathrm{ev}_\gamma$ is a maximal ideal in $\mathbb{F}_p[x]$, so $\ker\mathrm{ev}_\gamma = (\pi(x))$ for a monic irreducible $\pi(x)$ in $\mathbb{F}_p[x]$.
+</div>
+
+<blockquote>设 $F$ 是有限域。由定理 1.5，$|F| = p^n$，且存在嵌入 $\mathbb{F}_p \hookrightarrow F$。由引理 1.6，$F^\times$ 是循环群，设 $\gamma$ 是其生成元。赋值映射 $\mathrm{ev}_\gamma: f(x) \mapsto f(\gamma)$ 是满射环同态，所以 $\mathbb{F}_p[x]/\ker\mathrm{ev}_\gamma \cong F$。因为 $F$ 是域，核是极大理想，即 $\ker\mathrm{ev}_\gamma = (\pi(x))$，其中 $\pi(x)$ 首一不可约。</blockquote>
+
+<div class="note">
+<strong>定理 1.10 的证明思路</strong>
+
+<p>这个证明非常巧妙，核心步骤如下：</p>
+
+<ol>
+<li><strong>找生成元：</strong>$F^\times$ 是循环群（引理 1.6），设生成元为 $\gamma$</li>
+<li><strong>构造同态：</strong>赋值映射 $\mathrm{ev}_\gamma: \mathbb{F}_p[x] \to F$，$f(x) \mapsto f(\gamma)$</li>
+<li><strong>证明满射：</strong>$F$ 的每个元素都是 $0$ 或 $\gamma$ 的某个幂次，都在像中</li>
+<li><strong>应用同构定理：</strong>$\mathbb{F}_p[x]/\ker\mathrm{ev}_\gamma \cong F$</li>
+<li><strong>确定核：</strong>$F$ 是域 $\Rightarrow$ 核是极大理想 $\Rightarrow$ 核由不可约多项式生成</li>
+</ol>
+
+<p style="background: #e8f5e9; padding: 10px; border-radius: 5px;">
+<strong>关键洞察：</strong>生成元 $\gamma$ 满足某个不可约多项式 $\pi(x) = 0$，这个 $\pi(x)$ 就是 $\gamma$ 在 $\mathbb{F}_p$ 上的极小多项式。
+</p>
+</div>
+
+<p>Fields of size 9 that are of the form $\mathbb{F}_p[x]/(\pi(x))$ need $p = 3$ and $\deg \pi(x) = 2$. The monic irreducible quadratics in $\mathbb{F}_3[x]$ are $x^2 + 1$, $x^2 + x + 2$, and $x^2 + 2x + 2$. In
+$$\mathbb{F}_3[x]/(x^2 + 1), \quad \mathbb{F}_3[x]/(x^2 + x + 2), \quad \mathbb{F}_3[x]/(x^2 + 2x + 2),$$
+$x$ does not generate the nonzero elements in the first field but it generates the nonzero elements in the second and third fields. So although $\mathbb{F}_3[x]/(x^2 + 1)$ is the simplest choice among these three examples, it's not the one that would come out of the proof of Theorem 1.10 when we look for a model of fields of order 9 as $\mathbb{F}_3[x]/(\pi(x))$.</p>
+
+<blockquote>阶为 9 的域形如 $\mathbb{F}_p[x]/(\pi(x))$ 需要 $p = 3$，$\deg \pi(x) = 2$。$\mathbb{F}_3[x]$ 中的首一二次不可约多项式有 $x^2 + 1$、$x^2 + x + 2$、$x^2 + 2x + 2$。在第一个域中 $x$ 不生成所有非零元素，但在后两个域中 $x$ 生成所有非零元素。所以虽然 $\mathbb{F}_3[x]/(x^2 + 1)$ 是最简单的选择，但它不是定理 1.10 证明过程中自然产生的模型。</blockquote>
+
+<div class="note">
+<strong>$\mathbb{F}_3[x]$ 中的三个二次不可约多项式</strong>
+
+<p>让我们验证这三个多项式确实不可约（在 $\mathbb{F}_3$ 中无根）：</p>
+<ul>
+<li>$x^2 + 1$：$0^2+1=1$，$1^2+1=2$，$2^2+1=2$，无根 ✓</li>
+<li>$x^2 + x + 2$：$0^2+0+2=2$，$1^2+1+2=1$，$2^2+2+2=2$，无根 ✓</li>
+<li>$x^2 + 2x + 2$：$0^2+0+2=2$，$1^2+2+2=2$，$2^2+4+2=2$，无根 ✓</li>
+</ul>
+
+<p><strong>为什么 $x$ 在 $\mathbb{F}_3[x]/(x^2+1)$ 中不是生成元？</strong></p>
+<p>在这个域中，$x^2 = -1 = 2$，所以 $x^4 = 4 = 1$。$x$ 的阶是 4，但 $|F^\times| = 8$，所以 $x$ 不能生成整个 $F^\times$。</p>
+</div>
+
+<p>Theorem 1.10 does not assure us that a field of each prime power order exists. It only tells us that <em>if</em> a field of order $p^n$ exists then it is isomorphic to $\mathbb{F}_p[x]/(\pi(x))$ for some irreducible $\pi(x)$ of degree $n$ in $\mathbb{F}_p[x]$. Why is there an irreducible of each degree in $\mathbb{F}_p[x]$? In the next section we will show a field of each prime power order does exist and there is an irreducible in $\mathbb{F}_p[x]$ of each positive degree.</p>
+
+<blockquote>定理 1.10 并不保证每个素数幂阶的域都存在。它只告诉我们：如果阶为 $p^n$ 的域存在，那么它同构于某个 $\mathbb{F}_p[x]/(\pi(x))$，其中 $\pi(x)$ 是 $n$ 次不可约多项式。为什么 $\mathbb{F}_p[x]$ 中存在每个次数的不可约多项式？下一节我们将证明每个素数幂阶的域都存在，且 $\mathbb{F}_p[x]$ 中存在每个正整数次数的不可约多项式。</blockquote>
+
 <!-- ==================== Section 2: Splitting Fields ==================== -->
 <h2>2. Finite Fields as Splitting Fields（有限域作为分裂域）</h2>
 
@@ -1323,6 +1431,168 @@ Taking a splitting field of $x^{p^n} - x$ over $\mathbb{F}_p$, call it $F$. The 
 </div>
 
 <blockquote>取 $x^{p^n} - x$ 在 $\mathbb{F}_p$ 上的分裂域 $F$。集合 $S = \{t \in F : t^{p^n} = t\}$ 是 $F$ 的子域。为证 $|S| = p^n$，只需证 $x^{p^n} - x$ 可分：其导数为 $-1$，与原多项式无公共根。所以 $x^{p^n} - x$ 在 $F$ 中完全分解且无重根，故 $|S| = p^n$。</blockquote>
+
+<div class="corollary">
+<p class="corollary-title">Corollary 2.3</p>
+<p>For every prime $p$ and positive integer $n$, there is a monic irreducible $\pi(x)$ of degree $n$ in $\mathbb{F}_p[x]$, and moreover $\pi(x)$ can be chosen so that $x \bmod \pi(x)$ generates the nonzero elements of $\mathbb{F}_p[x]/(\pi(x))$.</p>
+</div>
+
+<blockquote>对于每个素数 $p$ 和正整数 $n$，在 $\mathbb{F}_p[x]$ 中存在 $n$ 次首一不可约多项式 $\pi(x)$，而且可以选择 $\pi(x)$ 使得 $x \bmod \pi(x)$ 生成 $\mathbb{F}_p[x]/(\pi(x))$ 的所有非零元素。</blockquote>
+
+<div class="proof">
+By Theorem 2.2, a field $F$ of order $p^n$ exists. By Theorem 1.10, the existence of an abstract field of order $p^n$ implies the existence of a monic irreducible $\pi(x)$ in $\mathbb{F}_p[x]$ of degree $n$, and from the proof of Theorem 1.10 $x \bmod \pi(x)$ generates the nonzero elements of $\mathbb{F}_p[x]/(\pi(x))$ since the isomorphism identifies $x \bmod \pi(x)$ with a generator of $F^\times$.
+</div>
+
+<blockquote>由定理 2.2，存在阶为 $p^n$ 的域 $F$。由定理 1.10，抽象域的存在蕴含不可约多项式的存在，且 $x \bmod \pi(x)$ 对应于 $F^\times$ 的生成元。</blockquote>
+
+<p>The order in the logic behind Theorem 2.2 and its <span class="vocab" data-tip="/ˈkɒrəleri/ 推论">corollary</span> is <span class="vocab" data-tip="/əˈmjuːzɪŋ/ 有趣的">amusing</span>: to show we can construct a field of order $p^n$ <span class="vocab" data-tip="/kənˈkriːtli/ 具体地">concretely</span> as $\mathbb{F}_p[x]/(\pi(x))$ where $\pi(x)$ is irreducible of degree $n$, we showed $\pi(x)$ exists by <em>first</em> constructing an abstract field $F$ of order $p^n$ (using a splitting field construction) and then proving $F$ is isomorphic to some $\mathbb{F}_p[x]/(\pi(x))$.</p>
+
+<blockquote>定理 2.2 及其推论背后的逻辑顺序很有趣：为了证明我们可以将阶为 $p^n$ 的域具体构造为 $\mathbb{F}_p[x]/(\pi(x))$（其中 $\pi(x)$ 是 $n$ 次不可约多项式），我们先用分裂域构造了一个抽象的阶为 $p^n$ 的域 $F$，然后再证明 $F$ 同构于某个 $\mathbb{F}_p[x]/(\pi(x))$。</blockquote>
+
+<div class="note">
+<strong>理解这个「有趣的逻辑」</strong>
+
+<p>这是一个典型的「存在性证明」技巧：</p>
+<ol>
+<li><strong>目标：</strong>想证明 $\mathbb{F}_p[x]$ 中存在 $n$ 次不可约多项式</li>
+<li><strong>困难：</strong>直接构造很难（不可约性判定是复杂问题）</li>
+<li><strong>迂回策略：</strong>
+  <ul>
+  <li>先用分裂域抽象地构造出阶为 $p^n$ 的域 $F$</li>
+  <li>再证明任何这样的域必然同构于 $\mathbb{F}_p[x]/(\pi(x))$</li>
+  <li>由此反推 $\pi(x)$ 必须存在！</li>
+  </ul>
+</li>
+</ol>
+<p style="background: #e8f5e9; padding: 10px; border-radius: 5px;">这种「先证明对象存在，再反推构造方法」的技巧在数学中很常见。</p>
+</div>
+
+<div class="remark">
+<p class="remark-title">Remark 2.4</p>
+<p>There is no formula for an irreducible of <em>each</em> degree in $\mathbb{F}_p[x]$. All binomial polynomials $x^n - a$ in $\mathbb{F}_p[x]$ are reducible when $p \mid n$. <span class="vocab" data-tip="/traɪˈnoʊmiəl/ 三项式">Trinomials</span> $x^n + ax^k + b$ with $a, b \in \mathbb{F}_p^\times$ and $0 < k < n$ are often irreducible, but in some degrees they are all reducible: that occurs in $\mathbb{F}_2[x]$ in degrees 8 and 13, in $\mathbb{F}_3[x]$ in degrees 49 and 57, in $\mathbb{F}_5[x]$ in degrees 35 and 70, and in $\mathbb{F}_7[x]$ in degrees 124 and 163.</p>
+</div>
+
+<blockquote>$\mathbb{F}_p[x]$ 中没有给出每个次数的不可约多项式的通用公式。当 $p \mid n$ 时，所有二项式 $x^n - a$ 都可约。三项式 $x^n + ax^k + b$（$a, b \in \mathbb{F}_p^\times$，$0 < k < n$）通常不可约，但某些次数全部可约：$\mathbb{F}_2[x]$ 中的 8 次和 13 次，$\mathbb{F}_3[x]$ 中的 49 次和 57 次，$\mathbb{F}_5[x]$ 中的 35 次和 70 次，$\mathbb{F}_7[x]$ 中的 124 次和 163 次。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 2.5</p>
+<p>Each irreducible $\pi(x)$ in $\mathbb{F}_p[x]$ of degree $n$ divides $x^{p^n} - x$ and is separable.</p>
+</div>
+
+<blockquote>$\mathbb{F}_p[x]$ 中每个 $n$ 次不可约多项式 $\pi(x)$ 都整除 $x^{p^n} - x$，且是可分的。</blockquote>
+
+<div class="proof">
+The field $\mathbb{F}_p[x]/(\pi(x))$ has order $p^n$, so $t^{p^n} = t$ for all $t$ in $\mathbb{F}_p[x]/(\pi(x))$ (see the proof of Lemma 2.1). In particular, $x^{p^n} \equiv x \bmod \pi(x)$, so $\pi(x) \mid (x^{p^n} - x)$ in $\mathbb{F}_p[x]$. We saw in the proof of Theorem 2.2 that $x^{p^n} - x$ is separable in $\mathbb{F}_p[x]$, so its factor $\pi(x)$ is separable.
+</div>
+
+<blockquote>域 $\mathbb{F}_p[x]/(\pi(x))$ 有 $p^n$ 个元素，所以其中每个 $t$ 满足 $t^{p^n} = t$。特别地，$x^{p^n} \equiv x \pmod{\pi(x)}$，故 $\pi(x) \mid (x^{p^n} - x)$。由定理 2.2 的证明，$x^{p^n} - x$ 可分，所以它的因子 $\pi(x)$ 也可分。</blockquote>
+
+<div class="note">
+<strong>定理 2.5 的意义</strong>
+
+<p>这个定理建立了 $\mathbb{F}_p[x]$ 中不可约多项式与 $x^{p^n} - x$ 之间的深刻联系：</p>
+<ul>
+<li><strong>整除性：</strong>$n$ 次不可约多项式必然整除 $x^{p^n} - x$</li>
+<li><strong>可分性：</strong>$\mathbb{F}_p[x]$ 中的不可约多项式都是可分的（无重根）</li>
+</ul>
+
+<p><strong>为什么 $\pi(x) \mid (x^{p^n} - x)$？</strong></p>
+<p>在商域 $\mathbb{F}_p[x]/(\pi(x))$ 中，$x$ 的像满足 $x^{p^n} = x$。这意味着 $x^{p^n} - x \equiv 0 \pmod{\pi(x)}$，即 $\pi(x)$ 整除 $x^{p^n} - x$。</p>
+</div>
+
+<div class="example">
+<p class="example-title">Example 2.6</p>
+<p>In $\mathbb{F}_2[x]$, the irreducible factorization of $x^{2^n} - x$ for $n = 1, 2, 3, 4$ is as follows.</p>
+$$x^2 - x = x(x - 1),$$
+$$x^4 - x = x(x - 1)(x^2 + x + 1),$$
+$$x^8 - x = x(x - 1)(x^3 + x + 1)(x^3 + x^2 + 1),$$
+$$x^{16} - x = x(x - 1)(x^2 + x + 1)(x^4 + x + 1)(x^4 + x^3 + 1)(x^4 + x^3 + x^2 + x + 1).$$
+<p>In each case the irreducibles of degree $n$ appear in the factorization of $x^{2^n} - x$, which Theorem 2.5 guarantees must happen. That each factor occurs just once reflects the fact that $x^{p^n} - x$ is separable. There are irreducible factors of $x^{p^n} - x$ with degree less than $n$, if $n > 1$; the irreducible factors of $x^{p^n} - x$ in $\mathbb{F}_p[x]$ turn out (Theorem 3.3 below) to be the irreducibles in $\mathbb{F}_p[x]$ of degree dividing $n$ and each such factor appears once.</p>
+</div>
+
+<blockquote>在 $\mathbb{F}_2[x]$ 中，$x^{2^n} - x$ 对 $n = 1, 2, 3, 4$ 的不可约分解如上。每种情况下，$n$ 次不可约多项式都出现在 $x^{2^n} - x$ 的分解中（定理 2.5 保证）。每个因子只出现一次，这反映了 $x^{p^n} - x$ 的可分性。当 $n > 1$ 时，$x^{p^n} - x$ 有次数小于 $n$ 的不可约因子；事实上（定理 3.3），$x^{p^n} - x$ 的不可约因子恰好是次数整除 $n$ 的所有不可约多项式。</blockquote>
+
+<div class="note">
+<strong>例 2.6 的解读</strong>
+
+<p>让我们仔细分析这个例子：</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+<tr style="background: #f5f5f5;">
+<th style="border: 1px solid #ddd; padding: 8px;">$n$</th>
+<th style="border: 1px solid #ddd; padding: 8px;">$x^{2^n} - x$</th>
+<th style="border: 1px solid #ddd; padding: 8px;">次数为 $n$ 的不可约因子</th>
+<th style="border: 1px solid #ddd; padding: 8px;">次数整除 $n$ 的因子</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">1</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$x(x-1)$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$x$, $x-1$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">全部（1次）</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">2</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$x(x-1)(x^2+x+1)$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$x^2+x+1$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">1次 + 2次</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">3</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$x(x-1)(x^3+x+1)(x^3+x^2+1)$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$x^3+x+1$, $x^3+x^2+1$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">1次 + 3次</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">4</td>
+<td style="border: 1px solid #ddd; padding: 8px;">（如上）</td>
+<td style="border: 1px solid #ddd; padding: 8px;">三个4次多项式</td>
+<td style="border: 1px solid #ddd; padding: 8px;">1次 + 2次 + 4次</td>
+</tr>
+</table>
+
+<p><strong>验证次数：</strong>$\deg(x^{2^n} - x) = 2^n$，而各因子次数之和也等于 $2^n$。</p>
+
+<p><strong>$\mathbb{F}_2[x]$ 中不可约多项式的个数：</strong></p>
+<ul>
+<li>1 次：2 个（$x$ 和 $x+1$）</li>
+<li>2 次：1 个（$x^2+x+1$）</li>
+<li>3 次：2 个</li>
+<li>4 次：3 个</li>
+</ul>
+</div>
+
+<p>We write $\mathbb{F}_{p^n}$ for a finite field of order $p^n$. Features to keep in mind are</p>
+<ul>
+<li>it contains a unique subfield isomorphic to $\mathbb{F}_p$ (namely the subfield generated by 1),</li>
+<li>$[\mathbb{F}_{p^n} : \mathbb{F}_p] = n$ by the proof of Theorem 1.5,</li>
+<li>it is a splitting field of $x^{p^n} - x$ over $\mathbb{F}_p$ by the proof of Theorem 2.2.</li>
+</ul>
+
+<blockquote>我们用 $\mathbb{F}_{p^n}$ 表示阶为 $p^n$ 的有限域。需要记住的特点：
+<ul>
+<li>它包含唯一同构于 $\mathbb{F}_p$ 的子域（由 1 生成的子域）</li>
+<li>$[\mathbb{F}_{p^n} : \mathbb{F}_p] = n$（由定理 1.5 的证明）</li>
+<li>它是 $x^{p^n} - x$ 在 $\mathbb{F}_p$ 上的分裂域（由定理 2.2 的证明）</li>
+</ul>
+</blockquote>
+
+<p>Although $x^{p^n} - x$ has degree $p^n$, its splitting field over $\mathbb{F}_p$ has degree $n$, <em>not</em> $p^n$. That is not weird, because $x^{p^n} - x$ is reducible (see Example 2.6). The situation is similar to $x^m - 1$, which for $m > 1$ is reducible and its splitting field over $\mathbf{Q}$ has degree less than $m$.</p>
+
+<blockquote>虽然 $x^{p^n} - x$ 的次数是 $p^n$，但它在 $\mathbb{F}_p$ 上的分裂域的次数是 $n$，而不是 $p^n$。这并不奇怪，因为 $x^{p^n} - x$ 是可约的（见例 2.6）。这类似于 $x^m - 1$（$m > 1$ 时可约），其在 $\mathbf{Q}$ 上的分裂域次数小于 $m$。</blockquote>
+
+<div class="note">
+<strong>多项式次数 vs 分裂域次数</strong>
+
+<p>这是一个重要的区分：</p>
+<ul>
+<li><strong>多项式次数：</strong>$\deg(x^{p^n} - x) = p^n$</li>
+<li><strong>分裂域次数：</strong>$[\mathbb{F}_{p^n} : \mathbb{F}_p] = n$</li>
+</ul>
+
+<p><strong>为什么差这么多？</strong>因为 $x^{p^n} - x$ 是高度可约的！</p>
+
+<p><strong>类比：</strong>$x^{12} - 1$ 在 $\mathbb{Q}$ 上的分裂域是 $\mathbb{Q}(\zeta_{12})$，次数仅为 $\varphi(12) = 4$，远小于 12。</p>
+</div>
 
 <div class="theorem">
 <p class="theorem-title">Theorem 2.7</p>
@@ -1478,6 +1748,300 @@ This shows there is at most one subfield of order $p^d$ in $\mathbb{F}_{p^n}$.
 </table>
 </div>
 
+<div class="example">
+<p><span class="example-title">Example 2.9.</span> In the diagram below are the subfields of $\mathbb{F}_{p^8}$ and $\mathbb{F}_{p^{12}}$.</p>
+<svg width="550" height="180" viewBox="0 0 550 180" style="display: block; margin: 1em auto; font-family: 'Times New Roman', serif;">
+  <rect x="0" y="0" width="550" height="180" fill="#fefefe"/>
+
+  <!-- F_p^8 diagram (left) -->
+  <text x="80" y="20" text-anchor="middle" font-size="12" font-weight="bold">$\mathbb{F}_{p^8}$ 的子域</text>
+
+  <ellipse cx="80" cy="45" rx="30" ry="14" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="80" y="50" text-anchor="middle" font-size="11">𝔽ₚ⁸</text>
+
+  <ellipse cx="80" cy="85" rx="30" ry="14" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="80" y="90" text-anchor="middle" font-size="11">𝔽ₚ⁴</text>
+
+  <ellipse cx="80" cy="125" rx="30" ry="14" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="80" y="130" text-anchor="middle" font-size="11">𝔽ₚ²</text>
+
+  <ellipse cx="80" cy="165" rx="30" ry="14" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="80" y="170" text-anchor="middle" font-size="11">𝔽ₚ</text>
+
+  <line x1="80" y1="59" x2="80" y2="71" stroke="#666" stroke-width="1"/>
+  <text x="88" y="68" font-size="9" fill="#666">2</text>
+  <line x1="80" y1="99" x2="80" y2="111" stroke="#666" stroke-width="1"/>
+  <text x="88" y="108" font-size="9" fill="#666">2</text>
+  <line x1="80" y1="139" x2="80" y2="151" stroke="#666" stroke-width="1"/>
+  <text x="88" y="148" font-size="9" fill="#666">2</text>
+
+  <!-- F_p^12 diagram (right) -->
+  <text x="350" y="20" text-anchor="middle" font-size="12" font-weight="bold">$\mathbb{F}_{p^{12}}$ 的子域</text>
+
+  <ellipse cx="350" cy="45" rx="32" ry="14" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="350" y="50" text-anchor="middle" font-size="11">𝔽ₚ¹²</text>
+
+  <ellipse cx="280" cy="85" rx="28" ry="14" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="280" y="90" text-anchor="middle" font-size="11">𝔽ₚ⁴</text>
+
+  <ellipse cx="420" cy="85" rx="28" ry="14" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="420" y="90" text-anchor="middle" font-size="11">𝔽ₚ⁶</text>
+
+  <ellipse cx="280" cy="125" rx="28" ry="14" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="280" y="130" text-anchor="middle" font-size="11">𝔽ₚ²</text>
+
+  <ellipse cx="420" cy="125" rx="28" ry="14" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="420" y="130" text-anchor="middle" font-size="11">𝔽ₚ³</text>
+
+  <ellipse cx="350" cy="165" rx="28" ry="14" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="350" y="170" text-anchor="middle" font-size="11">𝔽ₚ</text>
+
+  <line x1="325" y1="55" x2="295" y2="72" stroke="#666" stroke-width="1"/>
+  <text x="300" y="62" font-size="9" fill="#666">3</text>
+  <line x1="375" y1="55" x2="405" y2="72" stroke="#666" stroke-width="1"/>
+  <text x="400" y="62" font-size="9" fill="#666">2</text>
+  <line x1="280" y1="99" x2="280" y2="111" stroke="#666" stroke-width="1"/>
+  <text x="288" y="108" font-size="9" fill="#666">2</text>
+  <line x1="405" y1="99" x2="370" y2="111" stroke="#666" stroke-width="1"/>
+  <text x="395" y="108" font-size="9" fill="#666">2</text>
+  <line x1="420" y1="99" x2="420" y2="111" stroke="#666" stroke-width="1"/>
+  <text x="428" y="108" font-size="9" fill="#666">3</text>
+  <line x1="295" y1="136" x2="330" y2="153" stroke="#666" stroke-width="1"/>
+  <text x="318" y="148" font-size="9" fill="#666">2</text>
+  <line x1="405" y1="136" x2="370" y2="153" stroke="#666" stroke-width="1"/>
+  <text x="395" y="148" font-size="9" fill="#666">3</text>
+</svg>
+<p>These resemble the lattice of divisors of 8 and divisors of 12. Even though $p^k$ divides $p^{12}$ for $k \leq 12$, that does not mean $\mathbb{F}_{p^k} \subset \mathbb{F}_{p^{12}}$ for $k \leq 12$: the only $\mathbb{F}_{p^k}$ that can lie in $\mathbb{F}_{p^{12}}$ are those for which $[\mathbb{F}_{p^k} : \mathbb{F}_p]$ divides $[\mathbb{F}_{p^{12}} : \mathbb{F}_p]$, which means $k$ divides 12. Theorem 2.8 guarantees when $k \mid 12$ that elements of $\mathbb{F}_{p^k}$ are solutions to $t^{p^k} = t$ in $\mathbb{F}_{p^{12}}$.</p>
+</div>
+
+<blockquote>子域格与因子格的形状相似。注意虽然 $p^k$ 整除 $p^{12}$（对 $k \leq 12$），但 $\mathbb{F}_{p^k} \subset \mathbb{F}_{p^{12}}$ 仅在 $k \mid 12$ 时成立。定理 2.8 保证当 $k \mid 12$ 时，$\mathbb{F}_{p^k}$ 的元素恰好是 $\mathbb{F}_{p^{12}}$ 中 $t^{p^k} = t$ 的解。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.10.</span> One field of order $16 = 2^4$ is $\mathbb{F}_2[x]/(x^4 + x + 1)$. All elements satisfy $t^{16} = t$. The solutions to $t^2 = t$ are the subfield $\{0, 1\}$ of order 2 and the solutions to $t^4 = t$ are the subfield $\{0, 1, x^2 + x, x^2 + x + 1\}$ of order 4.</p>
+</div>
+
+<blockquote>阶为 16 的一个域是 $\mathbb{F}_2[x]/(x^4 + x + 1)$。所有元素满足 $t^{16} = t$。$t^2 = t$ 的解是阶为 2 的子域 $\{0, 1\}$；$t^4 = t$ 的解是阶为 4 的子域 $\{0, 1, x^2 + x, x^2 + x + 1\}$。</blockquote>
+
+<div class="note">
+<strong>例 2.10 的验证</strong>
+
+<p>在 $\mathbb{F}_{16} = \mathbb{F}_2[x]/(x^4 + x + 1)$ 中，设 $\alpha = [x]$，则 $\alpha^4 = \alpha + 1$。</p>
+
+<p><strong>$\mathbb{F}_4$ 子域的元素：</strong></p>
+<p>需要找满足 $t^4 = t$ 的元素。由于 $t^4 - t = t(t^3 - 1) = t(t-1)(t^2+t+1)$：</p>
+<ul>
+<li>$t = 0$：$0^4 = 0$ ✓</li>
+<li>$t = 1$：$1^4 = 1$ ✓</li>
+<li>$t^2 + t + 1 = 0$ 的根：即 $t = \alpha^2 + \alpha$ 和 $t = \alpha^2 + \alpha + 1$</li>
+</ul>
+<p>验证：$(\alpha^2 + \alpha)^2 = \alpha^4 + \alpha^2 = (\alpha + 1) + \alpha^2 = \alpha^2 + \alpha + 1$</p>
+<p>所以 $(\alpha^2 + \alpha)^4 = (\alpha^2 + \alpha + 1)^2 = \alpha^4 + \alpha^2 + 1 = (\alpha + 1) + \alpha^2 + 1 = \alpha^2 + \alpha$ ✓</p>
+</div>
+
+<!-- ==================== Section 3: F_p-conjugates ==================== -->
+<h2>3. Describing $\mathbb{F}_p$-Conjugates（$\mathbb{F}_p$-共轭的刻画）</h2>
+
+<p>Two elements in a finite field are called <strong>$\mathbb{F}_p$-conjugate</strong> if their minimal polynomials over $\mathbb{F}_p$ agree. We will show that $\mathbb{F}_p$-conjugates can be obtained from each other by successive $p$-th powers. A precise statement is in Theorem 3.4.</p>
+
+<blockquote>有限域中两个元素称为 <strong>$\mathbb{F}_p$-共轭</strong>，如果它们在 $\mathbb{F}_p$ 上的极小多项式相同。我们将证明 $\mathbb{F}_p$-共轭可以通过连续取 $p$ 次幂相互得到。精确陈述见定理 3.4。</blockquote>
+
+<div class="note">
+<strong>什么是「共轭」(Conjugates)？</strong>
+
+<p><strong>直观理解：</strong>共轭元素是「代数上不可区分」的元素。它们满足相同的多项式方程，从基域 $\mathbb{F}_p$ 的角度看是「完全相同」的。</p>
+
+<p><strong>类比：</strong>在 $\mathbb{C}/\mathbb{R}$ 中，$i$ 和 $-i$ 是 $\mathbb{R}$-共轭，因为它们都是 $x^2 + 1$ 的根。从实数的角度看，$i$ 和 $-i$ 是无法区分的——任何把 $i$ 换成 $-i$ 的「代数操作」都是合法的（复共轭）。</p>
+
+<p><strong>有限域中的特殊性：</strong>在有限域中，共轭元素可以用简单的公式描述：$\alpha$ 的共轭就是 $\alpha^p, \alpha^{p^2}, \ldots$！</p>
+</div>
+
+<div class="lemma">
+<p class="lemma-title">Lemma 3.1</p>
+<p>For every $f(x) \in \mathbb{F}_p[x]$, $f(x)^{p^m} = f(x^{p^m})$ for $m \geq 0$.</p>
+</div>
+
+<blockquote>对于每个 $f(x) \in \mathbb{F}_p[x]$，当 $m \geq 0$ 时有 $f(x)^{p^m} = f(x^{p^m})$。</blockquote>
+
+<div class="proof">
+The case $m = 0$ is obvious, and it suffices by induction to do the case $m = 1$. In a ring of characteristic $p$, the $p$-th power map is additive. For a polynomial $f(x) = c_n x^n + \cdots + c_1 x + c_0$ in the ring $\mathbb{F}_p[x]$, we have
+$$f(x)^p = (c_n x^n + \cdots + c_1 x + c_0)^p = c_n^p x^{pn} + \cdots + c_1^p x^p + c_0^p.$$
+Every $c \in \mathbb{F}_p$ satisfies $c^p = c$, so
+$$f(x)^p = c_n x^{pn} + \cdots + c_1 x^p + c_0 = f(x^p).$$
+</div>
+
+<blockquote>$m = 0$ 时显然，由归纳法只需证 $m = 1$。在特征 $p$ 的环中，$p$ 次幂映射对加法是可加的。对 $f(x) = c_n x^n + \cdots + c_0$，有 $f(x)^p = c_n^p x^{pn} + \cdots + c_0^p$。由于 $c^p = c$ 对所有 $c \in \mathbb{F}_p$ 成立，所以 $f(x)^p = f(x^p)$。</blockquote>
+
+<div class="note">
+<strong>引理 3.1 的关键洞察</strong>
+
+<p>这个看似简单的引理揭示了有限域的一个深刻性质：<strong>Frobenius 自同态与多项式「交换」</strong>。</p>
+
+<p><strong>核心原因：</strong>在特征 $p$ 中，$(a + b)^p = a^p + b^p$（「新手公式」在这里是对的！）</p>
+
+<p><strong>几何意义：</strong>如果 $\alpha$ 是 $f(x)$ 的根（即 $f(\alpha) = 0$），那么：
+$$f(\alpha^p) = f(\alpha)^p = 0^p = 0$$
+所以 $\alpha^p$ 也是 $f(x)$ 的根！</p>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.2.</span> In $\mathbb{F}_5[x]$, $(2x^4 + x^2 + 3)^5 = 2x^{20} + x^{10} + 3$.</p>
+</div>
+
+<blockquote>在 $\mathbb{F}_5[x]$ 中，$(2x^4 + x^2 + 3)^5 = 2x^{20} + x^{10} + 3$。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 3.3</p>
+<p>For irreducible $\pi(x)$ in $\mathbb{F}_p[x]$ of degree $d$ and $n \geq 0$, $\pi(x) \mid (x^{p^n} - x) \Longleftrightarrow d \mid n$.</p>
+</div>
+
+<blockquote>对于 $\mathbb{F}_p[x]$ 中 $d$ 次不可约多项式 $\pi(x)$，当 $n \geq 0$ 时：$\pi(x) \mid (x^{p^n} - x) \Longleftrightarrow d \mid n$。</blockquote>
+
+<div class="proof">
+We will prove ($\Longleftarrow$) in two ways using Theorem 2.5, which is a special case. For the first proof, write $n = kd$. Starting with $x^{p^d} \equiv x \pmod{\pi(x)}$ (from Theorem 2.5) and applying the $p^d$-th power to both sides $k$ times, we obtain
+$$x \equiv x^{p^d} \equiv x^{p^{2d}} \equiv \cdots \equiv x^{p^{kd}} \pmod{\pi(x)}.$$
+Thus $\pi(x) \mid (x^{p^n} - x)$.
+
+For the second proof, $\pi(x) \mid (x^{p^d} - x)$ by Theorem 2.5, and $(x^{p^d} - x) \mid (x^{p^n} - x)$ by the proof of Theorem 2.8.
+
+We will prove ($\Longrightarrow$) in two ways. For the first proof we will work in a field $\mathbb{F}_{p^n}$ of order $p^n$. Since $x^{p^n} - x$ splits completely in $\mathbb{F}_{p^n}[x]$ and $\pi(x)$ is a factor of $x^{p^n} - x$, $\pi(x)$ splits completely in $\mathbb{F}_{p^n}[x]$, so $\pi(x)$ has a root in $\mathbb{F}_{p^n}$, say $\alpha$. Then $\mathbb{F}_{p^n}$ has the subfield $\mathbb{F}_p(\alpha)$, which has order $p^d$. Since $[\mathbb{F}_p(\alpha) : \mathbb{F}_p]$ divides $[\mathbb{F}_{p^n} : \mathbb{F}_p]$, we get $d \mid n$.
+
+The second proof uses congruences, not splitting fields. Our divisibility hypothesis says $x^{p^n} \equiv x \pmod{\pi(x)}$ and we want to conclude $d \mid n$. Write $n = dq + r$ with $0 \leq r < d$. We will show $r = 0$. We have $x^{p^n} = x^{p^{dq}p^r} = (x^{p^{dq}})^{p^r}$. By ($\Longleftarrow$), $x^{p^{dq}} \equiv x \pmod{\pi}$, so $x^{p^n} \equiv x^{p^r} \pmod{\pi}$. Thus $x^{p^r} \equiv x \pmod{\pi(x)}$. This tells us that in the field $F := \mathbb{F}_p[x]/(\pi(x))$, every element $t$ satisfies $t^{p^r} = t$. Consider now the polynomial $T^{p^r} - T$ in $F[T]$. When $r > 0$, this is a nonzero polynomial with degree $p^r$. We have found $p^d$ different roots of this polynomial in $F$. Therefore $p^d \leq p^r$, so $d \leq r$. But $r < d$. This is a contradiction, so $r = 0$. That proves $d \mid n$.
+</div>
+
+<blockquote>
+<p><strong>($\Longleftarrow$)：</strong>设 $n = kd$。由定理 2.5，$x^{p^d} \equiv x \pmod{\pi(x)}$，连续取 $p^d$ 次幂得 $x^{p^{kd}} \equiv x$。</p>
+<p><strong>($\Longrightarrow$)：</strong>若 $\pi(x) \mid (x^{p^n} - x)$，则 $\pi(x)$ 在 $\mathbb{F}_{p^n}$ 中有根 $\alpha$。于是 $\mathbb{F}_p(\alpha)$ 是 $\mathbb{F}_{p^n}$ 的子域，阶为 $p^d$，所以 $d \mid n$。</p>
+</blockquote>
+
+<div class="note">
+<strong>定理 3.3 的意义</strong>
+
+<p>这个定理给出了不可约多项式与 $x^{p^n} - x$ 之间的精确关系：</p>
+
+<p style="background: #e8f5e9; padding: 10px; border-radius: 5px; text-align: center;">
+<strong>$d$ 次不可约多项式整除 $x^{p^n} - x$ $\Longleftrightarrow$ $d \mid n$</strong>
+</p>
+
+<p><strong>推论：</strong>$x^{p^n} - x$ 的不可约因子恰好是次数整除 $n$ 的所有不可约多项式，每个出现一次。</p>
+
+<p><strong>例子：</strong>$x^{2^6} - x = x^{64} - x$ 在 $\mathbb{F}_2[x]$ 中</p>
+<ul>
+<li>1 次因子：$x$, $x+1$（2 个）</li>
+<li>2 次因子：$x^2+x+1$（1 个）</li>
+<li>3 次因子：$x^3+x+1$, $x^3+x^2+1$（2 个）</li>
+<li>6 次因子：（共 9 个）</li>
+</ul>
+<p>验证：$2 + 2 + 6 + 2 \cdot 3 + 9 \cdot 6 = 2 + 2 + 6 + 6 + 54 = 64 = 2^6$ ✗ （这只是示意，实际需要数不可约多项式的个数）</p>
+</div>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 3.4</p>
+<p>Let $\pi(x)$ be irreducible in $\mathbb{F}_p[x]$ with degree $d$ and $E \supset \mathbb{F}_p$ be a field in which $\pi(x)$ has a root, say $\alpha$. Then $\pi(x)$ has roots $\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$. These $d$ roots are distinct; more precisely, when $i$ and $j$ are nonnegative, $\alpha^{p^i} = \alpha^{p^j} \Longleftrightarrow i \equiv j \pmod{d}$.</p>
+</div>
+
+<blockquote>设 $\pi(x)$ 是 $\mathbb{F}_p[x]$ 中 $d$ 次不可约多项式，$E \supset \mathbb{F}_p$ 是使 $\pi(x)$ 有根 $\alpha$ 的域。则 $\pi(x)$ 的根为 $\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$。这 $d$ 个根互不相同；更精确地，$\alpha^{p^i} = \alpha^{p^j} \Longleftrightarrow i \equiv j \pmod{d}$。</blockquote>
+
+<div class="proof">
+Since $\pi(x)^p = \pi(x^p)$ by Lemma 3.1, we see $\alpha^p$ is also a root of $\pi(x)$, and likewise $\alpha^{p^2}, \alpha^{p^3}$, and so on by iteration. Once we reach $\alpha^{p^d}$ we have cycled back to the start: $\alpha^{p^d} = \alpha$ by Theorem 3.3.
+
+Now we will show $\alpha^{p^i} = \alpha^{p^j} \Longleftrightarrow i \equiv j \pmod{d}$, where $i, j \geq 0$. We may suppose $i \leq j$, say $j = i + k$ with $k \geq 0$. Then
+$$\alpha^{p^i} = \alpha^{p^j} \Longleftrightarrow (\alpha^{p^k} - \alpha)^{p^i} = 0 \Longleftrightarrow \alpha^{p^k} - \alpha = 0.$$
+Since $\pi(x)$ is irreducible in $\mathbb{F}_p[x]$ and has $\alpha$ as a root, $\pi(x)$ up to scaling is the minimal polynomial of $\alpha$ over $\mathbb{F}_p$. So $\pi(x)$ divides each polynomial in $\mathbb{F}_p[x]$ vanishing at $\alpha$. Thus
+$$\alpha^{p^i} = \alpha^{p^j} \Longleftrightarrow \pi(x) \mid (x^{p^k} - x) \text{ in } \mathbb{F}_p[x] \Longleftrightarrow d \mid k \text{ by Theorem 3.3} \Longleftrightarrow i \equiv j \pmod{d}.$$
+Since $0, 1, \ldots, d-1$ are not congruent modulo $d$, the roots $\alpha, \alpha^p, \ldots, \alpha^{p^{d-1}}$ are distinct.
+</div>
+
+<blockquote>由引理 3.1，$\pi(\alpha^p) = \pi(\alpha)^p = 0$，所以 $\alpha^p$ 也是 $\pi(x)$ 的根。依此类推，$\alpha^{p^2}, \alpha^{p^3}, \ldots$ 都是根。当到达 $\alpha^{p^d}$ 时回到起点：$\alpha^{p^d} = \alpha$（由定理 3.3）。对于相等性，$\alpha^{p^i} = \alpha^{p^j}$ 等价于 $\alpha^{p^k} = \alpha$（设 $k = j - i$），等价于 $\pi(x) \mid (x^{p^k} - x)$，等价于 $d \mid k$。</blockquote>
+
+<div class="note">
+<strong>定理 3.4 的核心结论</strong>
+
+<p style="background: #fff3e0; padding: 10px; border-radius: 5px;">
+<strong>$\mathbb{F}_p[x]$ 中 $d$ 次不可约多项式 $\pi(x)$ 的根是：</strong>
+$$\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$$
+其中 $\alpha$ 是 $\pi(x)$ 的任一根。这 $d$ 个根构成一个「共轭类」，它们通过 Frobenius 映射 $t \mapsto t^p$ 相互变换。
+</p>
+
+<p><strong>与复数的对比：</strong></p>
+<ul>
+<li>$\mathbb{C}/\mathbb{R}$：共轭通过复共轭 $z \mapsto \bar{z}$ 相互变换</li>
+<li>$\mathbb{F}_{p^n}/\mathbb{F}_p$：共轭通过 Frobenius $t \mapsto t^p$ 相互变换</li>
+</ul>
+
+<p><strong>重要推论：</strong>如果 $\pi(x) \in \mathbb{F}_p[x]$ 不可约且 $\alpha$ 是它的根，则 $\mathbb{F}_p(\alpha)$ 是 $\pi(x)$ 的分裂域——所有根都在 $\mathbb{F}_p(\alpha)$ 中！这与 $\mathbb{Q}$ 上的情况很不同（如 $x^3 - 2$ 的分裂域不是 $\mathbb{Q}(\sqrt[3]{2})$）。</p>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.5.</span> The polynomial $x^3 + x^2 + 1$ is irreducible in $\mathbb{F}_2[x]$ since it's a cubic without a root in $\mathbb{F}_2$. In the field $F = \mathbb{F}_2[y]/(y^3 + y^2 + 1)$, $x^3 + x^2 + 1$ has a root $y$ (we should write this as a coset, like $\bar{y}$, but we'll use $y$). Its other roots in $F$ are $y^2$ and $y^4$.</p>
+<p>Since $y^3 + y^2 + 1 = 0$ in $F$, we have $y^3 = y^2 + 1$ (since $-1 = 1$), so $y^4 = y^3 + y = (y^2 + 1) + y = y^2 + y + 1$. Therefore, the roots of $x^3 + x^2 + 1$ in $F$ are $y$, $y^2$, and $y^2 + y + 1$.</p>
+</div>
+
+<blockquote>多项式 $x^3 + x^2 + 1$ 在 $\mathbb{F}_2[x]$ 中不可约（三次多项式在 $\mathbb{F}_2$ 中无根）。在域 $F = \mathbb{F}_2[y]/(y^3 + y^2 + 1)$ 中，$x^3 + x^2 + 1$ 有根 $y$，另外两个根是 $y^2$ 和 $y^4$。由于 $y^3 = y^2 + 1$，所以 $y^4 = y^2 + y + 1$。因此根为 $y$、$y^2$、$y^2 + y + 1$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 3.6.</span> The polynomial $x^3 - 2$ is irreducible in $\mathbb{F}_7[x]$. In the field $F = \mathbb{F}_7[y]/(y^3 - 2)$, $x^3 - 2$ has roots $y$, $y^7$, and $y^{49}$. Since $y^3 = 2$ in $F$, $y^7 = (y^3)^2 y = 4y$ and $y^{49} = (y^7)^7 = (4y)^7 = 4^7 y^7 = 4 \cdot 4y = 2y$. So the roots of $x^3 - 2$ in $F$ are $y$, $2y$, and $4y$. This is like the formula for roots of $x^3 - 2$ in $\mathbf{C}$: $\sqrt[3]{2}$, $\omega\sqrt[3]{2}$, and $\omega^2\sqrt[3]{2}$. In characteristic 7, the numbers 2 and 4 are nontrivial cube roots of unity, so they are like $\omega$ and $\omega^2$ in $\mathbf{C}$.</p>
+</div>
+
+<blockquote>多项式 $x^3 - 2$ 在 $\mathbb{F}_7[x]$ 中不可约。在 $F = \mathbb{F}_7[y]/(y^3 - 2)$ 中，根为 $y$、$y^7 = 4y$、$y^{49} = 2y$。这类似于 $x^3 - 2$ 在 $\mathbf{C}$ 中的根 $\sqrt[3]{2}$、$\omega\sqrt[3]{2}$、$\omega^2\sqrt[3]{2}$。在特征 7 中，2 和 4 是非平凡的三次单位根，类似于 $\omega$ 和 $\omega^2$。</blockquote>
+
+<div class="note">
+<strong>例 3.6 中 2 和 4 为什么是三次单位根？</strong>
+
+<p>在 $\mathbb{F}_7$ 中，三次单位根是 $x^3 = 1$ 的解。由于 $|\mathbb{F}_7^\times| = 6 = 2 \times 3$，三次单位根是 $\mathbb{F}_7^\times$ 中阶整除 3 的元素。</p>
+
+<p>计算：$1^3 = 1$，$2^3 = 8 = 1$，$4^3 = 64 = 1$（因为 $64 = 9 \times 7 + 1$）</p>
+
+<p>所以三次单位根是 $\{1, 2, 4\}$，其中 2 和 4 是非平凡的。</p>
+
+<p><strong>验证根：</strong>$y^3 - 2 = 0$ 有根 $y$、$2y$、$4y$：</p>
+<ul>
+<li>$(2y)^3 - 2 = 8y^3 - 2 = y^3 - 2 = 2 - 2 = 0$ ✓</li>
+<li>$(4y)^3 - 2 = 64y^3 - 2 = y^3 - 2 = 0$ ✓</li>
+</ul>
+</div>
+
+<p>Theorem 3.4 says if $\pi(x) \in \mathbb{F}_p[x]$ is irreducible and $\alpha$ is a root of $\pi(x)$ then $\mathbb{F}_p(\alpha)$ is a splitting field of $\pi(x)$ over $\mathbb{F}_p$. This is quite different over $\mathbf{Q}$: $\mathbf{Q}(\sqrt[3]{2})$ is <em>not</em> a splitting field of $x^3 - 2$ over $\mathbf{Q}$. Here is an even more striking contrast between $\mathbf{Q}$ and $\mathbb{F}_p$.</p>
+
+<blockquote>定理 3.4 表明：若 $\pi(x) \in \mathbb{F}_p[x]$ 不可约且 $\alpha$ 是它的根，则 $\mathbb{F}_p(\alpha)$ 是 $\pi(x)$ 在 $\mathbb{F}_p$ 上的分裂域。这与 $\mathbf{Q}$ 上的情况很不同：$\mathbf{Q}(\sqrt[3]{2})$ 不是 $x^3 - 2$ 在 $\mathbf{Q}$ 上的分裂域。</blockquote>
+
+<div class="corollary">
+<p class="corollary-title">Corollary 3.7</p>
+<p>Let $\pi_1(x)$ and $\pi_2(x)$ be irreducible of the same degree in $\mathbb{F}_p[x]$ and $\alpha$ be a root of $\pi_1(x)$ in an extension field of $\mathbb{F}_p$. Then $\mathbb{F}_p(\alpha)$ is a splitting field of $\pi_2(x)$ over $\mathbb{F}_p$.</p>
+</div>
+
+<blockquote>设 $\pi_1(x)$ 和 $\pi_2(x)$ 是 $\mathbb{F}_p[x]$ 中同次数的不可约多项式，$\alpha$ 是 $\pi_1(x)$ 在某扩域中的根。则 $\mathbb{F}_p(\alpha)$ 也是 $\pi_2(x)$ 在 $\mathbb{F}_p$ 上的分裂域。</blockquote>
+
+<div class="proof">
+Set $n = \deg \pi_1(x) = \deg \pi_2(x)$ and $F = \mathbb{F}_p(\alpha) \cong \mathbb{F}_p[x]/(\pi_1(x))$, so $F$ has order $p^n$. The polynomial $x^{p^n} - x$ splits completely over $F$ (Lemma 2.1), and $\pi_2(x) \mid (x^{p^n} - x)$ in $\mathbb{F}_p[x]$ (Theorem 2.5), so $\pi_2(x)$ splits completely over $F$. Letting $\beta$ be a root of $\pi_2(x)$ in $F$, $\mathbb{F}_p(\beta)$ has order $p^n$ so $F = \mathbb{F}_p(\beta)$. Theorem 3.4 implies that $F$ is a splitting field of $\pi_2(x)$ over $\mathbb{F}_p$.
+</div>
+
+<blockquote>设 $n = \deg \pi_1 = \deg \pi_2$，$F = \mathbb{F}_p(\alpha) \cong \mathbb{F}_{p^n}$。由于 $\pi_2(x) \mid (x^{p^n} - x)$（定理 2.5），而 $x^{p^n} - x$ 在 $F$ 中完全分解，所以 $\pi_2(x)$ 也在 $F$ 中完全分解。由定理 3.4，$F$ 是 $\pi_2(x)$ 的分裂域。</blockquote>
+
+<div class="note">
+<strong>推论 3.7 的惊人结论</strong>
+
+<p>这个推论说明了有限域的一个非凡性质：</p>
+
+<p style="background: #e3f2fd; padding: 10px; border-radius: 5px; text-align: center;">
+<strong>同次数的不可约多项式共享同一个分裂域！</strong>
+</p>
+
+<p><strong>例子：</strong>$\mathbb{F}_2[x]$ 中的两个三次不可约多项式 $x^3 + x + 1$ 和 $x^3 + x^2 + 1$。</p>
+<ul>
+<li>设 $\alpha$ 是 $x^3 + x + 1$ 的根</li>
+<li>则 $\mathbb{F}_2(\alpha) = \mathbb{F}_8$ 同时是 $x^3 + x^2 + 1$ 的分裂域</li>
+<li>$x^3 + x^2 + 1$ 的三个根都在 $\mathbb{F}_8$ 中</li>
+</ul>
+
+<p><strong>与 $\mathbf{Q}$ 的对比：</strong>$x^3 - 2$ 和 $x^3 - 3$ 都是 $\mathbf{Q}$ 上的三次不可约多项式，但它们的分裂域完全不同！</p>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.8.</span> Both $x^3 - 2$ and $x^3 + x^2 + 6x + 5$ are irreducible over $\mathbb{F}_7$. Let $\alpha$ be a root of $x^3 - 2$ over $\mathbb{F}_7$. In $\mathbb{F}_7(\alpha)$, $x^3 + x^2 + 6x + 5$ must have 3 roots. One root is $\alpha^2 + \alpha + 2$ (found by a search). Using the relation $\alpha^3 = 2$, the other two roots of $x^3 + x^2 + 6x + 5$ in $\mathbb{F}_7(\alpha)$ are $(\alpha^2 + \alpha + 2)^7 = 2\alpha^2 + 4\alpha + 2$ and $(\alpha^2 + \alpha + 2)^{49} = 4\alpha^2 + 2\alpha + 2$.</p>
+</div>
+
+<blockquote>$x^3 - 2$ 和 $x^3 + x^2 + 6x + 5$ 都在 $\mathbb{F}_7$ 上不可约。设 $\alpha$ 是 $x^3 - 2$ 的根。在 $\mathbb{F}_7(\alpha)$ 中，$x^3 + x^2 + 6x + 5$ 的一个根是 $\alpha^2 + \alpha + 2$（通过搜索找到）。另外两个根是 $(\alpha^2 + \alpha + 2)^7 = 2\alpha^2 + 4\alpha + 2$ 和 $(\alpha^2 + \alpha + 2)^{49} = 4\alpha^2 + 2\alpha + 2$。</blockquote>
+
 <!-- ==================== Section 4: Galois Groups ==================== -->
 <h2>4. Galois Groups（Galois 群）</h2>
 
@@ -1576,6 +2140,109 @@ Each $a \in \mathbb{F}_p$ satisfies $a^p = a$, so the function $\varphi_p : \mat
 
 <div class="note">
 <strong>Frobenius 自同构：</strong>$\mathbb{F}_{p^n}$ 上的 $p$ 次幂映射叫做 <strong>Frobenius 自同构</strong>。这个映射的公式不涉及 $n$，却能生成所有 $n \geq 1$ 的 $\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)$。Frobenius 映射在代数几何和数论中极其重要。
+</div>
+
+<!-- ==================== Section 5: General finite base fields ==================== -->
+<h2>5. General Finite Base Fields（一般有限基域）</h2>
+
+<p>In addition to working with finite fields as extensions of $\mathbb{F}_p$, we can fix a finite field $\mathbb{F}_q$ of possibly nonprime size (e.g., $q = 4$ or $27$) and look at finite extensions of $\mathbb{F}_q$. While every $a \in \mathbb{F}_p$ satisfies $a^p = a$, in $\mathbb{F}_q$ every element $a$ satisfies $a^q = a$.</p>
+
+<blockquote>除了将有限域作为 $\mathbb{F}_p$ 的扩张来研究，我们还可以固定一个可能非素数阶的有限域 $\mathbb{F}_q$（如 $q = 4$ 或 $27$），考察 $\mathbb{F}_q$ 的有限扩张。$\mathbb{F}_p$ 中每个 $a$ 满足 $a^p = a$，而 $\mathbb{F}_q$ 中每个 $a$ 满足 $a^q = a$。</blockquote>
+
+<div class="note">
+<strong>为什么要考虑非素数基域？</strong>
+
+<p>在实际应用中，我们经常需要从 $\mathbb{F}_q$ 出发构造更大的域：</p>
+<ul>
+<li><strong>配对密码学：</strong>配对将椭圆曲线上的点映射到 $\mathbb{F}_{q^k}^\times$ 中，其中 $k$ 是嵌入度</li>
+<li><strong>BLS12-381 曲线：</strong>基域是 $\mathbb{F}_p$，但配对目标群在 $\mathbb{F}_{p^{12}}$ 中</li>
+<li><strong>塔式扩张：</strong>$\mathbb{F}_{p^{12}}$ 可以构造为 $\mathbb{F}_{p^2}$ 的 6 次扩张，或 $\mathbb{F}_{p^6}$ 的 2 次扩张</li>
+</ul>
+</div>
+
+<p>In a finite extension $F/\mathbb{F}_q$, the $q$-th power map $F \to F$ is an automorphism (it is an iterate of the $p$-th power automorphism of $F$, where $p$ is the prime that $q$ is a power of) and the subset of $F$ fixed by the $q$-th power map is $\mathbb{F}_q$: the equation $a^q = a$ has at most $q$ solutions in $F$ and $\mathbb{F}_q$ is a set of $q$ solutions inside $F$.</p>
+
+<blockquote>在有限扩张 $F/\mathbb{F}_q$ 中，$q$ 次幂映射 $F \to F$ 是自同构（它是 $p$ 次幂自同构的某个迭代），被 $q$ 次幂映射固定的元素恰好是 $\mathbb{F}_q$。</blockquote>
+
+<p><strong>Watch out:</strong> if $q$ is a power of the prime $p$, then $\mathbb{F}_q$ has characteristic $p$, not characteristic $q$ (unless $q = p$). No field has a composite characteristic.</p>
+
+<blockquote><strong>注意：</strong>如果 $q$ 是素数 $p$ 的幂次，则 $\mathbb{F}_q$ 的特征是 $p$，不是 $q$（除非 $q = p$）。没有域的特征是合数。</blockquote>
+
+<p>Here are analogues over $\mathbb{F}_q$ of results we proved over $\mathbb{F}_p$.</p>
+
+<blockquote>以下是我们在 $\mathbb{F}_p$ 上证明的结果在 $\mathbb{F}_q$ 上的类似版本：</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 5.1</p>
+<p>For every positive integer $n$, there is a monic irreducible of degree $n$ in $\mathbb{F}_q[x]$, and all of them divide $x^{q^n} - x$, which is separable. In particular, every irreducible in $\mathbb{F}_q[x]$ is separable.</p>
+</div>
+
+<blockquote>对于每个正整数 $n$，$\mathbb{F}_q[x]$ 中存在 $n$ 次首一不可约多项式，且它们都整除可分多项式 $x^{q^n} - x$。特别地，$\mathbb{F}_q[x]$ 中的每个不可约多项式都是可分的。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 5.2</p>
+<p>Between $\mathbb{F}_q$ and $\mathbb{F}_{q^n}$ every intermediate field has order $q^d$ where $d \mid n$. Conversely, for each $d$ dividing $n$ there is a unique field between $\mathbb{F}_q$ and $\mathbb{F}_{q^n}$ of order $q^d$, which is $\{t \in \mathbb{F}_{q^n} : t^{q^d} = t\}$.</p>
+</div>
+
+<blockquote>$\mathbb{F}_q$ 和 $\mathbb{F}_{q^n}$ 之间的每个中间域的阶为 $q^d$，其中 $d \mid n$。反过来，对每个整除 $n$ 的 $d$，存在唯一的阶为 $q^d$ 的中间域，即 $\{t \in \mathbb{F}_{q^n} : t^{q^d} = t\}$。</blockquote>
+
+<div class="lemma">
+<p class="lemma-title">Lemma 5.3</p>
+<p>For every $f(x) \in \mathbb{F}_q[x]$, $f(x)^{q^m} = f(x^{q^m})$ for $m \geq 0$.</p>
+</div>
+
+<blockquote>对于每个 $f(x) \in \mathbb{F}_q[x]$，当 $m \geq 0$ 时有 $f(x)^{q^m} = f(x^{q^m})$。</blockquote>
+
+<div class="lemma">
+<p class="lemma-title">Lemma 5.4</p>
+<p>Let $\pi(x)$ be irreducible of degree $d$ in $\mathbb{F}_q[x]$. For $n \geq 0$, $\pi(x) \mid (x^{q^n} - x) \Longleftrightarrow d \mid n$.</p>
+</div>
+
+<blockquote>设 $\pi(x)$ 是 $\mathbb{F}_q[x]$ 中 $d$ 次不可约多项式。对 $n \geq 0$，$\pi(x) \mid (x^{q^n} - x) \Longleftrightarrow d \mid n$。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 5.5</p>
+<p>Let $\pi(x)$ be irreducible in $\mathbb{F}_q[x]$ with degree $d$ and $E \supset \mathbb{F}_q$ be a field in which $\pi(x)$ has a root, say $\alpha$. Then $\pi(x)$ has roots $\alpha, \alpha^q, \alpha^{q^2}, \ldots, \alpha^{q^{d-1}}$. These $d$ roots are distinct; more precisely, when $i$ and $j$ are nonnegative, $\alpha^{q^i} = \alpha^{q^j} \Longleftrightarrow i \equiv j \pmod{d}$.</p>
+</div>
+
+<blockquote>设 $\pi(x)$ 是 $\mathbb{F}_q[x]$ 中 $d$ 次不可约多项式，$\alpha$ 是它在某扩域中的根。则 $\pi(x)$ 的根为 $\alpha, \alpha^q, \alpha^{q^2}, \ldots, \alpha^{q^{d-1}}$，这 $d$ 个根互不相同。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 5.6</p>
+<p>For every integer $n \geq 1$, $\mathbb{F}_{q^n}/\mathbb{F}_q$ is a Galois extension and $\mathrm{Gal}(\mathbb{F}_{q^n}/\mathbb{F}_q)$ is cyclic with generator the $q$-th power map $\varphi_q : t \mapsto t^q$.</p>
+</div>
+
+<blockquote>对于每个整数 $n \geq 1$，$\mathbb{F}_{q^n}/\mathbb{F}_q$ 是 Galois 扩张，$\mathrm{Gal}(\mathbb{F}_{q^n}/\mathbb{F}_q)$ 是循环群，生成元是 $q$ 次幂映射 $\varphi_q : t \mapsto t^q$。</blockquote>
+
+<div class="theorem">
+<p class="theorem-title">Theorem 5.7</p>
+<p>For integers $n \geq 1$, the trace and norm maps $\mathbb{F}_{q^n} \to \mathbb{F}_q$ are described by
+$$\mathrm{Tr}_{\mathbb{F}_{q^n}/\mathbb{F}_q}(t) = t + t^q + t^{q^2} + \cdots + t^{q^{n-1}}$$
+and
+$$\mathrm{N}_{\mathbb{F}_{q^n}/\mathbb{F}_q}(t) = t^{1+q+q^2+\cdots+q^{n-1}} = t^{(q^n-1)/(q-1)}$$
+and both maps are surjective.</p>
+</div>
+
+<blockquote>对于整数 $n \geq 1$，迹映射和范数映射 $\mathbb{F}_{q^n} \to \mathbb{F}_q$ 为：
+$$\mathrm{Tr}_{\mathbb{F}_{q^n}/\mathbb{F}_q}(t) = t + t^q + t^{q^2} + \cdots + t^{q^{n-1}}$$
+$$\mathrm{N}_{\mathbb{F}_{q^n}/\mathbb{F}_q}(t) = t^{(q^n-1)/(q-1)}$$
+两个映射都是满射。</blockquote>
+
+<div class="note">
+<strong>迹和范数在配对密码学中的应用</strong>
+
+<p>在配对密码学中，迹和范数映射用于：</p>
+<ul>
+<li><strong>点压缩：</strong>椭圆曲线点的 $y$ 坐标可以用迹来压缩</li>
+<li><strong>扭曲曲线：</strong>通过迹映射的性质选择合适的扭曲参数</li>
+<li><strong>最终指数运算：</strong>配对的最终指数涉及范数映射的性质</li>
+</ul>
+
+<p><strong>例子：</strong>对于 $\mathbb{F}_{p^2}/\mathbb{F}_p$：</p>
+<ul>
+<li>$\mathrm{Tr}(t) = t + t^p$</li>
+<li>$\mathrm{N}(t) = t^{1+p} = t \cdot t^p$</li>
+</ul>
 </div>
 
 <!-- ==================== Section 6: Applications ==================== -->
