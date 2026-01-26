@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2 - Introduction</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: 'ams'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        h1 { font-size: 2em; margin-bottom: 0.3em; font-weight: bold; text-align: center; }
+        h2 { font-size: 1.5em; margin-top: 0.5em; font-weight: bold; text-align: center; }
+        p { text-align: justify; margin-bottom: 1em; }
+        .equation { text-align: center; margin: 1.2em 0; }
+        .example {
+            background: #f8f8f8;
+            padding: 1em 1.2em;
+            margin: 1.2em 0;
+            border-left: 3px solid #666;
+        }
+        .example-title { font-weight: bold; font-style: italic; }
+        blockquote {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f0f7ff;
+            border-left: 4px solid #4a90d9;
+            margin: 0.8em 0 1.2em 0;
+            padding: 0.8em 1em;
+            color: #444;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        .note {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #fff7ed;
+            border-left: 4px solid #f97316;
+            margin: 0.8em 0 1.2em 0;
+            padding: 0.8em 1em 0.8em 2.5em;
+            color: #444;
+            font-size: 0.95em;
+            line-height: 1.7;
+            position: relative;
+        }
+        .note::before {
+            content: '"';
+            position: absolute;
+            left: 0.25em;
+            top: 0em;
+            font-size: 3em;
+            color: #f97316;
+            font-family: "PingFang SC", "Microsoft YaHei", serif;
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .vocab {
+            border-bottom: 2px dashed #e74c3c;
+            cursor: help;
+            position: relative;
+        }
+        .vocab:hover { background-color: #fff3cd; }
+        .vocab:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: "PingFang SC", sans-serif;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+        .figure-container {
+            text-align: center;
+            margin: 1.5em 0;
+        }
+        .figure-caption {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 0.5em;
+            font-style: italic;
+        }
+        .figures-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1em;
+            margin: 1.5em 0;
+        }
+        .figures-row .figure-container {
+            flex: 1;
+            min-width: 180px;
+            max-width: 220px;
+        }
+        .page-marker {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            margin: 2em 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 0.5em;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3em;
+            padding-top: 1em;
+            border-top: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+        .nav-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<h1>Chapter 2</h1>
+<h2>Elliptic curves as <span class="vocab" data-tip="/ˌkrɪptəˈɡræfɪk/ 密码学的">cryptographic</span> groups</h2>
+
+<!-- ==================== PAGE 1 (PDF page 5) ==================== -->
+
+<p>The purpose of this chapter is to introduce <span class="vocab" data-tip="/ɪˈlɪptɪk/ 椭圆的">elliptic</span> curves as they are used in <span class="vocab" data-tip="/krɪpˈtɒɡrəfi/ 密码学">cryptography</span>. Put simply, an elliptic curve is an abstract type of <em>group</em>.</p>
+
+<blockquote>本章的目的是介绍椭圆曲线在密码学中的应用。简单来说，椭圆曲线是一种抽象的"群"。</blockquote>
+
+<div class="note">
+<strong>什么是群？</strong> 群就是一个集合，集合中的元素定义了一种二元运算（比如叫"加法" $+$）。这个运算必须满足几个条件：<br>
+① <strong>封闭性</strong>：任意两个元素运算后还在集合里；<br>
+② <strong>结合律</strong>：$(a + b) + c = a + (b + c)$；<br>
+③ <strong>单位元</strong>：存在一个"零元" $0$，使得 $a + 0 = a$；<br>
+④ <strong>逆元</strong>：每个元素 $a$ 都有一个逆元 $-a$，使得 $a + (-a) = 0$。<br>
+如果还满足 <strong>交换律</strong> $a + b = b + a$，就叫交换群（或阿贝尔群）。<br>
+<strong>例子</strong>：整数集合 $\mathbb{Z}$ 配上普通加法就是一个交换群。
+</div>
+
+<p>Perhaps a newcomer will find this <span class="vocab" data-tip="/ˈæbstræknəs/ 抽象性">abstractness</span> apparent immediately when we insist that to understand elliptic curve groups in cryptography, the reader should be familiar with the basics of finite fields $\mathbb{F}_q$. This is because, more generally, elliptic curves are groups which are defined on top of (over) fields. Even though elliptic curve groups permit only one binary operation (the so called <em>group law</em>), the operation itself is computed within the underlying field, which by definition permits two operations (and their inverses). For a general field $K$, the group elements of an elliptic curve $E$ are points whose $(x, y)$ coordinates come from $\bar{K}$ (the <span class="vocab" data-tip="/ˌældʒɪˈbreɪɪk ˈkləʊʒə/ 代数闭包">algebraic closure</span> of $K$), and which satisfy the (<span class="vocab" data-tip="/əˈfaɪn/ 仿射的">affine</span>) curve equation for $E$, given as</p>
+
+<blockquote>新手可能马上就会觉得这很抽象——我们要求读者先熟悉有限域 $\mathbb{F}_q$ 的基础知识。这是因为椭圆曲线是定义在域上的群。虽然椭圆曲线群只允许一种二元运算（所谓的"群律"），但这个运算本身是在底层的域中计算的，而域按定义允许两种运算（及其逆运算）。对于一般的域 $K$，椭圆曲线 $E$ 的群元素是坐标 $(x, y)$ 来自 $\bar{K}$（$K$ 的代数闭包）的点，这些点满足 $E$ 的仿射曲线方程：</blockquote>
+
+<div class="note">
+<strong>什么是域？</strong> 域是一个集合，定义了<strong>加法</strong>和<strong>乘法</strong>两种运算，满足我们熟悉的算术规则（交换律、结合律、分配律），有加法单位元 $0$ 和乘法单位元 $1$，每个元素有加法逆元，每个非零元素有乘法逆元。常见的域：有理数 $\mathbb{Q}$、实数 $\mathbb{R}$、复数 $\mathbb{C}$。<br><br>
+
+<strong>什么是有限域 $\mathbb{F}_q$？</strong> 元素个数有限的域。$q$ 必须是素数的幂，即 $q = p^n$。<br>
+• 当 $q = p$ 是素数时，$\mathbb{F}_p = \{0, 1, 2, \ldots, p-1\}$，就是模 $p$ 的整数，加法和乘法都取模 $p$。例如 $\mathbb{F}_{11}$ 中，$7 + 6 = 13 \mod 11 = 2$。<br>
+• 当 $q = p^n$ 时，需要用不可约多项式构造扩域，元素可以写成多项式的形式。<br>
+<strong>例子：构造 $\mathbb{F}_9$（$p=3, n=2$）。</strong> 基域 $\mathbb{F}_3 = \{0,1,2\}$。找一个不可约二次多项式，如 $x^2 + 1$（验证：$0^2+1=1$，$1^2+1=2$，$2^2+1=5 \equiv 2$，都不为 $0$，所以无根，不可约）。令 $i$ 满足 $i^2 + 1 = 0$，即 $i^2 = -1 = 2$。则 $\mathbb{F}_9 = \{a + bi : a,b \in \mathbb{F}_3\}$，共 9 个元素：$$\mathbb{F}_9 = \{0,\ 1,\ 2,\ i,\ 1{+}i,\ 2{+}i,\ 2i,\ 1{+}2i,\ 2{+}2i\}$$乘法例子：$(1+i)(2+i) = 2 + i + 2i + i^2 = 2 + 3i + 2 = 4 + 0 \cdot i = 1$。<br>
+<strong>为什么只能是素数幂？</strong> ① 域中 $1+1+\cdots+1=0$ 的最小次数叫"特征"，必须是素数 $p$（否则能分解成 $a \cdot b = 0$，违反域无零因子的性质）；② 于是域必含子域 $\mathbb{F}_p$；③ 整个域可看作 $\mathbb{F}_p$ 上的 $n$ 维向量空间，每个坐标有 $p$ 种取值，故总共 $p^n$ 个元素。<br><br>
+
+<strong>什么是代数闭包 $\bar{K}$？</strong> 直观地说，代数闭包是"把所有多项式的根都加进来"后得到的最小的域。<br>
+• $\mathbb{R}$（实数）的代数闭包是 $\mathbb{C}$（复数），因为 $x^2 + 1 = 0$ 在 $\mathbb{R}$ 中无解，但在 $\mathbb{C}$ 中有解 $\pm i$。<br>
+• $\mathbb{Q}$（有理数）的代数闭包是 $\bar{\mathbb{Q}}$（代数数），注意这<strong>不是</strong> $\mathbb{C}$！因为 $\pi$ 和 $e$ 是超越数，不是任何有理系数多项式的根。<br>
+• $\mathbb{F}_q$（有限域）的代数闭包 $\bar{\mathbb{F}}_q$ 是所有 $\mathbb{F}_{q^n}$（$n = 1, 2, 3, \ldots$）的并集，是一个无限域。<br>
+<strong>为什么？</strong> 代数闭包要让每个多项式都有根。$\mathbb{F}_q$ 上的 $n$ 次不可约多项式的根在 $\mathbb{F}_{q^n}$ 中。由于任意次数的不可约多项式都存在，就需要所有的 $\mathbb{F}_{q^n}$；而 $n$ 可以无限大，所以并集是无限域。
+</div>
+
+<div class="equation">
+$$E: y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6, \tag{2.1}$$
+</div>
+
+<p>where $a_1, \ldots, a_6 \in K$. Equation (2.1) is called the <em>general <span class="vocab" data-tip="/ˈvaɪərʃtrɑːs/ 维尔斯特拉斯">Weierstrass</span> equation</em> for elliptic curves. Aside from all the $(x, y) \in \bar{K}$ solutions to the equation above, there is one extra point which can not be defined using the affine equation, but which must be included to complete the group definition. This point is called the <em>point at <span class="vocab" data-tip="/ɪnˈfɪnəti/ 无穷">infinity</span></em>, which we denote by $\mathcal{O}$, and we will define it properly in a moment.</p>
+
+<blockquote>其中 $a_1, \ldots, a_6 \in K$。方程 (2.1) 叫做椭圆曲线的"一般 Weierstrass 方程"。除了上述方程的所有 $(x, y) \in \bar{K}$ 解之外，还有一个额外的点无法用仿射方程定义，但必须包含进来才能完成群的定义。这个点叫做"无穷远点"，记作 $\mathcal{O}$，我们稍后会正式定义它。</blockquote>
+
+<!-- ==================== PAGE 2 (PDF page 6) ==================== -->
+<div class="page-marker">— 6 —</div>
+
+<p>If $a_1, \ldots, a_6 \in K$, then we say $E$ is <em>defined over</em> $K$, and write this as $E/K$ (the same goes for any extension field $L$ of $K$). Before we go any further, we make a convenient <span class="vocab" data-tip="/ˌsɪmplɪfɪˈkeɪʃn/ 简化">simplification</span> of the general Weierstrass equation. If the field <span class="vocab" data-tip="/ˌkærəktəˈrɪstɪk/ 特征">characteristic</span> is not 2 or 3, then divisions by 2 and 3 in $K$ permit the substitutions $y \mapsto (y - a_1 x - a_3)/2$ to give $E: y^2 = 4x^3 + b_2 x^2 + 2b_4 x + b_6$, and then $(x, y) \mapsto \left(\frac{x - 3b_2}{36}, \frac{y}{108}\right)$, which (upon appropriate rescaling) yields the following simplified equation.</p>
+
+<blockquote>如果 $a_1, \ldots, a_6 \in K$，我们就说 $E$ "定义在 $K$ 上"，写作 $E/K$（对于 $K$ 的任意扩域 $L$ 也一样）。在继续之前，我们对一般 Weierstrass 方程做一个方便的简化。如果域的特征不是 2 或 3，那么在 $K$ 中可以除以 2 和 3，允许做变量替换 $y \mapsto (y - a_1 x - a_3)/2$ 得到 $E: y^2 = 4x^3 + b_2 x^2 + 2b_4 x + b_6$，然后 $(x, y) \mapsto \left(\frac{x - 3b_2}{36}, \frac{y}{108}\right)$，经过适当的缩放后得到如下简化方程：</blockquote>
+
+<div class="note">
+<strong>推导过程：从一般形式到短形式</strong><br><br>
+<strong>起点：</strong>一般 Weierstrass 方程
+$$y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6$$
+
+<strong>第一步：</strong>替换 $y \mapsto \frac{1}{2}(y - a_1 x - a_3)$，即 $y_{\text{old}} = \frac{1}{2}(y_{\text{new}} - a_1 x - a_3)$<br>
+代入左边：$y_{\text{old}}^2 + a_1 x y_{\text{old}} + a_3 y_{\text{old}}$<br>
+$= \frac{1}{4}(y - a_1 x - a_3)^2 + \frac{a_1 x}{2}(y - a_1 x - a_3) + \frac{a_3}{2}(y - a_1 x - a_3)$<br>
+展开并整理后，交叉项消掉，得到 $\frac{1}{4}y^2$（乘以 4 后）：
+$$y^2 = 4x^3 + b_2 x^2 + 2b_4 x + b_6$$
+其中 $b_2 = a_1^2 + 4a_2$，$b_4 = a_1 a_3 + 2a_4$，$b_6 = a_3^2 + 4a_6$。<br><br>
+
+<strong>第二步：</strong>替换 $(x, y) \mapsto \left(\frac{x - 3b_2}{36}, \frac{y}{108}\right)$，即 $x_{\text{old}} = \frac{x_{\text{new}} - 3b_2}{36}$<br>
+这个替换消去 $x^2$ 项。代入并整理（过程略），最终得到：
+$$y^2 = x^3 + ax + b$$
+其中 $a, b$ 是由原始系数 $a_1, \ldots, a_6$ 计算出的新系数。<br><br>
+
+<strong>关键点：</strong>这些替换需要除以 2 和 3，所以要求域的特征不是 2 或 3（否则除法无定义）。
+</div>
+
+<div class="equation">
+$$E: y^2 = x^3 + ax + b. \tag{2.2}$$
+</div>
+
+<p>Equation (2.2) is called the <em>short Weierstrass equation</em> for elliptic curves, and will be used all the way through this text. Namely, we will always be working over large prime fields, where the short Weierstrass equation covers all possible <span class="vocab" data-tip="/ˌaɪsəˈmɔːfɪzəm/ 同构">isomorphism</span> classes of elliptic curves, so the curves we use will always be an instance of (2.2).</p>
+
+<blockquote>方程 (2.2) 叫做椭圆曲线的"短 Weierstrass 方程"，全文都将使用这个形式。也就是说，我们总是在大素数域上工作，短 Weierstrass 方程能覆盖所有可能的椭圆曲线同构类，所以我们用的曲线都是 (2.2) 的实例。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.0.1</span> (Magma script). $E/\mathbb{Q}: y^2 = x^3 - 2$ is an elliptic curve. Along with the point at infinity $\mathcal{O}$ (which we are still yet to define), the set of points over $\mathbb{Q}$ is written as $E(\mathbb{Q})$, and is defined as $E(\mathbb{Q}) = \{(x, y) \in \mathbb{A}^2(\mathbb{Q}): y^2 = x^3 - 2\} \cup \{\mathcal{O}\}$. The point $P = (x_P, y_P) = (3, 5)$ lies in $E(\mathbb{Q})$, as do $Q = (x_Q, y_Q) = \left(\frac{129}{100}, -\frac{383}{1000}\right)$ and $R = (x_R, y_R) = \left(\frac{164323}{29241}, -\frac{66234835}{5000211}\right)$, so we can write $P, Q, R \in E(\mathbb{Q})$. We usually write $E$ to represent the group of points over the full algebraic closure, so for example, the point $S = (x_S, y_S) = \left(0, \sqrt{-2}\right) \in E = E(\bar{\mathbb{Q}})$, but $S \not\in E(\mathbb{Q})$.</p>
+
+<p>Soon we will be defining the binary group operation $\oplus$ on $E$ using rational formulas in the underlying field, so an active reader can return to this example with these formulas to verify that $R = P \oplus Q$, where $x_R, y_R$ are computed from $x_P, y_P, x_Q, y_Q$ using additions and multiplications (also subtractions and inversions) in $\mathbb{Q}$. Furthermore, it can also be verified that $Q = P \oplus P$, so that $R = P \oplus P \oplus P$; we usually write these as $Q = [2]P$ and $R = [3]P$, where $\underbrace{P \oplus P \cdots \oplus P}_{n} = [n]P$ in general. To finish this example, we remark that if $(x', y') \in E$, then $(x', -y') \in E$ (but is not distinct if $y' = 0$), which is true for any elliptic curve in short Weierstrass form.</p>
+
+<blockquote>$E/\mathbb{Q}: y^2 = x^3 - 2$ 是一条椭圆曲线。连同无穷远点 $\mathcal{O}$（我们还没定义），$\mathbb{Q}$ 上的点集记作 $E(\mathbb{Q})$。点 $P = (3, 5)$、$Q = \left(\frac{129}{100}, -\frac{383}{1000}\right)$ 和 $R = \left(\frac{164323}{29241}, -\frac{66234835}{5000211}\right)$ 都在 $E(\mathbb{Q})$ 上。我们很快会定义群运算 $\oplus$，读者可以验证 $R = P \oplus Q$，且 $Q = [2]P$，$R = [3]P$。另外，如果 $(x', y') \in E$，那么 $(x', -y') \in E$（除非 $y' = 0$）。</blockquote>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.0.2</span> (Magma script). $E/\mathbb{F}_{11}: y^2 = x^3 + 4x + 3$ is an elliptic curve. $E(\mathbb{F}_{11})$ has 14 points: $(0, 5), (0, 6), (3, 3), (3, 8), (5, 4), (5, 7), (6, 1), (6, 10), (7, 0), (9, 3), (9, 8), (10, 3), (10, 8)$, not forgetting the point at infinity $\mathcal{O}$. Notice that all but two points come in pairs $(x', y')$ and $(x', -y')$, the exceptions being $(x', y') = (7, 0)$ (since $y' = -y' = 0$) and $\mathcal{O}$. If we form the <span class="vocab" data-tip="/kwɒˈdrætɪk ɪkˈstenʃn/ 二次扩域">quadratic extension</span> $\mathbb{F}_{q^2} = \mathbb{F}_q(i)$ with $i^2 + 1 = 0$, then considering $E$ over $\mathbb{F}_{q^2}$ will allow many more solutions, and give many more points: namely, $\#E(\mathbb{F}_{q^2}) = 140$. In addition to the points in $E(\mathbb{F}_q)$, $E(\mathbb{F}_{q^2})$ will also contain those points with $x$-coordinates in $\mathbb{F}_q$ that did not give $x^3 + 4x + 3$ as a <span class="vocab" data-tip="/kwɒˈdrætɪk ˈrezɪdjuː/ 二次剩余">quadratic residue</span> in $\mathbb{F}_q$ (but necessarily do in $\mathbb{F}_{q^2}$), and many more with both coordinates in $\mathbb{F}_{q^2} \setminus \mathbb{F}_q$. Examples of both such points are $(2, 5i)$ and $(2i + 10, 7i + 2)$ respectively. It is not a coincidence that $\#E(\mathbb{F}_q) \mid \#E(\mathbb{F}_{q^2})$, since $E(\mathbb{F}_q)$ is a subgroup of $E(\mathbb{F}_{q^2})$.</p>
+
+<blockquote>$E/\mathbb{F}_{11}: y^2 = x^3 + 4x + 3$ 是一条椭圆曲线。$E(\mathbb{F}_{11})$ 有 14 个点（别忘了无穷远点 $\mathcal{O}$）。除了两个例外，所有点都成对出现 $(x', y')$ 和 $(x', -y')$。例外是 $(7, 0)$（因为 $y' = -y' = 0$）和 $\mathcal{O}$。如果构造二次扩域 $\mathbb{F}_{q^2} = \mathbb{F}_q(i)$（$i^2 + 1 = 0$），在 $\mathbb{F}_{q^2}$ 上考虑 $E$ 会有更多点：$\#E(\mathbb{F}_{q^2}) = 140$。$\#E(\mathbb{F}_q) \mid \#E(\mathbb{F}_{q^2})$ 不是巧合，因为 $E(\mathbb{F}_q)$ 是 $E(\mathbb{F}_{q^2})$ 的子群。</blockquote>
+</div>
+
+<p>Not every <span class="vocab" data-tip="/ˈtjuːpl/ 元组">tuple</span> $(a, b) \in K \times K$ gives rise to the curve given by $f(x, y) = y^2 - (x^3 + ax + b) = 0$ being an elliptic curve. If there exists $P = (x_P, y_P)$ on $f$ such that both <span class="vocab" data-tip="/ˈpɑːʃl dɪˈrɪvətɪvz/ 偏导数">partial derivatives</span> $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ vanish simultaneously at $P$, then $P$ is called a <span class="vocab" data-tip="/ˈsɪŋɡjələ/ 奇异的">singular</span> point and $f$ is also deemed singular. Conversely, if no such point exists, $f$ is called <em>non-singular</em>, or <em>smooth</em>, and is then an elliptic curve. It is easy enough to show that a <span class="vocab" data-tip="/ˌsɪŋɡjuˈlærəti/ 奇点">singularity</span> occurs if and only if $4a^3 + 27b^2 = 0$ (see [Sil09, Ch. III.1, Prop. 1.4]), so as long as $4a^3 + 27b^2 \neq 0$ in $K$, then $E/K: y^2 = x^3 + ax + b$ is an elliptic curve.</p>
+
+<blockquote>不是每个元组 $(a, b) \in K \times K$ 都能使 $f(x, y) = y^2 - (x^3 + ax + b) = 0$ 成为椭圆曲线。如果存在 $f$ 上的点 $P = (x_P, y_P)$ 使得两个偏导数 $\frac{\partial f}{\partial x}$ 和 $\frac{\partial f}{\partial y}$ 在 $P$ 点同时为零，那么 $P$ 叫做奇异点，$f$ 也被称为奇异的。反之，如果不存在这样的点，$f$ 就叫做非奇异的或光滑的，这时它才是椭圆曲线。容易证明，奇点存在当且仅当 $4a^3 + 27b^2 = 0$，所以只要在 $K$ 中 $4a^3 + 27b^2 \neq 0$，$E/K: y^2 = x^3 + ax + b$ 就是椭圆曲线。</blockquote>
+
+<p>In cryptography we only ever <span class="vocab" data-tip="/ɪnˈstænʃieɪt/ 实例化">instantiate</span> elliptic curves defined over finite fields, but it is often conceptually helpful to view graphs of elliptic curves over $\mathbb{R}$. We illustrate the difference between singular and non-singular (smooth) elliptic curves in Figures 2.1-2.4.</p>
+
+<blockquote>在密码学中，我们只实例化定义在有限域上的椭圆曲线，但画出实数域 $\mathbb{R}$ 上椭圆曲线的图形往往有助于理解。图 2.1-2.4 展示了奇异曲线和非奇异（光滑）曲线的区别。</blockquote>
+
+<!-- Figures 2.1-2.4: Singular vs Smooth curves (mathematically accurate) -->
+<div class="figures-row">
+    <div class="figure-container">
+        <!-- Figure 2.1: y² = x³ - 3x + 2, node at (1,0) -->
+        <svg width="180" height="180" viewBox="-120 -120 240 240">
+            <!-- Axes -->
+            <line x1="-110" y1="0" x2="130" y2="0" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="0" y1="-110" x2="0" y2="110" stroke="#ccc" stroke-width="1.5"/>
+            <!-- Left branch upper: x from -2 to 1 -->
+            <path d="M -100.00 -0.00 L -96.25 -40.05 L -92.50 -55.19 L -88.75 -65.81 L -85.00 -73.94 L -81.25 -80.37 L -77.50 -85.53 L -73.75 -89.67 L -70.00 -92.95 L -66.25 -95.51 L -62.50 -97.43 L -58.75 -98.78 L -55.00 -99.61 L -51.25 -99.98 L -47.50 -99.91 L -43.75 -99.44 L -40.00 -98.59 L -36.25 -97.39 L -32.50 -95.86 L -28.75 -94.01 L -25.00 -91.86 L -21.25 -89.42 L -17.50 -86.71 L -13.75 -83.73 L -10.00 -80.50 L -6.25 -77.02 L -2.50 -73.31 L 1.25 -69.37 L 5.00 -65.21 L 8.75 -60.84 L 12.50 -56.25 L 16.25 -51.46 L 20.00 -46.48 L 23.75 -41.30 L 27.50 -35.93 L 31.25 -30.38 L 35.00 -24.65 L 38.75 -18.74 L 42.50 -12.66 L 46.25 -6.41 L 50.00 -0.00" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+            <!-- Left branch lower -->
+            <path d="M -100.00 0.00 L -96.25 40.05 L -92.50 55.19 L -88.75 65.81 L -85.00 73.94 L -81.25 80.37 L -77.50 85.53 L -73.75 89.67 L -70.00 92.95 L -66.25 95.51 L -62.50 97.43 L -58.75 98.78 L -55.00 99.61 L -51.25 99.98 L -47.50 99.91 L -43.75 99.44 L -40.00 98.59 L -36.25 97.39 L -32.50 95.86 L -28.75 94.01 L -25.00 91.86 L -21.25 89.42 L -17.50 86.71 L -13.75 83.73 L -10.00 80.50 L -6.25 77.02 L -2.50 73.31 L 1.25 69.37 L 5.00 65.21 L 8.75 60.84 L 12.50 56.25 L 16.25 51.46 L 20.00 46.48 L 23.75 41.30 L 27.50 35.93 L 31.25 30.38 L 35.00 24.65 L 38.75 18.74 L 42.50 12.66 L 46.25 6.41 L 50.00 0.00" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+            <!-- Right branch upper -->
+            <path d="M 50.00 -0.00 L 53.75 -6.58 L 57.50 -13.31 L 61.25 -20.20 L 65.00 -27.25 L 68.75 -34.45 L 72.50 -41.79 L 76.25 -49.28 L 80.00 -56.92 L 83.75 -64.70 L 87.50 -72.62 L 91.25 -80.68 L 95.00 -88.87 L 98.75 -97.19 L 102.50 -105.65" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+            <!-- Right branch lower -->
+            <path d="M 50.00 0.00 L 53.75 6.58 L 57.50 13.31 L 61.25 20.20 L 65.00 27.25 L 68.75 34.45 L 72.50 41.79 L 76.25 49.28 L 80.00 56.92 L 83.75 64.70 L 87.50 72.62 L 91.25 80.68 L 95.00 88.87 L 98.75 97.19 L 102.50 105.65" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+            <!-- Node point -->
+            <circle cx="50" cy="0" r="5" fill="#dc2626"/>
+        </svg>
+        <div class="figure-caption">Figure 2.1: Singular curve<br>$y^2 = x^3 - 3x + 2$ (node)</div>
+    </div>
+    <div class="figure-container">
+        <!-- Figure 2.2: y² = x³, cusp at origin -->
+        <svg width="180" height="180" viewBox="-30 -120 180 240">
+            <!-- Axes -->
+            <line x1="-20" y1="0" x2="140" y2="0" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="0" y1="-110" x2="0" y2="110" stroke="#ccc" stroke-width="1.5"/>
+            <!-- Upper branch -->
+            <path d="M 0.00 -0.00 L 6.25 -6.25 L 12.50 -17.68 L 18.75 -32.48 L 25.00 -50.00 L 31.25 -69.88 L 37.50 -91.86 L 43.75 -115.75 L 50.00 -141.42" fill="none" stroke="#2563eb" stroke-width="2.5" transform="scale(0.8)"/>
+            <!-- Lower branch -->
+            <path d="M 0.00 0.00 L 6.25 6.25 L 12.50 17.68 L 18.75 32.48 L 25.00 50.00 L 31.25 69.88 L 37.50 91.86 L 43.75 115.75 L 50.00 141.42" fill="none" stroke="#2563eb" stroke-width="2.5" transform="scale(0.8)"/>
+            <!-- Cusp point -->
+            <circle cx="0" cy="0" r="5" fill="#dc2626"/>
+        </svg>
+        <div class="figure-caption">Figure 2.2: Singular curve<br>$y^2 = x^3$ (cusp)</div>
+    </div>
+</div>
+
+<div class="figures-row">
+    <div class="figure-container">
+        <!-- Figure 2.3: y² = x³ + x + 1 (smooth, single component) -->
+        <svg width="180" height="180" viewBox="-50 -120 170 240">
+            <!-- Axes -->
+            <line x1="-40" y1="0" x2="110" y2="0" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="0" y1="-110" x2="0" y2="110" stroke="#ccc" stroke-width="1.5"/>
+            <!-- Upper branch -->
+            <path d="M -34.12 0 L -30.77 -19.47 L -27.41 -26.78 L -24.06 -31.91 L -20.71 -35.87 L -17.36 -39.09 L -14.00 -41.77 L -10.65 -44.08 L -7.30 -46.12 L -3.94 -47.98 L -0.59 -49.70 L 2.76 -51.37 L 6.12 -53.01 L 9.47 -54.68 L 12.82 -56.42 L 16.18 -58.25 L 19.53 -60.21 L 22.88 -62.32 L 26.23 -64.60 L 29.59 -67.06 L 32.94 -69.73 L 36.29 -72.60 L 39.65 -75.69 L 43.00 -78.99 L 46.35 -82.52 L 49.71 -86.26 L 53.06 -90.22 L 56.41 -94.40 L 59.76 -98.78 L 63.12 -103.37" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+            <!-- Lower branch -->
+            <path d="M -34.12 0 L -30.77 19.47 L -27.41 26.78 L -24.06 31.91 L -20.71 35.87 L -17.36 39.09 L -14.00 41.77 L -10.65 44.08 L -7.30 46.12 L -3.94 47.98 L -0.59 49.70 L 2.76 51.37 L 6.12 53.01 L 9.47 54.68 L 12.82 56.42 L 16.18 58.25 L 19.53 60.21 L 22.88 62.32 L 26.23 64.60 L 29.59 67.06 L 32.94 69.73 L 36.29 72.60 L 39.65 75.69 L 43.00 78.99 L 46.35 82.52 L 49.71 86.26 L 53.06 90.22 L 56.41 94.40 L 59.76 98.78 L 63.12 103.37" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+        </svg>
+        <div class="figure-caption">Figure 2.3: Smooth curve<br>$y^2 = x^3 + x + 1$</div>
+    </div>
+    <div class="figure-container">
+        <!-- Figure 2.4: y² = x³ - x (smooth, two components) -->
+        <svg width="180" height="180" viewBox="-70 -100 180 200">
+            <!-- Axes -->
+            <line x1="-60" y1="0" x2="100" y2="0" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="0" y1="-90" x2="0" y2="90" stroke="#ccc" stroke-width="1.5"/>
+            <!-- Oval (closed loop from x=-1 to x=0) -->
+            <path d="M -50.00 0 L -48.75 -10.97 L -47.50 -15.22 L -46.25 -18.27 L -45.00 -20.68 L -43.75 -22.64 L -42.50 -24.28 L -41.25 -25.67 L -40.00 -26.83 L -38.75 -27.82 L -37.50 -28.64 L -36.25 -29.32 L -35.00 -29.87 L -33.75 -30.31 L -32.50 -30.63 L -31.25 -30.86 L -30.00 -30.98 L -28.75 -31.02 L -27.50 -30.97 L -26.25 -30.83 L -25.00 -30.62 L -23.75 -30.32 L -22.50 -29.95 L -21.25 -29.51 L -20.00 -28.98 L -18.75 -28.38 L -17.50 -27.71 L -16.25 -26.96 L -15.00 -26.12 L -13.75 -25.21 L -12.50 -24.21 L -11.25 -23.11 L -10.00 -21.91 L -8.75 -20.59 L -7.50 -19.15 L -6.25 -17.54 L -5.00 -15.73 L -3.75 -13.65 L -2.50 -11.17 L -1.25 -7.90 L 0.00 0 L -1.25 7.90 L -2.50 11.17 L -3.75 13.65 L -5.00 15.73 L -6.25 17.54 L -7.50 19.15 L -8.75 20.59 L -10.00 21.91 L -11.25 23.11 L -12.50 24.21 L -13.75 25.21 L -15.00 26.12 L -16.25 26.96 L -17.50 27.71 L -18.75 28.38 L -20.00 28.98 L -21.25 29.51 L -22.50 29.95 L -23.75 30.32 L -25.00 30.62 L -26.25 30.83 L -27.50 30.97 L -28.75 31.02 L -30.00 30.98 L -31.25 30.86 L -32.50 30.63 L -33.75 30.31 L -35.00 29.87 L -36.25 29.32 L -37.50 28.64 L -38.75 27.82 L -40.00 26.83 L -41.25 25.67 L -42.50 24.28 L -43.75 22.64 L -45.00 20.68 L -46.25 18.27 L -47.50 15.22 L -48.75 10.97 L -50.00 0 Z" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+            <!-- Right branch upper -->
+            <path d="M 50.00 0 L 51.25 -11.39 L 52.50 -16.40 L 53.75 -20.45 L 55.00 -24.03 L 56.25 -27.33 L 57.50 -30.45 L 58.75 -33.44 L 60.00 -36.33 L 61.25 -39.16 L 62.50 -41.93 L 63.75 -44.66 L 65.00 -47.36 L 66.25 -50.03 L 67.50 -52.69 L 68.75 -55.33 L 70.00 -57.97 L 71.25 -60.59 L 72.50 -63.22 L 73.75 -65.84 L 75.00 -68.47 L 76.25 -71.09 L 77.50 -73.72 L 78.75 -76.35 L 80.00 -78.99 L 81.25 -81.64 L 82.50 -84.29 L 83.75 -86.95" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+            <!-- Right branch lower -->
+            <path d="M 50.00 0 L 51.25 11.39 L 52.50 16.40 L 53.75 20.45 L 55.00 24.03 L 56.25 27.33 L 57.50 30.45 L 58.75 33.44 L 60.00 36.33 L 61.25 39.16 L 62.50 41.93 L 63.75 44.66 L 65.00 47.36 L 66.25 50.03 L 67.50 52.69 L 68.75 55.33 L 70.00 57.97 L 71.25 60.59 L 72.50 63.22 L 73.75 65.84 L 75.00 68.47 L 76.25 71.09 L 77.50 73.72 L 78.75 76.35 L 80.00 78.99 L 81.25 81.64 L 82.50 84.29 L 83.75 86.95" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+        </svg>
+        <div class="figure-caption">Figure 2.4: Smooth curve<br>$y^2 = x^3 - x$</div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-links">
+    <span></span>
+    <a href="2_1.html">Next: 2.1 The group law →</a>
+</div>
+
+</body>
+</html>

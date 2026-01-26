@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2 - Elliptic curves as cryptographic groups (Full)</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: 'ams'
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        h1 { font-size: 2em; margin-bottom: 0.3em; font-weight: bold; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 1.5em; margin-bottom: 0.8em; font-weight: bold; text-align: center; }
+        h3 { font-size: 1.3em; margin-top: 1.5em; margin-bottom: 0.8em; font-weight: bold; }
+        h4 { font-size: 1.1em; margin-top: 1.2em; margin-bottom: 0.6em; font-weight: bold; }
+        p { text-align: justify; margin-bottom: 1em; }
+        .equation { text-align: center; margin: 1.2em 0; }
+        .example {
+            background: #f8f8f8;
+            padding: 1em 1.2em;
+            margin: 1.2em 0;
+            border-left: 3px solid #666;
+        }
+        .example-title { font-weight: bold; font-style: italic; }
+        blockquote {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f0f7ff;
+            border-left: 4px solid #4a90d9;
+            margin: 0.8em 0 1.2em 0;
+            padding: 0.8em 1em;
+            color: #444;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        .vocab {
+            border-bottom: 2px dashed #e74c3c;
+            cursor: help;
+            position: relative;
+        }
+        .vocab:hover { background-color: #fff3cd; }
+        .vocab:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: "PingFang SC", sans-serif;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+        .page-marker {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            margin: 2em 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 0.5em;
+        }
+        .figure-container {
+            text-align: center;
+            margin: 1.5em 0;
+        }
+        .figure-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .figure-caption {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 0.5em;
+            font-style: italic;
+        }
+        .figures-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1em;
+            margin: 1.5em 0;
+        }
+        .figures-row .figure-container {
+            flex: 1;
+            min-width: 200px;
+            max-width: 350px;
+        }
+        sup { font-size: 0.75em; }
+        .footnote { font-size: 0.85em; color: #666; margin-top: 2em; border-top: 1px solid #ccc; padding-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page-marker">Page 5 (PDF page 1)</div>
+
+<h1>Chapter 2</h1>
+<h2>Elliptic curves as <span class="vocab" data-tip="密码学的">cryptographic</span> groups</h2>
+
+<p>The purpose of this chapter is to introduce <span class="vocab" data-tip="椭圆的">elliptic</span> curves as they are used in <span class="vocab" data-tip="密码学">cryptography</span>. Put simply, an elliptic curve is an abstract type of <em>group</em>.</p>
+
+<blockquote>这章要讲椭圆曲线在密码学中的应用。简单说，椭圆曲线就是一种抽象的群。</blockquote>
+
+<p>Perhaps a newcomer will find this <span class="vocab" data-tip="抽象性">abstractness</span> apparent immediately when we insist that to understand elliptic curve groups in cryptography, the reader should be familiar with the basics of finite fields $\mathbb{F}_q$. This is because, more generally, elliptic curves are groups which are defined on top of (over) fields. Even though elliptic curve groups permit only one binary operation (the so called <em>group law</em>), the operation itself is computed within the underlying field, which by definition permits two operations (and their inverses). For a general field $K$, the group elements of an elliptic curve $E$ are points whose $(x, y)$ coordinates come from $\bar{K}$ (the <span class="vocab" data-tip="代数闭包">algebraic closure</span> of $K$), and which satisfy the (<span class="vocab" data-tip="仿射的">affine</span>) curve equation for $E$, given as</p>
+
+<blockquote>新手可能马上就会觉得这很抽象——我们要求读者先熟悉有限域 $\mathbb{F}_q$ 的基础。因为椭圆曲线是定义在域上的群。虽然椭圆曲线群只有一种运算（群律），但这个运算是在底层的域里完成的，而域有两种运算。对于一般的域 $K$，椭圆曲线 $E$ 的群元素是坐标 $(x, y)$ 来自 $\bar{K}$（$K$ 的代数闭包）的点，满足 $E$ 的仿射曲线方程：</blockquote>
+
+<div class="equation">
+$$E: y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6, \tag{2.1}$$
+</div>
+
+<p>where $a_1, \ldots, a_6 \in K$. Equation (2.1) is called the <em>general <span class="vocab" data-tip="维尔斯特拉斯">Weierstrass</span> equation</em> for elliptic curves. Aside from all the $(x, y) \in \bar{K}$ solutions to the equation above, there is one extra point which can not be defined using the affine equation, but which must be included to complete the group definition. This point is called the <em>point at <span class="vocab" data-tip="无穷">infinity</span></em>, which we denote by $\mathcal{O}$, and we will define it properly in a moment.</p>
+
+<blockquote>其中 $a_1, \ldots, a_6 \in K$。方程 (2.1) 叫做椭圆曲线的"一般 Weierstrass 方程"。除了满足上式的 $(x, y) \in \bar{K}$ 解之外，还有一个特殊的点没法用仿射方程定义，但必须加进来才能完成群的定义。这个点叫"无穷远点"，记作 $\mathcal{O}$。</blockquote>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page-marker">Page 6 (PDF page 2)</div>
+
+<p>If $a_1, \ldots, a_6 \in K$, then we say $E$ is <em>defined over</em> $K$, and write this as $E/K$ (the same goes for any extension field $L$ of $K$). Before we go any further, we make a convenient <span class="vocab" data-tip="简化">simplification</span> of the general Weierstrass equation. If the field <span class="vocab" data-tip="特征">characteristic</span> is not 2 or 3, then divisions by 2 and 3 in $K$ permit the substitutions $y \mapsto (y - a_1 x - a_3)/2$ to give $E: y^2 = 4x^3 + b_2 x^2 + 2b_4 x + b_6$, and then $(x, y) \mapsto \left(\frac{x - 3b_2}{36}, \frac{y}{108}\right)$, which (upon appropriate rescaling) yields the following simplified equation.</p>
+
+<blockquote>如果 $a_1, \ldots, a_6 \in K$，我们说 $E$"定义在 $K$ 上"，写作 $E/K$。在继续之前，我们简化一下一般 Weierstrass 方程。如果域的特征不是 2 或 3，可以做变量替换得到简化方程：</blockquote>
+
+<div class="equation">
+$$E: y^2 = x^3 + ax + b. \tag{2.2}$$
+</div>
+
+<p>Equation (2.2) is called the <em>short Weierstrass equation</em> for elliptic curves, and will be used all the way through this text. Namely, we will always be working over large prime fields, where the short Weierstrass equation covers all possible <span class="vocab" data-tip="同构">isomorphism</span> classes of elliptic curves, so the curves we use will always be an instance of (2.2).</p>
+
+<blockquote>方程 (2.2) 叫做"短 Weierstrass 方程"，全文都用这个形式。我们一直在大素数域上工作，短 Weierstrass 方程能覆盖所有同构类。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.0.1</span> (Magma script). $E/\mathbb{Q}: y^2 = x^3 - 2$ is an elliptic curve. Along with the point at infinity $\mathcal{O}$ (which we are still yet to define), the set of points over $\mathbb{Q}$ is written as $E(\mathbb{Q})$, and is defined as $E(\mathbb{Q}) = \{(x, y) \in \mathbb{A}^2(\mathbb{Q}): y^2 = x^3 - 2\} \cup \{\mathcal{O}\}$. The point $P = (x_P, y_P) = (3, 5)$ lies in $E(\mathbb{Q})$, as do $Q = (x_Q, y_Q) = \left(\frac{129}{100}, -\frac{383}{1000}\right)$ and $R = (x_R, y_R) = \left(\frac{164323}{29241}, -\frac{66234835}{5000211}\right)$, so we can write $P, Q, R \in E(\mathbb{Q})$. We usually write $E$ to represent the group of points over the full algebraic closure, so for example, the point $S = (x_S, y_S) = \left(0, \sqrt{-2}\right) \in E = E(\bar{\mathbb{Q}})$, but $S \not\in E(\mathbb{Q})$.</p>
+
+<p>Soon we will be defining the binary group operation $\oplus$ on $E$ using rational formulas in the underlying field, so an active reader can return to this example with these formulas to verify that $R = P \oplus Q$, where $x_R, y_R$ are computed from $x_P, y_P, x_Q, y_Q$ using additions and multiplications (also subtractions and inversions) in $\mathbb{Q}$. Furthermore, it can also be verified that $Q = P \oplus P$, so that $R = P \oplus P \oplus P$; we usually write these as $Q = [2]P$ and $R = [3]P$, where $\underbrace{P \oplus P \cdots \oplus P}_{n} = [n]P$ in general. To finish this example, we remark that if $(x', y') \in E$, then $(x', -y') \in E$ (but is not distinct if $y' = 0$), which is true for any elliptic curve in short Weierstrass form.</p>
+
+<blockquote>$E/\mathbb{Q}: y^2 = x^3 - 2$ 是椭圆曲线。$P = (3, 5)$、$Q$、$R$ 都在 $E(\mathbb{Q})$ 上。可以验证 $R = P \oplus Q$，且 $Q = [2]P$，所以 $R = [3]P$。另外，如果 $(x', y') \in E$，那么 $(x', -y') \in E$（除非 $y' = 0$）。</blockquote>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.0.2</span> (Magma script). $E/\mathbb{F}_{11}: y^2 = x^3 + 4x + 3$ is an elliptic curve. $E(\mathbb{F}_{11})$ has 14 points: $(0, 5), (0, 6), (3, 3), (3, 8), (5, 4), (5, 7), (6, 1), (6, 10), (7, 0), (9, 3), (9, 8), (10, 3), (10, 8)$, not forgetting the point at infinity $\mathcal{O}$. Notice that all</p>
+
+<blockquote>$E/\mathbb{F}_{11}: y^2 = x^3 + 4x + 3$ 是椭圆曲线，$E(\mathbb{F}_{11})$ 有 14 个点（别忘了 $\mathcal{O}$）。</blockquote>
+</div>
+
+<!-- ==================== PAGE 3 ==================== -->
+<div class="page-marker">Page 7 (PDF page 3)</div>
+
+<p>but two points come in pairs $(x', y')$ and $(x', -y')$, the exceptions being $(x', y') = (7, 0)$ (since $y' = -y' = 0$) and $\mathcal{O}$. If we form the quadratic extension $\mathbb{F}_{q^2} = \mathbb{F}_q(i)$ with $i^2 + 1 = 0$, then considering $E$ over $\mathbb{F}_{q^2}$ will allow many more solutions, and give many more points: namely, $\#E(\mathbb{F}_{q^2}) = 140$. In addition to the points in $E(\mathbb{F}_q)$, $E(\mathbb{F}_{q^2})$ will also contain those points with $x$-coordinates in $\mathbb{F}_q$ that did not give $x^3 + 4x + 3$ as a quadratic residue in $\mathbb{F}_q$ (but necessarily do in $\mathbb{F}_{q^2}$), and many more with both coordinates in $\mathbb{F}_{q^2} \setminus \mathbb{F}_q$. Examples of both such points are $(2, 5i)$ and $(2i + 10, 7i + 2)$ respectively. It is not a coincidence that $\#E(\mathbb{F}_q) \mid \#E(\mathbb{F}_{q^2})$, since $E(\mathbb{F}_q)$ is a subgroup of $E(\mathbb{F}_{q^2})$.</p>
+
+<blockquote>除了两个例外（$(7, 0)$ 和 $\mathcal{O}$），其他点都成对出现 $(x', y')$ 和 $(x', -y')$。如果扩展到 $\mathbb{F}_{q^2}$，就有更多点：$\#E(\mathbb{F}_{q^2}) = 140$。$E(\mathbb{F}_q)$ 是 $E(\mathbb{F}_{q^2})$ 的子群。</blockquote>
+
+<p>Not every tuple $(a, b) \in K \times K$ gives rise to the curve given by $f(x, y) = y^2 - (x^3 + ax + b) = 0$ being an elliptic curve. If there exists $P = (x_P, y_P)$ on $f$ such that both partial derivatives $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ vanish simultaneously at $P$, then $P$ is called a <span class="vocab" data-tip="奇异的">singular</span> point and $f$ is also deemed singular. Conversely, if no such point exists, $f$ is called <em>non-singular</em>, or <em>smooth</em>, and is then an elliptic curve. It is easy enough to show that a <span class="vocab" data-tip="奇点">singularity</span> occurs if and only if $4a^3 + 27b^2 = 0$ (see [Sil09, Ch. III.1, Prop. 1.4]), so as long as $4a^3 + 27b^2 \neq 0$ in $K$, then $E/K: y^2 = x^3 + ax + b$ is an elliptic curve.</p>
+
+<blockquote>不是任意 $(a, b)$ 都能给出椭圆曲线。如果存在奇异点（两个偏导数同时为零），曲线就是奇异的。当且仅当 $4a^3 + 27b^2 = 0$ 时才有奇点。</blockquote>
+
+<p>In cryptography we only ever <span class="vocab" data-tip="实例化">instantiate</span> elliptic curves defined over finite fields, but it is often conceptually helpful to view graphs of elliptic curves over $\mathbb{R}$. We illustrate the difference between singular and non-singular (smooth) elliptic curves in Figures 2.1-2.4.</p>
+
+<blockquote>密码学中只用有限域上的椭圆曲线，但画实数域上的曲线有助于理解。图 2.1-2.4 展示了奇异和光滑曲线的区别。</blockquote>
+
+<!-- Figures 2.1-2.4: Singular vs Smooth curves -->
+<div class="figures-row">
+    <div class="figure-container">
+        <svg width="180" height="180" viewBox="-3 -3 6 6">
+            <defs>
+                <clipPath id="clip1">
+                    <rect x="-3" y="-3" width="6" height="6"/>
+                </clipPath>
+            </defs>
+            <g clip-path="url(#clip1)">
+                <!-- Axes -->
+                <line x1="-3" y1="0" x2="3" y2="0" stroke="#ccc" stroke-width="0.02"/>
+                <line x1="0" y1="-3" x2="0" y2="3" stroke="#ccc" stroke-width="0.02"/>
+                <!-- y² = x³ - 3x + 2 = (x-1)²(x+2) - singular at (1,0) -->
+                <!-- Upper branch -->
+                <path d="M -2 0 Q -1.5 1.8 -1 1.41 Q 0 1.5 1 0" fill="none" stroke="#2563eb" stroke-width="0.05"/>
+                <!-- Lower branch -->
+                <path d="M -2 0 Q -1.5 -1.8 -1 -1.41 Q 0 -1.5 1 0" fill="none" stroke="#2563eb" stroke-width="0.05"/>
+                <!-- Right branch upper -->
+                <path d="M 1 0 Q 1.5 0.8 2 1.73 Q 2.5 2.5 3 3.5" fill="none" stroke="#2563eb" stroke-width="0.05"/>
+                <!-- Right branch lower -->
+                <path d="M 1 0 Q 1.5 -0.8 2 -1.73 Q 2.5 -2.5 3 -3.5" fill="none" stroke="#2563eb" stroke-width="0.05"/>
+                <!-- Singular point -->
+                <circle cx="1" cy="0" r="0.1" fill="red"/>
+            </g>
+        </svg>
+        <div class="figure-caption">Figure 2.1: Singular curve $y^2 = x^3 - 3x + 2$ over $\mathbb{R}$ (node at $(1,0)$)</div>
+    </div>
+    <div class="figure-container">
+        <svg width="180" height="180" viewBox="-2 -2.5 4 5">
+            <defs>
+                <clipPath id="clip2">
+                    <rect x="-2" y="-2.5" width="4" height="5"/>
+                </clipPath>
+            </defs>
+            <g clip-path="url(#clip2)">
+                <!-- Axes -->
+                <line x1="-2" y1="0" x2="2" y2="0" stroke="#ccc" stroke-width="0.02"/>
+                <line x1="0" y1="-2.5" x2="0" y2="2.5" stroke="#ccc" stroke-width="0.02"/>
+                <!-- y² = x³ - cusp at origin -->
+                <path d="M 0 0 Q 0.5 0.35 1 1 Q 1.5 1.84 2 2.83" fill="none" stroke="#2563eb" stroke-width="0.05"/>
+                <path d="M 0 0 Q 0.5 -0.35 1 -1 Q 1.5 -1.84 2 -2.83" fill="none" stroke="#2563eb" stroke-width="0.05"/>
+                <!-- Singular point (cusp) -->
+                <circle cx="0" cy="0" r="0.1" fill="red"/>
+            </g>
+        </svg>
+        <div class="figure-caption">Figure 2.2: Singular curve $y^2 = x^3$ over $\mathbb{R}$ (cusp at origin)</div>
+    </div>
+</div>
+
+<div class="figures-row">
+    <div class="figure-container">
+        <svg width="180" height="180" viewBox="-2 -3 4 6">
+            <defs>
+                <clipPath id="clip3">
+                    <rect x="-2" y="-3" width="4" height="6"/>
+                </clipPath>
+            </defs>
+            <g clip-path="url(#clip3)">
+                <!-- Axes -->
+                <line x1="-2" y1="0" x2="2" y2="0" stroke="#ccc" stroke-width="0.02"/>
+                <line x1="0" y1="-3" x2="0" y2="3" stroke="#ccc" stroke-width="0.02"/>
+                <!-- y² = x³ + x + 1 - smooth, one component -->
+                <path d="M -0.68 0 Q -0.3 0.9 0 1 Q 0.5 1.22 1 1.73 Q 1.5 2.4 2 3.2" fill="none" stroke="#16a34a" stroke-width="0.05"/>
+                <path d="M -0.68 0 Q -0.3 -0.9 0 -1 Q 0.5 -1.22 1 -1.73 Q 1.5 -2.4 2 -3.2" fill="none" stroke="#16a34a" stroke-width="0.05"/>
+            </g>
+        </svg>
+        <div class="figure-caption">Figure 2.3: Smooth curve $y^2 = x^3 + x + 1$ over $\mathbb{R}$</div>
+    </div>
+    <div class="figure-container">
+        <svg width="180" height="180" viewBox="-2 -2 4 4">
+            <defs>
+                <clipPath id="clip4">
+                    <rect x="-2" y="-2" width="4" height="4"/>
+                </clipPath>
+            </defs>
+            <g clip-path="url(#clip4)">
+                <!-- Axes -->
+                <line x1="-2" y1="0" x2="2" y2="0" stroke="#ccc" stroke-width="0.02"/>
+                <line x1="0" y1="-2" x2="0" y2="2" stroke="#ccc" stroke-width="0.02"/>
+                <!-- y² = x³ - x = x(x-1)(x+1) - smooth, two components -->
+                <!-- Left oval -->
+                <ellipse cx="-0.5" cy="0" rx="0.5" ry="0.35" fill="none" stroke="#16a34a" stroke-width="0.05"/>
+                <!-- Right branch -->
+                <path d="M 1 0 Q 1.3 0.7 1.5 1.06 Q 1.8 1.5 2 1.9" fill="none" stroke="#16a34a" stroke-width="0.05"/>
+                <path d="M 1 0 Q 1.3 -0.7 1.5 -1.06 Q 1.8 -1.5 2 -1.9" fill="none" stroke="#16a34a" stroke-width="0.05"/>
+            </g>
+        </svg>
+        <div class="figure-caption">Figure 2.4: Smooth curve $y^2 = x^3 - x$ over $\mathbb{R}$</div>
+    </div>
+</div>
+
+<!-- ==================== PAGE 4 ==================== -->
+<div class="page-marker">Page 8 (PDF page 4)</div>
+
+<h3>2.1 The group law: the chord-and-tangent rule</h3>
+
+<p>We now turn to describing the elliptic curve group law, and it is here that viewing pictures of elliptic curves over $\mathbb{R}$ is especially <span class="vocab" data-tip="有教育意义的">instructive</span>. We start with a less formal description until we define the role of the point at infinity $\mathcal{O}$. The group law exploits the fact that, over any field, a line (a degree one equation in $x$ and $y$) intersects a <span class="vocab" data-tip="三次的">cubic</span> curve (a degree three equation in $x$ and $y$) in three places (this is a special case of a more general theorem due to <span class="vocab" data-tip="贝祖">Bezout</span> [Har77, I.7.8]). Namely, if we run a line $\ell: y = \lambda x + \nu$ between two points $P = (x_P, y_P)$ and $Q = (x_Q, y_Q)$ on $E$, then substituting this line into $E: y^2 = x^3 + ax + b$ will give a cubic <span class="vocab" data-tip="多项式">polynomial</span> in $x$, the roots of which are the $x$-coordinates of the three points of intersection between $\ell$ and $E$. Knowing the two roots ($x_P$ and $x_Q$) allows us to determine a unique third root that corresponds to the third and only other point in the affine intersection $\ell \cap E$, which we denote by $\ominus R$ (the reason will become clear in a moment). The point $\ominus R$ is then "flipped" over the $x$-axis to the point $R$. In general, the elliptic curve composition law $\oplus$ is defined by this process, namely $R = P \oplus Q$. When computing $R = P \oplus P$, the line $\ell$ is computed as the tangent to $E$ at $P$. That is, the <span class="vocab" data-tip="导数">derivatives</span> of $\ell$ and $E$ are matched at $P$, so (counting <span class="vocab" data-tip="重数">multiplicities</span>) $\ell$ intersects $E$ "twice" at $P$. Figures 2.5 and 2.6 illustrate why this process is aptly named the <em>chord-and-tangent rule</em>.</p>
+
+<blockquote>现在来讲椭圆曲线的群律。直线和三次曲线相交于三个点（Bezout 定理的特例）。如果在 $E$ 上的两点 $P$ 和 $Q$ 之间画直线 $\ell$，代入曲线方程得到关于 $x$ 的三次多项式，已知两个根就能求出第三个根。第三个交点记作 $\ominus R$，关于 $x$ 轴翻转得到 $R = P \oplus Q$。当计算 $P \oplus P$ 时，直线是 $E$ 在 $P$ 点的切线。</blockquote>
+
+<!-- Figures 2.5-2.6: Addition and Doubling -->
+<div class="figures-row">
+    <div class="figure-container">
+        <svg width="220" height="200" viewBox="-2.5 -2.5 5 5">
+            <defs>
+                <clipPath id="clip5">
+                    <rect x="-2.5" y="-2.5" width="5" height="5"/>
+                </clipPath>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+                </marker>
+            </defs>
+            <g clip-path="url(#clip5)">
+                <!-- Axes -->
+                <line x1="-2.5" y1="0" x2="2.5" y2="0" stroke="#ddd" stroke-width="0.02"/>
+                <line x1="0" y1="-2.5" x2="0" y2="2.5" stroke="#ddd" stroke-width="0.02"/>
+                <!-- Curve y² = x³ - x + 1 approximation -->
+                <path d="M -1.3 0 Q -0.8 1.2 0 1.4 Q 1 1.5 2 2.5" fill="none" stroke="#16a34a" stroke-width="0.04"/>
+                <path d="M -1.3 0 Q -0.8 -1.2 0 -1.4 Q 1 -1.5 2 -2.5" fill="none" stroke="#16a34a" stroke-width="0.04"/>
+                <!-- Line through P and Q -->
+                <line x1="-1.8" y1="-0.9" x2="2.2" y2="1.9" stroke="#e74c3c" stroke-width="0.03"/>
+                <!-- Points -->
+                <circle cx="-1" cy="-0.5" r="0.1" fill="#2563eb"/>
+                <text x="-1.3" y="-0.7" font-size="0.3" fill="#2563eb">P</text>
+                <circle cx="0.5" cy="0.55" r="0.1" fill="#2563eb"/>
+                <text x="0.7" y="0.5" font-size="0.3" fill="#2563eb">Q</text>
+                <circle cx="1.5" cy="1.2" r="0.1" fill="#f59e0b"/>
+                <text x="1.7" y="1.4" font-size="0.3" fill="#f59e0b">⊖R</text>
+                <!-- Dashed vertical line -->
+                <line x1="1.5" y1="1.2" x2="1.5" y2="-1.2" stroke="#666" stroke-width="0.02" stroke-dasharray="0.1,0.05"/>
+                <circle cx="1.5" cy="-1.2" r="0.1" fill="#dc2626"/>
+                <text x="1.05" y="-1.35" font-size="0.28" fill="#dc2626">R = P⊕Q</text>
+                <!-- Label for line -->
+                <text x="-1.5" y="-1.2" font-size="0.25" fill="#e74c3c">ℓ</text>
+            </g>
+        </svg>
+        <div class="figure-caption">Figure 2.5: Elliptic curve addition</div>
+    </div>
+    <div class="figure-container">
+        <svg width="220" height="200" viewBox="-2.5 -2.5 5 5">
+            <defs>
+                <clipPath id="clip6">
+                    <rect x="-2.5" y="-2.5" width="5" height="5"/>
+                </clipPath>
+            </defs>
+            <g clip-path="url(#clip6)">
+                <!-- Axes -->
+                <line x1="-2.5" y1="0" x2="2.5" y2="0" stroke="#ddd" stroke-width="0.02"/>
+                <line x1="0" y1="-2.5" x2="0" y2="2.5" stroke="#ddd" stroke-width="0.02"/>
+                <!-- Curve -->
+                <path d="M -1.3 0 Q -0.8 1.2 0 1.4 Q 1 1.5 2 2.5" fill="none" stroke="#16a34a" stroke-width="0.04"/>
+                <path d="M -1.3 0 Q -0.8 -1.2 0 -1.4 Q 1 -1.5 2 -2.5" fill="none" stroke="#16a34a" stroke-width="0.04"/>
+                <!-- Tangent line at P -->
+                <line x1="-2" y1="0.4" x2="2.2" y2="1.8" stroke="#e74c3c" stroke-width="0.03"/>
+                <!-- Point P (with tangent) -->
+                <circle cx="-0.5" cy="0.8" r="0.1" fill="#2563eb"/>
+                <text x="-0.8" y="0.6" font-size="0.3" fill="#2563eb">P</text>
+                <!-- Third intersection -->
+                <circle cx="1.4" cy="1.43" r="0.1" fill="#f59e0b"/>
+                <text x="1.6" y="1.6" font-size="0.3" fill="#f59e0b">⊖R</text>
+                <!-- Dashed vertical line -->
+                <line x1="1.4" y1="1.43" x2="1.4" y2="-1.43" stroke="#666" stroke-width="0.02" stroke-dasharray="0.1,0.05"/>
+                <circle cx="1.4" cy="-1.43" r="0.1" fill="#dc2626"/>
+                <text x="0.85" y="-1.6" font-size="0.28" fill="#dc2626">R = P⊕P</text>
+                <!-- Label -->
+                <text x="-1.7" y="0.2" font-size="0.25" fill="#e74c3c">ℓ</text>
+            </g>
+        </svg>
+        <div class="figure-caption">Figure 2.6: Elliptic curve doubling</div>
+    </div>
+</div>
+
+<!-- ==================== PAGE 5 ==================== -->
+<div class="page-marker">Page 9 (PDF page 5)</div>
+
+<p>Having loosely defined the general group operation, we can now (also loosely) define the role of the point at infinity $\mathcal{O}$. To try and place it somewhere in the above diagrams, one can think of $\mathcal{O}$ as being a point that simultaneously sits infinitely high and infinitely low in the $y$ direction. This allows us to informally <span class="vocab" data-tip="概念化">conceptualise</span> two properties of elliptic curve groups: firstly, that the point at infinity $\mathcal{O}$ plays the role of the <em>identity</em> of the group; and secondly, that the unique inverse of a point is its reflected image over the $x$-axis (e.g. the $\ominus R$'s in Figures 2.5 and 2.6 are the respective inverses of the $R$'s, and vice versa). If we apply the process in the previous paragraph to compute $R \oplus (\ominus R)$, we start by finding the vertical line that connects them (the dashed lines in Figures 2.5 and 2.6). This line also intersects $E$ (twice) at the point at infinity $\mathcal{O}$, which is then reflected back onto itself, giving $R \oplus (\ominus R) = \mathcal{O}$. Thus, if we define the identity of the group to be $\mathcal{O}$, then the inverse of any element $R = (x_R, y_R)$ is taken as $\ominus R = (x_R, -y_R)$.</p>
+
+<blockquote>无穷远点 $\mathcal{O}$ 可以想象成在 $y$ 方向上同时无穷高和无穷低的点。这让我们直观理解两个性质：$\mathcal{O}$ 是单位元；点的逆元是它关于 $x$ 轴的镜像。$R \oplus (\ominus R) = \mathcal{O}$，所以 $(x_R, y_R)$ 的逆元是 $(x_R, -y_R)$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.1.1</span> (Magma script). $E/\mathbb{R}: y^2 = x^3 - 2x$ is an elliptic curve. The points $(-1, -1)$, $(0, 0)$ and $(2, 2)$ are all on $E$, and are also on the line $\ell: y = x$. Applying the technique described above to compute some example group law operations via the line $\ell$, we have $(-1, -1) \oplus (0, 0) = (2, -2)$, $(2, 2) \oplus (0, 0) = (-1, 1)$, and $(-1, -1) \oplus (2, 2) = (0, 0)$. All but four points come in pairs with their inverse (i.e. $(x', y')$ and $(x', -y')$); the exceptions being $(0, 0)$, $(\sqrt{2}, 0)$, $(-\sqrt{2}, 0)$ (notice the vertical tangents when $y = 0$ in these cases), and $\mathcal{O}$, which are all their own inverse, e.g. $(0, 0) = \ominus(0, 0)$, so $(0, 0) \oplus (0, 0) = \mathcal{O}$ on $E$. The tangent line $\ell'$ to $E$ at $(-1, -1)$ is $\ell': y = -\frac{1}{2}x - \frac{3}{2}$, and it intersects $E$ once more at $\left(\frac{9}{4}, -\frac{21}{8}\right)$, which gives $(-1, -1) \oplus (-1, -1) = [2](-1, -1) = \left(\frac{9}{4}, \frac{21}{8}\right)$.</p>
+
+<blockquote>$E/\mathbb{R}: y^2 = x^3 - 2x$ 上，点 $(-1, -1)$、$(0, 0)$、$(2, 2)$ 都在直线 $y = x$ 上。用弦切法则：$(-1, -1) \oplus (0, 0) = (2, -2)$。当 $y = 0$ 时切线是垂直的，这些点是自己的逆元。$[2](-1, -1) = (\frac{9}{4}, \frac{21}{8})$。</blockquote>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.1.2</span> (Magma script). In this example we consider the same curve equation as the last example, but this time over a small finite field, namely $E/\mathbb{F}_{11}: y^2 = x^3 - 2x$. Rational points are injected naturally across to the finite field case (as long as there is no conflict with the characteristic), so we can immediately find the points $(0, 0)$, $(2, 2)$ and $(-1, -1) = (10, 10)$ (and their inverses) in Figure 2.9. In this case, consider performing the group law operation between the (blue) points $(5, 7)$ and $(8, 10)$. The line $\ell$ that joins them is $y = x + 2$, which intersects $E$ once more at $(10, 1)$. Negating the $y$-coordinate finds the other point on the dashed line, and gives $(5, 7) \oplus (8, 10) = (10, 10)$.</p>
+
+<blockquote>同样的曲线方程在 $\mathbb{F}_{11}$ 上：$E/\mathbb{F}_{11}: y^2 = x^3 - 2x$。$(5, 7) \oplus (8, 10) = (10, 10)$。</blockquote>
+</div>
+
+<p>Example 2.1.2 is also intended to justify why, although (in cryptography) we only ever use elliptic curves over finite fields, we often opt to illustrate the group law by drawing the continuous pictures of curves over $\mathbb{R}$.</p>
+
+<blockquote>例 2.1.2 说明了为什么虽然密码学中只用有限域，但我们经常用实数域上的连续图来展示群律。</blockquote>
+
+<!-- Will continue with more pages... This is a very long document -->
+
+<p style="text-align: center; color: #999; margin-top: 3em; font-style: italic;">[Content continues... This is page 5 of 28. Full document generation in progress.]</p>
+
+</body>
+</html>

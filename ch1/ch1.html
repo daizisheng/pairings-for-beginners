@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1 - Introduction</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-weight: bold;
+        }
+        p {
+            text-align: justify;
+            margin-bottom: 1em;
+            text-indent: 2em;
+        }
+        p.no-indent {
+            text-indent: 0;
+        }
+        ul {
+            margin: 1.5em 0;
+            padding-left: 2em;
+        }
+        li {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+        .page-number {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin: 2em 0;
+            padding-top: 1em;
+            border-top: 1px solid #ccc;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 2em;
+        }
+        .footnote {
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+            margin-top: 3em;
+            padding-top: 1em;
+        }
+        .footnote-marker {
+            vertical-align: super;
+            font-size: 0.8em;
+        }
+        em {
+            font-style: italic;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+        blockquote {
+            font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4a90d9;
+            margin: 0.5em 0 1.5em 0;
+            padding: 0.8em 1em;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        blockquote p {
+            text-indent: 0;
+            margin-bottom: 0;
+        }
+
+        /* 词汇提示样式 */
+        .vocab {
+            border-bottom: 2px dashed #e74c3c;
+            cursor: help;
+            position: relative;
+            display: inline;
+        }
+        .vocab:hover {
+            background-color: #fff3cd;
+        }
+        .vocab:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+        .vocab:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+            margin-bottom: -7px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Chapter 1</h1>
+<h2>Introduction</h2>
+
+<p class="no-indent"><span class="vocab" data-tip="/əˌfɪʃəˈnɑːdəʊz/ 爱好者，狂热者">Aficionados</span> of <span class="vocab" data-tip="/ˌkrɪptəˈɡræfɪk/ 密码学的">cryptographic</span> <span class="vocab" data-tip="/ˈpeərɪŋ/ 配对">pairing</span> <span class="vocab" data-tip="/ˌkɒmpjuˈteɪʃn/ 计算">computation</span> are often asked by interested <span class="vocab" data-tip="/ˈnjuːˌkʌməz/ 新来者，新手">newcomers</span> to point towards literature that is a good starting point. My answer usually differs depending on the <span class="vocab" data-tip="/ˌmæθəˈmætɪkl/ 数学的">mathematical</span> background <span class="vocab" data-tip="/ˌvɒlənˈtɪəd/ 自愿提供的">volunteered</span> from the "pairing <span class="vocab" data-tip="/bɪˈɡɪnə/ 初学者">beginner</span>", but almost always involves accordingly picking a <span class="vocab" data-tip="/ˈsʌbset/ 子集">subset</span> of the following excellent references.</p>
+<blockquote>
+    <p>搞配对计算的老手经常被新人问：有啥入门资料推荐？我一般会看对方的数学底子来推荐，但基本都是从下面这些好资料里挑：</p>
+</blockquote>
+
+<ul>
+    <li><span class="vocab" data-tip="/ˈɡælbreɪθ/ （人名）加尔布雷斯">Galbraith</span>'s chapter [Gal05] is a <span class="vocab" data-tip="/stænd aʊt/ 杰出的">stand-out</span> survey of the field (up until 2005). It provides several <span class="vocab" data-tip="/ˈθɪərəmz/ 定理（复数）">theorems</span> and <span class="vocab" data-tip="/pruːfs/ 证明（复数）">proofs</span> fundamental to <span class="vocab" data-tip="/ˈpeərɪŋ beɪst/ 基于配对的">pairing-based</span> <span class="vocab" data-tip="/krɪpˈtɒɡrəfi/ 密码学">cryptography</span> and gives some useful <span class="vocab" data-tip="/tɔɪ/ 简单的，玩具般的">toy</span> examples that illustrate key concepts.
+        <blockquote>
+            <p>Galbraith 的文章 [Gal05] 写得很棒，是2005年前的综述。里面有配对密码学的核心定理和证明，还有一些小例子帮你理解关键概念。</p>
+        </blockquote>
+    </li>
+
+    <li><span class="vocab" data-tip="/lɪn/ （人名）林恩">Lynn</span>'s <span class="vocab" data-tip="/ˈθiːsɪs/ 论文">thesis</span> [Lyn07] is also a great survey of the entire <span class="vocab" data-tip="/əˈriːnə/ 领域，舞台">arena</span> of pairing computation (up until 2007), and gives all the details surrounding the <span class="vocab" data-tip="/ˌpaɪəˈnɪərɪŋ/ 开创性的">pioneering</span> papers he <span class="vocab" data-tip="/kəʊˈɔːθəd/ 合著的">co-authored</span> [BKLS02, BLS02, BLS03, BLS04], which are themselves good starting points.
+        <blockquote>
+            <p>Lynn 的博士论文 [Lyn07] 也很不错，覆盖了2007年前的整个领域。他详细讲了自己参与的那几篇开创性论文 [BKLS02, BLS02, BLS03, BLS04]，这些论文本身也很适合入门。</p>
+        </blockquote>
+    </li>
+
+    <li>The first chapter of <span class="vocab" data-tip="/ˈneɪrɪɡ/ （人名）内里格">Naehrig</span>'s thesis [Nae09, Ch. 1] <span class="vocab" data-tip="/kənˈviːniəntli/ 方便地">conveniently</span> presents the necessary <span class="vocab" data-tip="/ˌældʒɪbrəʊ dʒɪəˈmetrɪk/ 代数几何的">algebro-geometric</span> results required to be able to read most of the literature concerning pairing computation.
+        <blockquote>
+            <p>Naehrig 论文的第一章 [Nae09, Ch. 1] 很贴心，把读懂配对计算文献需要的代数几何知识都整理好了。</p>
+        </blockquote>
+    </li>
+
+    <li><span class="vocab" data-tip="/skɒt/ （人名）斯科特">Scott</span>'s <span class="vocab" data-tip="/ˈwebpeɪdʒ/ 网页">webpage</span> [Sco04] gives a short and very friendly introduction to the basics of the groups involved in pairing <span class="vocab" data-tip="/ˌkɒmpjuˈteɪʃnz/ 计算（复数）">computations</span> by means of an <span class="vocab" data-tip="/ɪˈlʌstrətɪv/ 说明性的">illustrative</span> toy example.
+        <blockquote>
+            <p>Scott 的网页 [Sco04] 很友好，用一个简单例子介绍了配对计算里用到的群的基础知识，短小精悍。</p>
+        </blockquote>
+    </li>
+</ul>
+
+<div class="page-number">1</div>
+
+<div class="header">
+    <span>2</span>
+    <span>Chapter 1. Introduction</span>
+</div>
+
+<ul>
+    <li>In his new chapter <span class="vocab" data-tip="/ɪnˈtaɪtld/ 题为">entitled</span> <span class="vocab" data-tip="/ˌælɡəˈrɪðmɪk/ 算法的">Algorithmic</span> Aspects of <span class="vocab" data-tip="/ɪˈlɪptɪk/ 椭圆的">Elliptic</span> <span class="vocab" data-tip="/kɜːvz/ 曲线（复数）">Curves</span>, <span class="vocab" data-tip="/ˈsɪlvəmən/ （人名）西尔弗曼">Silverman</span>'s second edition [Sil09, Ch. XI.7] includes a <span class="vocab" data-tip="/kənˈsaɪs/ 简明的">concise</span> introduction to pairing-based cryptography that also points to <span class="vocab" data-tip="/faʊnˈdeɪʃənl/ 基础的">foundational</span> results found elsewhere in his book.
+        <blockquote>
+            <p>Silverman 第二版加了个新章节叫"椭圆曲线的算法"[Sil09, Ch. XI.7]，简明扼要地介绍了配对密码学，还告诉你书里哪些地方有相关基础知识。</p>
+        </blockquote>
+    </li>
+</ul>
+
+<p class="no-indent">In addition, <span class="vocab" data-tip="/ˈdɪɡɪŋ/ 挖掘，搜寻">digging</span> up talks from some of the big players in the field is usually (but not always!) a good way to avoid getting <span class="vocab" data-tip="/bɒɡd/ 陷入困境">bogged</span> down by minor technical details that slow one's progress in <span class="vocab" data-tip="/ˈɡrɑːspɪŋ/ 理解，掌握">grasping</span> the main ideas. In particular, we refer to the nice talks by Scott [Sco07a, Sco07b] and <span class="vocab" data-tip="/vərˈkaʊtərən/ （人名）维尔考特伦">Vercauteren</span> [Ver06b, Ver06a].</p>
+<blockquote>
+    <p>另外，找大牛的演讲来看通常是个好办法，能帮你抓住重点，不被细枝末节绊住。推荐 Scott [Sco07a, Sco07b] 和 Vercauteren [Ver06b, Ver06a] 的演讲，讲得挺好。</p>
+</blockquote>
+
+<p>In any case, correctly <span class="vocab" data-tip="/prɪˈskraɪbɪŋ/ 规定，开处方">prescribing</span> the best reading route for a beginner naturally requires individual <span class="vocab" data-tip="/ˌdaɪəɡˈnəʊsɪs/ 诊断">diagnosis</span> that depends on their prior knowledge and technical preparation. A student who is interested in learning <span class="vocab" data-tip="/ˈpeərɪŋz/ 配对（复数）">pairings</span>, but who has never seen or played with an elliptic <span class="vocab" data-tip="/kɜːv/ 曲线">curve</span>, may quickly become <span class="vocab" data-tip="/ˌəʊvəˈwelmd/ 不知所措的">overwhelmed</span> if directed to dive straight into the chapters of Silverman's book or Naehrig's thesis. This is not due to lack of <span class="vocab" data-tip="/ˈklærəti/ 清晰度">clarity</span>, or to lack of <span class="vocab" data-tip="/ɪˈluːmɪneɪtɪŋ/ 启发性的">illuminating</span> examples (both chapters are <span class="vocab" data-tip="/ˈæmpl/ 充足的">ample</span> in both), but perhaps more because of the vast amount of technical <span class="vocab" data-tip="/ˈdʒɑːɡən/ 行话，术语">jargon</span> that is necessary for one to write a complete and <span class="vocab" data-tip="/ˌself kənˈteɪnd/ 自包含的">self-contained</span> description of cryptographic pairings. On the other hand, an informal, example-driven approach to learning the broad field of pairing computation may ease the beginner's <span class="vocab" data-tip="/daɪˈdʒestʃən/ 消化，理解">digestion</span> in the initial stages. For instance, a <span class="vocab" data-tip="/ˈnɒvɪs/ 新手">novice</span> would be likely to find it more <span class="vocab" data-tip="/ˌbenɪˈfɪʃl/ 有益的">beneficial</span> to first see the simple toy example of the <span class="vocab" data-tip="/kwɒˈdrætɪk/ 二次的">quadratic</span> <span class="vocab" data-tip="/ˈtwɪstɪŋ/ 扭曲">twisting</span> <span class="vocab" data-tip="/ˌaɪsəˈmɔːfɪzəm/ 同构">isomorphism</span> in action on Scott's webpage [Sco04], before heading to Silverman's book [Sil09, Ch. X.5.4] to see all possible twisting <span class="vocab" data-tip="/ˌaɪsəˈmɔːfɪzəmz/ 同构（复数）">isomorphisms</span> formally defined, and then later returning to his earlier chapters (specifically Ch. II.2) to read about maps between curves in full <span class="vocab" data-tip="/ˌdʒenəˈræləti/ 一般性">generality</span>.</p>
+<blockquote>
+    <p>给新手推荐资料得看人。如果一个学生对配对感兴趣，但从没接触过椭圆曲线，直接让他啃 Silverman 的书或 Naehrig 的论文，估计很快就懵了。不是说这些写得不好——其实写得很清楚，例子也多——主要是术语太密集了。换个思路，用例子带着学可能更舒服。比如先去 Scott 的网页 [Sco04] 看个二次扭曲同构的小例子，再去 Silverman 的书 [Sil09, Ch. X.5.4] 看正式定义，最后回到 Ch. II.2 看曲线映射的一般理论。这样一步步来，消化起来轻松多了。</p>
+</blockquote>
+
+<p>In this light we discuss the major aim of this text. We intend to let illustrative examples drive the discussion and present the key concepts of pairing computation with as little <span class="vocab" data-tip="/məˈʃiːnəri/ 机制，工具">machinery</span> as possible. For those that are fresh to pairing-based cryptography, it is our hope that this chapter might be particularly useful as a first read and <span class="vocab" data-tip="/ˈpreljuːd/ 前奏，序幕">prelude</span> to more complete or advanced <span class="vocab" data-tip="/ˌekspəˈzɪʃnz/ 论述，阐述">expositions</span> (e.g. the related chapters in [Gal12]).</p>
+<blockquote>
+    <p>所以我们这篇文章的目标很明确：用例子说话，尽量少搞复杂的东西，把配对计算的核心概念讲清楚。希望这一章能帮新手入门，以后再去看更全面的资料（比如 [Gal12] 的相关章节）就轻松了。</p>
+</blockquote>
+
+<p>On the other hand, we also hope our <span class="vocab" data-tip="/bɪˈɡɪnə ˈfrendli/ 对初学者友好的">beginner-friendly</span> intentions do not leave any <span class="vocab" data-tip="/səˈfɪstɪkeɪtɪd/ 复杂的，精密的">sophisticated</span> readers <span class="vocab" data-tip="/dɪsˈsætɪsfaɪd/ 不满意的">dissatisfied</span> by a lack of <span class="vocab" data-tip="/fɔːˈmæləti/ 形式化">formality</span> or generality, so in cases where our discussion does <span class="vocab" data-tip="/ˈsækrɪfaɪs/ 牺牲">sacrifice</span> <span class="vocab" data-tip="/kəmˈpliːtnəs/ 完整性">completeness</span>, we will at least <span class="vocab" data-tip="/ɪnˈdevə/ 努力">endeavour</span> to point to where a more <span class="vocab" data-tip="/ˈθʌrə/ 全面的，彻底的">thorough</span> <span class="vocab" data-tip="/ˌekspəˈzɪʃn/ 论述，阐述">exposition</span> can be found.</p>
+<blockquote>
+    <p>当然，我们也不想让老手觉得太水。如果哪里讲得不够严谨或者不够全面，我们会告诉你去哪里能看到更完整的内容。</p>
+</blockquote>
+
+<div class="page-number">2</div>
+
+<div class="header">
+    <span></span>
+    <span>3</span>
+</div>
+
+<p>One advantage of writing a survey on pairing computation in 2012 is that, after more than a <span class="vocab" data-tip="/ˈdekeɪd/ 十年">decade</span> of intense and <span class="vocab" data-tip="/fɑːst peɪst/ 快节奏的">fast-paced</span> research by <span class="vocab" data-tip="/ˌmæθəməˈtɪʃnz/ 数学家（复数）">mathematicians</span> and <span class="vocab" data-tip="/krɪpˈtɒɡrəfəz/ 密码学家（复数）">cryptographers</span> around the <span class="vocab" data-tip="/ɡləʊb/ 全球">globe</span>, the field is now racing towards full <span class="vocab" data-tip="/məˈtʃʊərəti/ 成熟">maturity</span>. Therefore, an understanding of this text will <span class="vocab" data-tip="/ɪˈkwɪp/ 装备，使具备">equip</span> the reader with most of what they need to know in order to <span class="vocab" data-tip="/ˈtækl/ 处理，应对">tackle</span> any of the vast literature in this <span class="vocab" data-tip="/rɪˈmɑːkəbl/ 卓越的，显著的">remarkable</span> field, at least for a while yet. Anyone who understands our examples will also <span class="vocab" data-tip="/ˈkʌmftəbli/ 舒适地，轻松地">comfortably</span> <span class="vocab" data-tip="/əbˈzɔːb/ 吸收">absorb</span> the basic language of <span class="vocab" data-tip="/ˌældʒɪˈbreɪɪk/ 代数的">algebraic</span> <span class="vocab" data-tip="/dʒiˈɒmətri/ 几何">geometry</span> in the context of <span class="vocab" data-tip="/kɜːv beɪst/ 基于曲线的">curve-based</span> cryptography. Since we are aiming the discussion at active readers, we have matched every example with a corresponding <span class="vocab" data-tip="/ˈsnɪpɪt/ 片段">snippet</span> of (<span class="vocab" data-tip="/ˈhaɪpəlɪŋkt/ 带超链接的">hyperlinked</span>) <span class="vocab" data-tip="/ˈmæɡmə/ Magma（数学软件）">Magma</span> [BCP97] code<span class="footnote-marker">1</span>, where we take <span class="vocab" data-tip="/ˌɪnspəˈreɪʃn/ 灵感">inspiration</span> from the helpful Magma pairing <span class="vocab" data-tip="/tjuːˈtɔːriəl/ 教程">tutorial</span> by <span class="vocab" data-tip="/dəˈmɪŋɡez/ （人名）多明格斯">Dominguez</span> <span class="vocab" data-tip="/ˈpereθ/ （人名）佩雷斯">Perez</span> <em>et al.</em> [DKS09]. In the later chapters we build towards a full working pairing code that <span class="vocab" data-tip="/ɪnˈkʌmpəsɪz/ 包含，涵盖">encompasses</span> most of the <span class="vocab" data-tip="/haɪ ˈlevl/ 高级的">high-level</span> <span class="vocab" data-tip="/ˌɒptɪmaɪˈzeɪʃnz/ 优化（复数）">optimisations</span>; this <span class="vocab" data-tip="/ˈkʌlmɪneɪts/ 达到高潮">culminates</span> to finish the chapter in Example 7.5.1.</p>
+<blockquote>
+    <p>2012年写这个综述有个好处：经过全球数学家和密码学家十几年的猛攻，这个领域已经基本成熟了。读懂这篇文章，你就有了应付大部分文献的底子。理解了我们的例子，代数几何的基本语言对你来说也不难了。我们给每个例子都配了 Magma [BCP97] 代码<span class="footnote-marker">1</span>，灵感来自 Dominguez Perez 等人的教程 [DKS09]。后面几章我们会一步步搭建一个完整的配对计算代码，包含大部分优化技巧，最后在例 7.5.1 收尾。</p>
+</blockquote>
+
+<p>The text is <span class="vocab" data-tip="/ˈɔːɡənaɪzd/ 组织的">organised</span> as follows. We start in Chapter 2 by giving an <span class="vocab" data-tip="/ˈəʊvəvjuː/ 概述">overview</span> of elliptic curve cryptography (<span class="vocab" data-tip="/iː siː siː/ 椭圆曲线密码学">ECC</span>). Indeed, elliptic curves are the main object on which cryptographic pairings take place, so this first chapter forms a basis for the entire text. In Chapter 3 we introduce the important concept of <span class="vocab" data-tip="/dɪˈvaɪzəz/ 除子（复数）">divisors</span>, as well as other essential theory from algebraic geometry that is needed to properly understand cryptographic pairings. In Chapter 4 we detail the specific elliptic curve groups that are <span class="vocab" data-tip="/ɪmˈplɔɪd/ 使用的，采用的">employed</span> in a cryptographic pairing, before presenting <span class="vocab" data-tip="/ˈmɪlə/ （人名）米勒">Miller</span>'s <span class="vocab" data-tip="/ˈælɡərɪðəm/ 算法">algorithm</span> to compute the <span class="vocab" data-tip="/veɪl/ （人名）韦伊">Weil</span> and <span class="vocab" data-tip="/teɪt/ （人名）泰特">Tate</span> pairings in Chapter 5. In Chapter 6 we introduce the <span class="vocab" data-tip="/ˈnəʊʃn/ 概念">notion</span> of <em><span class="vocab" data-tip="/ˈpeərɪŋ ˈfrendli/ 配对友好的">pairing-friendly</span> curves</em> and give a brief survey of the most successful methods of <span class="vocab" data-tip="/kənˈstrʌktɪŋ/ 构造">constructing</span> them. In Chapter 7 we bring the reader up to speed with the <span class="vocab" data-tip="/ˈlændmɑːk/ 里程碑式的">landmark</span> <span class="vocab" data-tip="/əˈtʃiːvmənts/ 成就（复数）">achievements</span> and improvements that have <span class="vocab" data-tip="/ˈbuːstɪd/ 推动，提升">boosted</span> pairing computation to the point it is today.</p>
+<blockquote>
+    <p>文章结构是这样的：第2章讲椭圆曲线密码学（ECC）的基础，这是整篇的根基。第3章讲除子和代数几何的必备知识。第4章讲配对里用到的椭圆曲线群。第5章讲 Miller 算法，教你怎么算 Weil 和 Tate 配对。第6章讲<em>配对友好曲线</em>是啥，怎么构造。第7章讲这些年的重大突破和优化技术。</p>
+</blockquote>
+
+<div class="footnote">
+    <p class="no-indent"><span class="footnote-marker">1</span>If one does not have access to Magma, the <span class="vocab" data-tip="/skrɪpts/ 脚本（复数）">scripts</span> we provide can be run at the online Magma <span class="vocab" data-tip="/ˈkælkjuleɪtə/ 计算器">calculator</span>: <code>http://magma.maths.usyd.edu.au/calc/</code></p>
+    <blockquote>
+        <p>没装 Magma 也没事，可以用在线版：<code>http://magma.maths.usyd.edu.au/calc/</code></p>
+    </blockquote>
+</div>
+
+<div class="page-number">3</div>
+
+<div class="header">
+    <span>4</span>
+    <span>Chapter 1. Introduction</span>
+</div>
+
+<div class="page-number">4</div>
+
+</body>
+</html>

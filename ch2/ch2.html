@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2 - Elliptic curves as cryptographic groups</title>
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        h1 { font-size: 2em; margin-bottom: 0.5em; font-weight: bold; }
+        h2 { font-size: 1.8em; margin-top: 1.5em; margin-bottom: 1em; font-weight: bold; }
+        h3 { font-size: 1.4em; margin-top: 1.2em; margin-bottom: 0.8em; font-weight: bold; }
+        h4 { font-size: 1.2em; margin-top: 1em; margin-bottom: 0.6em; font-weight: bold; }
+        p { text-align: justify; margin-bottom: 1em; text-indent: 2em; }
+        p.no-indent { text-indent: 0; }
+        .equation { text-align: center; margin: 1.5em 0; }
+        .example { background: #f5f5f5; padding: 1em; margin: 1em 0; border-left: 3px solid #666; }
+        .example-title { font-weight: bold; font-style: italic; }
+        blockquote {
+            font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4a90d9;
+            margin: 0.5em 0 1.5em 0;
+            padding: 0.8em 1em;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        blockquote p { text-indent: 0; margin-bottom: 0; }
+        .vocab {
+            border-bottom: 2px dashed #e74c3c;
+            cursor: help;
+            position: relative;
+            display: inline;
+        }
+        .vocab:hover { background-color: #fff3cd; }
+        .vocab:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+        .vocab:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+            margin-bottom: -7px;
+            z-index: 1001;
+        }
+        .page-break { border-top: 1px solid #ccc; margin: 2em 0; padding-top: 1em; }
+        code { font-family: 'Courier New', monospace; font-size: 0.9em; background: #f0f0f0; padding: 2px 4px; }
+        em { font-style: italic; }
+        mjx-container { overflow-x: auto; overflow-y: hidden; }
+    </style>
+</head>
+<body>
+
+<h1>Chapter 2</h1>
+<h2>Elliptic curves as <span class="vocab" data-tip="/ˌkrɪptəˈɡræfɪk/ 密码学的">cryptographic</span> groups</h2>
+
+<p class="no-indent">The purpose of this chapter is to introduce <span class="vocab" data-tip="/ɪˈlɪptɪk/ 椭圆的">elliptic</span> curves as they are used in <span class="vocab" data-tip="/krɪpˈtɒɡrəfi/ 密码学">cryptography</span>. Put simply, an elliptic curve is an abstract type of <em>group</em>.</p>
+<blockquote><p>这章要讲椭圆曲线在密码学里怎么用。简单说，椭圆曲线就是一种抽象的群。</p></blockquote>
+
+<p>Perhaps a newcomer will find this <span class="vocab" data-tip="/æbˈstræktnəs/ 抽象性">abstractness</span> apparent immediately when we insist that to understand elliptic curve groups in cryptography, the reader should be familiar with the basics of <span class="vocab" data-tip="/ˈfaɪnaɪt/ 有限的">finite</span> fields $\mathbb{F}_q$. This is because, more generally, elliptic curves are groups which are defined on top of (over) fields. Even though elliptic curve groups permit only one <span class="vocab" data-tip="/ˈbaɪnəri/ 二元的">binary</span> operation (the so called <em>group law</em>), the operation itself is computed within the <span class="vocab" data-tip="/ˌʌndəˈlaɪɪŋ/ 底层的">underlying</span> field, which by definition permits two operations (and their inverses).</p>
+<blockquote><p>新手可能马上就会感受到这种抽象——我们要求读者先熟悉有限域 $\mathbb{F}_q$ 的基础知识。因为椭圆曲线是定义在域上面的群。虽然椭圆曲线群只有一种运算（所谓的"群律"），但这个运算本身是在底层的域里完成的，而域有两种运算（加法和乘法，还有它们的逆运算）。</p></blockquote>
+
+<p>For a general field $K$, the group elements of an elliptic curve $E$ are points whose $(x, y)$ coordinates come from $\bar{K}$ (the <span class="vocab" data-tip="/ˌældʒɪˈbreɪɪk/ 代数的">algebraic</span> closure of $K$), and which satisfy the (<span class="vocab" data-tip="/əˈfaɪn/ 仿射的">affine</span>) curve equation for $E$, given as</p>
+<blockquote><p>对于一般的域 $K$，椭圆曲线 $E$ 的群元素是坐标 $(x, y)$ 来自 $\bar{K}$（$K$ 的代数闭包）的点，并且满足 $E$ 的（仿射）曲线方程：</p></blockquote>
+
+<div class="equation">
+$$E: y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \tag{2.1}$$
+</div>
+
+<p class="no-indent">where $a_1, \ldots, a_6 \in K$. Equation (2.1) is called the <em>general <span class="vocab" data-tip="/ˈvaɪərʃtrɑːs/ 维尔斯特拉斯">Weierstrass</span> equation</em> for elliptic curves. Aside from all the $(x, y) \in \bar{K}$ solutions to the equation above, there is one extra point which can not be defined using the affine equation, but which must be included to complete the group definition. This point is called the <em>point at <span class="vocab" data-tip="/ɪnˈfɪnəti/ 无穷">infinity</span></em>, which we denote by $\mathcal{O}$.</p>
+<blockquote><p>其中 $a_1, \ldots, a_6 \in K$。方程 (2.1) 叫做椭圆曲线的"一般 Weierstrass 方程"。除了所有满足上面方程的 $(x, y) \in \bar{K}$ 解之外，还有一个特殊的点没法用仿射方程定义，但必须包含进来才能完成群的定义。这个点叫做"无穷远点"，记作 $\mathcal{O}$。</p></blockquote>
+
+<p>If $a_1, \ldots, a_6 \in K$, then we say $E$ is <em>defined over</em> $K$, and write this as $E/K$. Before we go any further, we make a convenient <span class="vocab" data-tip="/ˌsɪmplɪfɪˈkeɪʃn/ 简化">simplification</span> of the general Weierstrass equation. If the field <span class="vocab" data-tip="/ˌkærəktəˈrɪstɪk/ 特征">characteristic</span> is not 2 or 3, then divisions by 2 and 3 in $K$ permit substitutions which yield the following simplified equation:</p>
+<blockquote><p>如果 $a_1, \ldots, a_6 \in K$，我们说 $E$"定义在 $K$ 上"，写作 $E/K$。在继续之前，我们先把一般 Weierstrass 方程简化一下。如果域的特征不是 2 或 3，那么可以做变量替换，得到下面这个简化方程：</p></blockquote>
+
+<div class="equation">
+$$E: y^2 = x^3 + ax + b \tag{2.2}$$
+</div>
+
+<p class="no-indent">Equation (2.2) is called the <em>short Weierstrass equation</em> for elliptic curves, and will be used all the way through this text. Namely, we will always be working over large prime fields, where the short Weierstrass equation covers all possible <span class="vocab" data-tip="/ˌaɪsəˈmɔːfɪzəm/ 同构">isomorphism</span> classes of elliptic curves.</p>
+<blockquote><p>方程 (2.2) 叫做椭圆曲线的"短 Weierstrass 方程"，这篇文章全程都用这个形式。我们会一直在大素数域上工作，短 Weierstrass 方程能覆盖椭圆曲线所有可能的同构类。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.0.1 (Magma script).</p>
+<p class="no-indent">$E/\mathbb{Q}: y^2 = x^3 - 2$ is an elliptic curve. Along with the point at infinity $\mathcal{O}$, the set of points over $\mathbb{Q}$ is written as $E(\mathbb{Q})$. The point $P = (3, 5)$ lies in $E(\mathbb{Q})$, as do $Q = \left(\frac{129}{100}, -\frac{383}{1000}\right)$ and $R = \left(\frac{164323}{29241}, -\frac{66234835}{5000211}\right)$. We usually write $E$ to represent the group of points over the full algebraic closure.</p>
+<blockquote><p>$E/\mathbb{Q}: y^2 = x^3 - 2$ 是一条椭圆曲线。加上无穷远点 $\mathcal{O}$，有理数域上的点集记作 $E(\mathbb{Q})$。点 $P = (3, 5)$ 在 $E(\mathbb{Q})$ 上，$Q$ 和 $R$ 也是。我们用 $E$ 表示代数闭包上的全部点构成的群。</p></blockquote>
+</div>
+
+<div class="example">
+<p class="example-title">Example 2.0.2 (Magma script).</p>
+<p class="no-indent">$E/\mathbb{F}_{11}: y^2 = x^3 + 4x + 3$ is an elliptic curve. $E(\mathbb{F}_{11})$ has 14 points: $(0, 5), (0, 6), (3, 3), (3, 8), (5, 4), (5, 7), (6, 1), (6, 10), (7, 0), (9, 3), (9, 8), (10, 3), (10, 8)$, not forgetting $\mathcal{O}$.</p>
+<blockquote><p>$E/\mathbb{F}_{11}: y^2 = x^3 + 4x + 3$ 是一条椭圆曲线。$E(\mathbb{F}_{11})$ 有 14 个点（别忘了 $\mathcal{O}$）。如果扩展到 $\mathbb{F}_{q^2}$，就会有更多点：$\#E(\mathbb{F}_{q^2}) = 140$。</p></blockquote>
+</div>
+
+<p>Not every tuple $(a, b) \in K \times K$ gives rise to an elliptic curve. If there exists a <span class="vocab" data-tip="/ˈsɪŋɡjələ/ 奇异的">singular</span> point where both partial <span class="vocab" data-tip="/dɪˈrɪvətɪvz/ 导数">derivatives</span> vanish simultaneously, then the curve is deemed singular. Conversely, if no such point exists, the curve is called <em>non-singular</em>, or <em>smooth</em>, and is then an elliptic curve. A <span class="vocab" data-tip="/ˌsɪŋɡjuˈlærəti/ 奇点">singularity</span> occurs if and only if $4a^3 + 27b^2 = 0$.</p>
+<blockquote><p>不是任意 $(a, b)$ 都能给出椭圆曲线。如果存在奇异点（两个偏导数同时为零），曲线就是奇异的。反之，没有奇异点的曲线叫做非奇异或光滑曲线，才是椭圆曲线。出现奇点当且仅当 $4a^3 + 27b^2 = 0$。</p></blockquote>
+
+<div class="page-break"></div>
+
+<h3>2.1 The group law: the <span class="vocab" data-tip="/kɔːd/ 弦">chord</span>-and-<span class="vocab" data-tip="/ˈtændʒənt/ 切线">tangent</span> rule</h3>
+
+<p class="no-indent">We now turn to describing the elliptic curve group law, and it is here that viewing pictures of elliptic curves over $\mathbb{R}$ is especially <span class="vocab" data-tip="/ɪnˈstrʌktɪv/ 有教育意义的">instructive</span>. We start with a less formal description until we define the role of the point at infinity $\mathcal{O}$.</p>
+<blockquote><p>现在来讲椭圆曲线的群律。看实数域上椭圆曲线的图特别有帮助。我们先非正式地描述一下，然后再定义无穷远点 $\mathcal{O}$ 的作用。</p></blockquote>
+
+<p>The group law exploits the fact that, over any field, a line (a degree one equation in $x$ and $y$) intersects a <span class="vocab" data-tip="/ˈkjuːbɪk/ 三次的">cubic</span> curve (a degree three equation in $x$ and $y$) in three places (this is a special case of a more general theorem due to <span class="vocab" data-tip="/beɪˈzuː/ 贝祖">Bezout</span>). Namely, if we run a line $\ell: y = \lambda x + \nu$ between two points $P = (x_P, y_P)$ and $Q = (x_Q, y_Q)$ on $E$, then substituting this line into $E: y^2 = x^3 + ax + b$ will give a cubic <span class="vocab" data-tip="/ˌpɒlɪˈnəʊmiəl/ 多项式">polynomial</span> in $x$, the roots of which are the $x$-coordinates of the three points of intersection between $\ell$ and $E$.</p>
+<blockquote><p>群律利用了一个事实：在任何域上，一条直线（$x$ 和 $y$ 的一次方程）和一条三次曲线（$x$ 和 $y$ 的三次方程）相交于三个点（这是 Bezout 定理的特例）。具体来说，如果我们在 $E$ 上的两点 $P$ 和 $Q$ 之间画一条直线 $\ell: y = \lambda x + \nu$，把这条直线代入 $E: y^2 = x^3 + ax + b$，就得到一个关于 $x$ 的三次多项式，它的根就是 $\ell$ 和 $E$ 的三个交点的 $x$ 坐标。</p></blockquote>
+
+<p>Knowing the two roots ($x_P$ and $x_Q$) allows us to determine a unique third root that corresponds to the third and only other point in the affine intersection $\ell \cap E$, which we denote by $\ominus R$. The point $\ominus R$ is then "flipped" over the $x$-axis to the point $R$. In general, the elliptic curve composition law $\oplus$ is defined by this process, namely $R = P \oplus Q$.</p>
+<blockquote><p>已知两个根（$x_P$ 和 $x_Q$），就能求出唯一的第三个根，对应 $\ell \cap E$ 的第三个交点，记作 $\ominus R$。然后把 $\ominus R$ 关于 $x$ 轴"翻转"得到 $R$。椭圆曲线的群运算 $\oplus$ 就是这样定义的：$R = P \oplus Q$。</p></blockquote>
+
+<p>When computing $R = P \oplus P$, the line $\ell$ is computed as the tangent to $E$ at $P$. That is, the derivatives of $\ell$ and $E$ are matched at $P$, so (counting <span class="vocab" data-tip="/ˌmʌltɪˈplɪsɪtiz/ 重数">multiplicities</span>) $\ell$ intersects $E$ "twice" at $P$. This is why the process is aptly named the <em>chord-and-tangent rule</em>.</p>
+<blockquote><p>当计算 $R = P \oplus P$（即点加倍）时，直线 $\ell$ 就是 $E$ 在 $P$ 点的切线。也就是说 $\ell$ 和 $E$ 在 $P$ 点的导数相同，所以（算上重数）$\ell$ 在 $P$ 点"两次"与 $E$ 相交。这就是为什么这个方法叫"弦切法则"。</p></blockquote>
+
+<p>Having loosely defined the general group operation, we can now define the role of the point at infinity $\mathcal{O}$. To try and place it somewhere in the diagrams, one can think of $\mathcal{O}$ as being a point that simultaneously sits infinitely high and infinitely low in the $y$ direction. This allows us to informally <span class="vocab" data-tip="/kənˈseptʃuəlaɪz/ 概念化">conceptualise</span> two properties of elliptic curve groups: firstly, that the point at infinity $\mathcal{O}$ plays the role of the <em>identity</em> of the group; and secondly, that the unique inverse of a point is its reflected image over the $x$-axis.</p>
+<blockquote><p>大致定义了群运算之后，现在来说无穷远点 $\mathcal{O}$ 的作用。可以把 $\mathcal{O}$ 想象成一个在 $y$ 方向上同时处于无穷高和无穷低的点。这样我们就能直观理解椭圆曲线群的两个性质：第一，无穷远点 $\mathcal{O}$ 是群的单位元；第二，一个点的逆元就是它关于 $x$ 轴的镜像。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.1.1 (Magma script).</p>
+<p class="no-indent">$E/\mathbb{R}: y^2 = x^3 - 2x$ is an elliptic curve. The points $(-1, -1)$, $(0, 0)$ and $(2, 2)$ are all on $E$, and are also on the line $\ell: y = x$. Applying the chord-and-tangent technique, we have $(-1, -1) \oplus (0, 0) = (2, -2)$, and $(-1, -1) \oplus (2, 2) = (0, 0)$.</p>
+<blockquote><p>$E/\mathbb{R}: y^2 = x^3 - 2x$ 是椭圆曲线。点 $(-1, -1)$、$(0, 0)$ 和 $(2, 2)$ 都在 $E$ 上，也都在直线 $y = x$ 上。用弦切法则，$(-1, -1) \oplus (0, 0) = (2, -2)$，而 $(-1, -1) \oplus (2, 2) = (0, 0)$。</p></blockquote>
+</div>
+
+<div class="page-break"></div>
+
+<h4>2.1.1 The point at infinity in <span class="vocab" data-tip="/prəˈdʒektɪv/ 射影的">projective</span> space</h4>
+
+<p class="no-indent">We now focus on giving a more formal definition for the point at infinity. So far we have been describing elliptic curves in affine space as a set of affine points together with the point at infinity. In general, a more precise way to include points at infinity with the affine points is to work in projective space: essentially, instead of working with points in $n$-space, we work with lines that pass through the origin in $(n+1)$-space.</p>
+<blockquote><p>现在来正式定义无穷远点。到目前为止，我们把椭圆曲线描述为仿射空间中的点加上无穷远点。更精确的做法是在射影空间里工作：不用 $n$ 维空间的点，而用 $(n+1)$ 维空间里过原点的直线。</p></blockquote>
+
+<p>We usually use capital letters and colons to denote a representative of a <span class="vocab" data-tip="/ˈkɒŋɡruəns/ 同余">congruence</span> class in projective coordinates, so that in general $(X : Y : Z)$ represents the set of all points on the "line" in $\mathbb{P}^2$ that correspond to $(x, y) \in \mathbb{A}^2$. The point at infinity $\mathcal{O}$ is represented by $(0 : 1 : 0)$ in projective space.</p>
+<blockquote><p>我们用大写字母和冒号表示射影坐标的等价类代表，所以 $(X : Y : Z)$ 表示 $\mathbb{P}^2$ 中对应 $(x, y) \in \mathbb{A}^2$ 的"直线"上所有点的集合。无穷远点 $\mathcal{O}$ 在射影空间中表示为 $(0 : 1 : 0)$。</p></blockquote>
+
+<p>The way we define the collection of points in projective space is to <span class="vocab" data-tip="/həˈmɒdʒənaɪz/ 齐次化">homogenise</span> $E: y^2 = x^3 + ax + b$ by making the substitution $x = X/Z$ and $y = Y/Z$, and multiplying by $Z^3$ to clear the <span class="vocab" data-tip="/dɪˈnɒmɪneɪtəz/ 分母">denominators</span>, which gives</p>
+<blockquote><p>在射影空间定义点集的方法是把 $E: y^2 = x^3 + ax + b$ 齐次化：用 $x = X/Z$ 和 $y = Y/Z$ 代换，再乘以 $Z^3$ 消去分母，得到：</p></blockquote>
+
+<div class="equation">
+$$E_P: Y^2 Z = X^3 + aXZ^2 + bZ^3 \tag{2.3}$$
+</div>
+
+<div class="page-break"></div>
+
+<h4>2.1.2 Deriving explicit formulas for group law computations</h4>
+
+<p class="no-indent">We are now in a position to give explicit formulas for computing the elliptic curve group law. The derivation of the formulas for point additions $R = P \oplus Q$ and for point doublings $R = P \oplus P$ follow the same recipe, the main difference being in the calculation of the <span class="vocab" data-tip="/ˈɡreɪdiənt/ 梯度，斜率">gradient</span> $\lambda$ of the line $\ell: y = \lambda x + \nu$ that is used.</p>
+<blockquote><p>现在可以给出椭圆曲线群运算的显式公式了。点加法 $R = P \oplus Q$ 和点加倍 $R = P \oplus P$ 的推导过程类似，主要区别在于直线 $\ell: y = \lambda x + \nu$ 的斜率 $\lambda$ 的计算方式。</p></blockquote>
+
+<p>By "general case", we mean group law operations between points where neither point is $\mathcal{O}$, and the points that are being added are not each inverses of one another. The line $\ell: y = \lambda x + \nu$ that intersects $P = (x_P, y_P)$ and $Q = (x_Q, y_Q)$ has gradient $\lambda = \frac{y_Q - y_P}{x_Q - x_P}$.</p>
+<blockquote><p>"一般情况"是指两个点都不是 $\mathcal{O}$，而且它们不互为逆元。连接 $P$ 和 $Q$ 的直线 $\ell$ 的斜率是 $\lambda = \frac{y_Q - y_P}{x_Q - x_P}$。</p></blockquote>
+
+<p class="no-indent"><strong>(Affine addition)</strong></p>
+<div class="equation">
+$$\lambda = \frac{y_Q - y_P}{x_Q - x_P}, \quad \nu = y_P - \lambda x_P$$
+$$(x_P, y_P) \oplus (x_Q, y_Q) = (x_R, y_R) = \left(\lambda^2 - x_P - x_Q, -(\lambda x_R + \nu)\right) \tag{2.4}$$
+</div>
+
+<p class="no-indent"><strong>(Affine doubling)</strong></p>
+<div class="equation">
+$$\lambda = \frac{3x_P^2 + a}{2y_P}, \quad \nu = y_P - \lambda x_P$$
+$$[2](x_P, y_P) = (x_R, y_R) = \left(\lambda^2 - 2x_P, -(\lambda x_R + \nu)\right) \tag{2.5}$$
+</div>
+
+<blockquote><p>上面是仿射坐标下的点加法和点加倍公式。加法时斜率用两点连线，加倍时斜率用切线（对曲线方程求导得到）。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.1.7 (Magma script).</p>
+<p class="no-indent">$E/\mathbb{F}_{23}: y^2 = x^3 + 5x + 7$ is an elliptic curve, and both $P = (2, 5)$ and $Q = (12, 1)$ are on $E$. Using (2.4), we find $R = P \oplus Q$: $\lambda = \frac{1-5}{12-2} = -4 \cdot 10^{-1} = 18$, $\nu = 5 - 18 \cdot 2 = 15$. So $x_R = 18^2 - 2 - 12 = 11$ and $y_R = -(18 \cdot 11 + 15) = 17$, meaning $R = (11, 17)$.</p>
+<blockquote><p>$E/\mathbb{F}_{23}: y^2 = x^3 + 5x + 7$ 是椭圆曲线，$P = (2, 5)$ 和 $Q = (12, 1)$ 都在上面。用公式 (2.4)：$\lambda = 18$，$\nu = 15$，得 $R = (11, 17)$。</p></blockquote>
+</div>
+
+<p>We now give an example of the <em>multiplication-by-$m$</em> map on $E$, defined as $[m]: E \to E$, $P \mapsto [m]P$, and illustrate the straightforward way to compute it in practice. This operation is analogous to <span class="vocab" data-tip="/ˌekspənenʃiˈeɪʃn/ 幂运算">exponentiation</span> $g \mapsto g^m$ in $\mathbb{Z}_q^*$, and is the central operation in ECC, as it is the <span class="vocab" data-tip="/wʌn weɪ/ 单向的">one-way</span> operation that buries <span class="vocab" data-tip="/dɪˈskriːt ˈlɒɡərɪðəm/ 离散对数">discrete logarithm</span> problems in $E(\mathbb{F}_q)$.</p>
+<blockquote><p>现在来看椭圆曲线上的"乘以 $m$"映射 $[m]: E \to E$, $P \mapsto [m]P$。这类似于 $\mathbb{Z}_q^*$ 中的幂运算 $g \mapsto g^m$，是 ECC 的核心操作——隐藏离散对数问题的单向函数。</p></blockquote>
+
+<p>To efficiently compute the exponentiation $g^m$ in $\mathbb{Z}_q^*$, we square-and-multiply, whilst to compute the scalar multiplication $[m]P$ in $E(\mathbb{F}_q)$, we (because of the additive notation) <em>double-and-add</em>.</p>
+<blockquote><p>在 $\mathbb{Z}_q^*$ 中高效计算 $g^m$ 用"平方-乘法"，而在 $E(\mathbb{F}_q)$ 中计算标量乘法 $[m]P$ 用"加倍-加法"（因为用的是加法记号）。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.1.8 (Magma script).</p>
+<p class="no-indent">Let $E/\mathbb{F}_{1021}: y^2 = x^3 - 3x - 3$ with $\#E = 1039$ (prime). Let $P = (379, 1011)$ and $m = 655$. To compute $[m]P$, we write $m$ in binary: $m = (1,0,1,0,0,0,1,1,1,1)_2$. Starting with $T \leftarrow P$, we successively compute $T \leftarrow [2]T$ for each bit, and add $P$ whenever the bit is 1. So it takes 9 doublings and 5 additions to get $[655]P = (388, 60)$.</p>
+<blockquote><p>取 $E/\mathbb{F}_{1021}$，群阶 $1039$ 是素数。$P = (379, 1011)$，$m = 655$。把 $m$ 写成二进制，从高位到低位扫描：遇到 0 就加倍，遇到 1 就加倍再加 $P$。9 次加倍 + 5 次加法，得 $[655]P = (388, 60)$。</p></blockquote>
+</div>
+
+<div class="page-break"></div>
+
+<h4>2.1.3 The group <span class="vocab" data-tip="/ˈæksiəmz/ 公理">axioms</span></h4>
+
+<p class="no-indent">All but one of the group axioms are now concrete. Namely, for closure, the chord-and-tangent process gives rise to a cubic polynomial for which two roots are in $K$, meaning the third root must also be in $K$. The identity and inverse axioms are fine. We also note that the group is <span class="vocab" data-tip="/əˈbiːliən/ 阿贝尔的">abelian</span>, since the process of computing $P \oplus Q$ is symmetric. The only non-obvious axiom is <span class="vocab" data-tip="/əˌsəʊʃiəˈtɪvɪti/ 结合律">associativity</span>, i.e. showing $(P \oplus Q) \oplus R = P \oplus (Q \oplus R)$.</p>
+<blockquote><p>群公理大部分都清楚了。封闭性：弦切过程给出三次多项式，两个根在 $K$ 中，第三个根也必在 $K$ 中。单位元和逆元公理都没问题。群是阿贝尔的（交换的）。唯一不显然的是结合律：$(P \oplus Q) \oplus R = P \oplus (Q \oplus R)$。</p></blockquote>
+
+<div class="page-break"></div>
+
+<h4>2.1.4 Speeding up elliptic curve computations</h4>
+
+<p class="no-indent">Group law computations on elliptic curves are clearly more complicated than computations in traditional groups like $\mathbb{F}_q^*$; the explicit formulas in (2.4) and (2.5) use many field operations. However, in the context of cryptography, the more abstract nature of elliptic curve groups actually works in their favour.</p>
+<blockquote><p>椭圆曲线上的群运算显然比传统群（如 $\mathbb{F}_q^*$）里的运算复杂——公式 (2.4) 和 (2.5) 用了很多域运算。但在密码学里，椭圆曲线群的抽象性反而是它的优势。</p></blockquote>
+
+<p>This is essentially because attackers aiming to solve the discrete logarithm problem on elliptic curves also face this abstractness. The <span class="vocab" data-tip="/ˌsʌbˌekspəˈnenʃəl/ 亚指数的">subexponential</span> algorithms that apply to finite field discrete logarithms do not translate to the elliptic curve setting, where the best available attacks remain generic, <span class="vocab" data-tip="/ˌekspəˈnenʃəl/ 指数级的">exponential</span> algorithms like <span class="vocab" data-tip="/ˈpɒləd rəʊ/ 波拉德rho算法">Pollard rho</span>.</p>
+<blockquote><p>原因是攻击者在椭圆曲线上解离散对数也得面对这种抽象性。适用于有限域离散对数的亚指数算法在椭圆曲线上不管用，目前最好的攻击仍然是通用的指数级算法，比如 Pollard rho。</p></blockquote>
+
+<p>This means that elliptic curve groups of a relatively small size achieves the same <span class="vocab" data-tip="/kənˈdʒektʃəd/ 推测的">conjectured</span> security as <span class="vocab" data-tip="/ˌmʌltɪˈplɪkətɪv/ 乘法的">multiplicative</span> groups in much larger finite fields. For example, an elliptic curve defined over a 160-bit field currently offers security comparable to a finite field of 1248 bits.</p>
+<blockquote><p>这意味着相对较小的椭圆曲线群能达到大得多的有限域乘法群同等的安全性。比如 160 位域上的椭圆曲线，安全性相当于 1248 位的有限域。</p></blockquote>
+
+<p>Thus, although more field operations are required to perform a group law computation, these operations take place in a field whose operational complexity is much less, and this difference is more than enough to tip the balance in the favour of elliptic curves. In addition, the smaller group elements implies much smaller key sizes, greatly reducing storage and <span class="vocab" data-tip="/ˈbændwɪdθ/ 带宽">bandwidth</span> requirements.</p>
+<blockquote><p>所以虽然群运算需要更多域操作，但域本身小得多，总体上椭圆曲线更划算。而且群元素小意味着密钥也小，大大节省存储和带宽。</p></blockquote>
+
+<p>These are some of the major reasons that elliptic curves have received so much attention in the realm of public-key cryptography; the field of elliptic curve cryptography (ECC) has been <span class="vocab" data-tip="/ˈθraɪvɪŋ/ 蓬勃发展的">thriving</span> since <span class="vocab" data-tip="科布利茨（人名）">Koblitz</span> and <span class="vocab" data-tip="米勒（人名）">Miller</span> independently suggested their potential as alternatives to traditional groups.</p>
+<blockquote><p>这些就是椭圆曲线在公钥密码学里这么火的主要原因。自从 Koblitz 和 Miller 分别提出用它替代传统群以来，椭圆曲线密码学（ECC）一直在蓬勃发展。</p></blockquote>
+
+<p>One avenue of research that has given ECC a great boost is that of <span class="vocab" data-tip="/ˈɒptɪmaɪzɪŋ/ 优化">optimising</span> the group law computations. The explicit formulas in affine coordinates would not be used to compute the group law in practice, and in fact the Weierstrass model is often not the optimal curve model either.</p>
+<blockquote><p>给 ECC 带来巨大提升的一个研究方向是优化群运算。实际中不会用仿射坐标的公式，而且 Weierstrass 模型也常常不是最优的曲线模型。</p></blockquote>
+
+<p>One of the initial leaps forward in this line of research was the observation that performing computations in projective space avoids field inversions, which are extremely costly in practice. Namely, most optimised implementations of $\mathbb{F}_q$ arithmetic have $I \gg 20M$ (inversion costs much more than 20 multiplications), and the multiplication to inversion ratio is commonly reported to be $80:1$ or higher.</p>
+<blockquote><p>一个重要突破是发现在射影空间里计算可以避免域求逆，而求逆在实际中非常昂贵。通常一次求逆相当于 80 次乘法甚至更多。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.1.9 (Magma script).</p>
+<p class="no-indent">Consider $E(\mathbb{F}_q): y^2 = x^3 + ax + b$ where $q$ is a large prime. Let $\mathbf{M}, \mathbf{S}, \mathbf{I}$ represent multiplication, squaring, and inversion costs. Affine doubling costs $2\mathbf{M}+2\mathbf{S}+\mathbf{I}$, affine addition costs $2\mathbf{M}+\mathbf{S}+\mathbf{I}$. In homogeneous projective coordinates, addition costs $12\mathbf{M}+2\mathbf{S}$, and doubling costs $5\mathbf{M}+6\mathbf{S}$. Since $\mathbf{I} \approx 80\mathbf{M}$, projective coordinates are much faster.</p>
+<blockquote><p>考虑大素数域上的曲线。仿射加倍要 $2\mathbf{M}+2\mathbf{S}+\mathbf{I}$，仿射加法要 $2\mathbf{M}+\mathbf{S}+\mathbf{I}$。射影坐标下加法 $12\mathbf{M}+2\mathbf{S}$，加倍 $5\mathbf{M}+6\mathbf{S}$。由于一次求逆 $\approx 80$ 次乘法，射影坐标快得多。</p></blockquote>
+</div>
+
+<div class="example">
+<p class="example-title">Example 2.1.10 (Magma script).</p>
+<p class="no-indent">If $x^3 + ax + b$ has a root in $\mathbb{F}_q$, we can work with the <span class="vocab" data-tip="/ˌbaɪreɪʃənəli ɪˈkwɪvələnt/ 双有理等价的">birationally equivalent</span> <span class="vocab" data-tip="/dʒəˈkəʊbi/ 雅可比">Jacobi</span>-quartic curve $\mathcal{J}: v^2 = au^4 + du^2 + 1$. The fastest formulas for Jacobi-quartics: doublings cost $2\mathbf{M}+5\mathbf{S}$ and additions cost $6\mathbf{M}+4\mathbf{S}$, faster than Weierstrass in projective space.</p>
+<blockquote><p>如果 $x^3 + ax + b$ 在 $\mathbb{F}_q$ 中有根，可以用双有理等价的 Jacobi 四次曲线。Jacobi 曲线最快公式：加倍 $2\mathbf{M}+5\mathbf{S}$，加法 $6\mathbf{M}+4\mathbf{S}$，比射影 Weierstrass 更快。</p></blockquote>
+</div>
+
+<p>Other well known models include <span class="vocab" data-tip="/ˈedwədz/ 爱德华兹">Edwards</span> curves, <span class="vocab" data-tip="/ˈhesiən/ 海森">Hessian</span> curves and <span class="vocab" data-tip="/mɒntˈɡʌməri/ 蒙哥马利">Montgomery</span> curves. We refer to the EFD (Explicit-Formulas Database) for a catalogue of all the fastest formulas for popular curve models.</p>
+<blockquote><p>其他著名模型包括 Edwards 曲线、Hessian 曲线和 Montgomery 曲线。EFD（显式公式数据库）收录了各种流行曲线模型的最快公式。</p></blockquote>
+
+<div class="page-break"></div>
+
+<h3>2.2 <span class="vocab" data-tip="/ˈtɔːʃn/ 挠（群论术语）">Torsion</span>, <span class="vocab" data-tip="/ˌendəˈmɔːfɪzəmz/ 自同态">endomorphisms</span> and point counting</h3>
+
+<p class="no-indent">We now turn our focus to the behaviour of elliptic curve groups, as they are used in cryptography. We start by importantly discussing the possible structures exhibited by the finite group $E(\mathbb{F}_q)$. It turns out that $E(\mathbb{F}_q)$ is either itself cyclic, or <span class="vocab" data-tip="/ˌaɪsəˈmɔːfɪk/ 同构的">isomorphic</span> to a product of two cyclic groups $\mathbb{Z}_{n_1} \times \mathbb{Z}_{n_2}$ with $n_1 \mid n_2$.</p>
+<blockquote><p>现在来看椭圆曲线群在密码学中的行为。首先要讨论有限群 $E(\mathbb{F}_q)$ 的可能结构。结论是 $E(\mathbb{F}_q)$ 要么本身是循环群，要么同构于两个循环群的直积 $\mathbb{Z}_{n_1} \times \mathbb{Z}_{n_2}$，其中 $n_1 \mid n_2$。</p></blockquote>
+
+<p>In cryptography, we would like the group $E(\mathbb{F}_q)$ to be <em>as cyclic as possible</em>, so we usually prefer the former case, or at the very least for $n_1$ to be very small. In most cases of practical interest, we can generate curves that are cyclic with relative ease.</p>
+<blockquote><p>在密码学里，我们希望 $E(\mathbb{F}_q)$ 尽可能是循环群，所以通常选前一种情况，或者至少让 $n_1$ 非常小。在大多数实际场景中，生成循环曲线相对容易。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.2.1 (Magma script).</p>
+<p class="no-indent">Consider $E/\mathbb{F}_{101}: y^2 = x^3 + x + 1$. The group order is $\#E = 105 = 3 \cdot 5 \cdot 7$, and $P = (47, 12)$ is a generator. To get a point of order $r \mid 105$, multiply $P$ by the <span class="vocab" data-tip="/ˈkəʊfæktə/ 余因子">cofactor</span> $h = \#E/r$. For example, a point of order 3 is $[35](47, 12) = (28, 8)$. Any point killed by $r$ (sent to $\mathcal{O}$ when multiplied by $r$) is in the <em>$r$-torsion</em>.</p>
+<blockquote><p>取 $E/\mathbb{F}_{101}$，群阶 $105 = 3 \cdot 5 \cdot 7$，$P = (47, 12)$ 是生成元。要得到 $r$ 阶点，用余因子 $h = \#E/r$ 乘 $P$。比如 3 阶点是 $[35]P = (28, 8)$。被 $r$ "杀死"（乘 $r$ 得 $\mathcal{O}$）的点在"$r$-挠"中。</p></blockquote>
+</div>
+
+<p>In ECC we would like the group order $\#E(\mathbb{F}_q)$ to be as close to prime as possible. This is because the (<span class="vocab" data-tip="/ˌæsɪmpˈtɒtɪk/ 渐近的">asymptotic</span>) complexity of the ECDLP that attackers face is dependent on the size of the largest prime subgroup of $E(\mathbb{F}_q)$.</p>
+<blockquote><p>在 ECC 中，我们希望群阶 $\#E(\mathbb{F}_q)$ 尽可能接近素数。因为攻击者面对的 ECDLP 的（渐近）复杂度取决于 $E(\mathbb{F}_q)$ 最大素数子群的大小。</p></blockquote>
+
+<p>Even if the particular instance of the discrete logarithm problem uses a generator of the whole group, the attacker can use the known group order to solve smaller instances in subgroups whose orders are pairwise prime, and then reconstruct the answer using the Chinese Remainder Theorem (CRT).</p>
+<blockquote><p>即使离散对数问题用的是整个群的生成元，攻击者也可以利用已知的群阶，在互素阶的子群里分别求解较小的实例，然后用中国剩余定理（CRT）重构答案。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.2.2 (Magma script).</p>
+<p class="no-indent">Consider $E/\mathbb{F}_{1021}: y^2 = x^3 + 905x + 100$, with $\#E = 966 = 2 \cdot 3 \cdot 7 \cdot 23$. Given $Q = [k]P$, we map to each prime subgroup by multiplying by cofactors, solve small DLPs to find $k \mod j$ for $j \in \{2, 3, 7, 23\}$, then use CRT. The hardest part is finding $k_{23}$ by exhausting $\{1, \ldots, 22\}$, showing the largest prime subgroup is the bottleneck.</p>
+<blockquote><p>取 $\#E = 966 = 2 \cdot 3 \cdot 7 \cdot 23$ 的曲线。给定 $Q = [k]P$，分别乘余因子映射到各素数子群，解小 DLP 得 $k \mod j$，然后 CRT 组合。最难的是在 23 阶子群里穷举——最大素数子群是瓶颈。</p></blockquote>
+</div>
+
+<div class="example">
+<p class="example-title">Example 2.2.3 (Magma script).</p>
+<p class="no-indent">NIST P-256 curve: $E/\mathbb{F}_q: y^2 = x^3 - 3x + b$ with prime order $r = \#E$, where $q = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$. This achieves 128-bit security. Compare to $\tilde{E}: y^2 = x^3 - 3x$ over the same field: $n = \#\tilde{E} = 2^{96} \cdot 7 \cdot 274177 \cdots$ with largest prime factor only 94 bits — completely breakable!</p>
+<blockquote><p>NIST P-256 曲线：素数阶，达到 128 位安全性。对比同一域上 $\tilde{E}: y^2 = x^3 - 3x$：群阶的最大素因子只有 94 位——轻松可破！说明选曲线时群阶结构至关重要。</p></blockquote>
+</div>
+
+<p>We start our brief discussion on elliptic curve point counting by observing that the number of points on an elliptic curve is close to $q$. The <em><span class="vocab" data-tip="/ˈhæsə/ 哈塞（人名）">Hasse</span> bound</em> says the most that $\#E(\mathbb{F}_q)$ can differ from $q + 1$ is $2\sqrt{q}$, i.e. $|\#E(\mathbb{F}_q) - (q + 1)| \leq 2\sqrt{q}$. This offset between $\#E(\mathbb{F}_q)$ and $(q + 1)$ is called the <em>trace of <span class="vocab" data-tip="/frəˈbiːniəs/ 弗罗贝尼乌斯">Frobenius</span></em>, and is denoted by $t$:</p>
+<blockquote><p>椭圆曲线的点数接近 $q$。Hasse 界说 $\#E(\mathbb{F}_q)$ 和 $q + 1$ 的差最多是 $2\sqrt{q}$。这个差值叫做"Frobenius 的迹"，记作 $t$：</p></blockquote>
+
+<div class="equation">
+$$\#E(\mathbb{F}_q) = q + 1 - t, \quad |t| \leq 2\sqrt{q} \tag{2.6}$$
+</div>
+
+<p>If $E$ is defined over $\mathbb{F}_q$, then the <em>Frobenius endomorphism</em> $\pi$ is defined as:</p>
+<div class="equation">
+$$\pi: E \to E, \quad (x, y) \mapsto (x^q, y^q) \tag{2.7}$$
+</div>
+
+<blockquote><p>如果 $E$ 定义在 $\mathbb{F}_q$ 上，Frobenius 自同态 $\pi$ 定义为：$\pi: (x, y) \mapsto (x^q, y^q)$。被 $\pi$ 固定的点恰好就是 $E(\mathbb{F}_q)$。</p></blockquote>
+
+<p>The trace of Frobenius $t$ is named so because of the role it plays in the characteristic polynomial satisfied by $\pi$:</p>
+<div class="equation">
+$$\pi^2 - [t] \circ \pi + [q] = 0 \quad \text{in } \mathrm{End}(E) \tag{2.8}$$
+</div>
+<blockquote><p>Frobenius 的迹 $t$ 之所以叫"迹"，是因为它在 $\pi$ 的特征多项式中的角色：$\pi^2 - [t] \circ \pi + [q] = 0$。</p></blockquote>
+
+<p>The theory of elliptic curves makes constant use of the <span class="vocab" data-tip="/ˌendəˈmɔːfɪzəm rɪŋ/ 自同态环">endomorphism ring</span> of $E$, denoted $\mathrm{End}(E)$, which is the ring of all maps from $E$ to itself. The multiplication-by-$m$ map $[m]$ is trivially in $\mathrm{End}(E)$ for all $m \in \mathbb{Z}$. If non-trivial endomorphisms exist that make $\mathrm{End}(E)$ strictly larger than $\mathbb{Z}$, we say $E$ has <em>complex multiplication</em> (CM).</p>
+<blockquote><p>椭圆曲线理论经常用到 $E$ 的自同态环 $\mathrm{End}(E)$，就是 $E$ 到自身所有映射的环。乘以 $m$ 的映射 $[m]$ 对所有 $m \in \mathbb{Z}$ 都在 $\mathrm{End}(E)$ 中。如果存在非平凡自同态使 $\mathrm{End}(E)$ 比 $\mathbb{Z}$ 大，就说 $E$ 有"复乘"（CM）。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.2.6 (Magma script).</p>
+<p class="no-indent">Consider $E/\mathbb{F}_q: y^2 = x^3 + b$. The map $\xi: (x, y) \mapsto (\zeta_3 x, y)$ with $\zeta_3^3 = 1$, $\zeta_3 \neq 1$ is a non-trivial endomorphism. If $\zeta_3 \in \mathbb{F}_q$, then $\xi$ is defined over $\mathbb{F}_q$; otherwise over $\mathbb{F}_{q^2}$.</p>
+<blockquote><p>考虑 $E: y^2 = x^3 + b$。映射 $\xi: (x, y) \mapsto (\zeta_3 x, y)$（$\zeta_3$ 是三次单位根）是非平凡自同态。如果 $\zeta_3 \in \mathbb{F}_q$，$\xi$ 就定义在 $\mathbb{F}_q$ 上，否则定义在 $\mathbb{F}_{q^2}$ 上。</p></blockquote>
+</div>
+
+<div class="page-break"></div>
+
+<p>We now give a brief sketch of <span class="vocab" data-tip="/ʃuːf/ 舒夫（人名）">Schoof</span>'s algorithm for counting points on elliptic curves. Understanding the algorithm is not a prerequisite for understanding pairings, but it certainly warrants mention in any overview text on elliptic curves in cryptography, since it is essentially the algorithm that made ECC practical.</p>
+<blockquote><p>简单介绍一下 Schoof 算法。理解这个算法不是理解配对的前提，但任何 ECC 综述都应该提它，因为它让 ECC 变得实用。</p></blockquote>
+
+<p>Before Schoof's polynomial-time algorithm, all algorithms for point counting on elliptic curves were exponential and therefore cryptographically impractical. At the highest level, Schoof's idea is to compute $t_\ell \equiv t \pmod{\ell}$ for enough co-prime $\ell$'s to be able to uniquely determine $t$ within the interval $-2\sqrt{q} \leq t \leq 2\sqrt{q}$ via the Chinese Remainder Theorem.</p>
+<blockquote><p>在 Schoof 的多项式时间算法之前，所有点计数算法都是指数级的，没法实用。Schoof 的核心思想是：对足够多互素的 $\ell$，计算 $t_\ell \equiv t \pmod{\ell}$，然后用中国剩余定理在 $-2\sqrt{q} \leq t \leq 2\sqrt{q}$ 范围内唯一确定 $t$。</p></blockquote>
+
+<p>To compute $t_\ell$ for various primes $\ell$, Schoof looked to consider Equation (2.9) "modulo $\ell$", restricting the points to come from the $\ell$-torsion, and working in the polynomial ring $R_\ell = \mathbb{F}_q[x, y]/\langle\psi_\ell(x), y^2 - (x^3 + ax + b)\rangle$, where $\psi_\ell(x)$ is the $\ell$-th <span class="vocab" data-tip="/dɪˈvɪʒn ˌpɒlɪˈnəʊmiəl/ 除法多项式">division polynomial</span>.</p>
+<blockquote><p>为计算各素数 $\ell$ 对应的 $t_\ell$，Schoof 考虑方程 (2.9) "模 $\ell$"，把点限制在 $\ell$-挠中，在多项式环 $R_\ell = \mathbb{F}_q[x, y]/\langle\psi_\ell(x), y^2 - (x^3 + ax + b)\rangle$ 里工作，其中 $\psi_\ell(x)$ 是第 $\ell$ 个除法多项式。</p></blockquote>
+
+<p>It is not too difficult to deduce that the asymptotic complexity of Schoof's algorithm is $O((\log q)^8)$.</p>
+<blockquote><p>Schoof 算法的渐近复杂度是 $O((\log q)^8)$，是多项式时间。</p></blockquote>
+
+<div class="page-break"></div>
+
+<p>We finish this chapter by briefly discussing one more improvement to ECC: the GLV/GLS method. It exploits the existence of an efficiently computable endomorphism $\psi$ that allows us to instantly move $P$ to a large multiple $\psi(P) = [\lambda]P$ of itself, so that the scalar multiplication $[m]P$ can be split into $[m]P = [m_0]P + [m_1]\psi(P)$, where $|m_0|, |m_1| \approx \sqrt{r}$ instead of $|m| \approx r$.</p>
+<blockquote><p>最后讲一下 GLV/GLS 方法。它利用可高效计算的自同态 $\psi$，使 $\psi(P) = [\lambda]P$。这样标量乘法 $[m]P$ 可以拆成 $[m_0]P + [m_1]\psi(P)$，其中 $|m_0|, |m_1| \approx \sqrt{r}$，而不是 $|m| \approx r$。</p></blockquote>
+
+<div class="example">
+<p class="example-title">Example 2.2.11 (Magma script).</p>
+<p class="no-indent">Let $q \equiv 1 \pmod{4}$, $E/\mathbb{F}_q: y^2 = x^3 + ax$, and $i^2 = -1$. The map $\psi: (x, y) \mapsto (-x, iy)$ is an endomorphism. For $P$ of prime order $r$, $\psi(Q) = [\lambda]Q$ for all $Q \in \langle P \rangle$ where $\lambda^2 \equiv -1 \pmod{r}$. Computing $[m]Q = [m_0]Q + [m_1]\psi(Q)$ with 9-bit $m_0, m_1$ instead of 17-bit $m$ halves the doublings needed.</p>
+<blockquote><p>取 $q \equiv 1 \pmod{4}$，$E: y^2 = x^3 + ax$，$\psi: (x, y) \mapsto (-x, iy)$ 是自同态。对素数阶 $r$ 的点 $P$，$\psi(Q) = [\lambda]Q$（$\lambda^2 \equiv -1 \pmod{r}$）。计算 $[m]Q$ 时拆成两个小标量乘法，加倍次数减半。</p></blockquote>
+</div>
+
+<div class="page-break"></div>
+
+<h3>2.3 Chapter summary</h3>
+
+<p class="no-indent">We defined the elliptic curve group law via the chord-and-tangent method, and discussed that elliptic curve groups are an attractive setting for discrete-log based cryptosystems because of the relative security obtained for the sizes of the fields they are defined over.</p>
+<blockquote><p>我们用弦切法定义了椭圆曲线群律，并讨论了为什么椭圆曲线群对于离散对数密码系统很有吸引力——因为在较小的域上就能获得很高的安全性。</p></blockquote>
+
+<p>We also <span class="vocab" data-tip="/ɪɡˈzemplɪfaɪd/ 举例说明">exemplified</span> many improvements in the context of cryptographic implementations, where the fundamental operation is computing large scalar multiples $[m]P$ of $P \in E$. Namely, we showed that group law computations in finite fields can be much faster in projective coordinates, and that other (non-Weierstrass) curve models also offer advantages.</p>
+<blockquote><p>我们还举例说明了密码学实现中的很多优化。核心操作是计算大标量乘法 $[m]P$。我们说明了射影坐标下群运算更快，其他（非 Weierstrass）曲线模型也有优势。</p></blockquote>
+
+<p>We gave an explicit equation for the number of points in $E(\mathbb{F}_q)$, and briefly discussed Schoof's polynomial-time algorithm that facilitates point counting on curves of cryptographic size. We also introduced the notion of the endomorphism ring $\mathrm{End}(E)$ of $E$, and finished by showing that non-trivial elements of $\mathrm{End}(E)$ can be used to further accelerate ECC.</p>
+<blockquote><p>我们给出了 $E(\mathbb{F}_q)$ 点数的显式公式，简要讨论了 Schoof 的多项式时间点计数算法。还介绍了自同态环 $\mathrm{End}(E)$ 的概念，最后说明了非平凡的自同态可以进一步加速 ECC。</p></blockquote>
+
+<p><strong>Relaxed notation.</strong> Our last order of business before proceeding into the next chapter is to relax some notation in order to agree with the rest of the literature. Rather than writing "$\oplus$" for the elliptic curve group law, from hereon we simply use "$+$". Similarly, for the inverse of the point $P$, we use $-P$ instead of $\ominus P$.</p>
+<blockquote><p><strong>符号简化：</strong>从下一章开始，椭圆曲线群运算不再写"$\oplus$"，直接用"$+$"。点 $P$ 的逆元也不写 $\ominus P$，直接写 $-P$。这样和大多数文献一致。</p></blockquote>
+
+</body>
+</html>
