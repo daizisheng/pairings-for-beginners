@@ -1192,6 +1192,112 @@ $$x, \quad x^2 = -1 = 2, \quad x^3 = 2x, \quad x^4 = 2x^2 = -2 = 1$$
 
 <blockquote>每个有限域都是一个仅依赖于域大小的多项式的分裂域。</blockquote>
 
+<div class="note">
+<strong>什么是分裂域 (Splitting Field)？</strong>
+
+<p><strong>定义：</strong>多项式 $f(x) \in F[x]$ 在域 $F$ 上的<strong>分裂域</strong>是包含 $F$ 的最小域 $K$，使得 $f(x)$ 在 $K$ 中能完全分解为一次因式的乘积：
+$$f(x) = c(x - \alpha_1)(x - \alpha_2) \cdots (x - \alpha_n)$$
+其中 $\alpha_1, \ldots, \alpha_n \in K$ 是 $f(x)$ 的所有根。</p>
+
+<p><strong>直观理解：</strong>分裂域是「刚好够用」的扩域——大到足以包含多项式的所有根，但不会更大。</p>
+
+<p><strong>例子 1：</strong>$f(x) = x^2 + 1$ 在 $\mathbb{R}$ 上的分裂域</p>
+<ul>
+<li>在 $\mathbb{R}$ 中，$x^2 + 1$ 无法分解（没有实根）</li>
+<li>扩张到 $\mathbb{C} = \mathbb{R}(i)$，得到 $x^2 + 1 = (x - i)(x + i)$</li>
+<li>$\mathbb{C}$ 就是 $x^2 + 1$ 在 $\mathbb{R}$ 上的分裂域</li>
+</ul>
+
+<p><strong>例子 2：</strong>$f(x) = x^2 + 1$ 在 $\mathbb{F}_3$ 上的分裂域</p>
+<ul>
+<li>在 $\mathbb{F}_3 = \{0, 1, 2\}$ 中，$x^2 + 1$ 无根（$0^2+1=1$，$1^2+1=2$，$2^2+1=2$）</li>
+<li>扩张到 $\mathbb{F}_9 = \mathbb{F}_3[x]/(x^2+1)$，设 $\alpha = [x]$，则 $\alpha^2 = -1 = 2$</li>
+<li>此时 $x^2 + 1 = (x - \alpha)(x + \alpha) = (x - \alpha)(x - 2\alpha)$（因为 $-\alpha = 2\alpha$ 在 $\mathbb{F}_3$ 中）</li>
+<li>$\mathbb{F}_9$ 就是 $x^2 + 1$ 在 $\mathbb{F}_3$ 上的分裂域</li>
+</ul>
+
+<p><strong>例子 3：</strong>$f(x) = x^{p^n} - x$ 在 $\mathbb{F}_p$ 上的分裂域</p>
+<ul>
+<li>这个多项式恰好有 $p^n$ 个不同的根（因为导数 $= -1 \neq 0$，无重根）</li>
+<li>这 $p^n$ 个根构成的集合在加法和乘法下封闭，形成 $\mathbb{F}_{p^n}$</li>
+<li>所以 $\mathbb{F}_{p^n}$ 就是 $x^{p^n} - x$ 在 $\mathbb{F}_p$ 上的分裂域</li>
+</ul>
+
+<p><strong>重要性质：</strong>同一多项式在同一基域上的分裂域是<strong>唯一的</strong>（在同构意义下）。这就是为什么所有大小为 $p^n$ 的有限域都同构——它们都是 $x^{p^n} - x$ 的分裂域！</p>
+</div>
+
+<div class="note">
+<strong>$\mathbb{F}_p$ 的扩张一定是 $\mathbb{F}_{p^n}$ 吗？</strong>
+
+<p><strong>回答：有限扩张一定是，但也存在无限扩张。</strong></p>
+
+<p><strong>有限扩张的情形：</strong></p>
+<p>设 $K/\mathbb{F}_p$ 是有限扩张，扩张次数为 $[K : \mathbb{F}_p] = n$。则：</p>
+<ul>
+<li>$K$ 作为 $\mathbb{F}_p$ 上的向量空间，维数为 $n$</li>
+<li>选取基 $\{e_1, \ldots, e_n\}$，每个元素形如 $c_1 e_1 + \cdots + c_n e_n$，$c_i \in \mathbb{F}_p$</li>
+<li>元素个数 $= p^n$，所以 $K \cong \mathbb{F}_{p^n}$</li>
+</ul>
+<p style="background: #e8f5e9; padding: 8px; border-radius: 4px;">
+<strong>结论：$\mathbb{F}_p$ 的有限扩张恰好是 $\mathbb{F}_{p^n}$（$n = 1, 2, 3, \ldots$）</strong>
+</p>
+
+<p><strong>子域关系：</strong>$\mathbb{F}_{p^m} \subseteq \mathbb{F}_{p^n}$ 当且仅当 $m \mid n$。</p>
+<ul>
+<li>$\mathbb{F}_p \subset \mathbb{F}_{p^2} \subset \mathbb{F}_{p^4} \subset \mathbb{F}_{p^8} \subset \cdots$（2 的幂次链）</li>
+<li>$\mathbb{F}_p \subset \mathbb{F}_{p^3} \subset \mathbb{F}_{p^9} \subset \mathbb{F}_{p^{27}} \subset \cdots$（3 的幂次链）</li>
+<li>$\mathbb{F}_{p^2}$ 和 $\mathbb{F}_{p^3}$ 都包含于 $\mathbb{F}_{p^6}$（因为 $2 \mid 6$ 且 $3 \mid 6$）</li>
+</ul>
+
+<p><strong>无限扩张：代数闭包</strong></p>
+<p>$\mathbb{F}_p$ 的代数闭包 $\overline{\mathbb{F}_p}$ 是所有 $\mathbb{F}_{p^n}$ 的并：
+$$\overline{\mathbb{F}_p} = \bigcup_{n=1}^{\infty} \mathbb{F}_{p^n}$$
+这是一个<strong>无限域</strong>，其中每个元素都属于某个有限域 $\mathbb{F}_{p^n}$，但整体是无限的。</p>
+
+<svg width="600" height="120" viewBox="0 0 600 120" style="display: block; margin: 1em auto; font-family: 'Times New Roman', serif;">
+  <rect x="0" y="0" width="600" height="120" fill="#fefefe"/>
+
+  <!-- F_p -->
+  <ellipse cx="60" cy="60" rx="40" ry="25" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+  <text x="60" y="65" text-anchor="middle" font-size="14" font-weight="bold">𝔽ₚ</text>
+
+  <!-- F_p^2 -->
+  <ellipse cx="160" cy="60" rx="45" ry="30" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+  <text x="160" y="65" text-anchor="middle" font-size="14" font-weight="bold">𝔽ₚ²</text>
+
+  <!-- F_p^3 -->
+  <ellipse cx="260" cy="60" rx="50" ry="35" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+  <text x="260" y="65" text-anchor="middle" font-size="14" font-weight="bold">𝔽ₚ³</text>
+
+  <!-- F_p^4 -->
+  <ellipse cx="365" cy="60" rx="55" ry="38" fill="#e1bee7" stroke="#7b1fa2" stroke-width="2"/>
+  <text x="365" y="65" text-anchor="middle" font-size="14" font-weight="bold">𝔽ₚ⁴</text>
+
+  <!-- ... -->
+  <text x="450" y="65" text-anchor="middle" font-size="20">···</text>
+
+  <!-- algebraic closure -->
+  <ellipse cx="530" cy="60" rx="60" ry="45" fill="#fff8e1" stroke="#f9a825" stroke-width="2"/>
+  <text x="530" y="55" text-anchor="middle" font-size="12" font-weight="bold">𝔽̄ₚ</text>
+  <text x="530" y="72" text-anchor="middle" font-size="10">(无限)</text>
+
+  <!-- arrows -->
+  <path d="M 100 60 L 115 60" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 205 60 L 210 60" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 310 60 L 310 60" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 420 60 L 435 60" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 465 60 L 470 60" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+
+  <text x="300" y="110" text-anchor="middle" font-size="11" fill="#666">有限扩张塔 → 代数闭包（无限）</text>
+</svg>
+</div>
+
 <div class="lemma">
 <p class="lemma-title">Lemma 2.1</p>
 <p>A field of prime power order $p^n$ is a splitting field over $\mathbb{F}_p$ of $x^{p^n} - x$.</p>
@@ -1232,6 +1338,43 @@ A finite field has prime power size, say $p^n$. By Lemma 2.1, it is a splitting 
 <blockquote>有限域的大小是素数幂 $p^n$。由引理 2.1，它是 $x^{p^n} - x$ 在 $\mathbb{F}_p$ 上的分裂域。同一多项式的两个分裂域同构，所以阶为 $p^n$ 的域都同构。</blockquote>
 
 <div class="note">
+<strong>为什么「同一多项式的两个分裂域同构」？</strong>
+
+<p>这是域论中的一个基本定理，让我们直观理解它。</p>
+
+<p><strong>核心思想：</strong>分裂域是由基域 $F$ 和多项式的根「生成」的，而根之间可以通过同构「交换」。</p>
+
+<p><strong>简化情形：添加一个根</strong></p>
+<p>设 $f(x) \in F[x]$ 是不可约多项式，$\alpha$ 和 $\beta$ 是 $f(x)$ 的两个根（可能在不同的扩域中）。则：
+$$F(\alpha) \cong F[x]/(f(x)) \cong F(\beta)$$
+同构映射把 $\alpha \mapsto \beta$，同时固定 $F$ 中的元素。</p>
+
+<p><strong>直观理解：</strong>$\alpha$ 和 $\beta$ 满足相同的「代数关系」（都是 $f(x)$ 的根），所以把 $\alpha$ 换成 $\beta$，整个域的结构不变。</p>
+
+<p><strong>具体例子：</strong>$f(x) = x^2 + 1$ 在 $\mathbb{R}$ 上</p>
+<ul>
+<li>两个根：$i$ 和 $-i$</li>
+<li>$\mathbb{R}(i) = \{a + bi : a, b \in \mathbb{R}\} = \mathbb{C}$</li>
+<li>$\mathbb{R}(-i) = \{a + b(-i) : a, b \in \mathbb{R}\} = \mathbb{C}$</li>
+<li>同构：$\varphi: a + bi \mapsto a - bi$（复共轭），满足 $\varphi(i) = -i$</li>
+</ul>
+
+<p><strong>一般情形：归纳构造</strong></p>
+<p>设 $K_1$ 和 $K_2$ 都是 $f(x) \in F[x]$ 在 $F$ 上的分裂域。通过归纳法：</p>
+<ol>
+<li>取 $f(x)$ 的一个不可约因子 $g(x)$</li>
+<li>设 $\alpha \in K_1$ 是 $g(x)$ 的根，$\beta \in K_2$ 是 $g(x)$ 的根</li>
+<li>由上面的简化情形，$F(\alpha) \cong F(\beta)$</li>
+<li>在 $F(\alpha)$ 和 $F(\beta)$ 上继续分解 $f(x)$，递归进行</li>
+<li>最终得到 $K_1 \cong K_2$</li>
+</ol>
+
+<p style="background: #e8f5e9; padding: 10px; border-radius: 5px; border-left: 4px solid #388e3c;">
+<strong>一句话总结：</strong>分裂域只依赖于多项式的根的「代数性质」，而同一多项式的根满足相同的代数关系，所以可以相互替换，导致分裂域同构。
+</p>
+</div>
+
+<div class="note">
 <strong>同构的唯一性：</strong>对于有限群和有限环，相同大小不一定意味着同构。例如 $\mathbb{Z}/(4)$ 和 $\mathbb{Z}/(2) \times \mathbb{Z}/(2)$ 都有 4 个元素，但它们不同构。有限域的特殊之处在于：<strong>每个素数幂阶的有限域在同构意义下是唯一的</strong>，这就是为什么我们可以直接写 $\mathbb{F}_{p^n}$ 而不用担心歧义。
 </div>
 
@@ -1250,12 +1393,173 @@ This shows there is at most one subfield of order $p^d$ in $\mathbb{F}_{p^n}$.
 
 <blockquote>设 $\mathbb{F}_p \subset F \subset \mathbb{F}_{p^n}$，令 $d = [F : \mathbb{F}_p]$，则 $d \mid n$。$F$ 中每个元素 $t$ 满足 $t^{p^d} = t$，所以 $F = \{t \in \mathbb{F}_{p^n} : t^{p^d} = t\}$，这表明阶为 $p^d$ 的子域至多一个。</blockquote>
 
+<div class="note">
+<strong>例子：$\mathbb{F}_{p^{12}}$ 的子域</strong>
+
+<p>$n = 12$ 的因子是 $\{1, 2, 3, 4, 6, 12\}$，所以 $\mathbb{F}_{p^{12}}$ 恰好有 6 个子域：</p>
+
+<svg width="400" height="220" viewBox="0 0 400 220" style="display: block; margin: 1em auto; font-family: 'Times New Roman', serif;">
+  <defs>
+    <marker id="arr4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="400" height="220" fill="#fefefe"/>
+
+  <!-- F_p^12 -->
+  <ellipse cx="200" cy="30" rx="45" ry="20" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+  <text x="200" y="35" text-anchor="middle" font-size="14" font-weight="bold">𝔽ₚ¹²</text>
+
+  <!-- F_p^6 and F_p^4 -->
+  <ellipse cx="120" cy="85" rx="35" ry="18" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="120" y="90" text-anchor="middle" font-size="13">𝔽ₚ⁶</text>
+
+  <ellipse cx="280" cy="85" rx="35" ry="18" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="280" y="90" text-anchor="middle" font-size="13">𝔽ₚ⁴</text>
+
+  <!-- F_p^3 and F_p^2 -->
+  <ellipse cx="80" cy="140" rx="35" ry="18" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="80" y="145" text-anchor="middle" font-size="13">𝔽ₚ³</text>
+
+  <ellipse cx="200" cy="140" rx="35" ry="18" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="200" y="145" text-anchor="middle" font-size="13">𝔽ₚ²</text>
+
+  <!-- F_p -->
+  <ellipse cx="200" cy="195" rx="35" ry="18" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+  <text x="200" y="200" text-anchor="middle" font-size="13" font-weight="bold">𝔽ₚ</text>
+
+  <!-- Lines (inclusion relations) -->
+  <line x1="170" y1="45" x2="135" y2="67" stroke="#666" stroke-width="1.5"/>
+  <line x1="230" y1="45" x2="265" y2="67" stroke="#666" stroke-width="1.5"/>
+
+  <line x1="105" y1="100" x2="90" y2="122" stroke="#666" stroke-width="1.5"/>
+  <line x1="135" y1="100" x2="185" y2="122" stroke="#666" stroke-width="1.5"/>
+  <line x1="265" y1="100" x2="215" y2="122" stroke="#666" stroke-width="1.5"/>
+
+  <line x1="80" y1="158" x2="170" y2="180" stroke="#666" stroke-width="1.5"/>
+  <line x1="200" y1="158" x2="200" y2="177" stroke="#666" stroke-width="1.5"/>
+
+  <!-- Labels -->
+  <text x="350" y="30" font-size="10" fill="#666">p¹² 个元素</text>
+  <text x="350" y="85" font-size="10" fill="#666">p⁶, p⁴ 个元素</text>
+  <text x="350" y="140" font-size="10" fill="#666">p³, p² 个元素</text>
+  <text x="350" y="195" font-size="10" fill="#666">p 个元素</text>
+</svg>
+
+<p><strong>子域的刻画：</strong>每个子域可以用方程精确描述：</p>
+<ul>
+<li>$\mathbb{F}_p = \{t \in \mathbb{F}_{p^{12}} : t^p = t\}$</li>
+<li>$\mathbb{F}_{p^2} = \{t \in \mathbb{F}_{p^{12}} : t^{p^2} = t\}$</li>
+<li>$\mathbb{F}_{p^3} = \{t \in \mathbb{F}_{p^{12}} : t^{p^3} = t\}$</li>
+<li>$\mathbb{F}_{p^4} = \{t \in \mathbb{F}_{p^{12}} : t^{p^4} = t\}$</li>
+<li>$\mathbb{F}_{p^6} = \{t \in \mathbb{F}_{p^{12}} : t^{p^6} = t\}$</li>
+<li>$\mathbb{F}_{p^{12}} = \{t \in \mathbb{F}_{p^{12}} : t^{p^{12}} = t\}$（所有元素）</li>
+</ul>
+
+<p><strong>包含关系：</strong>$\mathbb{F}_{p^m} \subseteq \mathbb{F}_{p^n} \Leftrightarrow m \mid n$</p>
+<ul>
+<li>$\mathbb{F}_{p^2} \subset \mathbb{F}_{p^4} \subset \mathbb{F}_{p^{12}}$（因为 $2 \mid 4 \mid 12$）</li>
+<li>$\mathbb{F}_{p^2} \subset \mathbb{F}_{p^6} \subset \mathbb{F}_{p^{12}}$（因为 $2 \mid 6 \mid 12$）</li>
+<li>$\mathbb{F}_{p^3} \subset \mathbb{F}_{p^6} \subset \mathbb{F}_{p^{12}}$（因为 $3 \mid 6 \mid 12$）</li>
+<li>$\mathbb{F}_{p^3} \not\subset \mathbb{F}_{p^4}$（因为 $3 \nmid 4$）</li>
+<li>$\mathbb{F}_{p^4} \not\subset \mathbb{F}_{p^6}$（因为 $4 \nmid 6$）</li>
+</ul>
+
+<p><strong>具体数值例子（$p = 2$）：</strong></p>
+<table style="margin: 0.5em 0; font-size: 13px;">
+<tr><th>子域</th><th>元素个数</th><th>作为 $\mathbb{F}_2$ 上的向量空间维数</th></tr>
+<tr><td>$\mathbb{F}_2$</td><td>2</td><td>1</td></tr>
+<tr><td>$\mathbb{F}_{2^2} = \mathbb{F}_4$</td><td>4</td><td>2</td></tr>
+<tr><td>$\mathbb{F}_{2^3} = \mathbb{F}_8$</td><td>8</td><td>3</td></tr>
+<tr><td>$\mathbb{F}_{2^4} = \mathbb{F}_{16}$</td><td>16</td><td>4</td></tr>
+<tr><td>$\mathbb{F}_{2^6} = \mathbb{F}_{64}$</td><td>64</td><td>6</td></tr>
+<tr><td>$\mathbb{F}_{2^{12}} = \mathbb{F}_{4096}$</td><td>4096</td><td>12</td></tr>
+</table>
+</div>
+
 <!-- ==================== Section 4: Galois Groups ==================== -->
 <h2>4. Galois Groups（Galois 群）</h2>
 
 <p>Since $\mathbb{F}_{p^n}$ is the splitting field over $\mathbb{F}_p$ of $x^{p^n} - x$, which is separable, $\mathbb{F}_{p^n}/\mathbb{F}_p$ is Galois. It is a fundamental feature that the Galois group is cyclic, with a <span class="vocab" data-tip="/kəˈnɒnɪkl/ 典范的">canonical</span> generator.</p>
 
 <blockquote>由于 $\mathbb{F}_{p^n}$ 是可分多项式 $x^{p^n} - x$ 在 $\mathbb{F}_p$ 上的分裂域，所以 $\mathbb{F}_{p^n}/\mathbb{F}_p$ 是 Galois 扩张。一个基本特征是：Galois 群是循环群，有一个典范的生成元。</blockquote>
+
+<div class="note">
+<strong>什么是「可分多项式」(Separable Polynomial)？</strong>
+
+<p><strong>定义：</strong>多项式 $f(x)$ 是<strong>可分的</strong>，当且仅当它没有重根（在代数闭包中）。</p>
+
+<p><strong>等价条件：</strong>$f(x)$ 可分 $\Leftrightarrow$ $\gcd(f(x), f'(x)) = 1$（$f$ 与其导数互素）</p>
+
+<p><strong>例子：</strong></p>
+<ul>
+<li>$x^2 - 1 = (x-1)(x+1)$：两个不同的根，<strong>可分</strong> ✓</li>
+<li>$x^2 - 2x + 1 = (x-1)^2$：重根 $x = 1$，<strong>不可分</strong> ✗</li>
+<li>$x^{p^n} - x$ 在 $\mathbb{F}_p$ 上：导数 $= p^n x^{p^n - 1} - 1 = -1$（因为 $p^n \equiv 0$），与 $f(x)$ 互素，<strong>可分</strong> ✓</li>
+</ul>
+
+<p><strong>为什么可分性重要？</strong>可分多项式的根都是「单根」，这保证分裂域的扩张次数等于根的个数，是 Galois 理论正常工作的前提。</p>
+</div>
+
+<div class="note">
+<strong>什么是「Galois 扩张」和「Galois 群」？</strong>
+
+<p><strong>Galois 扩张：</strong>域扩张 $K/F$ 是 Galois 扩张，当且仅当它是某个可分多项式在 $F$ 上的分裂域。</p>
+
+<p><strong>等价条件：</strong>$K/F$ 是 Galois $\Leftrightarrow$ $K/F$ 是<strong>正规</strong>（$F$ 上的不可约多项式在 $K$ 中要么无根，要么完全分解）且<strong>可分</strong>。</p>
+
+<p><strong>Galois 群：</strong>$\mathrm{Gal}(K/F) = \{\sigma: K \to K \mid \sigma \text{ 是域自同构且固定 } F\}$</p>
+<ul>
+<li>即所有「保持 $F$ 不动」的 $K$ 的自同构</li>
+<li>这些自同构在复合运算下构成一个群</li>
+</ul>
+
+<p><strong>例子：</strong>$\mathrm{Gal}(\mathbb{C}/\mathbb{R})$</p>
+<ul>
+<li>$\mathbb{C}$ 的自同构中固定 $\mathbb{R}$ 的有哪些？</li>
+<li>恒等映射：$\mathrm{id}: z \mapsto z$</li>
+<li>复共轭：$\sigma: z \mapsto \bar{z}$（即 $a + bi \mapsto a - bi$）</li>
+<li>$\mathrm{Gal}(\mathbb{C}/\mathbb{R}) = \{\mathrm{id}, \sigma\} \cong \mathbb{Z}/2\mathbb{Z}$</li>
+</ul>
+
+<p><strong>Galois 理论的核心：</strong>对于 Galois 扩张 $K/F$，有
+$$|\mathrm{Gal}(K/F)| = [K : F]$$
+即 Galois 群的阶等于扩张次数。而且子群与中间域一一对应（Galois 对应）。</p>
+</div>
+
+<div class="note">
+<strong>有限域的 Galois 群为什么是循环群？</strong>
+
+<p>对于 $\mathbb{F}_{p^n}/\mathbb{F}_p$：</p>
+<ul>
+<li>扩张次数 $[\mathbb{F}_{p^n} : \mathbb{F}_p] = n$</li>
+<li>所以 $|\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)| = n$</li>
+</ul>
+
+<p><strong>Frobenius 自同构：</strong>$\varphi: t \mapsto t^p$</p>
+<ul>
+<li>$\varphi$ 是 $\mathbb{F}_{p^n}$ 的自同构（保持加法和乘法）</li>
+<li>$\varphi$ 固定 $\mathbb{F}_p$（因为 $a^p = a$ 对所有 $a \in \mathbb{F}_p$）</li>
+<li>$\varphi$ 的阶是 $n$：$\varphi^n = \mathrm{id}$（因为 $t^{p^n} = t$），但 $\varphi^k \neq \mathrm{id}$ 对 $k < n$</li>
+</ul>
+
+<p><strong>结论：</strong>
+$$\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p) = \langle \varphi \rangle = \{\mathrm{id}, \varphi, \varphi^2, \ldots, \varphi^{n-1}\} \cong \mathbb{Z}/n\mathbb{Z}$$
+</p>
+
+<p><strong>具体例子：</strong>$\mathrm{Gal}(\mathbb{F}_{8}/\mathbb{F}_2)$（$p = 2$，$n = 3$）</p>
+<ul>
+<li>$\varphi: t \mapsto t^2$</li>
+<li>$\varphi^2: t \mapsto t^4$</li>
+<li>$\varphi^3: t \mapsto t^8 = t$（回到恒等）</li>
+<li>$\mathrm{Gal}(\mathbb{F}_8/\mathbb{F}_2) = \{\mathrm{id}, \varphi, \varphi^2\} \cong \mathbb{Z}/3\mathbb{Z}$</li>
+</ul>
+
+<p style="background: #e8f5e9; padding: 10px; border-radius: 5px; border-left: 4px solid #388e3c;">
+<strong>「典范生成元」的含义：</strong>Frobenius 映射 $t \mapsto t^p$ 的定义不依赖于任何选择（不需要选基、选根等），它是由域的特征 $p$ 自然决定的，因此称为「典范的」(canonical)。
+</p>
+</div>
 
 <div class="theorem">
 <p class="theorem-title">Theorem 4.1</p>
