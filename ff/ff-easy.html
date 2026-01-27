@@ -202,6 +202,7 @@
     <ul>
         <li><strong>第 1 节</strong>：从整数到复数 —— 数系扩张的动机</li>
         <li><strong>第 2 节</strong>：最简单的有限域 $\mathbb{F}_2$ —— 以及它的局限</li>
+        <li><strong>第 3 节</strong>：从 $\mathbb{F}_2$ 到 $\mathbb{F}_p$ —— 一般有限域的性质</li>
     </ul>
 </div>
 
@@ -1236,6 +1237,694 @@ $$\mathrm{Gal}(\mathbb{F}_{16}/\mathbb{F}_2) = \{\mathrm{id}, \sigma, \sigma^2, 
 <div class="remark">
     <div class="remark-title">同构映射的选择</div>
     <p>$\xi$ 可以映到 $x^3+x^2+1=0$ 在 $\mathbb{F}_2(\omega)$ 中的任意一个根。这三个根是 $\omega^3$、$\omega^5$、$\omega^6$（互为共轭），对应三个不同的同构映射。这正是 $|\mathrm{Gal}(\mathbb{F}_8/\mathbb{F}_2)| = 3$。</p>
+</div>
+
+<h3>2.12 本原多项式 vs 不可约多项式</h3>
+
+<p>在前面的例子中，我们用的不可约多项式的根恰好都是本原元（乘法群的生成元）。这是巧合吗？</p>
+
+<p><strong>定义：</strong>$\mathbb{F}_p$ 上的 $n$ 次不可约多项式 $f(x)$ 称为<strong>本原多项式</strong>（primitive polynomial），如果它的根是 $\mathbb{F}_{p^n}^*$ 的生成元（本原元）。</p>
+
+<p>本原多项式 $\Rightarrow$ 不可约多项式，但反过来不一定成立！</p>
+
+<p><strong>例子：$\mathbb{F}_2$ 上的 4 次多项式</strong></p>
+
+<p>考虑 $x^4 + x^3 + x^2 + x + 1$。先验证它不可约：</p>
+<ul>
+    <li>$f(0) = 1$，$f(1) = 1$，在 $\mathbb{F}_2$ 中无根</li>
+    <li>$\mathbb{F}_2$ 上唯一的 2 次不可约多项式是 $x^2+x+1$</li>
+    <li>$(x^2+x+1)^2 = x^4+x^2+1 \neq x^4+x^3+x^2+x+1$</li>
+    <li>尝试分解成 $(x^2+ax+b)(x^2+cx+d)$ 也失败（读者可验证）</li>
+</ul>
+
+<p>所以 $x^4 + x^3 + x^2 + x + 1$ 是<strong>不可约</strong>的。</p>
+
+<p><strong>但它是本原多项式吗？</strong></p>
+
+<p>关键观察：$x^4 + x^3 + x^2 + x + 1 = \frac{x^5 - 1}{x - 1}$（分圆多项式）</p>
+
+<p>所以它的根是满足 $\zeta^5 = 1$ 且 $\zeta \neq 1$ 的元素——即 5 次本原单位根。</p>
+
+<p>设 $\zeta$ 是 $x^4+x^3+x^2+x+1$ 的一个根，则 $\zeta$ 的阶是 $5$（因为 $5$ 是素数）。</p>
+
+<p>但 $\mathbb{F}_{16}^*$ 的阶是 $15 = 3 \times 5$。本原元的阶必须是 $15$。</p>
+
+<p>$\zeta$ 的阶只有 $5 \neq 15$，所以 $\zeta$ <strong>不是</strong>本原元！</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">对比</div>
+    <table>
+        <tr><th>多项式</th><th>不可约？</th><th>根的阶</th><th>$|\mathbb{F}_{16}^*|$</th><th>本原多项式？</th></tr>
+        <tr><td>$x^4 + x + 1$</td><td>是</td><td>$15$</td><td>$15$</td><td><strong>是</strong></td></tr>
+        <tr><td>$x^4 + x^3 + 1$</td><td>是</td><td>$15$</td><td>$15$</td><td><strong>是</strong></td></tr>
+        <tr><td>$x^4 + x^3 + x^2 + x + 1$</td><td>是</td><td>$5$</td><td>$15$</td><td><strong>否</strong></td></tr>
+    </table>
+</div>
+
+<p><strong>在 $\mathbb{F}_{16}$ 中定位 $\zeta$：</strong></p>
+
+<p>回忆 2.10 节，$\theta$ 是 $x^4+x+1$ 的根，$\theta^{15} = 1$。</p>
+
+<p>阶为 $5$ 的元素是 $\theta^k$，其中 $15/\gcd(k,15) = 5$，即 $\gcd(k,15) = 3$。所以 $k = 3, 6, 9, 12$。</p>
+
+<p>$\zeta = \theta^3$ 是 $x^4+x^3+x^2+x+1$ 的根。验证：$(\theta^3)^5 = \theta^{15} = 1$ ✓</p>
+
+<p>用标准形式：$\theta^3 = 1 + \theta$（查 2.10 节的幂次表）。</p>
+
+<div class="summary">
+    <div class="summary-title">本原多项式 vs 不可约多项式</div>
+    <ul>
+        <li><strong>不可约多项式</strong>：不能分解，根生成 $\mathbb{F}_{p^n}$</li>
+        <li><strong>本原多项式</strong>：不可约，且根是 $\mathbb{F}_{p^n}^*$ 的生成元</li>
+        <li>本原多项式一定不可约，但不可约多项式不一定本原</li>
+        <li>在密码学和通信中，常常需要本原多项式来生成最长周期的伪随机序列</li>
+    </ul>
+</div>
+
+<div class="remark">
+    <div class="remark-title">本原多项式的数量</div>
+    <p>$\mathbb{F}_p$ 上 $n$ 次本原多项式的个数是 $\frac{\varphi(p^n-1)}{n}$，其中 $\varphi$ 是欧拉函数。</p>
+    <p>例如 $\mathbb{F}_2$ 上 4 次本原多项式：$\frac{\varphi(15)}{4} = \frac{8}{4} = 2$ 个（就是 $x^4+x+1$ 和 $x^4+x^3+1$）。</p>
+    <p>而 4 次不可约多项式有 $I_2(4) = 3$ 个，多出来的那个 $x^4+x^3+x^2+x+1$ 不是本原的。</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">扩张得到的域是一样的吗？</div>
+    <p><strong>是的！</strong>由 2.11 节的结论，任意两个同次数的不可约多项式（不管是否本原）扩张得到的域都是同构的。</p>
+    <p>例如：</p>
+    <ul>
+        <li>$\mathbb{F}_2[x]/(x^4+x+1) \cong \mathbb{F}_{16}$（本原）</li>
+        <li>$\mathbb{F}_2[x]/(x^4+x^3+x^2+x+1) \cong \mathbb{F}_{16}$（非本原）</li>
+    </ul>
+    <p>它们是同一个域！区别只在于：</p>
+    <ul>
+        <li>本原多项式的根 $\theta$ 的阶是 $15$，可以用 $\theta^k$ 表示所有非零元素</li>
+        <li>非本原多项式的根 $\zeta$ 的阶是 $5$，$\zeta^k$ 只能表示 $5$ 个非零元素</li>
+    </ul>
+    <p>所以本原多项式在实际应用中更方便——用一个元素的幂次就能表示整个乘法群。</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">本原多项式一定存在</div>
+    <p>对于任意 $n$，$\mathbb{F}_p$ 上一定存在 $n$ 次本原多项式。证明思路：</p>
+    <ol>
+        <li>用任意 $n$ 次不可约多项式扩张 $\mathbb{F}_p$，得到 $\mathbb{F}_{p^n}$</li>
+        <li>$\mathbb{F}_{p^n}^*$ 是 $p^n - 1$ 阶循环群，必存在生成元（本原元）$\alpha$</li>
+        <li>$\alpha$ 在 $\mathbb{F}_p$ 上的极小多项式就是 $n$ 次本原多项式</li>
+    </ol>
+    <p>这个论证很巧妙：我们不需要直接构造本原多项式，而是先构造域，再从域里「反推」出本原多项式。</p>
+</div>
+
+<h3>2.13 迹（Trace）与范数（Norm）</h3>
+
+<p>从扩域 $\mathbb{F}_{p^n}$ 到基域 $\mathbb{F}_p$，有两个重要的映射：<strong>迹</strong>和<strong>范数</strong>。</p>
+
+<p><strong>定义：</strong>对于 $\alpha \in \mathbb{F}_{p^n}$，</p>
+
+$$\mathrm{Tr}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(\alpha) = \alpha + \alpha^p + \alpha^{p^2} + \cdots + \alpha^{p^{n-1}} = \sum_{i=0}^{n-1} \alpha^{p^i}$$
+
+$$\mathrm{N}_{\mathbb{F}_{p^n}/\mathbb{F}_p}(\alpha) = \alpha \cdot \alpha^p \cdot \alpha^{p^2} \cdots \alpha^{p^{n-1}} = \prod_{i=0}^{n-1} \alpha^{p^i}$$
+
+<p>直观理解：$\alpha, \alpha^p, \alpha^{p^2}, \ldots$ 是 $\alpha$ 的所有<strong>共轭</strong>（被 Frobenius 映射相互置换）。迹是共轭的<strong>和</strong>，范数是共轭的<strong>积</strong>。</p>
+
+<p><strong>例 1：$\mathbb{F}_4 / \mathbb{F}_2$</strong></p>
+
+<p>$\beta$ 满足 $\beta^2 + \beta + 1 = 0$，$\beta$ 的共轭是 $\beta^2 = 1 + \beta$。</p>
+
+<table>
+    <tr><th>$\alpha$</th><th>共轭</th><th>$\mathrm{Tr}(\alpha) = \alpha + \alpha^2$</th><th>$\mathrm{N}(\alpha) = \alpha \cdot \alpha^2$</th></tr>
+    <tr><td>$0$</td><td>$0$</td><td>$0 + 0 = 0$</td><td>$0 \cdot 0 = 0$</td></tr>
+    <tr><td>$1$</td><td>$1$</td><td>$1 + 1 = 0$</td><td>$1 \cdot 1 = 1$</td></tr>
+    <tr><td>$\beta$</td><td>$1+\beta$</td><td>$\beta + (1+\beta) = 1$</td><td>$\beta \cdot (1+\beta) = \beta^3 = 1$</td></tr>
+    <tr><td>$1+\beta$</td><td>$\beta$</td><td>$(1+\beta) + \beta = 1$</td><td>$(1+\beta) \cdot \beta = 1$</td></tr>
+</table>
+
+<p>验证：Tr 和 N 的值都在 $\mathbb{F}_2 = \{0, 1\}$ 中！</p>
+
+<p><strong>例 2：$\mathbb{F}_8 / \mathbb{F}_2$</strong></p>
+
+<p>$\omega$ 满足 $\omega^3 + \omega + 1 = 0$，共轭是 $\omega$, $\omega^2$, $\omega^4$。</p>
+
+<table>
+    <tr><th>$\alpha$</th><th>标准形式</th><th>$\mathrm{Tr}(\alpha) = \alpha + \alpha^2 + \alpha^4$</th><th>$\mathrm{N}(\alpha) = \alpha^{1+2+4} = \alpha^7$</th></tr>
+    <tr><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td></tr>
+    <tr><td>$1$</td><td>$1$</td><td>$1+1+1 = 1$</td><td>$1$</td></tr>
+    <tr><td>$\omega$</td><td>$\omega$</td><td>$\omega + \omega^2 + \omega^4$</td><td>$\omega^7 = 1$</td></tr>
+    <tr><td>$\omega^2$</td><td>$\omega^2$</td><td>$\omega^2 + \omega^4 + \omega^8 = \omega^2 + \omega^4 + \omega$</td><td>$1$</td></tr>
+    <tr><td>$\omega^3$</td><td>$1+\omega$</td><td>$\omega^3 + \omega^6 + \omega^{12} = \omega^3 + \omega^6 + \omega^5$</td><td>$1$</td></tr>
+</table>
+
+<p>计算 $\mathrm{Tr}(\omega)$：用幂次表（2.9 节），$\omega^4 = \omega + \omega^2$</p>
+$$\mathrm{Tr}(\omega) = \omega + \omega^2 + (\omega + \omega^2) = 0$$
+
+<p>计算 $\mathrm{Tr}(\omega^3)$：$\omega^3 = 1+\omega$, $\omega^6 = 1+\omega^2$, $\omega^5 = 1+\omega+\omega^2$</p>
+$$\mathrm{Tr}(\omega^3) = (1+\omega) + (1+\omega^2) + (1+\omega+\omega^2) = 1$$
+
+<div class="key-idea">
+    <div class="key-idea-title">基本性质</div>
+    <ol>
+        <li><strong>值在基域中</strong>：$\mathrm{Tr}(\alpha), \mathrm{N}(\alpha) \in \mathbb{F}_p$</li>
+        <li><strong>Tr 是加法的</strong>：$\mathrm{Tr}(\alpha + \beta) = \mathrm{Tr}(\alpha) + \mathrm{Tr}(\beta)$</li>
+        <li><strong>Tr 是 $\mathbb{F}_p$-线性的</strong>：$\mathrm{Tr}(c\alpha) = c \cdot \mathrm{Tr}(\alpha)$，对 $c \in \mathbb{F}_p$</li>
+        <li><strong>N 是乘法的</strong>：$\mathrm{N}(\alpha\beta) = \mathrm{N}(\alpha) \cdot \mathrm{N}(\beta)$</li>
+        <li><strong>N 与逆元</strong>：$\mathrm{N}(\alpha) \neq 0 \Leftrightarrow \alpha \neq 0$，且 $\mathrm{N}(\alpha^{-1}) = \mathrm{N}(\alpha)^{-1}$</li>
+    </ol>
+</div>
+
+<div class="remark">
+    <div class="remark-title">与极小多项式的关系</div>
+    <p>设 $\alpha \in \mathbb{F}_{p^n}$ 的极小多项式是 $m(x) = x^d + a_{d-1}x^{d-1} + \cdots + a_1 x + a_0$。</p>
+    <p>如果 $d = n$（即 $\alpha$ 生成整个扩域），则：</p>
+    <ul>
+        <li>$\mathrm{Tr}(\alpha) = -a_{n-1}$（共轭根之和）</li>
+        <li>$\mathrm{N}(\alpha) = (-1)^n a_0$（共轭根之积）</li>
+    </ul>
+    <p>这正是 Vieta 定理！</p>
+</div>
+
+<div class="example">
+    <div class="example-title">验证 Vieta 定理</div>
+    <p>$\beta$ 的极小多项式是 $x^2 + x + 1$（即 $a_1 = 1$, $a_0 = 1$）。</p>
+    <ul>
+        <li>$\mathrm{Tr}(\beta) = -a_1 = -1 = 1$（在 $\mathbb{F}_2$ 中）✓</li>
+        <li>$\mathrm{N}(\beta) = (-1)^2 a_0 = 1$ ✓</li>
+    </ul>
+    <p>$\omega$ 的极小多项式是 $x^3 + x + 1$（即 $a_2 = 0$, $a_1 = 1$, $a_0 = 1$）。</p>
+    <ul>
+        <li>$\mathrm{Tr}(\omega) = -a_2 = 0$ ✓</li>
+        <li>$\mathrm{N}(\omega) = (-1)^3 a_0 = -1 = 1$（在 $\mathbb{F}_2$ 中）✓</li>
+    </ul>
+</div>
+
+<div class="remark">
+    <div class="remark-title">应用</div>
+    <p>Trace 和 Norm 在密码学和编码理论中有重要应用：</p>
+    <ul>
+        <li><strong>线性复杂度</strong>：分析伪随机序列</li>
+        <li><strong>配对</strong>：椭圆曲线密码学中的 Weil 配对、Tate 配对</li>
+        <li><strong>纠错码</strong>：BCH 码、Goppa 码的构造</li>
+    </ul>
+</div>
+
+<h2>3. 从 $\mathbb{F}_2$ 到 $\mathbb{F}_p$：一般有限域的性质</h2>
+
+<p>在第 2 节中，我们用 $\mathbb{F}_2$ 演示了有限域的几乎所有重要性质。现在的问题是：这些性质在一般的 $\mathbb{F}_p$（$p$ 是任意素数）中也成立吗？</p>
+
+<p>我们通过问答的方式来回顾和推广：先引用 $\mathbb{F}_2$ 中的例子，再说明 $\mathbb{F}_p$ 中是否成立。</p>
+
+<h3>Q1：每个 degree 的不可约首一多项式都存在，并且可以准确计数？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子（2.4 节）：</strong></p>
+<ul>
+    <li>$I_2(1) = 2$（$x$, $x+1$）</li>
+    <li>$I_2(2) = 1$（$x^2+x+1$）</li>
+    <li>$I_2(3) = 2$（$x^3+x+1$, $x^3+x^2+1$）</li>
+    <li>$I_2(4) = 3$（$x^4+x+1$, $x^4+x^3+1$, $x^4+x^3+x^2+x+1$）</li>
+</ul>
+<p>计数公式：$I_2(n) = \frac{1}{n}\sum_{d \mid n} \mu(n/d) \cdot 2^d$，验证完全吻合。</p>
+
+<p><strong>$\mathbb{F}_p$ 中成立吗？成立！</strong></p>
+
+$$I_p(n) = \frac{1}{n}\sum_{d \mid n} \mu(n/d) \cdot p^d$$
+
+<p><strong>思路：</strong></p>
+<ol>
+    <li>$x^{p^n} - x$ 无重根（导数为 $-1$）</li>
+    <li>$d$ 次不可约多项式的根 $\alpha$ 满足 $\alpha^{p^d} = \alpha$，若 $d \mid n$ 则 $\alpha^{p^n} = \alpha$</li>
+    <li>所以 $x^{p^n} - x = \prod_{d \mid n} (\text{所有 } d \text{ 次不可约多项式})$</li>
+    <li>比较次数：$p^n = \sum_{d \mid n} d \cdot I_p(d)$</li>
+    <li>Möbius 反演得 $I_p(n)$ 的显式公式</li>
+</ol>
+
+<p>主项是 $\frac{p^n}{n}$，总是正的，所以<strong>每个 degree 都存在不可约多项式</strong>。</p>
+
+<h3>Q2：其中必然存在本原多项式（根是本原元的多项式）？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子（2.12 节）：</strong></p>
+<ul>
+    <li>4 次不可约多项式有 3 个</li>
+    <li>其中 $x^4+x+1$, $x^4+x^3+1$ 是本原多项式（根的阶是 $15 = |\mathbb{F}_{16}^*|$）</li>
+    <li>$x^4+x^3+x^2+x+1$ 不是本原多项式（根的阶是 $5$）</li>
+    <li>本原多项式个数：$\frac{\varphi(15)}{4} = 2$，吻合！</li>
+</ul>
+
+<p><strong>$\mathbb{F}_p$ 中成立吗？成立！</strong></p>
+
+<p>$n$ 次本原多项式的个数：$\frac{\varphi(p^n - 1)}{n}$</p>
+
+<p><strong>思路：</strong></p>
+<ol>
+    <li>用任意 $n$ 次不可约多项式扩张得到 $\mathbb{F}_{p^n}$</li>
+    <li>$\mathbb{F}_{p^n}^*$ 是 $p^n - 1$ 阶循环群，本原元（生成元）有 $\varphi(p^n-1)$ 个</li>
+    <li>每个本原元的极小多项式是 $n$ 次本原多项式</li>
+    <li>每个 $n$ 次多项式有 $n$ 个根（共轭），所以本原多项式个数 $= \frac{\varphi(p^n-1)}{n}$</li>
+</ol>
+
+<p>$\varphi(p^n-1) \geq 1$（对 $p^n - 1 \geq 2$），所以<strong>本原多项式必然存在</strong>。</p>
+
+<h3>Q3：相同 degree 的不可约多项式扩张得到的域同构？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子（2.11 节）：</strong></p>
+<ul>
+    <li>用 $x^3+x+1$ 扩张：设 $\omega^3 = \omega + 1$，得到 $\mathbb{F}_2(\omega)$</li>
+    <li>用 $x^3+x^2+1$ 扩张：设 $\xi^3 = \xi^2 + 1$，得到 $\mathbb{F}_2(\xi)$</li>
+    <li>两者都有 8 个元素</li>
+    <li>同构映射：$\varphi(\xi) = \omega^3$，因为 $\omega^3$ 是 $x^3+x^2+1$ 在 $\mathbb{F}_2(\omega)$ 中的根</li>
+</ul>
+
+<p><strong>$\mathbb{F}_p$ 中成立吗？成立！</strong></p>
+
+<p><strong>思路：</strong></p>
+<ol>
+    <li>设 $f(x)$, $g(x)$ 都是 $\mathbb{F}_p$ 上 $n$ 次不可约多项式</li>
+    <li>$\mathbb{F}_p[x]/(f(x))$ 和 $\mathbb{F}_p[x]/(g(x))$ 都是 $p^n$ 元域</li>
+    <li>$p^n$ 元域是 $x^{p^n} - x$ 的分裂域，在同构意义下<strong>唯一</strong></li>
+    <li>所以 $\mathbb{F}_p[x]/(f(x)) \cong \mathbb{F}_p[x]/(g(x)) \cong \mathbb{F}_{p^n}$</li>
+</ol>
+
+<p>这就是为什么我们可以直接写 $\mathbb{F}_{p^n}$ 而不用指明用哪个多项式构造——<strong>结果都一样</strong>。</p>
+
+<h3>Q4：同一个不可约多项式的不同根扩张得到的域同构？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子（2.7 节）：</strong></p>
+<ul>
+    <li>$x^2+x+1$ 有两个根：$\beta$ 和 $\gamma = 1+\beta$（共轭）</li>
+    <li>用 $\beta$ 扩张得到 $\mathbb{F}_2(\beta) = \{0, 1, \beta, 1+\beta\}$</li>
+    <li>用 $\gamma$ 扩张得到 $\mathbb{F}_2(\gamma) = \{0, 1, \gamma, 1+\gamma\}$</li>
+    <li>同构映射：$\varphi(\beta) = \gamma$，即把根换成它的共轭</li>
+</ul>
+
+<p><strong>$\mathbb{F}_p$ 中成立吗？成立！</strong></p>
+
+<p><strong>思路：</strong></p>
+<ol>
+    <li>设 $f(x)$ 是 $n$ 次不可约多项式，$\alpha$ 和 $\alpha'$ 是它的两个根</li>
+    <li>$\mathbb{F}_p(\alpha)$ 和 $\mathbb{F}_p(\alpha')$ 都是 $p^n$ 元域</li>
+    <li>由 Q3，它们同构于 $\mathbb{F}_{p^n}$</li>
+    <li>更直接地：$\alpha' = \alpha^{p^k}$（某个 $k$），所以 $\alpha' \in \mathbb{F}_p(\alpha)$</li>
+    <li>同构映射就是 Frobenius：$\sigma^k: \alpha \mapsto \alpha^{p^k} = \alpha'$</li>
+</ol>
+
+<p>事实上，$f(x)$ 的所有根都在 $\mathbb{F}_p(\alpha)$ 中，它们被 Frobenius 映射 $\sigma: x \mapsto x^p$ 相互置换。这些根互称<strong>共轭</strong>。</p>
+
+<h3>Q5：有限域扩张是 Galois 扩张，Galois 群是循环群？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子（2.8, 2.9, 2.10 节）：</strong></p>
+<ul>
+    <li>$\mathrm{Gal}(\mathbb{F}_4/\mathbb{F}_2) = \{\mathrm{id}, \sigma\} \cong \mathbb{Z}/2\mathbb{Z}$，其中 $\sigma: x \mapsto x^2$</li>
+    <li>$\mathrm{Gal}(\mathbb{F}_8/\mathbb{F}_2) = \{\mathrm{id}, \sigma, \sigma^2\} \cong \mathbb{Z}/3\mathbb{Z}$</li>
+    <li>$\mathrm{Gal}(\mathbb{F}_{16}/\mathbb{F}_2) = \{\mathrm{id}, \sigma, \sigma^2, \sigma^3\} \cong \mathbb{Z}/4\mathbb{Z}$</li>
+</ul>
+<p>都是由 Frobenius $\sigma: x \mapsto x^2$ 生成的循环群。</p>
+
+<p><strong>$\mathbb{F}_p$ 中成立吗？成立！</strong></p>
+
+$$\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p) = \langle \sigma \rangle \cong \mathbb{Z}/n\mathbb{Z}$$
+
+<p>其中 $\sigma: x \mapsto x^p$ 是 <strong>Frobenius 自同构</strong>。</p>
+
+<p><strong>思路：</strong></p>
+<ol>
+    <li>$\sigma$ 固定 $\mathbb{F}_p$（因为 $a^p = a$ 对 $a \in \mathbb{F}_p$，Fermat 小定理）</li>
+    <li>$\sigma$ 是 $\mathbb{F}_{p^n}$ 的自同构（保持加法和乘法）</li>
+    <li>$\sigma^n = \mathrm{id}$（因为 $x^{p^n} = x$ 对所有 $x \in \mathbb{F}_{p^n}$）</li>
+    <li>$\sigma^k \neq \mathrm{id}$ 对 $0 < k < n$（否则 $x^{p^k} = x$ 对所有 $x$，但 $|\mathbb{F}_{p^n}| > p^k$）</li>
+    <li>所以 $\sigma$ 的阶是 $n$，$\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p) = \langle \sigma \rangle$ 是 $n$ 阶循环群</li>
+</ol>
+
+<p>有限域的扩张总是 <strong>Galois 扩张</strong>（正规且可分），Galois 群总是<strong>循环群</strong>，生成元是 Frobenius。</p>
+
+<h3>Q6：先用 $f(x)$ 再用 $g(x)$ 扩张，和反过来，结果同构？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子：</strong></p>
+<ul>
+    <li>路径 1：$\mathbb{F}_2 \xrightarrow{x^2+x+1} \mathbb{F}_4 \xrightarrow{\text{再扩张}} \mathbb{F}_{16}$</li>
+    <li>路径 2：$\mathbb{F}_2 \xrightarrow{x^4+x+1} \mathbb{F}_{16}$（一步到位）</li>
+    <li>两条路径都得到 $\mathbb{F}_{16}$</li>
+</ul>
+<p>更一般地，用 $x^3+x+1$（3 次）和 $x^2+x+1$（2 次）扩张，不管先后顺序，最终都得到 $\mathbb{F}_{64} = \mathbb{F}_{2^6}$（因为 $\mathrm{lcm}(2,3) = 6$）。</p>
+
+<p><strong>$\mathbb{F}_p$ 中成立吗？成立！</strong></p>
+
+<p><strong>思路：</strong></p>
+<ol>
+    <li>设 $f(x)$ 是 $m$ 次不可约，$g(x)$ 是 $n$ 次不可约</li>
+    <li>$f(x)$ 的根在 $\mathbb{F}_{p^m}$ 中，$g(x)$ 的根在 $\mathbb{F}_{p^n}$ 中</li>
+    <li>包含两者的最小域是 $\mathbb{F}_{p^{\mathrm{lcm}(m,n)}}$</li>
+    <li>不管先添加哪个根，最终都是这个域</li>
+    <li>由有限域的唯一性，结果同构</li>
+</ol>
+
+<p>关键：有限域的结构完全由元素个数决定，与构造路径无关。$\mathbb{F}_{p^k}$ 在同构意义下<strong>唯一</strong>。</p>
+
+<div class="remark">
+    <div class="remark-title">追问：如果 $g(x)$ 在通过 $f(x)$ 扩张后变得可约了呢？</div>
+    <p>这是个很好的问题！让我们分情况讨论：</p>
+
+    <p><strong>情况 1：$g(x)$ 完全分裂</strong></p>
+    <p>如果 $n \mid m$，则 $\mathbb{F}_{p^n} \subset \mathbb{F}_{p^m}$。此时 $g(x)$ 的所有根都已经在 $\mathbb{F}_{p^m}$ 中，$g(x)$ 完全分裂成一次因式。</p>
+    <p>例如：先用 $x^4+x+1$ 扩张得到 $\mathbb{F}_{16}$，再用 $x^2+x+1$ 扩张。但 $2 \mid 4$，所以 $\mathbb{F}_4 \subset \mathbb{F}_{16}$。$x^2+x+1$ 在 $\mathbb{F}_{16}$ 中已经分裂为 $(x-\beta)(x-(1+\beta))$，不需要进一步扩张！最终域就是 $\mathbb{F}_{16} = \mathbb{F}_{2^{\mathrm{lcm}(4,2)}}$。</p>
+
+    <p><strong>情况 2：$g(x)$ 部分分裂</strong></p>
+    <p>如果 $\gcd(m, n) = d > 1$ 但 $n \nmid m$，则 $g(x)$ 可能在 $\mathbb{F}_{p^m}$ 中分解成若干个 $\frac{n}{d}$ 次不可约因式。</p>
+    <p>例如：在 2.10 节我们看到，$x^4+x+1$ 在 $\mathbb{F}_4$ 中分解为 $(x^2+x+\beta)(x^2+x+\gamma)$，两个二次因式。因为 $\gcd(2,4) = 2$，所以 $4$ 次多项式分解成 $\frac{4}{2} = 2$ 次因式。</p>
+
+    <p><strong>情况 3：$g(x)$ 仍然不可约</strong></p>
+    <p>如果 $\gcd(m, n) = 1$，则 $g(x)$ 在 $\mathbb{F}_{p^m}$ 上仍然不可约。</p>
+    <p>例如：用 $x^2+x+1$ 扩张得到 $\mathbb{F}_4$，$x^3+x+1$ 在 $\mathbb{F}_4$ 上仍然不可约（因为 $\gcd(2,3) = 1$）。</p>
+
+    <p><strong>结论：无论 $g(x)$ 是否可约，最终域都是 $\mathbb{F}_{p^{\mathrm{lcm}(m,n)}}$</strong></p>
+    <ul>
+        <li>如果 $g(x)$ 完全分裂（$n \mid m$），则 $\mathrm{lcm}(m,n) = m$，最终域就是 $\mathbb{F}_{p^m}$</li>
+        <li>如果 $g(x)$ 部分分裂，添加一个因式的根即可到达最终域</li>
+        <li>如果 $g(x)$ 仍不可约，直接添加其根</li>
+    </ul>
+    <p>有限域的"唯一性"保证了：不管 $g(x)$ 在中间过程中发生了什么，最终目的地都是同一个！</p>
+</div>
+
+<h3>Q7：不管域扩张到多大，每个 degree 的不可约多项式都存在？</h3>
+
+<p><strong>$\mathbb{F}_2$ 中的例子：</strong></p>
+<p>我们在 Q1 中验证了 $\mathbb{F}_2$ 上每个 degree 都有不可约多项式。但扩张到 $\mathbb{F}_4$、$\mathbb{F}_8$、$\mathbb{F}_{16}$ 之后呢？</p>
+
+<ul>
+    <li>$\mathbb{F}_4$ 上：1 次不可约有 $4$ 个，2 次不可约有 $\frac{4^2-4}{2} = 6$ 个，3 次不可约有 $\frac{4^3-4}{3} = 20$ 个...</li>
+    <li>$\mathbb{F}_8$ 上：1 次不可约有 $8$ 个，2 次不可约有 $\frac{8^2-8}{2} = 28$ 个...</li>
+    <li>$\mathbb{F}_{16}$ 上：1 次不可约有 $16$ 个，2 次不可约有 $\frac{16^2-16}{2} = 120$ 个...</li>
+</ul>
+
+<p><strong>一般的 $\mathbb{F}_q$（$q = p^n$）中成立吗？成立！</strong></p>
+
+<p>计数公式对<strong>任意</strong>有限域 $\mathbb{F}_q$ 都成立：</p>
+
+$$I_q(d) = \frac{1}{d}\sum_{k \mid d} \mu(d/k) \cdot q^k$$
+
+<p><strong>思路完全相同：</strong></p>
+<ol>
+    <li>$x^{q^d} - x$ 是 $\mathbb{F}_q$ 上的多项式，无重根</li>
+    <li>$x^{q^d} - x = \prod_{k \mid d} (\text{所有 } \mathbb{F}_q \text{ 上 } k \text{ 次不可约多项式})$</li>
+    <li>比较次数 + Möbius 反演得到公式</li>
+</ol>
+
+<p>主项是 $\frac{q^d}{d}$，对任意 $q \geq 2$ 和 $d \geq 1$ 都是正数。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">核心观察</div>
+    <p><strong>有限域永远不是代数闭的！</strong></p>
+    <p>对任意有限域 $\mathbb{F}_q$，总存在 $\mathbb{F}_q$ 上的不可约多项式（任意 degree）。这意味着：</p>
+    <ul>
+        <li>$\mathbb{F}_q$ 可以继续扩张到 $\mathbb{F}_{q^2}$, $\mathbb{F}_{q^3}$, ...</li>
+        <li>扩张链永无止境：$\mathbb{F}_p \subset \mathbb{F}_{p^2} \subset \mathbb{F}_{p^4} \subset \cdots$</li>
+        <li>所有这些有限域的并集 $\overline{\mathbb{F}_p} = \bigcup_{n=1}^{\infty} \mathbb{F}_{p^n}$ 才是代数闭包</li>
+    </ul>
+    <p>这与复数域 $\mathbb{C}$ 完全不同——$\mathbb{C}$ 是代数闭的，没有真正的代数扩张。</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">直觉</div>
+    <p>为什么有限域不能是代数闭的？</p>
+    <p>代数闭域必须是无限的。因为如果 $F = \{a_1, a_2, \ldots, a_n\}$ 是有限域，考虑多项式：</p>
+    $$f(x) = (x - a_1)(x - a_2) \cdots (x - a_n) + 1$$
+    <p>$f(x)$ 在 $F$ 中没有根（代入任何 $a_i$ 都得到 $1 \neq 0$），所以 $f(x)$ 必有不可约因式，$F$ 不是代数闭的。</p>
+    <p>这个论证类似于 Euclid 证明素数无穷多的方法！</p>
+</div>
+
+<h3>Q8：不同素数 $p$ 的代数闭包 $\overline{\mathbb{F}_p}$ 互不同构？</h3>
+
+<p><strong>$\mathbb{F}_2$ vs $\mathbb{F}_3$ 的例子：</strong></p>
+<ul>
+    <li>在 $\mathbb{F}_2$ 中：$1 + 1 = 0$</li>
+    <li>在 $\mathbb{F}_3$ 中：$1 + 1 = 2 \neq 0$</li>
+</ul>
+<p>这两个域显然不同构——它们对"$1+1$ 等于多少"给出不同答案！</p>
+
+<p><strong>一般情况：$\overline{\mathbb{F}_p} \not\cong \overline{\mathbb{F}_q}$（$p \neq q$ 为不同素数）</strong></p>
+
+<p><strong>原因：特征不同</strong></p>
+
+<div class="key-idea">
+    <div class="key-idea-title">域的特征（Characteristic）</div>
+    <p>域 $F$ 的<strong>特征</strong>定义为使得 $\underbrace{1 + 1 + \cdots + 1}_{n \text{ 个}} = 0$ 成立的最小正整数 $n$。如果不存在这样的 $n$，则特征为 $0$。</p>
+    <ul>
+        <li>$\mathrm{char}(\mathbb{Q}) = \mathrm{char}(\mathbb{R}) = \mathrm{char}(\mathbb{C}) = 0$</li>
+        <li>$\mathrm{char}(\mathbb{F}_p) = p$</li>
+        <li>$\mathrm{char}(\mathbb{F}_{p^n}) = p$（扩域继承特征）</li>
+        <li>$\mathrm{char}(\overline{\mathbb{F}_p}) = p$（代数闭包也继承特征）</li>
+    </ul>
+</div>
+
+<p><strong>特征是同构不变量：</strong></p>
+<p>如果 $F \cong G$，则 $\mathrm{char}(F) = \mathrm{char}(G)$。</p>
+
+<p><strong>证明 $\overline{\mathbb{F}_p} \not\cong \overline{\mathbb{F}_q}$：</strong></p>
+<ol>
+    <li>$\mathrm{char}(\overline{\mathbb{F}_p}) = p$</li>
+    <li>$\mathrm{char}(\overline{\mathbb{F}_q}) = q$</li>
+    <li>$p \neq q$，所以它们不同构</li>
+</ol>
+
+<div class="remark">
+    <div class="remark-title">有限域的完整分类</div>
+    <p>有限域的分类非常简洁：</p>
+    <ul>
+        <li>对每个素数幂 $q = p^n$，存在唯一（同构意义下）的 $q$ 元域 $\mathbb{F}_q$</li>
+        <li>$\mathbb{F}_q$ 的特征是 $p$</li>
+        <li>$\mathbb{F}_{p^m} \cong \mathbb{F}_{q^k}$ 当且仅当 $p = q$ 且 $m = k$</li>
+        <li>不存在其他有限域！</li>
+    </ul>
+    <p>所以有限域形成一个"森林"，每个素数 $p$ 对应一棵"树"：</p>
+    <pre>
+    p=2 的树：  F_2 ⊂ F_4 ⊂ F_16 ⊂ F_256 ⊂ ...
+                    ↘      ↗
+                     F_8 ⊂ F_64 ⊂ ...
+                          ↘
+                           F_{512} ⊂ ...
+
+    p=3 的树：  F_3 ⊂ F_9 ⊂ F_81 ⊂ ...
+                    ↘     ↗
+                     F_27 ⊂ ...
+
+    p=5 的树：  F_5 ⊂ F_25 ⊂ ...
+                    ↘
+                     F_125 ⊂ ...
+    </pre>
+    <p>不同素数的树之间<strong>完全隔离</strong>，没有任何交集！</p>
+</div>
+
+<h2>4. 核心结论总结</h2>
+
+<p>在 ff.html 的开头，我们列出了有限域理论的六个核心结论。现在让我们用 Section 2 和 3 中的例子来直观理解它们。</p>
+
+<h3>结论 1：每个有限域的阶都是素数幂</h3>
+
+<div class="summary">
+    <p><strong>原文：</strong>Every finite field has prime power order.</p>
+    <p><strong>中文：</strong>每个有限域的元素个数都是某个素数的幂次 $p^n$。</p>
+</div>
+
+<p><strong>直觉：</strong></p>
+<ul>
+    <li>有限域 $F$ 的特征必须是某个素数 $p$（Q8：特征是同构不变量）</li>
+    <li>$F$ 包含素域 $\mathbb{F}_p$ 作为子域</li>
+    <li>$F$ 是 $\mathbb{F}_p$ 上的向量空间，设维数为 $n$</li>
+    <li>向量空间有 $p^n$ 个元素</li>
+</ul>
+
+<p><strong>例子支撑：</strong></p>
+<ul>
+    <li>2.5 节：$\mathbb{F}_4$ 有 $4 = 2^2$ 个元素</li>
+    <li>2.9 节：$\mathbb{F}_8$ 有 $8 = 2^3$ 个元素</li>
+    <li>2.10 节：$\mathbb{F}_{16}$ 有 $16 = 2^4$ 个元素</li>
+</ul>
+
+<div class="remark">
+    <div class="remark-title">缺失内容标注</div>
+    <p>我们没有显式证明"不存在阶为 6、10、12 等非素数幂的有限域"。直觉是：如果 $|F| = ab$（$\gcd(a,b) = 1$），特征 $p$ 必须整除 $|F|$，但这会导致 $F$ 同时有特征 $p$ 的子域，产生矛盾。可考虑在 Section 3 增加相关问题。</p>
+</div>
+
+<h3>结论 2：对于每个素数幂，都存在该阶的有限域</h3>
+
+<div class="summary">
+    <p><strong>原文：</strong>For every prime power, there is a finite field of that order.</p>
+    <p><strong>中文：</strong>对于任意素数 $p$ 和正整数 $n$，存在恰好有 $p^n$ 个元素的有限域。</p>
+</div>
+
+<p><strong>直觉：</strong></p>
+<ul>
+    <li>Q1：$n$ 次不可约多项式总是存在</li>
+    <li>用不可约多项式构造扩域，得到 $p^n$ 元域</li>
+</ul>
+
+<p><strong>例子支撑：</strong></p>
+<ul>
+    <li>2.4 节：$\mathbb{F}_2$ 上每个次数都有不可约多项式</li>
+    <li>2.5 节：用 $x^2+x+1$ 构造 $\mathbb{F}_4$</li>
+    <li>2.9 节：用 $x^3+x+1$ 构造 $\mathbb{F}_8$</li>
+    <li>2.10 节：用 $x^4+x+1$ 构造 $\mathbb{F}_{16}$</li>
+    <li>Q1：计数公式 $I_p(n) = \frac{1}{n}\sum_{d|n}\mu(n/d)p^d > 0$</li>
+</ul>
+
+<h3>结论 3：$n$ 次不可约多项式存在，商环是 $p^n$ 元域</h3>
+
+<div class="summary">
+    <p><strong>原文：</strong>For a prime $p$ and positive integer $n$, there is an irreducible $\pi(x)$ of degree $n$ in $\mathbb{F}_p[x]$, and $\mathbb{F}_p[x]/(\pi(x))$ is a field of order $p^n$.</p>
+    <p><strong>中文：</strong>对于素数 $p$ 和正整数 $n$，在 $\mathbb{F}_p[x]$ 中存在 $n$ 次不可约多项式 $\pi(x)$，商环 $\mathbb{F}_p[x]/(\pi(x))$ 是 $p^n$ 元域。</p>
+</div>
+
+<p><strong>直觉：</strong></p>
+<ul>
+    <li>不可约多项式存在：由 Q1 的计数公式保证</li>
+    <li>商环是域：$\mathbb{F}_p[x]$ 是主理想整环，不可约多项式生成极大理想，商环是域</li>
+    <li>元素个数：$\mathbb{F}_p[x]/(\pi(x))$ 的元素是次数 $< n$ 的多项式，共 $p^n$ 个</li>
+</ul>
+
+<p><strong>例子支撑：</strong></p>
+<ul>
+    <li>2.5 节：$\mathbb{F}_2[x]/(x^2+x+1)$ 有 4 个元素 $\{0, 1, \beta, 1+\beta\}$</li>
+    <li>2.9 节：$\mathbb{F}_2[x]/(x^3+x+1)$ 有 8 个元素</li>
+    <li>2.10 节：$\mathbb{F}_2[x]/(x^4+x+1)$ 有 16 个元素</li>
+</ul>
+
+<h3>结论 4：相同大小的有限域同构（通常不止一种同构方式）</h3>
+
+<div class="summary">
+    <p><strong>原文：</strong>All finite fields of the same size are isomorphic (usually not in just one way).</p>
+    <p><strong>中文：</strong>所有 $p^n$ 元有限域都互相同构，但同构映射通常不唯一。</p>
+</div>
+
+<p><strong>直觉：</strong></p>
+<ul>
+    <li>$\mathbb{F}_{p^n}$ 是 $x^{p^n} - x$ 的分裂域，分裂域在同构意义下唯一</li>
+    <li>不同的不可约多项式构造出同构的域（Q3）</li>
+    <li>同构映射不唯一：有 $n$ 个自同构（Galois 群的元素）</li>
+</ul>
+
+<p><strong>例子支撑：</strong></p>
+<ul>
+    <li>2.11 节：$\mathbb{F}_2[x]/(x^3+x+1) \cong \mathbb{F}_2[x]/(x^3+x^2+1)$</li>
+    <li>Q3：同 degree 的不可约多项式给出同构的扩域</li>
+    <li>2.8 节：$\mathbb{F}_4$ 有 2 个自同构，$\mathbb{F}_8$ 有 3 个自同构</li>
+</ul>
+
+<div class="remark">
+    <div class="remark-title">为什么"不止一种同构"？</div>
+    <p>以 $\mathbb{F}_8$ 为例。设 $\omega$ 是 $x^3+x+1$ 的根，$\xi$ 是 $x^3+x^2+1$ 的根。</p>
+    <p>从 $\mathbb{F}_2(\omega)$ 到 $\mathbb{F}_2(\xi)$ 的同构不唯一：</p>
+    <ul>
+        <li>$\varphi_1: \omega \mapsto \xi^3$（2.11 节验证过）</li>
+        <li>$\varphi_2: \omega \mapsto \xi^5$（另一个根的像）</li>
+        <li>$\varphi_3: \omega \mapsto \xi^6$（第三个根的像）</li>
+    </ul>
+    <p>三个同构对应 $x^3+x+1$ 在 $\mathbb{F}_2(\xi)$ 中的三个根。</p>
+</div>
+
+<h3>结论 5：$\alpha$ 的共轭是 $\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$</h3>
+
+<div class="summary">
+    <p><strong>原文：</strong>If $[\mathbb{F}_p(\alpha) : \mathbb{F}_p] = d$, the $\mathbb{F}_p$-conjugates of $\alpha$ are $\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$.</p>
+    <p><strong>中文：</strong>如果 $\alpha$ 在 $\mathbb{F}_p$ 上的极小多项式是 $d$ 次的，则 $\alpha$ 的共轭元恰好是 Frobenius 映射的迭代：$\alpha, \alpha^p, \alpha^{p^2}, \ldots, \alpha^{p^{d-1}}$。</p>
+</div>
+
+<p><strong>直觉：</strong></p>
+<ul>
+    <li>Frobenius $\sigma: x \mapsto x^p$ 是 $\mathbb{F}_{p^d}$ 的自同构，固定 $\mathbb{F}_p$</li>
+    <li>$\sigma$ 把 $\alpha$ 的极小多项式的一个根映射到另一个根</li>
+    <li>$\sigma^d = \mathrm{id}$，所以共轭元形成 $d$ 个元素的轨道</li>
+</ul>
+
+<p><strong>例子支撑：</strong></p>
+<ul>
+    <li>2.7 节：$\beta$ 的共轭是 $\beta$ 和 $\beta^2 = 1+\beta$</li>
+    <li>2.9 节：$\omega$ 的共轭是 $\omega, \omega^2, \omega^4$</li>
+    <li>2.10 节：$\theta$ 的共轭是 $\theta, \theta^2, \theta^4, \theta^8$</li>
+    <li>Q4：同一不可约多项式的不同根是共轭</li>
+</ul>
+
+<h3>结论 6：有限域扩张是 Galois 扩张，Galois 群由 $p$ 次幂映射生成</h3>
+
+<div class="summary">
+    <p><strong>原文：</strong>Every finite extension of $\mathbb{F}_p$ is a Galois extension whose Galois group over $\mathbb{F}_p$ is generated by the $p$-th power map.</p>
+    <p><strong>中文：</strong>$\mathbb{F}_p$ 的每个有限扩张都是 Galois 扩张，Galois 群是由 Frobenius 映射 $\sigma: x \mapsto x^p$ 生成的循环群。</p>
+</div>
+
+<p><strong>直觉：</strong></p>
+<ul>
+    <li>有限域扩张总是可分的（特征 $p$ 下，$x^{p^n} - x$ 无重根）</li>
+    <li>有限域扩张总是正规的（不可约多项式在扩域中完全分裂）</li>
+    <li>可分 + 正规 = Galois</li>
+    <li>Galois 群是 $n$ 阶循环群 $\langle \sigma \rangle$</li>
+</ul>
+
+<p><strong>例子支撑：</strong></p>
+<ul>
+    <li>2.8 节：$\mathrm{Gal}(\mathbb{F}_4/\mathbb{F}_2) = \langle \sigma \rangle \cong \mathbb{Z}/2\mathbb{Z}$</li>
+    <li>2.8 节：$\mathrm{Gal}(\mathbb{F}_8/\mathbb{F}_2) = \langle \sigma \rangle \cong \mathbb{Z}/3\mathbb{Z}$</li>
+    <li>2.10 节：$\mathrm{Gal}(\mathbb{F}_{16}/\mathbb{F}_2) = \langle \sigma \rangle \cong \mathbb{Z}/4\mathbb{Z}$</li>
+    <li>Q5：一般 $\mathrm{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p) \cong \mathbb{Z}/n\mathbb{Z}$</li>
+</ul>
+
+<div class="key-idea">
+    <div class="key-idea-title">六个结论的关系图</div>
+    <pre>
+    结论 1（阶是素数幂）
+         ↓
+    结论 3（不可约多项式存在）───→ 结论 2（每个素数幂都有域）
+         ↓
+    结论 4（同阶域同构）←────── 分裂域唯一性
+         ↓
+    结论 5（共轭由 Frobenius 给出）
+         ↓
+    结论 6（Galois 群是循环群）
+    </pre>
+    <p>这六个结论环环相扣，共同描绘了有限域的完整图景。</p>
+</div>
+
+<div class="summary">
+    <div class="summary-title">内容覆盖检查</div>
+    <table>
+        <tr>
+            <th>结论</th>
+            <th>Section 2 例子</th>
+            <th>Section 3 问题</th>
+            <th>状态</th>
+        </tr>
+        <tr>
+            <td>1. 阶是素数幂</td>
+            <td>$\mathbb{F}_4$, $\mathbb{F}_8$, $\mathbb{F}_{16}$</td>
+            <td>Q8（特征）</td>
+            <td>✓ 需补充"非素数幂不存在"</td>
+        </tr>
+        <tr>
+            <td>2. 每个素数幂有域</td>
+            <td>2.5, 2.9, 2.10</td>
+            <td>Q1</td>
+            <td>✓ 完备</td>
+        </tr>
+        <tr>
+            <td>3. 不可约多项式构造域</td>
+            <td>2.4, 2.5</td>
+            <td>Q1</td>
+            <td>✓ 完备</td>
+        </tr>
+        <tr>
+            <td>4. 同阶域同构</td>
+            <td>2.11</td>
+            <td>Q3</td>
+            <td>✓ 完备</td>
+        </tr>
+        <tr>
+            <td>5. 共轭是 Frobenius 轨道</td>
+            <td>2.7, 2.9, 2.10</td>
+            <td>Q4</td>
+            <td>✓ 完备</td>
+        </tr>
+        <tr>
+            <td>6. Galois 群是循环群</td>
+            <td>2.8</td>
+            <td>Q5</td>
+            <td>✓ 完备</td>
+        </tr>
+    </table>
 </div>
 
 </body>
