@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有限域：一个启发式的介绍</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: 'ams'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", 'Times New Roman', Georgia, serif;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 2;
+            color: #333;
+            font-size: 16px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+            padding-bottom: 0.3em;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 1.5em;
+            margin-bottom: 0.6em;
+            font-weight: bold;
+        }
+        p {
+            text-align: justify;
+            margin-bottom: 1.2em;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 2em;
+        }
+        .motivation {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 1.2em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+        .motivation-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+        }
+        .key-idea {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            padding: 1.2em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            border-left: 5px solid #f39c12;
+        }
+        .key-idea-title {
+            font-weight: bold;
+            color: #8b6914;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+        }
+        .example {
+            background: #f8f9fa;
+            padding: 1em 1.5em;
+            margin: 1.2em 0;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 0.5em;
+        }
+        .warning {
+            background: #fff5f5;
+            padding: 1em 1.5em;
+            margin: 1.2em 0;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+        }
+        .summary {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+            padding: 1.2em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            border: 1px solid #bee5eb;
+        }
+        .summary-title {
+            font-weight: bold;
+            color: #0c5460;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+        }
+        .diagram {
+            text-align: center;
+            margin: 2em 0;
+            padding: 1em;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 1.5em auto;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 0.6em 1.2em;
+            text-align: center;
+        }
+        th {
+            background: #f5f5f5;
+        }
+        .equation {
+            text-align: center;
+            margin: 1.5em 0;
+        }
+        .analogy {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 1.2em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            border-left: 5px solid #9c27b0;
+        }
+        .analogy-title {
+            font-weight: bold;
+            color: #6a1b9a;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+        }
+        .remark {
+            background: #f8f9fa;
+            padding: 1em 1.5em;
+            margin: 1.2em 0;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+            font-size: 0.95em;
+        }
+        .remark-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 0.3em;
+        }
+        .roadmap {
+            background: #f8f9fa;
+            padding: 1.5em;
+            margin: 2em 0;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+        }
+        .roadmap-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        .roadmap ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .roadmap li {
+            padding: 0.5em 0;
+            padding-left: 2em;
+            position: relative;
+        }
+        .roadmap li::before {
+            content: "→";
+            position: absolute;
+            left: 0.5em;
+            color: #3498db;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>有限域：一个启发式的介绍</h1>
+<p class="subtitle">从需求出发，由浅入深理解有限域的构造与性质</p>
+
+<div class="roadmap">
+    <div class="roadmap-title">本文路线图</div>
+    <ul>
+        <li><strong>第 1 节</strong>：从整数到复数 —— 数系扩张的动机</li>
+        <li><strong>第 2 节</strong>：最简单的有限域 $\mathbb{F}_2$ —— 以及它的局限</li>
+    </ul>
+</div>
+
+<h2>1. 从整数到复数：数学家为什么要扩张数系？</h2>
+
+<div class="motivation">
+    <div class="motivation-title">核心问题</div>
+    我们从小就认识整数、分数、小数……但数学家为什么要发明这么多不同的「数」？答案很简单：<strong>为了解方程</strong>。每一次数系的扩张，都是因为在原来的数系里，某些「合理的」方程无解。
+</div>
+
+<h3>1.1 整数：加法的天堂</h3>
+
+<p>让我们从最熟悉的<strong>整数</strong> $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots\}$ 开始。</p>
+
+<p>整数有一个美妙的性质：对于<strong>加法</strong>，整数是完美的。具体来说：</p>
+
+<ul>
+    <li><strong>封闭性</strong>：任意两个整数相加，结果还是整数</li>
+    <li><strong>结合律</strong>：$(a + b) + c = a + (b + c)$</li>
+    <li><strong>单位元</strong>：存在 $0$，使得 $a + 0 = a$</li>
+    <li><strong>逆元</strong>：每个整数 $a$ 都有「相反数」$-a$，使得 $a + (-a) = 0$</li>
+    <li><strong>交换律</strong>：$a + b = b + a$</li>
+</ul>
+
+<p>在代数学中，满足前四条性质的结构叫做<strong>群</strong>（group），如果还满足交换律，就叫做<strong>阿贝尔群</strong>（Abelian group）或<strong>交换群</strong>。所以我们说：</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">关键观察 1</div>
+    整数 $\mathbb{Z}$ 关于加法构成一个阿贝尔群。
+</div>
+
+<p>但整数不仅有加法，还有<strong>乘法</strong>！乘法也满足封闭性、结合律、有单位元（$1$）、以及对加法的分配律。同时具备加法和乘法两种运算、且满足这些性质的结构，叫做<strong>环</strong>（ring）。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">关键观察 2</div>
+    整数 $\mathbb{Z}$ 是一个环 —— 这比单纯说它是一个群更加精确地描述了整数的代数结构。
+</div>
+
+<h3>1.2 从整数到有理数：除法的需求</h3>
+
+<p>整数环有一个「缺陷」：<strong>除法做不了</strong>。</p>
+
+<p>比如，方程 $2x = 1$ 在整数中无解 —— 没有哪个整数乘以 $2$ 等于 $1$。换句话说，$2$ 在整数中没有<strong>乘法逆元</strong>。</p>
+
+<div class="motivation">
+    <div class="motivation-title">需求：乘法逆元</div>
+    我们希望每个非零的数 $a$ 都有一个「倒数」$a^{-1}$，使得 $a \cdot a^{-1} = 1$。这样，方程 $ax = b$ 就总有解 $x = a^{-1}b$。
+</div>
+
+<p>为了满足这个需求，我们必须扩张整数。最小的扩张是什么？就是<strong>有理数</strong>：</p>
+
+$$\mathbb{Q} = \left\{ \frac{a}{b} : a, b \in \mathbb{Z}, b \neq 0 \right\}$$
+
+<p>在有理数中，每个非零元素 $\frac{a}{b}$ 都有乘法逆元 $\frac{b}{a}$。一个环，如果它的每个非零元素都有乘法逆元，就叫做<strong>域</strong>（field）。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">关键观察 3</div>
+    有理数 $\mathbb{Q}$ 是包含整数 $\mathbb{Z}$ 的<strong>最小的域</strong>。数学家称 $\mathbb{Q}$ 为 $\mathbb{Z}$ 的<strong>分式域</strong>（field of fractions）。
+</div>
+
+<p>现在，所有形如 $ax = b$（$a \neq 0$）的<strong>一次方程</strong>都有解了。但数学家的胃口不止于此 —— 他们想解的是<strong>所有多项式方程</strong>。</p>
+
+<h3>1.3 从有理数到实数：无理数的出现</h3>
+
+<p>考虑这个简单的方程：</p>
+
+$$x^2 = 2$$
+
+<p>这个方程在有理数中有解吗？</p>
+
+<div class="example">
+    <div class="example-title">经典证明：$\sqrt{2}$ 是无理数</div>
+    <p>假设 $\sqrt{2} = \frac{p}{q}$，其中 $p, q$ 是互素的整数。</p>
+    <p>则 $2 = \frac{p^2}{q^2}$，即 $p^2 = 2q^2$。</p>
+    <p>所以 $p^2$ 是偶数，因此 $p$ 是偶数，设 $p = 2k$。</p>
+    <p>代入得 $4k^2 = 2q^2$，即 $q^2 = 2k^2$，所以 $q$ 也是偶数。</p>
+    <p>但这与 $p, q$ 互素矛盾！因此 $\sqrt{2}$ 不是有理数。</p>
+</div>
+
+<p>这就尴尬了：一个系数全是有理数（甚至是整数）的方程，在有理数中居然没有解！</p>
+
+<p>为了解决这个问题，我们需要引入<strong>无理数</strong>（irrational numbers），比如 $\sqrt{2}$、$\sqrt{3}$、$\pi$、$e$ 等。有理数和无理数一起，构成了<strong>实数</strong> $\mathbb{R}$。</p>
+
+<div class="analogy">
+    <div class="analogy-title">几何直观</div>
+    实数可以和数轴上的点一一对应。有理数只占据了数轴上「稀疏」的一些点（虽然它们稠密地分布），而无理数填满了所有的「空隙」。数学上说，$\mathbb{R}$ 是 $\mathbb{Q}$ 的<strong>完备化</strong>（completion）。
+</div>
+
+<p>现在 $x^2 = 2$ 有解了（$x = \pm\sqrt{2}$）。实数是不是就够用了呢？</p>
+
+<h3>1.4 从实数到复数：负数开方的需求</h3>
+
+<p>考虑这个方程：</p>
+
+$$x^2 + 1 = 0 \quad \text{即} \quad x^2 = -1$$
+
+<p>这个方程在实数中有解吗？</p>
+
+<p><strong>没有。</strong>因为任何实数的平方都是非负的：
+$$x^2 \geq 0 \quad \text{对所有 } x \in \mathbb{R}$$
+所以 $x^2 = -1$ 在实数中无解。</p>
+
+<p>怎么办？数学家的解决方案简单粗暴：<strong>假装它有解</strong>。</p>
+
+<p>我们「发明」一个新的数 $i$，定义它满足 $i^2 = -1$，然后把它和实数混在一起，得到<strong>复数</strong>：</p>
+
+$$\mathbb{C} = \{ a + bi : a, b \in \mathbb{R} \}$$
+
+<div class="example">
+    <div class="example-title">复数的运算</div>
+    <p>加法：$(a + bi) + (c + di) = (a+c) + (b+d)i$</p>
+    <p>乘法：$(a + bi)(c + di) = ac + adi + bci + bdi^2 = (ac - bd) + (ad + bc)i$</p>
+    <p>（利用 $i^2 = -1$）</p>
+</div>
+
+<p>可以验证，复数 $\mathbb{C}$ 也是一个域。现在 $x^2 + 1 = 0$ 有解了：$x = \pm i$。</p>
+
+<p>但这里出现了一个深刻的问题：我们会不会需要一直这样扩张下去？会不会有某个方程在 $\mathbb{C}$ 中也没有解，迫使我们再发明新的数？</p>
+
+<h3>1.5 代数基本定理：扩张的终点</h3>
+
+<p>答案是：<strong>不需要了</strong>。复数是这场扩张游戏的终点。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">代数基本定理（Fundamental Theorem of Algebra）</div>
+    <p>每一个次数 $\geq 1$ 的复系数多项式，在 $\mathbb{C}$ 中至少有一个根。</p>
+    <p>等价地说：每一个 $n$ 次复系数多项式，在 $\mathbb{C}$ 中恰好有 $n$ 个根（计重数）。</p>
+</div>
+
+<p>这个定理告诉我们一个惊人的事实：虽然复数是为了解 $x^2 + 1 = 0$ 而发明的，但它「免费」地解决了<strong>所有</strong>多项式方程！</p>
+
+<div class="example">
+    <div class="example-title">例子</div>
+    <p>$x^2 + 1 = 0$ 的根：$x = \pm i$</p>
+    <p>$x^3 - 1 = 0$ 的根：$x = 1, \frac{-1+\sqrt{3}i}{2}, \frac{-1-\sqrt{3}i}{2}$（三个三次单位根）</p>
+    <p>$x^4 + 1 = 0$ 的根：$x = \frac{\pm 1 \pm i}{\sqrt{2}}$（四个八次单位根中的一半）</p>
+</div>
+
+<p>一个域，如果它的每个非常数多项式都在这个域中有根，就称为<strong>代数闭域</strong>（algebraically closed field）。</p>
+
+<div class="summary">
+    <div class="summary-title">本节总结：数系扩张的历程</div>
+    <div class="diagram">
+        <svg width="700" height="120" viewBox="0 0 700 120">
+            <!-- 整数 -->
+            <rect x="10" y="40" width="80" height="40" rx="5" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+            <text x="50" y="65" text-anchor="middle" font-size="14" font-weight="bold">Z (整数)</text>
+            <text x="50" y="100" text-anchor="middle" font-size="11" fill="#666">环</text>
+
+            <!-- 箭头1 -->
+            <line x1="95" y1="60" x2="140" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="117" y="50" text-anchor="middle" font-size="10" fill="#666">除法</text>
+
+            <!-- 有理数 -->
+            <rect x="145" y="40" width="100" height="40" rx="5" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+            <text x="195" y="65" text-anchor="middle" font-size="14" font-weight="bold">Q (有理数)</text>
+            <text x="195" y="100" text-anchor="middle" font-size="11" fill="#666">域</text>
+
+            <!-- 箭头2 -->
+            <line x1="250" y1="60" x2="295" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="272" y="50" text-anchor="middle" font-size="10" fill="#666">x²=2</text>
+
+            <!-- 实数 -->
+            <rect x="300" y="40" width="100" height="40" rx="5" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+            <text x="350" y="65" text-anchor="middle" font-size="14" font-weight="bold">R (实数)</text>
+            <text x="350" y="100" text-anchor="middle" font-size="11" fill="#666">域</text>
+
+            <!-- 箭头3 -->
+            <line x1="405" y1="60" x2="450" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="427" y="50" text-anchor="middle" font-size="10" fill="#666">x²=-1</text>
+
+            <!-- 复数 -->
+            <rect x="455" y="40" width="100" height="40" rx="5" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+            <text x="505" y="65" text-anchor="middle" font-size="14" font-weight="bold">C (复数)</text>
+            <text x="505" y="100" text-anchor="middle" font-size="11" fill="#666">代数闭域</text>
+
+            <!-- 终点标记 -->
+            <text x="600" y="65" text-anchor="middle" font-size="20" fill="#28a745">&#10003;</text>
+            <text x="635" y="65" text-anchor="start" font-size="12" fill="#28a745">终点！</text>
+
+            <!-- 箭头标记定义 -->
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+                </marker>
+            </defs>
+        </svg>
+    </div>
+    <p><strong>关键结论</strong>：复数 $\mathbb{C}$ 是有理数 $\mathbb{Q}$（乃至实数 $\mathbb{R}$）的<strong>代数闭包</strong>（algebraic closure）。在 $\mathbb{C}$ 中，所有以 $\mathbb{Q}$（或 $\mathbb{R}$）为系数的多项式方程都有解，而且所有的解也都在 $\mathbb{C}$ 中。</p>
+</div>
+
+<div class="motivation">
+    <div class="motivation-title">下一个问题</div>
+    <p>复数很美好，但它是<strong>无限的</strong>。在计算机科学和密码学中，我们常常需要在<strong>有限</strong>的世界里工作。</p>
+    <p>那么问题来了：<strong>有没有「有限的域」？它们长什么样？它们也有「代数闭包」吗？</strong></p>
+</div>
+
+<h2>2. 最简单的有限域 $\mathbb{F}_2$</h2>
+
+<h3>2.1 $\mathbb{F}_2$ 是一个域</h3>
+
+<p>最小的素数是 $2$，所以我们从 $\mathbb{F}_2$ 开始。它只有两个元素：</p>
+
+$$\mathbb{F}_2 = \{0, 1\}$$
+
+<p>运算规则就是普通的加法和乘法，但结果要对 $2$ 取模：</p>
+
+<table>
+    <tr>
+        <th>$+$</th><th>$0$</th><th>$1$</th>
+    </tr>
+    <tr>
+        <th>$0$</th><td>$0$</td><td>$1$</td>
+    </tr>
+    <tr>
+        <th>$1$</th><td>$1$</td><td>$0$</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th>$\times$</th><th>$0$</th><th>$1$</th>
+    </tr>
+    <tr>
+        <th>$0$</th><td>$0$</td><td>$0$</td>
+    </tr>
+    <tr>
+        <th>$1$</th><td>$0$</td><td>$1$</td>
+    </tr>
+</table>
+
+<p>验证域的条件：</p>
+<ul>
+    <li>加法单位元：$0$</li>
+    <li>乘法单位元：$1$</li>
+    <li>加法逆元：$0$ 的逆元是 $0$，$1$ 的逆元是 $1$（因为 $1 + 1 = 0$）</li>
+    <li>乘法逆元：$1$ 的逆元是 $1$（只需要非零元素有逆元）</li>
+</ul>
+
+<p>穷举完毕，$\mathbb{F}_2$ 确实是一个域。</p>
+
+<h3>2.2 $\mathbb{F}_2$ 是代数闭的吗？</h3>
+
+<p>回忆第一节的问题：复数 $\mathbb{C}$ 之所以是「终点」，是因为所有多项式在 $\mathbb{C}$ 中都有根。$\mathbb{F}_2$ 有这个性质吗？</p>
+
+<p>考虑 $\mathbb{F}_2$ 上的多项式 $f(x) = x^2 + x + 1$。检验它在 $\mathbb{F}_2$ 中的值：</p>
+
+$$f(0) = 0 + 0 + 1 = 1 \neq 0$$
+$$f(1) = 1 + 1 + 1 = 1 \neq 0$$
+
+<p>所以 $x^2 + x + 1$ 在 $\mathbb{F}_2$ 中<strong>没有根</strong>。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">关键发现</div>
+    $\mathbb{F}_2$ 不是代数闭的。存在 $\mathbb{F}_2$ 系数的多项式，在 $\mathbb{F}_2$ 中无解。
+</div>
+
+<p>这和 $x^2 = 2$ 在 $\mathbb{Q}$ 中无解、$x^2 = -1$ 在 $\mathbb{R}$ 中无解是一样的情况。让我们更系统地看看 $\mathbb{F}_2$ 上的多项式的根的情况。</p>
+
+<h3>2.3 穷举：$\mathbb{F}_2$ 上低次多项式的根</h3>
+
+<p>我们来穷举所有次数 $\leq 4$ 的首一多项式（最高次系数为 $1$），看看它们的根在哪里。</p>
+
+<p><strong>1 次多项式</strong>（$2$ 个）：</p>
+<table>
+    <tr><th>多项式</th><th>$f(0)$</th><th>$f(1)$</th><th>$\mathbb{F}_2$ 中的根</th></tr>
+    <tr><td>$x$</td><td>$0$</td><td>$1$</td><td>$0$</td></tr>
+    <tr><td>$x+1$</td><td>$1$</td><td>$0$</td><td>$1$</td></tr>
+</table>
+<p>全部有根，符合预期——1 次方程总有解。</p>
+
+<p><strong>2 次多项式</strong>（$4$ 个）：</p>
+<table>
+    <tr><th>多项式</th><th>$f(0)$</th><th>$f(1)$</th><th>$\mathbb{F}_2$ 中的根</th><th>因式分解</th></tr>
+    <tr><td>$x^2$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x \cdot x$</td></tr>
+    <tr><td>$x^2+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)^2$</td></tr>
+    <tr><td>$x^2+x$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x(x+1)$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+x+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+</table>
+<p>出现了第一个在 $\mathbb{F}_2$ 中无根的多项式：$x^2+x+1$。</p>
+
+<p><strong>3 次多项式</strong>（$8$ 个）：</p>
+<table>
+    <tr><th>多项式</th><th>$f(0)$</th><th>$f(1)$</th><th>$\mathbb{F}_2$ 中的根</th><th>因式分解</th></tr>
+    <tr><td>$x^3$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x^3$</td></tr>
+    <tr><td>$x^3+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)(x^2+x+1)$</td></tr>
+    <tr><td>$x^3+x$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x(x+1)^2$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^3+x+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr><td>$x^3+x^2$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x^2(x+1)$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^3+x^2+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr><td>$x^3+x^2+x$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x(x^2+x+1)$</td></tr>
+    <tr><td>$x^3+x^2+x+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)^3$</td></tr>
+</table>
+<p>有 $2$ 个在 $\mathbb{F}_2$ 中完全无根的多项式。</p>
+
+<p><strong>4 次多项式</strong>（$16$ 个）：</p>
+<table>
+    <tr><th>多项式</th><th>$f(0)$</th><th>$f(1)$</th><th>$\mathbb{F}_2$ 中的根</th><th>因式分解</th></tr>
+    <tr><td>$x^4$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x^4$</td></tr>
+    <tr><td>$x^4+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)^4$</td></tr>
+    <tr><td>$x^4+x$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x(x+1)(x^2+x+1)$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^4+x+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr><td>$x^4+x^2$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x^2(x+1)^2$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^4+x^2+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>$(x^2+x+1)^2$</td></tr>
+    <tr><td>$x^4+x^2+x$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x(x^3+x+1)$</td></tr>
+    <tr><td>$x^4+x^2+x+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)(x^3+x^2+1)$</td></tr>
+    <tr><td>$x^4+x^3$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x^3(x+1)$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^4+x^3+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr><td>$x^4+x^3+x$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x(x^3+x^2+1)$</td></tr>
+    <tr><td>$x^4+x^3+x+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)^2(x^2+x+1)$</td></tr>
+    <tr><td>$x^4+x^3+x^2$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$x^2(x^2+x+1)$</td></tr>
+    <tr><td>$x^4+x^3+x^2+1$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$(x+1)(x^3+x+1)$</td></tr>
+    <tr><td>$x^4+x^3+x^2+x$</td><td>$0$</td><td>$0$</td><td>$0, 1$</td><td>$x(x+1)^3$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^4+x^3+x^2+x+1$</td><td>$1$</td><td>$1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+</table>
+
+<h3>2.4 不可约多项式：扩张的钥匙</h3>
+
+<p>从上面的穷举中，我们关注那些<strong>不可约</strong>的多项式——即不能再因式分解的。</p>
+
+<p>为什么一次多项式不用考虑？因为一次多项式 $x - a$ 在任何域中都有根 $a$。这是显然的：把 $a$ 代入就得到 $a - a = 0$。</p>
+
+<p>那高次不可约多项式呢？如果 $f(x)$ 不可约且 $\deg f \geq 2$，那么 $f$ 在 $\mathbb{F}_2$ 中<strong>一个根也没有</strong>。为什么？因为如果 $f(\beta) = 0$，那就意味着 $(x - \beta)$ 整除 $f(x)$，$f$ 就可以分解了——矛盾。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">关键观察</div>
+    不可约多项式 = 在当前域中完全无根的多项式（对于次数 $\geq 2$ 的情况）。它们就像 $x^2 - 2$ 对于 $\mathbb{Q}$、$x^2 + 1$ 对于 $\mathbb{R}$ 一样，是扩张域的「种子」。
+</div>
+
+<p>把 $\mathbb{F}_2$ 上次数 $\leq 4$ 的不可约多项式汇总：</p>
+
+<table>
+    <tr><th>次数</th><th>不可约多项式</th><th>个数</th></tr>
+    <tr><td>$1$</td><td>$x$，$x+1$</td><td>$2$</td></tr>
+    <tr><td>$2$</td><td>$x^2+x+1$</td><td>$1$</td></tr>
+    <tr><td>$3$</td><td>$x^3+x+1$，$x^3+x^2+1$</td><td>$2$</td></tr>
+    <tr><td>$4$</td><td>$x^4+x+1$，$x^4+x^3+1$，$x^4+x^3+x^2+x+1$</td><td>$3$</td></tr>
+</table>
+
+<div class="remark">
+    <div class="remark-title">Remark 1</div>
+    $x^4+x^2+1$ 虽然在 $\mathbb{F}_2$ 中无根，但它<strong>可约</strong>：$x^4+x^2+1 = (x^2+x+1)^2$。这种「无根但可约」的现象在讨论分裂域（splitting field）和可分性（separability）时很重要，但我们暂且不管。
+</div>
+
+<div class="remark">
+    <div class="remark-title">Remark 2</div>
+    我们只穷举到了次数 $\leq 4$。次数 $5, 6, 7, \ldots$ 的不可约多项式还有很多很多。
+</div>
+
+<p>既然存在 2 次不可约多项式 $x^2+x+1$，$\mathbb{F}_2$ 肯定不是代数闭的。这引出一个自然的疑问：</p>
+
+<div class="motivation">
+    <div class="motivation-title">疑问</div>
+    对于任意的 $n$，$\mathbb{F}_p$ 上都存在 $n$ 次不可约多项式吗？
+</div>
+
+<p><strong>答案：是的。</strong></p>
+
+<p>$\mathbb{F}_p$ 上 $n$ 次首一不可约多项式的个数记为 $I_p(n)$，有公式：</p>
+
+$$I_p(n) = \frac{1}{n} \sum_{d \mid n} \mu(n/d) \cdot p^d$$
+
+<p>其中 $\mu$ 是 Möbius 函数。主项是 $\frac{p^n}{n}$，其他项的贡献相对很小，所以 $I_p(n) > 0$ 对所有 $n \geq 1$ 成立。</p>
+
+<p>直观理解：$\mathbb{F}_p$ 上 $n$ 次首一多项式共有 $p^n$ 个（$n$ 个系数各有 $p$ 种选择）。其中大约 $\frac{1}{n}$ 的比例是不可约的。</p>
+
+<div class="example">
+    <div class="example-title">验证：$\mathbb{F}_2$ 上的情况</div>
+    <p>$I_2(1) = 2$（即 $x$ 和 $x+1$）</p>
+    <p>$I_2(2) = \frac{1}{2}(2^2 - 2^1) = 1$（即 $x^2+x+1$）</p>
+    <p>$I_2(3) = \frac{1}{3}(2^3 - 2^1) = 2$（即 $x^3+x+1$ 和 $x^3+x^2+1$）</p>
+    <p>$I_2(4) = \frac{1}{4}(2^4 - 2^2) = 3$（即 $x^4+x+1$，$x^4+x^3+1$，$x^4+x^3+x^2+x+1$）</p>
+    <p>与我们穷举的结果完全一致！</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">证明思路（选读）</div>
+    <p>考虑多项式 $x^{p^n} - x$。它恰好等于所有次数 $d \mid n$ 的不可约多项式的乘积。为什么？</p>
+    <ul>
+        <li>首先，$x^{p^n} - x$ 没有重根（求导得 $p^n x^{p^{n}-1} - 1 = -1$，与原式互素）</li>
+        <li>其次，若 $f(x)$ 是 $d$ 次不可约多项式且 $d \mid n$，则 $f$ 的根 $\beta$ 满足 $\beta^{p^n} = \beta$（因为 $\beta^{p^d} = \beta$ 且 $d \mid n$），所以 $f$ 的所有根都是 $x^{p^n} - x$ 的根</li>
+        <li>因为没有重根，所以 $f \mid (x^{p^n} - x)$</li>
+    </ul>
+    <p>比较次数得：$p^n = \sum_{d \mid n} d \cdot I_p(d)$。用 Möbius 反演公式「解」这个递推，就得到 $I_p(n)$ 的显式公式。</p>
+</div>
+
+<div class="key-idea">
+    <div class="key-idea-title">结论</div>
+    $\mathbb{F}_p$ 不是代数闭的，而且「差得很远」——对每个 $n$ 都有大量的 $n$ 次不可约多项式等着我们去处理。
+</div>
+
+<h3>2.5 第一次扩张：从 $\mathbb{F}_2$ 到 $\mathbb{F}_4$</h3>
+
+<p>类比从 $\mathbb{R}$ 到 $\mathbb{C}$ 的扩张：我们假装 $x^2 + 1 = 0$ 有一个根叫 $i$，然后把 $i$ 和实数混在一起。</p>
+
+<p>现在对 $\mathbb{F}_2$ 做同样的事：假设 $x^2 + x + 1 = 0$ 有一个根叫 $\beta$。把 $\beta$ 和 $\mathbb{F}_2$ 的元素混在一起。</p>
+
+<p>为什么只需要考虑 $\{a + b\beta\}$ 的形式？因为 $\beta$ 满足 $\beta^2 + \beta + 1 = 0$，即 $\beta^2 = \beta + 1$。所以 $\beta$ 的高次幂都可以化简：</p>
+<ul>
+    <li>$\beta^2 = \beta + 1$</li>
+    <li>$\beta^3 = \beta \cdot \beta^2 = \beta(\beta + 1) = \beta^2 + \beta = (\beta + 1) + \beta = 1$</li>
+    <li>$\beta^4 = \beta \cdot \beta^3 = \beta$</li>
+    <li>……</li>
+</ul>
+
+<p>所有元素都可以写成 $a + b\beta$（$a, b \in \mathbb{F}_2$）的形式，因此：</p>
+
+$$\mathbb{F}_2(\beta) = \{a + b\beta : a, b \in \mathbb{F}_2\} = \{0, 1, \beta, 1+\beta\}$$
+
+<p>这个新的集合有 $4$ 个元素。运算规则：</p>
+<ul>
+    <li>加法：和 $\mathbb{F}_2$ 一样，系数对 $2$ 取模</li>
+    <li>乘法：正常展开，然后用 $\beta^2 = \beta + 1$（从 $\beta^2 + \beta + 1 = 0$ 得到）化简</li>
+</ul>
+
+<p><strong>加法表：</strong></p>
+<table>
+    <tr><th>$+$</th><th>$0$</th><th>$1$</th><th>$\beta$</th><th>$1+\beta$</th></tr>
+    <tr><th>$0$</th><td>$0$</td><td>$1$</td><td>$\beta$</td><td>$1+\beta$</td></tr>
+    <tr><th>$1$</th><td>$1$</td><td>$0$</td><td>$1+\beta$</td><td>$\beta$</td></tr>
+    <tr><th>$\beta$</th><td>$\beta$</td><td>$1+\beta$</td><td>$0$</td><td>$1$</td></tr>
+    <tr><th>$1+\beta$</th><td>$1+\beta$</td><td>$\beta$</td><td>$1$</td><td>$0$</td></tr>
+</table>
+
+<p><strong>乘法表：</strong></p>
+<table>
+    <tr><th>$\times$</th><th>$0$</th><th>$1$</th><th>$\beta$</th><th>$1+\beta$</th></tr>
+    <tr><th>$0$</th><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td></tr>
+    <tr><th>$1$</th><td>$0$</td><td>$1$</td><td>$\beta$</td><td>$1+\beta$</td></tr>
+    <tr><th>$\beta$</th><td>$0$</td><td>$\beta$</td><td>$1+\beta$</td><td>$1$</td></tr>
+    <tr><th>$1+\beta$</th><td>$0$</td><td>$1+\beta$</td><td>$1$</td><td>$\beta$</td></tr>
+</table>
+
+<p>验证 $\beta \cdot (1+\beta) = \beta + \beta^2 = \beta + (\beta + 1) = 1$。所以 $\beta$ 的乘法逆元是 $1+\beta$。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">结果</div>
+    $\mathbb{F}_2(\beta)$ 是一个有 $4$ 个元素的域，记作 $\mathbb{F}_4$。
+</div>
+
+<p><strong>$x^2 + x + 1$ 在 $\mathbb{F}_4$ 中的命运：</strong>现在它有根了：</p>
+<ul>
+    <li>$\beta^2 + \beta + 1 = 0$ ✓（这是我们构造 $\beta$ 的方式）</li>
+    <li>$(1+\beta)^2 + (1+\beta) + 1 = (1 + \beta^2) + 1 + \beta + 1 = 1 + (\beta+1) + 1 + \beta + 1 = 0$ ✓</li>
+</ul>
+
+<p>所以 $x^2 + x + 1$ 在 $\mathbb{F}_4$ 上可以分解：</p>
+$$x^2 + x + 1 = (x + \beta)(x + (1+\beta)) = (x - \beta)(x - (1+\beta))$$
+<p>（注意：在 $\mathbb{F}_2$ 及其扩张中，$-1 = 1$，所以 $x + \beta = x - \beta$）</p>
+
+<p><strong>$\mathbb{F}_4$ 是代数闭的吗？</strong>我们解决了 $x^2 + x + 1$，但 $\mathbb{F}_4$ 上的多项式比 $\mathbb{F}_2$ 上多得多——系数可以取 $4$ 个值了！</p>
+
+<p>先看看原来 $\mathbb{F}_2$ 上的那些不可约多项式，在 $\mathbb{F}_4$ 上怎么样了：</p>
+
+<table>
+    <tr><th>$\mathbb{F}_2$ 上的不可约多项式</th><th>在 $\mathbb{F}_4$ 中的根</th><th>在 $\mathbb{F}_4$ 上的分解</th></tr>
+    <tr><td>$x^2+x+1$</td><td>$\beta$, $1+\beta$</td><td>$(x+\beta)(x+1+\beta)$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^3+x+1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^3+x^2+1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr><td>$x^4+x+1$</td><td>无</td><td>$(x^2+x+\beta)(x^2+x+1+\beta)$</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^4+x^3+1$</td><td><strong>无</strong></td><td>不可约</td></tr>
+    <tr><td>$x^4+x^3+x^2+x+1$</td><td>无</td><td>？（待验证）</td></tr>
+</table>
+
+<p>验证 $x^3 + x + 1$ 在 $\mathbb{F}_4$ 中无根（先算 $\beta^3 = \beta \cdot \beta^2 = \beta(\beta+1) = \beta^2 + \beta = 1$）：</p>
+<ul>
+    <li>$f(\beta) = \beta^3 + \beta + 1 = 1 + \beta + 1 = \beta \neq 0$</li>
+    <li>$f(1+\beta) = (1+\beta)^3 + (1+\beta) + 1 = 1 + 1 + \beta + 1 = 1 + \beta \neq 0$</li>
+</ul>
+
+<p>$x^3 + x + 1$ 是 $3$ 次多项式，在 $\mathbb{F}_4$ 中无根意味着它在 $\mathbb{F}_4$ 上仍然<strong>不可约</strong>（$3$ 次多项式若可约必有一次因子，即有根）。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">结论</div>
+    <p>$\mathbb{F}_4$ 也不是代数闭的。$x^3 + x + 1$ 等多项式在 $\mathbb{F}_4$ 中仍然无根。</p>
+    <p>我们需要继续扩张……</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">有趣的现象</div>
+    $x^4 + x + 1$ 在 $\mathbb{F}_2$ 上不可约，但在 $\mathbb{F}_4$ 上变得可约了（分解成两个 $2$ 次因子），尽管它在 $\mathbb{F}_4$ 中没有根！这再次说明：<strong>无根 $\neq$ 不可约</strong>。
+</div>
+
+<h3>2.6 $\mathbb{F}_4$ 上的多项式：数量爆炸</h3>
+
+<p>$\mathbb{F}_4$ 有 $4$ 个元素，所以 $n$ 次首一多项式有 $4^n$ 个（$n$ 个系数各有 $4$ 种选择）：</p>
+
+<table>
+    <tr><th>次数</th><th>首一多项式个数</th><th>不可约多项式个数 $I_4(n)$</th></tr>
+    <tr><td>$1$</td><td>$4$</td><td>$4$</td></tr>
+    <tr><td>$2$</td><td>$16$</td><td>$\frac{4^2-4}{2} = 6$</td></tr>
+    <tr><td>$3$</td><td>$64$</td><td>$\frac{4^3-4}{3} = 20$</td></tr>
+    <tr><td>$4$</td><td>$256$</td><td>$\frac{4^4-4^2}{4} = 60$</td></tr>
+</table>
+
+<p>对比 $\mathbb{F}_2$：$\mathbb{F}_4$ 上的不可约多项式多得多！</p>
+
+<p><strong>1 次多项式</strong>（$4$ 个，全部「不可约」）：</p>
+$$x, \quad x+1, \quad x+\beta, \quad x+1+\beta$$
+
+<p><strong>2 次不可约多项式</strong>（$6$ 个）：</p>
+
+<p>穷举所有 $16$ 个 2 次首一多项式 $x^2 + ax + b$，检验是否在 $\mathbb{F}_4$ 中有根：</p>
+
+<table>
+    <tr><th>多项式</th><th>$f(0)$</th><th>$f(1)$</th><th>$f(\beta)$</th><th>$f(1+\beta)$</th><th>状态</th></tr>
+    <tr><td>$x^2$</td><td>$0$</td><td>—</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr><td>$x^2+1$</td><td>$1$</td><td>$0$</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr><td>$x^2+\beta$</td><td>$\beta$</td><td>$1+\beta$</td><td>$1$</td><td>$0$</td><td>有根</td></tr>
+    <tr><td>$x^2+1+\beta$</td><td>$1+\beta$</td><td>$\beta$</td><td>$0$</td><td>—</td><td>有根</td></tr>
+    <tr><td>$x^2+x$</td><td>$0$</td><td>—</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr><td>$x^2+x+1$</td><td>$1$</td><td>$1$</td><td>$0$</td><td>—</td><td>有根（！）</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+x+\beta$</td><td>$\beta$</td><td>$\beta$</td><td>$1+\beta$</td><td>$1+\beta$</td><td><strong>不可约</strong></td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+x+1+\beta$</td><td>$1+\beta$</td><td>$1+\beta$</td><td>$\beta$</td><td>$\beta$</td><td><strong>不可约</strong></td></tr>
+    <tr><td>$x^2+\beta x$</td><td>$0$</td><td>—</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+\beta x+1$</td><td>$1$</td><td>$\beta$</td><td>$1$</td><td>$\beta$</td><td><strong>不可约</strong></td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+\beta x+\beta$</td><td>$\beta$</td><td>$1$</td><td>$\beta$</td><td>$1$</td><td><strong>不可约</strong></td></tr>
+    <tr><td>$x^2+\beta x+1+\beta$</td><td>$1+\beta$</td><td>$0$</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr><td>$x^2+(1+\beta)x$</td><td>$0$</td><td>—</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+(1+\beta)x+1$</td><td>$1$</td><td>$1+\beta$</td><td>$1+\beta$</td><td>$1$</td><td><strong>不可约</strong></td></tr>
+    <tr><td>$x^2+(1+\beta)x+\beta$</td><td>$\beta$</td><td>$0$</td><td>—</td><td>—</td><td>有根</td></tr>
+    <tr style="background:#fff3cd;"><td>$x^2+(1+\beta)x+1+\beta$</td><td>$1+\beta$</td><td>$1$</td><td>$1$</td><td>$1+\beta$</td><td><strong>不可约</strong></td></tr>
+</table>
+
+<p>$\mathbb{F}_4$ 上 2 次不可约多项式共 $6$ 个，与公式吻合。</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">重要观察</div>
+    <p>$x^2 + x + 1$ 在 $\mathbb{F}_2$ 上不可约，但在 $\mathbb{F}_4$ 上<strong>变得可约了</strong>——它有根 $\beta$ 和 $1+\beta$！</p>
+    <p>这正是我们扩张的目的。但同时，$\mathbb{F}_4$ 上出现了<strong>新的</strong>不可约多项式（如 $x^2+x+\beta$），它们的根不在 $\mathbb{F}_4$ 中。</p>
+</div>
+
+<p><strong>3 次和 4 次</strong>：数量太多，不再穷举。根据公式，$\mathbb{F}_4$ 上有 $20$ 个 3 次不可约多项式和 $60$ 个 4 次不可约多项式。</p>
+
+<div class="summary">
+    <div class="summary-title">小结</div>
+    <p>从 $\mathbb{F}_2$ 扩张到 $\mathbb{F}_4$：</p>
+    <ul>
+        <li>解决了 $x^2+x+1$（现在有根了）</li>
+        <li>原来 $\mathbb{F}_2$ 上的一些不可约多项式（如 $x^4+x+1$）变得可约</li>
+        <li>但引入了更多新的不可约多项式</li>
+        <li>$\mathbb{F}_4$ 仍然不是代数闭的</li>
+    </ul>
+</div>
+
+<h3>2.7 共轭与同构：选择不同的根会怎样？</h3>
+
+<p>扩张过程似乎无穷无尽，我们先暂停，回头审视刚才的扩张。</p>
+
+<p>$x^2 + x + 1 = 0$ 有两个根：$\beta$ 和 $1+\beta$。我们选择了 $\beta$ 来扩张。但如果选择 $1+\beta$ 呢？</p>
+
+<p>设 $\gamma = 1 + \beta$。$\gamma$ 也满足 $\gamma^2 + \gamma + 1 = 0$（可以验证），所以 $\gamma^2 = \gamma + 1$。</p>
+
+<p>我们称 $\beta$ 和 $\gamma = 1+\beta$ 是<strong>共轭</strong>（conjugate）关系——它们是同一个不可约多项式的不同根。</p>
+
+<p><strong>用 $\beta$ 扩张：$\mathbb{F}_2(\beta)$</strong></p>
+
+<p>元素：$\{0, 1, \beta, 1+\beta\}$，其中 $\beta^2 = \beta + 1$</p>
+
+<table>
+    <tr><th>$+$</th><th>$0$</th><th>$1$</th><th>$\beta$</th><th>$1+\beta$</th></tr>
+    <tr><th>$0$</th><td>$0$</td><td>$1$</td><td>$\beta$</td><td>$1+\beta$</td></tr>
+    <tr><th>$1$</th><td>$1$</td><td>$0$</td><td>$1+\beta$</td><td>$\beta$</td></tr>
+    <tr><th>$\beta$</th><td>$\beta$</td><td>$1+\beta$</td><td>$0$</td><td>$1$</td></tr>
+    <tr><th>$1+\beta$</th><td>$1+\beta$</td><td>$\beta$</td><td>$1$</td><td>$0$</td></tr>
+</table>
+
+<table>
+    <tr><th>$\times$</th><th>$0$</th><th>$1$</th><th>$\beta$</th><th>$1+\beta$</th></tr>
+    <tr><th>$0$</th><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td></tr>
+    <tr><th>$1$</th><td>$0$</td><td>$1$</td><td>$\beta$</td><td>$1+\beta$</td></tr>
+    <tr><th>$\beta$</th><td>$0$</td><td>$\beta$</td><td>$1+\beta$</td><td>$1$</td></tr>
+    <tr><th>$1+\beta$</th><td>$0$</td><td>$1+\beta$</td><td>$1$</td><td>$\beta$</td></tr>
+</table>
+
+<p><strong>用 $\gamma$ 扩张：$\mathbb{F}_2(\gamma)$</strong></p>
+
+<p>元素：$\{0, 1, \gamma, 1+\gamma\}$，其中 $\gamma^2 = \gamma + 1$</p>
+
+<table>
+    <tr><th>$+$</th><th>$0$</th><th>$1$</th><th>$\gamma$</th><th>$1+\gamma$</th></tr>
+    <tr><th>$0$</th><td>$0$</td><td>$1$</td><td>$\gamma$</td><td>$1+\gamma$</td></tr>
+    <tr><th>$1$</th><td>$1$</td><td>$0$</td><td>$1+\gamma$</td><td>$\gamma$</td></tr>
+    <tr><th>$\gamma$</th><td>$\gamma$</td><td>$1+\gamma$</td><td>$0$</td><td>$1$</td></tr>
+    <tr><th>$1+\gamma$</th><td>$1+\gamma$</td><td>$\gamma$</td><td>$1$</td><td>$0$</td></tr>
+</table>
+
+<table>
+    <tr><th>$\times$</th><th>$0$</th><th>$1$</th><th>$\gamma$</th><th>$1+\gamma$</th></tr>
+    <tr><th>$0$</th><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td></tr>
+    <tr><th>$1$</th><td>$0$</td><td>$1$</td><td>$\gamma$</td><td>$1+\gamma$</td></tr>
+    <tr><th>$\gamma$</th><td>$0$</td><td>$\gamma$</td><td>$1+\gamma$</td><td>$1$</td></tr>
+    <tr><th>$1+\gamma$</th><td>$0$</td><td>$1+\gamma$</td><td>$1$</td><td>$\gamma$</td></tr>
+</table>
+
+<p><strong>对应关系：</strong></p>
+
+<p>注意到 $\gamma = 1+\beta$，所以 $1+\gamma = 1+(1+\beta) = \beta$。两个域的元素有如下对应：</p>
+
+<table>
+    <tr><th>$\mathbb{F}_2(\beta)$</th><th>$\mathbb{F}_2(\gamma)$</th></tr>
+    <tr><td>$0$</td><td>$0$</td></tr>
+    <tr><td>$1$</td><td>$1$</td></tr>
+    <tr><td>$\beta$</td><td>$1+\gamma$</td></tr>
+    <tr><td>$1+\beta$</td><td>$\gamma$</td></tr>
+</table>
+
+<p>定义映射 $\varphi: \mathbb{F}_2(\beta) \to \mathbb{F}_2(\gamma)$，$\varphi(\beta) = \gamma$（即把 $\beta$ 换成它的共轭）：</p>
+$$\varphi(a + b\beta) = a + b\gamma$$
+
+<p>验证这是一个<strong>同构</strong>（保持加法和乘法）：</p>
+<ul>
+    <li>$\varphi(\beta \cdot (1+\beta)) = \varphi(1) = 1$</li>
+    <li>$\varphi(\beta) \cdot \varphi(1+\beta) = \gamma \cdot (1+\gamma) = 1$ ✓</li>
+</ul>
+
+<div class="key-idea">
+    <div class="key-idea-title">结论</div>
+    <p>$\mathbb{F}_2(\beta) \cong \mathbb{F}_2(\gamma)$——选择哪个根来扩张，得到的域是<strong>同构</strong>的。</p>
+    <p>这说明 $\mathbb{F}_4$ 本质上是唯一的：不管用哪个根扩张，最终得到的都是「同一个」域（在同构意义下）。</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">Frobenius 自同构</div>
+    <p>映射 $\varphi: x \mapsto x^2$ 把 $\beta$ 映到 $\beta^2 = 1+\beta = \gamma$。这个映射叫做 <strong>Frobenius 自同构</strong>，它把每个元素映到它的「共轭」。在有限域理论中，Frobenius 映射扮演着核心角色。</p>
+</div>
+
+<h3>2.8 Galois 群：对称性的代数描述</h3>
+
+<p>上一节我们发现，$\beta$ 和 $\gamma = 1+\beta$ 可以「互换」而不破坏域的结构。这种「可互换性」正是 <strong>Galois 群</strong>所描述的对象。</p>
+
+<p><strong>定义：</strong>域扩张 $\mathbb{F}_4 / \mathbb{F}_2$ 的 <strong>Galois 群</strong>，记作 $\mathrm{Gal}(\mathbb{F}_4 / \mathbb{F}_2)$，是所有满足以下条件的映射 $\sigma: \mathbb{F}_4 \to \mathbb{F}_4$ 构成的集合：</p>
+<ol>
+    <li>$\sigma$ 是<strong>自同构</strong>：保持加法和乘法，即 $\sigma(x+y) = \sigma(x)+\sigma(y)$，$\sigma(xy) = \sigma(x)\sigma(y)$</li>
+    <li>$\sigma$ <strong>固定基域</strong>：对所有 $a \in \mathbb{F}_2$，有 $\sigma(a) = a$</li>
+</ol>
+
+<p><strong>找出所有这样的映射：</strong></p>
+
+<p>设 $\sigma$ 是 $\mathbb{F}_4$ 的一个自同构且固定 $\mathbb{F}_2$。$\sigma$ 由 $\sigma(\beta)$ 完全决定（因为 $\sigma(a + b\beta) = a + b\sigma(\beta)$）。</p>
+
+<p>$\sigma(\beta)$ 必须满足什么条件？因为 $\beta$ 是 $x^2 + x + 1 = 0$ 的根，而 $\sigma$ 保持运算：</p>
+$$\sigma(\beta)^2 + \sigma(\beta) + 1 = \sigma(\beta^2 + \beta + 1) = \sigma(0) = 0$$
+
+<p>所以 $\sigma(\beta)$ 也必须是 $x^2 + x + 1 = 0$ 的根。但这个方程只有两个根：$\beta$ 和 $\gamma = 1+\beta$。</p>
+
+<p>因此，恰好有<strong>两个</strong>自同构：</p>
+
+<table>
+    <tr><th>自同构</th><th>$\sigma(0)$</th><th>$\sigma(1)$</th><th>$\sigma(\beta)$</th><th>$\sigma(1+\beta)$</th><th>描述</th></tr>
+    <tr><td>$\mathrm{id}$</td><td>$0$</td><td>$1$</td><td>$\beta$</td><td>$1+\beta$</td><td>恒等映射</td></tr>
+    <tr><td>$\sigma$</td><td>$0$</td><td>$1$</td><td>$1+\beta$</td><td>$\beta$</td><td>Frobenius: $x \mapsto x^2$</td></tr>
+</table>
+
+<p>验证 $\sigma(x) = x^2$ 确实把 $\beta$ 映到 $1+\beta$：$\sigma(\beta) = \beta^2 = \beta + 1$ ✓</p>
+
+<p><strong>群结构：</strong></p>
+
+<p>这两个映射在复合运算下构成一个群：</p>
+
+<table>
+    <tr><th>$\circ$</th><th>$\mathrm{id}$</th><th>$\sigma$</th></tr>
+    <tr><th>$\mathrm{id}$</th><td>$\mathrm{id}$</td><td>$\sigma$</td></tr>
+    <tr><th>$\sigma$</th><td>$\sigma$</td><td>$\mathrm{id}$</td></tr>
+</table>
+
+<p>验证 $\sigma \circ \sigma = \mathrm{id}$：$\sigma(\sigma(\beta)) = \sigma(1+\beta) = (1+\beta)^2 = 1 + \beta^2 = 1 + \beta + 1 = \beta$ ✓</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">结论</div>
+    $$\mathrm{Gal}(\mathbb{F}_4 / \mathbb{F}_2) = \{\mathrm{id}, \sigma\} \cong \mathbb{Z}/2\mathbb{Z}$$
+    <p>Galois 群的阶 $= 2 = [\mathbb{F}_4 : \mathbb{F}_2]$（扩张次数）。这不是巧合！</p>
+</div>
+
+<p><strong>固定点：</strong></p>
+
+<p>哪些元素被 $\sigma$ 固定（即 $\sigma(x) = x$）？</p>
+<ul>
+    <li>$\sigma(0) = 0$ ✓</li>
+    <li>$\sigma(1) = 1$ ✓</li>
+    <li>$\sigma(\beta) = 1+\beta \neq \beta$</li>
+    <li>$\sigma(1+\beta) = \beta \neq 1+\beta$</li>
+</ul>
+
+<p>被 $\sigma$ 固定的元素恰好是 $\{0, 1\} = \mathbb{F}_2$——基域！</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">Galois 对应</div>
+    <p>Galois 群的「固定域」恰好是基域 $\mathbb{F}_2$。这是 Galois 理论的核心：</p>
+    <p style="text-align: center;"><strong>子群 $\longleftrightarrow$ 中间域</strong></p>
+    <p>在这个简单例子中：$\{\mathrm{id}\}$ 对应 $\mathbb{F}_4$，$\{\mathrm{id}, \sigma\}$ 对应 $\mathbb{F}_2$。</p>
+</div>
+
+<div class="remark">
+    <div class="remark-title">为什么叫「Galois」群？</div>
+    <p>Évariste Galois（伽罗瓦，1811–1832）发现了多项式根的「对称性」与方程可解性之间的深刻联系。他在决斗中去世，年仅 20 岁。Galois 群正是以他命名，用来描述「哪些根的置换保持代数关系不变」。</p>
+</div>
+
+<h3>2.9 用 $x^3 + x + 1$ 扩张：构造 $\mathbb{F}_8$</h3>
+
+<p>之前我们用 2 次不可约多项式 $x^2+x+1$ 扩张得到 $\mathbb{F}_4$。现在用 3 次不可约多项式 $x^3+x+1$ 来扩张 $\mathbb{F}_2$。</p>
+
+<p>设 $\omega$ 是 $x^3 + x + 1 = 0$ 的一个根，则 $\omega^3 = \omega + 1$。</p>
+
+<p><strong>元素：</strong>由于 $\omega^3$ 可以用更低次幂表示，所有元素都可以写成 $a + b\omega + c\omega^2$（$a,b,c \in \mathbb{F}_2$）的形式：</p>
+
+$$\mathbb{F}_2(\omega) = \{a + b\omega + c\omega^2 : a, b, c \in \mathbb{F}_2\}$$
+
+<p>共有 $2^3 = 8$ 个元素，这就是 $\mathbb{F}_8$：</p>
+
+<table>
+    <tr><th>元素</th><th>$(a,b,c)$</th></tr>
+    <tr><td>$0$</td><td>$(0,0,0)$</td></tr>
+    <tr><td>$1$</td><td>$(1,0,0)$</td></tr>
+    <tr><td>$\omega$</td><td>$(0,1,0)$</td></tr>
+    <tr><td>$\omega^2$</td><td>$(0,0,1)$</td></tr>
+    <tr><td>$1+\omega$</td><td>$(1,1,0)$</td></tr>
+    <tr><td>$1+\omega^2$</td><td>$(1,0,1)$</td></tr>
+    <tr><td>$\omega+\omega^2$</td><td>$(0,1,1)$</td></tr>
+    <tr><td>$1+\omega+\omega^2$</td><td>$(1,1,1)$</td></tr>
+</table>
+
+<p><strong>$\omega$ 的幂次：</strong></p>
+
+<p>利用 $\omega^3 = \omega + 1$，计算 $\omega$ 的高次幂：</p>
+
+<table>
+    <tr><th>幂次</th><th>计算</th><th>结果</th></tr>
+    <tr><td>$\omega^0$</td><td></td><td>$1$</td></tr>
+    <tr><td>$\omega^1$</td><td></td><td>$\omega$</td></tr>
+    <tr><td>$\omega^2$</td><td></td><td>$\omega^2$</td></tr>
+    <tr><td>$\omega^3$</td><td>$= \omega + 1$</td><td>$1 + \omega$</td></tr>
+    <tr><td>$\omega^4$</td><td>$= \omega \cdot \omega^3 = \omega(\omega+1) = \omega^2 + \omega$</td><td>$\omega + \omega^2$</td></tr>
+    <tr><td>$\omega^5$</td><td>$= \omega \cdot \omega^4 = \omega^3 + \omega^2 = (\omega+1) + \omega^2$</td><td>$1 + \omega + \omega^2$</td></tr>
+    <tr><td>$\omega^6$</td><td>$= \omega \cdot \omega^5 = \omega + \omega^2 + \omega^3 = \omega + \omega^2 + (\omega+1)$</td><td>$1 + \omega^2$</td></tr>
+    <tr><td>$\omega^7$</td><td>$= \omega \cdot \omega^6 = \omega + \omega^3 = \omega + (\omega+1)$</td><td>$1$</td></tr>
+</table>
+
+<div class="key-idea">
+    <div class="key-idea-title">重要发现</div>
+    <p>$\omega^7 = 1$，所以 $\omega$ 的阶是 $7$。</p>
+    <p>$\mathbb{F}_8^* = \{1, \omega, \omega^2, \omega^3, \omega^4, \omega^5, \omega^6\}$ —— 所有非零元素都是 $\omega$ 的幂次！</p>
+    <p>$\mathbb{F}_8^*$ 是<strong>循环群</strong>，$\omega$ 是<strong>生成元</strong>（或称<strong>本原元</strong>）。</p>
+</div>
+
+<p><strong>乘法表（用幂次表示）：</strong></p>
+
+<p>由于 $\mathbb{F}_8^*$ 是循环群，乘法就是指数相加（模 $7$）：$\omega^i \cdot \omega^j = \omega^{i+j \mod 7}$</p>
+
+<p>用标准形式的对照表：</p>
+
+<table>
+    <tr><th>幂次形式</th><th>标准形式</th></tr>
+    <tr><td>$\omega^0 = 1$</td><td>$1$</td></tr>
+    <tr><td>$\omega^1$</td><td>$\omega$</td></tr>
+    <tr><td>$\omega^2$</td><td>$\omega^2$</td></tr>
+    <tr><td>$\omega^3$</td><td>$1+\omega$</td></tr>
+    <tr><td>$\omega^4$</td><td>$\omega+\omega^2$</td></tr>
+    <tr><td>$\omega^5$</td><td>$1+\omega+\omega^2$</td></tr>
+    <tr><td>$\omega^6$</td><td>$1+\omega^2$</td></tr>
+</table>
+
+<p>例如：$(1+\omega) \cdot (\omega + \omega^2) = \omega^3 \cdot \omega^4 = \omega^7 = 1$</p>
+
+<p><strong>Galois 群：</strong></p>
+
+<p>$\mathrm{Gal}(\mathbb{F}_8 / \mathbb{F}_2)$ 由 Frobenius 自同构 $\sigma: x \mapsto x^2$ 生成。</p>
+
+<p>$\sigma$ 作用在 $\omega$ 上：</p>
+<ul>
+    <li>$\sigma(\omega) = \omega^2$</li>
+    <li>$\sigma^2(\omega) = \omega^4$</li>
+    <li>$\sigma^3(\omega) = \omega^8 = \omega^7 \cdot \omega = \omega$（回到原点）</li>
+</ul>
+
+<p>所以 $\mathrm{Gal}(\mathbb{F}_8 / \mathbb{F}_2) = \{\mathrm{id}, \sigma, \sigma^2\} \cong \mathbb{Z}/3\mathbb{Z}$，阶 $= 3 = [\mathbb{F}_8 : \mathbb{F}_2]$。</p>
+
+<p><strong>$x^3 + x + 1$ 的三个根：</strong></p>
+
+<p>$\omega$、$\omega^2$、$\omega^4$ 互为<strong>共轭</strong>——它们是同一个不可约多项式的不同根，被 Frobenius 映射相互置换。</p>
+
+<p>验证：$x^3 + x + 1 = (x - \omega)(x - \omega^2)(x - \omega^4)$</p>
+
+<div class="summary">
+    <div class="summary-title">$\mathbb{F}_4$ vs $\mathbb{F}_8$ 对比</div>
+    <table>
+        <tr><th></th><th>$\mathbb{F}_4$</th><th>$\mathbb{F}_8$</th></tr>
+        <tr><td>不可约多项式</td><td>$x^2+x+1$</td><td>$x^3+x+1$</td></tr>
+        <tr><td>元素个数</td><td>$4 = 2^2$</td><td>$8 = 2^3$</td></tr>
+        <tr><td>乘法群阶</td><td>$3$</td><td>$7$</td></tr>
+        <tr><td>Galois 群</td><td>$\mathbb{Z}/2\mathbb{Z}$</td><td>$\mathbb{Z}/3\mathbb{Z}$</td></tr>
+        <tr><td>共轭根个数</td><td>$2$</td><td>$3$</td></tr>
+    </table>
+</div>
+
+<div class="remark">
+    <div class="remark-title">注意</div>
+    <p>$\mathbb{F}_4 = \mathbb{F}_{2^2}$ 和 $\mathbb{F}_8 = \mathbb{F}_{2^3}$ 都是 $\mathbb{F}_2$ 的扩张，但它们之间<strong>没有</strong>包含关系！因为 $2 \nmid 3$ 且 $3 \nmid 2$。</p>
+    <p>有限域 $\mathbb{F}_{p^m}$ 是 $\mathbb{F}_{p^n}$ 的子域，当且仅当 $n \mid m$（看的是<strong>指数</strong>的整除关系）。</p>
+</div>
+
+<h3>2.10 用 $x^4 + x + 1$ 扩张：构造 $\mathbb{F}_{16}$</h3>
+
+<p>现在用 4 次不可约多项式 $x^4 + x + 1$ 来扩张 $\mathbb{F}_2$。</p>
+
+<p>设 $\theta$ 是 $x^4 + x + 1 = 0$ 的一个根，则 $\theta^4 = \theta + 1$。</p>
+
+<p><strong>元素：</strong>所有元素可写成 $a + b\theta + c\theta^2 + d\theta^3$（$a,b,c,d \in \mathbb{F}_2$）的形式，共 $2^4 = 16$ 个：</p>
+
+$$\mathbb{F}_{16} = \mathbb{F}_2(\theta) = \{a + b\theta + c\theta^2 + d\theta^3 : a,b,c,d \in \mathbb{F}_2\}$$
+
+<p><strong>$\theta$ 的幂次：</strong></p>
+
+<table>
+    <tr><th>幂次</th><th>计算</th><th>标准形式</th></tr>
+    <tr><td>$\theta^0$</td><td></td><td>$1$</td></tr>
+    <tr><td>$\theta^1$</td><td></td><td>$\theta$</td></tr>
+    <tr><td>$\theta^2$</td><td></td><td>$\theta^2$</td></tr>
+    <tr><td>$\theta^3$</td><td></td><td>$\theta^3$</td></tr>
+    <tr><td>$\theta^4$</td><td>$= \theta + 1$</td><td>$1 + \theta$</td></tr>
+    <tr><td>$\theta^5$</td><td>$= \theta^2 + \theta$</td><td>$\theta + \theta^2$</td></tr>
+    <tr><td>$\theta^6$</td><td>$= \theta^3 + \theta^2$</td><td>$\theta^2 + \theta^3$</td></tr>
+    <tr><td>$\theta^7$</td><td>$= \theta^4 + \theta^3 = \theta + 1 + \theta^3$</td><td>$1 + \theta + \theta^3$</td></tr>
+    <tr><td>$\theta^8$</td><td>$= \theta^2 + \theta + \theta^4 = \theta^2 + \theta + \theta + 1$</td><td>$1 + \theta^2$</td></tr>
+    <tr><td>$\theta^9$</td><td>$= \theta + \theta^3$</td><td>$\theta + \theta^3$</td></tr>
+    <tr><td>$\theta^{10}$</td><td>$= \theta^2 + \theta^4 = \theta^2 + \theta + 1$</td><td>$1 + \theta + \theta^2$</td></tr>
+    <tr><td>$\theta^{11}$</td><td>$= \theta^3 + \theta^2 + \theta$</td><td>$\theta + \theta^2 + \theta^3$</td></tr>
+    <tr><td>$\theta^{12}$</td><td>$= \theta^4 + \theta^3 + \theta^2 = \theta + 1 + \theta^3 + \theta^2$</td><td>$1 + \theta + \theta^2 + \theta^3$</td></tr>
+    <tr><td>$\theta^{13}$</td><td>$= \theta^2 + \theta + \theta^4 + \theta^3 = \theta^2 + 1 + \theta^3$</td><td>$1 + \theta^2 + \theta^3$</td></tr>
+    <tr><td>$\theta^{14}$</td><td>$= \theta^3 + \theta + \theta^4 = \theta^3 + 1$</td><td>$1 + \theta^3$</td></tr>
+    <tr><td>$\theta^{15}$</td><td>$= \theta^4 + \theta = \theta + 1 + \theta$</td><td>$1$</td></tr>
+</table>
+
+<div class="key-idea">
+    <div class="key-idea-title">重要发现</div>
+    <p>$\theta^{15} = 1$，所以 $\theta$ 的阶是 $15$。$\mathbb{F}_{16}^*$ 是 $15$ 阶循环群，$\theta$ 是本原元。</p>
+</div>
+
+<p><strong>Galois 群：</strong></p>
+
+<p>Frobenius $\sigma: x \mapsto x^2$ 的作用：</p>
+<ul>
+    <li>$\sigma(\theta) = \theta^2$</li>
+    <li>$\sigma^2(\theta) = \theta^4 = 1 + \theta$</li>
+    <li>$\sigma^3(\theta) = \theta^8 = 1 + \theta^2$</li>
+    <li>$\sigma^4(\theta) = \theta^{16} = \theta^{15} \cdot \theta = \theta$（回到原点）</li>
+</ul>
+
+$$\mathrm{Gal}(\mathbb{F}_{16}/\mathbb{F}_2) = \{\mathrm{id}, \sigma, \sigma^2, \sigma^3\} \cong \mathbb{Z}/4\mathbb{Z}$$
+
+<p><strong>$x^4 + x + 1$ 的四个根：</strong>$\theta$，$\theta^2$，$\theta^4 = 1+\theta$，$\theta^8 = 1+\theta^2$，互为共轭。</p>
+
+<p><strong>$\mathbb{F}_4$ 作为 $\mathbb{F}_{16}$ 的子域：</strong></p>
+
+<p>因为 $2 \mid 4$，所以 $\mathbb{F}_4 \subset \mathbb{F}_{16}$。$\mathbb{F}_4$ 的元素在哪里？</p>
+
+<p>$\mathbb{F}_4^* = \{$满足 $x^3 = 1$ 的元素$\}$。在 $\mathbb{F}_{16}^*$ 中，阶整除 $3$ 的元素是 $\theta^k$，其中 $15 \mid 3k$，即 $k = 0, 5, 10$。</p>
+
+<table>
+    <tr><th>$\mathbb{F}_4$ 中的元素</th><th>在 $\mathbb{F}_{16}$ 中的表示</th></tr>
+    <tr><td>$0$</td><td>$0$</td></tr>
+    <tr><td>$1$</td><td>$1 = \theta^0$</td></tr>
+    <tr><td>$\beta$</td><td>$\theta^5 = \theta + \theta^2$</td></tr>
+    <tr><td>$1+\beta$</td><td>$\theta^{10} = 1 + \theta + \theta^2$</td></tr>
+</table>
+
+<p>验证：$(\theta^5)^2 + \theta^5 + 1 = \theta^{10} + \theta^5 + 1 = (1+\theta+\theta^2) + (\theta+\theta^2) + 1 = 0$ ✓</p>
+
+<div class="key-idea">
+    <div class="key-idea-title">子域的嵌入</div>
+    <p>$\mathbb{F}_4 = \{0, 1, \theta^5, \theta^{10}\} \subset \mathbb{F}_{16}$</p>
+    <p>$\mathbb{F}_4$ 中满足 $x^2 + x + 1 = 0$ 的元素 $\beta$，在 $\mathbb{F}_{16}$ 中对应 $\theta^5 = \theta + \theta^2$。</p>
+</div>
+
+<div class="summary">
+    <div class="summary-title">$\mathbb{F}_2$ 扩张总览</div>
+    <table>
+        <tr><th>域</th><th>元素个数</th><th>乘法群阶</th><th>Galois 群</th><th>包含的子域</th></tr>
+        <tr><td>$\mathbb{F}_2$</td><td>$2$</td><td>$1$</td><td>—</td><td>—</td></tr>
+        <tr><td>$\mathbb{F}_4$</td><td>$4$</td><td>$3$</td><td>$\mathbb{Z}/2\mathbb{Z}$</td><td>$\mathbb{F}_2$</td></tr>
+        <tr><td>$\mathbb{F}_8$</td><td>$8$</td><td>$7$</td><td>$\mathbb{Z}/3\mathbb{Z}$</td><td>$\mathbb{F}_2$</td></tr>
+        <tr><td>$\mathbb{F}_{16}$</td><td>$16$</td><td>$15$</td><td>$\mathbb{Z}/4\mathbb{Z}$</td><td>$\mathbb{F}_2, \mathbb{F}_4$</td></tr>
+    </table>
+</div>
+
+<div class="remark">
+    <div class="remark-title">Galois 对应在 $\mathbb{F}_{16}/\mathbb{F}_2$ 中</div>
+    <p>$\mathrm{Gal}(\mathbb{F}_{16}/\mathbb{F}_2) = \langle \sigma \rangle \cong \mathbb{Z}/4\mathbb{Z}$ 有三个子群：</p>
+    <ul>
+        <li>$\{\mathrm{id}\}$ 对应 $\mathbb{F}_{16}$（固定所有元素）</li>
+        <li>$\{\mathrm{id}, \sigma^2\}$ 对应 $\mathbb{F}_4$（$\sigma^2$ 固定 $\mathbb{F}_4$ 的元素）</li>
+        <li>$\{\mathrm{id}, \sigma, \sigma^2, \sigma^3\}$ 对应 $\mathbb{F}_2$（只有 $0, 1$ 被所有元素固定）</li>
+    </ul>
+    <p>子群越大，固定的域越小——这就是 Galois 对应！</p>
+</div>
+
+</body>
+</html>
