@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.2 Torsion, endomorphisms and point counting</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: 'ams'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        h1 { font-size: 1.8em; margin-bottom: 0.5em; font-weight: bold; }
+        h2 { font-size: 1.5em; margin-top: 1.5em; font-weight: bold; }
+        h3 { font-size: 1.2em; margin-top: 1.2em; font-weight: bold; }
+        p { text-align: justify; margin-bottom: 1em; }
+        .equation { text-align: center; margin: 1.2em 0; }
+        .example {
+            background: #f8f8f8;
+            padding: 1em 1.2em;
+            margin: 1.2em 0;
+            border-left: 3px solid #666;
+        }
+        .example-title { font-weight: bold; font-style: italic; }
+        blockquote {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f0f7ff;
+            border-left: 4px solid #4a90d9;
+            margin: 0.8em 0 1.2em 0;
+            padding: 0.8em 1em;
+            color: #444;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        .note {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #fff7ed;
+            border-left: 4px solid #f97316;
+            margin: 0.8em 0 1.2em 0;
+            padding: 0.8em 1em 0.8em 2.5em;
+            color: #444;
+            font-size: 0.95em;
+            line-height: 1.7;
+            position: relative;
+        }
+        .note::before {
+            content: '"';
+            position: absolute;
+            left: 0.25em;
+            top: 0em;
+            font-size: 3em;
+            color: #f97316;
+            font-family: "PingFang SC", "Microsoft YaHei", serif;
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .vocab {
+            border-bottom: 2px dashed #e74c3c;
+            cursor: help;
+            position: relative;
+        }
+        .vocab:hover { background-color: #fff3cd; }
+        .vocab:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: "PingFang SC", sans-serif;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+        .page-marker {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            margin: 2em 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 0.5em;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3em;
+            padding-top: 1em;
+            border-top: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+        .nav-links a:hover { text-decoration: underline; }
+        .long-number {
+            font-family: monospace;
+            font-size: 0.85em;
+            word-break: break-all;
+            background: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>2.2 Torsion, endomorphisms and point counting</h1>
+
+<!-- ==================== PAGE 22 ==================== -->
+
+<p>We now turn our focus to the behaviour of elliptic curve groups, as they are used in cryptography. We start by importantly discussing the possible structures exhibited by the finite group $E(\mathbb{F}_q)$. It turns out that $E(\mathbb{F}_q)$ is either itself cyclic, or isomorphic to a product of two cyclic groups $\mathbb{Z}_{n_1} \times \mathbb{Z}_{n_2}$ with $n_1 \mid n_2$ [ACD+05, Prop. 5.78]. In cryptography, we would like the group $E(\mathbb{F}_q)$ to be <em>as cyclic as possible</em>, so we usually prefer the former case, or at the very least for $n_1$ to be very small. In most cases of practical interest, we can generate curves that are cyclic with relative ease, so throughout this thesis it is safe to assume that $E(\mathbb{F}_q)$ is cyclic (but to see the real depth of this question in general, we refer to [MS07]). The following example illustrates that $E(\mathbb{F}_q) = \langle P \rangle$ obeys all the usual rules that apply to cyclic groups, and introduces the important notion of <span class="vocab" data-tip="r-挠点/r-torsion">$r$-torsion</span>.</p>
+
+<blockquote>现在我们把注意力转向椭圆曲线群在密码学中的行为。我们首先重点讨论有限群 $E(\mathbb{F}_q)$ 可能呈现的结构。事实证明，$E(\mathbb{F}_q)$ 要么本身是循环的，要么同构于两个循环群的积 $\mathbb{Z}_{n_1} \times \mathbb{Z}_{n_2}$，其中 $n_1 \mid n_2$。在密码学中，我们希望群 $E(\mathbb{F}_q)$ <strong>尽可能是循环的</strong>，所以通常偏好前一种情况，或者至少 $n_1$ 非常小。在大多数实际感兴趣的情况下，我们可以相对容易地生成循环曲线，因此在本论文中可以安全地假设 $E(\mathbb{F}_q)$ 是循环的。下面的例子说明 $E(\mathbb{F}_q) = \langle P \rangle$ 遵循所有适用于循环群的通常规则，并介绍了 <strong>$r$-挠点</strong>的重要概念。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.1</span> (Magma script). Consider $E/\mathbb{F}_{101} : y^2 = x^3 + x + 1$. The group order is $\#E(\mathbb{F}_q) = 105 = 3 \cdot 5 \cdot 7$, and $P = (47, 12) \in E$ is a generator. Lagrange's theorem says that points (and subgroups) over the base field will have order in $\{1, 3, 5, 7, 15, 21, 35, 105\}$. Indeed, to get a point of order $r \mid 105$, we simply multiply $P$ by the appropriate <span class="vocab" data-tip="余因子">cofactor</span>, which is $h = \#E/r$. For example, a point of order 3 is $[35](47, 12) = (28, 8)$, a point of order 21 is $[5](47, 12) = (55, 65)$, and a point of order 1 is $[105](47, 12) = \mathcal{O}$ (which is the only such point). By definition, a point is "killed" (sent to $\mathcal{O}$) when multiplied by its order. Any point over the full closure $E(\overline{\mathbb{F}}_q)$ that is killed by $r$ is said to be in the <em>$r$-torsion</em>. So, the point $(55, 65)$ above is in the 21-torsion, as is the point $(28, 8)$. There are exactly 21 points in $E(\mathbb{F}_q)$ in the 21-torsion, but there are many more in $E(\overline{\mathbb{F}}_q)$.</p>
+
+<blockquote><strong>例 2.2.1</strong>：考虑 $E/\mathbb{F}_{101} : y^2 = x^3 + x + 1$。群阶是 $\#E(\mathbb{F}_q) = 105 = 3 \cdot 5 \cdot 7$，$P = (47, 12) \in E$ 是一个生成元。Lagrange 定理说基域上的点（和子群）的阶在 $\{1, 3, 5, 7, 15, 21, 35, 105\}$ 中。确实，要得到阶为 $r \mid 105$ 的点，我们只需将 $P$ 乘以适当的<strong>余因子</strong> $h = \#E/r$。例如，阶为 3 的点是 $[35](47, 12) = (28, 8)$，阶为 21 的点是 $[5](47, 12) = (55, 65)$，阶为 1 的点是 $[105](47, 12) = \mathcal{O}$（这是唯一这样的点）。根据定义，当一个点乘以它的阶时会被"杀死"（送到 $\mathcal{O}$）。在完全闭包 $E(\overline{\mathbb{F}}_q)$ 上任何被 $r$ 杀死的点称为在 <strong>$r$-挠</strong>中。所以，上面的点 $(55, 65)$ 在 21-挠中，点 $(28, 8)$ 也是。$E(\mathbb{F}_q)$ 中恰好有 21 个点在 21-挠中，但在 $E(\overline{\mathbb{F}}_q)$ 中有更多。</blockquote>
+</div>
+
+<p>The whereabouts and structure of $r$-torsion points in $E(\overline{\mathbb{F}}_q)$ (alluded to at the end of Example 2.2.1) plays a crucial role in pairing-based cryptography; we will be looking at this in close detail in Chapter 4.</p>
+
+<blockquote>$E(\overline{\mathbb{F}}_q)$ 中 $r$-挠点的位置和结构（在例 2.2.1 末尾提到）在基于配对的密码学中起着关键作用；我们将在第 4 章详细研究。</blockquote>
+
+<p>In ECC we would like the group order $\#E(\mathbb{F}_q)$ to be as close to prime as possible. This is because the (asymptotic) complexity of the ECDLP that attackers face is dependent on the size of the largest prime subgroup of $E(\mathbb{F}_q)$. Even if the particular instance of the discrete logarithm problem uses a generator of the whole group, the attacker can use the known group order to solve smaller instances in subgroups whose orders are pairwise prime, and then reconstruct the answer using the <span class="vocab" data-tip="中国剩余定理">Chinese Remainder Theorem (CRT)</span>. We make this clear in the following two examples: the first is a toy example, whilst the second shows the difference between two curves of the same cryptographic size; one that is currently considered secure and one that is completely breakable using modern attacks.</p>
+
+<blockquote>在 ECC 中，我们希望群阶 $\#E(\mathbb{F}_q)$ 尽可能接近素数。这是因为攻击者面临的 ECDLP 的（渐近）复杂度取决于 $E(\mathbb{F}_q)$ 的最大素数阶子群的大小。即使离散对数问题的特定实例使用整个群的生成元，攻击者也可以利用已知的群阶在阶两两互素的子群中解决较小的实例，然后使用<strong>中国剩余定理 (CRT)</strong> 重建答案。我们在下面两个例子中说明这一点：第一个是玩具例子，第二个展示了相同密码大小的两条曲线之间的区别；一条目前被认为是安全的，另一条使用现代攻击完全可破解。</blockquote>
+
+<!-- ==================== PAGE 23 ==================== -->
+<div class="page-marker">— 23 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.2</span> (Magma script). Consider $E/\mathbb{F}_{1021} : y^2 = x^3 + 905x + 100$, with group order $\#E(\mathbb{F}_q) = 966 = 2 \cdot 3 \cdot 7 \cdot 23$, and generator $P = (1006, 416)$. Suppose we are presented with an instance of the ECDLP: namely, we are given $Q = (612, 827)$, and we seek to find $k$ such that $[k]P = Q$. For the sake of the example, suppose our best "attack" is trivial: trying every multiple $[i]P$ of $P$ until we hit the correct one ($i = k$). Rather than seeking $i$ in the full group ($2 \leq i \leq 965$), we can map the instance into each prime order subgroup by multiplying by the appropriate cofactor, and then solve for $k_j \equiv k \mod j$, $j \in \{2, 3, 7, 23\}$.</p>
+
+<p>For $j = 2$, we have $P_j = P_2 = [966/2]P = [483](1006, 416) = (174, 0)$, and $Q_j = Q_2 = [483](612, 827) = (174, 0)$, so $Q_2 = [k_2]P_2$ gives $k_2 = 1$. For $j = 3$, we have $P_3 = [322]P = (147, 933)$ and $Q_3 = [322]Q = \mathcal{O}$, so $Q_3 = [k_3]P_3$ gives $k_3 = 3$. For $j = 7$, we have $P_7 = [138]P = (906, 201)$ and $Q_7 = [138]Q = (906, 201)$, so $Q_7 = [k_7]P_7$ gives $k_7 = 1$. For $j = 23$, we have $P_{23} = [42]P = (890, 665)$ and $Q_{23} = [42]Q = (68, 281)$. For $Q_{23} = [k_{23}]P_{23}$, we exhaust $k_{23} \in \{1, .., 22\}$ to see that $k_{23} = 20$. Now, we can use the Chinese Remainder Theorem to solve</p>
+
+<div class="equation">
+$$k \equiv k_2 = 1 \mod 2; \quad k \equiv k_3 = 0 \mod 3; \quad k \equiv k_7 = 1 \mod 7; \quad k \equiv k_{23} = 20 \mod 23,$$
+</div>
+
+<p>which gives $k \equiv 687 \mod \#E$, solving the ECDLP instance. Notice that the hardest part was exhausting the set $\{1, .., 22\}$ to find $k_{23} = 20$, so the largest prime order subgroup becomes the bottleneck of the algorithm, giving intuition as to why the largest prime order subgroup defines the attack complexity when groups of a cryptographic size are used.</p>
+
+<blockquote><strong>例 2.2.2</strong>：考虑 $E/\mathbb{F}_{1021} : y^2 = x^3 + 905x + 100$，群阶 $\#E(\mathbb{F}_q) = 966 = 2 \cdot 3 \cdot 7 \cdot 23$，生成元 $P = (1006, 416)$。假设我们面对一个 ECDLP 实例：给定 $Q = (612, 827)$，我们寻找 $k$ 使得 $[k]P = Q$。为了举例，假设我们最好的"攻击"是平凡的：尝试 $P$ 的每个倍数 $[i]P$ 直到找到正确的（$i = k$）。不是在整个群（$2 \leq i \leq 965$）中搜索 $i$，我们可以通过乘以适当的余因子将实例映射到每个素阶子群，然后求解 $k_j \equiv k \mod j$。<br><br>
+
+最困难的部分是穷举集合 $\{1, .., 22\}$ 找到 $k_{23} = 20$，所以最大素阶子群成为算法的瓶颈，这直觉地说明了为什么当使用密码大小的群时，最大素阶子群定义了攻击复杂度。</blockquote>
+</div>
+
+<div class="note">
+<strong>Pohlig-Hellman 攻击</strong><br><br>
+例 2.2.2 展示的实际上是 <strong>Pohlig-Hellman 算法</strong>，它利用群阶的因子分解来降低 DLP 的难度：<br><br>
+
+<strong>算法思想：</strong><br>
+① 将群阶分解：$n = \#E = p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$<br>
+② 对每个素因子 $p_i$，在阶为 $p_i^{e_i}$ 的子群中求解 $k_i \equiv k \mod p_i^{e_i}$<br>
+③ 使用 CRT 重建完整的 $k$<br><br>
+
+<strong>复杂度分析：</strong><br>
+• 整体攻击复杂度约为 $O(\sum_i e_i(\log n + \sqrt{p_i}))$<br>
+• 取决于<strong>最大素因子</strong> $p_{\max}$，而不是 $n$ 本身<br>
+• 这就是为什么密码学中需要<strong>素数阶</strong>或<strong>近素数阶</strong>的群！
+</div>
+
+<!-- ==================== PAGE 24 ==================== -->
+<div class="page-marker">— 24 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.3</span> (Magma script). For our real world example, we take the curve P-256 from the NIST recommendations [NIS99], which currently achieves a similar security level (resistance against best known attacks) to the 128-bit Advanced Encryption Standard (AES) for symmetric encryption. The curve is defined as $E/\mathbb{F}_q : y^2 = x^3 - 3x + b$, with prime order $r = \#E$, and generator $G = (x_G, y_G)$, where</p>
+
+<p class="long-number">
+$q = $ 115792089210356248762697446949407573530086143415290314195533631308867097853951,<br>
+$r = $ 115792089210356248762697446949407573529996955224135760342422259061068512044369,<br>
+$b = $ 41058363725152142129326129780047268409114441015993725554835256314039467401291,<br>
+$x_G = $ 48439561293906451759052585252797914202762949526041747995844080717082404635286,<br>
+$y_G = $ 36134250956749795798585127919587881956611106672985015071877198253568414405109,<br>
+$x_H = $ 53987601597021778433910548064987973235945515666715026302948657055639179420355,<br>
+$y_H = $ 53690949263410447908824456005055253553237881490194075871737490561466076234637.
+</p>
+
+<p>We give another point $H = (x_H, y_H)$ to pose $H = [k]G$ as an intractable instance of the ECDLP; this 256-bit prime field (and group order) is far beyond the reach of current attacks. For example, there is currently a campaign underway to solve a discrete logarithm problem over a 130-bit field using a cluster of servers that have already been running for two years (see http://ecc-challenge.info/), so (assuming the best known attacks stay exponential) it seems the above ECDLP should be safe for a while yet. We remark that the prime characteristic $q$ is given by $q = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$; such primes are preferred in ECC as they allow for faster finite field multiplication and reduction routines, greatly enhancing the speed of $\mathbb{F}_q$ arithmetic.</p>
+
+<p>We now give a curve over the same field $\mathbb{F}_q$, for which the ECDLP is well within reach of the best known attacks. Namely, consider the alternative curve with $b = 0$, namely $\tilde{E}/\mathbb{F}_q : y^2 = x^3 - 3x$, whose group order $n = \#\tilde{E}$ is given as</p>
+
+<p class="long-number">
+$n = $ 115792089210356248762697446949407573530086143415290314195533631308867097853952,<br>
+$\quad = 2^{96} \cdot 7 \cdot 274177 \cdot 67280421310721 \cdot 11318308927973941931404914103$.
+</p>
+
+<p>This time, the largest prime divisor of the group order is only 94 bits long, and the complexity of solving the ECDLP in $\tilde{E}(\mathbb{F}_q)$ is governed by the difficulty of solving the ECDLP instance in this largest prime subgroup, which could be done in a small amount of time on a desktop computer.</p>
+
+<blockquote><strong>例 2.2.3</strong>：对于真实世界的例子，我们取 NIST 推荐的 P-256 曲线，它目前达到与 128 位 AES 对称加密相似的安全级别。曲线定义为 $E/\mathbb{F}_q : y^2 = x^3 - 3x + b$，具有素数阶 $r = \#E$。<br><br>
+
+我们给出另一个点 $H$ 来提出 $H = [k]G$ 作为一个难解的 ECDLP 实例；这个 256 位素域（和群阶）远超当前攻击的能力范围。我们注意到素数特征 $q = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$；这样的素数在 ECC 中受青睐，因为它们允许更快的有限域乘法和约简例程。<br><br>
+
+我们现在给出同一域 $\mathbb{F}_q$ 上的另一条曲线，其 ECDLP 完全在已知最佳攻击的能力范围内。即 $\tilde{E}/\mathbb{F}_q : y^2 = x^3 - 3x$，其群阶的最大素因子只有 94 位长，求解这个最大素子群中的 ECDLP 实例可以在台式电脑上很短时间内完成。</blockquote>
+</div>
+
+<!-- ==================== PAGE 25 ==================== -->
+<div class="page-marker">— 25 —</div>
+
+<p>The above example provides clear motivation as to the importance of counting points on elliptic curves. The largest prime factor of the group order determines the difficulty that attackers face when trying to solve the ECDLP, so we would like to be able to count points on curves quickly enough to find those whose order is prime or almost prime (i.e. has a small cofactor), or have methods of prescribing such a group order before searching for the curve. Fortunately, on elliptic curves we have efficient algorithms to do both.</p>
+
+<blockquote>上面的例子清楚地说明了计算椭圆曲线上点数的重要性。群阶的最大素因子决定了攻击者尝试解决 ECDLP 时面临的难度，因此我们希望能够足够快地计算曲线上的点数，以找到那些阶为素数或近素数（即有小余因子）的曲线，或者在搜索曲线之前有方法预先指定这样的群阶。幸运的是，在椭圆曲线上我们有高效的算法来做到这两点。</blockquote>
+
+<p>We start our brief discussion on elliptic curve point counting by referring back to the two group orders in Example 2.2.3, and observing that both group orders share the first half of their digits with those of the field characteristic $q$. This suggests that the number of points on an elliptic curve is close to $q$, which is indeed the case in general; the <span class="vocab" data-tip="哈塞界">Hasse bound</span> [Sil09, Ch. 5, Th. 1.1] says the most that $\#E(\mathbb{F}_q)$ can differ from $q + 1$ is $2\sqrt{q}$, i.e. $|\#E(\mathbb{F}_q) - (q + 1)| \leq 2\sqrt{q}$. This offset between $\#E(\mathbb{F}_q)$ and $(q + 1)$ is called the <span class="vocab" data-tip="Frobenius 迹">trace of Frobenius</span>, and is denoted by $t$, so</p>
+
+<blockquote>我们通过回顾例 2.2.3 中的两个群阶来开始关于椭圆曲线点计数的简短讨论，注意到两个群阶的前半部分数字与域特征 $q$ 相同。这表明椭圆曲线上的点数接近 $q$，这确实是一般情况；<strong>Hasse 界</strong>说 $\#E(\mathbb{F}_q)$ 与 $q + 1$ 的最大差是 $2\sqrt{q}$，即 $|\#E(\mathbb{F}_q) - (q + 1)| \leq 2\sqrt{q}$。$\#E(\mathbb{F}_q)$ 和 $(q + 1)$ 之间的这个偏移称为 <strong>Frobenius 迹</strong>，记为 $t$，所以：</blockquote>
+
+<div class="equation">
+$$\#E(\mathbb{F}_q) = q + 1 - t, \qquad |t| \leq 2\sqrt{q} \tag{2.6}$$
+</div>
+
+<p>We will discuss where $t$ comes from and provide some more intuition behind the above formula in a moment, but what the Hasse bound tells us is that the group order lies somewhere in the interval $[q + 1 - 2\sqrt{q}, q + 1 + 2\sqrt{q}]$. In fact, Deuring [Deu41] showed that when $q$ is prime<sup>2</sup>, then every value $N \in [q + 1 - 2\sqrt{q}, q + 1 + 2\sqrt{q}]$ can be found as a group order $\#E(\mathbb{F}_q)$ for some $E$.</p>
+
+<p style="font-size: 0.85em; color: #666; margin-left: 1em;"><sup>2</sup>When $q$ is a prime power, there are a very small number of explicitly described exceptions.</p>
+
+<blockquote>我们稍后讨论 $t$ 从何而来并提供上述公式背后的更多直觉，但 Hasse 界告诉我们群阶位于区间 $[q + 1 - 2\sqrt{q}, q + 1 + 2\sqrt{q}]$ 中的某处。事实上，Deuring 证明当 $q$ 是素数时<sup>2</sup>，区间中的每个值 $N$ 都可以作为某个 $E$ 的群阶 $\#E(\mathbb{F}_q)$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.4</span> (Magma script). Let $q = 23$, so that the Hasse interval becomes $[q + 1 - 2\sqrt{q}, q + 1 + 2\sqrt{q}] = [15, 33]$, meaning that there are exactly 19 different group orders taken by elliptic curves over $\mathbb{F}_{23}$. For example, $E/\mathbb{F}_{23} : y^2 = x^3 + 18x + 3$ has $\#E = 15$, whilst $\tilde{E}/\mathbb{F}_{23} : y^2 = x^3 + 13x + 7$ has $\#\tilde{E} = 33$. We give 19 $(a, b)$ pairs such that the corresponding curves $E : y^2 = x^3 + ax + b$ have group orders in ascending order spanning the whole interval, as follows: $(18, 3)$, $(7, 22)$, $(19, 14)$, $(17, 17)$, $(12, 5)$, $(7, 12)$, $(8, 10)$, $(17, 18)$, $(20, 20)$, $(2, 3)$, $(20, 3)$, $(6, 8)$, $(16, 8)$, $(16, 22)$, $(9, 16)$, $(19, 6)$, $(20, 8)$, $(22, 9)$, $(13, 7)$.</p>
+
+<blockquote><strong>例 2.2.4</strong>：设 $q = 23$，则 Hasse 区间变为 $[15, 33]$，意味着 $\mathbb{F}_{23}$ 上的椭圆曲线恰好取 19 个不同的群阶。例如，$E/\mathbb{F}_{23} : y^2 = x^3 + 18x + 3$ 有 $\#E = 15$，而 $\tilde{E}/\mathbb{F}_{23} : y^2 = x^3 + 13x + 7$ 有 $\#\tilde{E} = 33$。我们给出 19 个 $(a, b)$ 对，使得相应曲线的群阶按升序跨越整个区间。</blockquote>
+</div>
+
+<!-- ==================== PAGE 26 ==================== -->
+<div class="page-marker">— 26 —</div>
+
+<p>A rough (but elementary and instinctive) argument as to why $\#E \approx q$ is that approximately half of the values $x \in [0, .., q - 1]$ will give a quadratic residue $x^3 + ax + b \in \text{QR}(q)$, which gives rise to two points $(x, \pm\sqrt{x^3 + ax + b}) \in E(\mathbb{F}_q)$, the only exception(s) being when $x^3 + ax + b = 0$ which obtains one point. The sophisticated explanation requires a deeper knowledge than our introduction offers, but for the purposes of this introductory text we get almost all that we need from Equation (2.6); the derivation of which makes use of the following definition. If $E$ is defined over $\mathbb{F}_q$, then the <span class="vocab" data-tip="Frobenius 自同态">Frobenius endomorphism</span> $\pi$ is defined as</p>
+
+<blockquote>一个粗略（但基本且直观）的解释为什么 $\#E \approx q$ 是：大约一半的值 $x \in [0, .., q - 1]$ 会给出二次剩余 $x^3 + ax + b \in \text{QR}(q)$，这产生两个点 $(x, \pm\sqrt{x^3 + ax + b}) \in E(\mathbb{F}_q)$，唯一的例外是当 $x^3 + ax + b = 0$ 时只得到一个点。精密的解释需要比我们的介绍更深的知识，但对于这个入门文本，我们从方程 (2.6) 得到几乎所有需要的东西；其推导使用以下定义。如果 $E$ 定义在 $\mathbb{F}_q$ 上，则 <strong>Frobenius 自同态</strong> $\pi$ 定义为：</blockquote>
+
+<div class="equation">
+$$\pi : E \to E, \quad (x, y) \mapsto (x^q, y^q). \tag{2.7}$$
+</div>
+
+<p>We note that the Frobenius endomorphism maps any point in $E(\overline{\mathbb{F}}_q)$ to a point in $E(\overline{\mathbb{F}}_q)$, but the set of points fixed by $\pi$ is exactly the group $E(\mathbb{F}_q)$. Thus, $\pi$ only acts non-trivially on points in $E(\overline{\mathbb{F}}_q) \setminus E(\mathbb{F}_q)$, and more generally, $\pi^i : (x, y) \mapsto (x^{q^i}, y^{q^i})$ only acts non-trivially on points in $E(\overline{\mathbb{F}}_q) \setminus E(\mathbb{F}_{q^i})$.</p>
+
+<blockquote>我们注意到 Frobenius 自同态将 $E(\overline{\mathbb{F}}_q)$ 中的任何点映射到 $E(\overline{\mathbb{F}}_q)$ 中的点，但被 $\pi$ 固定的点集恰好是群 $E(\mathbb{F}_q)$。因此，$\pi$ 只在 $E(\overline{\mathbb{F}}_q) \setminus E(\mathbb{F}_q)$ 中的点上非平凡地作用，更一般地，$\pi^i : (x, y) \mapsto (x^{q^i}, y^{q^i})$ 只在 $E(\overline{\mathbb{F}}_q) \setminus E(\mathbb{F}_{q^i})$ 中的点上非平凡地作用。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.5</span> (Magma script). Let $q = 67$, and consider $E/\mathbb{F}_q : y^2 = x^3 + 4x + 3$, and let $\mathbb{F}_{q^2} = \mathbb{F}_q(u)$ where $u^2 + 1 = 0$, and further let $\mathbb{F}_{q^3} = \mathbb{F}_q(v)$ where $v^3 + 2 = 0$. For $P_1 = (15, 50) \in E(\mathbb{F}_q)$, we have $\pi_q(P_1) = (15^q, 50^q) = (15, 50)$. For $P_2 = (2u + 16, 30u + 39)$, we have $\pi_q(P_2) = ((2u + 16)^q, (30u + 39)^q) = (65u + 16, 39 + 37u)$; it is easy to see in this example that computing $\pi_q(Q)$ for any $Q \in E(\mathbb{F}_{q^2})$ involves a simple "complex conjugation" on each coordinate, which also agrees with $\pi_q^2(Q) = Q$. Let $P_3 = (15v^2 + 4v + 8, 44v^2 + 30v + 21)$, $\pi_q(P_3) = (33v^2 + 14v + 8, 3v^2 + 38v + 21)$, $\pi_q^2(P_3) = (19v^2 + 49v + 8, 20v^2 + 66v + 21)$, and $\pi_q^3(P_3) = P_3$.</p>
+
+<blockquote><strong>例 2.2.5</strong>：设 $q = 67$，考虑 $E/\mathbb{F}_q : y^2 = x^3 + 4x + 3$，设 $\mathbb{F}_{q^2} = \mathbb{F}_q(u)$ 其中 $u^2 + 1 = 0$，进一步设 $\mathbb{F}_{q^3} = \mathbb{F}_q(v)$ 其中 $v^3 + 2 = 0$。对 $P_1 = (15, 50) \in E(\mathbb{F}_q)$，我们有 $\pi_q(P_1) = (15, 50)$。对 $P_2 = (2u + 16, 30u + 39)$，计算 $\pi_q(Q)$ 对任何 $Q \in E(\mathbb{F}_{q^2})$ 涉及对每个坐标的简单"复共轭"，这也与 $\pi_q^2(Q) = Q$ 一致。</blockquote>
+</div>
+
+<p>We can now return to sketch the derivation of Equation (2.6) by skimming over results that are presented in full in Silverman's book [Sil09, Ch. V, Th. 1.1]. We now know that $P \in E(\mathbb{F}_q)$ if and only if $\pi(P) = P$ (i.e. $([1] - \pi)P = \mathcal{O}$), and thus $\#E(\mathbb{F}_q) = \#\ker([1] - \pi)$. It is not too hard to show that the map $[1] - \pi$ is separable, which means that $\#E(\mathbb{F}_q) = \#\ker([1] - \pi) = \deg([1] - \pi)$. We can then make use of (a special case of) a version of the Cauchy-Schwarz inequality [Sil09][Ch. V, Lemma 1.2], to give $|\deg([1] - \pi) - \deg([1]) - \deg(\pi)| \leq 2\sqrt{\deg([1])\deg(\pi)}$, from which Equation (2.6) follows from $\deg(\pi) = q$.</p>
+
+<blockquote>我们现在可以回来概述方程 (2.6) 的推导。我们现在知道 $P \in E(\mathbb{F}_q)$ 当且仅当 $\pi(P) = P$（即 $([1] - \pi)P = \mathcal{O}$），因此 $\#E(\mathbb{F}_q) = \#\ker([1] - \pi)$。不难证明映射 $[1] - \pi$ 是可分的，这意味着 $\#E(\mathbb{F}_q) = \deg([1] - \pi)$。然后我们可以利用 Cauchy-Schwarz 不等式的一个版本，得到 $|\deg([1] - \pi) - \deg([1]) - \deg(\pi)| \leq 2\sqrt{\deg([1])\deg(\pi)}$，从 $\deg(\pi) = q$ 得到方程 (2.6)。</blockquote>
+
+<!-- ==================== PAGE 27 ==================== -->
+<div class="page-marker">— 27 —</div>
+
+<p>The theory of elliptic curves makes constant use of the <span class="vocab" data-tip="自同态环">endomorphism ring</span> of $E$, denoted $\text{End}(E)$, which (as the name suggests) is the ring of all maps from $E$ to itself; addition in the ring is natural, i.e. $(\psi_1 + \psi_2)(P) = \psi_1(P) + \psi_2(P)$, and multiplication in $\text{End}(E)$ is composition $(\psi_1\psi_2)(P) = \psi_1(\psi_2(P))$. The multiplication-by-$m$ map $[m]$ is trivially in $\text{End}(E)$ for all $m \in \mathbb{Z}$, and when $E$ is defined over a finite field, then clearly $\pi$ is too, so we are usually interested in any extra endomorphisms that shed more light on the behaviour of $E$.</p>
+
+<blockquote>椭圆曲线理论不断使用 $E$ 的<strong>自同态环</strong>，记为 $\text{End}(E)$，它（顾名思义）是所有从 $E$ 到自身的映射的环；环中的加法是自然的，即 $(\psi_1 + \psi_2)(P) = \psi_1(P) + \psi_2(P)$，$\text{End}(E)$ 中的乘法是复合 $(\psi_1\psi_2)(P) = \psi_1(\psi_2(P))$。乘 $m$ 映射 $[m]$ 对所有 $m \in \mathbb{Z}$ 平凡地在 $\text{End}(E)$ 中，当 $E$ 定义在有限域上时，显然 $\pi$ 也是，所以我们通常对任何额外的自同态感兴趣，它们能更好地揭示 $E$ 的行为。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.6</span> (Magma script). Consider $E/\mathbb{F}_q : y^2 = x^3 + b$. The map $\xi$, defined by $\xi : (x, y) \mapsto (\xi_3 x, y)$ with $\xi_3^3 = 1$ and $\xi_3 \neq 1$, is a non-trivial endomorphism on $E$, so $\xi \in \text{End}(E)$. If $\xi_3 \in \mathbb{F}_q$, then $\xi$ will be defined over $\mathbb{F}_q$, otherwise $\xi_3 \in \mathbb{F}_{q^2}$ in which case $\xi$ is not defined over $\mathbb{F}_q$, but over $\mathbb{F}_{q^2}$. We will observe both cases.</p>
+
+<p>Firstly, cubic roots of unity will be defined in $\mathbb{F}_q$ if and only if $q \equiv 1 \mod 3$, so let us take $q = 19$, $b = 5$, which gives $E/\mathbb{F}_{19} : y^2 = x^3 + 5$. Let $\xi_3 = 7$ so that $\xi_3^3 = 1$ (we could have also taken $\xi_3^2 = 11$), so that $\xi : (x, y) \mapsto (7x, y)$ is an endomorphism on $E$. Applying this to, say $P = (-1, 2)$, gives $\xi(P) = (-7, 2) \in E$. Taking the same curve over $\mathbb{F}_{23}$, i.e. $E/\mathbb{F}_{23} : y^2 = x^3 + 5$, for which $P = (-1, 2)$ is again a point, we no longer have a non-trivial $\xi_3 \in \mathbb{F}_{23}$, so we must form a quadratic extension $\mathbb{F}_{q^2}(u)$, $u^2 + 1 = 0$. Now, we can take $\xi_3 = 8u + 11$ (the other option is $\xi_3^2 = 15u + 11$), so that $\xi(P) = (-(8u + 11), 2) = (15u + 12, 2) \in E(\mathbb{F}_{q^2})$. Notice that $P$ started in $E(\mathbb{F}_q)$, but landed in $E(\mathbb{F}_{q^2})$ under $\xi$. The endomorphism $\xi$ has an inverse $\xi^{-1}$ (which is defined the same way but with $\xi_3^2$ instead), so $\xi$ is actually an automorphism of $E$, written as $\xi \in \text{Aut}(E)$.</p>
+
+<blockquote><strong>例 2.2.6</strong>：考虑 $E/\mathbb{F}_q : y^2 = x^3 + b$。映射 $\xi : (x, y) \mapsto (\xi_3 x, y)$，其中 $\xi_3^3 = 1$ 且 $\xi_3 \neq 1$，是 $E$ 上的非平凡自同态。如果 $\xi_3 \in \mathbb{F}_q$，则 $\xi$ 将定义在 $\mathbb{F}_q$ 上，否则 $\xi_3 \in \mathbb{F}_{q^2}$，此时 $\xi$ 不定义在 $\mathbb{F}_q$ 上，而是定义在 $\mathbb{F}_{q^2}$ 上。<br><br>
+
+首先，三次单位根在 $\mathbb{F}_q$ 中定义当且仅当 $q \equiv 1 \mod 3$。取 $q = 19$，$b = 5$，得到 $E/\mathbb{F}_{19} : y^2 = x^3 + 5$。设 $\xi_3 = 7$。在同一曲线上取 $\mathbb{F}_{23}$，我们不再有非平凡的 $\xi_3 \in \mathbb{F}_{23}$，所以必须形成二次扩张。注意 $P$ 从 $E(\mathbb{F}_q)$ 开始，但在 $\xi$ 下落在 $E(\mathbb{F}_{q^2})$ 中。自同态 $\xi$ 有逆 $\xi^{-1}$，所以 $\xi$ 实际上是 $E$ 的自同构，写作 $\xi \in \text{Aut}(E)$。</blockquote>
+</div>
+
+<p>The definition of $\xi : (x, y) \mapsto (\xi_3 x, y)$ in the above example gives an endomorphism on $E : y^2 = x^3 + b$ regardless of the field that $E$ is defined over. If there exists a non-trivial map (like $\xi$) for an elliptic curve $E$, we say $E$ has <span class="vocab" data-tip="复乘">complex multiplication</span>. To be more precise, all elliptic curve endomorphism rings trivially contain $\mathbb{Z}$, since every $m \in \mathbb{Z}$ corresponds to the multiplication-by-$m$ map $[m] \in \text{End}(E)$. However, if non-trivial endomorphisms exist that make $\text{End}(E)$ strictly larger than $\mathbb{Z}$, then we say $E$ has complex multiplication (CM). Thus, by this definition, every elliptic curve defined over $\mathbb{F}_q$ has CM, because the existence of the Frobenius endomorphism $\pi \in \text{End}(E)$ makes $\text{End}(E)$ larger than $\mathbb{Z}$. However, if we discuss whether $E$ has CM without yet stipulating the underlying finite field, then the question becomes non-trivial in general, because the answer depends on the existence of non-trivial maps. We use Silverman's example to illustrate [Sil09, Ch. 3, Eg. 4.4].</p>
+
+<blockquote>上例中 $\xi$ 的定义给出了 $E : y^2 = x^3 + b$ 上的自同态，无论 $E$ 定义在什么域上。如果椭圆曲线 $E$ 存在非平凡映射（如 $\xi$），我们说 $E$ 有<strong>复乘</strong>。更精确地说，所有椭圆曲线自同态环平凡地包含 $\mathbb{Z}$，因为每个 $m \in \mathbb{Z}$ 对应乘 $m$ 映射 $[m] \in \text{End}(E)$。然而，如果存在非平凡自同态使 $\text{End}(E)$ 严格大于 $\mathbb{Z}$，则我们说 $E$ 有复乘 (CM)。因此，按这个定义，定义在 $\mathbb{F}_q$ 上的每条椭圆曲线都有 CM，因为 Frobenius 自同态 $\pi \in \text{End}(E)$ 的存在使 $\text{End}(E)$ 大于 $\mathbb{Z}$。</blockquote>
+
+<!-- ==================== PAGE 28 ==================== -->
+<div class="page-marker">— 28 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.7</span> (Magma script). Consider $E/K : y^2 = x^3 + ax$. The map $\zeta : (x, y) \mapsto (-x, iy)$, where $i^2 = -1$ in $K$ is an endomorphism, so $E$ has CM. Clearly, $\zeta$ will be defined over $K$ if and only if $i \in K$. Observe that $\zeta \circ \zeta(x, y) = \zeta(-x, iy) = (x, -y) = -(x, y)$, so $\zeta \circ \zeta = [-1]$ (i.e. $\zeta^2$ is equivalent to negation). Thus, there is a ring homomorphism $\mathbb{Z}[i] \to \text{End}(E)$ defined by $m + ni \mapsto [m] + [n] \circ \zeta$. If $\text{Char}(K) \neq 0$, then this map is an isomorphism, thus $\text{End}(E) \cong \mathbb{Z}[i]$, and $\text{Aut}(E) \cong \mathbb{Z}[i]^*$.</p>
+
+<blockquote><strong>例 2.2.7</strong>：考虑 $E/K : y^2 = x^3 + ax$。映射 $\zeta : (x, y) \mapsto (-x, iy)$，其中 $i^2 = -1$，是一个自同态，所以 $E$ 有 CM。显然，$\zeta$ 定义在 $K$ 上当且仅当 $i \in K$。观察 $\zeta \circ \zeta(x, y) = (x, -y) = -(x, y)$，所以 $\zeta^2 = [-1]$（即 $\zeta^2$ 等价于取负）。因此，有环同态 $\mathbb{Z}[i] \to \text{End}(E)$ 定义为 $m + ni \mapsto [m] + [n] \circ \zeta$。如果 $\text{Char}(K) \neq 0$，则此映射是同构，因此 $\text{End}(E) \cong \mathbb{Z}[i]$。</blockquote>
+</div>
+
+<p>The trace of Frobenius $t$ in Equation (2.6) is named so because of the role it plays in the characteristic polynomial satisfied by $\pi$, which is given as</p>
+
+<blockquote>方程 (2.6) 中的 Frobenius 迹 $t$ 之所以这样命名，是因为它在 $\pi$ 满足的特征多项式中扮演的角色，该多项式为：</blockquote>
+
+<div class="equation">
+$$\pi^2 - [t] \circ \pi + [q] = 0 \quad \text{in } \text{End}(E), \tag{2.8}$$
+</div>
+
+<p>meaning that for all $(x, y) \in E(\overline{\mathbb{F}}_q)$, we have</p>
+
+<div class="equation">
+$$(x^{q^2}, y^{q^2}) - [t](x^q, y^q) + [q](x, y) = \mathcal{O}. \tag{2.9}$$
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.8</span> (Magma script). We use our results from Example 2.2.5 to illustrate, so as before $E/\mathbb{F}_{67} : y^2 = x^3 + 4x + 3$, $\mathbb{F}_{q^2} = \mathbb{F}_q(u)$ where $u^2 + 1 = 0$, and $\mathbb{F}_{q^3} = \mathbb{F}_q(v)$ where $v^3 + 2 = 0$. The trace of Frobenius is $t = -11$, so $\#E(\mathbb{F}_q) = q + 1 - t = 79$. For $P_1 = (15, 50) \in E(\mathbb{F}_q)$, we trivially had $\pi^2(P_1) = \pi(P_1) = P_1$, so $P_1 - [t]P_1 + [q]P_1 = ([1] - [t] + [q])P_1 = [\#E(\mathbb{F}_q)]P_1 = \mathcal{O}$. For $P_2 = (2u + 16, 30u + 39)$, we had $\pi^2(P_2) = P_2$ and $\pi(P_2) = (65u + 16, 37u + 39)$, so we are computing $P_2 - [-11]\pi(P_2) + [67]P_2 = [68](2u + 16, 30u + 39) + [11](65u + 16, 37u + 39)$, which is indeed $\mathcal{O}$. $P_3 \in E(\mathbb{F}_{q^3})$ is the only case where both $\pi$ and $\pi^2$ act non-trivially, so we compute $(19v^2 + 49v + 8, 20v^2 + 66v + 21) - [-11](33v^2 + 14v + 8, 3v^2 + 38v + 21) + [67](15v^2 + 4v + 8, 44v^2 + 30v + 21)$, which is $\mathcal{O}$.</p>
+
+<blockquote><strong>例 2.2.8</strong>：我们使用例 2.2.5 的结果来说明。Frobenius 迹是 $t = -11$，所以 $\#E(\mathbb{F}_q) = q + 1 - t = 79$。对 $P_1 \in E(\mathbb{F}_q)$，我们平凡地有 $\pi^2(P_1) = \pi(P_1) = P_1$。$P_3 \in E(\mathbb{F}_{q^3})$ 是 $\pi$ 和 $\pi^2$ 都非平凡作用的唯一情况。</blockquote>
+</div>
+
+<p>We now give a brief sketch of <span class="vocab" data-tip="Schoof 算法">Schoof's algorithm</span> for counting points on elliptic curves [Sch85]. Understanding the algorithm is not a prerequisite for understanding pairings, but it certainly warrants mention in any overview text on elliptic curves in cryptography, since it is essentially the algorithm that made ECC practical. Before Schoof's polynomial-time algorithm, all algorithms for point counting on elliptic curves were exponential and therefore cryptographically impractical. Besides, to sketch his idea, we need to introduce the notion of <span class="vocab" data-tip="除法多项式">division polynomials</span>, which are a useful tool in general. Put simply, division polynomials are polynomials whose roots reveal torsion points: namely, for odd<sup>3</sup> $\ell$, the $\ell$-th division polynomial $\psi_\ell(x)$ on $E$ solves to give the $x$-coordinates of the points of order $\ell$.
+
+<p style="font-size: 0.85em; color: #666; margin-left: 1em;"><sup>3</sup>When $\ell$ is even, the division polynomial is of the form $\psi_\ell(x, y) = y \cdot \tilde{\psi}_\ell(x)$ since $y = 0$ gives points of order two, which are in the $\ell$-torsion.</p> They are defined recursively and depend on the curve constants $a$ and $b$, but rather than giving the recursions here, we point the reader to [Sil09, Ch. III, Exer. 3.7], and opt instead for an example that illustrates their usefulness.</p>
+
+<blockquote>我们现在简要概述 <strong>Schoof 算法</strong>用于计算椭圆曲线上的点数。理解该算法不是理解配对的先决条件，但它当然值得在任何关于密码学中椭圆曲线的概述文本中提及，因为它本质上是使 ECC 变得实用的算法。在 Schoof 的多项式时间算法之前，所有椭圆曲线点计数算法都是指数的，因此在密码学上不实用。此外，为了概述他的想法，我们需要引入<strong>除法多项式</strong>的概念，这是一个一般有用的工具。简单地说，除法多项式是其根揭示挠点的多项式：即对于奇数 $\ell$，$E$ 上的第 $\ell$ 个除法多项式 $\psi_\ell(x)$ 求解给出阶为 $\ell$ 的点的 $x$ 坐标。</blockquote>
+
+<!-- ==================== PAGE 29 ==================== -->
+<div class="page-marker">— 29 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.9</span> (Magma script). Recall the curve $E/\mathbb{F}_{101} : y^2 = x^3 + x + 1$ from Example 2.2.1 with group order $\#E(\mathbb{F}_q) = 105 = 3 \cdot 5 \cdot 7$. The $x$-coordinates of the points of order 2 are found as the roots of $\psi_2(x) = 4x^3 + 4x + 4$, which is irreducible in $\mathbb{F}_q[x]$, so there are no 2-torsion points in $E(\mathbb{F}_q)$. For $r = 3$, $\psi_3(x) = 3x^4 + 6x^2 + 12x + 100 \in \mathbb{F}_q[x]$ factors into $\psi_3(x) = (x + 73)(x + 84)(x^2 + 45x + 36)$, so we get two solutions over $\mathbb{F}_q$, namely $x = 17$ and $x = 28$. This does not mean that the points implied by both solutions are in $\mathbb{F}_q$: namely, $x = 28$ gives $x^3 + x + 1 \in \text{QR}(q)$, so two points in the 3-torsion follow as $(28, 8)$ and $(28, 93)$. Conversely, $x = 17$ gives $x^3 + x + 1 \notin \text{QR}(q)$, so the two points implied by $x = 17$ will be defined over $\mathbb{F}_{q^2}$.</p>
+
+<p>For $\psi_5(x) = 5x^{12} + \ldots + 16$, the factorisation in $\mathbb{F}_q[x]$ is $\psi_5(x) = (x + 15)(x + 55)(x^5 + \ldots + 1)(x^5 + \ldots + 100)$, which gives $x = 46$ and $x = 86$ as solutions. This time, both $x$ values give rise to two points, giving four non-trivial 5-torsion points in total: $(46, 25)$, $(46, 76)$, $(86, 34)$, $(86, 67)$. $\psi_7(x)$ is degree 24, and gives three linear factors in $\mathbb{F}_q[x]$, all of which result in two 7-torsion points, giving 6 non-trivial torsion points in total: $(72, 5)$, $(72, 96)$, $(57, 57)$, $(57, 44)$, $(3, 43)$, $(3, 58)$.</p>
+
+<p>Other division polynomials have roots in $\mathbb{F}_q$, but these roots will not give rise to points defined over $\mathbb{F}_q$. For example, $\psi_{11}(x)$ has 5 roots over $\mathbb{F}_q$ (13, 18, 19, 22, 63), but none of them give points in $E(\mathbb{F}_q)$, meaning we will have to extend to $E(\mathbb{F}_{q^2})$ to collect any 11-torsion points. The only division polynomials whose roots produce points defined over $\mathbb{F}_q$ are the $\psi_d(x)$ with $d \mid 105$. This generalises to imply that the only division polynomials whose roots produce points defined over $\mathbb{F}_{q^n}$ are $\psi_d(x)$, where $d \mid \#E(\mathbb{F}_{q^n})$.</p>
+
+<blockquote><strong>例 2.2.9</strong>：回顾例 2.2.1 中的曲线 $E/\mathbb{F}_{101} : y^2 = x^3 + x + 1$，群阶 $\#E(\mathbb{F}_q) = 105 = 3 \cdot 5 \cdot 7$。阶为 2 的点的 $x$ 坐标作为 $\psi_2(x) = 4x^3 + 4x + 4$ 的根找到，它在 $\mathbb{F}_q[x]$ 中不可约，所以 $E(\mathbb{F}_q)$ 中没有 2-挠点。对于 $r = 3$，$\psi_3(x)$ 分解为 $(x + 73)(x + 84)(x^2 + 45x + 36)$，所以我们得到两个解 $x = 17$ 和 $x = 28$。这并不意味着两个解隐含的点都在 $\mathbb{F}_q$ 中。<br><br>
+
+唯一其根产生定义在 $\mathbb{F}_q$ 上的点的除法多项式是 $\psi_d(x)$，其中 $d \mid 105$。这推广为：唯一其根产生定义在 $\mathbb{F}_{q^n}$ 上的点的除法多项式是 $\psi_d(x)$，其中 $d \mid \#E(\mathbb{F}_{q^n})$。</blockquote>
+</div>
+
+<!-- ==================== PAGE 30 ==================== -->
+<div class="page-marker">— 30 —</div>
+
+<p>We are now in a position to shed light on Schoof's algorithm. Equation (2.6) means that computing $E(\mathbb{F}_q)$ immediately reduces to computing the (much smaller) trace of Frobenius, $t$. At the highest level, Schoof's idea is to compute $t_\ell \equiv t \mod \ell$ for enough co-prime $\ell$'s to be able to uniquely determine $t$ within the interval $-2\sqrt{q} \leq t \leq 2\sqrt{q}$ via the Chinese Remainder Theorem. Namely, when $\prod_\ell t_\ell \geq 4\sqrt{q}$, then we have enough relations to determine the correct $t$.</p>
+
+<p>To compute $t_\ell$ for various primes $\ell$, Schoof looked to consider Equation (2.9) "modulo $\ell$", restricting the points $(x, y)$ to come from the $\ell$-torsion, and trying to solve</p>
+
+<div class="equation">
+$$(x^{q^2}, y^{q^2}) - [t_\ell](x^q, y^q) + [q_\ell](x, y) = \mathcal{O}, \tag{2.10}$$
+</div>
+
+<p>for $t_\ell$, where $q_\ell \equiv q \mod \ell$. The problem for general $\ell$ is, that since we do not know the group order, we cannot explicitly use $\ell$-torsion points in (2.10), nor do we know if they are even defined over $\mathbb{F}_q$, or where they are defined, so we have to work with (2.10) implicitly. Namely, we restrict (2.10) to the $\ell$-torsion by working modulo $\psi_\ell(x)$: we do not work with Equation (2.10) on $E(\mathbb{F}_q)$, but rather in the polynomial ring $R_\ell = \mathbb{F}_q[x, y]/\langle\psi_\ell(x), y^2 - (x^3 + ax + b)\rangle$, where the size of the polynomials $f(x, y)$ we deal with in $R_\ell$ are bounded by the degrees of the division polynomials $\psi_\ell(x)$.</p>
+
+<p>Even for very large prime fields $\mathbb{F}_q$ of cryptographic size, the number of different primes used is small enough to keep this algorithm very practical. For example, finding the group order of the curve defined over a 256-bit prime $q$ in Example 2.2.3 would require solving (2.10) for the 27 primes up to $\ell = 107$, at which point the product of all the primes used exceeds $4\sqrt{q}$. It is not too difficult to deduce that the asymptotic complexity of Schoof's algorithm is $O((\log q)^8)$ (see [Sil09, Ch. XI.3] for details, and further improvements).</p>
+
+<blockquote>我们现在可以阐明 Schoof 算法。方程 (2.6) 意味着计算 $E(\mathbb{F}_q)$ 立即简化为计算（小得多的）Frobenius 迹 $t$。在最高层次上，Schoof 的想法是计算 $t_\ell \equiv t \mod \ell$ 对足够多的互素 $\ell$，以便能够通过中国剩余定理在区间 $-2\sqrt{q} \leq t \leq 2\sqrt{q}$ 内唯一确定 $t$。<br><br>
+
+对于一般的 $\ell$，问题是，由于我们不知道群阶，我们不能在 (2.10) 中显式使用 $\ell$-挠点，我们也不知道它们是否甚至定义在 $\mathbb{F}_q$ 上，所以我们必须隐式地处理 (2.10)。即，我们通过模 $\psi_\ell(x)$ 工作将 (2.10) 限制到 $\ell$-挠：我们不在 $E(\mathbb{F}_q)$ 上处理方程 (2.10)，而是在多项式环 $R_\ell = \mathbb{F}_q[x, y]/\langle\psi_\ell(x), y^2 - (x^3 + ax + b)\rangle$ 中。<br><br>
+
+Schoof 算法的渐近复杂度是 $O((\log q)^8)$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.10</span> (Magma script). Consider $E/\mathbb{F}_{13} : y^2 = x^3 + 2x + 1$; we seek $\#E(\mathbb{F}_{13})$. Schoof's algorithm actually begins with $\ell = 3$ [Sil09, Ch. XI.3]; so since $14 < 4\sqrt{13} < 15$, we only need to solve (2.10) with $\ell = 3$ and $\ell = 5$. For $\ell = 3$, $\psi_3(x) = 3x^4 + 12x^2 + 12x + 9$, so we work in the ring $R_3 = \mathbb{F}_q[x, y]/\langle 3x^4 + 12x^2 + 12x + 9, y^2 - (x^3 + 2x + 1)\rangle$ with $q_\ell = 1$, to find that $t_3 = 0$. For $\ell = 5$, $\psi_5(x) = 5x^{12} + \ldots + 6x + 7$, so we work in the ring $R_5 = \mathbb{F}_q[x, y]/\langle 5x^{12} + \ldots + 6x + 7, y^2 - (x^3 + 2x + 1)\rangle$ with $q_\ell = 3$ to find that $t_5 = 1$. For both cases we had to compute $[q_\ell](x, y)$ in $R_\ell$ using the affine formulas (2.4) and (2.5), compute $(x^q, y^q)$ and $(x^{q^2}, y^{q^2})$ in $R_\ell$, and then test incremental values of $t_\ell$ until $[t_\ell](x^q, y^q)$ (also computed with the affine formulas) satisfies (2.10). The CRT with $t \equiv 0 \mod 3$ and $t \equiv 1 \mod 5$ gives $t \equiv 6 \mod 15$, which combined with $-7 \leq t \leq 7$ means $t = 6$, giving $\#E = q + 1 - t = 8$.</p>
+
+<blockquote><strong>例 2.2.10</strong>：考虑 $E/\mathbb{F}_{13} : y^2 = x^3 + 2x + 1$；我们求 $\#E(\mathbb{F}_{13})$。Schoof 算法实际上从 $\ell = 3$ 开始；由于 $14 < 4\sqrt{13} < 15$，我们只需要用 $\ell = 3$ 和 $\ell = 5$ 求解 (2.10)。CRT 与 $t \equiv 0 \mod 3$ 和 $t \equiv 1 \mod 5$ 给出 $t \equiv 6 \mod 15$，结合 $-7 \leq t \leq 7$ 意味着 $t = 6$，给出 $\#E = q + 1 - t = 8$。</blockquote>
+</div>
+
+<div class="note">
+<strong>Schoof 算法要点</strong><br><br>
+<strong>核心思想：</strong><br>
+① 利用 $\#E(\mathbb{F}_q) = q + 1 - t$ 和 $|t| \leq 2\sqrt{q}$，问题简化为求 $t$<br>
+② 对小素数 $\ell$ 计算 $t_\ell \equiv t \mod \ell$<br>
+③ 当 $\prod_\ell \ell > 4\sqrt{q}$ 时，用 CRT 重建 $t$<br><br>
+
+<strong>关键技术：</strong><br>
+• 在商环 $R_\ell = \mathbb{F}_q[x,y]/\langle\psi_\ell(x), y^2 - f(x)\rangle$ 中工作<br>
+• 多项式的次数被除法多项式 $\psi_\ell(x)$ 的次数界定<br>
+• 复杂度 $O((\log q)^8)$，是多项式时间！<br><br>
+
+<strong>历史意义：</strong> 1985 年 Schoof 发表此算法，首次给出了多项式时间点计数算法，使得 ECC 在实践中成为可能。后来 Elkies 和 Atkin 的改进（SEA 算法）将复杂度降到约 $O((\log q)^5)$。
+</div>
+
+<!-- ==================== PAGE 31 ==================== -->
+<div class="page-marker">— 31 —</div>
+
+<p>We finish this chapter by briefly discussing one more improvement to ECC that will essentially bring the reader up to speed with major milestones that contribute to the current state-of-the-art implementations. The technique was introduced by Gallant, Lambert and Vanstone (GLV) [GLV01], and recently generalised by Galbraith, Lin and Scott (GLS) [GLS11]. It exploits the existence of an efficiently computable endomorphism $\psi$ that allows us to instantly move $P$ to a large multiple $\psi(P) = [\lambda]P$ of itself, so that (in the simplest case) the scalar multiplication $[m]P$ can be split into $[m]P = [m_0]P + [m_1]\psi(P)$, where if $|m| \approx r$ (the large subgroup order), then $|m_0|, |m_1| \approx \sqrt{r}$. The values $m_0$ and $m_1$ are found by solving a closest vector problem in a lattice [GLV01, §4]. We apply an example from the GLV paper (which was itself taken from Cohen's book [Coh96, §7.2.3]) that is actually exploiting a special case of the endomorphism we described in Example 2.2.7.</p>
+
+<blockquote>我们通过简要讨论 ECC 的另一个改进来结束本章，这将基本上使读者了解贡献于当前最先进实现的主要里程碑。该技术由 Gallant、Lambert 和 Vanstone (GLV) 引入，最近由 Galbraith、Lin 和 Scott (GLS) 推广。它利用了一个可高效计算的自同态 $\psi$ 的存在，使我们能够立即将 $P$ 移动到它自己的一个大倍数 $\psi(P) = [\lambda]P$，这样（在最简单的情况下）标量乘法 $[m]P$ 可以分解为 $[m]P = [m_0]P + [m_1]\psi(P)$，其中如果 $|m| \approx r$（大子群阶），则 $|m_0|, |m_1| \approx \sqrt{r}$。$m_0$ 和 $m_1$ 的值通过在格中求解最近向量问题找到。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.2.11</span> (Magma script). Let $q \equiv 1 \mod 4$ be prime, $E/\mathbb{F}_q : y^2 = x^3 + ax$, and let $i^2 = -1$. The map defined by $\psi : (x, y) \mapsto (-x, iy)$ and $\psi : \mathcal{O} \mapsto \mathcal{O}$ is an endomorphism defined over $\mathbb{F}_q$ ($\psi = \zeta$ from 2.2.7). Let $P \in E(\mathbb{F}_q)$ have prime order $r$, then $\psi(Q) = [\lambda]Q$ for all $Q \in \langle P \rangle$, and $\lambda$ is the integer satisfying $\lambda^2 = -1 \mod r$.</p>
+
+<p>We give a specific example: $q = 1048589$, $E/\mathbb{F}_q : y^2 = x^3 + 2x$ with $\#E = 2r$, where $r = 524053$; we further have $i = 38993$, and $\lambda = 304425$. $P = (609782, 274272) \in E$ has $|\langle P \rangle| = r$, so we can take any element in $\langle P \rangle$, say $Q = (447259, 319154)$, and compute $\psi(Q) = (-447259, i \cdot 319154) = (601330, 117670) = [304425](447259, 319154) = [\lambda]Q$.</p>
+
+<p>Computing a random multiple of $Q$, say $[m]Q$ with $m = 103803$, can be done by decomposing $m$ into (in this case) $(m_0, m_1) = (509, 262)$, and instead computing $[m]Q = [m_0]Q + [m_1]\psi(Q)$. Here $m$ is 17 bits, whilst $m_0$ and $m_1$ are both 9 bits. Doing the scalar multiples $[m_0]Q$ and $[m_1]\psi(Q)$ separately would therefore give no savings, but where the GLV/GLS methods gain a substantial speed-up is in merging the doublings required in both of the multiplications by the "mini-scalars", which halves the number of doublings required overall; again, see [GLV01, GLS11] for further details.</p>
+
+<blockquote><strong>例 2.2.11</strong>：设 $q \equiv 1 \mod 4$ 是素数，$E/\mathbb{F}_q : y^2 = x^3 + ax$，设 $i^2 = -1$。映射 $\psi : (x, y) \mapsto (-x, iy)$ 是定义在 $\mathbb{F}_q$ 上的自同态。设 $P \in E(\mathbb{F}_q)$ 有素数阶 $r$，则对所有 $Q \in \langle P \rangle$ 有 $\psi(Q) = [\lambda]Q$，$\lambda$ 是满足 $\lambda^2 = -1 \mod r$ 的整数。<br><br>
+
+具体例子：$q = 1048589$，$E/\mathbb{F}_q : y^2 = x^3 + 2x$，$\#E = 2r$，其中 $r = 524053$。计算 $Q$ 的随机倍数 $[m]Q$（$m = 103803$），可以通过分解 $m$ 为 $(m_0, m_1) = (509, 262)$ 来完成，然后计算 $[m]Q = [m_0]Q + [m_1]\psi(Q)$。这里 $m$ 是 17 位，而 $m_0$ 和 $m_1$ 都是 9 位。GLV/GLS 方法获得显著加速的地方是合并"迷你标量"乘法中所需的倍点，这将总体所需的倍点数减半。</blockquote>
+</div>
+
+<div class="note">
+<strong>GLV/GLS 方法</strong><br><br>
+<strong>核心思想：</strong> 利用自同态 $\psi$ 满足 $\psi(P) = [\lambda]P$，将大标量乘法分解为小标量乘法：
+$$[m]P = [m_0]P + [m_1]\psi(P)$$
+其中 $|m_0|, |m_1| \approx \sqrt{|m|}$。<br><br>
+
+<strong>速度提升：</strong><br>
+• 原本：计算 $[m]P$ 需要约 $\log_2 m$ 次倍点<br>
+• GLV：计算 $[m_0]P + [m_1]\psi(P)$ 需要约 $\frac{1}{2}\log_2 m$ 次倍点<br>
+• 加速约 <strong>2 倍</strong>！<br><br>
+
+<strong>适用条件：</strong><br>
+• 曲线必须有可高效计算的自同态（如 $y^2 = x^3 + ax$ 有 $(x,y) \mapsto (-x, iy)$）<br>
+• GLS 推广：在扩域 $\mathbb{F}_{q^2}$ 上可以找到更多这样的曲线<br><br>
+
+<strong>实际应用：</strong> 现代高性能 ECC 实现（如 secp256k1 用于比特币）广泛使用 GLV 方法。
+</div>
+
+<!-- ==================== Section 2.3 ==================== -->
+<h1>2.3 Chapter summary</h1>
+
+<p>We defined the elliptic curve group law $\oplus$ via the chord-and-tangent method, and discussed that elliptic curve groups are an attractive setting for discrete-log based cryptosystems because of the relative security obtained for the sizes of the fields they are defined over. We also exemplified many improvements in the context of cryptographic implementations, where the fundamental operation (that creates ECDLP instances) is computing large scalar multiples $[m]P$ of $P \in E$. Namely, we showed that group law computations in finite fields can be much faster in projective coordinates, i.e. computing $(X_1 : Y_1 : Z_1) \oplus (X_2 : Y_2 : Z_2)$ rather than $(x_1, y_1) \oplus (x_2, y_2)$, and that other (non-Weierstrass) curve models also offer advantages.</p>
+
+<p>We gave an explicit equation for the number of points in $E(\mathbb{F}_q)$, and briefly discussed Schoof's polynomial-time algorithm that facilitates point counting on curves of cryptographic size. We also introduced the notion of the endomorphism ring $\text{End}(E)$ of $E$, and finished by showing that non-trivial elements of $\text{End}(E)$ can be used to further accelerate ECC.</p>
+
+<p>A reader that is comfortable with the exposition in this chapter is equipped with many of the tools required to tackle the vast literature in this field, and is somewhat up-to-date with the state-of-the-art ECC implementations. For example, in the context of chasing ECC speed records, some authors have applied alternative projective coordinate systems to the Edwards model to give very fast scalar multiplications [HWCD08], whilst others have investigated higher dimension GLV/GLS techniques (Example 2.2.11 above was 2-dimensional) to gain big speed-ups [HLX12]; visit http://bench.cr.yp.to/supercop.html for comprehensive and up-to-date benchmarkings of a wide number of implementations that are pushing ECC primitives to the limit.</p>
+
+<blockquote><strong>章节总结</strong><br><br>
+我们通过弦切法定义了椭圆曲线群运算 $\oplus$，并讨论了椭圆曲线群是基于离散对数的密码系统的有吸引力的环境，因为它们定义的域大小获得的相对安全性。我们还举例说明了密码实现环境中的许多改进，其中基本运算（创建 ECDLP 实例）是计算 $P \in E$ 的大标量倍数 $[m]P$。即，我们展示了有限域中的群运算计算在投影坐标中可以快得多，以及其他（非 Weierstrass）曲线模型也提供优势。<br><br>
+
+我们给出了 $E(\mathbb{F}_q)$ 中点数的显式方程，并简要讨论了促进密码大小曲线上点计数的 Schoof 多项式时间算法。我们还介绍了 $E$ 的自同态环 $\text{End}(E)$ 的概念，并通过展示 $\text{End}(E)$ 的非平凡元素可用于进一步加速 ECC 来结束。<br><br>
+
+对本章内容感到舒适的读者装备了处理该领域大量文献所需的许多工具，并且在某种程度上了解最先进的 ECC 实现。</blockquote>
+
+<h2>Relaxed notation / 符号简化</h2>
+
+<p><strong>Relaxed notation.</strong> Our last order of business before proceeding into the next chapter is to relax some notation in order to agree with the rest of the literature. Rather than writing "$\oplus$" for the elliptic curve group law, from hereon we simply use "$+$". Similarly, for the inverse of the point $P$, we use $-P$ instead of $\ominus P$.</p>
+
+<blockquote><strong>符号简化。</strong>在进入下一章之前，我们最后的事项是简化一些符号以与其余文献一致。我们不再写 "$\oplus$" 表示椭圆曲线群运算，从现在开始简单地使用 "$+$"。类似地，对于点 $P$ 的逆，我们使用 $-P$ 而不是 $\ominus P$。</blockquote>
+
+<!-- Navigation -->
+<div class="nav-links">
+    <a href="2_1.html">&larr; Back: 2.1 The group law</a>
+    <a href="#">Next: Chapter 3 &rarr;</a>
+</div>
+
+</body>
+</html>
