@@ -197,6 +197,18 @@ $$e([a]P, [b]Q) = e(P, Q)^{ab}$$
 <p>验证双线性性：$e([403]P, [135]Q) = e(P, Q)^{403 \times 135 \mod 641}$</p>
 
 <p><strong>非退化性（Non-degeneracy）</strong>：$e(P, Q) \neq 1$ 保证了对于非平凡输入得到非平凡输出。这是密码学应用的必要条件。</p>
+
+<p><strong>$e(P, Q) = 6744u + 5677$ 是怎么算出来的？</strong></p>
+<p>Weil 配对的定义基于<strong>除子（divisor）</strong>和<strong>有理函数</strong>：</p>
+<p>$$e(P, Q) = \frac{f_P(D_Q)}{f_Q(D_P)}$$</p>
+<p>其中：</p>
+<ul>
+<li>$f_P$ 是一个有理函数，其除子为 $\text{div}(f_P) = r(P) - r(\mathcal{O})$</li>
+<li>$D_Q$ 是与 $Q$ 等价但支撑集与 $f_P$ 的极点/零点不相交的除子</li>
+<li>$f_P(D_Q)$ 表示在除子 $D_Q$ 上求值（对除子中的每个点求值后相乘）</li>
+</ul>
+<p>为什么结果在 $\mu_r$（$r$ 次单位根）中？因为 $f_P^r = f_{[r]P} = f_{\mathcal{O}} = 1$（常函数），所以 $f_P(D_Q)^r = 1$。</p>
+<p><strong>Miller 算法</strong>（第5章详述）提供了高效计算 $f_P$ 的方法：利用"加法链"思想，通过迭代倍点和加法，用<strong>直线函数</strong>（过点的直线方程）和<strong>垂线函数</strong>逐步构建 $f_P$。这使得配对计算在多项式时间内完成。</p>
 </blockquote>
 
 <p>Following Example 4.0.1 above, if a pairing $e$ is bilinear, non-degenerate and efficiently computable, $e$ is called an <em>admissible pairing</em>.</p>
@@ -238,7 +250,27 @@ $$e([a]P, [b]Q) = e(P, Q)^{ab}$$
 <li>$\mathbb{G}_1 = \mathbb{G}_T = \mathbb{Z}_r^*$（乘法群），$\mathbb{G}_2 = \mathbb{Z}_{r-1}^+$（加法群）</li>
 <li>$e(g, a) = g^a$</li>
 </ul>
-<p>这个配对是双线性的，但 $\mathbb{G}_2$ 中的离散对数问题是容易的（就是求模 $r-1$ 的加法逆元）！</p>
+
+<p><strong>具体例子</strong>：取 $r = 11$，则：</p>
+<ul>
+<li>$\mathbb{G}_1 = \mathbb{G}_T = \mathbb{Z}_{11}^* = \{1, 2, 3, \ldots, 10\}$（模 11 乘法群）</li>
+<li>$\mathbb{G}_2 = \mathbb{Z}_{10}^+ = \{0, 1, 2, \ldots, 9\}$（模 10 加法群）</li>
+</ul>
+
+<p>计算 $e(2, 3) = 2^3 = 8 \mod 11$。</p>
+
+<p>验证双线性性：</p>
+<ul>
+<li>$e(g \cdot g', a) = e(g, a) \cdot e(g', a)$：
+    $e(2 \cdot 3, 4) = 6^4 = 9 \mod 11$，
+    $e(2, 4) \cdot e(3, 4) = 16 \cdot 81 = 5 \cdot 4 = 9 \mod 11$ ✓</li>
+<li>$e(g, a + a') = e(g, a) \cdot e(g, a')$：
+    $e(2, 3 + 5) = 2^8 = 3 \mod 11$，
+    $e(2, 3) \cdot e(2, 5) = 8 \cdot 32 = 8 \cdot 10 = 3 \mod 11$ ✓</li>
+</ul>
+
+<p><strong>为什么 $\mathbb{G}_2$ 中的 DLP 是容易的？</strong></p>
+<p>在加法群 $\mathbb{Z}_{10}^+$ 中，"离散对数问题"是：给定生成元 $1$ 和目标 $b$，求 $a$ 使得 $a \cdot 1 = b \mod 10$。答案显然就是 $a = b$！没有任何计算难度。</p>
 
 <p><strong>教训</strong>：仅仅满足可接受条件是不够的，还需要三个群中的离散对数问题都是困难的。</p>
 </blockquote>
