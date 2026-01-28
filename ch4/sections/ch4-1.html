@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Elliptic Curves as Pairing Groups (Part 1)</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        .remark {
+            background-color: #fff8e1;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .remark-title {
+            font-weight: bold;
+            color: #ff9800;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        figure {
+            text-align: center;
+            margin: 30px 0;
+        }
+        figcaption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .footnote {
+            font-size: 0.85em;
+            color: #666;
+            border-top: 1px solid #ccc;
+            margin-top: 40px;
+            padding-top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<h1>Chapter 4</h1>
+<h1>Elliptic curves as pairing groups</h1>
+<h2>椭圆曲线作为配对群</h2>
+
+<!-- ==================== PAGE 47 ==================== -->
+<div class="page-marker">— 47 —</div>
+
+<p>The purpose of this chapter is to define the elliptic groups that are used in cryptographic pairings. We start with the most abstract definition [Sil10]: a pairing is a <em>bilinear map</em> on an abelian group $M$ taking values in some other abelian group $R$</p>
+
+$$\langle \cdot \, , \cdot \rangle : M \times M \to R.$$
+
+<p>Suppose that the binary group operations in $M$ and $R$ are respectively denoted by $+$ and $*$. The bilinearity property of the above map (that classifies it a pairing) means that, for $x, y, z \in M$, we have</p>
+
+$$\langle x + y, z \rangle = \langle x, z \rangle * \langle y, z \rangle,$$
+$$\langle x, y + z \rangle = \langle x, y \rangle * \langle x, z \rangle.$$
+
+<p>That is, the map $\langle \cdot, \cdot \rangle$ is linear in both inputs.</p>
+
+<blockquote>
+<strong>配对的抽象定义</strong>：配对是阿贝尔群 $M$ 上的<strong>双线性映射</strong>，取值于另一个阿贝尔群 $R$。
+
+<p>设 $M$ 和 $R$ 的群运算分别记为 $+$ 和 $*$。<strong>双线性性</strong>意味着：</p>
+<ul>
+<li>$\langle x + y, z \rangle = \langle x, z \rangle * \langle y, z \rangle$（对第一个参数线性）</li>
+<li>$\langle x, y + z \rangle = \langle x, y \rangle * \langle x, z \rangle$（对第二个参数线性）</li>
+</ul>
+<p>正是这种双线性性使得配对在密码学中如此强大！</p>
+</blockquote>
+
+<p>It is this bilinearity property that makes pairings such a powerful primitive in cryptography. For our purposes we often find it advantageous to slightly relax the condition that the two arguments in the map come from the same group, and allow them to come from cyclic groups of the same order (which are therefore isomorphic). Thus, in the abundance of literature related to cryptography, the</p>
+
+<!-- ==================== PAGE 48 ==================== -->
+<div class="page-marker">— 48 —</div>
+
+<p>notation commonly used for the bilinear map is</p>
+
+$$e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T.$$
+
+<p>Our primary objective in this chapter is to define the two groups $\mathbb{G}_1$ and $\mathbb{G}_2$. The definition of $\mathbb{G}_T$ will come with the definition of the pairings in the next chapter.</p>
+
+<blockquote>
+<strong>密码学中的配对记法</strong>：
+$$e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T$$
+<ul>
+<li>$\mathbb{G}_1, \mathbb{G}_2$：源群（通常是椭圆曲线上的点群）</li>
+<li>$\mathbb{G}_T$：目标群（target group，通常是有限域的乘法群）</li>
+</ul>
+<p>本章的主要目标是定义 $\mathbb{G}_1$ 和 $\mathbb{G}_2$。</p>
+</blockquote>
+
+<p>Currently, the only known instantiations of pairings suitable for cryptography are the Weil and Tate pairings on divisor class groups of algebraic curves, and in the simplest and most efficient cases, on elliptic curves. Let $\mathbb{F}_{q^k}$ be some finite extension of $\mathbb{F}_q$ with $k \geq 1$. The groups $\mathbb{G}_1$ and $\mathbb{G}_2$ are defined in $E(\mathbb{F}_{q^k})$, and the target group $\mathbb{G}_T$ is defined in the multiplicative group $\mathbb{F}_{q^k}^*$, so we usually write $\mathbb{G}_1$ and $\mathbb{G}_2$ additively, whilst we write $\mathbb{G}_T$ multiplicatively. Thus, for $P, P' \in \mathbb{G}_1$ and $Q, Q' \in \mathbb{G}_2$, the bilinearity of $e$ means that</p>
+
+$$e(P + P', Q) = e(P, Q) \cdot e(P', Q),$$
+$$e(P, Q + Q') = e(P, Q) \cdot e(P, Q'),$$
+
+<p>from which it follows that, for scalars $a, b \in \mathbb{Z}$, we have</p>
+
+$$e([a]P, [b]Q) = e(P, [b]Q)^a = e([a]P, Q)^b = e(P, Q)^{ab} = e([b]P, [a]Q). \tag{4.1}$$
+
+<blockquote>
+<strong>双线性性的具体形式</strong>：
+<p>由于 $\mathbb{G}_1, \mathbb{G}_2$ 用加法记号，$\mathbb{G}_T$ 用乘法记号，双线性性变为：</p>
+$$e([a]P, [b]Q) = e(P, Q)^{ab}$$
+<p>这个性质极其重要！它意味着：</p>
+<ul>
+<li>$e([a]P, [b]Q) = e([b]P, [a]Q)$（可以"交换"指数）</li>
+<li>知道 $[a]P$ 和 $[b]Q$，可以计算 $e(P,Q)^{ab}$，而无需知道 $a$ 或 $b$</li>
+</ul>
+<p>这是 Diffie-Hellman 密钥交换的三方版本（Tripartite DH）的基础！</p>
+</blockquote>
+
+<p>Even though we are yet to define $\mathbb{G}_1$, $\mathbb{G}_2$ or $\mathbb{G}_T$, and we are still a while away from beginning the discussion of how the pairing $e(P, Q)$ is computed, it helps to immediately see the bilinearity property of pairings in context.</p>
+
+<div class="example">
+<p><span class="example-title">Example 4.0.1</span> (Magma script). Let $q = 7691$ and let $E/\mathbb{F}_q : y^2 = x^3+1$. Suppose $\mathbb{F}_{q^2}$ is constructed $\mathbb{F}_{q^2} = \mathbb{F}_q(u)$ where $u^2 + 1 = 0$. Let $P = (2693, 4312) \in E(\mathbb{F}_q)$ and $Q = (633u + 6145, 7372u + 109) \in E(\mathbb{F}_{q^2})$. $\#E(\mathbb{F}_q) = 2^2 \cdot 3 \cdot 641$ and $\#E(\mathbb{F}_{q^2}) = 2^4 \cdot 3^2 \cdot 641^2 = \#E(\mathbb{F}_q)^2$. $P$ and $Q$ were especially chosen (we will see why later) to be in different subgroups of the same prime order $r = |\langle P \rangle| = |\langle Q \rangle| = 641$. The Weil pairing $e(\cdot, \cdot)$ of $P$ and $Q$ is $e(P, Q) = 6744u + 5677 \in \mathbb{F}_{q^2}^*$. In fact, $r \mid \#\mathbb{F}_{q^2}$, and $e(P, Q)$ actually lies in a subgroup of $\mathbb{F}_{q^2}$, namely the $r$-th roots of unity $\mu_r \in \mathbb{F}_{q^2}$, meaning that $e(P, Q)^r = 1$. We are now in a position to illustrate some examples of bilinearity. Thus, take any $a \in \mathbb{Z}_r$ and $b \in \mathbb{Z}_r$, say $a = 403$ and $b = 135$, and see that $[a]P = (4903, 2231)$ and</p>
+</div>
+
+<!-- ==================== PAGE 49 ==================== -->
+<div class="page-marker">— 49 —</div>
+
+<div class="example">
+<p>$[b]Q = (5806u+1403, 6091u+2370)$. We can compute $e([a]P, Q) = 3821u+7025$ and verify that $e([a]P, Q) = 3821u + 7025 = (6744u + 5677)^{403} = e(P, Q)^a$; or $e(P, [b]Q) = 248u + 5$ to see that $e(P, [b]Q) = 248u + 5 = (6744u + 5677)^{135} = e(P, Q)^b$; or $e([a]P, [b]Q) = 2719u + 2731 = (6744u + 5677)^{561} = e(P, Q)^{a \cdot b \mod r}$.</p>
+
+<p>Note that since $e(P, Q) \neq 1 \in \mu_r$, $e([a]P, [b]Q)$ will only be trivial if $r \mid ab$, which implies $r \mid a$ or $r \mid b$, meaning either (or both) of $[a]P$ or $[b]Q$ must be $\mathcal{O}$. Thus, $e(P, Q) \neq 1$ guarantees non-trivial pairings for non-trivial arguments; this is a cryptographically necessary property that is called <em>non-degeneracy</em>.</p>
+</div>
+
+<blockquote>
+<strong>例 4.0.1</strong>：Weil 配对的具体计算验证。
+<ul>
+<li>$q = 7691$，$E: y^2 = x^3 + 1$</li>
+<li>$P \in E(\mathbb{F}_q)$，$Q \in E(\mathbb{F}_{q^2}) \setminus E(\mathbb{F}_q)$</li>
+<li>$P$ 和 $Q$ 在相同素数阶 $r = 641$ 的<strong>不同子群</strong>中</li>
+<li>$e(P, Q) = 6744u + 5677 \in \mu_r$（$r$ 次单位根）</li>
+</ul>
+<p>验证双线性性：$e([403]P, [135]Q) = e(P, Q)^{403 \times 135 \mod 641}$</p>
+
+<p><strong>非退化性（Non-degeneracy）</strong>：$e(P, Q) \neq 1$ 保证了对于非平凡输入得到非平凡输出。这是密码学应用的必要条件。</p>
+</blockquote>
+
+<p>Following Example 4.0.1 above, if a pairing $e$ is bilinear, non-degenerate and efficiently computable, $e$ is called an <em>admissible pairing</em>.</p>
+
+<blockquote>
+<strong>可接受配对（Admissible Pairing）</strong>：满足以下三个条件的配对：
+<ol>
+<li><strong>双线性</strong>：$e([a]P, [b]Q) = e(P, Q)^{ab}$</li>
+<li><strong>非退化</strong>：存在 $P, Q$ 使得 $e(P, Q) \neq 1$</li>
+<li><strong>可高效计算</strong>：存在多项式时间算法</li>
+</ol>
+</blockquote>
+
+<div class="remark">
+<p><span class="remark-title">Remark 4.0.1</span> (ECC vs. PBC). This informal remark is intended as a point of clarification for PBC newcomers. Our confusion in the early days of digesting the vast amount of literature was in part alleviated by one paragraph in Lynn's thesis that helped put the relationship between ECC and PBC in a wider context. The only known admissible pairings that are suitable for cryptography are the Weil and Tate pairings on algebraic curves. The fact that these pairings can be defined on elliptic curves, which were already a highly attractive cryptographic setting before pairings arrived on the scene, is, as Lynn puts it, a "happy coincidence". Cryptographers would have welcomed secure, admissible pairings in any suitable form, but the fact that they were handed down from the realm of algebraic geometry and are computed on elliptic curves makes them "even more attractive" [Lyn07, §2.9].</p>
+</div>
+
+<blockquote>
+<strong>注 4.0.1（ECC vs. PBC）</strong>：
+<ul>
+<li><strong>ECC</strong>：椭圆曲线密码学（Elliptic Curve Cryptography）</li>
+<li><strong>PBC</strong>：基于配对的密码学（Pairing-Based Cryptography）</li>
+</ul>
+<p>目前已知的适合密码学的可接受配对只有代数曲线上的 Weil 和 Tate 配对。配对恰好可以在椭圆曲线上定义，而椭圆曲线本身在配对出现之前就已经是密码学的热门领域——这是一个"幸运的巧合"（Lynn 语）。</p>
+</blockquote>
+
+<p>In cryptography we need more properties than the three which constitute an admissible pairing. The magic of the bilinearity property in (4.1) that gives pairing-based primitives increased functionality over traditional primitives is useless unless discrete logarithm related problems within all three groups remain intractable. Example 4.0.1 gives an admissible pairing, but because the toy sizes of $\mathbb{G}_1$, $\mathbb{G}_2$ and $\mathbb{G}_T$ clearly offer no resistance in regards to their respective discrete logarithm problems, such a pairing instance would clearly never be used. However, if the size $r$ of all three groups was inflated to be much larger (say 512 bits), then the corresponding pairing could meet current security requirements and resist all known attacks. We present an alternative bilinear pairing that meets the admissible requirements, but (regardless of how large the group sizes are) is still not suitable for PBC. This example too, is taken from Lynn's thesis [Lyn07, §1.9].</p>
+
+<!-- ==================== PAGE 50 ==================== -->
+<div class="page-marker">— 50 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 4.0.2</span> (Magma script). Let $r > 1$ be an integer. Suppose $e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T$ has $\mathbb{G}_1 = \mathbb{G}_T = \mathbb{Z}_r^*$ and $\mathbb{G}_2 = \mathbb{Z}_{r-1}^+$, and is defined by $e : (g, a) = g^a$. Notice that for $g, g' \in \mathbb{G}_1$, we have $e(g \cdot g', a) = e(g, a) \cdot e(g', a)$, and for $a, a' \in \mathbb{G}_2$ we have $e(g, a + a') = e(g, a) \cdot e(g, a')$. Although $e$ is then clearly bilinear, the discrete logarithm problem in $\mathbb{G}_2$ is easy, so the power of the bilinear map becomes somewhat redundant. It is interesting to see, however, that we can still state some of the classical problems in terms of the above pairing. For example, if we set $r$ to be a large prime, then the standard discrete logarithm problem becomes: given $g \in \mathbb{G}_1$, $h \in \mathbb{G}_T$, find $a \in \mathbb{G}_2$ such that $e(g, a) = h$.</p>
+</div>
+
+<blockquote>
+<strong>例 4.0.2</strong>：一个满足可接受条件但不适合密码学的配对。
+<ul>
+<li>$\mathbb{G}_1 = \mathbb{G}_T = \mathbb{Z}_r^*$（乘法群），$\mathbb{G}_2 = \mathbb{Z}_{r-1}^+$（加法群）</li>
+<li>$e(g, a) = g^a$</li>
+</ul>
+<p>这个配对是双线性的，但 $\mathbb{G}_2$ 中的离散对数问题是容易的（就是求模 $r-1$ 的加法逆元）！</p>
+
+<p><strong>教训</strong>：仅仅满足可接受条件是不够的，还需要三个群中的离散对数问题都是困难的。</p>
+</blockquote>
+
+<!-- ==================== Section 4.1 ==================== -->
+<h1>4.1 The $r$-torsion</h1>
+<h2>4.1 $r$-挠群</h2>
+
+<p>We now turn our focus towards concretely defining the groups $\mathbb{G}_1$ and $\mathbb{G}_2$. Having not yet seen how pairings are computed, we will need to make some statements regarding what we need out of $\mathbb{G}_1$ and $\mathbb{G}_2$ that will really only tie together when the definitions of the Weil and Tate pairings come in the following chapter. The main such statement is that computing the pairing $e(P, Q)$, in either the Weil or Tate sense, requires that $P$ and $Q$ come from disjoint cyclic subgroups of the same prime<sup>1</sup> order $r$. At this point we can only hint towards why by referring back to the stipulation of disjoint supports that was made in the statement of Weil reciprocity (Theorem 3.1), and claiming that if $P$ and $Q$ are in the same cyclic subgroup, then the pairing computation essentially fails because supports of the associated divisors are forced to undesirably coincide.</p>
+
+<blockquote>
+<strong>$r$-挠群的重要性</strong>：计算配对 $e(P, Q)$（无论是 Weil 还是 Tate）需要 $P$ 和 $Q$ 来自<strong>相同素数阶 $r$ 的不相交循环子群</strong>。
+
+<p>为什么？回顾 Weil 互反律（定理 3.1）的支撑集不相交条件。如果 $P$ 和 $Q$ 在同一个循环子群中，相关除子的支撑集会重叠，配对计算就会失败。</p>
+</blockquote>
+
+<p>We have already seen an example (4.0.1) of how we can find more than one cyclic subgroup of order $r$, when $E(\mathbb{F}_q)$ itself only contains one subgroup. Namely, we extended $\mathbb{F}_q$ to $\mathbb{F}_{q^2}$ and saw that $E(\mathbb{F}_{q^2})\setminus E(\mathbb{F}_q)$ had at least one other subgroup of order $r$, where we were able to define $Q$ and subsequently compute $e(P, Q)$. This is precisely the way we obtain two distinct order-$r$ subgroups in general: we find the smallest extension $\mathbb{F}_{q^k}$ of $\mathbb{F}_q$ such that $E(\mathbb{F}_{q^k})$ captures more points of order $r$. The integer $k \geq 1$ that achieves this is called the <em>embedding degree</em>, and it plays a crucial role in pairing computation. Also at the heart of our discussion then, is the entire group of points of order $r$ on $E(\mathbb{F}_q)$, called the $r$-torsion, which is denoted by $E[r]$ and defined as $E[r] = \{P \in E : [r]P = \mathcal{O}\}$.</p>
+
+<blockquote>
+<strong>嵌入度（Embedding Degree）</strong>：使得 $E(\mathbb{F}_{q^k})$ 包含更多 $r$ 阶点的最小正整数 $k$。
+
+<p><strong>$r$-挠群（$r$-torsion）</strong>：
+$$E[r] = \{P \in E : [r]P = \mathcal{O}\}$$
+即椭圆曲线上所有 $r$ 阶点（包括更低阶的整除 $r$ 的点）的集合。</p>
+</blockquote>
+
+<!-- ==================== PAGE 51 ==================== -->
+<div class="page-marker">— 51 —</div>
+
+<p>The following result (see [ACD+05, Th. 13.13] or [Sil09, Ch. III, Cor. 6.4(b)]) is quite remarkable; it tells us not only the cardinality of $E[r]$, but its structure too. If $K$ is any field with characteristic zero or prime to $r$, we have</p>
+
+$$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r. \tag{4.2}$$
+
+<p>This means that in general, $\#E[r] = r^2$. Furthermore, since the point at infinity $\mathcal{O}$ overlaps into all order $r$ subgroups, Equation (4.2) implies that (for prime $r$) the $r$-torsion consists of $r+1$ cyclic subgroups of order $r$. The following equivalent conditions for the embedding degree $k$ also tell us precisely where $E[r]$ lies in its entirety. We note that the embedding degree is actually a function $k(q, r)$ of $q$ and $r$, but we just write $k$ since the context is usually clear.</p>
+
+<ul>
+<li>$k$ is the smallest positive integer such that $r \mid (q^k - 1)$;</li>
+<li>$k$ is the smallest positive integer such that $\mathbb{F}_{q^k}$ contains all of the $r$-th roots of unity in $\overline{\mathbb{F}_q}$ (i.e. $\mu_r \subset \mathbb{F}_{q^k}$);</li>
+<li>$k$ is the smallest positive integer such that $E[r] \subset E(\mathbb{F}_{q^k})$.</li>
+</ul>
+
+<blockquote>
+<strong>$r$-挠群的结构定理</strong>：
+$$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$$
+<ul>
+<li>$\#E[r] = r^2$</li>
+<li>对于素数 $r$，$E[r]$ 包含 $r+1$ 个 $r$ 阶循环子群</li>
+<li>无穷远点 $\mathcal{O}$ 属于所有这些子群</li>
+</ul>
+
+<p><strong>嵌入度 $k$ 的等价定义</strong>：</p>
+<ol>
+<li>$r \mid (q^k - 1)$ 的最小正整数 $k$</li>
+<li>$\mu_r \subset \mathbb{F}_{q^k}$ 的最小 $k$（$r$ 次单位根全在 $\mathbb{F}_{q^k}$ 中）</li>
+<li>$E[r] \subset E(\mathbb{F}_{q^k})$ 的最小 $k$（整个 $r$-挠群在 $\mathbb{F}_{q^k}$ 上）</li>
+</ol>
+</blockquote>
+
+<p>If $r\|{\#E(\mathbb{F}_q)}$ (i.e. $r \mid \#E(\mathbb{F}_q)$ but $r^2 \nmid \#E(\mathbb{F}_q)$), then the $r$-torsion subgroup in $E(\mathbb{F}_q)$ is unique. In this case, $k > 1$ and (4.2) implies that $\mathbb{F}_{q^k}$ is the smallest field extension of $\mathbb{F}_q$ which produces any more $r$-torsion points belonging to $E(\mathbb{F}_{q^k})\setminus E(\mathbb{F}_q)$. In other words, once the extension field is big enough to find one more point of order $r$ (that is not defined over the base field), then we actually find all of the points in $E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$. Scott [Sco04] describes this phenomenon more poetically:</p>
+
+<blockquote style="font-style: italic; background-color: #f0f0f0;">
+"... something rather magical happens when a curve with the same equation is considered over the field $\mathbb{F}_{q^k}$ for a certain value of $k$. The group structure undergoes a strange blossoming, and takes on a new, more exotic character."
+</blockquote>
+
+<blockquote>
+<strong>"神奇的绽放"</strong>：如果 $r \| \#E(\mathbb{F}_q)$（$r$ 恰好整除一次），则：
+<ul>
+<li>$E(\mathbb{F}_q)$ 中只有一个 $r$ 阶子群</li>
+<li>扩展到 $\mathbb{F}_{q^k}$ 后，一下子找到<strong>所有</strong> $r^2$ 个 $r$-挠点</li>
+</ul>
+<p>Scott 的诗意描述："群结构经历了一次奇异的绽放，呈现出新的、更奇特的特征。"</p>
+</blockquote>
+
+<p>We also find Scott's depiction of the torsion subgroup $E[r]$ especially instructive [Sco04, Sco07a], so we use it in the following examples and throughout the rest of this chapter.</p>
+
+<div class="example">
+<p><span class="example-title">Example 4.1.1</span> (Magma script). Let $q = 11$, and consider $E/\mathbb{F}_q : y^2 = x^3 + 4$. $E(\mathbb{F}_q)$ has 12 points, so take $r = 3$ and note (from Equation (4.2)) that there are 9 points in the 3-torsion. Only 3 of them are found in $E(\mathbb{F}_q)$, namely $(0, 2)$,</p>
+</div>
+
+<!-- ==================== PAGE 52 ==================== -->
+<div class="page-marker">— 52 —</div>
+
+<div class="example">
+<p>$(0, 9)$ and $\mathcal{O}$, which agrees with the fact that the embedding degree $k \neq 1$, since $(q^1 - 1) \not\equiv 0 \mod r$. However, $(q^2 - 1) \equiv 0 \mod r$ which means that the embedding degree is $k = 2$, so we form $\mathbb{F}_{q^2} = \mathbb{F}_q(u)$, with $u^2 + 1 = 0$. Thus, we are guaranteed to find the whole 3-torsion in $E(\mathbb{F}_{q^2})$, and it is structured as 4 cyclic subgroups of order 3; $\mathcal{O}$ overlaps into all of them – see Figure 4.1. We point out that although $\mathcal{O}$ is in the 3-torsion, it does not have order 3, but rather order 1 – points of order $d \mid r$ are automatically included in the $r$-torsion. Take any two</p>
+</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_1.svg" alt="Figure 4.1: The 3-torsion E[3]" style="max-width: 500px;">
+  <figcaption>Figure 4.1: The 3-torsion: $E[3]$.</figcaption>
+</figure>
+
+<div class="example">
+<p>points $P, Q \in E[3] \setminus \{\mathcal{O}\}$ that are not in the same subgroup, neither of which are $\mathcal{O}$. The translation of Equation (4.2) is that any other point in $E[3]$ can be obtained as $[i]P + [j]Q$, $i, j \in \{0, 1, 2\}$. Fixing $P \neq \mathcal{O}$ and letting $j$ run through $0, 1, 2$ lands $P + [j]Q$ in the other three subgroups of $E[3]$ (that are not $\langle Q \rangle$ – this corresponds to $P = \mathcal{O}$).</p>
+</div>
+
+<blockquote>
+<strong>例 4.1.1</strong>：3-挠群的结构。
+<ul>
+<li>$q = 11$，$E: y^2 = x^3 + 4$，$\#E(\mathbb{F}_q) = 12$</li>
+<li>$r = 3$，$\#E[3] = 9$</li>
+<li>$E(\mathbb{F}_q)$ 中只有 3 个 3-挠点：$(0, 2), (0, 9), \mathcal{O}$</li>
+<li>嵌入度 $k = 2$（因为 $3 \mid (11^2 - 1) = 120$）</li>
+<li>扩展到 $\mathbb{F}_{q^2}$ 后，找到全部 9 个点，形成 4 个循环子群</li>
+</ul>
+<p>Figure 4.1 的"四叶草"图展示了 $E[3]$ 的结构：4 个子群在 $\mathcal{O}$ 处相交。</p>
+</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.1.2</span> (Magma script). In the rare case that $r^2 \mid \#E$, it is possible that the entire $r$-torsion can be found over $E(\mathbb{F}_q)$, i.e. that the embedding degree is $k = 1$. Consider $E/\mathbb{F}_{31} : y^2 = x^3 + 13$, which has 25 points, so take $r = 5$. Since $r \mid q - 1$, $k = 1$ and therefore $E[r] \subseteq E(\mathbb{F}_q)$; Figure 4.2 shows the 6 cyclic subgroups of order 5 constituting $E[5] \cong \mathbb{Z}_5 \times \mathbb{Z}_5$. Of course, $r^2 \mid \#E(\mathbb{F}_q)$ does not necessarily imply that $E[r] \subseteq E(\mathbb{F}_q)$, as points of order $r^2$ are possible.</p>
+</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_2.svg" alt="Figure 4.2: The 5-torsion E[5]" style="max-width: 600px;">
+  <figcaption>Figure 4.2: The 5-torsion: $E[5]$.</figcaption>
+</figure>
+
+<blockquote>
+<strong>例 4.1.2</strong>：嵌入度 $k = 1$ 的特殊情况。
+<ul>
+<li>$q = 31$，$E: y^2 = x^3 + 13$，$\#E(\mathbb{F}_q) = 25 = 5^2$</li>
+<li>$r = 5$，由于 $5 \mid (31 - 1) = 30$，嵌入度 $k = 1$</li>
+<li>整个 $E[5]$ 都在 $E(\mathbb{F}_q)$ 中！</li>
+</ul>
+<p><strong>注意</strong>：$r^2 \mid \#E(\mathbb{F}_q)$ 不一定意味着 $E[r] \subseteq E(\mathbb{F}_q)$（可能存在 $r^2$ 阶点）。</p>
+</blockquote>
+
+<p>Before the next example, we introduce an important map that plays an intricate role within the $r$-torsion subgroups. Since we are working over finite extension fields of $\mathbb{F}_q$, it is natural that we find a useful contribution from Galois</p>
+
+<!-- ==================== PAGE 53 ==================== -->
+<div class="page-marker">— 53 —</div>
+
+<p>theory. Namely, the <em>trace map</em> of the point $P = (x, y) \in E(\mathbb{F}_{q^k})$ is defined as</p>
+
+$$\text{Tr}(P) = \sum_{\sigma \in \text{Gal}(\mathbb{F}_{q^k}/\mathbb{F}_q)} \sigma(P) = \sum_{i=0}^{k-1} \pi^i(P) = \sum_{i=0}^{k-1} (x^{q^i}, y^{q^i}),$$
+
+<p>where $\pi$ is the $q$-power Frobenius endomorphism defined in Equation (2.7). Galois theory tells us that $\text{Tr} : E(\mathbb{F}_{q^k}) \to E(\mathbb{F}_q)$, so when $r\|\#E(\mathbb{F}_q)$ (which will always be the case from now on), then this map, which is actually a group homomorphism, sends all torsion points into one subgroup of the $r$-torsion. We illustrate in Example 4.1.3 before painting the general picture.</p>
+
+<blockquote>
+<strong>迹映射（Trace Map）</strong>：
+$$\text{Tr}(P) = \sum_{i=0}^{k-1} \pi^i(P) = \sum_{i=0}^{k-1} (x^{q^i}, y^{q^i})$$
+<p>这是一个群同态 $\text{Tr} : E(\mathbb{F}_{q^k}) \to E(\mathbb{F}_q)$。</p>
+
+<p>当 $r \| \#E(\mathbb{F}_q)$ 时，迹映射将所有 $r$-挠点映射到 $E(\mathbb{F}_q)$ 中唯一的 $r$ 阶子群。</p>
+</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.1.3</span> (Magma script). We take $q = 11$ again, but this time with $E/\mathbb{F}_q : y^2 = x^3+7x+2$. $E(\mathbb{F}_q)$ has 7 points, so take $r = 7$. We already have $E(\mathbb{F}_q)[r]$, but to collect $E[r]$ in its entirety we need to extend $\mathbb{F}_q$ to $\mathbb{F}_{q^k}$. This time, the smallest integer $k$ such that $(q^k - 1) \mod 7 \equiv 0$ is $k = 3$, so we form $\mathbb{F}_{q^3} = \mathbb{F}_q(u)$ with $u^3 + u + 4 = 0$, and we are guaranteed that $E[7] \subset E(\mathbb{F}_{q^3})$. The entire 7-torsion has cardinality 49 and splits into 8 cyclic subgroups, as shown in Figure 4.3. To fit the points in, we use the power representation of elements in $\mathbb{F}_{q^3} = \mathbb{F}_q(u)$. In this case, for $P \in E(\mathbb{F}_{q^3})$, the trace map on $E$ is $\text{Tr}(P) = (x, y) + (x^q, y^q) + (x^{q^2}, y^{q^2})$. For the unique torsion subgroup $E(\mathbb{F}_q)[r]$, the Frobenius endomorphism is trivial ($\pi(P) = P$) so the trace map clearly acts as multiplication by $k$, i.e. $\text{Tr}(P) = [k]P$. However, Tr will send every other element in the torsion into $E(\mathbb{F}_q)[r]$. For example, for $Q = (u^{481}, u^{1049})$ (in the subgroup pointing upwards), we have</p>
+</div>
+
+<!-- ==================== PAGE 54 ==================== -->
+<div class="page-marker">— 54 —</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_3.svg" alt="Figure 4.3: The 7-torsion E[7]" style="max-width: 700px;">
+  <figcaption>Figure 4.3: The 7-torsion: $E[7]$.</figcaption>
+</figure>
+
+<div class="example">
+<p>$\text{Tr}(Q) = (8, 8)$; for $R = (u^{423}, u^{840})$ (the lower right subgroup), we have $\text{Tr}(R) = (10, 7)$; for $S = (u^{1011}, u^{1244})$, we have $\text{Tr}(S) = (8, 3)$. There is one other peculiar subgroup in $E[7]$ however, for which the trace map sends each element to $\mathcal{O}$. This occurs in general, and we are about to see that this has important consequences in PBC, but in our case this subgroup is the upper right group containing $T = (u^{1315}, u^{1150})$, i.e. $\text{Tr}(T) = \mathcal{O}$, so $\text{Tr} : \langle T \rangle \to \{\mathcal{O}\}$. One final point to note is that the embedding degree $k = 3$ also implies that the (six) non-trivial 7-th roots of unity are all found in $\mathbb{F}_{q^3}$ (but not before), i.e. $\mu_7 \setminus \{1\} \in \mathbb{F}_{q^3} \setminus \mathbb{F}_{q^2}$.</p>
+</div>
+
+<blockquote>
+<strong>例 4.1.3</strong>：迹映射的行为。
+<ul>
+<li>$q = 11$，$E: y^2 = x^3 + 7x + 2$，$\#E(\mathbb{F}_q) = 7$</li>
+<li>$r = 7$，嵌入度 $k = 3$</li>
+<li>$\#E[7] = 49$，分成 8 个循环子群</li>
+</ul>
+<p><strong>迹映射的关键行为</strong>：</p>
+<ul>
+<li>对于 $E(\mathbb{F}_q)[r]$ 中的点：$\text{Tr}(P) = [k]P$（因为 $\pi(P) = P$）</li>
+<li>对于其他子群中的点：$\text{Tr}$ 映射到 $E(\mathbb{F}_q)[r]$</li>
+<li><strong>特殊的迹零子群</strong>：存在一个子群，其中所有点的迹都是 $\mathcal{O}$！</li>
+</ul>
+</blockquote>
+
+<p>We now give a general depiction of the $r$-torsion $E[r]$. To do so, we need to discuss a few assumptions that apply most commonly to the scenarios we will be encountering. Firstly, we assume that $r\|\#E(\mathbb{F}_q)$ is prime and the embedding degree $k$ (with respect to $r$) is $k > 1$. Thus, there is a unique subgroup of order $r$ in $E[r]$ which is defined over $\mathbb{F}_q$, called the <em>base-field subgroup</em>; it is denoted by $\mathcal{G}_1$. Since the Frobenius endomorphism $\pi$ acts trivially on $\mathcal{G}_1$, but nowhere else in $E[r]$, then it can be defined as $\mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$. That is, $\mathcal{G}_1$ is the $[1]$-eigenspace of $\pi$ restricted to $E[r]$. There is another subgroup of $E[r]$ that can be expressed using an eigenspace of $\pi$. Referring back to Equation (2.8), we can easily deduce that the other eigenvalue of $\pi$ is $q$, and we define another subgroup $\mathcal{G}_2$ of $E[r]$ as $\mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$. It turns out that this subgroup is precisely the peculiar subgroup we alluded to in Example 4.1.3. We call $\mathcal{G}_2$ the <em>trace zero subgroup</em>, since all $P \in \mathcal{G}_2$ have $\text{Tr}(P) = \mathcal{O}$; this result is attributed</p>
+
+<!-- ==================== PAGE 55 ==================== -->
+<div class="page-marker">— 55 —</div>
+
+<p>to Dan Boneh [Gal05, Lemma IX.16]. We illustrate in Figure 4.4.</p>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_4.svg" alt="Figure 4.4: Trace and anti-trace maps on E[r]" style="max-width: 550px;">
+  <figcaption>Figure 4.4: The behaviour of the trace and anti-trace maps on $E[r]$.</figcaption>
+</figure>
+
+<blockquote>
+<strong>$r$-挠群的两个特殊子群</strong>：
+
+<p><strong>基域子群（Base-field Subgroup）</strong>：
+$$\mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$$
+<ul>
+<li>即 Frobenius 作用像恒等映射的点</li>
+<li>$\mathcal{G}_1$ 定义在 $\mathbb{F}_q$ 上</li>
+<li>是 $\pi$ 的特征值 1 对应的特征空间</li>
+</ul>
+
+<p><strong>迹零子群（Trace Zero Subgroup）</strong>：
+$$\mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$$
+<ul>
+<li>是 $\pi$ 的特征值 $q$ 对应的特征空间</li>
+<li>所有 $P \in \mathcal{G}_2$ 满足 $\text{Tr}(P) = \mathcal{O}$</li>
+<li>这个结果归功于 Dan Boneh</li>
+</ul>
+</blockquote>
+
+<p>We can also map any $P \in E[r]$ to the trace zero subgroup $\mathcal{G}_2$ via the <em>anti-trace map</em> $\text{aTr} : P \mapsto P' = [k]P - \text{Tr}(P)$; showing that $\text{Tr}(P') = \mathcal{O}$ is a worthwhile exercise for the reader.</p>
+
+<blockquote>
+<strong>反迹映射（Anti-trace Map）</strong>：
+$$\text{aTr}(P) = [k]P - \text{Tr}(P)$$
+<p>将任意 $P \in E[r]$ 映射到迹零子群 $\mathcal{G}_2$。</p>
+<p>练习：验证 $\text{Tr}(\text{aTr}(P)) = \mathcal{O}$。</p>
+</blockquote>
+
+<p>To define our pairing, we need to specify the two groups $\mathbb{G}_1$ and $\mathbb{G}_2$: these $\mathbb{G}$'s are not to be confused with the $\mathcal{G}$'s that stand for two specific $r$-torsion subgroups, as $\mathbb{G}_1$ and $\mathbb{G}_2$ can be defined as any of the $r + 1$ groups in $E[r]$. As we will see however, there are many reasons we would like to specifically set $\mathbb{G}_1 = \mathcal{G}_1$ and $\mathbb{G}_2 = \mathcal{G}_2$, but as we will also see there are reasons that we may not want this to be the case. The existence of maps to and from the different torsion subgroups affects certain functionalities that cryptographers desire in a pairing-based protocol. These functionalities and the choices that are available to us will be discussed in a moment, but we must first look at one last map that</p>
+
+<!-- ==================== PAGE 56 ==================== -->
+<div class="page-marker">— 56 —</div>
+
+<p>is available for a special class of curves.</p>
+
+<p>Over prime fields, we call an elliptic curve $E$ <em>supersingular</em><sup>2</sup> if $\#E(\mathbb{F}_q) = q+1$. There are several other equivalent conditions [Sil09, Ch. V, Th. 3.1(a)], but the most meaningful property for our purposes is that a supersingular curve comes equipped with a <em>distortion map</em> $\phi$; this is a non-($\mathbb{F}_q$-)rational map that takes a point in $E(\mathbb{F}_q)$ to a point in $E(\mathbb{F}_{q^k})$ [Gal05, §IX.7.2]. A curve which is not supersingular is called an <em>ordinary</em> curve, and it does not have such a map [Ver01, Th. 11]. We give two examples of elliptic curves that are supersingular, and show the behaviour of the distortion map $\phi$ within the torsion.</p>
+
+<blockquote>
+<strong>超奇异曲线（Supersingular Curve）</strong>：在素域 $\mathbb{F}_p$ 上，$\#E(\mathbb{F}_p) = p + 1$ 的椭圆曲线。
+
+<p><strong>畸变映射（Distortion Map）</strong> $\phi$：超奇异曲线独有的映射，将 $E(\mathbb{F}_q)$ 中的点映射到 $E(\mathbb{F}_{q^k})$ 中的点。</p>
+
+<p><strong>普通曲线（Ordinary Curve）</strong>：非超奇异曲线，没有畸变映射。</p>
+
+<p><strong>注意</strong>：这里的"超奇异"与"奇异/非奇异"（singular/non-singular）无关！</p>
+</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.1.4</span> (Magma script). Let $q = 59$, for which $E/\mathbb{F}_q : y^2 = x^3 + 1$ is supersingular, meaning $\#E(\mathbb{F}_q) = q + 1 = 60$, so take $r = 5$. The embedding degree is $k = 2$, so we construct the extension as $\mathbb{F}_{q^2} = \mathbb{F}_q(i)$, $i^2 + 1 = 0$. $\xi_3 = 24i + 29$ is a cube root of unity, for which the associated distortion map is $\phi : (x, y) \mapsto (\xi_3 x, y)$. The fact that $\phi^3$ is equivalent to the identity map on $E$ is illustrated in Figure 4.5.</p>
+</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_5.svg" alt="Figure 4.5: Distortion map on E[5]" style="max-width: 600px;">
+  <figcaption>Figure 4.5: The distortion map $\phi : (x, y) \mapsto (\xi_3 x, y)$ on $E[5]$.</figcaption>
+</figure>
+
+<blockquote>
+<strong>例 4.1.4</strong>：畸变映射 $\phi : (x, y) \mapsto (\xi_3 x, y)$。
+<ul>
+<li>$q = 59$，$E: y^2 = x^3 + 1$ 是超奇异的</li>
+<li>$\#E(\mathbb{F}_q) = 60 = q + 1$</li>
+<li>$\phi$ 将 $\mathcal{G}_1$ 中的点映射到 $\mathcal{G}_2$，反之亦然</li>
+<li>$\phi^3 = \text{id}$（三次方等于恒等映射）</li>
+</ul>
+</blockquote>
+
+<!-- ==================== PAGE 57 ==================== -->
+<div class="page-marker">— 57 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 4.1.5</span> (Magma script). We take the same fields as the last example ($q = 59$, $\mathbb{F}_{q^2} = \mathbb{F}_q(i)$, $i^2 + 1 = 0$), but instead use the supersingular curve $E/\mathbb{F}_q : y^2 = x^3 + x$, which therefore also has $\#E(\mathbb{F}_q) = 60$. This time, the distortion map is $\phi : (x, y) \mapsto (-x, iy)$, from which it is easy to see that $\phi^4$ is equivalent to the identity map on $E$. In Figure 4.6, we see that (in this case) the</p>
+</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_6.svg" alt="Figure 4.6: Distortion map on E[5]" style="max-width: 600px;">
+  <figcaption>Figure 4.6: The distortion map $\phi : (x, y) \mapsto (-x, iy)$ on $E[5]$.</figcaption>
+</figure>
+
+<div class="example">
+<p>distortion map does not always move elements out of their subgroup, but rather restricting $\phi$ to, say the torsion subgroup generated by $(28i + 51, 25i + 49)$, gives an endomorphism on $\langle(28i + 51, 25i + 49)\rangle$. This hints towards one of the major optimisations in pairing computations. Namely, in Chapter 2 we saw the power of endomorphisms applied to ECC (specifically in Example 2.2.11), and in Chapter 7 we are going to see that endomorphisms on torsion subgroups (like the one above) can be used to great effect in PBC.</p>
+</div>
+
+<blockquote>
+<strong>例 4.1.5</strong>：另一种畸变映射 $\phi : (x, y) \mapsto (-x, iy)$。
+<ul>
+<li>$E: y^2 = x^3 + x$ 也是超奇异的</li>
+<li>$\phi^4 = \text{id}$</li>
+<li><strong>有趣现象</strong>：$\phi$ 限制到某些子群上时是自同态（不离开该子群）</li>
+<li>这暗示了配对计算的一个重要优化方向</li>
+</ul>
+</blockquote>
+
+<p>We summarise the available maps within the $r$-torsion. From any subgroup</p>
+
+<!-- ==================== PAGE 58 ==================== -->
+<div class="page-marker">— 58 —</div>
+
+<p>in $E[r]$ that is not $\mathcal{G}_1$ or $\mathcal{G}_2$, we can always map into either $\mathcal{G}_1$ or $\mathcal{G}_2$ via the trace and anti-trace maps respectively. If $E$ is ordinary, we do not have computable maps out of $\mathcal{G}_1$ or $\mathcal{G}_2$, otherwise if $E$ is supersingular then the distortion map $\phi$ is a homomorphic map out of these two subgroups.</p>
+
+<blockquote>
+<strong>$r$-挠群内可用映射的总结</strong>：
+<table border="1" style="border-collapse: collapse; margin: 10px 0;">
+<tr><th>映射</th><th>方向</th><th>可用性</th></tr>
+<tr><td>迹映射 Tr</td><td>任意子群 → $\mathcal{G}_1$</td><td>总是可用</td></tr>
+<tr><td>反迹映射 aTr</td><td>任意子群 → $\mathcal{G}_2$</td><td>总是可用</td></tr>
+<tr><td>畸变映射 $\phi$</td><td>$\mathcal{G}_1 \to \mathcal{G}_2$ 等</td><td>仅超奇异曲线</td></tr>
+</table>
+<p>对于普通曲线，没有可计算的映射从 $\mathcal{G}_1$ 或 $\mathcal{G}_2$ 映出！</p>
+</blockquote>
+
+<div class="footnote">
+<p><sup>1</sup>There has been some work that exploits additional functionality if $r$ is composite, e.g. an RSA modulus $n = pq$, but we do not consider this much less common and much less efficient setting – see [BGN05, Fre10, BRS11, Lew12] for more details.</p>
+<p><sup>2</sup>This terminology should not be confused with the singular vs. non-singular definitions illustrated in, and discussed above, Figures 2.1-2.4.</p>
+</div>
+
+<div class="nav-links">
+    <span></span>
+    <a href="ch4-2.html">下一部分：配对类型与扭曲曲线 →</a>
+</div>
+
+</body>
+</html>

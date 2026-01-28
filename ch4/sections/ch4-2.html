@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Elliptic Curves as Pairing Groups (Part 2)</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        figure {
+            text-align: center;
+            margin: 30px 0;
+        }
+        figcaption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .footnote {
+            font-size: 0.85em;
+            color: #666;
+            border-top: 1px solid #ccc;
+            margin-top: 40px;
+            padding-top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .type-box {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #fafafa;
+        }
+        .type-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .figure-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="ch4-1.html">← 上一部分：r-挠群</a>
+    <span></span>
+</div>
+
+<!-- ==================== Section 4.2 ==================== -->
+<h1>4.2 Pairing types</h1>
+<h2>4.2 配对类型</h2>
+
+<!-- ==================== PAGE 58 (continued) ==================== -->
+<div class="page-marker">— 58 —</div>
+
+<p>As we mentioned before the previous two examples, the interplay between the maps that are available in any given scenario gives rise to different functionalities within a pairing-based protocol. Galbraith et al. [GPS08] were the first to identify that all of the potentially desirable properties in a protocol cannot be achieved simultaneously, and therefore classified pairings into certain <em>types</em>. There are now four pairing types in the literature; Galbraith et al. originally presented three, but a fourth type was added soon after by Shacham [Sha05]. The pairing types essentially arise from observing the (practical) implications of placing $\mathbb{G}_1$ and $\mathbb{G}_2$ in different subgroups of $E[r]$; in fact, it will soon become obvious that it is always best to set $\mathbb{G}_1 = \mathcal{G}_1$, so the four types really are tied to the definition of $\mathbb{G}_2$. The main factors affecting the classification are the ability to hash and/or randomly sample elements of $\mathbb{G}_2$, the existence of an isomorphism $\psi : \mathbb{G}_2 \to \mathbb{G}_1$ which is often required to make security proofs work (see [GPS08]), and (as always) issues concerning storage and efficiency.</p>
+
+<blockquote>
+<strong>配对类型的由来</strong>：Galbraith 等人 [GPS08] 首先识别出，协议中所有理想属性无法同时满足，因此将配对分为不同类型。
+
+<p><strong>影响分类的主要因素</strong>：</p>
+<ul>
+<li>能否哈希/随机采样 $\mathbb{G}_2$ 的元素</li>
+<li>是否存在可计算的同构 $\psi : \mathbb{G}_2 \to \mathbb{G}_1$（安全证明常需要）</li>
+<li>存储效率</li>
+<li>计算效率</li>
+</ul>
+<p>实际上，总是最好设 $\mathbb{G}_1 = \mathcal{G}_1$（基域子群），所以四种类型主要取决于 $\mathbb{G}_2$ 的选择。</p>
+</blockquote>
+
+<p>We follow the notation and descriptions of Chen et al. [CCS07], and describe each pairing type in turn. The illustrations of each type are in Figures 4.7-4.10, where the base-field group $\mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$ with generator $\mathcal{P}_1$ is always in the top left, whilst the trace-zero subgroup $\mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$ with generator $\mathcal{P}_2$ is always in the top right. Let $P_1$ be the generator of $\mathbb{G}_1$ and $P_2$ be the generator of $\mathbb{G}_2$. It should be born in mind that the pairing $e(P, Q)$ will only compute non-trivially if $P$ and $Q$ are in different subgroups.</p>
+
+<!-- Type 1 -->
+<div class="type-box">
+<div class="type-title">Type 1 pairings（第一类配对）</div>
+<p>This is the scenario where $E$ is supersingular, meaning we can map out of $\mathcal{G}_1$ with $\phi$. Thus, we set $\mathbb{G}_1 = \mathbb{G}_2 = \mathcal{G}_1$ (with $P_1 = P_2 = \mathcal{P}_1$). When it comes time to compute a pairing $e$ between say $P$ and $Q$, we can use $\phi$ to map $Q$ to $\phi(Q)$ and define $e(P, Q) = \hat{e}(P, \phi(Q))$, where $\hat{e}$ is the Weil or Tate pairing. There are no hashing problems (getting into $E(\mathbb{F}_q)[r]$ requires a simple cofactor multiplication once we have hashed into $E(\mathbb{F}_q)$) and we trivially have an isomorphism $\psi$ from $\mathbb{G}_2$ to $\mathbb{G}_1$. The drawback</p>
+</div>
+
+<!-- ==================== PAGE 59 ==================== -->
+<div class="page-marker">— 59 —</div>
+
+<div class="type-box">
+<p>of Type 1 pairings comes when considering bandwidth and efficiency: as we will see in Chapter 6, the condition that $E$ be supersingular is highly restrictive when it comes to optimising the speed of computing the pairing. See Figure 4.7.</p>
+</div>
+
+<blockquote>
+<strong>Type 1 配对</strong>：
+<ul>
+<li><strong>条件</strong>：$E$ 是超奇异曲线（有畸变映射 $\phi$）</li>
+<li><strong>设置</strong>：$\mathbb{G}_1 = \mathbb{G}_2 = \mathcal{G}_1$</li>
+<li><strong>计算</strong>：$e(P, Q) = \hat{e}(P, \phi(Q))$</li>
+<li><strong>优点</strong>：哈希容易，$\psi$ 平凡存在</li>
+<li><strong>缺点</strong>：超奇异曲线限制了优化空间，效率较低</li>
+</ul>
+</blockquote>
+
+<p>The remaining three cases are defined over ordinary elliptic curves, so (as we will again see in Chapter 6) there are no restrictions imposed on the choice of elliptic curve that lead to a loss of efficiency. For all these situations we have $\mathbb{G}_1 = \mathcal{G}_1$ and $P_1 = \mathcal{P}_1$ (where hashing is relatively easy), so we only need to discuss the choices for $\mathbb{G}_2$ and $P_2$.</p>
+
+<!-- Type 2 -->
+<div class="type-box">
+<div class="type-title">Type 2 pairings（第二类配对）</div>
+<p>In this situation we take $\mathbb{G}_2$ to be any of the $r-1$ subgroups in $E[r]$ that is not $\mathcal{G}_1$ or $\mathcal{G}_2$. We have the map $\psi : \mathbb{G}_2 \to \mathbb{G}_1$ as the trace map Tr. We can also use the anti-trace map to move elements from $\mathbb{G}_2$ into $\mathcal{G}_2$ for efficiency purposes. The drawback is that there is no known way of hashing into $\mathbb{G}_2$ specifically, or to generate random elements of $\mathbb{G}_2$. The best we can do here is to specify a generator $P_2 \in \mathbb{G}_2$ and generate elements via scalar multiplications of $P_2$, but this is often undesirable in protocols since we cannot generate random elements without knowing the discrete logarithm with respect to $P_2$. See Figure 4.8.</p>
+</div>
+
+<blockquote>
+<strong>Type 2 配对</strong>：
+<ul>
+<li><strong>条件</strong>：$E$ 是普通曲线</li>
+<li><strong>设置</strong>：$\mathbb{G}_2$ 是 $E[r]$ 中既不是 $\mathcal{G}_1$ 也不是 $\mathcal{G}_2$ 的某个子群</li>
+<li><strong>优点</strong>：有 $\psi = \text{Tr} : \mathbb{G}_2 \to \mathbb{G}_1$</li>
+<li><strong>缺点</strong>：无法哈希到 $\mathbb{G}_2$，无法生成随机元素</li>
+</ul>
+</blockquote>
+
+<!-- Type 3 -->
+<div class="type-box">
+<div class="type-title">Type 3 pairings（第三类配对）</div>
+<p>In this scenario we take $\mathbb{G}_2 = \mathcal{G}_2$, the trace zero subgroup. We can now hash into $\mathbb{G}_2$, at the very least by following a cofactor multiplication in $E(\mathbb{F}_{q^k})$ by the anti-trace map $\text{aTr} : E[r] \to \mathcal{G}_2$ (we will soon see that there is a much more efficient way than this). The ironic drawback here is that the only subgroup (besides $\mathcal{G}_1$) that we can hash into is also the only subgroup we can not find a map out of. An isomorphism $\psi : \mathbb{G}_2 \to \mathbb{G}_1$ trivially exists, we just do not have an efficient way to compute it. Thus, security proofs that rely on the existence of such a $\psi$ are no longer applicable, unless the underlying problem(s) remains hard when the adversary is allowed oracle access to $\psi$ [SV07]. See Figure 4.9.</p>
+</div>
+
+<blockquote>
+<strong>Type 3 配对</strong>：
+<ul>
+<li><strong>条件</strong>：$E$ 是普通曲线</li>
+<li><strong>设置</strong>：$\mathbb{G}_2 = \mathcal{G}_2$（迹零子群）</li>
+<li><strong>优点</strong>：可以哈希到 $\mathbb{G}_2$（通过反迹映射）</li>
+<li><strong>缺点</strong>：没有可高效计算的 $\psi : \mathbb{G}_2 \to \mathbb{G}_1$</li>
+</ul>
+<p><strong>讽刺之处</strong>：唯一能哈希进去的子群（除了 $\mathcal{G}_1$），也是唯一找不到映射出来的子群！</p>
+</blockquote>
+
+<!-- Type 4 -->
+<div class="type-box">
+<div class="type-title">Type 4 pairings（第四类配对）</div>
+<p>In this situation we take $\mathbb{G}_2$ to be the whole $r$-torsion $E[r]$, which is a group of order $r^2$. Hashing into $\mathbb{G}_2$ is possible, but not very efficient, however we cannot hash into the particular subgroup generated by any specific $P_2$ (i.e. $\mathbb{G}_2$ is not cyclic). Note that hashing into $E[r]$ will only give an element in $\mathcal{G}_1$ or $\mathcal{G}_2$ (which is undesirable in this case) with negligibly low probability for large $r$. See Figure 4.10.</p>
+</div>
+
+<blockquote>
+<strong>Type 4 配对</strong>：
+<ul>
+<li><strong>设置</strong>：$\mathbb{G}_2 = E[r]$（整个 $r$-挠群，阶为 $r^2$）</li>
+<li><strong>注意</strong>：$\mathbb{G}_2$ 不是循环群！</li>
+<li>可以哈希到 $E[r]$，但落入 $\mathcal{G}_1$ 或 $\mathcal{G}_2$ 的概率可忽略</li>
+</ul>
+</blockquote>
+
+<div class="figure-grid">
+<figure>
+  <img src="images/fig4_7.svg" alt="Figure 4.7: Type 1 pairings" style="max-width: 100%;">
+  <figcaption>Figure 4.7: Type 1 pairings.</figcaption>
+</figure>
+<figure>
+  <img src="images/fig4_8.svg" alt="Figure 4.8: Type 2 pairings" style="max-width: 100%;">
+  <figcaption>Figure 4.8: Type 2 pairings.</figcaption>
+</figure>
+<figure>
+  <img src="images/fig4_9.svg" alt="Figure 4.9: Type 3 pairings" style="max-width: 100%;">
+  <figcaption>Figure 4.9: Type 3 pairings.</figcaption>
+</figure>
+<figure>
+  <img src="images/fig4_10.svg" alt="Figure 4.10: Type 4 pairings" style="max-width: 100%;">
+  <figcaption>Figure 4.10: Type 4 pairings.</figcaption>
+</figure>
+</div>
+
+<!-- ==================== PAGE 60 ==================== -->
+<div class="page-marker">— 60 —</div>
+
+<p>Prior to these different situations being brought to the attention of the PBC community [GPS08], authors publishing pairing-based protocols were often incorrectly assuming combinations of the associated properties that could not be achieved in practice. The message to designers of pairing-based protocols was that individual attention is required to prescribe the pairing type which best suits any particular pairing instantiation. Whilst some authors have since followed this advice closely, a good example being [CCS07, Tables 1-6], it still seems most common that designers of pairing protocols take the easy way out and assume a Type 1 pairing. This approach is somewhat justified, as it allows cryptographers to avoid getting bogged down in the complex details of pairings whilst still enjoying all their functional properties, but overall it is less than sat-</p>
+
+<!-- ==================== PAGE 61 ==================== -->
+<div class="page-marker">— 61 —</div>
+
+<p>isfactory. The reason is that, at current levels of security, a Type 1 pairing is orders of magnitude more costly than say, a Type 3 pairing. Nowadays all of the state-of-the-art implementations of pairings take place on ordinary curves that assume the Type 3 scenario, where the only potential<sup>3</sup> sacrifice is the map $\psi : \mathbb{G}_2 \to \mathbb{G}_1$. Moreover, Chatterjee and Menezes [CM09] paid closer attention to the role of $\psi$ in protocol (proof) designs and essentially argue that there is no known protocol/proof of security that cannot be translated into the Type 3 setting, claiming that Type 2 pairings (which are less efficient but have $\psi$) are merely inefficient implementations of Type 3 pairings. We note that their claim is only based on empirical evidence; they posed a counter-example as an open problem. Nevertheless, the final message of Menezes' related ECC2009 talk is that "protocol designers who are interested in the performance of their protocols should describe and analyse their protocols using Type 3 pairings" [Men09].</p>
+
+<blockquote>
+<strong>Type 3 是实践中的最佳选择！</strong>
+
+<p>Chatterjee 和 Menezes [CM09] 论证：</p>
+<ul>
+<li>没有已知的协议/安全证明不能转化为 Type 3 设置</li>
+<li>Type 2 配对只是 Type 3 配对的低效实现</li>
+<li>Type 1 配对比 Type 3 慢<strong>数量级</strong></li>
+</ul>
+
+<p>Menezes 在 ECC2009 的结论："关心协议性能的设计者应该使用 Type 3 配对来描述和分析他们的协议。"</p>
+</blockquote>
+
+<p>For the remainder of this text then, and unless otherwise stated, the reader should assume we are in the Type 3 scenario where $\mathbb{G}_1 = \mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$ and $\mathbb{G}_2 = \mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$.</p>
+
+<blockquote>
+<strong>本书的默认设定</strong>：除非另有说明，假设 Type 3 配对：
+<ul>
+<li>$\mathbb{G}_1 = \mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$（基域子群）</li>
+<li>$\mathbb{G}_2 = \mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$（迹零子群）</li>
+</ul>
+</blockquote>
+
+<!-- ==================== Section 4.3 ==================== -->
+<h1>4.3 Twisted curves</h1>
+<h2>4.3 扭曲曲线</h2>
+
+<p>Before moving our focus to the algorithm for computing pairings, we have one final point to discuss; namely, the most efficient way to hash to, and represent elements in $\mathbb{G}_2$. This discussion brings up the crucial notion of <em>twists</em> of elliptic curves, which was first applied to pairings by Barreto et al. [BLS03]. We start with an example.</p>
+
+<blockquote>
+<strong>扭曲曲线（Twisted Curves）</strong>：高效哈希和表示 $\mathbb{G}_2$ 元素的关键技术，由 Barreto 等人首次应用于配对。
+</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 4.3.1</span> (Magma script). Recall the curve used in Example 4.1.1: $q = 11$, $E/\mathbb{F}_q : y^2 = x^3 + 4$, $\#E(\mathbb{F}_q) = 12$ and $r = 3$. Excluding $\mathcal{O}$, the trace zero subgroup $\mathcal{G}_2$ consists of points defined in $E(\mathbb{F}_{q^2})$, namely $(8, i)$ and $(8, 10i)$. Define the curve $E'/\mathbb{F}_q : y^2 = x^3 - 4$ and observe that the map $\Psi^{-1}$ defined by $\Psi^{-1}: (x, y) \mapsto (-x, iy)$ takes points from $E$ to $E'$, i.e. $\Psi^{-1}: E \to E'$. Restricting $\Psi^{-1}$ to $\mathcal{G}_2$ actually gives a map that takes elements defined over $\mathbb{F}_{q^2}$ to elements defined over $\mathbb{F}_q$: $\Psi^{-1}((8, i)) = (3, 10)$ and $\Psi^{-1}((8, 10i)) = (3, 1)$. The convention is to write $\Psi$ for the reverse map $\Psi : E' \to E$ which in this case is defined by $\Psi : (x', y') \mapsto (-x', y'/i) = (-x', -y'i)$. We call $E'$ a <em>twist</em> of $E$. Every twist</p>
+</div>
+
+<!-- ==================== PAGE 62 ==================== -->
+<div class="page-marker">— 62 —</div>
+
+<div class="example">
+<p>has a degree $d$, which tells us the extension field of $\mathbb{F}_q$ where $E$ and $E'$ become isomorphic. For our purposes, $d$ is also the degree of its field of definition of $E'$ as a subfield of $\mathbb{F}_{q^k}$, i.e. a degree $d$ twist $E'$ of $E$ will be defined over $\mathbb{F}_{q^{k/d}}$. In this example, $k = 2$ and $E'$ is defined over $\mathbb{F}_q$, so we are using a $d = 2$ twist, called a <em>quadratic twist</em>. Ordinarily, computations in the group $\mathbb{G}_2 = \mathcal{G}_2$ would</p>
+</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_11.svg" alt="Figure 4.11: E and quadratic twist E'" style="max-width: 700px;">
+  <figcaption>Figure 4.11: $E$ (left) and the quadratic twist $E'$ (right).</figcaption>
+</figure>
+
+<div class="example">
+<p>require (point doubling/addition) operations in the extension field $\mathbb{F}_{q^2}$, but we can use $\Psi^{-1}$ to instead perform these operations in $E'(\mathbb{F}_q)$, before mapping the result back with $\Psi$. Moreover, if we restrict the maps to $E[r]$, then $\Psi^{-1}$ takes elements of the trace zero subgroup $\mathcal{G}_2$ of $E$ and moves them to the base field subgroup $\mathcal{G}_1'$ of $E'$. Note that computing $\Psi$ and $\Psi^{-1}$ is essentially cost free.</p>
+</div>
+
+<blockquote>
+<strong>例 4.3.1</strong>：二次扭曲（Quadratic Twist）。
+<ul>
+<li>$E: y^2 = x^3 + 4$，扭曲曲线 $E': y^2 = x^3 - 4$</li>
+<li>$\Psi^{-1}: (x, y) \mapsto (-x, iy)$ 将 $E$ 上的点映到 $E'$</li>
+<li>关键：$\Psi^{-1}$ 将 $\mathcal{G}_2 \subset E(\mathbb{F}_{q^2})$ 映到 $E'(\mathbb{F}_q)$！</li>
+</ul>
+<p><strong>好处</strong>：原本需要在 $\mathbb{F}_{q^2}$ 中做的 $\mathbb{G}_2$ 群运算，现在可以在 $\mathbb{F}_q$ 中做！</p>
+<p>$\Psi$ 和 $\Psi^{-1}$ 的计算几乎没有代价。</p>
+</blockquote>
+
+<p>We give a larger example that better illustrates the power of employing twisted curves.</p>
+
+<div class="example">
+<p><span class="example-title">Example 4.3.2</span> (Magma script). Let $q = 103$ and consider $E/\mathbb{F}_q : y^2 = x^3 + 72$, which has $\#E(\mathbb{F}_q) = 84$, so let $r = 7$. The embedding degree (with respect to $r$) is $k = 6$, so form $\mathbb{F}_{q^6} = \mathbb{F}_q(u)$ with $u^6 + 2 = 0$. The trace zero subgroup $\mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$ is defined over $\mathbb{F}_{q^6}$, and is generated by $(35u^4, 42u^3)$ (see Figure 4.12). We define the degree $d = 6$ sextic twist $E'$ of $E$ as $E': y^2 = x^3 + 72u^6$, where the back-and-forth isomorphisms are defined as $\Psi : E' \to E$, $(x', y') \mapsto (x'/u^2, y'/u^3)$ and $\Psi^{-1} : E \to E'$, $(x, y) \mapsto (u^2 x, u^3 y)$. Observe that $\Psi^{-1}$ maps elements in $\mathcal{G}_2 \in E(\mathbb{F}_{q^k})[r] = E(\mathbb{F}_{q^6})[r]$ to elements in $E'(\mathbb{F}_{q^{k/d}})[r] = E'(\mathbb{F}_q)[r]$. Thus, when performing group operations in $\mathbb{G}_2 = \mathcal{G}_2$, we gain the advantage of working over</p>
+</div>
+
+<!-- ==================== PAGE 63 ==================== -->
+<div class="page-marker">— 63 —</div>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig4_12.svg" alt="Figure 4.12: E and sextic twist E'" style="max-width: 750px;">
+  <figcaption>Figure 4.12: $E$ (left) and the (correct) sextic twist $E'$ (right)</figcaption>
+</figure>
+
+<div class="example">
+<p>$\mathbb{F}_q$ instead of $\mathbb{F}_{q^6}$, a dramatic improvement in computational complexity.</p>
+</div>
+
+<blockquote>
+<strong>例 4.3.2</strong>：六次扭曲（Sextic Twist）——巨大的效率提升！
+<ul>
+<li>$k = 6$，$\mathcal{G}_2$ 定义在 $\mathbb{F}_{q^6}$ 上</li>
+<li>六次扭曲 $E': y^2 = x^3 + 72u^6$</li>
+<li>$\Psi^{-1}$ 将 $\mathcal{G}_2 \subset E(\mathbb{F}_{q^6})$ 映到 $E'(\mathbb{F}_q)$</li>
+</ul>
+<p><strong>效果</strong>：在 $\mathbb{F}_q$ 而非 $\mathbb{F}_{q^6}$ 中计算——计算复杂度的巨大改进！</p>
+</blockquote>
+
+<p>In both Example 4.3.1 and Example 4.3.2 above, we had $k = d$, so the twist allowed us to work in the base field $\mathbb{F}_q$, rather than $\mathbb{F}_{q^k}$. In the general case though, the twist will pull computations back into the subfield $\mathbb{F}_{q^{k/d}}$ of $\mathbb{F}_{q^k}$. For example, if the embedding degree was $k = 12$, a quadratic twist ($d = 2$) would allow computations in $\mathbb{G}_2$ to be performed in $\mathbb{F}_{q^6}$ rather than $\mathbb{F}_{q^{12}}$, whilst a sextic twist ($d = 6$) would allow us to instead work in $\mathbb{F}_{q^2}$. Thus, we would clearly prefer the degree $d$ of the twist to be as high as possible. As it turns out, $d = 6$ is the highest degree available on elliptic curves, where the only possibilities are $d \in \{2, 3, 4, 6\}$ [Sil09, Prop. X.5.4]. For $d > 2$, we also require special subclasses of curves that depend on $d$, so following [Sil09, Prop. X.5.4] (see also [HSV06, Prop. 6, Prop. 8]) we describe all four cases individually. In the general case according to our context, a twist of $E : y^2 = x^3 + ax + b$ is given by $E': y^2 = x^3 + a\omega^4 x + b\omega^6$, with $\Psi : E' \to E : (x', y') \mapsto (x'/\omega^2, y'/\omega^3)$, $\omega \in \mathbb{F}_{q^k}$. We can only achieve specific degrees $d$ through combinations of zero and non-zero values for $a$ and $b$.</p>
+
+<blockquote>
+<strong>扭曲度数 $d$ 的选择</strong>：
+<ul>
+<li>椭圆曲线上可用的扭曲度数：$d \in \{2, 3, 4, 6\}$</li>
+<li>$d$ 越大，效率越高（$\mathbb{F}_{q^{k/d}}$ 越小）</li>
+<li>$d > 2$ 需要曲线满足特定形式</li>
+</ul>
+
+<p>一般形式：$E: y^2 = x^3 + ax + b$ 的扭曲是 $E': y^2 = x^3 + a\omega^4 x + b\omega^6$</p>
+</blockquote>
+
+<div class="type-box">
+<div class="type-title">$d = 2$ quadratic twists（二次扭曲）</div>
+<p>Quadratic twists are available on <strong>any</strong> elliptic curve, so if $E/\mathbb{F}_q : y^2 = x^3 + ax + b$, then a quadratic twist is given by $E'/\mathbb{F}_{q^{k/2}} : y^2 = x^3 + a\omega^4 x + b\omega^6$, with $\omega \in \mathbb{F}_{q^k}$ but $\omega^2 \in \mathbb{F}_{q^{k/2}}$. Since $\omega^3 \in \mathbb{F}_{q^k}$, the isomorphism $\Psi : E' \to E$ defined by $\Psi : (x', y') \mapsto (x'/\omega^2, y'/\omega^3)$ will take elements in $E'(\mathbb{F}_{q^{k/2}})$ to elements in $E(\mathbb{F}_{q^k})$, whilst $\Psi^{-1}$ will do the</p>
+</div>
+
+<!-- ==================== PAGE 64 ==================== -->
+<div class="page-marker">— 64 —</div>
+
+<div class="type-box">
+<p>opposite.</p>
+</div>
+
+<div class="type-box">
+<div class="type-title">$d = 3$ cubic twists（三次扭曲）</div>
+<p>Degree $d = 3$ twists can only occur when $a = 0$, so if $E/\mathbb{F}_q : y^2 = x^3 + b$, then $E'/\mathbb{F}_{q^{k/3}} : y^2 = x^3 + b\omega^6$, with $\omega^3, \omega^6 \in \mathbb{F}_{q^{k/3}}$, but $\omega^2 \in \mathbb{F}_{q^k} \setminus \mathbb{F}_{q^{k/3}}$. Thus, the isomorphism $\Psi : E' \to E$ (defined as usual) will take elements in $E'(\mathbb{F}_{q^{k/3}})$ to elements in $E(\mathbb{F}_{q^k})$, whilst $\Psi^{-1}$ does the opposite.</p>
+</div>
+
+<div class="type-box">
+<div class="type-title">$d = 4$ quartic twists（四次扭曲）</div>
+<p>Degree $d = 4$ twists are available when $b = 0$, so if $E/\mathbb{F}_q : y^2 = x^3 + ax$, then $E'/\mathbb{F}_{q^{k/4}} : y^2 = x^3 + a\omega^4 x$, with $\omega^4 \in \mathbb{F}_{q^{k/4}}$, $\omega^2 \in \mathbb{F}_{q^{k/2}}$ and $\omega^3 \in \mathbb{F}_{q^k} \setminus \mathbb{F}_{q^{k/2}}$. Thus, $\Psi$ will move elements in $E'(\mathbb{F}_{q^{k/4}})$ up to elements in $E(\mathbb{F}_{q^k})$, whilst $\Psi^{-1}$ will move elements from $E(\mathbb{F}_{q^k})$ down to $E'(\mathbb{F}_{q^{k/4}})$.</p>
+</div>
+
+<div class="type-box">
+<div class="type-title">$d = 6$ sextic twists（六次扭曲）</div>
+<p>Sextic twists are only available when $a = 0$, so if $E/\mathbb{F}_q : y^2 = x^3 + b$, then $E'/\mathbb{F}_{q^{k/6}} : y^2 = x^3 + b\omega^6$, with $\omega^6 \in \mathbb{F}_{q^{k/6}}$, $\omega^3 \in \mathbb{F}_{q^{k/3}}$ and $\omega^2 \in \mathbb{F}_{q^{k/2}}$. Thus, $\Psi$ pushes elements in $E'(\mathbb{F}_{q^{k/6}})$ up to $E(\mathbb{F}_{q^k})$, whilst $\Psi^{-1}$ pulls elements from $E(\mathbb{F}_{q^k})$ all the way down to $E'(\mathbb{F}_{q^{k/6}})$.</p>
+</div>
+
+<blockquote>
+<strong>扭曲类型总结</strong>：
+<table border="1" style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+<tr><th>扭曲度数 $d$</th><th>曲线形式要求</th><th>$\mathbb{G}_2$ 计算域</th></tr>
+<tr><td>2（二次）</td><td>任意 $y^2 = x^3 + ax + b$</td><td>$\mathbb{F}_{q^{k/2}}$</td></tr>
+<tr><td>3（三次）</td><td>$a = 0$：$y^2 = x^3 + b$</td><td>$\mathbb{F}_{q^{k/3}}$</td></tr>
+<tr><td>4（四次）</td><td>$b = 0$：$y^2 = x^3 + ax$</td><td>$\mathbb{F}_{q^{k/4}}$</td></tr>
+<tr><td>6（六次）</td><td>$a = 0$：$y^2 = x^3 + b$</td><td>$\mathbb{F}_{q^{k/6}}$</td></tr>
+</table>
+<p>例如：$k = 12$ 时，六次扭曲允许在 $\mathbb{F}_{q^2}$ 中计算，而非 $\mathbb{F}_{q^{12}}$！</p>
+</blockquote>
+
+<p>We make the remark that, for our purposes, a specific twist can only be applied if the curve is of the corresponding form above and the embedding degree $k$ has $d$ as a factor. Thus, attractive embedding degrees are those which have any of $d = \{2, 3, 4, 6\}$ as factors, but preferably $d = 4$ or $d = 6$ for increased performance. This will be discussed in detail in Chapter 6. Very fortunately, we will also see in that chapter that almost all of the popular techniques for constructing curves suitable for pairing computation give rise to curves of the form $y^2 = x^3 + b$ or $y^2 = x^3 + ax$, which facilitate the high-degree twists above.</p>
+
+<blockquote>
+<strong>理想的嵌入度</strong>：能被 $d \in \{4, 6\}$ 整除的 $k$ 值最佳。
+
+<p><strong>幸运的是</strong>：几乎所有流行的配对友好曲线构造方法都产生 $y^2 = x^3 + b$ 或 $y^2 = x^3 + ax$ 形式的曲线，恰好支持高度数扭曲！</p>
+</blockquote>
+
+<!-- ==================== Section 4.4 ==================== -->
+<h1>4.4 Chapter summary</h1>
+<h2>4.4 章节总结</h2>
+
+<p>We started by discussing that cryptographic pairings are bilinear maps from two elliptic curve groups to a third (finite field) group $e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T$. We then claimed that, in general, to define a useful pairing on $\mathbb{G}_1$ and $\mathbb{G}_2$, we must be able to define more than one subgroup in the $r$-torsion of $E$, where the most cryptographically useful case is that $r$ is a large prime. We then defined the embedding degree $k$ of $E$ (with respect to $r$), and showed that we must extend</p>
+
+<!-- ==================== PAGE 65 ==================== -->
+<div class="page-marker">— 65 —</div>
+
+<p>the field $\mathbb{F}_q$ to $\mathbb{F}_{q^k}$ in order to find more than one such subgroup. In fact, we showed that $E(\mathbb{F}_{q^k})$ actually contains the entire $r$-torsion, which has cardinality $r^2$ and consists of $r+1$ cyclic subgroups of order $r$. These $r+1$ subgroups (and the existence of maps between them) facilitate several choices for the definitions of $\mathbb{G}_1$ and $\mathbb{G}_2$, which gives rise to four pairing types. We argued that the most popular pairing type is a Type 3 pairing, which sets $\mathbb{G}_1$ and $\mathbb{G}_2$ as the two eigenspaces of the Frobenius endomorphism, namely $\mathbb{G}_1 = \mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$ is the base field subgroup, and $\mathbb{G}_2 = \mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$ is the trace zero subgroup.</p>
+
+<p>The definitions of the Weil and Tate pairings in the next chapter inherently justify the claim we made in this chapter that, in general, the arguments $P$ and $Q$ in the pairing $e(P, Q)$ must come from distinct torsion subgroups.</p>
+
+<blockquote>
+<strong>第四章总结</strong>：
+<ol>
+<li><strong>配对</strong>是双线性映射 $e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T$</li>
+<li>需要在 $E$ 的 $r$-挠群中定义多个子群</li>
+<li><strong>嵌入度</strong> $k$：使得 $E[r] \subset E(\mathbb{F}_{q^k})$ 的最小正整数</li>
+<li>$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$，包含 $r+1$ 个循环子群</li>
+<li><strong>四种配对类型</strong>取决于 $\mathbb{G}_2$ 的选择</li>
+<li><strong>Type 3</strong> 是实践中最流行的选择：
+   <ul>
+   <li>$\mathbb{G}_1 = \mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$（基域子群）</li>
+   <li>$\mathbb{G}_2 = \mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$（迹零子群）</li>
+   </ul>
+</li>
+<li><strong>扭曲曲线</strong>允许在更小的域中执行 $\mathbb{G}_2$ 的运算</li>
+<li>配对 $e(P, Q)$ 的参数必须来自<strong>不同的挠群子群</strong></li>
+</ol>
+
+<p><strong>下一章预告</strong>：Weil 和 Tate 配对的定义将解释为什么 $P$ 和 $Q$ 必须来自不同子群。</p>
+</blockquote>
+
+<div class="footnote">
+<p><sup>3</sup>There are some protocols whose security actually relies on the inability to compute $\psi$ efficiently.</p>
+</div>
+
+<div class="nav-links">
+    <a href="ch4-1.html">← 上一部分：r-挠群</a>
+    <span></span>
+</div>
+
+</body>
+</html>
