@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Divisors</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2a2a2a;
+            margin-top: 40px;
+        }
+        .example {
+            background: #f9f9f9;
+            border-left: 4px solid #007acc;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .theorem {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .equation {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .vocab {
+            color: #d32f2f;
+            font-weight: bold;
+            cursor: help;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.8em;
+            text-align: right;
+            border-top: 1px dashed #ccc;
+            margin-top: 30px;
+            padding-top: 5px;
+        }
+        figure {
+            text-align: center;
+            margin: 20px 0;
+        }
+        figcaption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Chapter 3: Divisors</h1>
+<h1>第三章：除子</h1>
+
+<!-- ==================== PAGE 33 ==================== -->
+<div class="page-marker">— 33 —</div>
+
+<p>In this chapter we introduce some basic language and definitions from algebraic geometry that are fundamental to the understanding of cryptographic pairing computations. We continue with our example-driven approach and illustrate each concept and definition as it arises. We will essentially just be expanding on the more concise section found in Galbraith's chapter [Gal05, §IX.2]. However, we only focus on what we need to describe elliptic curve pairings, so we refer any reader seeking a more general and thorough treatment to Galbraith's new book [Gal12, Ch.7-9]. Since our exposition targets the newcomer, we begin by assuring such a reader that their persistence through the definitions and examples will be amply rewarded. On becoming comfortable with the language of divisors, one can immediately start to appreciate how pieces of the "pairings puzzle" fit together very naturally, and might even enjoy feeling intuition behind important theorems that would otherwise appear foreign.</p>
+
+<blockquote>在本章中，我们介绍一些来自代数几何的基本语言和定义，这些对于理解密码学配对计算是基础性的。我们继续使用以例子驱动的方法，在每个概念和定义出现时进行说明。我们本质上只是扩展 Galbraith 章节中更简洁的部分 [Gal05, §IX.2]。然而，我们只关注描述椭圆曲线配对所需的内容。由于我们的阐述面向新手，我们首先向这样的读者保证，坚持阅读这些定义和例子将获得丰厚的回报。一旦熟悉了除子的语言，人们就可以立即开始欣赏"配对拼图"的各个部分如何非常自然地组合在一起。</blockquote>
+
+<p>The following statements apply to all curves $C$ over any perfect field $K$ and its closure $\overline{K}$. However, for now we place the discussion in our context and specialise to the case where $C$ is an elliptic curve $E$ over a finite field $K = \mathbb{F}_q$. Later in this chapter we will expand to more general examples and statements in time to present the important theorems in their full generality.</p>
+
+<blockquote>以下陈述适用于任何完美域 $K$ 及其闭包 $\overline{K}$ 上的所有曲线 $C$。然而，目前我们将讨论放在我们的语境中，专门讨论 $C$ 是有限域 $K = \mathbb{F}_q$ 上的椭圆曲线 $E$ 的情况。</blockquote>
+
+<div class="note">
+<p><strong>什么是完美域（perfect field）？</strong></p>
+<p>一个域 $K$ 称为<strong>完美域</strong>，如果它满足以下等价条件之一：</p>
+<ul>
+<li>$K$ 的特征为 0（如 $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$）</li>
+<li>$K$ 的特征为 $p > 0$，且 Frobenius 映射 $x \mapsto x^p$ 是满射（即每个元素都有 $p$ 次根）</li>
+</ul>
+<p><strong>重要例子</strong>：</p>
+<ul>
+<li>所有<strong>有限域</strong> $\mathbb{F}_q$ 都是完美域（因为 $x \mapsto x^q$ 是自同构）</li>
+<li>所有<strong>特征 0 的域</strong>都是完美域</li>
+<li>所有<strong>代数闭域</strong>都是完美域</li>
+</ul>
+<p><strong>为什么重要？</strong> 完美域保证了多项式的不可约因式没有重根（可分性），这对代数几何中的许多定理是必要的。在密码学中，我们主要使用有限域，它们都是完美的，所以这个条件自动满足。</p>
+
+<p><strong>非完美域的例子</strong>（展示其奇特性）：</p>
+<p>考虑域 $K = \mathbb{F}_p(t)$，即特征 $p$ 的有限域 $\mathbb{F}_p$ 上的有理函数域。这<strong>不是</strong>完美域，因为 Frobenius 映射 $x \mapsto x^p$ 不是满射——元素 $t$ 没有 $p$ 次根在 $K$ 中。</p>
+<p><strong>奇特现象</strong>：在 $K = \mathbb{F}_p(t)$ 上，多项式 $x^p - t$ 是不可约的，但它在代数闭包中分解为 $(x - \sqrt[p]{t})^p$——一个有<strong>重根</strong>的不可约多项式！这在完美域中不可能发生。</p>
+<p>这导致了：</p>
+<ul>
+<li>不可分扩张：$K(\sqrt[p]{t})/K$ 是纯不可分的</li>
+<li>微分形式的病态行为</li>
+<li>某些代数几何定理不再成立</li>
+</ul>
+<p style="color: #666; font-size: 0.9em;">幸运的是，有限域 $\mathbb{F}_q$ 没有这些问题——它们是完美的！</p>
+</div>
+
+<!-- ==================== PAGE 34 ==================== -->
+<div class="page-marker">— 34 —</div>
+
+<p>A <span class="vocab" data-tip="除子">divisor</span> $D$ on $E$ is a convenient way to denote a multi-set of points on $E$, written as the formal sum</p>
+
+<div class="equation">
+$$D = \sum_{P \in E(\overline{\mathbb{F}}_q)} n_P (P),$$
+</div>
+
+<p>where all but finitely many $n_P \in \mathbb{Z}$ are zero. The standard parentheses $(\cdot)$ around the $P$'s and the absence of square parentheses $[\cdot]$ around the $n_P$'s is what differentiates the formal sum in a divisor from an actual sum of points (i.e. using the group law) on $E$. The set of all divisors on $E$ is denoted by $\text{Div}_{\mathbb{F}_q}(E)$ and forms a group, where addition of divisors is natural, and the identity is the divisor with all $n_P = 0$, the zero divisor $0 \in \text{Div}_{\mathbb{F}_q}(E)$.</p>
+
+<blockquote><strong>除子</strong>（divisor）$D$ 是表示 $E$ 上点的多重集的便捷方式，写成形式和：
+$$D = \sum_{P \in E(\overline{\mathbb{F}}_q)} n_P (P)$$
+其中除有限多个外，所有 $n_P \in \mathbb{Z}$ 都为零。$P$ 周围的标准圆括号 $(\cdot)$ 和 $n_P$ 周围没有方括号 $[\cdot]$，这是区分除子中的形式和与 $E$ 上点的实际和（即使用群运算）的关键。$E$ 上所有除子的集合记为 $\text{Div}_{\mathbb{F}_q}(E)$，形成一个群。</blockquote>
+
+<div class="note">
+<p><strong>理解除子的关键</strong>：除子是"形式和"，不是群运算！</p>
+<p>• $(P) + (Q)$ 是除子加法，结果仍是除子</p>
+<p>• $P + Q$ 是椭圆曲线群运算，结果是一个点</p>
+<p>• $[n]P$ 是标量乘法，表示 $P$ 加自己 $n$ 次</p>
+<p>• $n(P)$ 是除子中点 $P$ 的系数为 $n$</p>
+</div>
+
+<p>The <span class="vocab" data-tip="度数">degree</span> of a divisor $D$ is $\text{Deg}(D) = \sum_{P \in E(\overline{\mathbb{F}}_q)} n_P$, and the <span class="vocab" data-tip="支撑集">support</span> of $D$, denoted $\text{supp}(D)$, is the set $\text{supp}(D) = \{P \in E(\overline{\mathbb{F}}_q) : n_P \neq 0\}$.</p>
+
+<blockquote>除子 $D$ 的<strong>度数</strong>是 $\text{Deg}(D) = \sum_P n_P$，$D$ 的<strong>支撑集</strong>记为 $\text{supp}(D) = \{P : n_P \neq 0\}$。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 3.0.1</span> (Magma script). Let $P, Q, R, S \in E(\overline{\mathbb{F}}_q)$. Let $D_1 = 2(P) - 3(Q)$, and $D_2 = 3(Q) + (R) - (S)$, so that $\text{Deg}(D_1) = 2 - 3 = -1$, and $\text{Deg}(D_2) = 3 + 1 - 1 = 3$. The sum $D_1 + D_2 = 2(P) + (R) - (S)$, and naturally $\text{Deg}(D_1 + D_2) = \text{Deg}(D_1) + \text{Deg}(D_2) = 2$. The supports are $\text{supp}(D_1) = \{P, Q\}$, $\text{supp}(D_2) = \{Q, R, S\}$, and $\text{supp}(D_1 + D_2) = \{P, R, S\}$.</p>
+
+<blockquote><strong>例 3.0.1</strong>：设 $P, Q, R, S \in E$。令 $D_1 = 2(P) - 3(Q)$，$D_2 = 3(Q) + (R) - (S)$。则 $\text{Deg}(D_1) = -1$，$\text{Deg}(D_2) = 3$。除子和 $D_1 + D_2 = 2(P) + (R) - (S)$，度数 $\text{Deg}(D_1 + D_2) = 2$。支撑集分别是 $\{P, Q\}$、$\{Q, R, S\}$、$\{P, R, S\}$。注意 $Q$ 在 $D_1 + D_2$ 中消失了，因为 $-3 + 3 = 0$。</blockquote>
+</div>
+
+<p>Associating divisors with a function $f$ on $E$ is a convenient way to write down the intersection points (and their multiplicities) of $f$ and $E$. Let $\text{ord}_P(f)$ count the multiplicity of $f$ at $P$, which is positive if $f$ has a zero at $P$, and negative if $f$ has a pole at $P$. We write the <span class="vocab" data-tip="函数的除子">divisor of a function</span> $f$ as $(f)$, and it is defined as the divisor</p>
+
+<div class="equation">
+$$(f) = \sum_{P \in E(\overline{\mathbb{F}}_q)} \text{ord}_P(f)(P).$$
+</div>
+
+<blockquote>将除子与 $E$ 上的函数 $f$ 关联是写下 $f$ 和 $E$ 的交点（及其重数）的便捷方式。令 $\text{ord}_P(f)$ 计算 $f$ 在 $P$ 处的重数：如果 $f$ 在 $P$ 有零点则为正，如果 $f$ 在 $P$ 有极点则为负。我们将函数 $f$ 的<strong>除子</strong>写为 $(f)$，定义为：
+$$(f) = \sum_{P \in E(\overline{\mathbb{F}}_q)} \text{ord}_P(f)(P)$$</blockquote>
+
+<div class="note">
+<p><strong>重要澄清：这里的"函数"是有理函数！</strong></p>
+<p>当我们说"$E$ 上的函数 $f$"时，实际上指的是<strong>有理函数</strong>（rational function），即两个多项式的商：
+$$f(x, y) = \frac{g(x, y)}{h(x, y)}$$
+其中 $g, h$ 是 $x, y$ 的多项式。</p>
+<p>更准确地说，$f$ 是椭圆曲线 $E$ 的<strong>函数域</strong> $\overline{\mathbb{F}}_q(E)$ 的元素。由于 $E$ 上有约束 $y^2 = x^3 + ax + b$，我们可以用它来化简，使得 $f$ 总可以写成：
+$$f(x, y) = \frac{a(x) + b(x)y}{c(x) + d(x)y}$$
+的形式，其中 $a, b, c, d$ 是 $x$ 的多项式。</p>
+<p><strong>关键点</strong>：</p>
+<ul>
+<li>有理函数可以有<strong>零点</strong>（分子为零的点）和<strong>极点</strong>（分母为零的点）</li>
+<li>直线 $\ell : y = \lambda x + \nu$ 可以看作有理函数 $f(x,y) = y - \lambda x - \nu$</li>
+<li>这就是为什么我们能讨论 $\ell$ 与 $E$ 的"交点"——它们是 $f$ 在 $E$ 上的零点</li>
+</ul>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.0.2</span> (Magma script). We have already seen examples of functions on $E$ in the previous section, namely the lines $\ell : y = \lambda x + \nu$ used in the chord-and-tangent rule, and it is natural that we are really only interested in the points of intersection of $\ell$ and $E$, which is exactly what the divisor $(\ell)$ tells us.</p>
+
+<p>The chord $\ell$ in Figure 3.1 intersects $E$ in $P$, $Q$ and $-(P + Q)$, all with multiplicity 1, and (as we will discuss further in a moment) $\ell$ also intersects $E$ with multiplicity $-3$ at $\mathcal{O}$, i.e. $\ell$ has a pole of order 3 at $\mathcal{O}$. Thus, $\ell$ has divisor
+$$(\ell) = (P) + (Q) + (-(P + Q)) - 3(\mathcal{O}).$$</p>
+
+<p>The tangent $\ell$ in Figure 3.2 intersects $E$ with multiplicity 2 at $P$, with multiplicity 1 at $-[2]P$, and again with multiplicity $-3$ at $\mathcal{O}$, so in this case
+$$(\ell) = 2(P) + (-[2]P) - 3(\mathcal{O}).$$</p>
+
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 30px 0;">
+<figure style="text-align: center; margin: 10px;">
+  <img src="images/fig3_1.svg" alt="Figure 3.1" style="max-width: 280px;">
+  <figcaption>Figure 3.1: $(\ell) = (P) + (Q) + (-(P+Q)) - 3(\mathcal{O})$</figcaption>
+</figure>
+<figure style="text-align: center; margin: 10px;">
+  <img src="images/fig3_2.svg" alt="Figure 3.2" style="max-width: 280px;">
+  <figcaption>Figure 3.2: $(\ell) = 2(P) + (-[2]P) - 3(\mathcal{O})$</figcaption>
+</figure>
+</div>
+
+<p>Notice that in both cases we have $\text{Deg}((\ell)) = 0$.</p>
+
+<blockquote><strong>例 3.0.2</strong>：我们已经在前一节看到了 $E$ 上函数的例子，即弦切法中使用的直线 $\ell : y = \lambda x + \nu$。弦 $\ell$（Figure 3.1）在 $P$、$Q$ 和 $-(P+Q)$ 处与 $E$ 相交，重数都是 1，而 $\ell$ 在 $\mathcal{O}$ 处有 3 阶极点。因此：
+$$(\ell) = (P) + (Q) + (-(P+Q)) - 3(\mathcal{O})$$
+切线（Figure 3.2）在 $P$ 处重数为 2，在 $-[2]P$ 处重数为 1，在 $\mathcal{O}$ 处重数为 $-3$：
+$$(\ell) = 2(P) + (-[2]P) - 3(\mathcal{O})$$
+注意两种情况下都有 $\text{Deg}((\ell)) = 0$。</blockquote>
+</div>
+
+<!-- ==================== PAGE 35 ==================== -->
+<div class="page-marker">— 35 —</div>
+
+<p>The balance that occurred between the zeros and poles in Example 3.0.2 that led to $\text{Deg}((\ell)) = 0$ is not a coincidence. In fact, a fundamental result that lies at the heart of the discussion is that this always happens: namely, <strong>for any function $f$ on $E$, we always have $\text{Deg}((f)) = 0$</strong>.</p>
+
+<blockquote>例 3.0.2 中零点和极点之间的平衡导致 $\text{Deg}((\ell)) = 0$，这不是巧合。事实上，一个位于讨论核心的基本结果是这总是发生的：<strong>对于 $E$ 上的任何函数 $f$，我们总有 $\text{Deg}((f)) = 0$</strong>。</blockquote>
+
+<div class="note">
+<p><strong>重要定理</strong>：函数的除子的度数总是零！</p>
+<p>$$\text{Deg}((f)) = 0 \quad \text{对所有函数 } f$$</p>
+<p>直观理解：零点的总数（计重数）等于极点的总数（计重数）。这是因为仿射方程求解 $f$ 在 $E$ 上的零点的次数与射影方程确定 $f$ 在 $\mathcal{O}$ 处极点重数的次数相匹配。</p>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.0.3</span> (Magma script). We already know that three zeros (counting multiplicities) will always arise from substituting $\ell : y = \lambda x + \nu$ into $E/\mathbb{F}_q : y^2 = x^3 + ax + b$, but we have only considered $\ell$ on the affine curve $E \cap \mathbb{A}^2$, where $\ell$ has no poles. To consider $\ell$ on $E$ at $\mathcal{O} = (0 : 1 : 0)$ (in $\mathbb{P}^2(\mathbb{F}_q)$), we need to take $x = X/Z$ and $y = Y/Z$ which gives
+$$\left(\frac{\lambda X + \nu Z}{Z}\right)^2 = \left(\frac{X}{Z}\right)^3 + a\left(\frac{X}{Z}\right) + b,$$
+for which we clearly have a pole of order 3 when $Z = 0$.</p>
+
+<blockquote><strong>例 3.0.3</strong>：我们已经知道将 $\ell : y = \lambda x + \nu$ 代入 $E : y^2 = x^3 + ax + b$ 总会产生三个零点（计重数），但我们只考虑了仿射曲线 $E \cap \mathbb{A}^2$ 上的 $\ell$，那里 $\ell$ 没有极点。要考虑 $\ell$ 在 $\mathcal{O} = (0:1:0)$（在 $\mathbb{P}^2$ 中）处的行为，我们需要取 $x = X/Z$，$y = Y/Z$，当 $Z = 0$ 时显然有 3 阶极点。</blockquote>
+</div>
+
+<p>The algebra between functions naturally translates across to the algebra between their divisors, so $(fg) = (f) + (g)$ and $(f/g) = (f) - (g)$, $(f) = 0$ if and only if $f$ is constant, and thus if $(f) = (g)$, then $(f/g) = 0$ so $f$ is a constant multiple of $g$, which means that the divisor $(f)$ determines $f$ up to non-zero scalar multiples.</p>
+
+<blockquote>函数之间的代数自然地转换为它们除子之间的代数：$(fg) = (f) + (g)$，$(f/g) = (f) - (g)$，$(f) = 0$ 当且仅当 $f$ 是常数。因此<strong>除子 $(f)$ 唯一确定 $f$（相差非零常数倍）</strong>。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 3.0.4</span> (Magma script). Let $\ell : y = \lambda_1 x + \nu_1$ be the chord (through $P$ and $Q$) with divisor $(\ell) = (P) + (Q) + (-(P + Q)) - 3(\mathcal{O})$, and let $\ell' : y = \lambda_2 x + \nu_2$ be the tangent at $R$ with divisor $(\ell') = 2(R) + (-[2]R) - 3(\mathcal{O})$.</p>
+
+<p>The divisor of the function $\ell_{\text{prod}} = \ell \ell'$ is $(\ell_{\text{prod}}) = (\ell) + (\ell') = (P) + (Q) + 2(R) + (-(P + Q)) + (-[2]R) - 6(\mathcal{O})$.</p>
+
+<p>The divisor of $\ell_{\text{quot}} = \ell/\ell'$ is $(\ell_{\text{quot}}) = (\ell) - (\ell') = (P) + (Q) + (-(P + Q)) - 2(R) - (-[2]R)$.</p>
+
+<p>Notice that $\ell_{\text{quot}}$ does not intersect $E$ at $\mathcal{O}$; projectifying $\ell/\ell' = \frac{y - \lambda_1 x + \nu_1}{y - \lambda_2 x + \nu_2}$ gives $\frac{Y - \lambda_1 X + \nu_1 Z}{Y - \lambda_2 X + \nu_2 Z}$, which does not give rise to any zeros or poles at $Z = 0$.</p>
+
+<blockquote><strong>例 3.0.4</strong>：设 $\ell$ 是过 $P, Q$ 的弦，$\ell'$ 是 $R$ 处的切线。函数乘积 $\ell\ell'$ 的除子是 $(\ell) + (\ell')$，商 $\ell/\ell'$ 的除子是 $(\ell) - (\ell')$。注意 $\ell/\ell'$ 在 $\mathcal{O}$ 处没有零点或极点——射影化后分子分母在 $Z=0$ 时都不为零。</blockquote>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig3_3.svg" alt="Figure 3.3" style="max-width: 400px;">
+  <figcaption>Figure 3.3: Two functions $\ell$ and $\ell'$ on $E$</figcaption>
+</figure>
+</div>
+
+<!-- ==================== Section 3.1 ==================== -->
+<h1>3.1 The divisor class group</h1>
+<h2>3.1 除子类群</h2>
+
+<!-- ==================== PAGE 36 ==================== -->
+<div class="page-marker">— 36 —</div>
+
+<p>We can now start introducing important subgroups of the group of divisors $\text{Div}_{\mathbb{F}_q}(E)$ on $E$. We temporarily drop the subscript, and write $\text{Div}(E)$ as the group of all divisors on $E$.</p>
+
+<p>The set of <span class="vocab" data-tip="零度除子">degree zero divisors</span> $\{D \in \text{Div}(E) : \text{Deg}(D) = 0\}$ forms a proper subgroup, which we write as $\text{Div}^0(E) \subset \text{Div}(E)$.</p>
+
+<p>If a divisor $D$ on $E$ is equal to the divisor of a function, i.e. $D = (f)$, then $D$ is called a <span class="vocab" data-tip="主除子">principal divisor</span>, and the set of principal divisors naturally form a group, written as $\text{Prin}(E)$.</p>
+
+<p>We already know (from Example 3.0.3 and the preceding discussion) that principal divisors have degree zero, but there are also degree zero divisors that are not the divisors of a function, so the degree zero subgroup is strictly larger than the principal divisors, i.e. $\text{Prin}(E) \subset \text{Div}^0(E)$.</p>
+
+<blockquote>我们现在开始介绍 $E$ 上除子群 $\text{Div}(E)$ 的重要子群：
+<ul>
+<li><strong>零度除子</strong>：$\text{Div}^0(E) = \{D \in \text{Div}(E) : \text{Deg}(D) = 0\}$</li>
+<li><strong>主除子</strong>：如果 $D = (f)$ 对某函数 $f$，则 $D$ 是主除子，所有主除子形成群 $\text{Prin}(E)$</li>
+</ul>
+由于函数的除子总是零度的，我们有 $\text{Prin}(E) \subset \text{Div}^0(E)$。</blockquote>
+
+<!-- ==================== PAGE 37 ==================== -->
+<div class="page-marker">— 37 —</div>
+
+<p>There is, however, an extra condition on elements of $\text{Div}^0(E)$ that does allow us to write an "if-and-only-if":</p>
+
+<div class="theorem">
+<p><strong>定理</strong>：$D = \sum_P n_P(P) \in \text{Div}^0(E)$ 是主除子当且仅当 $\sum_P [n_P]P = \mathcal{O}$ 在 $E$ 上（使用群运算）。</p>
+</div>
+
+<p>We illustrate this statement, and the relationship between the three groups</p>
+
+<div class="equation">
+$$\text{Prin}(E) \subset \text{Div}^0(E) \subset \text{Div}(E) \tag{3.1}$$
+</div>
+
+<p>in Example 3.1.1.</p>
+
+<div class="note">
+<p><strong>理解主除子的关键判定准则</strong></p>
+<p>对于零度除子 $D = \sum_P n_P(P)$：</p>
+<p>$$D \text{ 是主除子} \iff \sum_P [n_P]P = \mathcal{O} \text{（在椭圆曲线群中）}$$</p>
+<p>这是形式和与群运算之间的桥梁！</p>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.1.1</span> (Magma script). Consider $E/\mathbb{F}_{103} : y^2 = x^3 + 20x + 20$, with points $P = (26, 20)$, $Q = (63, 78)$, $R = (59, 95)$, $S = (24, 25)$, $T = (77, 84)$, $U = (30, 99)$ all on $E$.</p>
+
+<p><strong>1.</strong> The divisor $(S) + (T) - (P) \in \text{Div}(E)$ is clearly not in the subgroup $\text{Div}^0(E)$, since it has degree 1.</p>
+
+<p><strong>2.</strong> The divisor $(P) + (Q) - (R) - (S)$ is in $\text{Div}^0(E)$, but is <em>not principal</em> since $P + Q - R - S = (18, 49) \neq \mathcal{O}$ on $E$. Thus, a function $f$ with $(f) = (P) + (Q) - (R) - (S)$ does not exist.</p>
+
+<p><strong>3.</strong> On the other hand, the divisor $(P) + (Q) - (R) - (T)$ <em>is principal</em>, since it is degree 0 and $P + Q - R - T = \mathcal{O}$ on $E$. Thus, there is some function $f$ on $E$ such that $(f) = (P) + (Q) - (R) - (T)$; it is $f = \frac{6y + 71x^2 + 91x + 91}{x^2 + 70x + 11}$.</p>
+
+<p><strong>4.</strong> The sum $R + T$ on $E$ is actually $U$, thus $P + Q - U = \mathcal{O}$ on $E$, but this time there is no function with divisor $(P) + (Q) - (U)$ because the degree of this divisor is not zero; however, we can keep the sum on $E$ as $\mathcal{O}$ but manipulate the degree by instead taking the divisor $(P) + (Q) - (U) - (\mathcal{O})$, which must be in $\text{Prin}(E)$, guaranteeing the existence of a function $g$ with $(g) = (P) + (Q) - (U) - (\mathcal{O})$, namely $g = \frac{y + 4x + 82}{x + 73}$.</p>
+
+<blockquote><strong>例 3.1.1</strong>：考虑 $E/\mathbb{F}_{103} : y^2 = x^3 + 20x + 20$。
+<ol>
+<li>$(S) + (T) - (P)$ 不在 $\text{Div}^0(E)$ 中（度数为 1）</li>
+<li>$(P) + (Q) - (R) - (S)$ 在 $\text{Div}^0(E)$ 中但<strong>不是主除子</strong>，因为 $P + Q - R - S \neq \mathcal{O}$</li>
+<li>$(P) + (Q) - (R) - (T)$ <strong>是主除子</strong>，因为 $P + Q - R - T = \mathcal{O}$，对应函数 $f = \frac{6y + 71x^2 + 91x + 91}{x^2 + 70x + 11}$</li>
+<li>$(P) + (Q) - (U) - (\mathcal{O})$ 是主除子（因为 $P + Q - U = \mathcal{O}$），对应函数 $g = \frac{y + 4x + 82}{x + 73}$</li>
+</ol></blockquote>
+</div>
+
+<p>Before we define the divisor class group of $E$, we look at the important notion of <span class="vocab" data-tip="除子等价">divisor equivalence</span> in $\text{Div}(E)$. We call the divisors $D_1$ and $D_2$ <strong>equivalent</strong>, written as $D_1 \sim D_2$, if $D_1 = D_2 + (f)$ for some function $f$.</p>
+
+<blockquote>在定义除子类群之前，我们看看<strong>除子等价</strong>的重要概念。如果 $D_1 = D_2 + (f)$ 对某函数 $f$，则称除子 $D_1$ 和 $D_2$ <strong>等价</strong>，记为 $D_1 \sim D_2$。</blockquote>
+
+<!-- ==================== PAGE 38 ==================== -->
+<div class="page-marker">— 38 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.1.2</span> (Magma script). Consider $P = (57, 24)$, $Q = (25, 37)$, $R = (17, 32)$ and $S = (42, 35)$ on $E/\mathbb{F}_{61} : y^2 = x^3 + 8x + 1$. The divisors $D_1 = (P) + (Q) + (R)$ and $D_2 = 4(\mathcal{O}) - (S)$ are equivalent as follows.</p>
+
+<p>The function $f : y = 33x^2 + 10x + 24$, which intersects $E$ at $P, Q, R$ and $S$ with multiplicity 1, and therefore has a pole of order 4 at infinity, has divisor $(f) = (P) + (Q) + (R) + (S) - 4(\mathcal{O})$, meaning $D_1 = D_2 + (f)$, so $D_1 \sim D_2$.</p>
+
+<p>Alternatively, if we did not want to find $f$, we could have used $D_1 - D_2 = (P) + (Q) + (R) + (S) - 4(\mathcal{O})$, which has degree zero, and computed that $P + Q + R + S - [4]\mathcal{O} = \mathcal{O}$ on $E$, which means $D_1 - D_2 \in \text{Prin}(E)$, so that $D_1 - D_2 = (f)$ for some function $f$.</p>
+
+<blockquote><strong>例 3.1.2</strong>：$D_1 = (P) + (Q) + (R)$ 和 $D_2 = 4(\mathcal{O}) - (S)$ 是等价的。函数 $f : y = 33x^2 + 10x + 24$ 在 $P, Q, R, S$ 处与 $E$ 相交，在无穷远有 4 阶极点，所以 $(f) = (P) + (Q) + (R) + (S) - 4(\mathcal{O})$，从而 $D_1 = D_2 + (f)$，即 $D_1 \sim D_2$。</blockquote>
+</div>
+
+<p>The <span class="vocab" data-tip="除子类群/Picard群">divisor class group</span>, or <strong>Picard group</strong>, of $E$ is defined as the quotient group</p>
+
+<div class="equation">
+$$\text{Pic}^0(E) = \text{Div}^0(E) / \text{Prin}(E), \tag{3.2}$$
+</div>
+
+<p>i.e. the divisor class group is the group of all degree zero divisors modulo the principal divisors on $E$.</p>
+
+<blockquote><strong>除子类群</strong>（或<strong>Picard 群</strong>）定义为商群：
+$$\text{Pic}^0(E) = \text{Div}^0(E) / \text{Prin}(E)$$
+即所有零度除子模掉主除子。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 3.1.3</span> (Magma script). Referring back to Figure 2.5 (or Figure 2.6 in the case that $Q = P$), the line $\ell$ joining $P$ and $Q$ has divisor $(\ell) = (P) + (Q) + (-R) - 3(\mathcal{O})$, whilst the vertical line $v = x - x_R$ has divisor $(v) = (-R) + (R) - 2(\mathcal{O})$.</p>
+
+<p>The quotient $\frac{\ell}{v}$ has divisor $\left(\frac{\ell}{v}\right) = (P) + (Q) - (R) - (\mathcal{O})$.</p>
+
+<p>Thus, the equation $R = P + Q$ on $E$ is the same as the divisor equality
+$$(R) - (\mathcal{O}) = (P) - (\mathcal{O}) + (Q) - (\mathcal{O}) - \left(\frac{\ell}{v}\right),$$
+and the map of points to divisor classes $P \mapsto (P) - (\mathcal{O})$ is a group homomorphism.</p>
+
+<blockquote><strong>例 3.1.3</strong>：直线 $\ell$ 过 $P, Q$，除子 $(\ell) = (P) + (Q) + (-R) - 3(\mathcal{O})$；垂线 $v = x - x_R$ 的除子 $(v) = (-R) + (R) - 2(\mathcal{O})$。商 $\ell/v$ 的除子是 $(P) + (Q) - (R) - (\mathcal{O})$。<br><br>
+椭圆曲线上的等式 $R = P + Q$ 在除子语言中变成：
+$$(R) - (\mathcal{O}) = (P) - (\mathcal{O}) + (Q) - (\mathcal{O}) \quad \text{在 } \text{Pic}^0(E) \text{ 中}$$
+映射 $P \mapsto (P) - (\mathcal{O})$ 是群同态！</blockquote>
+</div>
+
+<div class="note">
+<p><strong>关键结论：椭圆曲线群与除子类群同构</strong></p>
+<p>映射 $\phi: E(\overline{\mathbb{F}}_q) \to \text{Pic}^0(E)$ 定义为 $P \mapsto (P) - (\mathcal{O})$ 是群同构。</p>
+<p>这意味着：</p>
+<ul>
+<li>椭圆曲线上的点可以用除子类来表示</li>
+<li>群运算 $P + Q = R$ 对应于除子等价 $(P) + (Q) - (R) - (\mathcal{O}) \sim 0$</li>
+<li>这是椭圆曲线的特殊性质（亏格 $g = 1$）</li>
+</ul>
+</div>
+
+<!-- ==================== Section 3.2 ==================== -->
+<h1>3.2 A consequence of the Riemann-Roch Theorem</h1>
+<h2>3.2 Riemann-Roch 定理的推论</h2>
+
+<!-- ==================== PAGE 39 ==================== -->
+<div class="page-marker">— 39 —</div>
+
+<p>The notion of equivalence allows us to <em>reduce</em> divisors of any size $D \in \text{Pic}^0(E)$ into much smaller divisors. We will make this statement precise after an example, but we must first define what we mean by "size".</p>
+
+<p>A divisor $D = \sum_P n_P(P)$ is called <span class="vocab" data-tip="有效除子">effective</span> if $n_P \geq 0$ for all $P \in E$. The only divisor in $\text{Div}^0(E)$ that is effective is the zero divisor.</p>
+
+<p>Thus, we define the <span class="vocab" data-tip="有效部分">effective part</span> of a divisor $D$ as $\epsilon(D) = \sum_P n_P(P)$, where $n_P \geq 0$. For example, the divisor $D = (P) + (Q) - 2(\mathcal{O})$ is not effective, but the effective part is $\epsilon(D) = (P) + (Q)$.</p>
+
+<p>By the <strong>size</strong> of $D$, we mean the degree of the effective part, so in our example, although $\text{Deg}(D) = 0$, it is size 2, since $\text{Deg}(\epsilon(D)) = 2$.</p>
+
+<blockquote>等价的概念允许我们将任意大小的除子 $D \in \text{Pic}^0(E)$ <strong>约化</strong>为更小的除子。
+<ul>
+<li><strong>有效除子</strong>：所有系数 $n_P \geq 0$</li>
+<li><strong>有效部分</strong> $\epsilon(D)$：只取正系数的项</li>
+<li><strong>大小</strong>：有效部分的度数 $\text{Deg}(\epsilon(D))$</li>
+</ul>
+例如，$D = (P) + (Q) - 2(\mathcal{O})$ 的大小是 2（虽然 $\text{Deg}(D) = 0$）。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 3.2.1</span> (Magma script). Consider the divisor $D = (P_1) + \ldots + (P_{11}) - 11(\mathcal{O})$ (with $\text{Deg}(\epsilon(D)) = 11$) as an element of $\text{Pic}^0(E)$ on $E/\mathbb{F}_q : y^2 = x^3 + ax + b$, where the $P_i$ are not necessarily distinct.</p>
+
+<p>To find a divisor that is equivalent to $D$, we can construct function $\ell_{10} : y = a_{10}x^{10} + \ldots + a_1x + a_0$ to interpolate the distinct points in $\text{supp}(D)$ with appropriate multiplicities. Substituting $\ell_{10}$ into $E$ gives a degree 20 polynomial in $x$, the roots of which reveals the 20 affine points of intersection (counting multiplicities) between $\ell_{10}$ and $E$. We already know 11 of these points (the $P_i$'s), so let $P'_1, \ldots, P'_9$ be the other 9.</p>
+
+<p>Since $(\ell_{10}) = \sum_{i=1}^{11}(P_i) + \sum_{i=1}^9(P'_i) - 20(\mathcal{O}) \in \text{Prin}(E)$, $D' = -(\sum_{i=1}^9(P'_i) - 9(\mathcal{O}))$ is a divisor equivalent to $D$ in $\text{Pic}^0(E)$, i.e. $D' \sim D$.</p>
+
+<p>We can repeat this process... It is easy to infer that the number of new roots (maximum number of divisors in the consecutive supports) decreases each time by two, so that in a few more steps we will arrive at $\tilde{D} = (\tilde{P}_1) + (\tilde{P}_2) + (\tilde{P}_3) - 3(\mathcal{O})$.</p>
+
+<p>We can interpolate the three points in $\text{supp}(\tilde{D})$ with a quadratic function $\tilde{\ell} : y = \tilde{a}_2x^2 + \tilde{a}_1x + \tilde{a}_0$ that clearly intersects $E$ at one more affine point, say $Q$. That is, $(\tilde{\ell}) = (\tilde{P}_1) + (\tilde{P}_2) + (\tilde{P}_3) + (Q) - 4(\mathcal{O})$, and since $(\tilde{\ell}) \in \text{Prin}(E)$, then $\tilde{D} \sim (\mathcal{O}) - (Q)$.</p>
+
+<p>Lastly, the vertical line $\tilde{v}$ has divisor $(\tilde{v}) = (Q) + (R) - 2(\mathcal{O})$, meaning $(\mathcal{O}) - (Q) \sim (R) - (\mathcal{O})$, which gives $\tilde{D} \sim (R) - (\mathcal{O})$.</p>
+
+<p><strong>To summarise</strong>, we started with a divisor $D = (P_1) + \ldots + (P_{11}) - 11(\mathcal{O})$ which had size 11, and reduced to the equivalent divisor $(R) - (\mathcal{O}) \sim D$ in $\text{Pic}^0(E)$ which has size 1.</p>
+
+<blockquote><strong>例 3.2.1</strong>：除子约化的详细过程
+
+<p><strong>起点</strong>：$D = (P_1) + \ldots + (P_{11}) - 11(\mathcal{O})$，大小为 11。</p>
+
+<p><strong>第一步：构造 10 次多项式插值</strong></p>
+<ul>
+<li>构造函数 $\ell_{10} : y = a_{10}x^{10} + \ldots + a_0$，使其通过 $P_1, \ldots, P_{11}$（考虑重数）</li>
+<li>将 $\ell_{10}$ 代入 $E: y^2 = x^3 + ax + b$，得到 $x$ 的 20 次多项式</li>
+<li>这意味着 $\ell_{10}$ 与 $E$ 有 20 个交点（计重数），在 $\mathcal{O}$ 处有 20 阶极点</li>
+<li>我们已知 11 个交点（$P_1, \ldots, P_{11}$），设另外 9 个为 $P'_1, \ldots, P'_9$</li>
+<li>函数的除子：$(\ell_{10}) = \sum_{i=1}^{11}(P_i) + \sum_{i=1}^{9}(P'_i) - 20(\mathcal{O})$</li>
+<li>由于 $(\ell_{10}) \in \text{Prin}(E)$（主除子），在 $\text{Pic}^0(E)$ 中等于零</li>
+<li>因此 $D = \sum_{i=1}^{11}(P_i) - 11(\mathcal{O}) \sim -\sum_{i=1}^{9}(P'_i) + 9(\mathcal{O})$</li>
+<li><strong>大小从 11 变为 9</strong></li>
+</ul>
+
+<p><strong>重复这个过程</strong>：</p>
+<ul>
+<li>大小 9 → 用 8 次多项式插值 → 与 $E$ 有 16 个交点 → 新增 7 个点 → <strong>大小变为 7</strong></li>
+<li>大小 7 → 用 6 次多项式插值 → 与 $E$ 有 12 个交点 → 新增 5 个点 → <strong>大小变为 5</strong></li>
+<li>大小 5 → 用 4 次多项式插值 → 与 $E$ 有 8 个交点 → 新增 3 个点 → <strong>大小变为 3</strong></li>
+</ul>
+
+<p><strong>最后几步（见 Figure 3.4）</strong>：</p>
+<ul>
+<li>现在 $\tilde{D} = (\tilde{P}_1) + (\tilde{P}_2) + (\tilde{P}_3) - 3(\mathcal{O})$，大小为 3</li>
+<li>用二次函数 $\tilde{\ell} : y = \tilde{a}_2 x^2 + \tilde{a}_1 x + \tilde{a}_0$ 通过这 3 个点</li>
+<li>$\tilde{\ell}$ 与 $E$ 有 4 个交点，设第 4 个为 $Q$</li>
+<li>$(\tilde{\ell}) = (\tilde{P}_1) + (\tilde{P}_2) + (\tilde{P}_3) + (Q) - 4(\mathcal{O})$</li>
+<li>因此 $\tilde{D} \sim (\mathcal{O}) - (Q)$（大小仍为 1，但"反向"了）</li>
+</ul>
+
+<p><strong>用垂线翻转</strong>：</p>
+<ul>
+<li>垂线 $\tilde{v} : x = x_Q$ 的除子是 $(\tilde{v}) = (Q) + (R) - 2(\mathcal{O})$，其中 $R = -Q$</li>
+<li>因此 $(\mathcal{O}) - (Q) \sim (R) - (\mathcal{O})$</li>
+</ul>
+
+<p><strong>结论</strong>：$D \sim (R) - (\mathcal{O})$，从大小 11 约化到大小 1！</p>
+
+<p><em>关键观察</em>：每次用 $n$ 次多项式插值 $k$ 个点，与 $E$ 交 $2n$ 个点，新增 $2n - k$ 个点。当 $k$ 是奇数时，$2n - k$ 也是奇数，所以每轮大小减少 2。</p>
+</blockquote>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig3_4.svg" alt="Figure 3.4" style="max-width: 350px;">
+  <figcaption>Figure 3.4: Reducing $\tilde{D}$ to $(R) - (\mathcal{O})$ in $\text{Pic}^0(E)$</figcaption>
+</figure>
+</div>
+
+<!-- ==================== PAGE 40 ==================== -->
+<div class="page-marker">— 40 —</div>
+
+<p>The above example illustrates a key consequence of one of the most central theorems in our study: the <span class="vocab" data-tip="Riemann-Roch 定理">Riemann-Roch theorem</span>.</p>
+
+<div class="theorem">
+<p><strong>Riemann-Roch 定理的关键推论</strong></p>
+<p>对于任何曲线 $C$，存在唯一的最小整数 $g$，称为 $C$ 的<strong>亏格</strong>（genus），使得任何除子 $D \in \text{Pic}^0(C)$ 等价于某个除子 $D'$，满足 $\text{Deg}(\epsilon(D')) \leq g$。</p>
+<p><strong>椭圆曲线的亏格是 $g = 1$</strong>，意味着 $\text{Pic}^0(E)$ 中的每个除子都可以写成 $(P) - (\mathcal{O})$ 的形式！</p>
+</div>
+
+<blockquote>这就是为什么在例 3.2.1 中我们能将除子约化到 $(R) - (\mathcal{O})$。椭圆曲线是亏格 1 的曲线，每个除子类都有唯一的约化代表 $(P) - (\mathcal{O})$。</blockquote>
+
+<p>We will only be dealing with elliptic curves in this text, since they have proved most successful in the context of pairings, but for now it aids one's understanding to see where elliptic curves fit in a slightly broader context.</p>
+
+<p>Assuming an odd characteristic field, a general ("imaginary quadratic") hyperelliptic curve of genus $g$ is a generalisation of an elliptic curve, which can be written as</p>
+
+<div class="equation">
+$$C_g : y^2 = x^{2g+1} + f_{2g}x^{2g} + \ldots + f_1x + f_0. \tag{3.3}$$
+</div>
+
+<p>Each divisor $D \in \text{Pic}^0(C_g)$ has a unique reduced representative of the form
+$$(P_1) + (P_2) + \ldots + (P_n) - n(\mathcal{O}),$$
+where $n \leq g$, $P_i \neq -P_j$ for all $i \neq j$, and no $P_i$ satisfying $P_i = -P_i$ appears more than once.</p>
+
+<blockquote>超椭圆曲线 $C_g : y^2 = x^{2g+1} + \ldots$ 是椭圆曲线的推广：
+<ul>
+<li>$g = 1$（椭圆曲线）：$y^2 = x^3 + ax + b$，约化除子形式 $(P) - (\mathcal{O})$</li>
+<li>$g = 2$：$y^2 = x^5 + \ldots$，约化除子形式 $(P_1) + (P_2) - 2(\mathcal{O})$</li>
+<li>$g = 3$：$y^2 = x^7 + \ldots$，约化除子形式 $(P_1) + (P_2) + (P_3) - 3(\mathcal{O})$</li>
+</ul></blockquote>
+
+<!-- ==================== PAGE 41-42 ==================== -->
+<div class="page-marker">— 41-42 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.2.2</span> (Magma script). A general (odd characteristic field) hyperelliptic curve of genus $g = 2$ is given as $C_2 : y^2 = x^5 + f_4x^4 + \ldots + f_0$.</p>
+
+<p>Suppose we have a divisor $D = (P_1) + (P_2) + (P_3) + (P_4) - 4(\mathcal{O}) \in \text{Pic}^0(C_2)$. The Riemann-Roch theorem guarantees a (unique) equivalent divisor of the form $(P'_1) + (P'_2) - 2(\mathcal{O})$.</p>
+
+<p>We find it by constructing the cubic function $\ell : y = a_3x^3 + \ldots + a_0$ that has 4 zeros corresponding to the effective part of $D$, and therefore 4 poles at $\mathcal{O}$. Substitution of $\ell$ into $E$ reveals two more points of intersection, $\bar{P}_1$ and $\bar{P}_2$. Since $(\ell) \in \text{Prin}(C_2)$, we get $D \sim 2(\mathcal{O}) - (\bar{P}_1) - (\bar{P}_2)$, and using vertical lines we can reverse to get $D \sim (P'_1) + (P'_2) - 2(\mathcal{O})$.</p>
+
+<blockquote><strong>例 3.2.2</strong>（亏格 2）：从 $D = (P_1) + (P_2) + (P_3) + (P_4) - 4(\mathcal{O})$ 约化到 $(P'_1) + (P'_2) - 2(\mathcal{O})$。</blockquote>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig3_5.svg" alt="Figure 3.5" style="max-width: 380px;">
+  <figcaption>Figure 3.5: Reducing $D = \sum_{i=1}^4((P_i) - (\mathcal{O}))$ to $D' = \sum_{i=1}^2((P'_i) - (\mathcal{O})) \sim D$</figcaption>
+</figure>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.2.3</span> (Magma script). Consider a general genus 3 hyperelliptic curve $C_3 : y^2 = x^7 + f_6x^6 + \ldots + f_0$.</p>
+
+<p>Consider the divisor $D = \sum_{i=1}^6((P_i) - (\mathcal{O})) \in \text{Pic}^0(C_3)$. We reduce $D$ by determining the other points of intersection between the quintic interpolator $\ell : y = a_5x^5 + \ldots + a_0$ and $C_3$, of which there are 4.</p>
+
+<p>Since the degree of the effective part is still larger than $g$, obtaining the unique reduced divisor requires further reduction. Namely, the cubic function interpolates the four points and intersects $C_3$ in another 3 affine points. Thus, $D \sim D' = \sum_{i=1}^3((P'_i) - (\mathcal{O}))$ in the divisor class group, and $D'$ is the unique representative of $D$ since $\text{Deg}(\epsilon(D')) = 3 \leq g$.</p>
+
+<blockquote><strong>例 3.2.3</strong>（亏格 3）：从大小为 6 的除子约化到大小为 3 的除子（等于亏格）。</blockquote>
+
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 30px 0;">
+<figure style="text-align: center; margin: 10px; flex: 1; min-width: 280px;">
+  <img src="images/fig3_6.svg" alt="Figure 3.6" style="max-width: 320px;">
+  <figcaption>Figure 3.6: First stage of reducing $D = \sum_{i=1}^6((P_i) - (\mathcal{O}))$</figcaption>
+</figure>
+<figure style="text-align: center; margin: 10px; flex: 1; min-width: 280px;">
+  <img src="images/fig3_7.svg" alt="Figure 3.7" style="max-width: 320px;">
+  <figcaption>Figure 3.7: Second (final) stage of divisor reduction</figcaption>
+</figure>
+</div>
+</div>
+
+<!-- ==================== PAGE 43 ==================== -->
+<div class="page-marker">— 43 —</div>
+
+<p>The elliptic curve group law enjoys a (relatively speaking) very simple, almost entirely elementary description, the only exception being the introduction of projective space for the formal definition of $\mathcal{O}$. Namely, we were able to describe the chord-and-tangent rule without the language of divisors or the definition of the divisor class group, which is not the case for other curves or general abelian varieties.</p>
+
+<p>This is because of the one-to-one correspondence between the divisor class group $\text{Pic}^0(E)$ and the points on $E$, i.e. the group homomorphism $P \mapsto (P) - (\mathcal{O})$. Thus, in the elliptic curve setting, we can simply talk about the group elements being points, rather than divisors. In higher genera this does not happen; group elements are no longer points, but rather divisor classes in $\text{Pic}^0(E)$ with multiple elements in their support.</p>
+
+<blockquote>椭圆曲线群运算有一个（相对来说）非常简单的描述——弦切法，不需要除子语言。这是因为 $\text{Pic}^0(E)$ 与 $E$ 上的点一一对应。在椭圆曲线设置中，群元素就是点。<br><br>
+但在更高亏格中，群元素不再是点，而是支撑集中有多个元素的除子类。这就是为什么配对密码学中主要使用椭圆曲线（亏格 1）。</blockquote>
+
+<p>Nevertheless, as we will see in the coming chapters, <strong>the language of divisors is absolutely essential in the description of elliptic curve pairings</strong>, where the objective is to compute very large (degree) functions on $E$ with prescribed divisors, and then evaluate these functions at other divisors.</p>
+
+<p>Evaluating a function $f \in \mathbb{F}_q(E)$ at a divisor $D = \sum_{P \in E} n_P(P)$ has a natural definition, provided the divisors $(f)$ and $D$ have disjoint supports:</p>
+
+<div class="equation">
+$$f(D) = \prod_{P \in E} f(P)^{n_P}. \tag{3.4}$$
+</div>
+
+<p>The stipulation of disjoint supports is clearly necessary for $f(D)$ to be non-trivial, since $P \in \text{supp}((f))$ implies $P$ is a zero or pole of $f$ on $E$, meaning $f(P)^{n_P}$ would be either zero or infinity respectively.</p>
+
+<div class="note">
+<p><strong>函数在除子处的求值（详解）</strong></p>
+
+<p>设 $f$ 是 $E$ 上的有理函数，$D = \sum_P n_P(P)$ 是除子。<strong>函数 $f$ 在除子 $D$ 处的求值</strong>定义为：</p>
+$$f(D) = \prod_{P \in E} f(P)^{n_P}$$
+
+<p><strong>具体计算方式</strong>：</p>
+<ul>
+<li>对于 $D$ 中每个系数非零的点 $P$，计算 $f(P)$（将 $P$ 的坐标代入 $f$）</li>
+<li>将 $f(P)$ 取 $n_P$ 次幂（如果 $n_P < 0$，则取倒数）</li>
+<li>将所有这些值乘起来</li>
+</ul>
+
+<p><strong>例子</strong>：设 $f(x,y) = y - 3x + 5$，$D = 2(P) - (Q) + (R)$，其中 $P = (1, 2)$，$Q = (3, 4)$，$R = (0, 1)$。则：</p>
+$$f(D) = f(P)^2 \cdot f(Q)^{-1} \cdot f(R)^1 = (2 - 3 + 5)^2 \cdot (4 - 9 + 5)^{-1} \cdot (1 - 0 + 5)^1 = 16 \cdot 0^{-1} \cdot 6$$
+<p>糟糕！$f(Q) = 0$，所以 $f(Q)^{-1}$ 无定义。这就是为什么需要<strong>支撑集不相交</strong>的条件。</p>
+
+<p><strong>支撑集不相交条件</strong>：$\text{supp}((f)) \cap \text{supp}(D) = \emptyset$</p>
+<ul>
+<li>$(f)$ 的支撑集是 $f$ 的零点和极点</li>
+<li>如果 $P$ 是 $f$ 的零点，则 $f(P) = 0$，若 $n_P < 0$ 则 $f(P)^{n_P} = \infty$</li>
+<li>如果 $P$ 是 $f$ 的极点，则 $f(P) = \infty$，若 $n_P > 0$ 则 $f(P)^{n_P} = \infty$</li>
+<li>只有当 $D$ 中的点都不是 $f$ 的零点或极点时，$f(D)$ 才是有限非零值</li>
+</ul>
+
+<p><strong>为什么这对配对重要？</strong></p>
+<p>椭圆曲线配对（如 Weil 配对、Tate 配对）的核心计算就是：</p>
+$$e(P, Q) = \frac{f_P(D_Q)}{f_Q(D_P)}$$
+<p>其中 $f_P$ 是满足特定除子条件的函数，$D_Q$ 是与 $Q$ 相关的除子。整个配对理论建立在"函数在除子处求值"这个操作上！</p>
+
+<p><strong>重要性质</strong>：如果 $\text{Deg}(D) = 0$，则 $f(D) = (cf)(D)$ 对任何常数 $c \neq 0$。</p>
+<p>证明：$(cf)(D) = \prod_P (cf(P))^{n_P} = c^{\sum_P n_P} \cdot \prod_P f(P)^{n_P} = c^0 \cdot f(D) = f(D)$。</p>
+<p>这说明对于零度除子，函数在除子处的求值只依赖于函数的除子 $(f)$，而不依赖于函数的具体表达式（相差常数倍不影响结果）。</p>
+</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.2.4</span> (Magma script). Consider $E/\mathbb{F}_{163} : y^2 = x^3 - x - 2$, with $P = (43, 154)$, $Q = (46, 38)$, $R = (12, 35)$ and $S = (5, 66)$ all on $E$.</p>
+
+<p>Let $\ell_{P,Q}, \ell_{P,P}$ and $\ell_{Q,Q}$ be the lines joining $P$ and $Q$, tangent to $P$, and tangent to $Q$ on $E$ respectively, computed as $\ell_{P,Q} : y + 93x + 85$, $\ell_{P,P} : y + 127x + 90$, $\ell_{Q,Q} : y + 13x + 16$.</p>
+
+<p>Let $D_1 = 2(R) + (S)$, $D_2 = 3(R) - 3(S)$ and $D_3 = (R) + (S) - 2(\mathcal{O})$.</p>
+
+<p>We can compute $\ell_{P,Q}(D_1) = (y_R + 93x_R + 85)^2(y_S + 93x_S + 85) = 122$, or $\ell_{P,P}(D_2) = (y_R + 127x_R + 90)^3/(y_S + 127x_S + 90)^3 = 53$.</p>
+
+<p>But we can not evaluate any of these functions at $D_3$, since $\mathcal{O} \in \text{supp}(D_3)$, and $\mathcal{O}$ is also in the supports of $(\ell_{P,Q}), (\ell_{P,P}), (\ell_{Q,Q})$.</p>
+
+<p>Let $\ell'_{P,P} = 17\ell_{P,P}$ so that $\ell'_{P,P} = 17y + 40x + 63$, and $\ell'_{P,P}(D_2) = (17y_R + 40x_R + 63)^3/(17y_S + 40x_S + 63)^3 = 53 = \ell_{P,P}(D_2)$.</p>
+
+<p>This is true in general, i.e. that if $g = cf$ for some constant $c \in \mathbb{F}_q$, then $f(D) = g(D)$ if $D$ has degree zero; the constant $c$ will cancel out because $\text{Deg}(D) = 0$ implies the numerator and denominator of $f(D)$ (identically $g(D)$) have the same total degree.</p>
+
+<blockquote><strong>例 3.2.4</strong>：函数 $\ell_{P,Q}(D_1) = 122$，$\ell_{P,P}(D_2) = 53$。但不能在 $D_3 = (R) + (S) - 2(\mathcal{O})$ 处求值，因为 $\mathcal{O}$ 同时在函数的除子和 $D_3$ 的支撑集中。<br><br>
+<strong>重要性质</strong>：如果 $\text{Deg}(D) = 0$，则 $f(D) = (cf)(D)$ 对任何常数 $c$——常数会抵消！</blockquote>
+</div>
+
+<!-- ==================== Section 3.3 ==================== -->
+<h1>3.3 Weil reciprocity</h1>
+<h2>3.3 Weil 互反律</h2>
+
+<!-- ==================== PAGE 44 ==================== -->
+<div class="page-marker">— 44 —</div>
+
+<p>We conclude our chapter on divisors with a central theorem that lies at the heart of many of the proofs of cryptographic pairing properties.</p>
+
+<div class="theorem">
+<p><strong>Theorem 3.1 (Weil reciprocity / Weil 互反律)</strong></p>
+<p>Let $f$ and $g$ be non-zero functions on a curve such that $(f)$ and $(g)$ have disjoint supports. Then</p>
+$$f((g)) = g((f)).$$
+</div>
+
+<blockquote><strong>Weil 互反律</strong>是配对理论证明中的核心定理。它说的是：如果两个函数的除子支撑集不相交，则用一个函数在另一个函数的除子处求值，结果与交换两者相同。</blockquote>
+
+<div class="note">
+<p><strong>Weil 互反律的直观理解：结式（Resultant）的对称性</strong></p>
+
+<p>这个定理初看很神奇——为什么交换 $f$ 和 $g$ 的角色会得到相同的结果？最好的理解方式是通过<strong>结式</strong>的对称性。</p>
+
+<p><strong>什么是结式？</strong></p>
+<p>给定两个多项式 $f$ 和 $g$，它们的<strong>结式</strong> $\text{Res}(f, g)$ 是一个数，满足：</p>
+$$\text{Res}(f, g) = \prod_{\alpha: f(\alpha)=0} g(\alpha) = \prod_{\beta: g(\beta)=0} f(\beta)$$
+<p>即：在 $f$ 的所有零点处求 $g$ 的值并相乘 = 在 $g$ 的所有零点处求 $f$ 的值并相乘。</p>
+
+<p><strong>具体例子：</strong></p>
+<p>设 $f(x) = (x-1)(x-2) = x^2 - 3x + 2$，零点是 $1, 2$。</p>
+<p>设 $g(x) = (x-3)(x-4) = x^2 - 7x + 12$，零点是 $3, 4$。</p>
+
+<p><strong>方法一</strong>：在 $f$ 的零点处求 $g$ 的值：</p>
+$$g(1) \cdot g(2) = [(1-3)(1-4)] \cdot [(2-3)(2-4)] = [(-2)(-3)] \cdot [(-1)(-2)] = 6 \cdot 2 = 12$$
+
+<p><strong>方法二</strong>：在 $g$ 的零点处求 $f$ 的值：</p>
+$$f(3) \cdot f(4) = [(3-1)(3-2)] \cdot [(4-1)(4-2)] = [(2)(1)] \cdot [(3)(2)] = 2 \cdot 6 = 12$$
+
+<p><strong>结果相同！</strong></p>
+
+<p><strong>Sylvester 矩阵：为什么结式是对称的？</strong></p>
+<p>结式可以通过 Sylvester 矩阵的行列式计算。对于 $f(x) = x^2 - 3x + 2$ 和 $g(x) = x^2 - 7x + 12$：</p>
+
+$$\text{Syl}(f, g) = \begin{pmatrix} 1 & -3 & 2 & 0 \\ 0 & 1 & -3 & 2 \\ 1 & -7 & 12 & 0 \\ 0 & 1 & -7 & 12 \end{pmatrix}$$
+
+<p>构造方式：</p>
+<ul>
+<li>前 $\deg(g) = 2$ 行：$f$ 的系数向右移动</li>
+<li>后 $\deg(f) = 2$ 行：$g$ 的系数向右移动</li>
+</ul>
+
+<p>计算行列式：</p>
+$$\det(\text{Syl}(f,g)) = \begin{vmatrix} 1 & -3 & 2 & 0 \\ 0 & 1 & -3 & 2 \\ 1 & -7 & 12 & 0 \\ 0 & 1 & -7 & 12 \end{vmatrix} = 12$$
+
+<p><strong>对称性的来源</strong>：交换 $f$ 和 $g$ 只是交换了矩阵的上半部分和下半部分（行的重排），而行列式在行交换时最多差一个符号。更精确地说，$\text{Res}(f,g) = (-1)^{\deg f \cdot \deg g} \text{Res}(g,f)$，当两个多项式次数都是偶数时完全相等。</p>
+
+<p><strong>结式的几何意义</strong>：</p>
+<ul>
+<li>$\text{Res}(f, g) = 0$ 当且仅当 $f$ 和 $g$ 有公共根</li>
+<li>结式度量的是"$f$ 和 $g$ 离有公共根有多远"</li>
+<li>这个"距离"当然与你先看 $f$ 还是先看 $g$ 无关——所以是对称的！</li>
+</ul>
+
+<p><strong>从结式到 Weil 互反律：</strong></p>
+<p>Weil 互反律 $f((g)) = g((f))$ 本质上是结式对称性在曲线上的推广：</p>
+<ul>
+<li><strong>结式</strong>：在 $\mathbb{P}^1$（射影直线/数轴）上，$\prod_{f(\alpha)=0} g(\alpha) = \prod_{g(\beta)=0} f(\beta)$</li>
+<li><strong>Weil 互反律</strong>：在任意曲线 $C$ 上，$f((g)) = g((f))$</li>
+</ul>
+<p>区别在于曲线上的函数有<strong>极点</strong>（可以看作"负阶零点"），所以求值变成了 $\prod_P f(P)^{\text{ord}_P(g)}$ 的形式，指数可以是负数。</p>
+
+<p><strong>为什么 Weil 互反律比结式难理解？</strong></p>
+<p>对于多项式，我们可以<strong>因式分解</strong>：</p>
+$$f(x) = (x - \alpha_1)(x - \alpha_2) \cdots (x - \alpha_n)$$
+<p>这让结式的对称性一目了然：$g(\alpha_1) \cdot g(\alpha_2) \cdots$ 就是把 $g$ 代入 $f$ 的每个根。</p>
+
+<p>但在曲线上，我们<strong>不能</strong>把有理函数 $f$ 写成类似的"因式分解"形式。表达式 $(P - P_1)(P - P_2)\cdots$ 对曲线上的点没有意义——点之间不能像数字那样相减相乘。</p>
+
+<p><strong>除子就是曲线上的"因式分解"！</strong></p>
+<p>这正是除子概念的威力所在。函数的除子 $(f) = \sum_P \text{ord}_P(f) \cdot (P)$ 就是 $f$ 在曲线上的"因式分解"：</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+<tr style="background: #f0f0f0;">
+<th style="border: 1px solid #ccc; padding: 8px;">多项式</th>
+<th style="border: 1px solid #ccc; padding: 8px;">曲线上的函数</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 8px;">$f(x) = c \cdot \prod_i (x - \alpha_i)^{n_i}$</td>
+<td style="border: 1px solid #ccc; padding: 8px;">$(f) = \sum_P n_P (P)$</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 8px;">$\alpha_i$ 是根，$n_i$ 是重数</td>
+<td style="border: 1px solid #ccc; padding: 8px;">$P$ 是零点/极点，$n_P$ 是阶数</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 8px;">$n_i > 0$（只有根）</td>
+<td style="border: 1px solid #ccc; padding: 8px;">$n_P > 0$ 零点，$n_P < 0$ 极点</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 8px;">$\prod_i g(\alpha_i)^{n_i}$</td>
+<td style="border: 1px solid #ccc; padding: 8px;">$g((f)) = \prod_P g(P)^{n_P}$</td>
+</tr>
+</table>
+
+<p>所以 Weil 互反律的公式 $f((g)) = \prod_P f(P)^{\text{ord}_P(g)}$ 其实就是"把 $f$ 代入 $g$ 的每个零点和极点"——只不过极点对应负指数（取倒数）。</p>
+
+<p><strong>除子语言让对称性重新变得清晰：</strong></p>
+$$f((g)) = \prod_P f(P)^{\text{ord}_P(g)} \quad \longleftrightarrow \quad g((f)) = \prod_P g(P)^{\text{ord}_P(f)}$$
+<p>一旦你接受"除子 = 因式分解"的类比，Weil 互反律就和结式对称性一样自然了！</p>
+
+<p><strong>注意：乘积项不是重排！</strong></p>
+<p>一个常见误解是以为 $f((g))$ 和 $g((f))$ 的乘积项只是重新排列。实际上它们是<strong>完全不同的数</strong>，只是恰好乘积相等。例如：</p>
+<ul>
+<li>$f(x) = (x-1)(x-3)$，$g(x) = (x-2)(x-5)$</li>
+<li>$\prod_{f(\alpha)=0} g(\alpha) = g(1) \cdot g(3) = 4 \cdot (-2) = -8$</li>
+<li>$\prod_{g(\beta)=0} f(\beta) = f(2) \cdot f(5) = (-1) \cdot 8 = -8$</li>
+<li>乘积项 $\{4, -2\}$ 和 $\{-1, 8\}$ <strong>完全不同</strong>，但乘积相同！</li>
+</ul>
+<p>这才是结式对称性（和 Weil 互反律）真正神奇的地方：不同的因子以不同的方式组合，恰好得到相同的结果。</p>
+
+<p><strong>为什么会这样？在最细粒度上是重排！</strong></p>
+<p>如果我们把因子分解到最细粒度——每个 $(\alpha_i - \beta_j)$——就会发现两种方法用的是<strong>同一组因子</strong>，只是符号相反：</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.95em;">
+<tr style="background: #f0f0f0;">
+<th style="border: 1px solid #ccc; padding: 6px;">方法一的最细因子</th>
+<th style="border: 1px solid #ccc; padding: 6px;">方法二的最细因子</th>
+<th style="border: 1px solid #ccc; padding: 6px;">关系</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">$\alpha_1 - \beta_1 = -1$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$\beta_1 - \alpha_1 = 1$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">符号相反</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">$\alpha_1 - \beta_2 = -4$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$\beta_2 - \alpha_1 = 4$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">符号相反</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">$\alpha_2 - \beta_1 = 1$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$\beta_1 - \alpha_2 = -1$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">符号相反</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">$\alpha_2 - \beta_2 = -2$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$\beta_2 - \alpha_2 = 2$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">符号相反</td>
+</tr>
+<tr style="background: #f9f9f9;">
+<td style="border: 1px solid #ccc; padding: 6px;"><strong>乘积</strong> = $(-1)(-4)(1)(-2) = -8$</td>
+<td style="border: 1px solid #ccc; padding: 6px;"><strong>乘积</strong> = $(1)(4)(-1)(2) = -8$</td>
+<td style="border: 1px solid #ccc; padding: 6px;"><strong>相等！</strong></td>
+</tr>
+</table>
+
+<p>数学上：</p>
+$$\prod_{i,j} (\alpha_i - \beta_j) \quad \text{vs} \quad \prod_{i,j} (\beta_j - \alpha_i) = \prod_{i,j} (-1)(\alpha_i - \beta_j) = (-1)^{mn} \prod_{i,j} (\alpha_i - \beta_j)$$
+
+<p>其中 $m = \deg f$，$n = \deg g$。当 $mn$ 是偶数时，两个乘积完全相等；当 $mn$ 是奇数时，差一个负号。</p>
+
+<p><strong>总结</strong>：结式的对称性来自于最细粒度因子的"重排 + 符号翻转"，而符号的个数 $mn$ 决定了最终是否完全相等。这就像同一副扑克牌的不同洗牌方式——牌是一样的，只是排列不同！</p>
+
+<p><strong>为什么对配对重要？</strong></p>
+<p>配对 $e(P, Q)$ 的定义涉及 $f_P(D_Q)$，而 Weil 互反律让我们可以灵活地交换计算顺序，或者用等价的除子替换，而不改变最终结果。这是证明配对的双线性性、非退化性等关键性质的核心工具。</p>
+</div>
+
+<p>Most of the functions on $E$ that we have seen so far contain $\mathcal{O}$ in their support. In the first example we will choose one of the functions such that this is not the case, meaning that Theorem 3.1 can be applied instantly, whilst in the second example we will show how to alleviate this problem when it arises by modifying either of the functions.</p>
+
+<div class="example">
+<p><span class="example-title">Example 3.3.1</span> (Magma script). Let $E/\mathbb{F}_{503} : y^2 = x^3 + 1$. Consider the functions $f : \frac{20y + 9x + 179}{199y + 187x + 359} = 0$ and $g : y + 251x^2 + 129x + 201 = 0$ on $E$.</p>
+
+<p>The divisor of $f$ is $(f) = 2(433, 98) + (232, 113) - (432, 27) - 2(127, 258)$, and the divisor of $g$ is $(g) = (413, 369) + (339, 199) + (147, 443) + (124, 42) - 4(\mathcal{O})$.</p>
+
+<p>The supports are clearly disjoint, so we first compute $f((g))$ as</p>
+$$f((g)) = \frac{\left(\frac{20 \cdot 369 + 9 \cdot 413 + 179}{199 \cdot 369 + 187 \cdot 413 + 359}\right) \cdot \ldots}{\left(\frac{20 \cdot 1 + 9 \cdot 0 + 179 \cdot 0}{199 \cdot 1 + 187 \cdot 0 + 359 \cdot 0}\right)^4} = 321.$$
+
+<p>Notice that $f$ was cast into projective space as $f : \frac{20Y + 9X + 179Z}{199Y + 187X + 359Z}$ for the evaluation at $\mathcal{O} = (0 : 1 : 0)$.</p>
+
+<p>Now, for $g((f))$ we have</p>
+$$g((f)) = \frac{(98 + 251 \cdot 433^2 + 129 \cdot 433 + 201)^2 \cdot (113 + 251 \cdot 232^2 + 129 \cdot 232 + 201)}{(258 + 251 \cdot 127^2 + 129 \cdot 127 + 201)^2 \cdot (27 + 251 \cdot 432^2 + 129 \cdot 432 + 201)} = 321.$$
+
+<blockquote><strong>例 3.3.1</strong>：验证 Weil 互反律。$f((g)) = g((f)) = 321$。注意在 $\mathcal{O}$ 处求值需要使用射影坐标。</blockquote>
+</div>
+
+<!-- ==================== PAGE 45 ==================== -->
+<div class="page-marker">— 45 —</div>
+
+<div class="example">
+<p><span class="example-title">Example 3.3.2</span> (Magma script). Let $P, Q, R, S, T, U \in E$, such that $T = -(R + S)$. Further let $\ell' : y = \lambda'x + \nu'$ be the tangent to $E$ at $P$ and $\ell : y = \lambda x + \nu$ be the line between $R$, $S$ and $T$, so that $(\ell') = 2(P) + (-[2]P) - 3(\mathcal{O})$ and $(\ell) = (R) + (S) + (T) - 3(\mathcal{O})$.</p>
+
+<p>Suppose we wish to compute $\ell((\ell'))$.</p>
+
+<p>At this point it does not make sense to compute $\ell((\ell'))$ (or $\ell'((\ell))$) since $\text{supp}((\ell)) \cap \text{supp}((\ell')) = \{\mathcal{O}\}$.</p>
+
+<p>We can fix this by finding a divisor equivalent to, say $(\ell)$, whose support is disjoint to $\text{supp}((\ell'))$. This is easily done by picking a random point $U \notin \text{supp}(\ell')$ and defining $D = (R + U) + (S + U) + (T + U) - 3(U)$.</p>
+
+<p>To see that $D \sim \ell$, observe that $(R + U) - (U) = (R) - (\mathcal{O})$ by writing down the divisor of the quotient of the sloped and vertical lines in the addition of $R$ and $U$ on $E$.</p>
+
+<p>Computing $\ell((\ell'))$ is therefore the same as computing $D((\ell'))$, but this computation would then require finding a new function on $E$ with divisor $D$, so we can invoke Theorem 3.1 and instead compute $\ell'(D)$ as</p>
+
+$$\ell'(D) = \frac{(y_{R'} - (\lambda' x_{R'} + \nu')) (y_{S'} - (\lambda' x_{S'} + \nu')) (y_{T'} - (\lambda' x_{T'} + \nu'))}{(y_U - (\lambda' x_U + \nu'))^3},$$
+
+<p>where $R' = R + U$, $S' = S + U$ and $T' = T + U$ are all such that $R', S', T' \notin \text{supp}(\ell')$, so that $\ell'(D)$ is the same as $\ell((\ell'))$ by Weil reciprocity.</p>
+
+<blockquote><strong>例 3.3.2</strong>：当支撑集不相交条件不满足时（两个除子都包含 $\mathcal{O}$），可以通过"平移"除子来解决：
+<ol>
+<li>选取随机点 $U$</li>
+<li>构造等价除子 $D = (R+U) + (S+U) + (T+U) - 3(U) \sim (\ell)$</li>
+<li>由 Weil 互反律，$\ell((\ell')) = \ell'(D)$</li>
+</ol>
+这种技术在配对计算中很重要！
+
+<p style="margin-top: 15px;"><strong>深入思考：$f(D)$ 在 Picard 类内是否不变？</strong></p>
+
+<p>看起来似乎只要 $D' \sim D$（同一个 Pic 类），$f(D') = f(D)$？实际上<strong>并非如此</strong>！</p>
+
+<p>设 $D' \sim D$，即 $D' = D + (g)$ 对某个函数 $g$。则：
+$$f(D') = f(D + (g)) = f(D) \cdot f((g)) = f(D) \cdot g((f))$$
+最后一步用了 Weil 互反律。由于 $g((f)) \neq 1$（一般情况），所以 $f(D') \neq f(D)$。</p>
+
+<p><strong>那 Example 3.3.2 的计算为什么是对的？</strong></p>
+
+<p>关键在于例子计算的是 $\ell'(D)$ 而非 $\ell((\ell'))$。由 Weil 互反律：
+$$\ell((\ell')) = \ell'((\ell))$$
+而 $D \sim (\ell)$ 意味着存在函数 $h$ 使得 $(h) = D$，于是：
+$$h((\ell')) = \ell'((h)) = \ell'(D)$$
+这里 $\ell'(D)$ 可以直接计算（因为 $\text{supp}(D) \cap \text{supp}((\ell')) = \emptyset$）。</p>
+
+<p><strong>Tate 配对中的解决方案：</strong></p>
+
+<p>在 <strong>Tate 配对</strong>中，这个问题被巧妙地解决了：对于 $n$-挠点，$f(D)$ 在同一 Pic 类内的变化恰好是 $n$ 次幂！即：
+$$f(D') = f(D) \cdot (\text{某个元素})^n$$
+因此，在商群 $K^*/(K^*)^n$ 中，$f(D)$ 是良定义的。这就是为什么 Tate 配对的值域是 $\mu_n$（$n$ 次单位根），而不是整个 $K^*$。</p>
+</blockquote>
+
+<figure style="text-align: center; margin: 30px 0;">
+  <img src="images/fig3_8.svg" alt="Figure 3.8" style="max-width: 350px;">
+  <figcaption>Figure 3.8: $\text{supp}(\epsilon((\ell)))$ and $\text{supp}(\epsilon((\ell')))$</figcaption>
+</figure>
+</div>
+
+<!-- ==================== Section 3.4 ==================== -->
+<h1>3.4 Chapter summary</h1>
+<h2>3.4 章节总结</h2>
+
+<!-- ==================== PAGE 45-46 ==================== -->
+<div class="page-marker">— 45-46 —</div>
+
+<p>We introduced the important concept of divisors on curves. We illustrated their particular usefulness when used to describe functions on curves, since such a function is well defined (up to constant) by its points of intersection with a curve, and these are precisely what the divisor of the function encapsulates.</p>
+
+<p>We defined the divisor class group of a (hyperelliptic) curve and discussed that for the case of elliptic curves, there is a bijection between this group and the set of points on the curve, so that we can simply talk about group elements as points on $E$ rather than divisors.</p>
+
+<p>We further illustrated several useful properties and theorems that play a big role in the realm of algebraic geometry, most notably the Riemann-Roch theorem and Weil reciprocity. For the most part we specified the context to elliptic curves over finite fields, but all of the results and properties discussed above apply to arbitrary curves over arbitrary fields.</p>
+
+<blockquote><strong>章节总结</strong>
+<ul>
+<li>引入了曲线上<strong>除子</strong>的概念——描述点的多重集的形式和</li>
+<li><strong>函数的除子</strong>记录了函数与曲线的交点及其重数</li>
+<li>定义了<strong>除子类群</strong> $\text{Pic}^0(E) = \text{Div}^0(E) / \text{Prin}(E)$</li>
+<li>对于椭圆曲线，$\text{Pic}^0(E)$ 与 $E$ 上的点一一对应（亏格 $g = 1$ 的特殊性质）</li>
+<li><strong>Riemann-Roch 定理</strong>保证除子可以约化到大小不超过亏格的形式</li>
+<li><strong>Weil 互反律</strong>：$f((g)) = g((f))$——配对理论的核心工具</li>
+</ul>
+这些概念和定理对于理解椭圆曲线配对是必不可少的！</blockquote>
+
+<div class="note">
+<p><strong>本章关键概念速查</strong></p>
+<table style="width: 100%; border-collapse: collapse;">
+<tr style="background: #f0f0f0;"><th style="border: 1px solid #ccc; padding: 8px;">概念</th><th style="border: 1px solid #ccc; padding: 8px;">定义/公式</th></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">除子 Divisor</td><td style="border: 1px solid #ccc; padding: 8px;">$D = \sum_P n_P(P)$，形式和</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">度数 Degree</td><td style="border: 1px solid #ccc; padding: 8px;">$\text{Deg}(D) = \sum_P n_P$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">支撑集 Support</td><td style="border: 1px solid #ccc; padding: 8px;">$\text{supp}(D) = \{P : n_P \neq 0\}$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">函数的除子</td><td style="border: 1px solid #ccc; padding: 8px;">$(f) = \sum_P \text{ord}_P(f)(P)$，$\text{Deg}((f)) = 0$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">主除子 Principal</td><td style="border: 1px solid #ccc; padding: 8px;">$D = (f)$，等价于 $\sum_P [n_P]P = \mathcal{O}$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">除子等价</td><td style="border: 1px solid #ccc; padding: 8px;">$D_1 \sim D_2 \iff D_1 - D_2 = (f)$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">除子类群</td><td style="border: 1px solid #ccc; padding: 8px;">$\text{Pic}^0(E) = \text{Div}^0(E) / \text{Prin}(E)$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">函数在除子处求值</td><td style="border: 1px solid #ccc; padding: 8px;">$f(D) = \prod_P f(P)^{n_P}$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 8px;">Weil 互反律</td><td style="border: 1px solid #ccc; padding: 8px;">$f((g)) = g((f))$</td></tr>
+</table>
+</div>
+
+<!-- Navigation -->
+<div class="nav-links">
+    <a href="../../ch2/sections/2_2.html">&larr; Back: Chapter 2</a>
+    <a href="#">Next: Chapter 4 &rarr;</a>
+</div>
+
+</body>
+</html>
