@@ -265,6 +265,48 @@ $$\pi : E \to E, \quad (x, y) \mapsto (x^q, y^q). \tag{2.7}$$
 
 <blockquote>我们现在可以回来概述方程 (2.6) 的推导。我们现在知道 $P \in E(\mathbb{F}_q)$ 当且仅当 $\pi(P) = P$（即 $([1] - \pi)P = \mathcal{O}$），因此 $\#E(\mathbb{F}_q) = \#\ker([1] - \pi)$。不难证明映射 $[1] - \pi$ 是可分的，这意味着 $\#E(\mathbb{F}_q) = \deg([1] - \pi)$。然后我们可以利用 Cauchy-Schwarz 不等式的一个版本，得到 $|\deg([1] - \pi) - \deg([1]) - \deg(\pi)| \leq 2\sqrt{\deg([1])\deg(\pi)}$，从 $\deg(\pi) = q$ 得到方程 (2.6)。</blockquote>
 
+<div class="note">
+<p><strong>详细解释</strong>：这段推导涉及几个关键概念，我们逐一解释：</p>
+
+<p><strong>1. 恒等映射的度数</strong>：$[1]$ 是恒等映射，即 $[1](P) = P$。它的度数 $\deg([1]) = 1$ 是显然的——恒等映射将每个点映到自己，原像只有一个点。</p>
+
+<p><strong>2. 为什么 $\pi$ 固定 $E(\mathbb{F}_q)$ 中的点？</strong> Frobenius 映射 $\pi : (x, y) \mapsto (x^q, y^q)$ 固定恰好那些坐标都在 $\mathbb{F}_q$ 中的点。这是因为对于 $x \in \mathbb{F}_q$，我们有 $x^q = x$。这个性质来自 Fermat 小定理：$\mathbb{F}_q$ 的元素恰好是多项式 $x^q - x = 0$ 的全部根。换句话说：
+$$x \in \mathbb{F}_q \iff x^q - x = 0 \iff x^q = x$$
+因此，如果 $P = (x, y) \in E(\mathbb{F}_q)$，则 $x, y \in \mathbb{F}_q$，从而 $\pi(P) = (x^q, y^q) = (x, y) = P$。</p>
+
+<p><strong>3. 为什么扩域中的点不会被固定？</strong> 如果 $P \in E(\mathbb{F}_{q^k}) \setminus E(\mathbb{F}_q)$（$k > 1$），那么 $P$ 至少有一个坐标不在 $\mathbb{F}_q$ 中。设这个坐标为 $\alpha \in \mathbb{F}_{q^k} \setminus \mathbb{F}_q$，则 $\alpha$ 不是 $x^q - x = 0$ 的根。映射 $x \mapsto x^q$ 实际上是在共轭根之间进行轮转——它将 $\alpha$ 的一个共轭映到另一个共轭。由于 $\alpha \notin \mathbb{F}_q$，它必定有不同于自身的共轭，因此 $\alpha^q \neq \alpha$，从而 $\pi(P) \neq P$。</p>
+
+<p><strong>4. 映射 $[1] - \pi$ 的含义</strong>：$[1] - \pi$ 是一个自同态，定义为 $([1] - \pi)(P) = [1](P) - \pi(P) = P - \pi(P)$。这里的减法是椭圆曲线群中的减法。这个映射的核是：
+$$\ker([1] - \pi) = \{P : P - \pi(P) = \mathcal{O}\} = \{P : \pi(P) = P\} = E(\mathbb{F}_q)$$
+因此 $\#E(\mathbb{F}_q) = \#\ker([1] - \pi)$。</p>
+
+<p><strong>5. 什么是"可分"（separable）映射？</strong> 这是代数几何中的重要概念。直观理解：对于多项式 $f(x)$，如果它没有重根，我们说它是可分的；类似地，对于椭圆曲线上的映射，如果核中的点都是"分离的"（没有重数），则映射是可分的。</p>
+
+<p>关键性质：<strong>对于可分映射 $\psi$，有 $\#\ker(\psi) = \deg(\psi)$</strong>。对于不可分映射，核的大小会小于度数。</p>
+
+<p><em>例子 1：乘法映射 $[m]$</em>。考虑 $[2] : P \mapsto 2P$。在特征不为 2 的域上，$[2]$ 是可分的。$[2]$ 的核是 2-挠点群 $E[2]$，包含 4 个点（无穷远点 $\mathcal{O}$ 加上三个满足 $2P = \mathcal{O}$ 的点）。由于 $\deg([2]) = 4$，我们确实有 $\#\ker([2]) = \deg([2]) = 4$。一般地，$[m]$ 在 $\gcd(m, \text{char}(K)) = 1$ 时可分，此时 $\#E[m] = m^2 = \deg([m])$。</p>
+
+<p><em>例子 2：Frobenius 映射 $\pi$ 是不可分的</em>。Frobenius $\pi : (x,y) \mapsto (x^q, y^q)$ 的度数是 $\deg(\pi) = q$，但它的核只有 $\ker(\pi) = \{\mathcal{O}\}$！这是因为 $\pi(P) = \mathcal{O}$ 要求 $(x^q, y^q) = \mathcal{O}$，只有无穷远点满足。所以 $\#\ker(\pi) = 1 \neq q = \deg(\pi)$。$\pi$ 是"纯不可分"的典型例子。</p>
+
+<p><em>例子 3：$[1] - \pi$ 是可分的</em>。虽然 $\pi$ 不可分，但 $[1] - \pi$ 是可分的！直观上，$[1]$ 的"可分性"中和了 $\pi$ 的不可分性。这个结果的证明需要一些技术细节（见 Silverman [Sil09, Ch. V]），但结论是 $\#\ker([1]-\pi) = \deg([1]-\pi)$，这正是我们需要的。</p>
+
+<p><strong>6. 自同态的度数 $\deg(\psi)$ 是什么？</strong> 对于椭圆曲线上的自同态 $\psi$，它可以写成坐标形式：
+$$\psi(x, y) = \left( \frac{p(x)}{q(x)}, \; y \cdot \frac{r(x)}{s(x)} \right)$$
+其中 $p, q, r, s$ 是多项式。<strong>度数 $\deg(\psi)$ 就是 $x$ 坐标映射的有理函数的度数</strong>，即 $\max(\deg p, \deg q)$。</p>
+
+<p><em>例子：乘法映射 $[2]$</em>。回顾 2-倍点公式，$[2](x,y) = (x', y')$ 其中：
+$$x' = \frac{(3x^2+a)^2}{4y^2} - 2x = \frac{(3x^2+a)^2 - 8x(x^3+ax+b)}{4(x^3+ax+b)} = \frac{x^4 - 2ax^2 - 8bx + a^2}{4x^3 + 4ax + 4b}$$
+分子是 4 次多项式，分母是 3 次多项式，所以 $\deg([2]) = 4$。一般地，$\deg([m]) = m^2$。</p>
+
+<p><em>例子：Frobenius 映射</em>。对于 $\pi : (x,y) \mapsto (x^q, y^q)$，$x$ 坐标的映射就是 $x \mapsto x^q$，这是一个 $q$ 次多项式（分母为 1），所以 $\deg(\pi) = q$。</p>
+
+<p>另一种等价的理解：对于一般的点 $Q$，原像 $\psi^{-1}(Q)$ 的大小（计重数）等于 $\deg(\psi)$。对于可分映射，重数都是 1，所以原像恰好有 $\deg(\psi)$ 个不同的点。</p>
+
+<p><strong>7. 综合得到 Hasse 界</strong>：由于 $[1] - \pi$ 可分，我们有 $\#E(\mathbb{F}_q) = \deg([1] - \pi)$。结合 $\deg([1]) = 1$，$\deg(\pi) = q$，以及 Cauchy-Schwarz 型不等式：
+$$|\deg([1] - \pi) - \deg([1]) - \deg(\pi)| \leq 2\sqrt{\deg([1])\deg(\pi)}$$
+即 $|\#E(\mathbb{F}_q) - 1 - q| \leq 2\sqrt{q}$，这就是 Hasse 界 $|t| \leq 2\sqrt{q}$，其中 $t = q + 1 - \#E(\mathbb{F}_q)$ 是 Frobenius 的迹。</p>
+</div>
+
 <!-- ==================== PAGE 27 ==================== -->
 <div class="page-marker">— 27 —</div>
 
@@ -286,6 +328,25 @@ $$\pi : E \to E, \quad (x, y) \mapsto (x^q, y^q). \tag{2.7}$$
 
 <blockquote>上例中 $\xi$ 的定义给出了 $E : y^2 = x^3 + b$ 上的自同态，无论 $E$ 定义在什么域上。如果椭圆曲线 $E$ 存在非平凡映射（如 $\xi$），我们说 $E$ 有<strong>复乘</strong>。更精确地说，所有椭圆曲线自同态环平凡地包含 $\mathbb{Z}$，因为每个 $m \in \mathbb{Z}$ 对应乘 $m$ 映射 $[m] \in \text{End}(E)$。然而，如果存在非平凡自同态使 $\text{End}(E)$ 严格大于 $\mathbb{Z}$，则我们说 $E$ 有复乘 (CM)。因此，按这个定义，定义在 $\mathbb{F}_q$ 上的每条椭圆曲线都有 CM，因为 Frobenius 自同态 $\pi \in \text{End}(E)$ 的存在使 $\text{End}(E)$ 大于 $\mathbb{Z}$。</blockquote>
 
+<div class="note">
+<p><strong>为什么叫"复乘"（complex multiplication）？</strong></p>
+
+<p>这个名字来自复数域 $\mathbb{C}$ 上的经典理论。在 $\mathbb{C}$ 上，椭圆曲线可以表示为复环面：
+$$E(\mathbb{C}) \cong \mathbb{C}/\Lambda, \quad \text{其中 } \Lambda = \mathbb{Z} + \mathbb{Z}\tau \text{ 是一个格}$$</p>
+
+<p>曲线的自同态对应于满足 $\alpha \Lambda \subseteq \Lambda$ 的复数 $\alpha$——即"乘以 $\alpha$"后格仍落在格内。</p>
+
+<p><strong>一般情况</strong>：对于"一般"的 $\tau$，只有整数 $n \in \mathbb{Z}$ 满足 $n\Lambda \subseteq \Lambda$，所以 $\text{End}(E) \cong \mathbb{Z}$。</p>
+
+<p><strong>特殊情况</strong>：如果 $\tau$ 是某个虚二次域的元素（如 $\tau = i = \sqrt{-1}$），则存在<strong>非整数的复数</strong>也能保持格不变。例如，取 $\Lambda = \mathbb{Z} + \mathbb{Z}i$：
+$$i \cdot (\mathbb{Z} + \mathbb{Z}i) = \mathbb{Z}i + \mathbb{Z}i^2 = \mathbb{Z}i - \mathbb{Z} = \mathbb{Z} + \mathbb{Z}i = \Lambda$$
+所以"乘以 $i$"是一个自同态！</p>
+
+<p>这就是<strong>"complex multiplication"的字面含义：用复数（而不仅仅是整数）做乘法</strong>。当 $\text{End}(E)$ 包含 $\mathbb{Z}$ 之外的元素时，它同构于某个虚二次域 $\mathbb{Q}(\sqrt{-d})$ 中的一个序（order），例如 $\mathbb{Z}[i]$ 或 $\mathbb{Z}[\omega]$（其中 $\omega = e^{2\pi i/3}$）。</p>
+
+<p>下面的 Example 2.2.7 正好展示了这一点：曲线 $y^2 = x^3 + ax$ 有自同态 $\zeta : (x,y) \mapsto (-x, iy)$，且 $\zeta^2 = [-1]$，因此 $\text{End}(E) \cong \mathbb{Z}[i]$。</p>
+</div>
+
 <!-- ==================== PAGE 28 ==================== -->
 <div class="page-marker">— 28 —</div>
 
@@ -301,6 +362,27 @@ $$\pi : E \to E, \quad (x, y) \mapsto (x^q, y^q). \tag{2.7}$$
 
 <div class="equation">
 $$\pi^2 - [t] \circ \pi + [q] = 0 \quad \text{in } \text{End}(E), \tag{2.8}$$
+</div>
+
+<div class="note">
+<p><strong>为什么 Frobenius 满足这个特征多项式？</strong></p>
+
+<p>这与二次域中代数整数满足极小多项式的原理类似。回顾：如果 $\alpha \in \mathbb{Q}(\sqrt{d})$，则 $\alpha$ 满足 $X^2 - \text{Tr}(\alpha) X + \text{N}(\alpha) = 0$，其中迹和范数分别是共轭之和与共轭之积。</p>
+
+<p>对于椭圆曲线自同态，每个非零同源 $\phi$ 都有一个<strong>对偶同源</strong> $\hat{\phi}$，满足 $\phi \circ \hat{\phi} = [\deg(\phi)]$。对 Frobenius $\pi$，其对偶记为 $\hat{\pi}$（称为 Verschiebung），满足：
+$$\pi \circ \hat{\pi} = [q] \quad \text{（因为 } \deg(\pi) = q\text{）}$$</p>
+
+<p>类比二次域，我们定义：
+<ul>
+<li><strong>范数</strong>：$\text{N}(\pi) = \pi \circ \hat{\pi} = [q]$（即度数）</li>
+<li><strong>迹</strong>：$\text{Tr}(\pi) = \pi + \hat{\pi} = [t]$</li>
+</ul>
+这就是 $t$ 被称为"Frobenius 的迹"的原因！</p>
+
+<p>于是 $\pi$ 满足特征多项式 $X^2 - \text{Tr}(\pi) X + \text{N}(\pi) = 0$，即：
+$$\pi^2 - [t] \circ \pi + [q] = 0$$</p>
+
+<p><em>验证与 Hasse 界的一致性</em>：将 $[1] - \pi$ 代入上式：如果 $\pi^2 - [t]\pi + [q] = 0$，则 $([1]-\pi)$ 的"范数"是 $\deg([1]-\pi) = 1 - t + q = \#E(\mathbb{F}_q)$，这正是我们需要的！</p>
 </div>
 
 <p>meaning that for all $(x, y) \in E(\overline{\mathbb{F}}_q)$, we have</p>
@@ -334,6 +416,40 @@ $$(x^{q^2}, y^{q^2}) - [t](x^q, y^q) + [q](x, y) = \mathcal{O}. \tag{2.9}$$
 <blockquote><strong>例 2.2.9</strong>：回顾例 2.2.1 中的曲线 $E/\mathbb{F}_{101} : y^2 = x^3 + x + 1$，群阶 $\#E(\mathbb{F}_q) = 105 = 3 \cdot 5 \cdot 7$。阶为 2 的点的 $x$ 坐标作为 $\psi_2(x) = 4x^3 + 4x + 4$ 的根找到，它在 $\mathbb{F}_q[x]$ 中不可约，所以 $E(\mathbb{F}_q)$ 中没有 2-挠点。对于 $r = 3$，$\psi_3(x)$ 分解为 $(x + 73)(x + 84)(x^2 + 45x + 36)$，所以我们得到两个解 $x = 17$ 和 $x = 28$。这并不意味着两个解隐含的点都在 $\mathbb{F}_q$ 中。<br><br>
 
 唯一其根产生定义在 $\mathbb{F}_q$ 上的点的除法多项式是 $\psi_d(x)$，其中 $d \mid 105$。这推广为：唯一其根产生定义在 $\mathbb{F}_{q^n}$ 上的点的除法多项式是 $\psi_d(x)$，其中 $d \mid \#E(\mathbb{F}_{q^n})$。</blockquote>
+
+<div class="note">
+<p><strong>除法多项式是如何推导的？</strong></p>
+
+<p>除法多项式可以通过求解 $[\ell]P = \mathcal{O}$ 来推导。</p>
+
+<p><strong>推导 $\psi_2(x)$</strong>：$[2]P = \mathcal{O}$ 意味着 $P = -P$，即 $(x, y) = (x, -y)$，所以 $y = 0$。在曲线 $y^2 = x^3 + ax + b$ 上，$y = 0$ 要求 $x^3 + ax + b = 0$。因此：
+$$\psi_2(x) = 4(x^3 + ax + b)$$
+（系数 4 来自倍点公式中分母的 $2y$，是惯例。）对于 $a = 1, b = 1$：$\psi_2(x) = 4x^3 + 4x + 4$。</p>
+
+<p><strong>推导 $\psi_3(x)$</strong>：$[3]P = \mathcal{O}$ 意味着 $[2]P = -P$，即 $[2]P$ 和 $P$ 有相同的 $x$ 坐标（但 $y$ 坐标相反）。</p>
+
+<p>倍点公式给出 $[2](x,y) = (x', y')$，其中：
+$$x' = \lambda^2 - 2x, \quad \lambda = \frac{3x^2 + a}{2y}$$
+代入 $y^2 = x^3 + ax + b$：
+$$x' = \frac{(3x^2 + a)^2}{4(x^3 + ax + b)} - 2x = \frac{(3x^2 + a)^2 - 8x(x^3 + ax + b)}{4(x^3 + ax + b)}$$</p>
+
+<p>设 $x' = x$：
+$$(3x^2 + a)^2 - 8x(x^3 + ax + b) = 4x(x^3 + ax + b)$$
+$$(3x^2 + a)^2 = 12x(x^3 + ax + b)$$
+展开：$9x^4 + 6ax^2 + a^2 = 12x^4 + 12ax^2 + 12bx$，整理得：
+$$\psi_3(x) = 3x^4 + 6ax^2 + 12bx - a^2$$</p>
+
+<p>对于 $a = 1, b = 1$：$\psi_3(x) = 3x^4 + 6x^2 + 12x - 1$。在 $\mathbb{F}_{101}$ 中，$-1 \equiv 100$，所以 $\psi_3(x) = 3x^4 + 6x^2 + 12x + 100$。</p>
+
+<p><em>验证与因式分解一致</em>：例子中给出 $\psi_3(x) = (x + 73)(x + 84)(x^2 + 45x + 36)$。展开这个乘积：
+$$(x + 73)(x + 84) = x^2 + 56x + 72 \quad (\text{在 } \mathbb{F}_{101} \text{ 中})$$
+$$(x^2 + 56x + 72)(x^2 + 45x + 36) = x^4 + 2x^2 + 4x + 67$$
+注意 $3 \times (x^4 + 2x^2 + 4x + 67) = 3x^4 + 6x^2 + 12x + 201 \equiv 3x^4 + 6x^2 + 12x + 100$。所以：
+$$\psi_3(x) = 3 \cdot (x + 73)(x + 84)(x^2 + 45x + 36) \quad \checkmark$$
+根 $x = -73 \equiv 28$ 和 $x = -84 \equiv 17$ 正是例子中的解。</p>
+
+<p>更高阶的 $\psi_\ell(x)$ 可以用递归公式计算，但原理相同：找使 $[\ell]P = \mathcal{O}$ 的 $x$ 坐标条件。</p>
+</div>
 </div>
 
 <!-- ==================== PAGE 30 ==================== -->
@@ -395,6 +511,24 @@ Schoof 算法的渐近复杂度是 $O((\log q)^8)$。</blockquote>
 <blockquote><strong>例 2.2.11</strong>：设 $q \equiv 1 \mod 4$ 是素数，$E/\mathbb{F}_q : y^2 = x^3 + ax$，设 $i^2 = -1$。映射 $\psi : (x, y) \mapsto (-x, iy)$ 是定义在 $\mathbb{F}_q$ 上的自同态。设 $P \in E(\mathbb{F}_q)$ 有素数阶 $r$，则对所有 $Q \in \langle P \rangle$ 有 $\psi(Q) = [\lambda]Q$，$\lambda$ 是满足 $\lambda^2 = -1 \mod r$ 的整数。<br><br>
 
 具体例子：$q = 1048589$，$E/\mathbb{F}_q : y^2 = x^3 + 2x$，$\#E = 2r$，其中 $r = 524053$。计算 $Q$ 的随机倍数 $[m]Q$（$m = 103803$），可以通过分解 $m$ 为 $(m_0, m_1) = (509, 262)$ 来完成，然后计算 $[m]Q = [m_0]Q + [m_1]\psi(Q)$。这里 $m$ 是 17 位，而 $m_0$ 和 $m_1$ 都是 9 位。GLV/GLS 方法获得显著加速的地方是合并"迷你标量"乘法中所需的倍点，这将总体所需的倍点数减半。</blockquote>
+
+<div class="note">
+<p><strong>为什么 $\psi(Q) = [\lambda]Q$ 且 $\lambda^2 \equiv -1 \pmod{r}$？</strong></p>
+
+<p><strong>第一步</strong>：回顾 Example 2.2.7，$\psi^2 = [-1]$：
+$$\psi \circ \psi(x, y) = \psi(-x, iy) = (x, i^2 y) = (x, -y) = -(x, y)$$</p>
+
+<p><strong>第二步</strong>：$\psi$ 是自同态，把 $\langle P \rangle$ 映到自身。由于 $Q \in \langle P \rangle$ 且 $|\langle P \rangle| = r$ 是素数，$\psi(Q)$ 也在这个循环群中。所以存在某个 $\lambda \in \mathbb{Z}/r\mathbb{Z}$ 使得 $\psi(Q) = [\lambda]Q$。</p>
+
+<p><strong>第三步</strong>：对上式再作用 $\psi$：
+$$\psi^2(Q) = \psi([\lambda]Q) = [\lambda]\psi(Q) = [\lambda^2]Q$$</p>
+
+<p><strong>第四步</strong>：由第一步 $\psi^2 = [-1]$，所以 $\psi^2(Q) = [-1]Q$。</p>
+
+<p><strong>结论</strong>：$[\lambda^2]Q = [-1]Q$，因此 $\lambda^2 \equiv -1 \pmod{r}$。</p>
+
+<p>即 $\lambda$ 是 $-1$ 模 $r$ 的平方根。这样的 $\lambda$ 存在当且仅当 $-1$ 是模 $r$ 的二次剩余，即 $r \equiv 1 \pmod{4}$。</p>
+</div>
 </div>
 
 <div class="note">
@@ -413,6 +547,80 @@ $$[m]P = [m_0]P + [m_1]\psi(P)$$
 • GLS 推广：在扩域 $\mathbb{F}_{q^2}$ 上可以找到更多这样的曲线<br><br>
 
 <strong>实际应用：</strong> 现代高性能 ECC 实现（如 secp256k1 用于比特币）广泛使用 GLV 方法。
+</div>
+
+<div class="note">
+<p><strong>扩展应用：secp256k1 上的自同态与"漂亮地址"生成</strong></p>
+
+<p>Ethereum 和 Bitcoin 使用的 <strong>secp256k1</strong> 曲线是 $E: y^2 = x^3 + 7$，属于 $y^2 = x^3 + b$ 的形式。这类曲线有一个高效的自同态：
+$$\phi: (x, y) \mapsto (\beta x, y)$$
+其中 $\beta$ 是三次单位根（$\beta^3 = 1$，$\beta \neq 1$）。</p>
+
+<p><em>验证 $\phi$ 是自同态</em>：如果 $(x, y)$ 在曲线上，则 $(\beta x, y)$ 满足 $y^2 = (\beta x)^3 + b = \beta^3 x^3 + b = x^3 + b$ ✓</p>
+
+<p><em>$\beta$ 存在性</em>：三次单位根存在于 $\mathbb{F}_p$ 当且仅当 $p \equiv 1 \pmod 3$。对 secp256k1 的素数 $p = 2^{256} - 2^{32} - 977$，有 $p \equiv 1 \pmod 3$ ✓</p>
+
+<p><strong>secp256k1 的具体参数</strong>（公开常数）：</p>
+<pre style="font-size: 0.85em; background: #f5f5f5; padding: 8px; overflow-x: auto;">
+β = 0x7ae96a2b657c07106e64479eac3434e99cf0497512f58995c1396c28719501ee
+λ = 0x5363ad4cc05c30e0a5261c028812645a122e22ea20816678df02967c1b23bd72
+</pre>
+<p>其中 $\phi(P) = [\lambda]P$，且 $\lambda^3 \equiv 1 \pmod n$（$n$ 是群阶）。</p>
+
+<p><strong>漂亮地址（vanity address）生成</strong></p>
+
+<p>"漂亮地址"是指具有特定模式的区块链地址（如以 <code>0xdead...</code> 开头）。生成它需要尝试大量私钥直到找到匹配的地址。利用 $\phi$ 可以大幅加速：</p>
+
+<p>从一个随机点 $P = [k]G$ 出发（$G$ 是生成元）：</p>
+<table style="border-collapse: collapse; margin: 10px 0;">
+<tr style="background: #f0f0f0;"><th style="border: 1px solid #ccc; padding: 5px;">操作</th><th style="border: 1px solid #ccc; padding: 5px;">点</th><th style="border: 1px solid #ccc; padding: 5px;">对应私钥</th></tr>
+<tr><td style="border: 1px solid #ccc; padding: 5px;">原始</td><td style="border: 1px solid #ccc; padding: 5px;">$P = (x, y)$</td><td style="border: 1px solid #ccc; padding: 5px;">$k$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 5px;">$\phi(P)$</td><td style="border: 1px solid #ccc; padding: 5px;">$(\beta x, y)$</td><td style="border: 1px solid #ccc; padding: 5px;">$\lambda k \mod n$</td></tr>
+<tr><td style="border: 1px solid #ccc; padding: 5px;">$\phi^2(P)$</td><td style="border: 1px solid #ccc; padding: 5px;">$(\beta^2 x, y)$</td><td style="border: 1px solid #ccc; padding: 5px;">$\lambda^2 k \mod n$</td></tr>
+</table>
+
+<p>由于 $\lambda^3 \equiv 1$，$\phi^3(P) = P$，所以每个随机点可以<strong>免费</strong>生成 3 个候选地址！</p>
+
+<p><strong>关键优势</strong>：$\phi$ 只需一次域乘法（$x \mapsto \beta x$），比完整标量乘法快约 <strong>200-300 倍</strong>。</p>
+
+<p><strong>进一步组合</strong>：结合点加法，从两个点 $P, Q$ 可以快速生成：$P$, $\phi(P)$, $\phi^2(P)$, $Q$, $\phi(Q)$, $\phi^2(Q)$, $P+Q$, $\phi(P+Q)$, $\phi^2(P+Q)$, $P-Q$, ... 等大量候选。这正是高效 vanity address 生成器（如 profanity2）使用的核心技术。</p>
+
+<p><strong>secp256k1 上还有其他类似的自同态吗？</strong></p>
+
+<p>答案是<strong>没有</strong>。这与曲线的 j-不变量有关。</p>
+
+<p>对于 $y^2 = x^3 + ax + b$，j-不变量定义为 $j = 1728 \cdot \frac{4a^3}{4a^3 + 27b^2}$。secp256k1 是 $y^2 = x^3 + 7$（$a = 0$），所以 $j = 0$。</p>
+
+<p>$j = 0$ 的曲线有复乘 $\text{End}(E) \cong \mathbb{Z}[\omega]$，其中 $\omega = e^{2\pi i/3}$ 是本原三次单位根。这意味着<strong>所有自同态都是 $[m] + [n] \circ \phi$ 的形式</strong>（$m, n \in \mathbb{Z}$）。由于 $\phi^3 = [1]$，本质上只有 $\phi$ 这一族自同态。</p>
+
+<table style="border-collapse: collapse; margin: 10px 0; font-size: 0.9em;">
+<tr style="background: #f0f0f0;">
+<th style="border: 1px solid #ccc; padding: 5px;">曲线类型</th>
+<th style="border: 1px solid #ccc; padding: 5px;">j-不变量</th>
+<th style="border: 1px solid #ccc; padding: 5px;">自同态环</th>
+<th style="border: 1px solid #ccc; padding: 5px;">非平凡自同态</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 5px;">$y^2 = x^3 + b$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$j = 0$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$\mathbb{Z}[\omega]$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$\phi: (x,y) \mapsto (\zeta_3 x, y)$，$\phi^3 = [1]$</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 5px;">$y^2 = x^3 + ax$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$j = 1728$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$\mathbb{Z}[i]$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$\psi: (x,y) \mapsto (-x, iy)$，$\psi^2 = [-1]$</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 5px;">一般曲线</td>
+<td style="border: 1px solid #ccc; padding: 5px;">其他</td>
+<td style="border: 1px solid #ccc; padding: 5px;">$\mathbb{Z}$</td>
+<td style="border: 1px solid #ccc; padding: 5px;">只有标量乘法 $[m]$</td>
+</tr>
+</table>
+
+<p>这就是为什么 vanity address 生成只能用 $\phi$ 加速——每个点只能"免费"得到 3 个候选。如果使用 $j = 1728$ 的曲线，会有两个独立的自同态，理论上可以组合出更多候选，但这类曲线在安全性上可能有其他考量。</p>
 </div>
 
 <!-- ==================== Section 2.3 ==================== -->
