@@ -167,37 +167,37 @@
 <p><span class="example-title">Example 2.1.1</span> (Magma script). $E/\mathbb{R} : y^2 = x^3 - 2x$ is an elliptic curve. The points $(-1, -1)$, $(0, 0)$ and $(2, 2)$ are all on $E$, and are also on the line $\ell : y = x$. Applying the technique described above to compute some example group law operations via the line $\ell$, we have $(-1, -1) \oplus (0, 0) = (2, -2)$, $(2, 2) \oplus (0, 0) = (-1, 1)$, and $(-1, -1) \oplus (2, 2) = (0, 0)$. All but four points come in pairs with their inverse (i.e. $(x', y')$ and $(x', -y')$); the exceptions being $(0, 0)$, $(\sqrt{2}, 0)$, $(-\sqrt{2}, 0)$ (notice the vertical tangents when $y = 0$ in these cases), and $\mathcal{O}$, which are all their own inverse, e.g. $(0, 0) = \ominus(0, 0)$, so $(0, 0) \oplus (0, 0) = \mathcal{O}$ on $E$. The tangent line $\ell'$ to $E$ at $(-1, -1)$ is $\ell' : y = -\frac{1}{2}x - \frac{3}{2}$, and it intersects $E$ once more at $\left(\frac{9}{4}, -\frac{21}{8}\right)$, which gives $(-1, -1) \oplus (-1, -1) = [2](-1, -1) = \left(\frac{9}{4}, \frac{21}{8}\right)$.</p>
 
 <blockquote><strong>例 2.1.1</strong>：$E/\mathbb{R} : y^2 = x^3 - 2x$ 是一条椭圆曲线。点 $(-1, -1)$、$(0, 0)$ 和 $(2, 2)$ 都在 $E$ 上，也都在直线 $\ell : y = x$ 上。用上面描述的技术通过直线 $\ell$ 计算群运算的例子：$(-1, -1) \oplus (0, 0) = (2, -2)$，$(2, 2) \oplus (0, 0) = (-1, 1)$，$(-1, -1) \oplus (2, 2) = (0, 0)$。除了四个点外，所有其他点都与它们的逆元成对出现；这四个例外是 $(0, 0)$、$(\sqrt{2}, 0)$、$(-\sqrt{2}, 0)$（注意当 $y = 0$ 时切线是竖直的）和 $\mathcal{O}$，它们都是自己的逆元。在 $(-1, -1)$ 处 $E$ 的切线是 $\ell' : y = -\frac{1}{2}x - \frac{3}{2}$，它与 $E$ 的另一个交点是 $\left(\frac{9}{4}, -\frac{21}{8}\right)$，这给出 $[2](-1, -1) = \left(\frac{9}{4}, \frac{21}{8}\right)$。</blockquote>
+
+<div class="figures-row">
+    <div class="figure-container">
+        <img src="images/svg/fig2_7.svg" alt="Figure 2.7: Addition in R" style="max-width: 90%; height: auto;">
+        <div class="figure-caption">Figure 2.7: Addition in $\mathbb{R}$.<br>图 2.7：在 $\mathbb{R}$ 上的加法。</div>
+    </div>
+
+    <div class="figure-container">
+        <img src="images/svg/fig2_8.svg" alt="Figure 2.8: Doubling in R" style="max-width: 90%; height: auto;">
+        <div class="figure-caption">Figure 2.8: Doubling in $\mathbb{R}$.<br>图 2.8：在 $\mathbb{R}$ 上的倍点。</div>
+    </div>
+</div>
 </div>
 
 <div class="example">
 <p><span class="example-title">Example 2.1.2</span> (Magma script). In this example we consider the same curve equation as the last example, but this time over a small finite field, namely $E/\mathbb{F}_{11} : y^2 = x^3 - 2x$. Rational points are injected naturally across to the finite field case (as long as there is no conflict with the characteristic), so we can immediately find the points $(0, 0)$, $(2, 2)$ and $(-1, -1) = (10, 10)$ (and their inverses) in Figure 2.9. In this case, consider performing the group law operation between the (blue) points $(5, 7)$ and $(8, 10)$. The line $\ell$ that joins them is $y = x+2$, which intersects $E$ once more at $(10, 1)$. Negating the $y$-coordinate finds the other point on the dashed line, and gives $(5, 7) \oplus (8, 10) = (10, 10)$.</p>
 
 <blockquote><strong>例 2.1.2</strong>：这个例子中我们考虑和上一例子相同的曲线方程，但这次在小有限域上，即 $E/\mathbb{F}_{11} : y^2 = x^3 - 2x$。有理点自然地映射到有限域情况（只要与特征没有冲突），所以我们可以立即在图 2.9 中找到点 $(0, 0)$、$(2, 2)$ 和 $(-1, -1) = (10, 10)$（及它们的逆元）。考虑在（蓝色）点 $(5, 7)$ 和 $(8, 10)$ 之间的群运算。连接它们的直线 $\ell$ 是 $y = x + 2$，它与 $E$ 的另一个交点是 $(10, 1)$。对 $y$ 坐标取反找到虚线上的另一个点，得到 $(5, 7) \oplus (8, 10) = (10, 10)$。</blockquote>
+
+<div class="figure-container">
+    <img src="images/svg/fig2_9.svg" alt="Figure 2.9: Points on E(F11)" style="max-width: 70%; height: auto;">
+    <div class="figure-caption">Figure 2.9: The points (excluding $\mathcal{O}$) on $E(\mathbb{F}_{11})$.<br>图 2.9：$E(\mathbb{F}_{11})$ 上的点（不含 $\mathcal{O}$）。</div>
+</div>
 </div>
 
 <p>Example 2.1.2 is also intended to justify why, although (in cryptography) we only ever use elliptic curves over finite fields, we often opt to illustrate the group law by drawing the continuous pictures of curves over $\mathbb{R}$.</p>
 
 <blockquote>例 2.1.2 也是为了说明为什么虽然在密码学中我们只使用有限域上的椭圆曲线，但我们经常选择画实数 $\mathbb{R}$ 上曲线的连续图像来说明群运算。</blockquote>
 
-<div class="figures-row">
-    <div class="figure-container">
-        <img src="images/svg/fig2_7.svg" alt="Figure 2.7: Addition in R" style="max-width: 45%; height: auto;">
-        <div class="figure-caption">Figure 2.7: Addition in $\mathbb{R}$.<br>图 2.7：在 $\mathbb{R}$ 上的加法。</div>
-    </div>
-
-    <div class="figure-container">
-        <img src="images/svg/fig2_8.svg" alt="Figure 2.8: Doubling in R" style="max-width: 45%; height: auto;">
-        <div class="figure-caption">Figure 2.8: Doubling in $\mathbb{R}$.<br>图 2.8：在 $\mathbb{R}$ 上的倍点。</div>
-    </div>
-</div>
-
 <!-- ==================== PAGE 3 (PDF page 10) ==================== -->
 <div class="page-marker">— 10 —</div>
-
-<div class="figure-container">
-    <img src="images/svg/fig2_9.svg" alt="Figure 2.9: Points on E(F11)" style="max-width: 70%; height: auto;">
-    <div class="figure-caption">Figure 2.9: The points (excluding $\mathcal{O}$) on $E(\mathbb{F}_{11})$.<br>图 2.9：$E(\mathbb{F}_{11})$ 上的点（不含 $\mathcal{O}$）。</div>
-</div>
 
 <h2>2.1.1 The point at infinity in projective space</h2>
 
@@ -220,7 +220,13 @@
 <div class="example">
 <p><span class="example-title">Example 2.1.3</span> (Magma script). $E/\mathbb{R} : y^2 = x^3 + 3x$ is an elliptic curve. $P = (3, 6) \in \mathbb{A}^2(\mathbb{R})$ is a point on $E$. In projective space, $P$ becomes $P = (3 : 6 : 1) \in \mathbb{P}^2(\mathbb{R})$, which represents all points in $(3\lambda, 6\lambda, \lambda)$ for $\lambda \in \mathbb{R} \setminus \{0\}$. For example, the points $(12, 24, 4)$, $(-3\sqrt{-1}, -6\sqrt{-1}, -\sqrt{-1})$, $(3\sqrt{2}, 6\sqrt{2}, \sqrt{2})$ in $\mathbb{A}^3(\mathbb{R})$ are all equivalent (modulo the congruence condition) in $\mathbb{P}^2(\mathbb{R})$, where they are represented by $P$. As usual, the point at infinity on $E$ is $\mathcal{O} = (0 : 1 : 0)$.</p>
 
-<blockquote><strong>例 2.1.3</strong>：$E/\mathbb{R} : y^2 = x^3 + 3x$ 是一条椭圆曲线。$P = (3, 6) \in \mathbb{A}^2(\mathbb{R})$ 是 $E$ 上的一个点。在投影空间中，$P$ 变成 $P = (3 : 6 : 1) \in \mathbb{P}^2(\mathbb{R})$，它表示对所有 $\lambda \in \mathbb{R} \setminus \{0\}$ 的所有点 $(3\lambda, 6\lambda, \lambda)$。例如，$\mathbb{A}^3(\mathbb{R})$ 中的点 $(12, 24, 4)$、$(-3\sqrt{-1}, -6\sqrt{-1}, -\sqrt{-1})$、$(3\sqrt{2}, 6\sqrt{2}, \sqrt{2})$ 在 $\mathbb{P}^2(\mathbb{R})$ 中（模同余条件后）都是等价的，它们都由 $P$ 表示。通常，$E$ 上的无穷远点是 $\mathcal{O} = (0 : 1 : 0)$。</blockquote>
+<blockquote><strong>例 2.1.3</strong>：$E/\mathbb{R} : y^2 = x^3 + 3x$ 是一条椭圆曲线。$P = (3, 6) \in \mathbb{A}^2(\mathbb{R})$ 是 $E$ 上的一个点。在投影空间中，$P$ 变成 $P = (3 : 6 : 1) \in \mathbb{P}^2(\mathbb{R})$，它表示对所有 $\lambda \in \mathbb{R} \setminus \{0\}$ 的所有点 $(3\lambda, 6\lambda, \lambda)$。例如，$\mathbb{A}^3(\mathbb{R})$ 中的点 $(12, 24, 4)$、<del>$(-3\sqrt{-1}, -6\sqrt{-1}, -\sqrt{-1})$</del>、$(3\sqrt{2}, 6\sqrt{2}, \sqrt{2})$ 在 $\mathbb{P}^2(\mathbb{R})$ 中（模同余条件后）都是等价的，它们都由 $P$ 表示。通常，$E$ 上的无穷远点是 $\mathcal{O} = (0 : 1 : 0)$。</blockquote>
+
+<div class="note" style="background-color: #fef2f2; border-left-color: #dc2626;">
+<strong>⚠️ 原文勘误</strong><br>
+原文中 $(-3\sqrt{-1}, -6\sqrt{-1}, -\sqrt{-1})$ 这个例子有误。既然明确说 $\lambda \in \mathbb{R} \setminus \{0\}$（非零实数），那么 $\lambda = -\sqrt{-1} = -i$ 是不可能的，因为 $i$ 是虚数单位，$i \notin \mathbb{R}$。这个点不在 $\mathbb{A}^3(\mathbb{R})$ 中，不应该出现在这个例子里。<br><br>
+正确的例子应该只包括实数 $\lambda$ 对应的点，如 $(12, 24, 4)$（$\lambda = 4$）、$(3\sqrt{2}, 6\sqrt{2}, \sqrt{2})$（$\lambda = \sqrt{2}$）、$(-6, -12, -2)$（$\lambda = -2$）等。
+</div>
 </div>
 
 <p>The way we define the collection of points in projective space is to <em>homogenise</em> $E : y^2 = x^3 + ax + b$ by making the substitution $x = X/Z$ and $y = Y/Z$, and multiplying by $Z^3$ to clear the denominators, which gives</p>
@@ -252,6 +258,47 @@ $$E_{\mathbb{P}} : Y^2Z = X^3 + aXZ^2 + bZ^3. \tag{2.3}$$
 <p><span class="example-title">Example 2.1.5</span> (Magma script). Consider $E/\mathbb{F}_{41} : y^2 = x^3 + 4x - 1$. Using homogeneous coordinates gives rise to the projective equation $Y^2Z = X^3 + 4XZ^2 - Z^3$, with the point at infinity being $\mathcal{O} = (0 : 1 : 0)$. An alternative projection we can use is $x = X/Z$ and $y = Y/Z^2$, which in this instance give the projective equation $Y^2 = X^3Z + 4XZ^3 - Z^4$, from which the point at infinity is seen (from putting $Z = 0$) to be $\mathcal{O} = (1 : 0 : 0)$. Another commonly used coordinate system is <span class="vocab" data-tip="/dʒəˈkoʊbiən/ Jacobian 坐标">Jacobian coordinates</span>, which use the substitutions $x = X/Z^2$ and $y = Y/Z^3$ to give the projective equation $Y^2 = X^3 + 4XZ^4 - Z^6$. In this case, we substitute $Z = 0$ to see that the point at infinity is defined by the line $\mathcal{O} = (\lambda^2 : \lambda^3 : 0) \in \mathbb{P}^2(\mathbb{F}_{41})$.</p>
 
 <blockquote><strong>例 2.1.5</strong>：考虑 $E/\mathbb{F}_{41} : y^2 = x^3 + 4x - 1$。使用齐次坐标得到投影方程 $Y^2Z = X^3 + 4XZ^2 - Z^3$，无穷远点是 $\mathcal{O} = (0 : 1 : 0)$。我们可以使用的另一种投影是 $x = X/Z$ 和 $y = Y/Z^2$，在这种情况下得到投影方程 $Y^2 = X^3Z + 4XZ^3 - Z^4$，从中可以看出（令 $Z = 0$）无穷远点是 $\mathcal{O} = (1 : 0 : 0)$。另一种常用的坐标系是 Jacobian 坐标，使用替换 $x = X/Z^2$ 和 $y = Y/Z^3$ 得到投影方程 $Y^2 = X^3 + 4XZ^4 - Z^6$。在这种情况下，我们令 $Z = 0$ 看到无穷远点由直线 $\mathcal{O} = (\lambda^2 : \lambda^3 : 0) \in \mathbb{P}^2(\mathbb{F}_{41})$ 定义。</blockquote>
+
+<div class="note">
+<strong>为什么要用不同的投影坐标？</strong><br><br>
+不同的投影坐标系在群运算中有不同的计算效率。核心优势是<strong>避免昂贵的域求逆运算</strong>（在有限域中，一次求逆约等于 80-100 次乘法）。<br><br>
+
+<strong>三种坐标系的对比：</strong><br>
+<table style="width:100%; border-collapse: collapse; margin: 0.5em 0; font-size: 0.9em;">
+<tr style="background: #e0e7ff;">
+<th style="border: 1px solid #ccc; padding: 6px;">坐标系</th>
+<th style="border: 1px solid #ccc; padding: 6px;">替换</th>
+<th style="border: 1px solid #ccc; padding: 6px;">倍点成本</th>
+<th style="border: 1px solid #ccc; padding: 6px;">加法成本</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">仿射</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$(x, y)$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">1I + 2M + 2S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">1I + 2M + 1S</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">齐次投影</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$x=X/Z,\ y=Y/Z$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">5M + 6S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">12M + 2S</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">Jacobian</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$x=X/Z^2,\ y=Y/Z^3$</td>
+<td style="border: 1px solid #ccc; padding: 6px;"><strong>1M + 8S</strong></td>
+<td style="border: 1px solid #ccc; padding: 6px;">11M + 5S</td>
+</tr>
+</table>
+<p style="font-size: 0.85em; color: #666;">（I = 求逆，M = 乘法，S = 平方；假设 $a = -3$ 的特殊曲线）</p>
+
+<strong>选择策略：</strong><br>
+• <strong>Jacobian 坐标</strong>：倍点最快，适合标量乘法 $[k]P$（大量倍点操作）<br>
+• <strong>混合坐标</strong>：实际实现中常用"Jacobian 倍点 + 混合加法"策略<br>
+• <strong>最后转换</strong>：计算完成后只需一次求逆把结果转回仿射坐标<br><br>
+
+<strong>为什么 Jacobian 倍点更快？</strong> 替换 $x = X/Z^2$ 使得倍点公式中的某些项可以合并，减少了乘法次数。代价是加法稍慢，但标量乘法中倍点次数远多于加法，所以总体更优。
+</div>
 </div>
 
 <h2>2.1.2 Deriving explicit formulas for group law computations</h2>
@@ -351,6 +398,11 @@ $$x_R = \lambda^2 - 2x_P; \quad y_R = -(\lambda x_R + \nu).$$
 
 <!-- ==================== PAGE 7 (PDF page 16-17) ==================== -->
 <div class="page-marker">— 16-17 —</div>
+
+<div class="figure-container">
+    <img src="images/svg/fig2_11.svg" alt="Figure 2.11" style="max-width: 70%; height: auto;">
+    <div class="figure-caption">Figure 2.11<br>图 2.11</div>
+</div>
 
 <p>From now on we will only be working with elliptic curves over finite fields. We start with a simple example of basic group law computations on $E(\mathbb{F}_q)$ to summarise the discussion up until this point.</p>
 
@@ -452,6 +504,131 @@ $$[m] : E \to E, \quad P \mapsto [m]P,$$
 
 所以虽然投影坐标的公式看起来更复杂，但实际计算快了 <strong>6-8 倍</strong>！
 </div>
+
+<div class="example">
+<p><span class="example-title">Example 2.1.9</span> (Magma script). Consider a general Weierstrass curve $E(\mathbb{F}_q) : y^2 = x^3 + ax + b$ where $q$ is a large prime, and let $\mathbf{M}$, $\mathbf{S}$ and $\mathbf{I}$ represent the cost of computing multiplications, squarings and inversions in $\mathbb{F}_q$ respectively. To compute a general affine point doubling $(x_R, y_R) = [2](x_P, y_P)$ using (2.5) costs $2\mathbf{M} + 2\mathbf{S} + \mathbf{I}$, and to compute a general affine point addition $(x_R, y_R) = (x_P, y_P) \oplus (x_Q, y_Q)$ using (2.4) costs $2\mathbf{M} + \mathbf{S} + \mathbf{I}$. On the other hand, we can transform the formulas into homogeneous projective space according to the substitutions $x = X/Z$ and $y = Y/Z$, and we can consider computing $(X_R : Y_R : Z_R) = [2](X_P : Y_P : Z_P)$ and $(X_R : Y_R : Z_R) = (X_P : Y_P : Z_P) \oplus (X_Q : Y_Q : Z_Q)$ on $E : Y^2Z = X^3 + aXZ^2 + bZ^3$. For the addition case, substituting $x_i = X_i/Z_i$ and $y_i = Y_i/Z_i$ for $i \in \{P, Q, R\}$ into the affine formulas</p>
+
+<div class="equation">
+$$x_R = \left(\frac{y_Q - y_P}{x_Q - x_P}\right)^2 - x_P - x_Q; \quad y_R = \left(\frac{y_Q - y_P}{x_Q - x_P}\right)(x_P - x_R) - y_P$$
+</div>
+
+<p>taken from (2.4), gives</p>
+
+<div class="equation">
+$$\frac{X_R}{Z_R} = \left(\frac{\frac{Y_Q}{Z_Q} - \frac{Y_P}{Z_P}}{\frac{X_Q}{Z_Q} - \frac{X_P}{Z_P}}\right)^2 - \frac{X_P}{Z_P} - \frac{X_Q}{Z_Q}; \quad \frac{Y_R}{Z_R} = \left(\frac{\frac{Y_Q}{Z_Q} - \frac{Y_P}{Z_P}}{\frac{X_Q}{Z_Q} - \frac{X_P}{Z_P}}\right)\left(\frac{X_P}{Z_P} - \frac{X_R}{Z_R}\right) - \frac{Y_P}{Z_P}.$$
+</div>
+
+<p>After a little manipulation, we can then set $Z_R$ to be the smallest value that contains both denominators above, and update the numerators accordingly to give</p>
+
+<div class="equation">
+\begin{align*}
+X_R &= (X_P Z_Q - X_Q Z_P)\left(Z_P Z_Q (Y_P Z_Q - Y_Q Z_P)^2 - (X_P Z_Q - X_Q Z_P)^2(X_P Z_Q + X_Q Z_P)\right);\\
+Y_R &= Z_P Z_Q (X_Q Y_P - X_P Y_Q)(X_P Z_Q - X_Q Z_P)^2 \\
+&\quad - (Y_P Z_Q - Y_Q Z_P)\left((Y_P Z_Q - Y_Q Z_P)^2 Z_P Z_Q - (X_P Z_Q + X_Q Z_P)(X_P Z_Q - X_Q Z_P)^2\right);\\
+Z_R &= Z_P Z_Q (X_P Z_Q - X_Q Z_P)^3.
+\end{align*}
+</div>
+
+<p>The explicit formulas database (EFD) [BL07a] reports that the above formulas can be computed in a total of $12\mathbf{M} + 2\mathbf{S}$. The real power of adopting projective coordinates for computations becomes apparent when we remark that most optimised implementations of $\mathbb{F}_q$ arithmetic have $\mathbf{I} \gg 20\mathbf{M}$, and the multiplication to inversion ratio is commonly reported to be 80 : 1 or higher. Thus, the $12\mathbf{M} + 2\mathbf{S}$ used for additions in projective space will be much faster than the $2\mathbf{M} + \mathbf{S} + \mathbf{I}$ for affine additions. For completeness, we remark that deriving the projective formulas for computing $(X_R : Y_R : Z_R) = [2](X_P : Y_P : Z_P)$ is analogous (but substantially more compact since we only have the projective coordinates of $P$ to deal with), and the EFD reports that this can be done in $5\mathbf{M} + 6\mathbf{S}$, which will again be much faster than the $2\mathbf{M} + 2\mathbf{S} + \mathbf{I}$ in affine space.</p>
+
+<blockquote><strong>例 2.1.9</strong>：考虑一般 Weierstrass 曲线 $E(\mathbb{F}_q) : y^2 = x^3 + ax + b$，其中 $q$ 是大素数，设 $\mathbf{M}$、$\mathbf{S}$ 和 $\mathbf{I}$ 分别表示 $\mathbb{F}_q$ 中乘法、平方和求逆的计算成本。使用 (2.5) 计算一般仿射点倍点 $(x_R, y_R) = [2](x_P, y_P)$ 的成本是 $2\mathbf{M} + 2\mathbf{S} + \mathbf{I}$，使用 (2.4) 计算一般仿射点加法 $(x_R, y_R) = (x_P, y_P) \oplus (x_Q, y_Q)$ 的成本是 $2\mathbf{M} + \mathbf{S} + \mathbf{I}$。另一方面，我们可以根据替换 $x = X/Z$ 和 $y = Y/Z$ 将公式转换到齐次投影空间，考虑在 $E : Y^2Z = X^3 + aXZ^2 + bZ^3$ 上计算 $(X_R : Y_R : Z_R) = [2](X_P : Y_P : Z_P)$ 和 $(X_R : Y_R : Z_R) = (X_P : Y_P : Z_P) \oplus (X_Q : Y_Q : Z_Q)$。<br><br>
+
+对于加法情况，将 $x_i = X_i/Z_i$ 和 $y_i = Y_i/Z_i$（$i \in \{P, Q, R\}$）代入仿射公式，经过一些整理后得到上述投影公式。<br><br>
+
+显式公式数据库 (EFD) 报告上述公式可以在总共 $12\mathbf{M} + 2\mathbf{S}$ 内计算。当我们注意到大多数优化的 $\mathbb{F}_q$ 算术实现有 $\mathbf{I} \gg 20\mathbf{M}$，且乘法与求逆的比率通常报告为 80:1 或更高时，采用投影坐标进行计算的真正威力就变得明显了。因此，投影空间中加法使用的 $12\mathbf{M} + 2\mathbf{S}$ 将比仿射加法的 $2\mathbf{M} + \mathbf{S} + \mathbf{I}$ 快得多。为完整起见，我们指出推导 $(X_R : Y_R : Z_R) = [2](X_P : Y_P : Z_P)$ 的投影公式是类似的（但由于只需处理 $P$ 的投影坐标，所以更紧凑），EFD 报告这可以在 $5\mathbf{M} + 6\mathbf{S}$ 内完成，这同样比仿射空间中的 $2\mathbf{M} + 2\mathbf{S} + \mathbf{I}$ 快得多。</blockquote>
+</div>
+
+<p>The Weierstrass model for elliptic curves covers all isomorphism classes, meaning that every elliptic curve can be written in Weierstrass form. Other models of elliptic curves are usually available if some condition holds, and (if this is the case) it can be advantageous to adopt such a model, as the following example shows.</p>
+
+<blockquote>椭圆曲线的 Weierstrass 模型覆盖所有同构类，这意味着每条椭圆曲线都可以写成 Weierstrass 形式。如果某些条件成立，通常可以使用椭圆曲线的其他模型，（如果是这种情况）采用这样的模型可能是有利的，如下面的例子所示。</blockquote>
+
+<div class="example">
+<p><span class="example-title">Example 2.1.10</span> (Magma script). If $x^3 + ax + b$ has a root in $\mathbb{F}_q$, then Billet and Joye [BJ03, Eq. 8-10] show that instead of working with $E : y^2 = x^3 + ax + b$, we can work with the (birationally equivalent) <span class="vocab" data-tip="Jacobi 四次曲线">Jacobi-quartic curve</span> $J : v^2 = \alpha u^4 + du^2 + 1$, for appropriately defined $\alpha, d$ (that depend on the root). Here we write $J$ using $(u, v)$ coordinates so back-and-forth mappings are defined without confusion. Thus, consider $E/\mathbb{F}_{97} : y^2 = x^3 + 5x + 5$, for which $x^3 + 5x + 5$ has 34 as a root, so we will work on the isomorphic curve $J/\mathbb{F}_{97} : v^2 = 73u^4 + 46u^2 + 1$. Instead of homogeneous projective coordinates, [BJ03] projectified under the substitution $u = U/W$ and $v = V/W^2$, which gives the (non-homogeneous) projective closure as $J : V^2 = 73U^4 + 46U^2W^2 + W^4$. Any point $(x, y) \neq \mathcal{O}$ on $E$ can be taken straight to the projective closure of $J$ via</p>
+
+<div class="equation">
+$$(x, y) \mapsto \left(2(x - 34) : (2x + 34)(x - 34)^2 - y^2 : y\right),$$
+</div>
+
+<p>with the reverse mapping given by</p>
+
+<div class="equation">
+$$(U : V : W) \mapsto \left(2\frac{V + W^2}{U^2} - 17, W\frac{4(V + W^2) - 5U^2}{U^3}\right).$$
+</div>
+
+<p>For example $(x, y) = (77, 21)$ maps to $(U : V : W) = (86 : 8 : 21)$, and vice versa. We now look at the formulas for the point addition $(U_3 : V_3 : W_3) = (U_1 : V_1 : W_1) \oplus (U_2 : V_2 : W_2)$ on $J : V^2 = \alpha U^4 + dU^2W^2 + W^4$, taken from [BJ03, Eq. 11], as</p>
+
+<div class="equation">
+\begin{align*}
+U_3 &= U_1 W_1 V_2 + U_2 W_2 V_1,\\
+V_3 &= \left((W_1 W_2)^2 + \alpha(U_1 U_2)^2\right)(V_1 V_2 + dU_1 U_2 W_1 W_2) + 2\alpha U_1 U_2 W_1 W_2 (U_1^2 W_2^2 + U_2^2 W_1^2),\\
+W_3 &= (W_1 W_2)^2 - \alpha(U_1 U_2)^2,
+\end{align*}
+</div>
+
+<p>where we immediately highlight the relative simplicity of the above formulas in comparison to the homogeneous projective formulas derived in the previous example. Unsurprisingly then, the fastest formulas for Jacobi-quartic additions and doublings outdo those for general Weierstrass curves in homogeneous projective space. Namely, the current fastest formulas for doublings on Jacobi-quartics cost $2\mathbf{M} + 5\mathbf{S}$ and additions cost $6\mathbf{M} + 4\mathbf{S}$ [HWCD09], whilst in the previous example we saw that general Weierstrass doublings cost $5\mathbf{M} + 6\mathbf{S}$ and additions cost $12\mathbf{M} + 2\mathbf{S}$.</p>
+
+<blockquote><strong>例 2.1.10</strong>：如果 $x^3 + ax + b$ 在 $\mathbb{F}_q$ 中有根，那么 Billet 和 Joye 证明我们可以用（双有理等价的）<strong>Jacobi 四次曲线</strong> $J : v^2 = \alpha u^4 + du^2 + 1$ 代替 $E : y^2 = x^3 + ax + b$，其中 $\alpha, d$ 是适当定义的（取决于那个根）。这里我们用 $(u, v)$ 坐标写 $J$，以便来回映射的定义不会混淆。<br><br>
+
+考虑 $E/\mathbb{F}_{97} : y^2 = x^3 + 5x + 5$，其中 $x^3 + 5x + 5$ 有 34 作为根，所以我们将在同构曲线 $J/\mathbb{F}_{97} : v^2 = 73u^4 + 46u^2 + 1$ 上工作。[BJ03] 没有使用齐次投影坐标，而是用替换 $u = U/W$ 和 $v = V/W^2$ 投影化，得到（非齐次）投影闭包 $J : V^2 = 73U^4 + 46U^2W^2 + W^4$。$E$ 上任何点 $(x, y) \neq \mathcal{O}$ 都可以直接映射到 $J$ 的投影闭包。<br><br>
+
+例如 $(x, y) = (77, 21)$ 映射到 $(U : V : W) = (86 : 8 : 21)$，反之亦然。上面给出了 $J$ 上点加法的公式，我们立即注意到这些公式相对于前一个例子中推导的齐次投影公式要简单得多。因此毫不奇怪，Jacobi 四次曲线上加法和倍点的最快公式优于齐次投影空间中一般 Weierstrass 曲线的公式。即，Jacobi 四次曲线上倍点的当前最快公式成本为 $2\mathbf{M} + 5\mathbf{S}$，加法成本为 $6\mathbf{M} + 4\mathbf{S}$，而在前一个例子中我们看到一般 Weierstrass 倍点成本为 $5\mathbf{M} + 6\mathbf{S}$，加法成本为 $12\mathbf{M} + 2\mathbf{S}$。</blockquote>
+
+<div class="note">
+<strong>椭圆曲线的不同模型</strong><br><br>
+除了 Weierstrass 形式 $y^2 = x^3 + ax + b$，椭圆曲线还有许多其他等价模型，每种都有其优缺点：<br><br>
+
+<table style="width:100%; border-collapse: collapse; margin: 0.5em 0; font-size: 0.9em;">
+<tr style="background: #e0e7ff;">
+<th style="border: 1px solid #ccc; padding: 6px;">模型</th>
+<th style="border: 1px solid #ccc; padding: 6px;">方程形式</th>
+<th style="border: 1px solid #ccc; padding: 6px;">倍点</th>
+<th style="border: 1px solid #ccc; padding: 6px;">加法</th>
+<th style="border: 1px solid #ccc; padding: 6px;">条件</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">Weierstrass（齐次投影）</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$Y^2Z = X^3 + aXZ^2 + bZ^3$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">5M + 6S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">12M + 2S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">总是可用</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">Jacobi 四次</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$v^2 = \alpha u^4 + du^2 + 1$</td>
+<td style="border: 1px solid #ccc; padding: 6px;"><strong>2M + 5S</strong></td>
+<td style="border: 1px solid #ccc; padding: 6px;"><strong>6M + 4S</strong></td>
+<td style="border: 1px solid #ccc; padding: 6px;">$x^3+ax+b$ 有根</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">Montgomery</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$By^2 = x^3 + Ax^2 + x$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">2M + 2S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">4M + 2S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">阶可被 4 整除</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ccc; padding: 6px;">Edwards</td>
+<td style="border: 1px solid #ccc; padding: 6px;">$x^2 + y^2 = 1 + dx^2y^2$</td>
+<td style="border: 1px solid #ccc; padding: 6px;">3M + 4S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">10M + 1S</td>
+<td style="border: 1px solid #ccc; padding: 6px;">阶可被 4 整除</td>
+</tr>
+</table>
+<p style="font-size: 0.85em; color: #666;">（M = 乘法，S = 平方；成本取决于具体实现和优化）</p>
+
+<strong>为什么 Jacobi 四次曲线更快？</strong><br>
+Jacobi 四次曲线的公式结构更简单，导致需要的乘法和平方次数更少。但代价是只有当 $x^3 + ax + b$ 在 $\mathbb{F}_q$ 中有根时才能使用（大约一半的曲线满足这个条件）。<br><br>
+
+<strong>实践中的选择：</strong><br>
+• <strong>通用性优先</strong>：使用 Weierstrass + Jacobian 坐标<br>
+• <strong>性能优先</strong>：选择满足条件的特殊曲线模型（如 Edwards 曲线用于 Ed25519）<br>
+• <strong>侧信道安全</strong>：Edwards 曲线的统一加法公式（加法和倍点用相同公式）可以抵抗时序攻击
+</div>
+</div>
+
+<p>The Jacobi-quartic curves discussed above are just one example of dozens of models that have been successful in achieving fast group law computations, and therefore fast cryptographic implementations. Other well known models include <span class="vocab" data-tip="Edwards 曲线">Edwards curves</span> [Edw07, BL07b], <span class="vocab" data-tip="Hessian 曲线">Hessian curves</span> [JQ01, Sma01] and <span class="vocab" data-tip="Montgomery 曲线">Montgomery curves</span> [Mon87]. We refer to the EFD [BL07a] for a catalogue of all the fastest formulas for the popular curve models, and to Hisil's thesis [His10] for a general method of (automatically) deriving fast group law algorithms on arbitrary curve models. For any reader wishing to delve even further into group law arithmetic on elliptic curves, we also recommend the recent, advanced works by Castryck and Vercauteren [CV11], and by Kohel [Koh11].</p>
+
+<blockquote>上面讨论的 Jacobi 四次曲线只是在实现快速群运算计算（从而实现快速密码实现）方面取得成功的数十种模型之一。其他著名的模型包括 <strong>Edwards 曲线</strong>、<strong>Hessian 曲线</strong>和 <strong>Montgomery 曲线</strong>。我们推荐 EFD（显式公式数据库）获取流行曲线模型的所有最快公式目录，以及 Hisil 的论文了解在任意曲线模型上（自动）推导快速群运算算法的通用方法。对于希望更深入研究椭圆曲线群运算算术的读者，我们还推荐 Castryck 和 Vercauteren 以及 Kohel 的近期高级著作。</blockquote>
 
 <!-- Navigation -->
 <div class="nav-links">
