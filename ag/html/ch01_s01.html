@@ -49,6 +49,20 @@ $$x = \frac{2\lambda}{\lambda^2 + 1}, \quad y = \frac{\lambda^2 - 1}{\lambda^2 +
 于是所有整数解就是：$X = 2\ell m$，$Y = \ell^2 - m^2$，$Z = \ell^2 + m^2$，其中 $\ell, m \in \mathbb{Z}$ 互素。
 </blockquote>
 
+<div class="remark">
+<p><strong>【补充说明】</strong>原文的 "so" 跳过了一个关键推理，这里展开解释。</p>
+
+<p><strong>第一步：参数化覆盖了圆上所有点（除一个点外）。</strong>给定圆上任意一点 $(x,y) \neq (0,1)$，都可以算出 $\lambda = x/(1-y)$，再代回参数化公式恰好还原 $(x,y)$。所以这个参数化建立了 $\lambda \in \mathbb{R}$ 与 $C \setminus \{(0,1)\}$ 之间的一一对应。</p>
+
+<p><strong>第二步：有理点对应有理参数。</strong>如果 $(x,y)$ 是有理数，那么 $\lambda = x/(1-y)$ 也是有理数；反过来，$\lambda$ 是有理数时，参数化公式给出的 $(x,y)$ 显然也是有理数。所以圆上的有理点恰好就是 $\lambda$ 取遍所有有理数时得到的点。</p>
+
+<p><strong>第三步：从有理点到整数解。</strong>设 $\lambda = \ell/m$，其中 $\ell, m$ 互素，代入参数化公式：</p>
+$$x = \frac{2(\ell/m)}{(\ell/m)^2 + 1} = \frac{2\ell m}{\ell^2 + m^2}, \quad y = \frac{(\ell/m)^2 - 1}{(\ell/m)^2 + 1} = \frac{\ell^2 - m^2}{\ell^2 + m^2}.$$
+<p>于是 $x = X/Z$，$y = Y/Z$，其中 $X = 2\ell m$，$Y = \ell^2 - m^2$，$Z = \ell^2 + m^2$。可以验证 $\gcd(\ell, m) = 1$ 保证了 $\gcd(X, Y, Z) = 1$（本原解），再乘以任意公因子就得到全部整数解。</p>
+
+<p><strong>例子：</strong>$\ell = 2, m = 1$ 给出 $(X, Y, Z) = (4, 3, 5)$；$\ell = 3, m = 2$ 给出 $(12, 5, 13)$。</p>
+</div>
+
 <p>(or each divided by 2 if $\ell, m$ are both odd). Note that the equation is homogeneous, so that if $(X, Y, Z)$ is a solution, then so is $(\lambda X, \lambda Y, \lambda Z)$.</p>
 
 <blockquote>

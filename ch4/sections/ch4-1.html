@@ -142,12 +142,14 @@ $$e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T.$$
 
 <blockquote>
 <strong>密码学中的配对记法</strong>：
+
+<p>在实际应用中，我们常常稍微放宽条件：配对的两个输入不必来自同一个群，可以来自两个阶相同的循环群（阶相同就意味着同构）。所以密码学文献中常用的记法是：</p>
 $$e : \mathbb{G}_1 \times \mathbb{G}_2 \to \mathbb{G}_T$$
 <ul>
 <li>$\mathbb{G}_1, \mathbb{G}_2$：源群（通常是椭圆曲线上的点群）</li>
 <li>$\mathbb{G}_T$：目标群（target group，通常是有限域的乘法群）</li>
 </ul>
-<p>本章的主要目标是定义 $\mathbb{G}_1$ 和 $\mathbb{G}_2$。</p>
+<p>本章的主要目标是定义 $\mathbb{G}_1$ 和 $\mathbb{G}_2$。$\mathbb{G}_T$ 的定义会随着下一章配对的定义一起给出。</p>
 </blockquote>
 
 <p>Currently, the only known instantiations of pairings suitable for cryptography are the Weil and Tate pairings on divisor class groups of algebraic curves, and in the simplest and most efficient cases, on elliptic curves. Let $\mathbb{F}_{q^k}$ be some finite extension of $\mathbb{F}_q$ with $k \geq 1$. The groups $\mathbb{G}_1$ and $\mathbb{G}_2$ are defined in $E(\mathbb{F}_{q^k})$, and the target group $\mathbb{G}_T$ is defined in the multiplicative group $\mathbb{F}_{q^k}^*$, so we usually write $\mathbb{G}_1$ and $\mathbb{G}_2$ additively, whilst we write $\mathbb{G}_T$ multiplicatively. Thus, for $P, P' \in \mathbb{G}_1$ and $Q, Q' \in \mathbb{G}_2$, the bilinearity of $e$ means that</p>
@@ -161,14 +163,24 @@ $$e([a]P, [b]Q) = e(P, [b]Q)^a = e([a]P, Q)^b = e(P, Q)^{ab} = e([b]P, [a]Q). \t
 
 <blockquote>
 <strong>双线性性的具体形式</strong>：
-<p>由于 $\mathbb{G}_1, \mathbb{G}_2$ 用加法记号，$\mathbb{G}_T$ 用乘法记号，双线性性变为：</p>
-$$e([a]P, [b]Q) = e(P, Q)^{ab}$$
-<p>这个性质极其重要！它意味着：</p>
+
+<p>目前已知适合密码学的配对只有代数曲线除子类群上的 Weil 和 Tate 配对，最简单高效的情况就是在椭圆曲线上。设 $\mathbb{F}_{q^k}$ 是 $\mathbb{F}_q$ 的某个扩域（$k \geq 1$）。$\mathbb{G}_1$ 和 $\mathbb{G}_2$ 定义在 $E(\mathbb{F}_{q^k})$ 中，$\mathbb{G}_T$ 定义在乘法群 $\mathbb{F}_{q^k}^*$ 中。所以我们把 $\mathbb{G}_1$ 和 $\mathbb{G}_2$ 写成加法群，$\mathbb{G}_T$ 写成乘法群。</p>
+
+<p>对 $P, P' \in \mathbb{G}_1$ 和 $Q, Q' \in \mathbb{G}_2$，双线性性就是：</p>
 <ul>
-<li>$e([a]P, [b]Q) = e([b]P, [a]Q)$（可以"交换"指数）</li>
-<li>知道 $[a]P$ 和 $[b]Q$，可以计算 $e(P,Q)^{ab}$，而无需知道 $a$ 或 $b$</li>
+<li>$e(P + P', Q) = e(P, Q) \cdot e(P', Q)$</li>
+<li>$e(P, Q + Q') = e(P, Q) \cdot e(P, Q')$</li>
 </ul>
-<p>这是 Diffie-Hellman 密钥交换的三方版本（Tripartite DH）的基础！</p>
+<p>由此推出，对整数 $a, b \in \mathbb{Z}$：</p>
+$$e([a]P, [b]Q) = e(P, [b]Q)^a = e([a]P, Q)^b = e(P, Q)^{ab} = e([b]P, [a]Q) \tag{4.1}$$
+<p>这意味着：</p>
+<ul>
+<li>可以"交换"标量：$e([a]P, [b]Q) = e([b]P, [a]Q)$</li>
+<li>只知道 $[a]P$ 和 $[b]Q$，就能算出 $e(P,Q)^{ab}$，而不需要知道 $a$ 或 $b$ 本身</li>
+</ul>
+<p>这是三方 Diffie-Hellman 密钥交换（Tripartite DH）的基础。</p>
+
+<p>虽然我们还没定义 $\mathbb{G}_1$、$\mathbb{G}_2$ 和 $\mathbb{G}_T$，也还没开始讨论配对的计算方法，但先看一些双线性性的具体例子会很有帮助。</p>
 </blockquote>
 
 <p>Even though we are yet to define $\mathbb{G}_1$, $\mathbb{G}_2$ or $\mathbb{G}_T$, and we are still a while away from beginning the discussion of how the pairing $e(P, Q)$ is computed, it helps to immediately see the bilinearity property of pairings in context.</p>
@@ -227,15 +239,23 @@ $$e([a]P, [b]Q) = e(P, Q)^{ab}$$
 </div>
 
 <blockquote>
-<strong>注 4.0.1（ECC vs. PBC）</strong>：
+<strong>注 4.0.1（ECC vs. PBC）</strong>：这段非正式说明是给 PBC 新手的一个澄清。
 <ul>
 <li><strong>ECC</strong>：椭圆曲线密码学（Elliptic Curve Cryptography）</li>
 <li><strong>PBC</strong>：基于配对的密码学（Pairing-Based Cryptography）</li>
 </ul>
-<p>目前已知的适合密码学的可接受配对只有代数曲线上的 Weil 和 Tate 配对。配对恰好可以在椭圆曲线上定义，而椭圆曲线本身在配对出现之前就已经是密码学的热门领域——这是一个"幸运的巧合"（Lynn 语）。</p>
+<p>作者早期消化大量文献时也很困惑，Lynn 的博士论文中的一段话帮助理清了 ECC 和 PBC 的关系：目前已知适合密码学的可接受配对只有代数曲线上的 Weil 和 Tate 配对。配对恰好可以在椭圆曲线上定义，而椭圆曲线在配对登场之前就已经是密码学中极具吸引力的工具——用 Lynn 的话说，这是一个"幸运的巧合"。密码学家本来愿意接受任何形式的安全可接受配对，但它们恰好来自代数几何的领域、恰好在椭圆曲线上计算，让它们"更加有吸引力"了。</p>
 </blockquote>
 
 <p>In cryptography we need more properties than the three which constitute an admissible pairing. The magic of the bilinearity property in (4.1) that gives pairing-based primitives increased functionality over traditional primitives is useless unless discrete logarithm related problems within all three groups remain intractable. Example 4.0.1 gives an admissible pairing, but because the toy sizes of $\mathbb{G}_1$, $\mathbb{G}_2$ and $\mathbb{G}_T$ clearly offer no resistance in regards to their respective discrete logarithm problems, such a pairing instance would clearly never be used. However, if the size $r$ of all three groups was inflated to be much larger (say 512 bits), then the corresponding pairing could meet current security requirements and resist all known attacks. We present an alternative bilinear pairing that meets the admissible requirements, but (regardless of how large the group sizes are) is still not suitable for PBC. This example too, is taken from Lynn's thesis [Lyn07, §1.9].</p>
+
+<blockquote>
+<strong>光是"可接受"还不够</strong>：
+
+<p>密码学需要的不止可接受配对的三个条件。公式 (4.1) 中双线性性带来的强大功能，前提是<strong>三个群中的离散对数问题都是难的</strong>。例 4.0.1 给出了一个可接受的配对，但因为 $\mathbb{G}_1$, $\mathbb{G}_2$, $\mathbb{G}_T$ 的规模太小（玩具级别），离散对数问题毫无难度，所以实际中绝不会用。不过如果把三个群的阶 $r$ 放大到比如 512 位，那对应的配对就能满足当前的安全需求、抵抗所有已知攻击。</p>
+
+<p>下面给出一个反面例子（来自 Lynn 的博士论文）：一个满足可接受条件的配对，但<strong>不管群有多大</strong>都不适合用于 PBC。</p>
+</blockquote>
 
 <!-- ==================== PAGE 50 ==================== -->
 <div class="page-marker">— 50 —</div>
@@ -272,6 +292,8 @@ $$e([a]P, [b]Q) = e(P, Q)^{ab}$$
 <p><strong>为什么 $\mathbb{G}_2$ 中的 DLP 是容易的？</strong></p>
 <p>在加法群 $\mathbb{Z}_{10}^+$ 中，"离散对数问题"是：给定生成元 $1$ 和目标 $b$，求 $a$ 使得 $a \cdot 1 = b \mod 10$。答案显然就是 $a = b$！没有任何计算难度。</p>
 
+<p>不过有趣的是，经典的离散对数问题仍然可以用这个配对来表述：设 $r$ 为大素数，给定 $g \in \mathbb{G}_1$ 和 $h \in \mathbb{G}_T$，求 $a \in \mathbb{G}_2$ 使得 $e(g, a) = h$——这就是标准的离散对数问题。</p>
+
 <p><strong>教训</strong>：仅仅满足可接受条件是不够的，还需要三个群中的离散对数问题都是困难的。</p>
 </blockquote>
 
@@ -282,19 +304,27 @@ $$e([a]P, [b]Q) = e(P, Q)^{ab}$$
 <p>We now turn our focus towards concretely defining the groups $\mathbb{G}_1$ and $\mathbb{G}_2$. Having not yet seen how pairings are computed, we will need to make some statements regarding what we need out of $\mathbb{G}_1$ and $\mathbb{G}_2$ that will really only tie together when the definitions of the Weil and Tate pairings come in the following chapter. The main such statement is that computing the pairing $e(P, Q)$, in either the Weil or Tate sense, requires that $P$ and $Q$ come from disjoint cyclic subgroups of the same prime<sup>1</sup> order $r$. At this point we can only hint towards why by referring back to the stipulation of disjoint supports that was made in the statement of Weil reciprocity (Theorem 3.1), and claiming that if $P$ and $Q$ are in the same cyclic subgroup, then the pairing computation essentially fails because supports of the associated divisors are forced to undesirably coincide.</p>
 
 <blockquote>
-<strong>$r$-挠群的重要性</strong>：计算配对 $e(P, Q)$（无论是 Weil 还是 Tate）需要 $P$ 和 $Q$ 来自<strong>相同素数阶 $r$ 的不相交循环子群</strong>。
+<strong>$r$-挠群的重要性</strong>：
 
-<p>为什么？回顾 Weil 互反律（定理 3.1）的支撑集不相交条件。如果 $P$ 和 $Q$ 在同一个循环子群中，相关除子的支撑集会重叠，配对计算就会失败。</p>
+<p>现在我们要具体定义 $\mathbb{G}_1$ 和 $\mathbb{G}_2$ 了。虽然还没讲配对怎么算，但有些对 $\mathbb{G}_1$ 和 $\mathbb{G}_2$ 的要求需要先说清楚——这些要求到下一章定义 Weil 和 Tate 配对时才能完全理解。</p>
+
+<p>最关键的一条是：计算 $e(P, Q)$（不管是 Weil 还是 Tate 版本）要求 $P$ 和 $Q$ 来自<strong>同阶素数 $r$ 的不相交循环子群</strong><sup>1</sup>。</p>
+
+<p>为什么不能在同一个子群里？这里只能先给个提示：回想 Weil 互反律（定理 3.1）要求两个函数的除子支撑集不相交。如果 $P$ 和 $Q$ 在同一个循环子群中，对应除子的支撑集就被迫重叠，配对计算就做不下去了。</p>
 </blockquote>
 
 <p>We have already seen an example (4.0.1) of how we can find more than one cyclic subgroup of order $r$, when $E(\mathbb{F}_q)$ itself only contains one subgroup. Namely, we extended $\mathbb{F}_q$ to $\mathbb{F}_{q^2}$ and saw that $E(\mathbb{F}_{q^2})\setminus E(\mathbb{F}_q)$ had at least one other subgroup of order $r$, where we were able to define $Q$ and subsequently compute $e(P, Q)$. This is precisely the way we obtain two distinct order-$r$ subgroups in general: we find the smallest extension $\mathbb{F}_{q^k}$ of $\mathbb{F}_q$ such that $E(\mathbb{F}_{q^k})$ captures more points of order $r$. The integer $k \geq 1$ that achieves this is called the <em>embedding degree</em>, and it plays a crucial role in pairing computation. Also at the heart of our discussion then, is the entire group of points of order $r$ on $E(\mathbb{F}_q)$, called the $r$-torsion, which is denoted by $E[r]$ and defined as $E[r] = \{P \in E : [r]P = \mathcal{O}\}$.</p>
 
 <blockquote>
-<strong>嵌入度（Embedding Degree）</strong>：使得 $E(\mathbb{F}_{q^k})$ 包含更多 $r$ 阶点的最小正整数 $k$。
+<strong>怎么找到两个不同的 $r$ 阶子群？</strong>
 
-<p><strong>$r$-挠群（$r$-torsion）</strong>：
+<p>例 4.0.1 已经演示过一次了：$E(\mathbb{F}_q)$ 本身只有一个 $r$ 阶子群，但把域从 $\mathbb{F}_q$ 扩展到 $\mathbb{F}_{q^2}$ 后，$E(\mathbb{F}_{q^2}) \setminus E(\mathbb{F}_q)$ 里就出现了另一个 $r$ 阶子群，于是我们就能在两个不同子群里分别取 $P$ 和 $Q$ 来计算 $e(P, Q)$ 了。</p>
+
+<p>这就是一般做法：找到最小的扩域 $\mathbb{F}_{q^k}$，使得 $E(\mathbb{F}_{q^k})$ 能捕获更多 $r$ 阶点。这个最小正整数 $k$ 叫做<strong>嵌入度（embedding degree）</strong>，它在配对计算中扮演核心角色。</p>
+
+<p>讨论的核心对象是 $E$ 上所有阶整除 $r$ 的点构成的群，叫做 <strong>$r$-挠群（$r$-torsion）</strong>，记为：
 $$E[r] = \{P \in E : [r]P = \mathcal{O}\}$$
-即椭圆曲线上所有 $r$ 阶点（包括更低阶的整除 $r$ 的点）的集合。</p>
+注意这里包括阶严格整除 $r$ 的点（比如 $\mathcal{O}$ 本身，它的阶是 1）。</p>
 </blockquote>
 
 <!-- ==================== PAGE 51 ==================== -->
@@ -329,6 +359,25 @@ $$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$$
 </ol>
 </blockquote>
 
+<blockquote>
+<strong>直观理解：$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$ 是怎么算出来的？</strong>
+
+<p>这个结构定理的推导分两步：先算大小，再定结构。</p>
+
+<p><strong>第一步：$|E[r]| = r^2$</strong></p>
+<p>考虑<strong>乘法映射</strong> $[r] : E \to E$，即 $P \mapsto [r]P$。$E[r]$ 就是这个映射的核（kernel）。关键事实是 $[r]$ 作为自同态的度满足 $\deg([r]) = r^2$——这可以从 $\deg([m][n]) = \deg([m])\deg([n])$ 和 $\deg([1]) = 1$ 递推得出。当特征不整除 $r$ 时，$[r]$ 是<strong>可分的</strong>（separable），而可分映射的核大小恰好等于映射的度，因此 $|E[r]| = r^2$。</p>
+
+<p><strong>第二步：结构必然是 $\mathbb{Z}_r \times \mathbb{Z}_r$</strong></p>
+<p>$E[r]$ 是一个有限阿贝尔群，且每个元素的阶都整除素数 $r$。由<strong>有限阿贝尔群的分类定理</strong>，它只能是 $\mathbb{Z}_r$ 的若干份直积：$E[r] \cong \mathbb{Z}_r^a$。已知 $|E[r]| = r^2$，所以 $r^a = r^2$，即 $a = 2$。</p>
+
+<p>更深层的原因是：椭圆曲线是<strong>亏格（genus）为 1</strong> 的代数曲线。对于亏格 $g$ 的曲线，$r$-挠群的结构是 $\mathbb{Z}_r^{2g}$。椭圆曲线 $g = 1$，所以恰好是 $\mathbb{Z}_r^2$——两个"独立方向"。</p>
+
+<p><strong>为什么有 $r+1$ 个循环子群？</strong></p>
+<p>$\mathbb{Z}_r \times \mathbb{Z}_r$ 可以看作 $\mathbb{F}_r$ 上的二维向量空间。其中的一维子空间个数等于<strong>射影直线</strong> $\mathbb{P}^1(\mathbb{F}_r)$ 的点数，即 $r + 1$。每个一维子空间就是一个 $\mathbb{Z}_r$ 循环子群。所以 Figure 4.1 的"四叶草"（$r=3$，$3+1=4$ 个子群）和 Figure 4.3 的"八瓣花"（$r=7$，$7+1=8$ 个子群）都是这个射影几何结构的直接体现。</p>
+
+<p><strong>一句话总结</strong>：$[r]$ 映射的度是 $r^2$，椭圆曲线的亏格是 1，所以核有两个独立方向——$\mathbb{Z}_r \times \mathbb{Z}_r$。</p>
+</blockquote>
+
 <p>If $r\|{\#E(\mathbb{F}_q)}$ (i.e. $r \mid \#E(\mathbb{F}_q)$ but $r^2 \nmid \#E(\mathbb{F}_q)$), then the $r$-torsion subgroup in $E(\mathbb{F}_q)$ is unique. In this case, $k > 1$ and (4.2) implies that $\mathbb{F}_{q^k}$ is the smallest field extension of $\mathbb{F}_q$ which produces any more $r$-torsion points belonging to $E(\mathbb{F}_{q^k})\setminus E(\mathbb{F}_q)$. In other words, once the extension field is big enough to find one more point of order $r$ (that is not defined over the base field), then we actually find all of the points in $E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$. Scott [Sco04] describes this phenomenon more poetically:</p>
 
 <blockquote style="font-style: italic; background-color: #f0f0f0;">
@@ -336,12 +385,13 @@ $$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$$
 </blockquote>
 
 <blockquote>
-<strong>"神奇的绽放"</strong>：如果 $r \| \#E(\mathbb{F}_q)$（$r$ 恰好整除一次），则：
+<strong>"神奇的绽放"</strong>：如果 $r \| \#E(\mathbb{F}_q)$（意思是 $r \mid \#E(\mathbb{F}_q)$ 但 $r^2 \nmid \#E(\mathbb{F}_q)$，$r$ 恰好整除一次），那么：
 <ul>
-<li>$E(\mathbb{F}_q)$ 中只有一个 $r$ 阶子群</li>
-<li>扩展到 $\mathbb{F}_{q^k}$ 后，一下子找到<strong>所有</strong> $r^2$ 个 $r$-挠点</li>
+<li>$E(\mathbb{F}_q)$ 中只有唯一一个 $r$ 阶子群</li>
+<li>此时必然 $k > 1$，而 $\mathbb{F}_{q^k}$ 是产生 $E(\mathbb{F}_q)$ 之外的新 $r$-挠点的最小扩域</li>
+<li>一旦扩域大到能多找到哪怕一个新的 $r$ 阶点（不在基域上定义的），就会一下子找到<strong>整个</strong> $E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$ 的全部 $r^2$ 个点</li>
 </ul>
-<p>Scott 的诗意描述："群结构经历了一次奇异的绽放，呈现出新的、更奇特的特征。"</p>
+<p>Scott 用了一个很诗意的说法："……当同一条曲线被放到 $\mathbb{F}_{q^k}$ 上考虑时，某种相当神奇的事情发生了。群结构经历了一次奇异的绽放，呈现出一种全新的、更奇特的特征。"</p>
 </blockquote>
 
 <p>We also find Scott's depiction of the torsion subgroup $E[r]$ especially instructive [Sco04, Sco07a], so we use it in the following examples and throughout the rest of this chapter.</p>
@@ -370,12 +420,16 @@ $$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$$
 <strong>例 4.1.1</strong>：3-挠群的结构。
 <ul>
 <li>$q = 11$，$E: y^2 = x^3 + 4$，$\#E(\mathbb{F}_q) = 12$</li>
-<li>$r = 3$，$\#E[3] = 9$</li>
-<li>$E(\mathbb{F}_q)$ 中只有 3 个 3-挠点：$(0, 2), (0, 9), \mathcal{O}$</li>
-<li>嵌入度 $k = 2$（因为 $3 \mid (11^2 - 1) = 120$）</li>
-<li>扩展到 $\mathbb{F}_{q^2}$ 后，找到全部 9 个点，形成 4 个循环子群</li>
+<li>取 $r = 3$，由公式 (4.2) 知 3-挠群有 $3^2 = 9$ 个点</li>
+<li>$E(\mathbb{F}_q)$ 中只找到 3 个 3-挠点：$(0, 2), (0, 9), \mathcal{O}$</li>
+<li>嵌入度不是 1（因为 $(11^1 - 1) = 10$ 不被 3 整除），但 $(11^2 - 1) = 120$ 被 3 整除，所以 $k = 2$</li>
+<li>构造 $\mathbb{F}_{q^2} = \mathbb{F}_q(u)$，$u^2 + 1 = 0$，就能找到全部 9 个点</li>
+<li>这 9 个点形成 4 个阶为 3 的循环子群，$\mathcal{O}$ 同时属于所有子群——见 Figure 4.1</li>
 </ul>
-<p>Figure 4.1 的"四叶草"图展示了 $E[3]$ 的结构：4 个子群在 $\mathcal{O}$ 处相交。</p>
+
+<p>注意：$\mathcal{O}$ 虽然在 3-挠群里，但它的阶是 1 而不是 3——阶能整除 $r$ 的点都自动包含在 $r$-挠群中。</p>
+
+<p>公式 (4.2) 的意思是：任取两个不在同一子群中的非零点 $P, Q \in E[3] \setminus \{\mathcal{O}\}$，$E[3]$ 中的任何点都可以表示为 $[i]P + [j]Q$（$i, j \in \{0, 1, 2\}$）。固定一个 $P \neq \mathcal{O}$，让 $j$ 遍历 $0, 1, 2$，则 $P + [j]Q$ 分别落在 $E[3]$ 中除 $\langle Q \rangle$ 之外的三个子群里。</p>
 </blockquote>
 
 <div class="example">
@@ -388,13 +442,14 @@ $$E[r] \cong \mathbb{Z}_r \times \mathbb{Z}_r$$
 </figure>
 
 <blockquote>
-<strong>例 4.1.2</strong>：嵌入度 $k = 1$ 的特殊情况。
+<strong>例 4.1.2</strong>：嵌入度 $k = 1$ 的罕见情况——整个 $r$-挠群都在基域上。
 <ul>
 <li>$q = 31$，$E: y^2 = x^3 + 13$，$\#E(\mathbb{F}_q) = 25 = 5^2$</li>
-<li>$r = 5$，由于 $5 \mid (31 - 1) = 30$，嵌入度 $k = 1$</li>
-<li>整个 $E[5]$ 都在 $E(\mathbb{F}_q)$ 中！</li>
+<li>取 $r = 5$，由于 $5 \mid (31 - 1) = 30$，嵌入度 $k = 1$</li>
+<li>所以 $E[r] \subseteq E(\mathbb{F}_q)$——根本不用扩域！整个 $E[5] \cong \mathbb{Z}_5 \times \mathbb{Z}_5$ 的 25 个点全在 $E(\mathbb{F}_{31})$ 中</li>
+<li>Figure 4.2 展示了 $E[5]$ 的 $5+1 = 6$ 个循环子群</li>
 </ul>
-<p><strong>注意</strong>：$r^2 \mid \#E(\mathbb{F}_q)$ 不一定意味着 $E[r] \subseteq E(\mathbb{F}_q)$（可能存在 $r^2$ 阶点）。</p>
+<p><strong>注意</strong>：$r^2 \mid \#E(\mathbb{F}_q)$ 并不一定意味着 $E[r] \subseteq E(\mathbb{F}_q)$。因为群的阶被 $r^2$ 整除时，也可能是存在 $r^2$ 阶的点（而不是两个独立的 $r$ 阶方向都在基域上）。</p>
 </blockquote>
 
 <p>Before the next example, we introduce an important map that plays an intricate role within the $r$-torsion subgroups. Since we are working over finite extension fields of $\mathbb{F}_q$, it is natural that we find a useful contribution from Galois</p>
@@ -410,10 +465,12 @@ $$\text{Tr}(P) = \sum_{\sigma \in \text{Gal}(\mathbb{F}_{q^k}/\mathbb{F}_q)} \si
 
 <blockquote>
 <strong>迹映射（Trace Map）</strong>：
-$$\text{Tr}(P) = \sum_{i=0}^{k-1} \pi^i(P) = \sum_{i=0}^{k-1} (x^{q^i}, y^{q^i})$$
-<p>这是一个群同态 $\text{Tr} : E(\mathbb{F}_{q^k}) \to E(\mathbb{F}_q)$。</p>
 
-<p>当 $r \| \#E(\mathbb{F}_q)$ 时，迹映射将所有 $r$-挠点映射到 $E(\mathbb{F}_q)$ 中唯一的 $r$ 阶子群。</p>
+<p>在讲下一个例子之前，先介绍一个在 $r$-挠子群内部起重要作用的映射。既然我们在 $\mathbb{F}_q$ 的有限扩域上工作，Galois 理论自然会派上用场。对于点 $P = (x, y) \in E(\mathbb{F}_{q^k})$，迹映射定义为：</p>
+$$\text{Tr}(P) = \sum_{\sigma \in \text{Gal}(\mathbb{F}_{q^k}/\mathbb{F}_q)} \sigma(P) = \sum_{i=0}^{k-1} \pi^i(P) = \sum_{i=0}^{k-1} (x^{q^i}, y^{q^i})$$
+<p>其中 $\pi$ 是公式 (2.7) 定义的 $q$ 次方 Frobenius 自同态。</p>
+
+<p>Galois 理论告诉我们 $\text{Tr} : E(\mathbb{F}_{q^k}) \to E(\mathbb{F}_q)$，而且它是一个<strong>群同态</strong>。当 $r \| \#E(\mathbb{F}_q)$（从现在起我们总是假设这个条件成立）时，迹映射会把所有 $r$-挠点都送进 $E(\mathbb{F}_q)$ 中唯一的那个 $r$ 阶子群。</p>
 </blockquote>
 
 <div class="example">
@@ -435,16 +492,18 @@ $$\text{Tr}(P) = \sum_{i=0}^{k-1} \pi^i(P) = \sum_{i=0}^{k-1} (x^{q^i}, y^{q^i})
 <blockquote>
 <strong>例 4.1.3</strong>：迹映射的行为。
 <ul>
-<li>$q = 11$，$E: y^2 = x^3 + 7x + 2$，$\#E(\mathbb{F}_q) = 7$</li>
-<li>$r = 7$，嵌入度 $k = 3$</li>
-<li>$\#E[7] = 49$，分成 8 个循环子群</li>
+<li>$q = 11$，$E: y^2 = x^3 + 7x + 2$，$\#E(\mathbb{F}_q) = 7$，取 $r = 7$</li>
+<li>$E(\mathbb{F}_q)$ 本身就是 $E(\mathbb{F}_q)[r]$，但要收集完整的 $E[r]$ 还需要扩域</li>
+<li>使 $(q^k - 1) \equiv 0 \mod 7$ 的最小 $k$ 是 $k = 3$，所以构造 $\mathbb{F}_{q^3} = \mathbb{F}_q(u)$，$u^3 + u + 4 = 0$</li>
+<li>$\#E[7] = 49$，分成 $7+1 = 8$ 个循环子群——见 Figure 4.3（图中用 $\mathbb{F}_{q^3}$ 元素的幂表示来标注坐标）</li>
 </ul>
-<p><strong>迹映射的关键行为</strong>：</p>
+<p><strong>迹映射的关键行为</strong>（这里 $\text{Tr}(P) = (x,y) + (x^q, y^q) + (x^{q^2}, y^{q^2})$）：</p>
 <ul>
-<li>对于 $E(\mathbb{F}_q)[r]$ 中的点：$\text{Tr}(P) = [k]P$（因为 $\pi(P) = P$）</li>
-<li>对于其他子群中的点：$\text{Tr}$ 映射到 $E(\mathbb{F}_q)[r]$</li>
-<li><strong>特殊的迹零子群</strong>：存在一个子群，其中所有点的迹都是 $\mathcal{O}$！</li>
+<li>对于基域子群 $E(\mathbb{F}_q)[r]$ 中的点：Frobenius 不改变它们（$\pi(P) = P$），所以 $\text{Tr}(P) = P + P + P = [k]P = [3]P$</li>
+<li>对于其他子群中的点：$\text{Tr}$ 都映射到 $E(\mathbb{F}_q)[r]$。比如 $Q = (u^{481}, u^{1049})$（图中向上的子群）有 $\text{Tr}(Q) = (8, 8)$；$R = (u^{423}, u^{840})$（右下子群）有 $\text{Tr}(R) = (10, 7)$；$S = (u^{1011}, u^{1244})$ 有 $\text{Tr}(S) = (8, 3)$</li>
+<li><strong>有一个很特别的子群</strong>：右上角包含 $T = (u^{1315}, u^{1150})$ 的子群，迹映射把其中每个点都送到 $\mathcal{O}$，即 $\text{Tr}(T) = \mathcal{O}$，也就是说 $\text{Tr} : \langle T \rangle \to \{\mathcal{O}\}$。这个现象是普遍存在的，我们马上会看到它在 PBC 中的重要性</li>
 </ul>
+<p>最后注意：嵌入度 $k = 3$ 同时意味着 6 个非平凡的 7 次单位根全部在 $\mathbb{F}_{q^3}$ 中（而不在更小的扩域中），即 $\mu_7 \setminus \{1\} \subset \mathbb{F}_{q^3} \setminus \mathbb{F}_{q^2}$。</p>
 </blockquote>
 
 <p>We now give a general depiction of the $r$-torsion $E[r]$. To do so, we need to discuss a few assumptions that apply most commonly to the scenarios we will be encountering. Firstly, we assume that $r\|\#E(\mathbb{F}_q)$ is prime and the embedding degree $k$ (with respect to $r$) is $k > 1$. Thus, there is a unique subgroup of order $r$ in $E[r]$ which is defined over $\mathbb{F}_q$, called the <em>base-field subgroup</em>; it is denoted by $\mathcal{G}_1$. Since the Frobenius endomorphism $\pi$ acts trivially on $\mathcal{G}_1$, but nowhere else in $E[r]$, then it can be defined as $\mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$. That is, $\mathcal{G}_1$ is the $[1]$-eigenspace of $\pi$ restricted to $E[r]$. There is another subgroup of $E[r]$ that can be expressed using an eigenspace of $\pi$. Referring back to Equation (2.8), we can easily deduce that the other eigenvalue of $\pi$ is $q$, and we define another subgroup $\mathcal{G}_2$ of $E[r]$ as $\mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$. It turns out that this subgroup is precisely the peculiar subgroup we alluded to in Example 4.1.3. We call $\mathcal{G}_2$ the <em>trace zero subgroup</em>, since all $P \in \mathcal{G}_2$ have $\text{Tr}(P) = \mathcal{O}$; this result is attributed</p>
@@ -460,32 +519,25 @@ $$\text{Tr}(P) = \sum_{i=0}^{k-1} \pi^i(P) = \sum_{i=0}^{k-1} (x^{q^i}, y^{q^i})
 </figure>
 
 <blockquote>
-<strong>$r$-挠群的两个特殊子群</strong>：
+<strong>$r$-挠群的一般图景</strong>：
 
-<p><strong>基域子群（Base-field Subgroup）</strong>：
+<p>现在来画 $E[r]$ 的全貌。我们假设 $r \| \#E(\mathbb{F}_q)$ 是素数，且嵌入度 $k > 1$（这是最常见的情况）。</p>
+
+<p><strong>基域子群（Base-field Subgroup）</strong>$\mathcal{G}_1$：$E[r]$ 中定义在 $\mathbb{F}_q$ 上的那个唯一的 $r$ 阶子群。Frobenius $\pi$ 在 $\mathcal{G}_1$ 上的作用等于恒等映射（因为基域上的点不被 $\pi$ 改变），在 $E[r]$ 的其他地方则不然。所以可以写成：
 $$\mathcal{G}_1 = E[r] \cap \text{Ker}(\pi - [1])$$
-<ul>
-<li>即 Frobenius 作用像恒等映射的点</li>
-<li>$\mathcal{G}_1$ 定义在 $\mathbb{F}_q$ 上</li>
-<li>是 $\pi$ 的特征值 1 对应的特征空间</li>
-</ul>
+也就是说，$\mathcal{G}_1$ 是 $\pi$ 限制在 $E[r]$ 上的<strong>特征值 1 的特征空间</strong>。</p>
 
-<p><strong>迹零子群（Trace Zero Subgroup）</strong>：
+<p><strong>迹零子群（Trace Zero Subgroup）</strong>$\mathcal{G}_2$：$\pi$ 还有另一个特征值。回到公式 (2.8) 可以推出这个特征值是 $q$，于是定义：
 $$\mathcal{G}_2 = E[r] \cap \text{Ker}(\pi - [q])$$
-<ul>
-<li>是 $\pi$ 的特征值 $q$ 对应的特征空间</li>
-<li>所有 $P \in \mathcal{G}_2$ 满足 $\text{Tr}(P) = \mathcal{O}$</li>
-<li>这个结果归功于 Dan Boneh</li>
-</ul>
+这个子群恰好就是例 4.1.3 中那个"特别的"子群——迹映射把它里面的每个点都送到 $\mathcal{O}$。所以叫它<strong>迹零子群</strong>：对所有 $P \in \mathcal{G}_2$ 都有 $\text{Tr}(P) = \mathcal{O}$。这个结论归功于 Dan Boneh。Figure 4.4 展示了迹映射和反迹映射在 $E[r]$ 上的行为。</p>
 </blockquote>
 
 <p>We can also map any $P \in E[r]$ to the trace zero subgroup $\mathcal{G}_2$ via the <em>anti-trace map</em> $\text{aTr} : P \mapsto P' = [k]P - \text{Tr}(P)$; showing that $\text{Tr}(P') = \mathcal{O}$ is a worthwhile exercise for the reader.</p>
 
 <blockquote>
-<strong>反迹映射（Anti-trace Map）</strong>：
+<strong>反迹映射（Anti-trace Map）</strong>：除了迹映射可以把点映到 $\mathcal{G}_1$，还有一个映射可以把任意 $P \in E[r]$ 映到迹零子群 $\mathcal{G}_2$：
 $$\text{aTr}(P) = [k]P - \text{Tr}(P)$$
-<p>将任意 $P \in E[r]$ 映射到迹零子群 $\mathcal{G}_2$。</p>
-<p>练习：验证 $\text{Tr}(\text{aTr}(P)) = \mathcal{O}$。</p>
+<p>读者可以练习验证：$\text{Tr}(\text{aTr}(P)) = \mathcal{O}$，即反迹映射的像确实在迹零子群中。</p>
 </blockquote>
 
 <p>To define our pairing, we need to specify the two groups $\mathbb{G}_1$ and $\mathbb{G}_2$: these $\mathbb{G}$'s are not to be confused with the $\mathcal{G}$'s that stand for two specific $r$-torsion subgroups, as $\mathbb{G}_1$ and $\mathbb{G}_2$ can be defined as any of the $r + 1$ groups in $E[r]$. As we will see however, there are many reasons we would like to specifically set $\mathbb{G}_1 = \mathcal{G}_1$ and $\mathbb{G}_2 = \mathcal{G}_2$, but as we will also see there are reasons that we may not want this to be the case. The existence of maps to and from the different torsion subgroups affects certain functionalities that cryptographers desire in a pairing-based protocol. These functionalities and the choices that are available to us will be discussed in a moment, but we must first look at one last map that</p>
@@ -495,16 +547,26 @@ $$\text{aTr}(P) = [k]P - \text{Tr}(P)$$
 
 <p>is available for a special class of curves.</p>
 
+<blockquote>
+<strong>$\mathbb{G}$ 和 $\mathcal{G}$ 别搞混了</strong>：
+
+<p>要定义配对，需要指定 $\mathbb{G}_1$ 和 $\mathbb{G}_2$。注意这里用的是 $\mathbb{G}$（blackboard bold），不要跟前面的 $\mathcal{G}$（花体）搞混。$\mathcal{G}_1$ 和 $\mathcal{G}_2$ 特指基域子群和迹零子群这两个具体的挠群子群，而 $\mathbb{G}_1$ 和 $\mathbb{G}_2$ 原则上可以选 $E[r]$ 中 $r+1$ 个子群里的任意两个。</p>
+
+<p>实践中，我们有很多理由想把 $\mathbb{G}_1$ 设成 $\mathcal{G}_1$、$\mathbb{G}_2$ 设成 $\mathcal{G}_2$，但也有些情况下我们不想这么做。不同挠群子群之间有没有映射（能不能互相转换），会影响密码学协议中需要的某些功能。这些功能和可选方案稍后讨论，但在此之前我们还要看最后一种映射——它只对一类特殊的曲线存在。</p>
+</blockquote>
+
 <p>Over prime fields, we call an elliptic curve $E$ <em>supersingular</em><sup>2</sup> if $\#E(\mathbb{F}_q) = q+1$. There are several other equivalent conditions [Sil09, Ch. V, Th. 3.1(a)], but the most meaningful property for our purposes is that a supersingular curve comes equipped with a <em>distortion map</em> $\phi$; this is a non-($\mathbb{F}_q$-)rational map that takes a point in $E(\mathbb{F}_q)$ to a point in $E(\mathbb{F}_{q^k})$ [Gal05, §IX.7.2]. A curve which is not supersingular is called an <em>ordinary</em> curve, and it does not have such a map [Ver01, Th. 11]. We give two examples of elliptic curves that are supersingular, and show the behaviour of the distortion map $\phi$ within the torsion.</p>
 
 <blockquote>
-<strong>超奇异曲线（Supersingular Curve）</strong>：在素域 $\mathbb{F}_p$ 上，$\#E(\mathbb{F}_p) = p + 1$ 的椭圆曲线。
+<strong>超奇异曲线（Supersingular Curve）</strong><sup>2</sup>：在素域上，如果 $\#E(\mathbb{F}_q) = q + 1$，就叫椭圆曲线 $E$ 是超奇异的。还有几种等价的判定条件，但对我们来说最有用的性质是：超奇异曲线自带一个<strong>畸变映射（distortion map）</strong>$\phi$。
 
-<p><strong>畸变映射（Distortion Map）</strong> $\phi$：超奇异曲线独有的映射，将 $E(\mathbb{F}_q)$ 中的点映射到 $E(\mathbb{F}_{q^k})$ 中的点。</p>
+<p><strong>畸变映射</strong> $\phi$：这是一个不在 $\mathbb{F}_q$ 上有理的映射，能把 $E(\mathbb{F}_q)$ 中的点送到 $E(\mathbb{F}_{q^k})$ 中去。</p>
 
-<p><strong>普通曲线（Ordinary Curve）</strong>：非超奇异曲线，没有畸变映射。</p>
+<p><strong>普通曲线（Ordinary Curve）</strong>：不是超奇异的曲线叫普通曲线，它没有这样的畸变映射。</p>
 
-<p><strong>注意</strong>：这里的"超奇异"与"奇异/非奇异"（singular/non-singular）无关！</p>
+<p><strong>注意</strong>：这里的"超奇异"（supersingular）跟曲线是否"奇异"（singular，见 Figures 2.1-2.4）完全没有关系！</p>
+
+<p>下面给出两个超奇异曲线的例子，展示畸变映射 $\phi$ 在挠群内部的行为。</p>
 </blockquote>
 
 <div class="example">
@@ -517,12 +579,12 @@ $$\text{aTr}(P) = [k]P - \text{Tr}(P)$$
 </figure>
 
 <blockquote>
-<strong>例 4.1.4</strong>：畸变映射 $\phi : (x, y) \mapsto (\xi_3 x, y)$。
+<strong>例 4.1.4</strong>：畸变映射的第一个例子。
 <ul>
-<li>$q = 59$，$E: y^2 = x^3 + 1$ 是超奇异的</li>
-<li>$\#E(\mathbb{F}_q) = 60 = q + 1$</li>
-<li>$\phi$ 将 $\mathcal{G}_1$ 中的点映射到 $\mathcal{G}_2$，反之亦然</li>
-<li>$\phi^3 = \text{id}$（三次方等于恒等映射）</li>
+<li>$q = 59$，$E: y^2 = x^3 + 1$ 是超奇异的（$\#E(\mathbb{F}_q) = q + 1 = 60$），取 $r = 5$</li>
+<li>嵌入度 $k = 2$，构造 $\mathbb{F}_{q^2} = \mathbb{F}_q(i)$，$i^2 + 1 = 0$</li>
+<li>$\xi_3 = 24i + 29$ 是三次单位根，对应的畸变映射为 $\phi : (x, y) \mapsto (\xi_3 x, y)$</li>
+<li>$\phi^3$ 等于 $E$ 上的恒等映射——Figure 4.5 展示了这一点</li>
 </ul>
 </blockquote>
 
@@ -543,12 +605,12 @@ $$\text{aTr}(P) = [k]P - \text{Tr}(P)$$
 </div>
 
 <blockquote>
-<strong>例 4.1.5</strong>：另一种畸变映射 $\phi : (x, y) \mapsto (-x, iy)$。
+<strong>例 4.1.5</strong>：另一种畸变映射。
 <ul>
-<li>$E: y^2 = x^3 + x$ 也是超奇异的</li>
-<li>$\phi^4 = \text{id}$</li>
-<li><strong>有趣现象</strong>：$\phi$ 限制到某些子群上时是自同态（不离开该子群）</li>
-<li>这暗示了配对计算的一个重要优化方向</li>
+<li>同样的域（$q = 59$，$\mathbb{F}_{q^2} = \mathbb{F}_q(i)$，$i^2 + 1 = 0$），但换成超奇异曲线 $E: y^2 = x^3 + x$，同样 $\#E(\mathbb{F}_q) = 60$</li>
+<li>这次畸变映射是 $\phi : (x, y) \mapsto (-x, iy)$，容易看出 $\phi^4 = \text{id}$</li>
+<li><strong>有趣现象</strong>：从 Figure 4.6 可以看到，$\phi$ 并不总是把点移出它所在的子群。比如把 $\phi$ 限制到 $\langle(28i + 51, 25i + 49)\rangle$ 这个子群上，它就变成了该子群上的一个自同态</li>
+<li>这暗示了配对计算中的一个重要优化方向：第 2 章已经看到自同态在 ECC 中的威力（特别是例 2.2.11），第 7 章我们会看到挠群子群上的自同态（像上面这个）在 PBC 中同样大有用处</li>
 </ul>
 </blockquote>
 
@@ -561,13 +623,16 @@ $$\text{aTr}(P) = [k]P - \text{Tr}(P)$$
 
 <blockquote>
 <strong>$r$-挠群内可用映射的总结</strong>：
+
+<p>从 $E[r]$ 中既不是 $\mathcal{G}_1$ 也不是 $\mathcal{G}_2$ 的任何子群出发，我们总可以通过迹映射和反迹映射分别映到 $\mathcal{G}_1$ 或 $\mathcal{G}_2$。但反过来，能不能从 $\mathcal{G}_1$ 或 $\mathcal{G}_2$ 映出去呢？这取决于曲线的类型：</p>
+
 <table border="1" style="border-collapse: collapse; margin: 10px 0;">
 <tr><th>映射</th><th>方向</th><th>可用性</th></tr>
 <tr><td>迹映射 Tr</td><td>任意子群 → $\mathcal{G}_1$</td><td>总是可用</td></tr>
 <tr><td>反迹映射 aTr</td><td>任意子群 → $\mathcal{G}_2$</td><td>总是可用</td></tr>
 <tr><td>畸变映射 $\phi$</td><td>$\mathcal{G}_1 \to \mathcal{G}_2$ 等</td><td>仅超奇异曲线</td></tr>
 </table>
-<p>对于普通曲线，没有可计算的映射从 $\mathcal{G}_1$ 或 $\mathcal{G}_2$ 映出！</p>
+<p>对于<strong>普通曲线</strong>，不存在可计算的同态映射从 $\mathcal{G}_1$ 或 $\mathcal{G}_2$ 映出去。对于<strong>超奇异曲线</strong>，畸变映射 $\phi$ 提供了从这两个子群映出去的同态。</p>
 </blockquote>
 
 <div class="footnote">
