@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.9 Easy cases of Bézout's Theorem — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s10.html">下一节 &rarr;</a>
+</nav>
+
+<h1>1.9 Easy cases of Bézout's Theorem</h1>
+<h2>Bézout 定理的简单情形</h2>
+
+<p>Bézout's theorem says that if $C$ and $D$ are plane curves of degrees $\deg C = m$, $\deg D = n$, then the number of points of <span class="vocab">intersection<span class="tooltip">/ˌɪn.təˈsek.ʃən/ 交点，交集</span></span> of $C$ and $D$ is $mn$, provided that (i) the field is algebraically closed; (ii) points of intersection are counted with the right <span class="vocab">multiplicities<span class="tooltip">/ˌmʌl.tɪˈplɪs.ɪ.tiz/ 重数</span></span>; (iii) we work in $\mathbb{P}^2$ to take right account of intersections 'at infinity'. See for example [Fulton, p. 112] for a self-contained proof. In this section I am going to treat the case when one of the curves is a line or conic.</p>
+
+<blockquote>
+Bézout 定理说的是：如果 $C$ 和 $D$ 是次数分别为 $\deg C = m$、$\deg D = n$ 的平面曲线，那么 $C$ 与 $D$ 的交点个数为 $mn$，前提是 (i) 基域是代数封闭的；(ii) 交点按正确的重数计数；(iii) 在射影平面 $\mathbb{P}^2$ 中工作，以正确处理"无穷远处"的交点。完整证明见 [Fulton, p. 112]。本节只讨论其中一条曲线是直线或二次曲线的情形。
+</blockquote>
+
+<p><strong>Theorem</strong> <em>Let $L \subset \mathbb{P}^2_k$ be a line (respectively $C \subset \mathbb{P}^2_k$ a <span class="vocab">nondegenerate<span class="tooltip">/ˌnɒn.dɪˈdʒen.ər.ɪt/ 非退化的</span></span> conic), and let $D \subset \mathbb{P}^2_k$ be a curve defined by $D : (G_d(X, Y, Z) = 0)$, where $G$ is a form of degree $d$ in $X, Y, Z$. Assume that $L \not\subset D$ (respectively, $C \not\subset D$); then</em></p>
+
+$$\#\{L \cap D\} \leq d \quad (\text{respectively } \#\{C \cap D\} \leq 2d).$$
+
+<p><em>In fact there is a natural definition of multiplicity of intersection such that the <span class="vocab">inequality<span class="tooltip">/ˌɪn.ɪˈkwɒl.ɪ.ti/ 不等式</span></span> still holds for 'number of points counted with multiplicities', and if $k$ is algebraically closed then equality holds.</em></p>
+
+<blockquote>
+<strong>定理</strong> 设 $L \subset \mathbb{P}^2_k$ 是一条直线（对应地，$C \subset \mathbb{P}^2_k$ 是一条非退化二次曲线），$D \subset \mathbb{P}^2_k$ 是由 $D: (G_d(X,Y,Z) = 0)$ 定义的曲线，其中 $G$ 是 $X,Y,Z$ 的 $d$ 次齐次式。假设 $L \not\subset D$（对应地 $C \not\subset D$），则
+$$\#\{L \cap D\} \leq d \quad (\text{对应地 } \#\{C \cap D\} \leq 2d).$$
+事实上，存在一种自然的交点重数定义，使得上述不等式对"按重数计数的交点个数"仍然成立；若 $k$ 是代数封闭域，则等号成立。
+</blockquote>
+
+<p><strong>Proof</strong> A line $L \subset \mathbb{P}^2_k$ is given by an equation $\lambda = 0$, with $\lambda$ a linear form; for my purpose, it is convenient to give it <span class="vocab">parametrically<span class="tooltip">/ˌpær.əˈmet.rɪ.kəl.i/ 参数化地</span></span> as</p>
+
+$$X = a(U, V), \quad Y = b(U, V), \quad Z = c(U, V),$$
+
+<p>where $a, b, c$ are linear forms in $U, V$. So for example, if $\lambda = \alpha X + \beta Y + \gamma Z$, and $\gamma \neq 0$, then $L$ can be given as</p>
+
+$$X = U, \quad Y = V, \quad Z = -\frac{\alpha}{\gamma}U - \frac{\beta}{\gamma}V.$$
+
+<p>Similarly, as explained in (1.7), a nondegenerate conic can be given parametrically as</p>
+
+$$X = a(U, V), \quad Y = b(U, V), \quad Z = c(U, V),$$
+
+<p>where $a, b, c$ are <span class="vocab">quadratic<span class="tooltip">/kwɒˈdræt.ɪk/ 二次的</span></span> forms in $U, V$. This is because $C$ is a projective transformation of $(XZ = Y^2)$, which is parametrically $(X, Y, Z) = (U^2, UV, V^2)$, so $C$ is given by</p>
+
+$$\begin{pmatrix} X \\ Y \\ Z \end{pmatrix} = M \begin{pmatrix} U^2 \\ UV \\ V^2 \end{pmatrix}$$
+
+<p>where $M$ is a nonsingular $3 \times 3$ matrix.</p>
+
+<blockquote>
+<strong>证明</strong> 直线 $L \subset \mathbb{P}^2_k$ 由方程 $\lambda = 0$ 给出，其中 $\lambda$ 是线性形式；为了当前目的，用参数形式表示更方便：$X = a(U,V)$，$Y = b(U,V)$，$Z = c(U,V)$，其中 $a,b,c$ 是 $U,V$ 的线性形式。例如，如果 $\lambda = \alpha X + \beta Y + \gamma Z$ 且 $\gamma \neq 0$，则 $L$ 可以表示为 $X = U$，$Y = V$，$Z = -\frac{\alpha}{\gamma}U - \frac{\beta}{\gamma}V$。类似地，如 (1.7) 所述，非退化二次曲线可以参数化为 $X = a(U,V)$，$Y = b(U,V)$，$Z = c(U,V)$，其中 $a,b,c$ 是 $U,V$ 的二次形式。这是因为 $C$ 是 $(XZ = Y^2)$ 的射影变换，而 $(XZ = Y^2)$ 的参数形式为 $(X,Y,Z) = (U^2, UV, V^2)$，所以 $C$ 由
+$$\begin{pmatrix} X \\ Y \\ Z \end{pmatrix} = M \begin{pmatrix} U^2 \\ UV \\ V^2 \end{pmatrix}$$
+给出，其中 $M$ 是非奇异的 $3 \times 3$ 矩阵。
+</blockquote>
+
+<p>Then the intersection of $L$ (respectively $C$) with $D$ is given by finding the values of the ratios $(U : V)$ such that</p>
+
+$$F(U, V) = G_d(a(U, V), b(U, V), c(U, V)) = 0.$$
+
+<p>But $F$ is a form of degree $d$ (respectively $2d$) in $U, V$, so the result follows by (1.8). Q.E.D.</p>
+
+<blockquote>
+于是 $L$（对应地 $C$）与 $D$ 的交点就是使得
+$$F(U, V) = G_d(a(U, V), b(U, V), c(U, V)) = 0$$
+成立的比值 $(U : V)$。而 $F$ 是 $U,V$ 的 $d$ 次（对应地 $2d$ 次）齐次式，由 (1.8) 即得结论。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s10.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

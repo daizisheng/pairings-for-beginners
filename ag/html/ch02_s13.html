@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.13 Simplified group law — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s14.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.13 Simplified group law</h1>
+<h2>2.13 简化的群律</h2>
+
+<p>The normal form $(**)$ is extremely <span class="vocab">convenient<span class="tooltip">/kənˈviː.ni.ənt/ 方便的</span></span> for the group law: take the inflexion point $O = (0, 1, 0)$ as the neutral element. Under these conditions, the group law becomes particularly nice, for the following reasons:</p>
+
+<blockquote>
+标准形式 $(**)$ 对于群律来说极其方便：取拐点 $O = (0,1,0)$ 作为单位元。在这些条件下，群律变得特别简洁，原因如下：
+</blockquote>
+
+<p>(a) $C = \{O\} \cup$ affine curve $C_0 : (y^2 = x^3 + ax + b)$; so it is <span class="vocab">legitimate<span class="tooltip">/lɪˈdʒɪt.ɪ.mət/ 合理的，正当的</span></span> to treat $C$ as an affine curve, with occasional references to the single point $O$ at infinity, the zero of the group law.</p>
+
+<blockquote>
+(a) $C = \{O\} \cup$ 仿射曲线 $C_0: (y^2 = x^3 + ax + b)$；所以把 $C$ 当作仿射曲线来处理是完全合理的，只需偶尔提一下无穷远处的那个点 $O$——也就是群律的零元。
+</blockquote>
+
+<p>(b) The lines through $O$, which are the main <span class="vocab">ingredient<span class="tooltip">/ɪnˈɡriː.di.ənt/ 要素，成分</span></span> in part (i) of the construction of the group law in (2.8), are given projectively by $X = \lambda Z$, and affinely by $x = \lambda$; any such line meets $C$ at points $(\lambda, \pm\sqrt{\lambda^3 + a\lambda + b})$, and at infinity. Hence if $P = (x, y)$, then the point $\overline{P}$ constructed in (2.8, i) is $(x, -y)$; thus $P \mapsto \overline{P}$ is the natural symmetry $(x, y) \mapsto (x, -y)$ of the curve $C_0$:</p>
+
+<blockquote>
+(b) 过 $O$ 的直线，也就是(2.8)中群律构造第(i)步的主要元素，射影地写成 $X = \lambda Z$，仿射地写成 $x = \lambda$；这样的直线与 $C$ 交于 $(\lambda, \pm\sqrt{\lambda^3 + a\lambda + b})$ 以及无穷远点。因此如果 $P = (x,y)$，那么(2.8, i)中构造的 $\overline{P}$ 就是 $(x,-y)$；于是 $P \mapsto \overline{P}$ 就是曲线 $C_0$ 的自然对称 $(x,y) \mapsto (x,-y)$：
+</blockquote>
+
+<!-- Figure 2.6: Minus as reflexion in the x-axis -->
+<figure>
+    <img src="images/fig_page43_img1.png" alt="Minus as reflexion in the x-axis">
+    <figcaption>Figure 2.6: Minus as reflexion in the $x$-axis / 图2.6：取负即关于 $x$ 轴的反射</figcaption>
+</figure>
+
+<p>(c) The inverse of the group law (2.8, IV) is described in terms of $\overline{O}$, the point constructed as the 3rd point of intersection of the unique line $L$ such that $F|_L$ has $O$ as a repeated zero; however, in our case, this line is the line at infinity $L : (Z = 0)$, and $L \cap C = 3O$, so that $\overline{O} = O$, and the inverse of the group law then simplifies to $-P = \overline{P}$.</p>
+
+<blockquote>
+(c) 群律(2.8, IV)中的逆元用 $\overline{O}$ 来描述——$\overline{O}$ 是使得 $F|_L$ 以 $O$ 为重零点的那条直线 $L$ 与 $C$ 的第三个交点；但在我们的情况下，这条线就是无穷远直线 $L: (Z=0)$，且 $L \cap C = 3O$，所以 $\overline{O} = O$，群律的逆元简化为 $-P = \overline{P}$。
+</blockquote>
+
+<p>I can now restate the group law as a much simplified version of Theorem 2.8:</p>
+
+<p><strong>Theorem</strong> <em>Let $C$ be a cubic in the normal form $(**)$; then there is a unique group law on $C$ such that $O = (0, 1, 0)$ is the neutral element, the inverse is given by $(x, y) \mapsto (x, -y)$, and for all $P, Q, R \in C$,</em></p>
+
+$$P + Q + R = O \iff P, Q, R \text{ are collinear}.$$
+
+<blockquote>
+现在可以把群律重新表述为定理2.8的一个大大简化的版本：
+<br><strong>定理</strong>　设 $C$ 是标准形式 $(**)$ 的三次曲线；则 $C$ 上有唯一的群律，使得 $O = (0,1,0)$ 是单位元，逆元由 $(x,y) \mapsto (x,-y)$ 给出，且对所有 $P, Q, R \in C$，$P + Q + R = O \iff P, Q, R$ 三点共线。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s14.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

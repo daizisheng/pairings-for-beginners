@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.12 Inflexion, normal form — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s11.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s13.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.12 Inflexion, normal form</h1>
+<h2>2.12 拐点；标准形式</h2>
+
+<p>Every cubic in $\mathbb{P}^2_{\mathbb{R}}$ or $\mathbb{P}^2_{\mathbb{C}}$ can be put in the <span class="vocab">normal form<span class="tooltip">/ˈnɔːr.məl fɔːrm/ 标准形式</span></span></p>
+
+$$C : Y^2 Z = X^3 + aXZ^2 + bZ^3, \qquad (**)$$
+
+<p>or in the affine form</p>
+
+$$y^2 = x^3 + ax + b.$$
+
+<blockquote>
+$\mathbb{P}^2_{\mathbb{R}}$ 或 $\mathbb{P}^2_{\mathbb{C}}$ 中的任意三次曲线都可以化为标准形式 $C: Y^2Z = X^3 + aXZ^2 + bZ^3$（记为 $(**)$），或者仿射形式 $y^2 = x^3 + ax + b$。
+</blockquote>
+
+<p>Now consider the above curve $C$; where does it meet the line at infinity $L : (Z = 0)$? That's easy, just <span class="vocab">substitute<span class="tooltip">/ˈsʌb.stɪ.tjuːt/ 代入</span></span> $Z = 0$ in the defining polynomial $F = -Y^2Z + X^3 + aXZ^2 + bZ^3$ to get $F|_L = X^3$; this means that $F|_L$ has a triple zero at $P = (0, 1, 0)$. To see what this means <span class="vocab">geometrically<span class="tooltip">/ˌdʒiː.əˈmet.rɪ.kəl.i/ 在几何上</span></span>, set $Y = 1$, to get the equation in affine coordinates $(x, z)$ around $(0, 1, 0)$:</p>
+
+$$z = x^3 + axz^2 + bz^3.$$
+
+<p>This curve is <span class="vocab">approximated<span class="tooltip">/əˈprɒk.sɪ.meɪ.tɪd/ 近似的</span></span> to a high degree of accuracy by $z = x^3$: the behaviour is described by saying that $C$ has an <em>inflexion point</em> at $(0, 1, 0)$.</p>
+
+<blockquote>
+现在考虑上面的曲线 $C$；它在哪里和无穷远直线 $L: (Z=0)$ 相交呢？很简单，把 $Z=0$ 代入定义多项式 $F = -Y^2Z + X^3 + aXZ^2 + bZ^3$ 就得到 $F|_L = X^3$；这说明 $F|_L$ 在 $P = (0,1,0)$ 有一个三重零点。为了看出这在几何上意味着什么，令 $Y=1$，得到 $(0,1,0)$ 附近的仿射坐标 $(x,z)$ 下的方程：$z = x^3 + axz^2 + bz^3$。这条曲线可以非常精确地用 $z = x^3$ 来近似：这种行为就是说 $C$ 在 $(0,1,0)$ 处有一个拐点。
+</blockquote>
+
+<!-- Figure 2.5: Inflexion point -->
+<figure>
+    <img src="images/fig_page42_img1.png" alt="Inflexion point: z = x^3">
+    <figcaption>Figure 2.5: Inflexion point / 图2.5：拐点</figcaption>
+</figure>
+
+<p>More generally, an <span class="vocab">inflexion<span class="tooltip">/ɪnˈflek.ʃən/ 拐点</span></span> point $P$ on a curve $C$ is defined by the condition that there is a line $L \subset \mathbb{P}^2_k$ such that $F|_L$ has a zero of <span class="vocab">multiplicity<span class="tooltip">/ˌmʌl.tɪˈplɪs.ɪ.ti/ 重数</span></span> $\geq 3$ at $P$ (see Ex. 2.9; in fact necessarily $L = T_P C$ by (2.8, b), and the multiplicity $= 3$ by (1.9)). It is not hard to interpret this in terms of the <span class="vocab">derivatives<span class="tooltip">/dɪˈrɪv.ə.tɪvz/ 导数</span></span> and second derivatives of the defining equations: for example, if the defining equation is $y = f(x)$, then the condition for an inflexion point is simply $\frac{d^2 f}{dx^2}(P) = 0$; this corresponds in the diagram to the curve passing through a transition from being 'concave downwards' to being 'concave upwards'. There is a general <span class="vocab">criterion<span class="tooltip">/kraɪˈtɪr.i.ən/ 判据，标准</span></span> for a plane curve to have an inflexion point in terms of the <em>Hessian</em>, see for example [Fulton, p. 116] or Ex. 7.3, (iii).</p>
+
+<blockquote>
+更一般地，曲线 $C$ 上的拐点 $P$ 定义为：存在直线 $L \subset \mathbb{P}^2_k$ 使得 $F|_L$ 在 $P$ 处有重数 $\geq 3$ 的零点（见习题2.9；实际上由(2.8, b)，$L$ 必然就是切线 $T_P C$，由(1.9)重数恰好等于3）。用导数和二阶导数来理解这个条件并不难：例如，若定义方程为 $y = f(x)$，则拐点的条件就是 $\frac{d^2 f}{dx^2}(P) = 0$；在图形上对应的就是曲线从"下凸"过渡到"上凸"的转折点。判断平面曲线拐点有一个用Hessian矩阵的通用判据，参见[Fulton, p. 116]或习题7.3 (iii)。
+</blockquote>
+
+<p>It can be shown (see Ex. 2.10) that conversely, if a plane cubic $C$ has an inflexion point, then its equation can be put in normal form $(**)$ as above.</p>
+
+<blockquote>
+可以证明（见习题2.10），反过来，如果平面三次曲线 $C$ 有一个拐点，那么它的方程就可以化为上面的标准形式 $(**)$。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s11.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s13.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.12 Morphisms from an Open Subset — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s11.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s13.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.12 Morphisms from an Open Subset of an Affine Variety</h1>
+<h2>从仿射簇的开子集出发的态射</h2>
+
+<p>Let $V, W$ be affine varieties, and $U \subset V$ an open subset.</p>
+
+<blockquote>
+设 $V, W$ 是仿射簇，$U \subset V$ 是一个开子集。
+</blockquote>
+
+<p><strong>Definition</strong> A <strong><span class="vocab">morphism<span class="tooltip">/ˈmɔːr.fɪ.zəm/ 态射</span></span></strong> $f \colon U \to W$ is a rational map $f \colon V \dashrightarrow W$ such that $U \subset \operatorname{dom} f$, so that $f$ is regular at every $P \in U$.</p>
+
+<blockquote>
+<strong>定义</strong> <strong>态射</strong> $f \colon U \to W$ 是一个有理映射 $f \colon V \dashrightarrow W$，满足 $U \subset \operatorname{dom} f$，即 $f$ 在 $U$ 中每个点 $P$ 处都是正则的。
+</blockquote>
+
+<p>If $U_1 \subset V$ and $U_2 \subset W$ are opens, then a morphism $f \colon U_1 \to U_2$ is just a morphism $f \colon U_1 \to W$ such that $f(U_1) \subset U_2$. An <strong>isomorphism</strong> is a morphism which has a two-sided inverse morphism.</p>
+
+<blockquote>
+如果 $U_1 \subset V$ 和 $U_2 \subset W$ 是开集，那么态射 $f \colon U_1 \to U_2$ 就是满足 $f(U_1) \subset U_2$ 的态射 $f \colon U_1 \to W$。<strong>同构</strong>是具有双侧逆态射的态射。
+</blockquote>
+
+<p>Note that if $V, W$ are affine varieties, then by Theorem 4.8, (II),</p>
+
+$$\bigl\{\text{morphisms } f \colon V \to W\bigr\} = \bigl\{\text{polynomial maps } f \colon V \to W\bigr\};$$
+
+<p>the left-hand side of the equation consists of rational objects subject to <span class="vocab">regularity<span class="tooltip">/ˌreɡ.jʊˈlær.ɪ.ti/ 正则性</span></span> conditions, whereas the right-hand side is more directly in terms of polynomials.</p>
+
+<blockquote>
+注意如果 $V, W$ 是仿射簇，则由定理 4.8 的 (II)，
+
+$$\bigl\{\text{态射 } f \colon V \to W\bigr\} = \bigl\{\text{多项式映射 } f \colon V \to W\bigr\};$$
+
+等式左边由满足正则性条件的有理对象构成，而右边则更直接地用多项式来表述。
+</blockquote>
+
+<p><strong>Example</strong> The parametrisation of the <span class="vocab">cuspidal<span class="tooltip">/ˈkʌs.pɪ.dəl/ 尖点的</span></span> cubic $\mathbb{A}^1 \to C \colon (Y^2 = X^3)$ of (2.1) induces an isomorphism $\mathbb{A}^1 \setminus \{0\} \cong C \setminus \{(0, 0)\}$; see Ex. 4.5 for details.</p>
+
+<blockquote>
+<strong>例子</strong> (2.1) 中尖点三次曲线的参数化 $\mathbb{A}^1 \to C \colon (Y^2 = X^3)$ 诱导出一个同构 $\mathbb{A}^1 \setminus \{0\} \cong C \setminus \{(0, 0)\}$；详见习题 4.5。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s11.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s13.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

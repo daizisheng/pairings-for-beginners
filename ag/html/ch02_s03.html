@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.3 Lemma — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s04.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.3 Lemma</h1>
+<h2>2.3 引理</h2>
+
+<p><strong>Lemma 2.3</strong> &nbsp; Let $K$ be an <span class="vocab">algebraically closed<span class="tooltip">/ˌæl.dʒɪˌbreɪ.ɪk.li kloʊzd/ 代数封闭的</span></span> field, $p, q \in K[t]$ coprime elements, and assume that 4 distinct linear combinations (that is, $\lambda p + \mu q$ for 4 distinct ratios $(\lambda : \mu) \in \mathbb{P}^1 K$) are squares in $K[t]$; then $p, q \in K$.</p>
+
+<blockquote>
+<strong>引理 2.3</strong> &nbsp; 设 $K$ 是代数封闭域，$p, q \in K[t]$ 互素，假设有 4 个不同的线性组合（即对 4 个不同的比 $(\lambda:\mu) \in \mathbb{P}^1 K$，$\lambda p + \mu q$）在 $K[t]$ 中是平方；则 $p, q \in K$。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (<em>Fermat's method of 'infinite <span class="vocab">descent<span class="tooltip">/dɪˈsent/ 下降</span></span>'</em>) Both the hypotheses and conclusion of the lemma are not affected by replacing $p, q$ by</p>
+
+$$p' = ap + bq, \quad q' = cp + dq,$$
+
+<p>with $a, b, c, d \in K$ and $ad - bc \neq 0$. Hence I can assume that the 4 given squares are</p>
+
+$$p, \quad p - q, \quad p - \lambda q, \quad q.$$
+
+<p>Then $p = u^2$, $q = v^2$, and $u, v \in K[t]$ are <span class="vocab">coprime<span class="tooltip">/ˌkoʊˈpraɪm/ 互素的</span></span>, with</p>
+
+$$\max(\deg u, \deg v) < \max(\deg p, \deg q).$$
+
+<p>Now by <span class="vocab">contradiction<span class="tooltip">/ˌkɒn.trəˈdɪk.ʃən/ 矛盾</span></span>, suppose that $\max(\deg p, \deg q) > 0$ and is minimal among all $p, q$ satisfying the condition of the lemma. Then both of</p>
+
+$$p - q = u^2 - v^2 = (u - v)(u + v)$$
+
+<p>and</p>
+
+$$p - \lambda q = u^2 - \lambda v^2 = (u - \mu v)(u + \mu v)$$
+
+<p>(where $\mu = \sqrt{\lambda}$) are squares in $K[t]$, so that by coprimeness of $u, v$, I conclude that each of $u - v$, $u + v$, $u - \mu v$, $u + \mu v$ are squares. This contradicts the <span class="vocab">minimality<span class="tooltip">/ˌmɪn.ɪˈmæl.ɪ.ti/ 极小性</span></span> of $\max(\deg p, \deg q)$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp;（<em>费马的"无穷递降法"</em>）引理的假设和结论都不受以下替换的影响：把 $p, q$ 换成
+$$p' = ap + bq, \quad q' = cp + dq，$$
+其中 $a, b, c, d \in K$ 且 $ad - bc \neq 0$。所以我可以假设那 4 个平方分别是
+$$p, \quad p - q, \quad p - \lambda q, \quad q.$$
+于是 $p = u^2$，$q = v^2$，其中 $u, v \in K[t]$ 互素，且
+$$\max(\deg u, \deg v) < \max(\deg p, \deg q).$$
+现在用反证法，假设 $\max(\deg p, \deg q) > 0$ 并且在满足引理条件的所有 $p, q$ 中取到最小值。那么
+$$p - q = u^2 - v^2 = (u-v)(u+v)$$
+和
+$$p - \lambda q = u^2 - \lambda v^2 = (u - \mu v)(u + \mu v)$$
+（其中 $\mu = \sqrt{\lambda}$）都是 $K[t]$ 中的平方，所以由 $u, v$ 互素，我得出 $u - v$、$u + v$、$u - \mu v$、$u + \mu v$ 都是平方。这与 $\max(\deg p, \deg q)$ 的极小性矛盾。 &nbsp; Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s04.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

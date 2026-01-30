@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.4 Linear systems — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.4 Linear systems</h1>
+<h2>2.4 线性系</h2>
+
+<p>Write $S_d = \{\text{forms of degree } d \text{ in } (X, Y, Z)\}$; (recall that a <em>form</em> is just a <span class="vocab">homogeneous<span class="tooltip">/ˌhɒm.əˈdʒiː.ni.əs/ 齐次的</span></span> polynomial). Any element $F \in S_d$ can be written in a unique way as</p>
+
+$$F = \sum a_{ijk} X^i Y^j Z^k$$
+
+<p>with $a_{ijk} \in k$, and the sum taken over all $i, j, k \geq 0$ with $i + j + k = d$; this means of course that $S_d$ is a $k$-vector space with basis</p>
+
+$$\begin{array}{c}
+Z^d \\
+XZ^{d-1} \quad YZ^{d-1} \\
+\cdots \quad \cdots \\
+X^{d-1}Z \quad X^{d-2}YZ \quad \cdots \quad XY^{d-2}Z \\
+X^d \quad X^{d-1}Y \quad X^{d-2}Y^2 \quad \cdots \quad Y^d
+\end{array}$$
+
+<p>and in particular, $\dim S_d = \binom{d+2}{2}$. For $P_1, \ldots, P_n \in \mathbb{P}^2$, let</p>
+
+$$S_d(P_1, \ldots, P_n) = \bigl\{ F \in S_d \;\big|\; F(P_i) = 0 \text{ for } i = 1, \ldots, n \bigr\} \subset S_d.$$
+
+<p>Each of the conditions $F(P_i) = 0$ (more precisely, $F(X_i, Y_i, Z_i) = 0$, where $P_i = (X_i : Y_i : Z_i)$) is one linear condition on $F$, so that $S_d(P_1, \ldots, P_n)$ is a vector space of <span class="vocab">dimension<span class="tooltip">/dɪˈmen.ʃən/ 维数</span></span> $\geq \binom{d+2}{2} - n$.</p>
+
+<blockquote>
+记 $S_d = \{\text{(X,Y,Z) 的 } d \text{ 次齐次式}\}$；（回忆一下，<em>齐次式</em>就是齐次多项式。）$S_d$ 的任意元素 $F$ 可以唯一地写成
+$$F = \sum a_{ijk} X^i Y^j Z^k，$$
+其中 $a_{ijk} \in k$，求和遍历所有 $i, j, k \geq 0$ 且 $i+j+k = d$；这当然意味着 $S_d$ 是一个 $k$-向量空间，基底排列成三角形，特别地，$\dim S_d = \binom{d+2}{2}$。对 $P_1, \ldots, P_n \in \mathbb{P}^2$，令
+$$S_d(P_1, \ldots, P_n) = \bigl\{ F \in S_d \;\big|\; F(P_i) = 0,\; i = 1, \ldots, n \bigr\} \subset S_d.$$
+每个条件 $F(P_i) = 0$（准确地说是 $F(X_i, Y_i, Z_i) = 0$，其中 $P_i = (X_i:Y_i:Z_i)$）是对 $F$ 的一个线性条件，所以 $S_d(P_1, \ldots, P_n)$ 是维数 $\geq \binom{d+2}{2} - n$ 的向量空间。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

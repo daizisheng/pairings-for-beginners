@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.6 Classification of Conics in P² — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s05b.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s07.html">下一节 →</a>
+</nav>
+
+<h1>1.6 Classification of Conics in $\mathbb{P}^2$</h1>
+<h2>$\mathbb{P}^2$ 中二次曲线的分类</h2>
+
+<p>Let $k$ be any field of <span class="vocab">characteristic<span class="tooltip">/ˌkær.ək.təˈrɪs.tɪk/ 特征（数）</span></span> $\neq 2$; recall two results from the linear algebra of quadratic forms:</p>
+
+<blockquote>
+设 $k$ 是任意特征 $\neq 2$ 的域；回顾二次型的线性代数中的两个结论：
+</blockquote>
+
+<h3>Proposition (A)</h3>
+
+<p>There are natural <span class="vocab">bijections<span class="tooltip">/baɪˈdʒek.ʃənz/ 双射</span></span></p>
+
+$$\left\{\text{homogeneous quadratic polys.}\right\} = \left\{\text{quad. forms } k^3 \to k\right\} \xleftrightarrow{\;\text{bij}\;} \left\{\text{symmetric bilinear forms on } k^3\right\}$$
+
+<p>given in formulas by</p>
+
+$$aX^2 + 2bXY + cY^2 + 2dXZ + 2eYZ + fZ^2 \;\longleftrightarrow\; \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix}$$
+
+<p>A quadratic form is <span class="vocab">nondegenerate<span class="tooltip">/ˌnɒn.dɪˈdʒen.ər.ət/ 非退化的</span></span> if the corresponding <span class="vocab">bilinear<span class="tooltip">/baɪˈlɪn.i.ər/ 双线性的</span></span> form is nondegenerate, that is, its matrix is <span class="vocab">nonsingular<span class="tooltip">/nɒnˈsɪŋ.ɡjʊ.lər/ 非奇异的</span></span>.</p>
+
+<blockquote>
+<b>命题 (A)</b>&ensp;存在自然的双射：齐次二次多项式 $=$ 二次型 $k^3 \to k$ $\xleftrightarrow{\text{bij}}$ $k^3$ 上的对称双线性型，由公式 $aX^2 + 2bXY + cY^2 + 2dXZ + 2eYZ + fZ^2 \longleftrightarrow \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix}$ 给出。若对应的双线性型是非退化的（即其矩阵非奇异），则该二次型称为<b>非退化</b>的。
+</blockquote>
+
+<h3>Theorem (B)</h3>
+
+<p>Let $V$ be a vector space over $k$ and $Q\colon V \to k$ a quadratic form; then there exists a basis of $V$ such that</p>
+
+$$Q = \varepsilon_1 x_1^2 + \varepsilon_2 x_2^2 + \cdots + \varepsilon_n x_n^2, \quad \text{with } \varepsilon_i \in k.$$
+
+<p>(This is proved by <em>Gram&ndash;Schmidt <span class="vocab">orthogonalisation<span class="tooltip">/ˌɔː.θɒɡ.ən.əl.aɪˈzeɪ.ʃən/ 正交化</span></span></em>, if that rings a bell.) Obviously, for $\lambda \in k \setminus \{0\}$ the substitution $x_i \mapsto \lambda x_i$ takes $\varepsilon_i$ into $\lambda^{-2}\varepsilon_i$.</p>
+
+<blockquote>
+<b>定理 (B)</b>&ensp;设 $V$ 是 $k$ 上的向量空间，$Q\colon V \to k$ 是二次型；则存在 $V$ 的一组基使得 $Q = \varepsilon_1 x_1^2 + \varepsilon_2 x_2^2 + \cdots + \varepsilon_n x_n^2$，其中 $\varepsilon_i \in k$。（这由 Gram&ndash;Schmidt 正交化证明，如果你还记得的话。）显然，对 $\lambda \in k \setminus \{0\}$，代换 $x_i \mapsto \lambda x_i$ 将 $\varepsilon_i$ 变为 $\lambda^{-2}\varepsilon_i$。
+</blockquote>
+
+<h3>Corollary</h3>
+
+<p>In a suitable system of coordinates, any conic in $\mathbb{P}^2_{\mathbb{R}}$ is one of the following:</p>
+
+<ul>
+    <li>$(\alpha)$ nondegenerate conic, $C : (X^2 + Y^2 - Z^2 = 0)$;</li>
+    <li>$(\beta)$ empty set, given by $(X^2 + Y^2 + Z^2 = 0)$;</li>
+    <li>$(\gamma)$ line pair, given by $(X^2 - Y^2 = 0)$;</li>
+    <li>$(\delta)$ one point $(0, 0, 1)$, given by $(X^2 + Y^2 = 0)$;</li>
+    <li>$(\varepsilon)$ double line, given by $(X^2 = 0)$.</li>
+</ul>
+
+<p>(Optionally you have the whole of $\mathbb{P}^2_{\mathbb{R}}$ given by $(0 = 0)$.)</p>
+
+<blockquote>
+<b>推论</b>&ensp;在适当的坐标系下，$\mathbb{P}^2_{\mathbb{R}}$ 中的任何二次曲线都是以下之一：
+$(\alpha)$ 非退化二次曲线 $C:(X^2 + Y^2 - Z^2 = 0)$；
+$(\beta)$ 空集，由 $(X^2 + Y^2 + Z^2 = 0)$ 给出；
+$(\gamma)$ 直线对，由 $(X^2 - Y^2 = 0)$ 给出；
+$(\delta)$ 单点 $(0,0,1)$，由 $(X^2 + Y^2 = 0)$ 给出；
+$(\varepsilon)$ 重直线，由 $(X^2 = 0)$ 给出。
+（也可以把整个 $\mathbb{P}^2_{\mathbb{R}}$ 看作由 $(0=0)$ 给出。）
+</blockquote>
+
+<h3>Proof</h3>
+
+<p>Any real number $\varepsilon$ is either $0$, or $\pm$ a square, so that I only have to consider $Q$ as in the theorem with $\varepsilon_i = 0$ or $\pm 1$. In addition, since I'm only interested in the <span class="vocab">locus<span class="tooltip">/ˈləʊ.kəs/ 轨迹，零点集</span></span> $(Q = 0)$, I'm allowed to multiply $Q$ through by $-1$. This leads at once to the given list. &ensp;Q.E.D.</p>
+
+<blockquote>
+<b>证明</b>&ensp;任何实数 $\varepsilon$ 要么为 $0$，要么是 $\pm$ 某个数的平方，因此只需考虑定理中 $\varepsilon_i = 0$ 或 $\pm 1$ 的情况。此外，因为我们只关心零点集 $(Q=0)$，所以可以把 $Q$ 整体乘以 $-1$。由此立即得到上面的列表。Q.E.D.
+</blockquote>
+
+<p>There are two points to make about this <span class="vocab">corollary<span class="tooltip">/kəˈrɒl.ər.i/ 推论</span></span>: firstly, the list is quite a lot shorter than that in (1.3); for example, the 3 nondegenerate cases (ellipse, parabola, hyperbola) of (1.3) all correspond to case $(\alpha)$, and the 2 cases of intersecting and parallel line pairs are not <span class="vocab">distinguished<span class="tooltip">/dɪˈstɪŋ.ɡwɪʃt/ 被区分的</span></span> in the projective case. Secondly, the <span class="vocab">derivation<span class="tooltip">/ˌder.ɪˈveɪ.ʃən/ 推导</span></span> of the list from general algebraic principles is much simpler.</p>
+
+<blockquote>
+关于这个推论有两点值得指出：第一，这个列表比 (1.3) 中的短得多；例如 (1.3) 中的三种非退化情形（椭圆、抛物线、双曲线）全都对应于情形 $(\alpha)$，而相交线对和平行线对在射影情形中不加区分。第二，从一般代数原理推导出此列表要简单得多。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s05b.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s07.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

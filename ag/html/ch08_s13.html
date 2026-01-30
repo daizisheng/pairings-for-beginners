@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.13 What's the Point? — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch08_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s14.html">下一节 &rarr;</a>
+</nav>
+
+<h1>8.13 What's the Point?</h1>
+<h2>点到底是什么？</h2>
+
+<p>A majority of students will never need to know any more about scheme theory than what is contained in (8.9) and (8.12), beyond the warning that the expression <em>generic point</em> is used in several technical senses, often meaning something quite different from <em>sufficiently general</em> point.</p>
+
+<blockquote>
+大多数学生永远不需要比 (8.9) 和 (8.12) 中所包含的更多的概形理论知识，除了需要警惕"一般点"（generic point）这个术语在多个技术意义上被使用，常常与"充分一般的点"（sufficiently general point）的含义完全不同。
+</blockquote>
+
+<p>This section is intended for the reader who faces the task of working with the modern literature, and offers some comments on the various notions of point in scheme theory, potentially a major <span class="vocab">stumbling block<span class="tooltip">/ˈstʌm.blɪŋ blɒk/ 绊脚石</span></span> for beginners.</p>
+
+<blockquote>
+本节面向需要使用现代文献的读者，对概形理论中各种点的概念提供一些评论——这对初学者来说可能是一个主要的绊脚石。
+</blockquote>
+
+<h3>(a) Scheme theoretic points of a variety</h3>
+<h4>(a) 簇的概形论点</h4>
+
+<p>Suppose that $k$ is a field (possibly not algebraically closed), and $A = k[X_1, \ldots, X_n]/I$ with $I \subset k[X_1, \ldots, X_n]$ an ideal; write $V = V(I) \subset K^n$ where $k \subset K$ is a chosen algebraic closure. The points of $\operatorname{Spec} A$ are only a bit more complicated than for a geometric ring in (8.12). By an obvious extension of the NSS, a maximal ideal of $A$ is determined by a point $v = (a_1, \ldots, a_n) \in V \subset K^n$, that is, it's of the form</p>
+
+$$\mathfrak{m}_v = \big\{ f \in A \;\big|\; f(P) = 0 \big\} = (x_1 - a_1, \ldots, x_n - a_n) \cap A.$$
+
+<blockquote>
+设 $k$ 是一个域（可能不是代数闭的），$A = k[X_1, \ldots, X_n]/I$，其中 $I \subset k[X_1, \ldots, X_n]$ 是一个理想；记 $V = V(I) \subset K^n$，其中 $k \subset K$ 是选定的代数闭包。$\operatorname{Spec} A$ 的点只比 (8.12) 中几何环的情形稍复杂一点。由零点定理的一个明显推广，$A$ 的极大理想由一个点 $v = (a_1, \ldots, a_n) \in V \subset K^n$ 确定，即它具有
+
+$$\mathfrak{m}_v = \big\{ f \in A \;\big|\; f(P) = 0 \big\} = (x_1 - a_1, \ldots, x_n - a_n) \cap A$$
+
+的形式。
+</blockquote>
+
+<p>It's easy to see that different points $v \in V \subset K^n$ give rise to the same maximal ideal $\mathfrak{m}_v$ of $A$ if and only if they are <span class="vocab">conjugate<span class="tooltip">/ˈkɒn.dʒʊ.ɡeɪt/ 共轭的</span></span> over $k$ in the sense of Galois theory (since $A$ consists of polynomials with coefficients in $k$). So the maximal spectrum $\operatorname{Specm} A$ is just $V$ 'up to conjugacy' (the orbit space of $\operatorname{Gal} K/k$ on $V$). Every other prime $P$ of $A$ corresponds as in (8.12) to an irreducible subvariety $Y = V(P) \subset V$ (up to conjugacy over $k$); $P \in \operatorname{Spec} A$ is the scheme theoretic generic point of $Y$, and is again to be thought of as a laundry mark on $Y$. The Zariski topology of $\operatorname{Spec} A$ is fixed up so that $P$ is everywhere dense in $Y$. The maximal ideals of $A$ are called <em>closed points</em> to distinguish them. If $C : (f = 0) \subset \mathbb{A}^2_\mathbb{C}$ is an irreducible curve, it has just one scheme theoretic generic point, corresponding to the ideal $(0)$ of $\mathbb{C}[X,Y]/(f)$, whereas a surface $S$ will have one generic point in each irreducible curve $C \subset S$ as well as its own generic point dense in $S$.</p>
+
+<blockquote>
+不难看出，$V \subset K^n$ 中不同的点 $v$ 给出 $A$ 的相同极大理想 $\mathfrak{m}_v$，当且仅当它们在Galois理论意义下关于 $k$ 共轭（因为 $A$ 由系数在 $k$ 中的多项式组成）。因此极大谱 $\operatorname{Specm} A$ 就是 $V$ "模共轭"（即 $\operatorname{Gal} K/k$ 在 $V$ 上的轨道空间）。$A$ 的每个其他素理想 $P$ 如 (8.12) 中那样对应于一个不可约子簇 $Y = V(P) \subset V$（模 $k$-共轭）；$P \in \operatorname{Spec} A$ 是 $Y$ 的概形论一般点，同样可以被看作 $Y$ 上的一个标记。$\operatorname{Spec} A$ 的Zariski拓扑被设定为使得 $P$ 在 $Y$ 中处处稠密。$A$ 的极大理想被称为闭点以示区分。如果 $C : (f = 0) \subset \mathbb{A}^2_\mathbb{C}$ 是一条不可约曲线，它恰好有一个概形论一般点，对应于 $\mathbb{C}[X,Y]/(f)$ 的理想 $(0)$，而一个曲面 $S$ 则在每条不可约曲线 $C \subset S$ 中有一个一般点，以及它自己的在 $S$ 中稠密的一般点。
+</blockquote>
+
+<h3>(b) Field-valued points in scheme theory</h3>
+<h4>(b) 概形理论中的域值点</h4>
+
+<p>If $P$ is a prime ideal of $A$ (so $P \in \operatorname{Spec} A$ a point) the <em>residue field</em> at $P$ is the field of fractions of the integral domain $A/P$, written $k(P)$; it is an algebraic extension of the ground field $k$ if and only if $P$ is maximal. A point of $V$ with coefficients in a field extension $k \subset L$ (a point $(a_1, \ldots, a_n) \in V(I) \subset L^n$) clearly corresponds to a <span class="vocab">homomorphism<span class="tooltip">/ˌhɒm.əˈmɔː.fɪ.zəm/ 同态</span></span> $A \to L$ (given by $X_i \mapsto a_i$), with kernel a prime ideal $P$ of $A$, or equivalently, to an embedding $k(P) \hookrightarrow L$.</p>
+
+<blockquote>
+如果 $P$ 是 $A$ 的素理想（即 $P \in \operatorname{Spec} A$ 是一个点），$P$ 处的剩余域是整环 $A/P$ 的分式域，记作 $k(P)$；当且仅当 $P$ 是极大理想时，它是基域 $k$ 的代数扩张。$V$ 的一个系数在域扩张 $k \subset L$ 中的点（即一个点 $(a_1, \ldots, a_n) \in V(I) \subset L^n$）显然对应于一个同态 $A \to L$（由 $X_i \mapsto a_i$ 给出），其核是 $A$ 的一个素理想 $P$，或等价地，对应于一个嵌入 $k(P) \hookrightarrow L$。
+</blockquote>
+
+<h3>(c) Generic points in Weil foundations</h3>
+<h4>(c) Weil基础中的一般点</h4>
+
+<p>I mentioned in (8.3) the <span class="vocab">peculiarity<span class="tooltip">/pɪˌkjuː.liˈær.ɪ.ti/ 特殊性</span></span> of points in Weil foundations: a variety $V$ defined over a field $k$ is allowed to have $L$-valued points for any field extension $k \subset L$. This clearly derives from number theory, but it also has consequences in geometry. For example, if $C$ is the circle $x^2 + y^2 = 1$ defined over $k = \mathbb{Q}$, then</p>
+
+$$P_\pi = \left( \frac{2\pi}{\pi^2 + 1},\, \frac{\pi^2 - 1}{\pi^2 + 1} \right)$$
+
+<p>is allowed as a $\mathbb{C}$-valued point of $C$. Since $\pi$ is <span class="vocab">transcendental<span class="tooltip">/ˌtræn.senˈden.təl/ 超越的</span></span> over $\mathbb{Q}$, any polynomial $f \in \mathbb{Q}[x,y]$ vanishing at $P_\pi$ is a multiple of $x^2 + y^2 - 1$; so $P_\pi$ is a $\mathbb{Q}$-generic point of $C$ -- it's not in any smaller subvariety of $C$ defined over $\mathbb{Q}$.</p>
+
+<blockquote>
+我在 (8.3) 中提到了Weil基础中点的特殊性：定义在域 $k$ 上的簇 $V$ 被允许具有任何域扩张 $k \subset L$ 的 $L$-值点。这显然源自数论，但在几何中也有后果。例如，如果 $C$ 是定义在 $k = \mathbb{Q}$ 上的圆 $x^2 + y^2 = 1$，那么
+
+$$P_\pi = \left( \frac{2\pi}{\pi^2 + 1},\, \frac{\pi^2 - 1}{\pi^2 + 1} \right)$$
+
+是 $C$ 的一个合法的 $\mathbb{C}$-值点。由于 $\pi$ 在 $\mathbb{Q}$ 上是超越的，任何在 $P_\pi$ 处消失的多项式 $f \in \mathbb{Q}[x,y]$ 都是 $x^2 + y^2 - 1$ 的倍数；因此 $P_\pi$ 是 $C$ 的一个 $\mathbb{Q}$-一般点——它不在 $C$ 的任何定义在 $\mathbb{Q}$ 上的更小的子簇中。
+</blockquote>
+
+<h3>(d) Points as morphisms in scheme theory</h3>
+<h4>(d) 概形理论中作为态射的点</h4>
+
+<p>More generally, for $X$ a variety (or scheme) we are interested in, an $S$-valued point of $X$ (where $S$ is any scheme) can just be defined as a morphism $S \to X$. If $X = V(I) \subset \mathbb{A}^n_k$ is affine with coordinate ring $k[X]$ and $S = \operatorname{Spec} A$, then an $S$-valued point corresponds under (4.4) to a $k$-algebra homomorphism $k[X] \to A$, that is, to an $n$-tuple $(a_1, \ldots, a_n)$ of elements of $A$ satisfying $f(a) = 0$ for all $f \in I$.</p>
+
+<blockquote>
+更一般地，对于我们感兴趣的簇（或概形）$X$，$X$ 的一个 $S$-值点（其中 $S$ 是任意概形）可以直接定义为一个态射 $S \to X$。如果 $X = V(I) \subset \mathbb{A}^n_k$ 是仿射的，坐标环为 $k[X]$，且 $S = \operatorname{Spec} A$，则一个 $S$-值点在 (4.4) 下对应于一个 $k$-代数同态 $k[X] \to A$，即 $A$ 中的一个 $n$ 元组 $(a_1, \ldots, a_n)$，满足对所有 $f \in I$ 有 $f(a) = 0$。
+</blockquote>
+
+<p>In a <span class="vocab">highbrow<span class="tooltip">/ˈhaɪ.braʊ/ 高深的，知识精英的</span></span> sense, this is the final <span class="vocab">apotheosis<span class="tooltip">/əˌpɒθ.iˈəʊ.sɪs/ 登峰造极</span></span> of the notion of a variety: if a point of a variety $X$ is just a morphism, then $X$ itself is just the functor</p>
+
+$$S \mapsto X(S) = \big\{ \text{morphisms } S \to X \big\}$$
+
+<p>on the category of schemes. Unlikely as it may seem, these <span class="vocab">metaphysical<span class="tooltip">/ˌmet.əˈfɪz.ɪ.kəl/ 形而上学的</span></span> incantations are technically very useful, and varieties defined as functors are basic in the modern view of moduli spaces.</p>
+
+<blockquote>
+在一种高深的意义上，这是簇的概念的最终升华：如果簇 $X$ 的一个点就是一个态射，那么 $X$ 本身就是概形范畴上的函子
+
+$$S \mapsto X(S) = \big\{ \text{态射 } S \to X \big\}$$
+
+尽管看起来不太可能，但这些形而上学的咒语在技术上非常有用，作为函子定义的簇是模空间现代观点的基础。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch08_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s14.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

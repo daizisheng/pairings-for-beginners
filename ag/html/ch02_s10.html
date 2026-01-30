@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.10 Proof by continuity — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s09.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s11.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.10 Proof by continuity</h1>
+<h2>2.10 连续性证明</h2>
+
+<p>I sketch one version of the argument 'by continuity', which uses the fact that $k \subset \mathbb{C}$. Write $C_{\mathbb{C}} \subset \mathbb{P}^2_{\mathbb{C}}$ for the <span class="vocab">complexified<span class="tooltip">/kəmˈplek.sɪ.faɪd/ 复化的</span></span> curve $C$, that is, the set of ratios $(X : Y : Z)$ of complex numbers satisfying the same equation $F(X, Y, Z) = 0$. If the associative law holds for all $A, B, C \in C_{\mathbb{C}}$, then obviously also for all points in $C$. Therefore, I can assume that $k = \mathbb{C}$.</p>
+
+<blockquote>
+我来大致讲一个"连续性"论证的版本，它用到了 $k \subset \mathbb{C}$ 这个事实。记 $C_{\mathbb{C}} \subset \mathbb{P}^2_{\mathbb{C}}$ 为曲线 $C$ 的复化，也就是满足同一方程 $F(X,Y,Z) = 0$ 的复数比 $(X:Y:Z)$ 的集合。如果结合律对所有 $A, B, C \in C_{\mathbb{C}}$ 都成立，那么对 $C$ 中的所有点显然也成立。因此，可以假设 $k = \mathbb{C}$。
+</blockquote>
+
+<p>The reader who cares about it will have no difficulty in finding proofs of the following two statements (see Ex. 2.8):</p>
+
+<p><strong>Lemma</strong> <em>(i)</em> $A + B$ is a continuous function of $A$ and $B$;</p>
+
+<p><em>(ii)</em> for all $A, B, C \in C$ there exist $A', B', C' \in C$ <span class="vocab">arbitrarily<span class="tooltip">/ˈɑːr.bɪ.trer.ɪ.li/ 任意地</span></span> near to $A, B, C$ such that the 9 points $A', B', C', O, R, \overline{R}, Q, \overline{Q}, S$ constructed from them are all distinct.</p>
+
+<blockquote>
+感兴趣的读者不难找到以下两个命题的证明（见习题2.8）：
+<br><strong>引理</strong> (i) $A + B$ 是 $A$ 和 $B$ 的连续函数；
+<br>(ii) 对所有 $A, B, C \in C$，存在任意接近 $A, B, C$ 的点 $A', B', C' \in C$，使得由它们构造出的9个点 $A', B', C', O, R, \overline{R}, Q, \overline{Q}, S$ 互不相同。
+</blockquote>
+
+<p>The addition law is a map $\varphi \colon C \times C \to C$ given by $(A, B) \mapsto A + B$. By (i), $\varphi$ is continuous, and hence so are the two maps (sorry!)</p>
+
+$$f = \varphi \circ (\varphi \times \mathrm{id}_C) \quad \text{and} \quad g = \varphi \circ (\mathrm{id}_C \times \varphi) \colon C \times C \times C \to C$$
+
+<p>given by $(A, B, C) \mapsto (A + B) + C$ and $A + (B + C)$. Also, by (ii), the subset $U \subset C \times C \times C$ consisting of <span class="vocab">triples<span class="tooltip">/ˈtrɪp.əlz/ 三元组</span></span> $(A, B, C)$ for which the 9 points of the construction are distinct is <span class="vocab">dense<span class="tooltip">/dens/ 稠密的</span></span>; by the above argument, $f$ and $g$ thus <span class="vocab">coincide<span class="tooltip">/ˌkoʊ.ɪnˈsaɪd/ 重合，一致</span></span> on $U$, and since they are continuous, they coincide everywhere. Q.E.D.</p>
+
+<blockquote>
+加法是映射 $\varphi: C \times C \to C$，$(A,B) \mapsto A+B$。由(i)，$\varphi$ 是连续的，因此两个映射 $f = \varphi \circ (\varphi \times \mathrm{id}_C)$ 和 $g = \varphi \circ (\mathrm{id}_C \times \varphi): C \times C \times C \to C$（分别把 $(A,B,C)$ 映到 $(A+B)+C$ 和 $A+(B+C)$）也是连续的。由(ii)，由那些使9个点互不相同的三元组 $(A,B,C)$ 组成的子集 $U \subset C \times C \times C$ 是稠密的；由上面的论证，$f$ 和 $g$ 在 $U$ 上一致，而由连续性，它们处处一致。证毕。
+</blockquote>
+
+<p><strong>Remark</strong> The continuity argument as it stands involves the topology of $\mathbb{C}$, and is thus not purely algebraic. In fact the addition map $\varphi$ is a <span class="vocab">morphism<span class="tooltip">/ˈmɔːr.fɪ.zəm/ 态射</span></span> of varieties $\varphi \colon C \times C \to C$, as will be proved later (see (4.14)), and the remainder of the argument can also be <span class="vocab">reformulated<span class="tooltip">/ˌriː.fɔːr.mjʊˈleɪ.tɪd/ 重新表述的</span></span> in this purely algebraic form: the subset of $C \times C \times C$ for which the 9 points are distinct is a dense open set for the Zariski topology, and two morphisms which coincide on a dense open set coincide everywhere. (I hope that this remark can provide useful motivation for the rest of the course; if you find it confusing, just ignore it for the moment.)</p>
+
+<blockquote>
+<strong>注</strong>　连续性论证就其本身而言，涉及到了 $\mathbb{C}$ 的拓扑，因此不是纯代数的。事实上加法映射 $\varphi$ 是簇的态射 $\varphi: C \times C \to C$（这将在后面(4.14)证明），剩下的论证也可以用纯代数的形式重新表述：$C \times C \times C$ 中使9个点互不相同的子集是Zariski拓扑下的稠密开集，而在稠密开集上一致的两个态射处处一致。（我希望这个注记能为课程后面的内容提供有用的动机；如果你觉得迷惑，暂时忽略就好。）
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s09.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s11.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises to Chapter 2 — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s16.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="part_II.html">下一节 &rarr;</a>
+</nav>
+
+<h1>Exercises to Chapter 2</h1>
+<h2>第2章习题</h2>
+
+<p><strong>2.1</strong> Let $C : (y^2 = x^3 + x^2) \subset \mathbb{R}^2$. Show that a variable line through $(0, 0)$ meets $C$ at one further point, and hence <span class="vocab">deduce<span class="tooltip">/dɪˈdjuːs/ 推导出</span></span> the parametrisation of $C$ given in (2.1). Do the same for $(y^2 = x^3)$ and $(x^3 = y^3 - y^4)$.</p>
+
+<blockquote>
+<strong>2.1</strong> 设 $C: (y^2 = x^3 + x^2) \subset \mathbb{R}^2$。证明过 $(0,0)$ 的动直线与 $C$ 恰好再交于一个点，从而推导出(2.1)中给出的 $C$ 的参数化。对 $(y^2 = x^3)$ 和 $(x^3 = y^3 - y^4)$ 做同样的事。
+</blockquote>
+
+<p><strong>2.2</strong> Let $\varphi \colon \mathbb{R}^1 \to \mathbb{R}^2$ be the map given by $t \mapsto (t^2, t^3)$; prove directly that any polynomial $f \in \mathbb{R}[X, Y]$ vanishing on the image $C = \varphi(\mathbb{R}^1)$ is <span class="vocab">divisible<span class="tooltip">/dɪˈvɪz.ɪ.bəl/ 可整除的</span></span> by $Y^2 - X^3$. [Hint: use the method of Lemma 2.5.] Determine what property of a field $k$ will ensure that the result holds for $\varphi \colon k \to k^2$ given by the same formula.</p>
+
+<p>Do the same for $t \mapsto (t^2 - 1, t^3 - t)$.</p>
+
+<blockquote>
+<strong>2.2</strong> 设 $\varphi: \mathbb{R}^1 \to \mathbb{R}^2$ 是由 $t \mapsto (t^2, t^3)$ 给出的映射；直接证明在像 $C = \varphi(\mathbb{R}^1)$ 上消失的任何多项式 $f \in \mathbb{R}[X,Y]$ 都可被 $Y^2 - X^3$ 整除。[提示：用引理2.5的方法。] 确定域 $k$ 需要什么性质才能保证对由同一公式给出的 $\varphi: k \to k^2$ 也有同样的结论。
+<br>对 $t \mapsto (t^2 - 1, t^3 - t)$ 做同样的事。
+</blockquote>
+
+<p><strong>2.3</strong> Let $C : (f = 0) \subset k^2$, and let $P = (a, b) \in C$; assume that $\partial f / \partial x(P) \neq 0$. Prove that the line</p>
+
+$$L : \frac{\partial f}{\partial x}(P) \cdot (x - a) + \frac{\partial f}{\partial y}(P) \cdot (y - b) = 0$$
+
+<p>is the <span class="vocab">tangent<span class="tooltip">/ˈtæn.dʒənt/ 切线</span></span> line to $C$ at $P$, that is, the unique line $L$ of $k^2$ for which $f|_L$ has a multiple root at $P$ (this is worked out in detail in (6.1)).</p>
+
+<blockquote>
+<strong>2.3</strong> 设 $C: (f = 0) \subset k^2$，$P = (a,b) \in C$；假设 $\partial f/\partial x(P) \neq 0$。证明直线
+$L: \frac{\partial f}{\partial x}(P) \cdot (x - a) + \frac{\partial f}{\partial y}(P) \cdot (y - b) = 0$
+就是 $C$ 在 $P$ 处的切线，即 $k^2$ 中使得 $f|_L$ 在 $P$ 有重根的那条唯一直线（详见(6.1)）。
+</blockquote>
+
+<p><strong>2.4</strong> Let $C : (y^2 = x^3 + 4x)$, with the simplified group law (2.13). Show that the tangent line to $C$ at $P = (2, 4)$ passes through $(0, 0)$, and deduce that $P$ is a point of order 4 in the group law.</p>
+
+<blockquote>
+<strong>2.4</strong> 设 $C: (y^2 = x^3 + 4x)$，用简化的群律(2.13)。证明 $C$ 在 $P = (2,4)$ 处的切线过 $(0,0)$，从而推出 $P$ 在群律中是4阶的点。
+</blockquote>
+
+<p><strong>2.5</strong> Let $C : (y^2 = x^3 + ax + b) \subset \mathbb{R}^2$ be nonsingular; find all points of order 2 in the group law, and understand what group they form (there are two cases to consider).</p>
+
+<p>Now explain geometrically how you would set about finding all points of order 4 on $C$.</p>
+
+<blockquote>
+<strong>2.5</strong> 设 $C: (y^2 = x^3 + ax + b) \subset \mathbb{R}^2$ 非奇异；找出群律中所有2阶的点，并弄清楚它们构成什么群（需要分两种情况讨论）。
+<br>然后从几何上解释如何找到 $C$ 上所有4阶的点。
+</blockquote>
+
+<p><strong>2.6</strong> Let $C : (y^2 = x^3 + ax + b) \subset \mathbb{R}^2$; write a computer program to sketch part of $C$, and to calculate the group law. That is, it prompts you for the coordinates of 2 points $A$ and $B$, then draws the lines and tells you the coordinates of $A + B$. (Use real variables.)</p>
+
+<blockquote>
+<strong>2.6</strong> 设 $C: (y^2 = x^3 + ax + b) \subset \mathbb{R}^2$；编写一个计算机程序来画出 $C$ 的一部分，并计算群律。也就是说，程序提示你输入两个点 $A$ 和 $B$ 的坐标，然后画出直线并告诉你 $A + B$ 的坐标。（用实数变量。）
+</blockquote>
+
+<p><strong>2.7</strong> Let $C : (y^2 = x^3 + ax + b) \subset k^2$; if $A = (x_1, y_1)$ and $B = (x_2, y_2)$, show how to give the coordinates of $A + B$ as rational functions of $x_1, y_1, x_2, y_2$. [Hint: if $F(X)$ is a polynomial of degree 3 and you know 2 of the roots, you can find the 3rd by looking at just one <span class="vocab">coefficient<span class="tooltip">/ˌkoʊ.ɪˈfɪʃ.ənt/ 系数</span></span> of $F$. This is a question with a nonunique answer, since there are many correct expressions for the rational functions. One solution is given in (4.14).]</p>
+
+<blockquote>
+<strong>2.7</strong> 设 $C: (y^2 = x^3 + ax + b) \subset k^2$；若 $A = (x_1, y_1)$，$B = (x_2, y_2)$，说明如何把 $A + B$ 的坐标表示为 $x_1, y_1, x_2, y_2$ 的有理函数。[提示：如果 $F(X)$ 是3次多项式且你已知其中2个根，只需看 $F$ 的一个系数就能找到第3个根。这题的答案不唯一，因为有理函数有很多正确的表达式。一个解答见(4.14)。]
+</blockquote>
+
+<p><strong>2.8</strong> By writing down the equation of the tangent line to $C$ at $A$, find a formula for $2A$ in the group law on $C$, and verify that it is the limit of a suitable formula for $A + B$ as $B$ tends to $A$. [Hint: use Ex. 2.7, and if necessary refer to (4.14).]</p>
+
+<blockquote>
+<strong>2.8</strong> 写出 $C$ 在 $A$ 处的切线方程，找到群律中 $2A$ 的公式，并验证它是当 $B$ 趋近于 $A$ 时 $A + B$ 的某个合适公式的极限。[提示：用习题2.7，必要时参考(4.14)。]
+</blockquote>
+
+<p><strong>2.9</strong> Let $x, z$ be coordinates on $k^2$, and let $f \in k[x, z]$; write $f$ as</p>
+
+$$f = a + bx + cz + dx^2 + exz + fz^2 + \cdots .$$
+
+<p>Write down the conditions in terms of $a, b, c, \ldots$ that must hold in order that</p>
+
+<p>(i) $P = (0, 0) \in C : (f = 0)$;</p>
+
+<p>(ii) the tangent line to $C$ at $P$ is $(z = 0)$;</p>
+
+<p>(iii) $P$ is an inflexion point of $C$ with $(z = 0)$ as the tangent line.</p>
+
+<p>(Recall from (2.12) that $P \in C$ is an inflexion point if the tangent line $L$ is defined, and $f|_L$ has at least a 3-fold zero at $P$.)</p>
+
+<blockquote>
+<strong>2.9</strong> 设 $x, z$ 是 $k^2$ 上的坐标，$f \in k[x,z]$；把 $f$ 写成 $f = a + bx + cz + dx^2 + exz + fz^2 + \cdots$。写出用 $a, b, c, \ldots$ 表示的条件，使得：
+<br>(i) $P = (0,0) \in C: (f = 0)$；
+<br>(ii) $C$ 在 $P$ 处的切线是 $(z = 0)$；
+<br>(iii) $P$ 是 $C$ 的拐点，且切线为 $(z = 0)$。
+<br>（回忆(2.12)中的定义：$P \in C$ 是拐点，是指切线 $L$ 有定义，且 $f|_L$ 在 $P$ 处至少有3重零点。）
+</blockquote>
+
+<p><strong>2.10</strong> Let $C \subset \mathbb{P}^2_k$ be a plane cubic, and suppose that $P \in C$ is an inflexion point; prove that a change of coordinates in $\mathbb{P}^2_k$ can be used to bring $C$ into the normal form</p>
+
+$$Y^2 Z = X^3 + aX^2 Z + bXZ^2 + cZ^3.$$
+
+<p>[Hint: take coordinates such that $P = (0, 1, 0)$ and the inflexion tangent is $(Z = 0)$; then using the previous question, in local coordinates $(x, z)$, $Y$ will appear in a quadratic term $Y^2 Z$, and otherwise only linearly. Show then that you can get rid of the linear term in $Y$ by completing the square.]</p>
+
+<blockquote>
+<strong>2.10</strong> 设 $C \subset \mathbb{P}^2_k$ 是平面三次曲线，且 $P \in C$ 是拐点；证明通过 $\mathbb{P}^2_k$ 中的坐标变换可以把 $C$ 化为标准形式 $Y^2Z = X^3 + aX^2Z + bXZ^2 + cZ^3$。
+<br>[提示：选坐标使得 $P = (0,1,0)$ 且拐点切线为 $(Z = 0)$；然后利用上一题，在局部坐标 $(x,z)$ 中，$Y$ 只在二次项 $Y^2Z$ 中出现，其余只以一次幂出现。然后证明可以通过配方消去 $Y$ 的一次项。]
+</blockquote>
+
+<p><strong>2.11</strong> (Group law on a <span class="vocab">cuspidal<span class="tooltip">/ˈkʌs.pɪ.dəl/ 尖点的</span></span> cubic.) Consider the curve</p>
+
+$$C : (z = x^3) \subset k^2;$$
+
+<p>$C$ is the image of the <span class="vocab">bijective<span class="tooltip">/baɪˈdʒek.tɪv/ 双射的</span></span> map $\varphi \colon k \to C$ by $t \mapsto (t, t^3)$, so it inherits a group law from the additive group $k$. Prove that this is the unique group law on $C$ such that $(0, 0)$ is the neutral element and</p>
+
+$$P + Q + R = 0 \iff P, Q, R \text{ are collinear}$$
+
+<p>for $P, Q, R \in C$. [Hint: you might find useful the identity</p>
+
+$$\det \begin{pmatrix} 1 & a & a^3 \\ 1 & b & b^3 \\ 1 & c & c^3 \end{pmatrix} = (a - b)(b - c)(c - a)(a + b + c).]$$
+
+<p>In projective terms, $C$ is the curve $(Y^2 Z = X^3)$, our old friend with a cusp at the origin and an inflexion point at $(0, 1, 0)$, and the point of the question is that the usual construction gives a group law on the <span class="vocab">complement<span class="tooltip">/ˈkɒm.plɪ.ment/ 补集</span></span> of the singular point.</p>
+
+<blockquote>
+<strong>2.11</strong>（尖点三次曲线上的群律。）考虑曲线 $C: (z = x^3) \subset k^2$；$C$ 是双射 $\varphi: k \to C$，$t \mapsto (t, t^3)$ 的像，因此它从加法群 $k$ 继承了一个群律。证明这是 $C$ 上唯一满足以下条件的群律：$(0,0)$ 是单位元，且对 $P, Q, R \in C$，$P + Q + R = 0 \iff P, Q, R$ 三点共线。
+<br>[提示：你可能会用到恒等式 $\det\begin{pmatrix}1 & a & a^3 \\ 1 & b & b^3 \\ 1 & c & c^3\end{pmatrix} = (a-b)(b-c)(c-a)(a+b+c)$。]
+<br>在射影意义下，$C$ 就是曲线 $(Y^2Z = X^3)$，我们的老朋友——原点处有尖点、$(0,1,0)$ 处有拐点——这道题的要点是，通常的构造在奇异点的补集上给出了群律。
+</blockquote>
+
+<p><strong>2.12</strong> (Due to Leonardo Pisano, known as Fibonacci, A.D. 1220.) Prove that for $u, v \in \mathbb{Z}$,</p>
+
+$$u^2 + v^2 \text{ and } u^2 - v^2 \text{ both squares} \implies v = 0.$$
+
+<p>Hints (due to Pierre de Fermat, see J.W.S. Cassels, <em>Journal of London Math Soc.</em> <strong>41</strong> (1966), p. 207):</p>
+
+<blockquote>
+<strong>2.12</strong>（出自Leonardo Pisano，即Fibonacci，公元1220年。）证明：对于 $u, v \in \mathbb{Z}$，若 $u^2 + v^2$ 和 $u^2 - v^2$ 都是完全平方数，则 $v = 0$。
+<br>提示（归功于Pierre de Fermat，参见 J.W.S. Cassels, <em>Journal of London Math Soc.</em> <strong>41</strong> (1966), p. 207）：
+</blockquote>
+
+<p><strong>Step 1</strong> Reduce to solving</p>
+
+$$x^2 = u^2 + v^2, \quad y^2 = u^2 - v^2 \qquad (*)$$
+
+<p>with $x, y, u, v \in \mathbb{Z}$ pairwise <span class="vocab">coprime<span class="tooltip">/ˌkoʊˈpraɪm/ 互素的</span></span>.</p>
+
+<blockquote>
+<strong>第1步</strong>　化为求解 $x^2 = u^2 + v^2$，$y^2 = u^2 - v^2$（记为 $(*)$），其中 $x, y, u, v \in \mathbb{Z}$ 两两互素。
+</blockquote>
+
+<p><strong>Step 2</strong> Considerations mod 4 show that $x, y, u$ are odd and $v$ even.</p>
+
+<blockquote>
+<strong>第2步</strong>　模4的讨论说明 $x, y, u$ 都是奇数，$v$ 是偶数。
+</blockquote>
+
+<p><strong>Step 3</strong> The 4 pairs of factors on the l.-h.s. of the factorisations</p>
+
+$$(x - u)(x + u) = v^2$$
+$$(u - y)(u + y) = v^2$$
+$$(x - y)(x + y) = 2v^2$$
+$$(2u - x - y)(2u + x + y) = (x - y)^2 \qquad (**)$$
+
+<p>have no common factors other than powers of 2.</p>
+
+<blockquote>
+<strong>第3步</strong>　以上四个因式分解中，等式左边的每对因子除了2的幂次外没有公因子。
+</blockquote>
+
+<p><strong>Step 4</strong> Replacing $y$ by $-y$ if necessary, we can assume that $4 \nmid x - y$. Now by considering the <span class="vocab">parity<span class="tooltip">/ˈpær.ɪ.ti/ 奇偶性</span></span> of factors on l.-h.s. of $(**)$, prove that</p>
+
+$$x - u = 2v_1^2, \quad u - y = 2u_1^2, \quad x - y = 2x_1^2$$
+$$\text{and} \quad 2u - x - y = 2y_1^2$$
+
+<p>with $u_1, v_1, x_1, y_1 \in \mathbb{Z}$.</p>
+
+<blockquote>
+<strong>第4步</strong>　如有必要把 $y$ 换成 $-y$，可以假设 $4 \nmid x - y$。现在通过考虑 $(**)$ 左边因子的奇偶性，证明 $x - u = 2v_1^2$，$u - y = 2u_1^2$，$x - y = 2x_1^2$，$2u - x - y = 2y_1^2$，其中 $u_1, v_1, x_1, y_1 \in \mathbb{Z}$。
+</blockquote>
+
+<p><strong>Step 5</strong> Show that $u_1, v_1, x_1, y_1$ is another solution of $(*)$ with $v_1 < v$, and deduce a contradiction by 'infinite <span class="vocab">descent<span class="tooltip">/dɪˈsent/ 下降</span></span>'.</p>
+
+<blockquote>
+<strong>第5步</strong>　证明 $u_1, v_1, x_1, y_1$ 是 $(*)$ 的另一个解，且 $v_1 < v$，由"无穷递降法"得出矛盾。
+</blockquote>
+
+<p>Compare this argument with the proof of (2.2), which was easier only in that I didn't have to mess about with 2s.</p>
+
+<blockquote>
+把这个论证和(2.2)的证明比较一下——后者简单仅仅是因为不用和2纠缠。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s16.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="part_II.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

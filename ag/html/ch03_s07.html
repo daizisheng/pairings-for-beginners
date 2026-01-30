@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.7 Irreducible algebraic set — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s08.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.7 Irreducible algebraic set</h1>
+<h2>3.7 不可约代数集</h2>
+
+<p>An algebraic set $X \subset \mathbb{A}^n_k$ is <em><span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sə.bl/ 不可约的</span></span></em> if there does not exist a <span class="vocab">decomposition<span class="tooltip">/ˌdiː.kɒm.pəˈzɪʃ.ən/ 分解</span></span></p>
+
+$$X = X_1 \cup X_2 \quad \text{with} \quad X_1, X_2 \subsetneq X$$
+
+<p>of $X$ as a union of two strict algebraic subsets. For example, the algebraic subset $V(xy) \subset \mathbb{A}^2_k$ is the locus consisting of the two coordinate axes, and is obviously the union of $V(x)$ and $V(y)$, hence <span class="vocab">reducible<span class="tooltip">/rɪˈdjuː.sə.bl/ 可约的</span></span>.</p>
+
+<blockquote>
+代数集 $X \subset \mathbb{A}^n_k$ 是<strong>不可约的</strong>，如果不存在把 $X$ 分解为两个真代数子集之并的方式：$X = X_1 \cup X_2$，$X_1, X_2 \subsetneq X$。例如，$V(xy) \subset \mathbb{A}^2_k$ 是两条坐标轴的并，显然等于 $V(x) \cup V(y)$，因此是可约的。
+</blockquote>
+
+<p><strong>Proposition</strong></p>
+
+<p><em>(a) Let $X \subset \mathbb{A}^n_k$ be an algebraic set and $I(X)$ the corresponding ideal; then</em></p>
+
+$$X \text{ is irreducible} \iff I(X) \text{ is prime}.$$
+
+<p><em>(b) Any algebraic set $X$ has a (unique) expression</em></p>
+
+$$X = X_1 \cup \cdots \cup X_r \qquad (*)$$
+
+<p><em>with $X_i$ irreducible and $X_i \not\subset X_j$ for $i \neq j$.</em></p>
+
+<p>The $X_i$ in $(*)$ are the <em>irreducible components</em> of $X$.</p>
+
+<blockquote>
+<strong>命题</strong>：<br>
+(a) 设 $X \subset \mathbb{A}^n_k$ 是代数集，$I(X)$ 是对应的理想，则 $X$ 不可约 $\Leftrightarrow$ $I(X)$ 是素理想。<br>
+(b) 任何代数集 $X$ 都有（唯一的）表达式 $X = X_1 \cup \cdots \cup X_r$，其中 $X_i$ 不可约，且 $i \neq j$ 时 $X_i \not\subset X_j$。$(*)$ 中的 $X_i$ 叫做 $X$ 的<strong>不可约分支</strong>。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (a) In fact I prove that $X$ is reducible $\iff$ $I(X)$ is not prime.</p>
+
+<p>($\Longrightarrow$) &nbsp; Suppose $X = X_1 \cup X_2$ with $X_1, X_2 \subsetneq X$ algebraic subsets. Then $X_1 \subsetneq X$ means that there exists $f_1 \in I(X_1) \setminus I(X)$, and similarly $X_2 \subsetneq X$ gives $f_2 \in I(X_2) \setminus I(X)$. Now the product $f_1 f_2$ vanishes at all points of $X$, and so $f_1 f_2 \in I(X)$. Therefore $I(X)$ is not prime.</p>
+
+<p>($\Longleftarrow$) &nbsp; Suppose that $I(X)$ is not prime; then there exist $f_1, f_2 \notin I(X)$ such that $f_1 f_2 \in I(X)$. Let $I_1 = (I(X), f_1)$ and $V(I_1) = X_1$; then $X_1 \subsetneq X$ is an algebraic subset; similarly, setting $I_2 = (I(X), f_2)$ and $V(I_2) = X_2$ gives $X_2 \subsetneq X$. But $X \subset X_1 \cup X_2$, since for all $P \in X$, $f_1 f_2(P) = 0$ implies that either $f_1(P) = 0$ or $f_2(P) = 0$.</p>
+
+<blockquote>
+<strong>证明</strong>：(a) 实际上我证 $X$ 可约 $\Leftrightarrow$ $I(X)$ 不是素理想。<br><br>
+($\Rightarrow$) 假设 $X = X_1 \cup X_2$，$X_1,X_2 \subsetneq X$ 是代数子集。$X_1 \subsetneq X$ 意味着存在 $f_1 \in I(X_1) \setminus I(X)$，同理存在 $f_2 \in I(X_2) \setminus I(X)$。而 $f_1 f_2$ 在 $X$ 的所有点上消失，所以 $f_1 f_2 \in I(X)$，因此 $I(X)$ 不是素理想。<br><br>
+($\Leftarrow$) 假设 $I(X)$ 不是素理想，则存在 $f_1,f_2 \notin I(X)$ 使得 $f_1 f_2 \in I(X)$。令 $I_1=(I(X),f_1)$，$X_1=V(I_1)$，则 $X_1 \subsetneq X$；类似地定义 $X_2$。由于对 $X$ 中任意点 $P$，$f_1 f_2(P)=0$ 意味着 $f_1(P)=0$ 或 $f_2(P)=0$，所以 $X \subset X_1 \cup X_2$。
+</blockquote>
+
+<p>(b) First of all, I establish the following proposition: the algebraic subsets of $\mathbb{A}^n_k$ satisfy the <em>descending chain condition</em>, that is, every chain</p>
+
+$$X_1 \supset X_2 \supset \cdots \supset X_n \supset \cdots$$
+
+<p>eventually stops with $X_N = X_{N+1} = \cdots$. This is because</p>
+
+$$I(X_1) \subset I(X_2) \subset \cdots \subset I(X_n) \subset \cdots$$
+
+<p>is an ascending chain of ideals of $A$, and this stops, giving $X_N = X_{N+1} = \cdots$. Thus just as in (3.1),</p>
+
+<p style="text-align:center;"><em>any nonempty set $\Sigma$ of algebraic subsets of $\mathbb{A}^n_k$ has a minimal element.</em> &nbsp; (!)</p>
+
+<p>Now to prove (b), let $\Sigma$ be the set of algebraic subsets of $\mathbb{A}^n_k$ which do not have a decomposition $(*)$. If $\Sigma = \varnothing$ then (b) is proved. On the other hand, if $\Sigma \neq \varnothing$ then by (!), there must be a minimal element $X \in \Sigma$, and this leads speedily to one of two contradictions: if $X$ is irreducible, then $X \notin \Sigma$, a contradiction; if $X$ is reducible, then $X = X_1 \cup X_2$, with $X_1, X_2 \subsetneq X$, so that by minimality of $X \in \Sigma$, I get $X_1, X_2 \notin \Sigma$. So each of $X_1, X_2$ has a decomposition $(*)$ as a union of irreducibles, and putting them together gives a decomposition for $(*)$, so $X \notin \Sigma$. This contradiction proves $\Sigma = \varnothing$.</p>
+
+<p>This proves the existence part of (b). The uniqueness is an easy exercise, see Ex. 3.8. &nbsp; Q.E.D.</p>
+
+<blockquote>
+(b) 首先建立一个事实：$\mathbb{A}^n_k$ 的代数子集满足<strong>降链条件</strong>，即每条降链 $X_1 \supset X_2 \supset \cdots$ 最终稳定。因为对应的理想升链 $I(X_1) \subset I(X_2) \subset \cdots$ 在Noether环 $A$ 中必停止。因此，和(3.1)中一样，$\mathbb{A}^n_k$ 的代数子集的任何非空集合都有极小元。<br><br>
+现在证(b)：令 $\Sigma$ 为没有不可约分解 $(*)$ 的代数子集的集合。如果 $\Sigma = \varnothing$ 则已证。否则取极小元 $X \in \Sigma$：如果 $X$ 不可约，则 $X \notin \Sigma$，矛盾；如果 $X$ 可约，则 $X = X_1 \cup X_2$，由极小性知 $X_1,X_2 \notin \Sigma$，各自有不可约分解，合在一起就给出 $X$ 的分解，矛盾。所以 $\Sigma = \varnothing$。<br><br>
+唯一性是一个简单的练习，参见习题3.8。Q.E.D.
+</blockquote>
+
+<p>The proof of (b) is a typical algebraist's proof: it's logically very neat, but almost completely hides the content: the real point is that if $X$ is not irreducible, then it breaks up as $X = X_1 \cup X_2$, and then you ask the same thing about $X_1$ and $X_2$, and so on; eventually, you must get to irreducible algebraic sets, since otherwise you'd get an infinite descending chain.</p>
+
+<blockquote>
+(b)的证明是典型的代数学家风格的证明：逻辑非常简洁，但几乎完全隐藏了实质内容。真正的要点是：如果 $X$ 不是不可约的，就把它分解为 $X = X_1 \cup X_2$，然后对 $X_1$、$X_2$ 问同样的问题，如此反复；最终一定会到达不可约代数集，否则就会得到一条无穷降链，这与降链条件矛盾。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s08.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

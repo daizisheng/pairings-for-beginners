@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises to Chapter 6 — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_27lines.html">下一节 &rarr;</a>
+</nav>
+
+<h1>Exercises to Chapter 6</h1>
+<h2>第6章习题</h2>
+
+<p><strong>6.1</strong> &nbsp; Let $k \subset K$ be a field extension, and $(u_1, \ldots, u_r)$, $(v_1, \ldots, v_s)$ two sets of elements of $K$; suppose that $(u_1, \ldots, u_r)$ are algebraically independent, and that $(v_1, \ldots, v_s)$ span the extension $k \subset K$ algebraically. Prove that $r \leq s$. [Hint: the <span class="vocab">inductive<span class="tooltip">/ɪnˈdʌk.tɪv/ 归纳的</span></span> step consists of assuming that $(u_1, \ldots, u_i, v_{i+1}, \ldots, v_s)$ span $K/k$ algebraically, and considering $u_{i+1}$.] Deduce that any two transcendence bases of $K/k$ have the same number of elements.</p>
+
+<blockquote>
+<strong>6.1</strong> &nbsp; 设 $k \subset K$ 是域扩张，$(u_1, \ldots, u_r)$、$(v_1, \ldots, v_s)$ 是 $K$ 的两组元素；假设 $(u_1, \ldots, u_r)$ 代数独立，$(v_1, \ldots, v_s)$ 代数地张成扩张 $k \subset K$。证明 $r \leq s$。[提示：归纳步骤是假设 $(u_1, \ldots, u_i, v_{i+1}, \ldots, v_s)$ 代数地张成 $K/k$，然后考虑 $u_{i+1}$。] 由此推出 $K/k$ 的任意两组超越基有相同数量的元素。
+</blockquote>
+
+<p><strong>6.2</strong> &nbsp; Prove Theorem 6.8, (b). [Hint:</p>
+
+$$I(V_f) = (I(V), Yf - 1) \subset k[X_1, \ldots, X_n, Y],$$
+
+<p>so that if $Q = (a_1, \ldots, a_n, b) \in V_f$, then $T_Q V_f \subset \mathbb{A}^{n+1}$ is defined by the equations for $T_P V \subset \mathbb{A}^n$, together with one equation involving $Y$.]</p>
+
+<blockquote>
+<strong>6.2</strong> &nbsp; 证明定理6.8的(b)。[提示：
+$$I(V_f) = (I(V), Yf - 1) \subset k[X_1, \ldots, X_n, Y],$$
+因此如果 $Q = (a_1, \ldots, a_n, b) \in V_f$，则 $T_Q V_f \subset \mathbb{A}^{n+1}$ 由 $T_P V \subset \mathbb{A}^n$ 的方程加上一个涉及 $Y$ 的方程来定义。]
+</blockquote>
+
+<p><strong>6.3</strong> &nbsp; Determine all the singular points of the following curves in $\mathbb{A}^2$.</p>
+
+<p>(a) $y^2 = x^3 - x$;</p>
+<p>(b) $y^2 = x^3 - 6x^2 + 9x$;</p>
+<p>(c) $x^2 y^2 + x^2 + y^2 + 2xy(x + y + 1) = 0$;</p>
+<p>(d) $x^2 = x^4 + y^4$;</p>
+<p>(e) $xy = x^6 + y^6$;</p>
+<p>(f) $x^3 = y^2 + x^4 + y^4$;</p>
+<p>(g) $x^2 y + xy^2 = x^4 + y^4$.</p>
+
+<blockquote>
+<strong>6.3</strong> &nbsp; 求下列 $\mathbb{A}^2$ 中曲线的所有奇异点：<br>
+(a) $y^2 = x^3 - x$；<br>
+(b) $y^2 = x^3 - 6x^2 + 9x$；<br>
+(c) $x^2 y^2 + x^2 + y^2 + 2xy(x + y + 1) = 0$；<br>
+(d) $x^2 = x^4 + y^4$；<br>
+(e) $xy = x^6 + y^6$；<br>
+(f) $x^3 = y^2 + x^4 + y^4$；<br>
+(g) $x^2 y + xy^2 = x^4 + y^4$。
+</blockquote>
+
+<p><strong>6.4</strong> &nbsp; Find all the singular points of the surfaces in $\mathbb{A}^3$ given by</p>
+
+<p>(a) $xy^2 = z^2$;</p>
+<p>(b) $x^2 + y^2 = z^2$;</p>
+<p>(c) $xy + x^3 + y^3 = 0$.</p>
+
+<p>(You will find it useful to sketch the real parts of the surfaces, to the limits of your ability; algebraic <span class="vocab">geometers<span class="tooltip">/dʒiˈɒm.ɪ.tərz/ 几何学家</span></span> usually can't draw.)</p>
+
+<blockquote>
+<strong>6.4</strong> &nbsp; 求下列 $\mathbb{A}^3$ 中曲面的所有奇异点：<br>
+(a) $xy^2 = z^2$；<br>
+(b) $x^2 + y^2 = z^2$；<br>
+(c) $xy + x^3 + y^3 = 0$。<br>
+（你会发现画出这些曲面的实数部分的草图是有帮助的，尽你所能；代数几何学家通常不擅长画图。）
+</blockquote>
+
+<p><strong>6.5</strong> &nbsp; Show that the hypersurface $V_d \subset \mathbb{P}^n$ defined by</p>
+
+$$X_0^d + X_1^d + \cdots + X_n^d = 0$$
+
+<p>is nonsingular (if $\operatorname{char} k$ does not divide $d$).</p>
+
+<blockquote>
+<strong>6.5</strong> &nbsp; 证明：由
+$$X_0^d + X_1^d + \cdots + X_n^d = 0$$
+定义的超曲面 $V_d \subset \mathbb{P}^n$ 是非奇异的（如果 $\operatorname{char} k$ 不整除 $d$）。
+</blockquote>
+
+<p><strong>6.6</strong> &nbsp; (a) Let $C_n \subset \mathbb{A}^2$ be the curve given by $f_n : y^2 - x^{2n+1}$ and $\sigma\colon B \to \mathbb{A}^2$ be as in (6.12), with $\ell = \sigma^{-1}(0)$; show that $\sigma^{-1}(C_n)$ <span class="vocab">decomposes<span class="tooltip">/ˌdiː.kəmˈpəʊ.zɪz/ 分解</span></span> as the union of $\ell$ together with a curve isomorphic to $C_{n-1}$. Deduce that $C_n$ can be resolved by a chain of $n$ blowups.</p>
+
+<p>(b) Show how to resolve the following curve singularities by making one or more blowups:</p>
+
+<p>(i) $y^3 = x^4$;</p>
+<p>(ii) $y^3 = x^5$;</p>
+<p>(iii) $(y^2 - x^2)(y^2 - x^5) = x^8$.</p>
+
+<blockquote>
+<strong>6.6</strong> &nbsp; (a) 设 $C_n \subset \mathbb{A}^2$ 是由 $f_n : y^2 - x^{2n+1}$ 给出的曲线，$\sigma\colon B \to \mathbb{A}^2$ 如(6.12)中所述，$\ell = \sigma^{-1}(0)$；证明 $\sigma^{-1}(C_n)$ 分解为 $\ell$ 与一条同构于 $C_{n-1}$ 的曲线的并。推出 $C_n$ 可以通过 $n$ 次爆破来消解。<br><br>
+(b) 说明如何通过一次或多次爆破来消解下列曲线奇点：<br>
+(i) $y^3 = x^4$；<br>
+(ii) $y^3 = x^5$；<br>
+(iii) $(y^2 - x^2)(y^2 - x^5) = x^8$。
+</blockquote>
+
+<p><strong>6.7</strong> &nbsp; Prove that the intersection of a hypersurface $V \subset \mathbb{A}^n$ (not a hyperplane) with the tangent hyperplane $T_P V$ is singular at $P$.</p>
+
+<blockquote>
+<strong>6.7</strong> &nbsp; 证明：超曲面 $V \subset \mathbb{A}^n$（不是超平面）与切超平面 $T_P V$ 的交集在 $P$ 处是奇异的。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_27lines.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

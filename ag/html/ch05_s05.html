@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.5 Affine covering — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s06.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.5 Affine covering of a projective variety</h1>
+<h2>5.5 射影簇的仿射覆盖</h2>
+
+<p>Let $V \subset \mathbb{P}^n$ be an irreducible algebraic set, and suppose for simplicity that $V \not\subset (X_i = 0)$ for any $i$. We know that $\mathbb{P}^n$ is covered by $n+1$ affine pieces $\mathbb{A}^n_{(i)}$, with affine (<span class="vocab">inhomogeneous<span class="tooltip">/ˌɪn.hɒ.məˈdʒiː.ni.əs/ 非齐次的</span></span>) coordinates</p>
+$$X^{(i)}_0, \ldots, X^{(i)}_{i-1}, X^{(i)}_{i+1}, \ldots, X^{(i)}_n, \quad \text{where } X^{(i)}_j = X_j / X_i \text{ for } j \neq i.$$
+
+<p>Write $V_{(i)} = V \cap \mathbb{A}^n_{(i)}$. Then $V_{(i)} \subset \mathbb{A}^n_{(i)}$ is clearly an affine algebraic set, because</p>
+$$V_{(0)} \ni P = (1, x^{(0)}_1, \ldots, x^{(0)}_n) \iff f(1, x^{(0)}_1, \ldots, x^{(0)}_n) = 0 \;\;\text{for all homogeneous } f \in I(V),$$
+<p>which is a set of polynomial relations in the coordinates $(x^{(0)}_1, \ldots, x^{(0)}_n)$ of $P$. For clarity, I have taken $i = 0$ in the argument, and will continue to do so whenever <span class="vocab">convenient<span class="tooltip">/kənˈviː.ni.ənt/ 方便的</span></span>. The reader should remember that the same result applies to any of the other affine pieces $V_{(i)}$. The $V_{(i)}$ are called <em>standard affine pieces</em> of $V$.</p>
+
+<blockquote>
+设 $V \subset \mathbb{P}^n$ 是不可约代数集，为简单起见假设对任意 $i$ 都有 $V \not\subset (X_i = 0)$。我们知道 $\mathbb{P}^n$ 被 $n+1$ 个仿射片 $\mathbb{A}^n_{(i)}$ 覆盖，其仿射（非齐次）坐标为
+$$X^{(i)}_0, \ldots, X^{(i)}_{i-1}, X^{(i)}_{i+1}, \ldots, X^{(i)}_n, \quad \text{其中 } X^{(i)}_j = X_j / X_i \;(j \neq i).$$
+记 $V_{(i)} = V \cap \mathbb{A}^n_{(i)}$。那么 $V_{(i)} \subset \mathbb{A}^n_{(i)}$ 显然是仿射代数集，因为
+$$V_{(0)} \ni P = (1, x^{(0)}_1, \ldots, x^{(0)}_n) \iff f(1, x^{(0)}_1, \ldots, x^{(0)}_n) = 0, \;\;\forall \text{ 齐次 } f \in I(V),$$
+这是关于 $P$ 的坐标 $(x^{(0)}_1, \ldots, x^{(0)}_n)$ 的一组多项式关系。为清楚起见，论证中取了 $i=0$，以后也会在方便时这样做。读者应记住同样的结果对其他仿射片 $V_{(i)}$ 也成立。$V_{(i)}$ 称为 $V$ 的<em>标准仿射片</em>。
+</blockquote>
+
+<p><strong>Proposition</strong></p>
+<p>(i) The correspondence $V \mapsto V_{(0)} = V \cap \mathbb{A}^n_{(0)}$ gives a <span class="vocab">bijection<span class="tooltip">/baɪˈdʒek.ʃən/ 双射</span></span></p>
+$$\left\{\begin{array}{c}\text{irreducible alg.}\\ \text{subsets } V \subset \mathbb{P}^n\end{array} \;\middle|\; V \not\subset (X_0 = 0)\right\} \longleftrightarrow \left\{\begin{array}{c}\text{irreducible alg.}\\ \text{subsets } V_0 \subset \mathbb{A}^n_{(0)}\end{array}\right\};$$
+<p>the inverse correspondence is given by taking the <span class="vocab">closure<span class="tooltip">/ˈkloʊ.ʒər/ 闭包</span></span> in the Zariski topology.</p>
+
+<p>(ii) Write $I^h(V) \subset k[X_0, \ldots, X_n]$ for the homogeneous ideal of $V \subset \mathbb{P}^n$ and $I^a(V_{(0)}) \subset k[X_1, \ldots, X_n]$ for the usual inhomogeneous ideal of $V_{(0)} \subset \mathbb{A}^n_{(0)}$; then $I^h(V)$ and $I^a(V_{(0)})$ are related as follows:</p>
+$$I^a = \big\{f(1, X_1, \ldots, X_n) \;\big|\; f \in I^h(V)\big\},$$
+<p>and</p>
+$$I^h(V)_d = \Big\{X_0^d \, f\!\left(\tfrac{X_1}{X_0}, \ldots, \tfrac{X_n}{X_0}\right) \;\Big|\; f \in I^a(V_{(0)}), \; \deg f \leq d\Big\},$$
+<p>where the subscript in $I^h(V)_d$ denotes the piece of degree $d$.</p>
+
+<p>(iii) $k(V) \cong k(V_{(0)})$, and for $f \in k(V)$, the domain of $f$ as a function on $V_{(0)}$ is $V_{(0)} \cap \operatorname{dom} f$.</p>
+
+<blockquote>
+<strong>命题</strong>
+<p>(i) 对应 $V \mapsto V_{(0)} = V \cap \mathbb{A}^n_{(0)}$ 给出双射</p>
+$$\big\{\text{不可约代数子集 } V \subset \mathbb{P}^n \mid V \not\subset (X_0 = 0)\big\} \longleftrightarrow \big\{\text{不可约代数子集 } V_0 \subset \mathbb{A}^n_{(0)}\big\};$$
+<p>逆对应由取 Zariski 拓扑下的闭包给出。</p>
+
+<p>(ii) 记 $I^h(V) \subset k[X_0, \ldots, X_n]$ 为 $V \subset \mathbb{P}^n$ 的齐次理想，$I^a(V_{(0)}) \subset k[X_1, \ldots, X_n]$ 为 $V_{(0)} \subset \mathbb{A}^n_{(0)}$ 的通常非齐次理想；则 $I^h(V)$ 和 $I^a(V_{(0)})$ 的关系如下：</p>
+$$I^a = \big\{f(1, X_1, \ldots, X_n) \mid f \in I^h(V)\big\},$$
+$$I^h(V)_d = \Big\{X_0^d \, f\!\left(\tfrac{X_1}{X_0}, \ldots, \tfrac{X_n}{X_0}\right) \;\Big|\; f \in I^a(V_{(0)}), \; \deg f \leq d\Big\},$$
+<p>其中 $I^h(V)_d$ 的下标表示 $d$ 次部分。</p>
+
+<p>(iii) $k(V) \cong k(V_{(0)})$，且 $f \in k(V)$ 作为 $V_{(0)}$ 上函数的定义域为 $V_{(0)} \cap \operatorname{dom} f$。</p>
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (i) and (ii) are easy. (iii) If $g, h \in k[X_0, \ldots, X_n]$ are homogeneous of degree $d$, and $h \notin I(V)$, then $g/h \in k(V)$ restricted to $V_{(0)}$ is the function</p>
+$$\frac{g(1, X_1/X_0, \ldots, X_n/X_0)}{h(1, X_1/X_0, \ldots, X_n/X_0)};$$
+<p>this defines a map $k(V) \to k(V_{(0)})$, and it's easy to see what its inverse is.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; (i) 和 (ii) 容易。(iii) 若 $g, h \in k[X_0, \ldots, X_n]$ 是 $d$ 次齐次的，且 $h \notin I(V)$，则 $g/h \in k(V)$ 限制到 $V_{(0)}$ 就是函数
+$$\frac{g(1, X_1/X_0, \ldots, X_n/X_0)}{h(1, X_1/X_0, \ldots, X_n/X_0)};$$
+这定义了映射 $k(V) \to k(V_{(0)})$，其逆也容易看出。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s06.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

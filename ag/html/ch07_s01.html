@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.1 Consequences of Nonsingularity — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_27lines.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s02.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.1 Consequences of Nonsingularity</h1>
+<h2>非奇异性的推论</h2>
+
+<p><strong>Proposition</strong> <em>(a) There exists at most 3 lines of $S$ through any point $P \in S$; if there are 2 or 3, they must be <span class="vocab">coplanar<span class="tooltip">/kəʊˈpleɪ.nər/ 共面的</span></span>.</em></p>
+
+<blockquote>
+<strong>命题</strong> <em>(a) 通过 $S$ 上任意一点 $P \in S$，$S$ 上至多有3条直线；如果有2条或3条，它们必定共面。</em>
+</blockquote>
+
+<p><em>(b) Every plane $\Pi \subset \mathbb{P}^3$ intersects $S$ in one of the following:</em></p>
+<ol>
+  <li><em>an <span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sə.bl/ 不可约的</span></span> cubic; or</em></li>
+  <li><em>a conic plus a line; or</em></li>
+  <li><em>3 distinct lines.</em></li>
+</ol>
+
+<blockquote>
+<em>(b) 每个平面 $\Pi \subset \mathbb{P}^3$ 与 $S$ 的交是以下情形之一：</em>
+<ol>
+  <li><em>一条不可约三次曲线；或</em></li>
+  <li><em>一条二次曲线加一条直线；或</em></li>
+  <li><em>3条不同的直线。</em></li>
+</ol>
+</blockquote>
+
+<p><strong>Proof</strong> (a) If $\ell \subset S$ then $\ell = T_P \ell \subset T_P S$, so that all lines of $S$ through $P$ are contained in the plane $T_P S$; there are at most 3 of them by (b).</p>
+
+<blockquote>
+<strong>证明</strong> (a) 如果 $\ell \subset S$，那么 $\ell = T_P \ell \subset T_P S$，因此 $S$ 上通过 $P$ 的所有直线都包含在平面 $T_P S$ 中；根据 (b)，它们至多有3条。
+</blockquote>
+
+<p>(b) I have to prove that a multiple line is impossible: if $\Pi : (T = 0)$ and $\ell : (Z = 0) \subset \Pi$, then to say that $\ell$ is a multiple line of $S \cap \Pi$ means that $f$ is of the form</p>
+
+$$f = Z^2 \cdot A(X, Y, Z, T) + T \cdot B(X, Y, Z, T),$$
+
+<p>with $A$ a linear form, $B$ a quadratic form. Then $S : (f = 0)$ is singular at a point where $Z = T = B = 0$; this is a nonempty set, since it is the set of roots of $B$ on the line $\ell : (Z = T = 0)$.</p>
+
+<blockquote>
+(b) 我需要证明重线是不可能的：如果 $\Pi : (T = 0)$，$\ell : (Z = 0) \subset \Pi$，那么说 $\ell$ 是 $S \cap \Pi$ 的重线，就意味着 $f$ 具有如下形式：
+
+$$f = Z^2 \cdot A(X, Y, Z, T) + T \cdot B(X, Y, Z, T),$$
+
+其中 $A$ 是线性形式，$B$ 是二次形式。于是 $S : (f = 0)$ 在 $Z = T = B = 0$ 处是奇异的；这是一个非空集合，因为它是 $B$ 在直线 $\ell : (Z = T = 0)$ 上的零点集。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_27lines.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s02.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

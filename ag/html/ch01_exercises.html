@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises to Chapter 1 — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_cubics.html">下一节 &rarr;</a>
+</nav>
+
+<h1>Exercises to Chapter 1</h1>
+<h2>第1章习题</h2>
+
+<p><strong>1.1</strong> <span class="vocab">Parametrise<span class="tooltip">/ˈpær.ə.mɪ.traɪz/ 参数化</span></span> the conic $C : (x^2 + y^2 = 5)$ by considering a variable line through $(2, 1)$ and hence find all rational solutions of $x^2 + y^2 = 5$.</p>
+
+<blockquote>
+<strong>1.1</strong> 通过考虑过 $(2,1)$ 的变动直线，参数化二次曲线 $C: (x^2 + y^2 = 5)$，并由此求出 $x^2 + y^2 = 5$ 的所有有理解。
+</blockquote>
+
+<p><strong>1.2</strong> Let $p$ be a prime; by experimenting with various $p$, guess a necessary and <span class="vocab">sufficient<span class="tooltip">/səˈfɪʃ.ənt/ 充分的</span></span> condition for $x^2 + y^2 = p$ to have rational solutions; prove your guess (a hint is given after Ex. 1.9 below -- bet you can't do it for yourself!).</p>
+
+<blockquote>
+<strong>1.2</strong> 设 $p$ 是素数；通过对各种 $p$ 做实验，猜测 $x^2 + y^2 = p$ 有有理解的充要条件；证明你的猜测（提示在习题 1.9 后面给出——赌你自己做不出来！）。
+</blockquote>
+
+<p><strong>1.3</strong> Prove the statement in (1.3), that an <span class="vocab">affine<span class="tooltip">/əˈfaɪn/ 仿射的</span></span> transformation can be used to put any conic of $\mathbb{R}^2$ into one of the standard forms (a--l). [Hint: use a linear transformation $\mathbf{x} \mapsto A\mathbf{x}$ to take the leading term $ax^2 + bxy + cy^2$ into one of $\pm x^2 \pm y^2$ or $\pm x^2$ or $0$; then complete the square in $x$ and $y$ to get rid of as much of the linear part as possible.]</p>
+
+<blockquote>
+<strong>1.3</strong> 证明 (1.3) 中的命题：可以用仿射变换把 $\mathbb{R}^2$ 中的任意二次曲线化为标准形 (a--l) 之一。[提示：用线性变换 $\mathbf{x} \mapsto A\mathbf{x}$ 把首项 $ax^2 + bxy + cy^2$ 化为 $\pm x^2 \pm y^2$ 或 $\pm x^2$ 或 $0$；然后对 $x$ 和 $y$ 配方，尽可能消去线性部分。]
+</blockquote>
+
+<p><strong>1.4</strong> Make a detailed comparison of the affine conics in (1.3) with the <span class="vocab">projective<span class="tooltip">/prəˈdʒek.tɪv/ 射影的</span></span> conics in (1.6).</p>
+
+<blockquote>
+<strong>1.4</strong> 将 (1.3) 中的仿射二次曲线与 (1.6) 中的射影二次曲线做详细对比。
+</blockquote>
+
+<p><strong>1.5</strong> Let $k$ be any field of characteristic $\neq 2$, and $V$ a 3-dimensional $k$-vector space; let $Q\colon V \to k$ be a nondegenerate quadratic form on $V$. Show that if $0 \neq e_1 \in V$ satisfies $Q(e_1) = 0$ then $V$ has a basis $e_1, e_2, e_3$ such that $Q(x_1e_1 + x_2e_2 + x_3e_3) = x_1x_3 + ax_2^2$. [Hint: work with the symmetric <span class="vocab">bilinear<span class="tooltip">/baɪˈlɪn.i.ər/ 双线性的</span></span> form $\varphi$ associated to $Q$; since $\varphi$ is nondegenerate, there is a vector $e_3$ such that $\varphi(e_1, e_3) = 1$. Now find a suitable $e_2$.]</p>
+
+<p>Deduce that a nonempty, nondegenerate conic $C \subset \mathbb{P}^2_k$ is projectively equivalent to $(XZ = Y^2)$.</p>
+
+<blockquote>
+<strong>1.5</strong> 设 $k$ 是特征 $\neq 2$ 的任意域，$V$ 是3维 $k$-向量空间；设 $Q\colon V \to k$ 是 $V$ 上的非退化二次型。证明：如果 $0 \neq e_1 \in V$ 满足 $Q(e_1) = 0$，则 $V$ 有一组基 $e_1, e_2, e_3$ 使得 $Q(x_1e_1 + x_2e_2 + x_3e_3) = x_1x_3 + ax_2^2$。[提示：利用 $Q$ 关联的对称双线性形式 $\varphi$；因为 $\varphi$ 非退化，存在向量 $e_3$ 使得 $\varphi(e_1, e_3) = 1$。然后找一个合适的 $e_2$。]
+
+由此推出：非空非退化二次曲线 $C \subset \mathbb{P}^2_k$ 射影等价于 $(XZ = Y^2)$。
+</blockquote>
+
+<p><strong>1.6</strong> Let $k$ be a field with at least 4 elements, and $C : (XZ = Y^2) \subset \mathbb{P}^2_k$; prove that if $Q(X, Y, Z)$ is a quadratic form which vanishes on $C$ then $Q = \lambda(XZ - Y^2)$. [Hint: if you really can't do this for yourself, compare with the argument in the proof of Lemma 2.5.]</p>
+
+<blockquote>
+<strong>1.6</strong> 设 $k$ 是至少有4个元素的域，$C: (XZ = Y^2) \subset \mathbb{P}^2_k$；证明：如果二次型 $Q(X,Y,Z)$ 在 $C$ 上为零，则 $Q = \lambda(XZ - Y^2)$。[提示：如果你实在自己做不出来，可以参考引理 2.5 的证明中的论证。]
+</blockquote>
+
+<p><strong>1.7</strong> In $\mathbb{R}^3$, consider the two planes $A : (Z = 1)$ and $B : (X = 1)$; a line through $0$ meeting $A$ in $(x, y, 1)$ meets $B$ in $(1, y/x, 1/x)$. Consider the map $\varphi\colon A \dashrightarrow B$ defined by $(x, y) \mapsto (y' = y/x,\; z' = 1/x)$; what is the image under $\varphi$ of</p>
+
+<p>(i) the line $ax = y + b$; the pencil of parallel lines $ax = y + b$ (fixed $a$ and variable $b$);</p>
+
+<p>(ii) circles $(x - 1)^2 + y^2 = c$ for variable $c$ (distinguish the 3 cases $c > 1$, $c = 1$ and $c < 1$).</p>
+
+<p>Try to imagine the above as a <span class="vocab">perspective<span class="tooltip">/pəˈspek.tɪv/ 透视的</span></span> drawing by an artist sitting at $0 \in \mathbb{R}^3$, on a plane $(X = 1)$, of figures from the plane $(Z = 1)$. Explain what happens to the points of the two planes where $\varphi$ and $\varphi^{-1}$ are undefined.</p>
+
+<blockquote>
+<strong>1.7</strong> 在 $\mathbb{R}^3$ 中，考虑两个平面 $A: (Z = 1)$ 和 $B: (X = 1)$；过原点的直线与 $A$ 交于 $(x,y,1)$，与 $B$ 交于 $(1, y/x, 1/x)$。考虑映射 $\varphi\colon A \dashrightarrow B$，定义为 $(x,y) \mapsto (y' = y/x,\; z' = 1/x)$；求以下对象在 $\varphi$ 下的像：
+
+(i) 直线 $ax = y + b$；平行直线族 $ax = y + b$（$a$ 固定，$b$ 变化）；
+
+(ii) 圆 $(x-1)^2 + y^2 = c$（$c$ 变化，分别讨论 $c > 1$、$c = 1$、$c < 1$ 三种情形）。
+
+试把以上想象成一位坐在 $0 \in \mathbb{R}^3$ 处的画家在平面 $(X = 1)$ 上对平面 $(Z = 1)$ 中图形的透视画。解释在两个平面上 $\varphi$ 和 $\varphi^{-1}$ 无定义的点处发生了什么。
+</blockquote>
+
+<p><strong>1.8</strong> Let $P_1, \ldots, P_4$ be distinct points of $\mathbb{P}^2$ with no 3 collinear. Prove that there is a unique coordinate system in which the 4 points are $(1, 0, 0)$, $(0, 1, 0)$, $(0, 0, 1)$ and $(1, 1, 1)$. Find all conics passing through $P_1, \ldots, P_5$, where $P_5 = (a, b, c)$ is some other point, and use this to give another proof of Corollary 1.10 and Proposition 1.11.</p>
+
+<blockquote>
+<strong>1.8</strong> 设 $P_1, \ldots, P_4$ 是 $\mathbb{P}^2$ 中没有3点共线的相异点。证明存在唯一的坐标系使这4个点为 $(1,0,0)$、$(0,1,0)$、$(0,0,1)$ 和 $(1,1,1)$。求过 $P_1, \ldots, P_5$ 的所有二次曲线，其中 $P_5 = (a,b,c)$ 是另一个点，并由此给出推论 1.10 和命题 1.11 的另一种证明。
+</blockquote>
+
+<p><strong>1.9</strong> In (1.12) there is a list of possible ways in which two conics can intersect. Write down equations showing that each possibility really occurs. Find all the singular conics in the corresponding pencils. [Hint: you will save yourself a lot of trouble by using <span class="vocab">symmetry<span class="tooltip">/ˈsɪm.ɪ.tri/ 对称性</span></span> and a well chosen coordinate system.]</p>
+
+<blockquote>
+<strong>1.9</strong> 在 (1.12) 中列出了两条二次曲线相交的各种可能方式。写出证明每种可能确实发生的方程。找出相应线性系中所有的奇异二次曲线。[提示：利用对称性和精心选择的坐标系会省去很多麻烦。]
+</blockquote>
+
+<p><strong>Hint for 1.2:</strong> it is known from elementary number theory that $-1$ is a quadratic <span class="vocab">residue<span class="tooltip">/ˈrez.ɪ.djuː/ 剩余</span></span> modulo $p$ if and only if $p = 2$ or $p \equiv 1 \bmod 4$.</p>
+
+<blockquote>
+<strong>习题 1.2 的提示：</strong>初等数论告诉我们，$-1$ 是模 $p$ 的二次剩余当且仅当 $p = 2$ 或 $p \equiv 1 \bmod 4$。
+</blockquote>
+
+<p><strong>1.10</strong> (Sylvester's determinant). Let $k$ be an algebraically closed field, and suppose given a quadratic and cubic form in $U, V$ as in (1.8):</p>
+
+$$q(U, V) = a_0U^2 + a_1UV + a_2V^2,$$
+$$c(U, V) = b_0U^3 + b_1U^2V + b_2UV^2 + b_3V^3.$$
+
+<p>Prove that $q$ and $c$ have a common zero $(\eta : \tau) \in \mathbb{P}^1$ if and only if</p>
+
+$$\det\begin{pmatrix} a_0 & a_1 & a_2 & & \\ & a_0 & a_1 & a_2 & \\ & & a_0 & a_1 & a_2 \\ b_0 & b_1 & b_2 & b_3 & \\ & b_0 & b_1 & b_2 & b_3 \end{pmatrix} = 0$$
+
+<p>[Hint: Show that if $q$ and $c$ have a common root then the 5 elements $U^2q$, $UVq$, $V^2q$, $Uc$ and $Vc$ do not span the 5-dimensional vector space of forms of degree 4, and are therefore linearly dependent. Conversely, use unique <span class="vocab">factorisation<span class="tooltip">/ˌfæk.tər.aɪˈzeɪ.ʃən/ 分解</span></span> in the polynomial ring $k[U, V]$ to say something about relations of the form $Aq = Bc$ with $A$ and $B$ forms in $U, V$, $\deg A = 2$, $\deg B = 1$.]</p>
+
+<blockquote>
+<strong>1.10</strong>（Sylvester 行列式）设 $k$ 是代数封闭域，给定 $U,V$ 的一个二次式和一个三次式，如 (1.8) 中那样：
+$$q(U, V) = a_0U^2 + a_1UV + a_2V^2, \quad c(U, V) = b_0U^3 + b_1U^2V + b_2UV^2 + b_3V^3.$$
+证明 $q$ 和 $c$ 有公共零点 $(\eta : \tau) \in \mathbb{P}^1$ 当且仅当
+$$\det\begin{pmatrix} a_0 & a_1 & a_2 & & \\ & a_0 & a_1 & a_2 & \\ & & a_0 & a_1 & a_2 \\ b_0 & b_1 & b_2 & b_3 & \\ & b_0 & b_1 & b_2 & b_3 \end{pmatrix} = 0.$$
+[提示：证明如果 $q$ 和 $c$ 有公共根，那么5个元素 $U^2q$、$UVq$、$V^2q$、$Uc$ 和 $Vc$ 不能张成4次齐次式组成的5维向量空间，因此线性相关。反过来，利用多项式环 $k[U,V]$ 中的唯一分解来讨论形如 $Aq = Bc$ 的关系，其中 $A$、$B$ 是 $U,V$ 的齐次式，$\deg A = 2$，$\deg B = 1$。]
+</blockquote>
+
+<p><strong>1.11</strong> <span class="vocab">Generalise<span class="tooltip">/ˈdʒen.ər.əl.aɪz/ 推广</span></span> the result of Ex. 1.10 to two forms in $U, V$ of any degrees $n$ and $m$.</p>
+
+<blockquote>
+<strong>1.11</strong> 将习题 1.10 的结果推广到 $U,V$ 的任意 $n$ 次和 $m$ 次齐次式的情形。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_cubics.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.7 Parametrisation of a Conic — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s06.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s08.html">下一节 →</a>
+</nav>
+
+<h1>1.7 Parametrisation of a Conic</h1>
+<h2>二次曲线的参数化</h2>
+
+<p>Let $C$ be a nondegenerate, nonempty conic of $\mathbb{P}^2_{\mathbb{R}}$. Then by Corollary 1.6, taking new coordinates $(X+Z,\, Y,\, Z-X)$, $C$ is <span class="vocab">projectively<span class="tooltip">/prəˈdʒek.tɪv.li/ 射影地</span></span> equivalent to the curve $(XZ = Y^2)$; this is the curve <span class="vocab">parametrised<span class="tooltip">/pəˈræm.ɪ.traɪzd/ 参数化的</span></span> by</p>
+
+$$\Phi\colon \mathbb{P}^1_{\mathbb{R}} \longrightarrow C \subset \mathbb{P}^2_{\mathbb{R}},$$
+$$(U : V) \mapsto (U^2 : UV : V^2).$$
+
+<blockquote>
+设 $C$ 是 $\mathbb{P}^2_{\mathbb{R}}$ 中非退化、非空的二次曲线。由推论 1.6，取新坐标 $(X+Z, Y, Z-X)$，$C$ 射影等价于曲线 $(XZ = Y^2)$；它由以下映射参数化：$\Phi\colon \mathbb{P}^1_{\mathbb{R}} \to C \subset \mathbb{P}^2_{\mathbb{R}}$，$(U:V) \mapsto (U^2 : UV : V^2)$。
+</blockquote>
+
+<h3>Remarks</h3>
+
+<p><strong>1</strong>&ensp;The <span class="vocab">inverse<span class="tooltip">/ɪnˈvɜːs/ 逆的，反的</span></span> map $\Psi\colon C \to \mathbb{P}^1_{\mathbb{R}}$ is given by</p>
+
+$$(X : Y : Z) \mapsto (X : Y) = (Y : Z);$$
+
+<p>here the left-hand ratio is defined if $X \neq 0$, and the right-hand ratio if $Z \neq 0$. In <span class="vocab">terminology<span class="tooltip">/ˌtɜː.mɪˈnɒl.ə.dʒi/ 术语</span></span> to be introduced later, $\Phi$ and $\Psi$ are inverse <span class="vocab">isomorphisms<span class="tooltip">/ˌaɪ.səˈmɔː.fɪ.zəmz/ 同构</span></span> of varieties.</p>
+
+<blockquote>
+<b>注记 1</b>&ensp;逆映射 $\Psi\colon C \to \mathbb{P}^1_{\mathbb{R}}$ 由 $(X:Y:Z) \mapsto (X:Y) = (Y:Z)$ 给出；左边的比在 $X \neq 0$ 时有定义，右边的比在 $Z \neq 0$ 时有定义。用后面将要引入的术语说，$\Phi$ 和 $\Psi$ 是簇的互逆同构。
+</blockquote>
+
+<p><strong>2</strong>&ensp;Throughout Sections 1&ndash;2, nonempty nondegenerate conics are <span class="vocab">tacitly<span class="tooltip">/ˈtæs.ɪt.li/ 默认地，心照不宣地</span></span> assumed to be projectively equivalent to $(XZ - Y^2)$; over a field of characteristic $\neq 2$, this is justified in Ex. 1.5. (The reader interested in characteristic 2 should take this as the definition of a nondegenerate conic.)</p>
+
+<blockquote>
+<b>注记 2</b>&ensp;在第1&ndash;2节中，非空非退化的二次曲线都默认射影等价于 $(XZ - Y^2)$；在特征 $\neq 2$ 的域上，这一点由习题 1.5 证明。（对特征 2 感兴趣的读者应以此作为非退化二次曲线的定义。）
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s06.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s08.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

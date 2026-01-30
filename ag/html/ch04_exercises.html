@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises to Chapter 4 — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="part_III.html">下一节 &rarr;</a>
+</nav>
+
+<h1>Exercises to Chapter 4</h1>
+<h2>第4章习题</h2>
+
+<p><strong>4.1</strong> Check that the statements of &sect;4 up to and including (4.8, I) are valid for any field $k$; discover in particular what they mean for a finite field. Give a <span class="vocab">counterexample<span class="tooltip">/ˈkaʊn.tər.ɪɡ.zɑːm.pəl/ 反例</span></span> to (4.8, II) if $k$ is not algebraically closed.</p>
+
+<blockquote>
+<strong>4.1</strong> 验证 &sect;4 中直至 (4.8, I)（含）的所有命题对任意域 $k$ 都成立；特别是弄清楚对有限域它们意味着什么。给出当 $k$ 不是代数封闭时 (4.8, II) 的一个反例。
+</blockquote>
+
+<p><strong>4.2</strong> $\varphi \colon \mathbb{A}^1 \to \mathbb{A}^3$ is the polynomial map given by $X \mapsto (X, X^2, X^3)$; prove that the image of $\varphi$ is an algebraic subset $C \subset \mathbb{A}^3$ and that $\varphi \colon \mathbb{A}^1 \to C$ is an isomorphism. Try to <span class="vocab">generalise<span class="tooltip">/ˈdʒen.ər.əl.aɪz/ 推广</span></span>.</p>
+
+<blockquote>
+<strong>4.2</strong> $\varphi \colon \mathbb{A}^1 \to \mathbb{A}^3$ 是由 $X \mapsto (X, X^2, X^3)$ 给出的多项式映射；证明 $\varphi$ 的像是一个代数子集 $C \subset \mathbb{A}^3$，并且 $\varphi \colon \mathbb{A}^1 \to C$ 是同构。尝试推广。
+</blockquote>
+
+<p><strong>4.3</strong> $\varphi_n \colon \mathbb{A}^1 \to \mathbb{A}^2$ is the polynomial map given by $X \mapsto (X^2, X^n)$; show that if $n$ is even, the image of $\varphi_n$ is isomorphic to $\mathbb{A}^1$, and $\varphi_n$ is two-to-one outside 0. And if $n$ is odd, show that $\varphi_n$ is bijective, and give a rational inverse of $\varphi_n$.</p>
+
+<blockquote>
+<strong>4.3</strong> $\varphi_n \colon \mathbb{A}^1 \to \mathbb{A}^2$ 是由 $X \mapsto (X^2, X^n)$ 给出的多项式映射；证明当 $n$ 是偶数时，$\varphi_n$ 的像同构于 $\mathbb{A}^1$，且 $\varphi_n$ 在 0 以外是二对一的。当 $n$ 是奇数时，证明 $\varphi_n$ 是双射的，并给出 $\varphi_n$ 的一个有理逆映射。
+</blockquote>
+
+<p><strong>4.4</strong> Prove that a morphism $\varphi \colon X \to Y$ between two affine varieties is an isomorphism of $X$ with a <span class="vocab">subvariety<span class="tooltip">/sʌbˈvɛə.raɪ.ɪ.ti/ 子簇</span></span> $\varphi(X) \subset Y$ if and only if the induced map $\Phi \colon k[Y] \to k[X]$ is <span class="vocab">surjective<span class="tooltip">/sərˈdʒek.tɪv/ 满射的</span></span>.</p>
+
+<blockquote>
+<strong>4.4</strong> 证明两个仿射簇之间的态射 $\varphi \colon X \to Y$ 是 $X$ 与子簇 $\varphi(X) \subset Y$ 的同构，当且仅当诱导映射 $\Phi \colon k[Y] \to k[X]$ 是满射。
+</blockquote>
+
+<p><strong>4.5</strong> Let $C \colon (Y^2 = X^3) \subset \mathbb{A}^2$; then</p>
+<p>(a) the parametrisation $f \colon \mathbb{A}^1 \to C$ given by $(T^2, T^3)$ is a polynomial map;</p>
+<p>(b) $f$ has a rational inverse $g \colon C \dashrightarrow \mathbb{A}^1$ defined by $(X, Y) \mapsto Y/X$;</p>
+<p>(c) $\operatorname{dom} g = C \setminus \{(0, 0)\}$;</p>
+<p>(d) $f$ and $g$ give inverse isomorphisms $\mathbb{A}^1 \setminus \{0\} \cong C \setminus \{(0, 0)\}$.</p>
+
+<blockquote>
+<strong>4.5</strong> 设 $C \colon (Y^2 = X^3) \subset \mathbb{A}^2$；则
+<br>(a) 由 $(T^2, T^3)$ 给出的参数化 $f \colon \mathbb{A}^1 \to C$ 是多项式映射；
+<br>(b) $f$ 有一个有理逆映射 $g \colon C \dashrightarrow \mathbb{A}^1$，由 $(X, Y) \mapsto Y/X$ 定义；
+<br>(c) $\operatorname{dom} g = C \setminus \{(0, 0)\}$；
+<br>(d) $f$ 和 $g$ 给出互逆的同构 $\mathbb{A}^1 \setminus \{0\} \cong C \setminus \{(0, 0)\}$。
+</blockquote>
+
+<p><strong>4.6</strong> (i) Show that the domain of $g \circ f$ may be strictly larger than $\operatorname{dom} f \cap f^{-1}(\operatorname{dom} g)$. [Hint: this may happen if $g$ and $f$ are inverse rational maps; try $f$ and $g$ as in Ex. 4.5.]</p>
+
+<p>(ii) Most courses on calculus of several variables contain examples such as the function $f(x, y) = xy/(x^2 + y^2)$. Explain how come $f$ is $C^\infty$ when restricted to any smooth curve through $(0, 0)$, but is not even continuous as a function of 2 variables.</p>
+
+<blockquote>
+<strong>4.6</strong> (i) 证明 $g \circ f$ 的定义域可以严格大于 $\operatorname{dom} f \cap f^{-1}(\operatorname{dom} g)$。[提示：当 $g$ 和 $f$ 是互逆的有理映射时可能发生这种情况；试用习题 4.5 中的 $f$ 和 $g$。]
+
+<br>(ii) 多元微积分课程中有这样的例子：函数 $f(x, y) = xy/(x^2 + y^2)$。请解释为何 $f$ 限制到通过 $(0, 0)$ 的任何光滑曲线上是 $C^\infty$ 的，但作为二元函数却连续都不是。
+</blockquote>
+
+<p><strong>4.7</strong> Let $C \colon (Y^2 = X^3 + X^2) \subset \mathbb{A}^2$; the familiar parametrisation $\varphi \colon \mathbb{A}^1 \to C$ given by $(T^2 - 1, T^3 - T)$ is a polynomial map, but is not an isomorphism (why not?). Find out whether the restriction $\varphi' \colon \mathbb{A}^1 \setminus \{1\} \to C$ is an isomorphism.</p>
+
+<blockquote>
+<strong>4.7</strong> 设 $C \colon (Y^2 = X^3 + X^2) \subset \mathbb{A}^2$；常见的参数化 $\varphi \colon \mathbb{A}^1 \to C$，由 $(T^2 - 1, T^3 - T)$ 给出，是多项式映射，但不是同构（为什么？）。判断限制映射 $\varphi' \colon \mathbb{A}^1 \setminus \{1\} \to C$ 是否是同构。
+</blockquote>
+
+<p><strong>4.8</strong> Let $C \colon (Y^3 = X^4 + X^3) \subset \mathbb{A}^2$; show that $(X, Y) \mapsto X/Y$ defines a rational map $\psi \colon C \dashrightarrow \mathbb{A}^1$, and that its inverse is a polynomial map $\varphi \colon \mathbb{A}^1 \to C$ parametrising $C$. Prove that $\varphi$ restricts to an isomorphism</p>
+
+$$\mathbb{A}^1 \setminus \{3 \text{ pts.}\} \cong C \setminus \{(0, 0)\}.$$
+
+<blockquote>
+<strong>4.8</strong> 设 $C \colon (Y^3 = X^4 + X^3) \subset \mathbb{A}^2$；证明 $(X, Y) \mapsto X/Y$ 定义了一个有理映射 $\psi \colon C \dashrightarrow \mathbb{A}^1$，且它的逆是一个参数化 $C$ 的多项式映射 $\varphi \colon \mathbb{A}^1 \to C$。证明 $\varphi$ 限制后给出同构
+
+$$\mathbb{A}^1 \setminus \{3 \text{ 个点}\} \cong C \setminus \{(0, 0)\}.$$
+</blockquote>
+
+<p><strong>4.9</strong> Let $V \colon (XT = YZ) \subset \mathbb{A}^4$; explain why $k[V]$ is not a UFD. (It's not hard to get the idea, but rather harder to give a <span class="vocab">rigorous<span class="tooltip">/ˈrɪɡ.ər.əs/ 严格的</span></span> proof.) If $f = X/Y \in k(V)$, find $\operatorname{dom} f$, and prove that it is strictly bigger than the locus $(Y = 0) \subset V$.</p>
+
+<blockquote>
+<strong>4.9</strong> 设 $V \colon (XT = YZ) \subset \mathbb{A}^4$；解释为什么 $k[V]$ 不是 UFD。（想法不难，但严格证明相当困难。）如果 $f = X/Y \in k(V)$，求 $\operatorname{dom} f$，并证明它严格大于 $V$ 中的轨迹 $(Y = 0)$。
+</blockquote>
+
+<p><strong>4.10</strong> Let $f \colon \mathbb{A}^1 \to \mathbb{A}^2$ be given by $X \mapsto (X, 0)$, and let $g \colon \mathbb{A}^2 \dashrightarrow \mathbb{A}^1$ be the rational map given by $(X, Y) \mapsto X/Y$; show that the composite $g \circ f$ is not defined anywhere. Determine what is the largest subset of the function field $k(\mathbb{A}^1)$ on which $g^*$ is defined.</p>
+
+<blockquote>
+<strong>4.10</strong> 设 $f \colon \mathbb{A}^1 \to \mathbb{A}^2$ 由 $X \mapsto (X, 0)$ 给出，$g \colon \mathbb{A}^2 \dashrightarrow \mathbb{A}^1$ 是由 $(X, Y) \mapsto X/Y$ 给出的有理映射；证明复合映射 $g \circ f$ 在任何地方都没有定义。确定函数域 $k(\mathbb{A}^1)$ 中 $g^*$ 有定义的最大子集。
+</blockquote>
+
+<p><strong>4.11</strong> Define and study the notion of product of two algebraic sets. More precisely,</p>
+<p>(i) if $V \subset \mathbb{A}^n_k$ and $W \subset \mathbb{A}^m_k$ are algebraic sets, prove that $V \times W \subset \mathbb{A}^{n+m}_k$ is also;</p>
+<p>(ii) give examples to show that the Zariski topology on $V \times W$ is not the product topology of those on $V$ and on $W$;</p>
+<p>(iii) prove that $V, W$ irreducible $\Longrightarrow$ $V \times W$ irreducible;</p>
+<p>(iv) prove that if $V \cong V'$ and $W \cong W'$ then $V \times W \cong V' \times W'$.</p>
+
+<blockquote>
+<strong>4.11</strong> 定义并研究两个代数集的乘积的概念。更确切地说，
+<br>(i) 如果 $V \subset \mathbb{A}^n_k$ 和 $W \subset \mathbb{A}^m_k$ 是代数集，证明 $V \times W \subset \mathbb{A}^{n+m}_k$ 也是代数集；
+<br>(ii) 举例说明 $V \times W$ 上的 Zariski 拓扑不是 $V$ 和 $W$ 上拓扑的乘积拓扑；
+<br>(iii) 证明 $V, W$ 不可约 $\Longrightarrow$ $V \times W$ 不可约；
+<br>(iv) 证明如果 $V \cong V'$ 且 $W \cong W'$，则 $V \times W \cong V' \times W'$。
+</blockquote>
+
+<p><strong>4.12</strong> (a) Prove that any $f \in k(\mathbb{A}^2)$ which is not regular at the origin $(0, 0)$ also fails to be regular at points of a curve passing through $(0, 0)$.</p>
+
+<p>(b) <span class="vocab">Deduce<span class="tooltip">/dɪˈdjuːs/ 推导出</span></span> that $\mathbb{A}^2 \setminus (0, 0)$ is not affine. [Hints: For (a), use the fact that $k(\mathbb{A}^2) = k(X, Y)$ is the field of fractions of the UFD $k[X, Y]$, together with the result of Ex. 3.13, (b). For (b), assume that $\mathbb{A}^2 \setminus (0, 0)$ is affine, and determine its coordinate ring; then get a contradiction using Corollary 4.5.]</p>
+
+<blockquote>
+<strong>4.12</strong> (a) 证明任何在原点 $(0, 0)$ 不正则的 $f \in k(\mathbb{A}^2)$ 在通过 $(0, 0)$ 的某条曲线上的点处也不正则。
+
+<br>(b) 推导出 $\mathbb{A}^2 \setminus (0, 0)$ 不是仿射的。[提示：对于 (a)，利用 $k(\mathbb{A}^2) = k(X, Y)$ 是 UFD $k[X, Y]$ 的分式域这一事实，以及习题 3.13 (b) 的结果。对于 (b)，假设 $\mathbb{A}^2 \setminus (0, 0)$ 是仿射的，确定它的坐标环；然后利用推论 4.5 得出矛盾。]
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="part_III.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.2 k[V] and Algebraic Subsets of V — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.2 $k[V]$ and Algebraic Subsets of $V$</h1>
+<h2>$k[V]$ 与 $V$ 的代数子集</h2>
+
+<p>An algebraic set $X \subset \mathbb{A}^n$ is contained in $V$ if and only if $I(X) \supset I(V)$. On the other hand, ideals of $k[X_1, \dots, X_n]$ containing $I(V)$ are in obvious <span class="vocab">bijection<span class="tooltip">/baɪˈdʒek.ʃən/ 双射</span></span> with ideals of $k[X_1, \dots, X_n]/I(V)$. (Think about this if it's not obvious to you: the ideal $J$ with $I(V) \subset J \subset k[X_1, \dots, X_n]$ corresponds to $J/I(V)$; and conversely, an ideal $J_0$ of $k[X_1, \dots, X_n]/I(V)$ corresponds to its <span class="vocab">inverse<span class="tooltip">/ɪnˈvɜːrs/ 逆的；反向的</span></span> image in $k[X_1, \dots, X_n]$.)</p>
+
+<blockquote>
+一个代数集 $X \subset \mathbb{A}^n$ 包含在 $V$ 中，当且仅当 $I(X) \supset I(V)$。另一方面，$k[X_1, \dots, X_n]$ 中包含 $I(V)$ 的理想，与 $k[X_1, \dots, X_n]/I(V)$ 的理想之间有自然的双射。（如果你觉得这不明显，请想一想：理想 $J$（满足 $I(V) \subset J \subset k[X_1, \dots, X_n]$）对应于 $J/I(V)$；反过来，$k[X_1, \dots, X_n]/I(V)$ 的理想 $J_0$ 对应于它在 $k[X_1, \dots, X_n]$ 中的原像。）
+</blockquote>
+
+<p>Hence the $I$ and $V$ correspondences</p>
+
+$$\{\text{ideals } I \subset k[V]\} \xrightarrow{\;V\;} \{\text{subsets } X \subset V\}$$
+
+<p>by</p>
+
+$$I \longmapsto V(I) = \bigl\{\, P \in V \;\big|\; f(P) = 0 \;\forall f \in I \,\bigr\}$$
+
+<p>and</p>
+
+$$\{\text{ideals } J \subset k[V]\} \xleftarrow{\;I\;} \{\text{subsets } X \subset V\}$$
+
+<p>by</p>
+
+$$I(X) = \bigl\{\, f \in k[V] \;\big|\; f(P) = 0 \;\forall P \in X \,\bigr\} \longleftarrow X$$
+
+<p>are defined as in &sect;3, and have similar properties. In particular $V$ has a <strong>Zariski topology</strong>, in which the closed sets are the algebraic subsets (this is of course the <span class="vocab">subspace<span class="tooltip">/ˈsʌb.speɪs/ 子空间</span></span> topology of the Zariski topology of $\mathbb{A}^n$).</p>
+
+<blockquote>
+因此，$I$ 和 $V$ 对应关系
+
+$$\{\text{理想 } I \subset k[V]\} \xrightarrow{\;V\;} \{\text{子集 } X \subset V\}$$
+
+由 $I \longmapsto V(I) = \{ P \in V \mid f(P) = 0, \;\forall f \in I \}$ 给出，以及
+
+$$\{\ \text{理想 } J \subset k[V]\} \xleftarrow{\;I\;} \{\text{子集 } X \subset V\}$$
+
+由 $I(X) = \{ f \in k[V] \mid f(P) = 0, \;\forall P \in X \} \longleftarrow X$ 给出，
+
+这与 &sect;3 中的定义方式相同，具有类似的性质。特别地，$V$ 具有一个 <strong>Zariski 拓扑</strong>，其中闭集就是代数子集（这当然就是 $\mathbb{A}^n$ 的 Zariski 拓扑的子空间拓扑）。
+</blockquote>
+
+<p><strong>Proposition</strong> <em>Let $V \subset \mathbb{A}^n$ be an algebraic subset. The following conditions are <span class="vocab">equivalent<span class="tooltip">/ɪˈkwɪv.ə.lənt/ 等价的</span></span>:</em></p>
+
+<p><em>(i) $V$ is irreducible;</em></p>
+<p><em>(ii) any two open subsets $\emptyset \neq U_1, U_2 \subset V$ have $U_1 \cap U_2 \neq \emptyset$;</em></p>
+<p><em>(iii) any nonempty open subset $U \subset V$ is dense.</em></p>
+
+<blockquote>
+<strong>命题</strong> 设 $V \subset \mathbb{A}^n$ 是一个代数子集。以下条件等价：<br>
+(i) $V$ 是不可约的；<br>
+(ii) $V$ 的任意两个非空开子集 $U_1, U_2$ 满足 $U_1 \cap U_2 \neq \emptyset$；<br>
+(iii) $V$ 的任意非空开子集 $U$ 是稠密的。
+</blockquote>
+
+<p>This is all quite <span class="vocab">trivial<span class="tooltip">/ˈtrɪv.i.əl/ 平凡的</span></span>: $V$ is irreducible means that $V$ is not a union of two proper closed subsets; (ii) is just a restatement in terms of complements, since</p>
+
+$$U_1 \cap U_2 = \emptyset \iff V = (V - U_1) \cup (V - U_2).$$
+
+<p>A subset of a topological space is dense if and only if it meets every open, so that (iii) is just a restatement of (ii).</p>
+
+<blockquote>
+这一切都相当平凡：$V$ 不可约意味着 $V$ 不能写成两个真闭子集的并；(ii) 只是用补集的语言重新表述了同样的事，因为
+
+$$U_1 \cap U_2 = \emptyset \iff V = (V - U_1) \cup (V - U_2).$$
+
+拓扑空间的一个子集是稠密的，当且仅当它与每个开集相交非空，所以 (iii) 只是 (ii) 的另一种说法。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

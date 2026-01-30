@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.6 Rational maps and morphisms — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s07.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.6 Rational maps and morphisms</h1>
+<h2>5.6 有理映射与态射</h2>
+
+<p>Rational maps between projective (or affine) varieties are defined using $k(V)$: if $V \subset \mathbb{P}^n$ is an irreducible algebraic set, a rational map $V \dashrightarrow \mathbb{A}^m$ is a (partially defined) map given by $P \mapsto (f_1(P), \ldots, f_m(P))$, where $f_1, \ldots, f_m \in k(V)$. A rational map $V \dashrightarrow \mathbb{P}^m$ is defined by $P \mapsto (f_0(P) : f_1(P) : \cdots : f_m(P))$ where $f_0, f_1, \ldots, f_m \in k(V)$. Notice that if $g \in k(V)$ is a nonzero element, then $gf_0, gf_1, \ldots, gf_m$ defines the same rational map. Therefore (assuming that $V$ does not map into the smaller projective space $(X_0 = 0)$), it would be possible to assume throughout that $f_0 = 1$.</p>
+
+<blockquote>
+射影（或仿射）簇之间的有理映射通过 $k(V)$ 来定义：如果 $V \subset \mathbb{P}^n$ 是不可约代数集，有理映射 $V \dashrightarrow \mathbb{A}^m$ 是由 $P \mapsto (f_1(P), \ldots, f_m(P))$ 给出的（部分定义的）映射，其中 $f_1, \ldots, f_m \in k(V)$。有理映射 $V \dashrightarrow \mathbb{P}^m$ 由 $P \mapsto (f_0(P) : f_1(P) : \cdots : f_m(P))$ 定义，其中 $f_0, f_1, \ldots, f_m \in k(V)$。注意如果 $g \in k(V)$ 非零，则 $gf_0, gf_1, \ldots, gf_m$ 定义的是同一个有理映射。因此（假设 $V$ 的像不落在较小的射影空间 $(X_0 = 0)$ 中），可以始终假定 $f_0 = 1$。
+</blockquote>
+
+<p>Clearly then, there is a bijection between the two sets</p>
+$$\big\{\text{rational maps } f \colon V \dashrightarrow \mathbb{A}^m \subset \mathbb{P}^m\big\}$$
+<p>and</p>
+$$\big\{\text{rational maps } f \colon V \dashrightarrow \mathbb{P}^m \;\big|\; f(V) \not\subset (X_0 = 0)\big\},$$
+<p>since either kind of maps is given by $m$ elements $f_i \in k(V)$.</p>
+
+<blockquote>
+因此，下面两个集合之间有自然的双射
+$$\big\{\text{有理映射 } f \colon V \dashrightarrow \mathbb{A}^m \subset \mathbb{P}^m\big\} \quad \longleftrightarrow \quad \big\{\text{有理映射 } f \colon V \dashrightarrow \mathbb{P}^m \mid f(V) \not\subset (X_0 = 0)\big\},$$
+因为两种映射都由 $k(V)$ 中的 $m$ 个元素 $f_i$ 给出。
+</blockquote>
+
+<p><strong>Definition</strong> &nbsp; A rational map $f \colon V \dashrightarrow \mathbb{P}^m$ is <em>regular</em> at $P \in V$ if there exists an expression $f = (f_0, f_1, \ldots, f_m)$ such that</p>
+<p>(i) each of $f_0, \ldots, f_m$ is regular at $P$; and</p>
+<p>(ii) at least one $f_i(P) \neq 0$.</p>
+
+<blockquote>
+<strong>定义</strong> &nbsp; 有理映射 $f \colon V \dashrightarrow \mathbb{P}^m$ 在 $P \in V$ <em>正则</em>，如果存在表达式 $f = (f_0, f_1, \ldots, f_m)$ 使得
+<p>(i) $f_0, \ldots, f_m$ 每一个在 $P$ 正则；并且</p>
+<p>(ii) 至少有一个 $f_i(P) \neq 0$。</p>
+</blockquote>
+
+<p>The second condition is required here in order that the ratio between the $f_i$ is defined at $P$. If $f$ is regular at $P$ (as before, this is also expressed $P \in \operatorname{dom} f$) then $f \colon U \to \mathbb{A}^m_{(i)} \subset \mathbb{P}^m$ is a <span class="vocab">morphism<span class="tooltip">/ˈmɔː.fɪ.zəm/ 态射</span></span> for a suitable open <span class="vocab">neighbourhood<span class="tooltip">/ˈneɪ.bə.hʊd/ 邻域</span></span> $P \in U \subset V$: just take $U = \bigcap_j \operatorname{dom}(f_j / f_i)$ where $f_i(P) \neq 0$; then $f$ is the morphism given by $\{f_j / f_i\}_{j=0,1,\ldots,m}$.</p>
+
+<blockquote>
+第二个条件是为了保证各 $f_i$ 之间的比值在 $P$ 处有定义。如果 $f$ 在 $P$ 正则（同前，也表示为 $P \in \operatorname{dom} f$），则 $f \colon U \to \mathbb{A}^m_{(i)} \subset \mathbb{P}^m$ 是 $V$ 中某个开邻域 $P \in U \subset V$ 上的态射：取 $U = \bigcap_j \operatorname{dom}(f_j/f_i)$（其中 $f_i(P) \neq 0$），则 $f$ 就是由 $\{f_j/f_i\}_{j=0,1,\ldots,m}$ 给出的态射。
+</blockquote>
+
+<p>If $U \subset V$ is an open subset of a projective variety $V$ then a <em>morphism</em> $f \colon U \to W$ is a rational map $f \colon V \dashrightarrow W$ such that $\operatorname{dom} f \supset U$. So a morphism is just a rational map that is everywhere regular on $U$.</p>
+
+<blockquote>
+如果 $U \subset V$ 是射影簇 $V$ 的开子集，则<em>态射</em> $f \colon U \to W$ 是有理映射 $f \colon V \dashrightarrow W$ 且 $\operatorname{dom} f \supset U$。所以态射就是在 $U$ 上处处正则的有理映射。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s07.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

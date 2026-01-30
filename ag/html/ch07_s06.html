@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.6 The 27 Lines — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s07.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.6 The 27 Lines</h1>
+<h2>27条直线</h2>
+
+<p>Let $\ell$ and $m$ be two disjoint lines of $S$; as already observed, $m$ meets exactly one out of each of the 5 pairs $(\ell_i, \ell_i')$ of lines meeting $\ell$. By renumbering the pairs, I assume that $m$ meets $\ell_i$ for $i = 1, \ldots, 5$. Introduce the following notation for the lines meeting $\ell$ or $m$: thus the 5 pairs of lines meeting $m$ are $(\ell_i, \ell_i'')$ for $i = 1, \ldots, 5$. By (7.3, ii) applied to $m$, for $i \ne j$, the line $\ell_i''$ does not meet $\ell_j$. On the other hand, every line of $S$ must meet one of $\ell$, $\ell_j$ or $\ell_j'$, hence $\ell_i''$ meets $\ell_j'$ for $i \ne j$.</p>
+
+<blockquote>
+设 $\ell$ 和 $m$ 是 $S$ 上两条不相交的直线；如前所述，$m$ 恰好与5对与 $\ell$ 相交的直线 $(\ell_i, \ell_i')$ 中每对的一条相交。通过重新编号，我假设 $m$ 与 $\ell_i$ 相交，$i = 1, \ldots, 5$。引入以下记号表示与 $\ell$ 或 $m$ 相交的直线：于是与 $m$ 相交的5对直线是 $(\ell_i, \ell_i'')$，$i = 1, \ldots, 5$。由 (7.3, ii) 应用于 $m$，对于 $i \ne j$，直线 $\ell_i''$ 不与 $\ell_j$ 相交。另一方面，$S$ 上的每条直线必须与 $\ell$、$\ell_j$ 或 $\ell_j'$ 之一相交，因此对 $i \ne j$，$\ell_i''$ 与 $\ell_j'$ 相交。
+</blockquote>
+
+<p><strong>Claim</strong> <em>(I) If $n \subset S$ is any line other than these 17, then $n$ meets exactly 3 out of the 5 lines $\ell_1, \ldots, \ell_5$.</em></p>
+
+<p><em>(II) Conversely, given any choice $\{i, j, k\}$ of 3 elements of the set $\{1, 2, 3, 4, 5\}$, there is a unique line $\ell_{ijk} \subset S$ meeting $\ell_i, \ell_j, \ell_k$.</em></p>
+
+<blockquote>
+<strong>断言</strong> <em>(I) 如果 $n \subset S$ 是除这17条之外的任何直线，则 $n$ 恰好与5条直线 $\ell_1, \ldots, \ell_5$ 中的3条相交。</em>
+
+<em>(II) 反过来，对于集合 $\{1, 2, 3, 4, 5\}$ 中任意选取的3个元素 $\{i, j, k\}$，都存在唯一的直线 $\ell_{ijk} \subset S$ 与 $\ell_i, \ell_j, \ell_k$ 相交。</em>
+</blockquote>
+
+<p><strong>Proof</strong> (I) Given four disjoint lines of $S$, it is clear that they do not all lie on a quadric $Q$, since otherwise $Q \subset S$, contradicting the <span class="vocab">irreducibility<span class="tooltip">/ˌɪr.ɪ.djuː.sɪˈbɪl.ɪ.ti/ 不可约性</span></span> of $S$.</p>
+
+<p>If $n$ meets $\ge 4$ of the $\ell_i$ then by Lemma 7.5, $n = \ell$ or $m$, which is a contradiction. If $n$ meets $\le 2$ of the $\ell_i$ then it meets $\ge 3$ of the $\ell_i'$, and so meets say either $\ell_2', \ell_3', \ell_4', \ell_5'$ or $\ell_1, \ell_3', \ell_4', \ell_5'$; but by what was said above, $\ell$ and $\ell_1''$ are two common transversals of the 5 disjoint lines $\ell_2', \ell_3', \ell_4', \ell_5'$ and $\ell_1$, so that by Lemma 7.5 again, if $n$ meets $\ge 4$ of these then $n = \ell$ or $\ell_1''$. This is the same contradiction.</p>
+
+<p>(II) There are 10 lines meeting $\ell_1$ by (7.3), of which so far only 4 have been accounted for (namely, $\ell$, $\ell_1'$, $m$ and $\ell_1''$). The six other lines must meet exactly 2 out of the 4 remaining lines $\ell_2, \ldots, \ell_5$, and there are exactly $6 = \binom{4}{2}$ possible choices; so they must all occur. Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> (I) $S$ 上的4条不相交直线显然不能全部落在一个二次曲面 $Q$ 上，否则 $Q \subset S$，与 $S$ 的不可约性矛盾。
+
+如果 $n$ 与 $\ge 4$ 条 $\ell_i$ 相交，由引理 7.5 得 $n = \ell$ 或 $m$，矛盾。如果 $n$ 与 $\le 2$ 条 $\ell_i$ 相交，则它与 $\ge 3$ 条 $\ell_i'$ 相交，因而比如说与 $\ell_2', \ell_3', \ell_4', \ell_5'$ 或 $\ell_1, \ell_3', \ell_4', \ell_5'$ 相交；但如前所述，$\ell$ 和 $\ell_1''$ 是5条不相交直线 $\ell_2', \ell_3', \ell_4', \ell_5'$ 和 $\ell_1$ 的两条公共截线，因此再由引理 7.5，如果 $n$ 与 $\ge 4$ 条相交则 $n = \ell$ 或 $\ell_1''$。同样的矛盾。
+
+(II) 由 (7.3)，与 $\ell_1$ 相交的直线有10条，其中目前只确定了4条（即 $\ell$、$\ell_1'$、$m$ 和 $\ell_1''$）。其余6条直线必须恰好与剩余4条直线 $\ell_2, \ldots, \ell_5$ 中的2条相交，而恰好有 $6 = \binom{4}{2}$ 种可能的选取；所以它们必定全部出现。证毕。
+</blockquote>
+
+<p>This gives the lines of $S$ as being</p>
+
+$$\{\ell,\, m,\, \ell_i,\, \ell_i',\, \ell_i'',\, \ell_{ijk}\},$$
+
+<p>and the number of them is</p>
+
+$$1 + 1 + 5 + 5 + 5 + 10 = 27.$$
+
+<blockquote>
+这给出 $S$ 上的直线为
+
+$$\{\ell,\, m,\, \ell_i,\, \ell_i',\, \ell_i'',\, \ell_{ijk}\},$$
+
+它们的总数是
+
+$$1 + 1 + 5 + 5 + 5 + 10 = 27.$$
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s07.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

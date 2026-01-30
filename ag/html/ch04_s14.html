@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.14 Worked Example — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_exercises.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.14 Worked Example</h1>
+<h2>详解例题</h2>
+
+<p>In &sect;2 I discussed the addition law $(A, B) \mapsto A + B$ on a plane nonsingular (projective) cubic $C \subset \mathbb{P}^2$. Let $C_0 \colon (y^2 = x^3 + ax + b)$ be a nonsingular affine cubic.</p>
+
+<blockquote>
+在 &sect;2 中我讨论了平面非奇异（射影）三次曲线 $C \subset \mathbb{P}^2$ 上的加法 $(A, B) \mapsto A + B$。设 $C_0 \colon (y^2 = x^3 + ax + b)$ 是一条非奇异仿射三次曲线。
+</blockquote>
+
+<p>I show here that the addition law defines a rational map $\varphi \colon C_0 \times C_0 \dashrightarrow C_0$, and that $\varphi$ is a morphism wherever it should be. Although I will not <span class="vocab">labour<span class="tooltip">/ˈleɪ.bər/ 费力阐述</span></span> the point, this argument can be used to give another proof 'by <span class="vocab">continuity<span class="tooltip">/ˌkɒn.tɪˈnjuː.ɪ.ti/ 连续性</span></span>' of the <span class="vocab">associativity<span class="tooltip">/əˌsoʊ.ʃi.əˈtɪv.ɪ.ti/ 结合律</span></span> of the group law valid for any field (see the discussion in (2.10)).</p>
+
+<blockquote>
+我在这里说明加法定义了一个有理映射 $\varphi \colon C_0 \times C_0 \dashrightarrow C_0$，并且 $\varphi$ 在它应该是态射的地方确实是态射。虽然我不会详细展开，但这个论证可以用来给出群律的结合律的另一个"连续性"证明，对任何域都有效（参见 (2.10) 中的讨论）。
+</blockquote>
+
+<p>It is not difficult to see (compare Ex. 2.7) that if $A = (x, y)$, $B = (x', y')$, and $x \neq x'$ then setting $u = (y - y')/(x - x')$, the third point of intersection is $P = (x'', y'')$, where</p>
+
+$$x'' = f(x, y, x', y') = u^2 - (x + x'),$$
+$$y'' = g(x, y, x', y') = u^3 + xu + y'.$$
+
+<blockquote>
+不难看出（比较习题 2.7），如果 $A = (x, y)$，$B = (x', y')$，且 $x \neq x'$，那么令 $u = (y - y')/(x - x')$，第三个交点为 $P = (x'', y'')$，其中
+
+$$x'' = f(x, y, x', y') = u^2 - (x + x'),$$
+$$y'' = g(x, y, x', y') = u^3 + xu + y'.$$
+</blockquote>
+
+<p>Since $x''$ and $y''$ are rational functions in the coordinates $(x, y), (x', y')$, this shows that $\varphi \colon C_0 \times C_0 \dashrightarrow C_0$ is a rational map. From the given formula, $\varphi$ is a morphism wherever $x \neq x'$, since then the denominator of $u$ is nonzero. Now if $x = x'$ and $y = -y'$, then $x''$ and $y''$ should be infinity, corresponding to the fact that the line $AB$ meets the projective curve $C$ at the point at infinity $O = (0, 1, 0)$. However, if $x = x'$ and $y = y' \neq 0$ then the point $P = (x'', y'')$ should be well defined.</p>
+
+<blockquote>
+由于 $x''$ 和 $y''$ 是坐标 $(x, y), (x', y')$ 的有理函数，这说明 $\varphi \colon C_0 \times C_0 \dashrightarrow C_0$ 是一个有理映射。由给出的公式可知，只要 $x \neq x'$，$\varphi$ 就是态射，因为此时 $u$ 的分母非零。如果 $x = x'$ 且 $y = -y'$，则 $x''$ 和 $y''$ 应该是无穷大，对应于直线 $AB$ 在无穷远点 $O = (0, 1, 0)$ 处与射影曲线 $C$ 相交的事实。然而，如果 $x = x'$ 且 $y = y' \neq 0$，则点 $P = (x'', y'')$ 应该是良定义的。
+</blockquote>
+
+<p>I claim that $f, g$ are regular functions on $C_0 \times C_0$ at such points: to see this, note that</p>
+
+$$y^2 = x^3 + ax + b \quad \text{and} \quad y'^2 = x'^3 + ax' + b,$$
+
+<p>giving</p>
+
+$$y^2 - y'^2 = x^3 - x'^3 + a(x - x');$$
+
+<p>therefore as rational functions on $C_0 \times C_0$, there is an equality</p>
+
+$$u = (y - y')/(x - x') = (x^2 + xx' + x'^2 + a)/(y + y').$$
+
+<p>Looking at the denominator, it follows that $u$ (hence also $f$ and $g$) is regular whenever $y \neq -y'$.</p>
+
+<blockquote>
+我断言 $f, g$ 在这样的点处是 $C_0 \times C_0$ 上的正则函数：为看清这一点，注意
+
+$$y^2 = x^3 + ax + b \quad \text{以及} \quad y'^2 = x'^3 + ax' + b,$$
+
+从而
+
+$$y^2 - y'^2 = x^3 - x'^3 + a(x - x');$$
+
+因此作为 $C_0 \times C_0$ 上的有理函数，有如下等式
+
+$$u = (y - y')/(x - x') = (x^2 + xx' + x'^2 + a)/(y + y').$$
+
+看分母可知，只要 $y \neq -y'$，$u$（从而 $f$ 和 $g$）就是正则的。
+</blockquote>
+
+<p>The <span class="vocab">conclusion<span class="tooltip">/kənˈkluː.ʒən/ 结论</span></span> of the calculation is the following proposition: the addition law $\varphi \colon C_0 \times C_0 \dashrightarrow C_0$ is a morphism at $(A, B) \in C_0 \times C_0$ provided that $A + B \neq O$.</p>
+
+<blockquote>
+计算得出的结论是如下命题：加法 $\varphi \colon C_0 \times C_0 \dashrightarrow C_0$ 在 $(A, B) \in C_0 \times C_0$ 处是态射，只要 $A + B \neq O$。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_exercises.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

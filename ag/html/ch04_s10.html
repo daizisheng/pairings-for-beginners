@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.10 Composition of Rational Maps — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s09.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s11.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.10 Composition of Rational Maps</h1>
+<h2>有理映射的复合</h2>
+
+<p>The composite $g \circ f$ of rational maps $f \colon V \dashrightarrow W$ and $g \colon W \dashrightarrow U$ may not be defined. This is a difficulty caused by the fact that a rational map is not a map: in a natural and obvious sense, the composite is a map defined on $\operatorname{dom} f \cap f^{-1}(\operatorname{dom} g)$; however, it can perfectly well happen that this is empty (see Ex. 4.10).</p>
+
+<blockquote>
+有理映射 $f \colon V \dashrightarrow W$ 和 $g \colon W \dashrightarrow U$ 的复合 $g \circ f$ 可能没有定义。这是由有理映射并非真正映射这一事实造成的困难：从自然而显然的意义上说，复合映射定义在 $\operatorname{dom} f \cap f^{-1}(\operatorname{dom} g)$ 上；然而，这个集合完全可能是空集（见习题 4.10）。
+</blockquote>
+
+<p>Expressed <span class="vocab">algebraically<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪ.kli/ 代数地</span></span>, the same problem also occurs: suppose that $f$ is given by $f_1, \dots, f_m \in k(V)$, so that</p>
+
+$$f \colon V \dashrightarrow W \subset \mathbb{A}^m \quad \text{by} \quad P \mapsto \bigl(f_1(P), \dots, f_m(P)\bigr)$$
+
+<p>for $P \in \bigcap \operatorname{dom} f_i$; any $g \in k[W]$ is of the form $g = G \bmod I(W)$ for some $G \in k[Y_1, \dots, Y_m]$, and $g \circ f = G(f_1, \dots, f_m)$ is well defined in $k(V)$. So exactly as in (4.4), there is a $k$-algebra homomorphism</p>
+
+$$f^* \colon k[W] \to k(V)$$
+
+<p>corresponding to $f$. However, if $h \in k[W]$ is in the kernel of $f^*$, then no meaning can be attached to $f^*(g/h)$, so that $f^*$ cannot be extended to a field homomorphism $k(W) \to k(V)$.</p>
+
+<blockquote>
+用代数语言表述，同样的问题也会出现：假设 $f$ 由 $f_1, \dots, f_m \in k(V)$ 给出，即
+
+$$f \colon V \dashrightarrow W \subset \mathbb{A}^m, \quad P \mapsto \bigl(f_1(P), \dots, f_m(P)\bigr)$$
+
+对 $P \in \bigcap \operatorname{dom} f_i$ 成立；任何 $g \in k[W]$ 具有 $g = G \bmod I(W)$ 的形式（$G \in k[Y_1, \dots, Y_m]$），而 $g \circ f = G(f_1, \dots, f_m)$ 在 $k(V)$ 中是良定义的。于是正如 (4.4) 中一样，存在一个 $k$-代数同态
+
+$$f^* \colon k[W] \to k(V)$$
+
+与 $f$ 对应。但是，如果 $h \in k[W]$ 在 $f^*$ 的核中，那么 $f^*(g/h)$ 就没有意义，因此 $f^*$ 无法扩展为域同态 $k(W) \to k(V)$。
+</blockquote>
+
+<p><strong>Definition</strong> $f \colon V \dashrightarrow W$ is <strong><span class="vocab">dominant<span class="tooltip">/ˈdɒm.ɪ.nənt/ 占优的</span></span></strong> if $f(\operatorname{dom} f)$ is dense in $W$ for the Zariski topology.</p>
+
+<blockquote>
+<strong>定义</strong> 称 $f \colon V \dashrightarrow W$ 是<strong>占优的</strong>（dominant），如果 $f(\operatorname{dom} f)$ 在 $W$ 的 Zariski 拓扑中是稠密的。
+</blockquote>
+
+<p>Geometrically, this means that $f^{-1}(\operatorname{dom} g) \subset \operatorname{dom} f$ is a dense open set for any rational map $g \colon W \dashrightarrow U$, so that $g \circ f$ is defined on a dense open set of $V$, so is a partially defined map $V \dashrightarrow U$.</p>
+
+<p>Algebraically,</p>
+
+$$f \text{ is dominant} \iff f^* \colon k[W] \to k(V) \text{ is injective.}$$
+
+<p>For given $g \in k[W]$,</p>
+
+$$g \in \ker f^* \iff f(\operatorname{dom} f) \subset V(g),$$
+
+<p>that is, $f^*$ is not injective if and only if $f(\operatorname{dom} f)$ is contained in a strict algebraic subset of $W$.</p>
+
+<blockquote>
+从几何角度看，这意味着对任何有理映射 $g \colon W \dashrightarrow U$，$f^{-1}(\operatorname{dom} g) \subset \operatorname{dom} f$ 是一个稠密开集，于是 $g \circ f$ 定义在 $V$ 的一个稠密开集上，因此是一个部分定义的映射 $V \dashrightarrow U$。
+
+从代数角度看，
+
+$$f \text{ 是占优的} \iff f^* \colon k[W] \to k(V) \text{ 是单射.}$$
+
+对给定的 $g \in k[W]$，
+
+$$g \in \ker f^* \iff f(\operatorname{dom} f) \subset V(g),$$
+
+即 $f^*$ 不是单射，当且仅当 $f(\operatorname{dom} f)$ 包含在 $W$ 的一个真代数子集中。
+</blockquote>
+
+<p>Clearly, the composite $g \circ f$ of rational maps $f$ and $g$ is defined provided that $f$ is dominant: $g \circ f$ is the rational map whose components are $f^*(g_i)$. Notice that the domain of $g \circ f$ certainly contains $f^{-1}(\operatorname{dom} g) \cap \operatorname{dom} f$, but may very well be larger (see Ex. 4.6).</p>
+
+<blockquote>
+显然，只要 $f$ 是占优的，有理映射 $f$ 和 $g$ 的复合 $g \circ f$ 就有定义：$g \circ f$ 是以 $f^*(g_i)$ 为分量的有理映射。注意 $g \circ f$ 的定义域当然包含 $f^{-1}(\operatorname{dom} g) \cap \operatorname{dom} f$，但完全可能更大（见习题 4.6）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s09.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s11.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

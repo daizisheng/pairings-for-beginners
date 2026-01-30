@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.8 Criterion for dom f — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s09.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.8 Criterion for $\operatorname{dom} f$</h1>
+<h2>$\operatorname{dom} f$ 的判别准则</h2>
+
+<p><strong>Theorem 4.8</strong> <em>(I) $\operatorname{dom} f$ is open and dense in the Zariski topology.</em></p>
+
+<p><em>Suppose that the field $k$ is algebraically closed; then</em></p>
+
+<p><em>(II)</em></p>
+
+$$\operatorname{dom} f = V \iff f \in k[V];$$
+
+<p><em>(that is polynomial function = regular rational function). Furthermore, for any $h \in k[V]$, let</em></p>
+
+$$V_h = V \setminus V(h) = \bigl\{\, P \in V \;\big|\; h(P) \neq 0 \,\bigr\};$$
+
+<p><em>then</em></p>
+
+<p><em>(III)</em></p>
+
+$$\operatorname{dom} f \supset V_h \iff f \in k[V][h^{-1}].$$
+
+<blockquote>
+<strong>定理 4.8</strong> (I) $\operatorname{dom} f$ 在 Zariski 拓扑中是开的且稠密的。
+
+假设域 $k$ 是代数封闭的，则：
+
+(II) $\operatorname{dom} f = V \iff f \in k[V]$
+
+（即多项式函数 = 正则有理函数）。此外，对任意 $h \in k[V]$，令
+
+$$V_h = V \setminus V(h) = \bigl\{\, P \in V \;\big|\; h(P) \neq 0 \,\bigr\};$$
+
+则
+
+(III) $\operatorname{dom} f \supset V_h \iff f \in k[V][h^{-1}].$
+</blockquote>
+
+<p><strong>Proof</strong> Define the <strong>ideal of <span class="vocab">denominators<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.tərz/ 分母</span></span></strong> of $f \in k(V)$ by</p>
+
+$$D_f = \bigl\{\, h \in k[V] \;\big|\; hf \in k[V] \,\bigr\} \subset k[V]$$
+$$= \bigl\{\, h \in k[V] \;\big|\; \exists \text{ an expression } f = g/h \text{ with } g \in k[V] \,\bigr\} \cup \{0\}.$$
+
+<p>From the first line, $D_f$ is obviously an ideal of $k[V]$. Then formally,</p>
+
+$$V \setminus \operatorname{dom} f = \bigl\{\, P \in V \;\big|\; h(P) = 0 \text{ for all } h \in D_f \,\bigr\} = V(D_f),$$
+
+<p>so that $V \setminus \operatorname{dom} f$ is an algebraic set of $V$; hence $\operatorname{dom} f = V \setminus V(D_f)$ is the complement of a closed set, so open in the Zariski topology. It is obvious that $\operatorname{dom} f$ is nonempty, hence dense by Proposition 4.2.</p>
+
+<blockquote>
+<strong>证明</strong> 定义 $f \in k(V)$ 的<strong>分母理想</strong>为
+
+$$D_f = \bigl\{\, h \in k[V] \;\big|\; hf \in k[V] \,\bigr\} \subset k[V]$$
+$$= \bigl\{\, h \in k[V] \;\big|\; \exists \text{ 表达式 } f = g/h，其中 g \in k[V] \,\bigr\} \cup \{0\}.$$
+
+由第一行可知，$D_f$ 显然是 $k[V]$ 的一个理想。于是形式上有
+
+$$V \setminus \operatorname{dom} f = \bigl\{\, P \in V \;\big|\; h(P) = 0, \;\forall h \in D_f \,\bigr\} = V(D_f),$$
+
+因此 $V \setminus \operatorname{dom} f$ 是 $V$ 的一个代数集；从而 $\operatorname{dom} f = V \setminus V(D_f)$ 是闭集的补集，在 Zariski 拓扑中是开的。显然 $\operatorname{dom} f$ 非空，因此由命题 4.2 可知它是稠密的。
+</blockquote>
+
+<p>Now using (b) of the Nullstellensatz,</p>
+
+$$\operatorname{dom} f = V \iff V(D_f) = \emptyset \iff 1 \in D_f, \quad \text{that is, } f \in k[V].$$
+
+<p>Finally,</p>
+
+$$\operatorname{dom} f \supset V_h \iff h \text{ vanishes on } V(D_f),$$
+
+<p>and using (c) of the Nullstellensatz,</p>
+
+$$\iff h^n \in D_f \text{ for some } n, \text{ that is, } f = g/h^n \in k[V][h^{-1}]. \quad \text{Q.E.D.}$$
+
+<blockquote>
+利用零点定理的 (b)，
+
+$$\operatorname{dom} f = V \iff V(D_f) = \emptyset \iff 1 \in D_f, \quad \text{即 } f \in k[V].$$
+
+最后，
+
+$$\operatorname{dom} f \supset V_h \iff h \text{ 在 } V(D_f) \text{ 上为零},$$
+
+利用零点定理的 (c)，
+
+$$\iff h^n \in D_f \text{ 对某个 } n，\text{即 } f = g/h^n \in k[V][h^{-1}]. \quad \text{Q.E.D.}$$
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s09.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

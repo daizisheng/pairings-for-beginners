@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.3 Proposition: V_nonsing is dense — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s04.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.3 Proposition: $V_{\mathrm{nonsing}}$ is dense</h1>
+<h2>6.3 命题：$V_{\mathrm{nonsing}}$ 稠密</h2>
+
+<p><strong>Proposition 6.3</strong> &nbsp; <em>$V_{\mathrm{nonsing}} = \{P \in V \mid P \text{ is nonsingular}\}$ is a <span class="vocab">dense<span class="tooltip">/dens/ 稠密的</span></span> open set of $V$ for the Zariski topology.</em></p>
+
+<blockquote>
+<strong>命题 6.3</strong>：$V_{\mathrm{nonsing}} = \{P \in V \mid P \text{ 是非奇异点}\}$ 在 Zariski 拓扑下是 $V$ 的一个稠密开集。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; The <span class="vocab">complement<span class="tooltip">/ˈkɒm.plɪ.ment/ 补集</span></span> of $V_{\mathrm{nonsing}}$ is the set $V_{\mathrm{sing}}$ of singular points, which is defined by $\partial f / \partial X_i(P) = 0$ for all $i$, that is</p>
+
+$$V_{\mathrm{sing}} = V\!\left(f, \frac{\partial f}{\partial X_1}, \ldots, \frac{\partial f}{\partial X_n}\right) \subset \mathbb{A}^n,$$
+
+<p>which is closed by definition of the Zariski topology. Since $V$ is irreducible (by (3.11, a)), to show that the open $V_{\mathrm{nonsing}}$ is dense, I only have to show it's nonempty (by Proposition 4.2); arguing by <span class="vocab">contradiction<span class="tooltip">/ˌkɒn.trəˈdɪk.ʃən/ 矛盾</span></span>, suppose that it's empty, that is, suppose $V = V(f) = V_{\mathrm{sing}}$. Then each of the polynomials $\partial f / \partial X_i$ must vanish on $V$, therefore (by (3.11) once more) they must be <span class="vocab">divisible<span class="tooltip">/dɪˈvɪz.ɪ.bl/ 可整除的</span></span> by $f$ in $k[X_1, \ldots, X_n]$; but viewed as a polynomial in $X_i$, $\partial f / \partial X_i$ has degree strictly smaller than $f$, so that $f$ divides $\partial f / \partial X_i$ implies that in fact $\partial f / \partial X_i = 0$ as a polynomial.</p>
+
+<blockquote>
+<strong>证明</strong>：$V_{\mathrm{nonsing}}$ 的补集是奇异点集 $V_{\mathrm{sing}}$，它由 $\partial f / \partial X_i(P) = 0$（对所有 $i$）所定义，即
+$$V_{\mathrm{sing}} = V\!\left(f, \frac{\partial f}{\partial X_1}, \ldots, \frac{\partial f}{\partial X_n}\right) \subset \mathbb{A}^n,$$
+由 Zariski 拓扑的定义知这是闭集。由于 $V$ 不可约（由(3.11, a)），要证明开集 $V_{\mathrm{nonsing}}$ 稠密，只需证明它非空（由命题4.2）；用反证法，假设它为空，即假设 $V = V(f) = V_{\mathrm{sing}}$。则每个多项式 $\partial f / \partial X_i$ 都必须在 $V$ 上为零，因此（再由(3.11)）它们在 $k[X_1, \ldots, X_n]$ 中必须被 $f$ 整除；但把 $\partial f / \partial X_i$ 看作关于 $X_i$ 的多项式，它的次数严格小于 $f$，所以 $f$ 整除 $\partial f / \partial X_i$ 意味着实际上 $\partial f / \partial X_i = 0$（作为多项式）。
+</blockquote>
+
+<p>Over $\mathbb{C}$, this is obviously only possible if $X_i$ does not appear in $f$, and if this happens for all $i$ then $f = \text{const.} \in \mathbb{C}$, which is excluded. Over a general field $k$, $\partial f / \partial X_i = 0$ is only possible if $f$ is an <span class="vocab">inseparable<span class="tooltip">/ɪnˈsep.ər.ə.bl/ 不可分的</span></span> polynomial in $X_i$, that is, $\operatorname{char} k = p$, and $X_i$ only appears in $f$ as the $p$th power $X_i^p$. If this happens for each $i$, then by the argument given in (3.16), $f$ is a $p$th power in $k[X_1, \ldots, X_n]$; this contradicts the fact that $f$ is irreducible. &nbsp; Q.E.D.</p>
+
+<blockquote>
+在 $\mathbb{C}$ 上，这显然只有当 $X_i$ 不出现在 $f$ 中时才可能，如果所有 $i$ 都如此，则 $f = \text{常数} \in \mathbb{C}$，这与假设矛盾。在一般域 $k$ 上，$\partial f / \partial X_i = 0$ 只有当 $f$ 是关于 $X_i$ 的不可分多项式时才可能，即 $\operatorname{char} k = p$，且 $X_i$ 在 $f$ 中只以 $p$ 次幂 $X_i^p$ 的形式出现。如果每个 $i$ 都是这样，则由(3.16)中给出的论证，$f$ 在 $k[X_1, \ldots, X_n]$ 中是一个 $p$ 次幂；这与 $f$ 不可约矛盾。Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s04.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.7 Examples — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s08.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.7 Examples</h1>
+<h2>5.7 例子</h2>
+
+<h3>(I) Rational normal curve / 有理正规曲线</h3>
+
+<p>This is a very easy example of an <span class="vocab">isomorphic<span class="tooltip">/ˌaɪ.səˈmɔː.fɪk/ 同构的</span></span> embedding $f \colon \mathbb{P}^1 \xrightarrow{\;\sim\;} C \subset \mathbb{P}^m$ which generalises the parametrised conic of (1.7), and which occurs throughout projective and algebraic geometry. Define</p>
+$$f \colon \mathbb{P}^1 \to \mathbb{P}^m \quad \text{by} \quad (U:V) \mapsto (U^m : U^{m-1}V : \cdots : V^m)$$
+<p>(writing down all <span class="vocab">monomials<span class="tooltip">/məˈnoʊ.mi.əlz/ 单项式</span></span> of degree $m$ in $U, V$). Arguing step by step:</p>
+
+<p>(i) $f$ is a rational map, since it's given by</p>
+$$\big((U/V)^m, (U/V)^{m-1}, \ldots, 1\big);$$
+
+<p>(ii) $f$ is a morphism wherever $V \neq 0$ by the formula just written, and if $V = 0$ then $U \neq 0$, so a similar trick with $V/U$ works;</p>
+
+<p>(iii) the image of $f$ is the set of points $(X_0 : \cdots : X_m) \in \mathbb{P}^m$ such that</p>
+$$(X_0 : X_1) = (X_1 : X_2) = \cdots = (X_{m-1} : X_m),$$
+<p>that is,</p>
+$$X_0 X_2 = X_1^2, \quad X_0 X_3 = X_1 X_2, \quad X_0 X_4 = X_1 X_3, \quad \text{etc.}$$
+
+<p>The equations can be written all together in the extremely convenient <span class="vocab">determinantal<span class="tooltip">/dɪˌtɜː.mɪˈnæn.təl/ 行列式的</span></span> form</p>
+$$\operatorname{rank}\begin{pmatrix} X_0 & X_1 & X_2 & \cdots & X_{m-1} \\ X_1 & X_2 & X_3 & \cdots & X_m \end{pmatrix} \leq 1$$
+<p>(the rank condition means exactly that all $2 \times 2$ minors vanish). These are homogeneous equations defining an algebraic set $C \subset \mathbb{P}^m$;</p>
+
+<p>(iv) the inverse morphism $g \colon C \to \mathbb{P}^1$ is not hard to find: just take a point of $C$ into the common ratio $(X_0 : X_1) = \cdots = (X_{m-1} : X_m) \in \mathbb{P}^1$. As an exercise, find out for yourself what has to be checked, then check it all.</p>
+
+<blockquote>
+<h4>(I) 有理正规曲线</h4>
+<p>这是同构嵌入 $f \colon \mathbb{P}^1 \xrightarrow{\;\sim\;} C \subset \mathbb{P}^m$ 的一个非常简单的例子，它推广了 (1.7) 中参数化圆锥曲线的构造，在射影几何和代数几何中反复出现。定义</p>
+$$f \colon \mathbb{P}^1 \to \mathbb{P}^m, \quad (U:V) \mapsto (U^m : U^{m-1}V : \cdots : V^m)$$
+<p>（即写出 $U, V$ 的所有 $m$ 次单项式）。逐步论证如下：</p>
+<p>(i) $f$ 是有理映射，因为它可以写成 $\big((U/V)^m, (U/V)^{m-1}, \ldots, 1\big)$；</p>
+<p>(ii) 在 $V \neq 0$ 的地方 $f$ 是态射（用上面的公式），而若 $V = 0$ 则 $U \neq 0$，用 $V/U$ 做类似处理即可；</p>
+<p>(iii) $f$ 的像是满足 $(X_0:X_1) = (X_1:X_2) = \cdots = (X_{m-1}:X_m)$ 的点的集合，即 $X_0 X_2 = X_1^2$，$X_0 X_3 = X_1 X_2$，$X_0 X_4 = X_1 X_3$ 等。这些方程可以用极其方便的行列式形式写成</p>
+$$\operatorname{rank}\begin{pmatrix} X_0 & X_1 & X_2 & \cdots & X_{m-1} \\ X_1 & X_2 & X_3 & \cdots & X_m \end{pmatrix} \leq 1$$
+<p>（秩条件恰好意味着所有 $2 \times 2$ 子式为零），这些齐次方程定义了代数集 $C \subset \mathbb{P}^m$；</p>
+<p>(iv) 逆态射 $g \colon C \to \mathbb{P}^1$ 不难找到：把 $C$ 的点送到公比 $(X_0:X_1) = \cdots = (X_{m-1}:X_m) \in \mathbb{P}^1$。作为练习，请自行找出需要验证什么，然后验证。</p>
+</blockquote>
+
+<h3>(II) Linear projection, parametrising a quadric / 线性投影，二次曲面的参数化</h3>
+
+<p>The map $\pi \colon \mathbb{P}^3 \dashrightarrow \mathbb{P}^2$ given by $(X_0, X_1, X_2, X_3) \mapsto (X_1, X_2, X_3)$ is a rational map, and a morphism outside the point $P_0 = (1,0,0,0)$. Let $Q \subset \mathbb{P}^3$ be a <span class="vocab">quadric<span class="tooltip">/ˈkwɒd.rɪk/ 二次曲面</span></span> <span class="vocab">hypersurface<span class="tooltip">/ˈhaɪ.pə.sɜː.fɪs/ 超曲面</span></span> with $P \in Q$. Then every point $P$ of $\mathbb{P}^2$ corresponds to a line $L$ of $\mathbb{P}^3$ through $P$, and $L$ should in general meet $Q$ at $P_0$ and a second point $\varphi(P)$: for example, if $Q : (X_0 X_3 = X_1 X_2)$, then $\pi|_Q \colon Q \dashrightarrow \mathbb{P}^2$ has the inverse map</p>
+$$\varphi \colon \mathbb{P}^2 \dashrightarrow Q \quad \text{given by} \quad (X_1, X_2, X_3) \mapsto (X_1 X_2 / X_3, \; X_1, \; X_2, \; X_3).$$
+
+<p>This is essentially the same idea as the parametrisation of the circle in (1.1).</p>
+
+<p>It is a rewarding exercise (see Ex.&nbsp;5.2) to find $\operatorname{dom} \pi$ and $\operatorname{dom} \varphi$, and to give a geometric interpretation of the <span class="vocab">singularities<span class="tooltip">/ˌsɪŋ.ɡjʊˈlær.ɪ.tiz/ 奇异性</span></span> of $\pi$ and $\varphi$.</p>
+
+<blockquote>
+<h4>(II) 线性投影，二次曲面的参数化</h4>
+<p>映射 $\pi \colon \mathbb{P}^3 \dashrightarrow \mathbb{P}^2$，$(X_0, X_1, X_2, X_3) \mapsto (X_1, X_2, X_3)$ 是有理映射，且在点 $P_0 = (1,0,0,0)$ 之外是态射。设 $Q \subset \mathbb{P}^3$ 是过 $P$ 的二次超曲面。那么 $\mathbb{P}^2$ 的每个点 $P$ 对应一条过 $P$ 的 $\mathbb{P}^3$ 中的直线 $L$，而 $L$ 一般会在 $P_0$ 和另一个点 $\varphi(P)$ 处与 $Q$ 相交。例如，若 $Q : (X_0 X_3 = X_1 X_2)$，则 $\pi|_Q \colon Q \dashrightarrow \mathbb{P}^2$ 的逆映射为</p>
+$$\varphi \colon \mathbb{P}^2 \dashrightarrow Q, \quad (X_1, X_2, X_3) \mapsto (X_1 X_2 / X_3, \; X_1, \; X_2, \; X_3).$$
+<p>这本质上和 (1.1) 中对圆的参数化是同一个思路。</p>
+<p>求 $\operatorname{dom} \pi$ 和 $\operatorname{dom} \varphi$，并给出 $\pi$ 和 $\varphi$ 的奇异性的几何解释，是一道很有收获的练习（见习题 5.2）。</p>
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s08.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

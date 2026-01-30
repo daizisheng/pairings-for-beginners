@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.11 Pascal's Theorem (the mystic hexagon) — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s12.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.11 Pascal's Theorem (the mystic hexagon)</h1>
+<h2>2.11 帕斯卡定理（神秘的六边形）</h2>
+
+<p>The diagram consists of a <span class="vocab">hexagon<span class="tooltip">/ˈhek.sə.ɡɑːn/ 六边形</span></span> $ABCDEF$ in $\mathbb{P}^2_k$ with pairs of opposite sides extended until they meet in points $P, Q, R$. Assume that the nine points and the six lines of the diagram are all distinct; then</p>
+
+$$ABCDEF \text{ are conconic} \iff PQR \text{ are collinear}.$$
+
+<p>This famous theorem is a rather similar application of (2.7), and is given just for fun; of course, other proofs are possible, see any text on geometry, for example [Berger, 16.2.10 and 16.8.3&ndash;5].</p>
+
+<blockquote>
+这个图形由 $\mathbb{P}^2_k$ 中的一个六边形 $ABCDEF$ 组成，每对对边延长后交于点 $P, Q, R$。假设图中的九个点和六条线互不相同，则：$ABCDEF$ 六点共圆锥曲线 $\iff$ $PQR$ 三点共线。这个著名的定理是(2.7)的一个类似应用，放在这里纯粹为了好玩；当然，别的证法也有，参见任何一本几何教材，例如[Berger, 16.2.10 和 16.8.3&ndash;5]。
+</blockquote>
+
+<!-- Figure 2.4: The mystic hexagon -->
+<figure>
+    <img src="images/fig_page43_hexagon.png" alt="The mystic hexagon: ABCDEF on a conic, P Q R collinear">
+    <figcaption>Figure 2.4: The mystic hexagon / 图2.4：神秘的六边形</figcaption>
+</figure>
+
+<p><strong>Proof</strong> In the diagram, consider the two triples of lines</p>
+
+$$L_1 : PAF, \quad L_2 : QDE, \quad L_3 : RBC,$$
+
+<p>and</p>
+
+$$M_1 : PCD, \quad M_2 : QAB, \quad M_3 : REF;$$
+
+<p>let $C_1 = L_1 + L_2 + L_3$ and $C_2 = M_1 + M_2 + M_3$. Now I'm all set to apply (2.7), since clearly $C_1$ and $C_2$ are two cubics such that</p>
+
+$$C_1 \cap C_2 = \{A, B, C, D, E, F, P, Q, R\}.$$
+
+<blockquote>
+<strong>证明</strong>　在图中，考虑两组三条直线 $L_1: PAF$，$L_2: QDE$，$L_3: RBC$ 和 $M_1: PCD$，$M_2: QAB$，$M_3: REF$；令 $C_1 = L_1 + L_2 + L_3$，$C_2 = M_1 + M_2 + M_3$。现在就可以应用(2.7)了，因为 $C_1$ 和 $C_2$ 显然是两条三次曲线，满足 $C_1 \cap C_2 = \{A, B, C, D, E, F, P, Q, R\}$。
+</blockquote>
+
+<p>Suppose $PQR$ are <span class="vocab">collinear<span class="tooltip">/koʊˈlɪn.i.ər/ 共线的</span></span>, with $L = PQR$; let $\Gamma$ be the conic through $ABCDE$ (the existence and <span class="vocab">unicity<span class="tooltip">/juːˈnɪs.ɪ.ti/ 唯一性</span></span> of which is provided by Proposition 1.11). Then by construction, $L + \Gamma$ is a cubic passing through the 8 points $A, B, C, D, E, P, Q, R$, and by (2.7), it must contain $F$; by assumption, $F \notin L$, so that necessarily $F \in \Gamma$, proving that the six points are <span class="vocab">conconic<span class="tooltip">/kɒnˈkɒn.ɪk/ 共圆锥曲线的</span></span>.</p>
+
+<blockquote>
+假设 $PQR$ 三点共线，设 $L = PQR$；设 $\Gamma$ 是过 $ABCDE$ 五点的圆锥曲线（其存在性和唯一性由命题1.11保证）。那么由构造，$L + \Gamma$ 是过 $A, B, C, D, E, P, Q, R$ 八个点的三次曲线，由(2.7)，它必须包含 $F$；由假设 $F \notin L$，所以必然 $F \in \Gamma$，证明了六个点共圆锥曲线。
+</blockquote>
+
+<p>Now <span class="vocab">conversely<span class="tooltip">/kənˈvɜːrs.li/ 反过来</span></span>, suppose that $ABCDEF$ are on a conic $\Gamma$, and let $L = PQ$; then $L + \Gamma$ is a cubic passing through $A, B, C, D, E, F, P, Q$, so by (2.7) it must pass through $R$. Now $R$ can't be on the conic $\Gamma$ (since otherwise $\Gamma$ is a line pair, and some of the 6 lines of the diagram must coincide), so $R \in L$, that is, $PQR$ are collinear. Q.E.D.</p>
+
+<blockquote>
+反过来，假设 $ABCDEF$ 六点在一条圆锥曲线 $\Gamma$ 上，设 $L = PQ$；则 $L + \Gamma$ 是过 $A, B, C, D, E, F, P, Q$ 的三次曲线，由(2.7)它必须过 $R$。但 $R$ 不可能在 $\Gamma$ 上（否则 $\Gamma$ 就是线对，图中的6条线中就有重合的了），所以 $R \in L$，即 $PQR$ 三点共线。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s12.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

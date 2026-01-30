@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.2 Proposition: Existence of a Line — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.2 Proposition: Existence of a Line</h1>
+<h2>命题：直线的存在性</h2>
+
+<p><strong>Proposition 7.2</strong> <em>There exists at least one line $\ell$ on $S$.</em></p>
+
+<blockquote>
+<strong>命题 7.2</strong> <em>$S$ 上至少存在一条直线 $\ell$。</em>
+</blockquote>
+
+<p>There are several approaches to proving this. A standard argument is by a <span class="vocab">dimension<span class="tooltip">/dɪˈmen.ʃən/ 维数</span></span> count: lines of $\mathbb{P}^3$ are <span class="vocab">parametrised<span class="tooltip">/ˈpær.ə.mɪ.traɪzd/ 参数化的</span></span> by a 4-dimensional variety, and for a line $\ell$ to lie on $S$ imposes 4 conditions on $\ell$ (because the restriction of $f$ to $\ell$ is a cubic form, the 4 coefficients of which must vanish). A little work is needed to turn this into a <span class="vocab">rigorous<span class="tooltip">/ˈrɪɡ.ər.əs/ 严格的</span></span> proof, since a priori it shows only that the set of lines has dimension $\ge 0$, and not that it is nonempty (see the highbrow notes (8.15) for a discussion of the traditional proof and the difficulties involved in it).</p>
+
+<blockquote>
+有几种方法可以证明这一点。一个标准论证是通过维数计数：$\mathbb{P}^3$ 中的直线由一个4维簇参数化，而一条直线 $\ell$ 要落在 $S$ 上需要对 $\ell$ 施加4个条件（因为 $f$ 限制到 $\ell$ 上是一个三次形式，它的4个系数必须为零）。要把这变成严格的证明还需要一些工作，因为先验地说它只表明直线集的维数 $\ge 0$，而不是说它非空（参见高级注释 (8.15) 中关于传统证明及其困难的讨论）。
+</blockquote>
+
+<p>It is also perfectly logical to assume the proposition (restrict attention only to cubic surfaces containing lines). I now explain how (7.2) can be proved by direct coordinate geometry and <span class="vocab">elimination<span class="tooltip">/ɪˌlɪm.ɪˈneɪ.ʃən/ 消元法</span></span>. The proof occupies the next 3 pages, and divides up into 4 steps; you can skip it if you prefer (GOTO 7.3).</p>
+
+<blockquote>
+假定该命题成立（即只考虑包含直线的三次曲面）也是完全合乎逻辑的。下面我说明如何用直接的坐标几何和消元法来证明 (7.2)。证明占了接下来的3页，分为4个步骤；如果你愿意可以跳过（转到 7.3）。
+</blockquote>
+
+<h3>Step 1 (Preliminary construction)</h3>
+
+<p>For any point $P \in S$, the intersection of $S$ with the tangent plane $T_P S$ is a plane cubic $C = S \cap T_P S$, which by Ex. 6.7 is singular at $P$. I assume that $C$ is irreducible, since otherwise $P$ is on a line of $S$, and I'm home; then $C$ is a nodal or <span class="vocab">cuspidal<span class="tooltip">/ˈkʌs.pɪ.dəl/ 尖点的</span></span> cubic, and the coordinates $(X, Y, Z, T)$ of $\mathbb{P}^3$ can be chosen such that $T_P S : (T = 0)$, $P = (0, 0, 1, 0)$, and</p>
+
+$$C : (XYZ = X^3 + Y^3) \quad\text{or}\quad (X^2 Z = Y^3).$$
+
+<blockquote>
+对于任意点 $P \in S$，$S$ 与切平面 $T_P S$ 的交是一条平面三次曲线 $C = S \cap T_P S$，由习题 6.7 可知它在 $P$ 处奇异。我假设 $C$ 是不可约的，否则 $P$ 就在 $S$ 的一条直线上，问题就解决了；于是 $C$ 是一条结点三次或尖点三次曲线，并且 $\mathbb{P}^3$ 的坐标 $(X, Y, Z, T)$ 可以选取使得 $T_P S : (T = 0)$，$P = (0, 0, 1, 0)$，且
+
+$$C : (XYZ = X^3 + Y^3) \quad\text{或}\quad (X^2 Z = Y^3).$$
+</blockquote>
+
+<p>Whether $C$ is nodal or cuspidal for given $P \in S$ depends on the matrix of second derivatives (or Hessian matrix) of $f$ at $P$; this is discussed in more detail in Ex. 7.3, which proves (in characteristic $\ne 2$) that the cuspidal case must occur for some point $P \in S$. For simplicity, I prove (7.2) in the cuspidal case; in principle, the proof goes through in exactly the same way in the nodal case, but the elimination calculation gets much nastier (see Ex. 7.10). Thus assume that</p>
+
+$$f = X^2 Z - Y^3 + gT,$$
+
+<p>where $g = g_2(X, Y, Z, T)$ is a quadratic form; $g(0, 0, 1, 0) \ne 0$ by nonsingularity of $S$ at $P$, so I can assume that $g(0, 0, 1, 0) = 1$.</p>
+
+<blockquote>
+对于给定的 $P \in S$，$C$ 是结点型还是尖点型取决于 $f$ 在 $P$ 处的二阶导数矩阵（即 Hessian 矩阵）；这在习题 7.3 中有更详细的讨论，那里证明了（在特征 $\ne 2$ 时）尖点情形必定对 $S$ 的某个点 $P$ 出现。为简便起见，我在尖点情形下证明 (7.2)；原则上，结点情形的证明方式完全相同，但消元计算要复杂得多（参见习题 7.10）。因此假设
+
+$$f = X^2 Z - Y^3 + gT,$$
+
+其中 $g = g_2(X, Y, Z, T)$ 是一个二次形式；由 $S$ 在 $P$ 处的非奇异性可知 $g(0, 0, 1, 0) \ne 0$，所以我们可以假设 $g(0, 0, 1, 0) = 1$。
+</blockquote>
+
+<h3>Step 2 (Statement of main claim)</h3>
+
+<p>Consider the variable point $P_\alpha = (1, \alpha, \alpha^3, 0)$ of $C \subset S$. Any line of $\mathbb{P}^3$ through $P_\alpha$ meets the <span class="vocab">complementary<span class="tooltip">/ˌkɒm.plɪˈmen.tər.i/ 互补的</span></span> plane $\Pi : (X = 0)$ in a point $Q = (0, Y, Z, T)$. I write out the equations for the line $P_\alpha Q$ to be contained in $S$ in terms of $\alpha$ and $Q$; expanding $f(\lambda P_\alpha + \mu Q)$ in powers of $\lambda$ and $\mu$ gives</p>
+
+$$P_\alpha Q \subset S \iff A(Y, Z, T) = B(Y, Z, T) = C(Y, Z, T) = 0,$$
+
+<p>where $A$, $B$ and $C$ are forms of degree 1, 2 and 3 in $(Y, Z, T)$, whose coefficients involve $\alpha$.</p>
+
+<blockquote>
+考虑 $C \subset S$ 上的活动点 $P_\alpha = (1, \alpha, \alpha^3, 0)$。通过 $P_\alpha$ 的 $\mathbb{P}^3$ 中任意一条直线与互补平面 $\Pi : (X = 0)$ 相交于一点 $Q = (0, Y, Z, T)$。我用 $\alpha$ 和 $Q$ 来写出直线 $P_\alpha Q$ 包含在 $S$ 中的方程；将 $f(\lambda P_\alpha + \mu Q)$ 按 $\lambda$ 和 $\mu$ 的幂展开可得
+
+$$P_\alpha Q \subset S \iff A(Y, Z, T) = B(Y, Z, T) = C(Y, Z, T) = 0,$$
+
+其中 $A$、$B$、$C$ 分别是 $(Y, Z, T)$ 的 1 次、2 次和 3 次形式，它们的系数涉及 $\alpha$。
+</blockquote>
+
+<p><strong>Main Claim</strong> <em>There exists a 'resultant' polynomial $R_{27}(\alpha)$, which is <span class="vocab">monic<span class="tooltip">/ˈmɒn.ɪk/ 首一的</span></span> of degree 27 in $\alpha$, such that</em></p>
+
+$$R(\alpha) = 0 \iff A = B = C = 0 \text{ have a common zero } (\eta : \zeta : \tau) \text{ in } \mathbb{P}^2.$$
+
+<blockquote>
+<strong>主断言</strong> <em>存在一个"结式"多项式 $R_{27}(\alpha)$，它是 $\alpha$ 的首一27次多项式，使得</em>
+
+$$R(\alpha) = 0 \iff A = B = C = 0 \text{ 在 } \mathbb{P}^2 \text{ 中有公共零点 } (\eta : \zeta : \tau).$$
+</blockquote>
+
+<p>This statement proves (7.2), since it implies that for every root $\alpha$ of $R$, there exists a point $Q = (0 : \eta : \zeta : \tau)$ in $\Pi$ for which the line $P_\alpha Q$ is contained in $S$. The idea here is a standard elimination calculation based on Ex. 1.10; the rest of the proof is concerned with writing out $A$, $B$ and $C$ explicitly to prove the claim.</p>
+
+<blockquote>
+这一断言证明了 (7.2)，因为它意味着对 $R$ 的每个根 $\alpha$，都存在 $\Pi$ 中的一点 $Q = (0 : \eta : \zeta : \tau)$ 使得直线 $P_\alpha Q$ 包含在 $S$ 中。这里用的是基于习题 1.10 的标准消元计算；证明的其余部分是将 $A$、$B$、$C$ 显式地写出来以证明该断言。
+</blockquote>
+
+<h3>Step 3 (Polar form)</h3>
+
+<p>Define the <span class="vocab">polar<span class="tooltip">/ˈpəʊ.lər/ 极的</span></span> of $f$ to be the form in two sets of variables $(X, Y, Z, T)$ and $(X', Y', Z', T')$ given by</p>
+
+$$f_1(X, Y, Z, T;\; X', Y', Z', T') = \frac{\partial f}{\partial X} \cdot X' + \frac{\partial f}{\partial Y} \cdot Y' + \frac{\partial f}{\partial Z} \cdot Z' + \frac{\partial f}{\partial T} \cdot T'.$$
+
+<p>It's clear from the definition of tangent space (see (6.4) and (6.10)) that for $P = (X, Y, Z, T) \in S$ and $P \ne Q = (X', Y', Z', T') \in \mathbb{P}^3$,</p>
+
+$$f_1(P;\, Q) = 0 \iff \text{the line } PQ \text{ is tangent to } S \text{ at } P.$$
+
+<p>Clearly</p>
+
+$$f(\lambda P + \mu Q) = \lambda^3 f(P) + \lambda^2 \mu\, f_1(P;\, Q) + \lambda \mu^2\, f_1(Q;\, P) + \mu^3 f(Q),$$
+
+<p>so that for $P \ne Q \in \mathbb{P}^3$, the 4 conditions</p>
+
+$$f(P) = f_1(P;\, Q) = f_1(Q;\, P) = f(Q)$$
+
+<p>are the equations for the line $\ell = PQ$ to be contained in $S : (f = 0)$. More geometrically, these say that $\ell$ is tangent to $S$ at both $P$ and $Q$, so that $f|_\ell$ has double roots at both points, and then $\ell \subset S$ follows from Proposition 1.8.</p>
+
+<blockquote>
+定义 $f$ 的极形式为关于两组变量 $(X, Y, Z, T)$ 和 $(X', Y', Z', T')$ 的形式：
+
+$$f_1(X, Y, Z, T;\; X', Y', Z', T') = \frac{\partial f}{\partial X} \cdot X' + \frac{\partial f}{\partial Y} \cdot Y' + \frac{\partial f}{\partial Z} \cdot Z' + \frac{\partial f}{\partial T} \cdot T'.$$
+
+由切空间的定义（见 (6.4) 和 (6.10)），对于 $P = (X, Y, Z, T) \in S$ 及 $P \ne Q = (X', Y', Z', T') \in \mathbb{P}^3$，
+
+$$f_1(P;\, Q) = 0 \iff \text{直线 } PQ \text{ 在 } P \text{ 处与 } S \text{ 相切。}$$
+
+显然
+
+$$f(\lambda P + \mu Q) = \lambda^3 f(P) + \lambda^2 \mu\, f_1(P;\, Q) + \lambda \mu^2\, f_1(Q;\, P) + \mu^3 f(Q),$$
+
+因此对于 $P \ne Q \in \mathbb{P}^3$，4个条件
+
+$$f(P) = f_1(P;\, Q) = f_1(Q;\, P) = f(Q)$$
+
+就是直线 $\ell = PQ$ 包含在 $S : (f = 0)$ 中的方程。从几何上看，它们表明 $\ell$ 在 $P$ 和 $Q$ 两点处与 $S$ 相切，所以 $f|_\ell$ 在两个点处都有重根，由命题 1.8 即得 $\ell \subset S$。
+</blockquote>
+
+<p>The polar of $f = X^2 Z - Y^3 + gT$ is</p>
+
+$$f_1 = 2XZ \cdot X' - 3Y^2 \cdot Y' + X^2 \cdot Z' + g(X, Y, Z, T) \cdot T' + T g_1.$$
+
+<p>Here $g_1 = g_1(X, Y, Z, T;\; X', Y', Z', T')$ is the polar form of $g$ defined in the same way as above; since $g$ is quadratic, $g_1$ is a symmetric bilinear form such that $g_1(P, P) = 2g(P)$.</p>
+
+<p>Substituting $P_\alpha = (1, \alpha, \alpha^3, 0)$ and $Q = (0, Y, Z, T)$ gives the equations for $P_\alpha Q \subset S$ as $A = B = C = 0$, where</p>
+
+$$A = Z - 3\alpha^2 Y + g(1, \alpha, \alpha^3, 0)T,$$
+$$B = -3\alpha Y^2 + g_1(1, \alpha, \alpha^3, 0;\; 0, Y, Z, T)T,$$
+$$C = -Y^3 + g(0, Y, Z, T)T.$$
+
+<blockquote>
+$f = X^2 Z - Y^3 + gT$ 的极形式为
+
+$$f_1 = 2XZ \cdot X' - 3Y^2 \cdot Y' + X^2 \cdot Z' + g(X, Y, Z, T) \cdot T' + T g_1.$$
+
+这里 $g_1 = g_1(X, Y, Z, T;\; X', Y', Z', T')$ 是 $g$ 的极形式，定义方式同上；因为 $g$ 是二次的，$g_1$ 是一个对称双线性形式，满足 $g_1(P, P) = 2g(P)$。
+
+代入 $P_\alpha = (1, \alpha, \alpha^3, 0)$ 和 $Q = (0, Y, Z, T)$，得到 $P_\alpha Q \subset S$ 的方程为 $A = B = C = 0$，其中
+
+$$A = Z - 3\alpha^2 Y + g(1, \alpha, \alpha^3, 0)T,$$
+$$B = -3\alpha Y^2 + g_1(1, \alpha, \alpha^3, 0;\; 0, Y, Z, T)T,$$
+$$C = -Y^3 + g(0, Y, Z, T)T.$$
+</blockquote>
+
+<h3>Step 4 (Elimination calculation)</h3>
+
+<p>I now eliminate $Y, Z, T$ from the above 3 equations, paying attention to the highest powers of $\alpha$ occurring. Note that since $g(0, 0, 1, 0) = 1$, it follows that</p>
+
+$$g(1, \alpha, \alpha^3, 0) = \alpha^6 + \cdots = a^{(6)},$$
+
+<p>where $\ldots$ denotes terms of lower degree in $\alpha$; thus $a^{(6)}$ is monic of degree 6. Then $A = 0$ gives $Z$ as a linear form in $Y$ and $T$,</p>
+
+$$Z = 3\alpha^2 Y - a^{(6)} T.$$
+
+<p>Substituting in $B$, and using the bilinearity of $g_1$ gives</p>
+
+$$B = b_0 Y^2 + b_1 YT + b_2 T^2,$$
+
+<p>where</p>
+
+$$b_0 = -3\alpha, \quad b_1 = g_1(1, \alpha, \alpha^3, 0;\; 0, 1, 3\alpha^2, 0) = 6\alpha^5 + \cdots,$$
+$$b_2 = g_1(1, \alpha, \alpha^3, 0;\; 0, 0, -a^{(6)}, 1) = -2\alpha^9 + \cdots.$$
+
+<p>Similarly, substituting for $Z$ in $C$, and expanding the quadratic form $g$ gives</p>
+
+$$C = c_0 Y^3 + c_1 Y^2 T + c_2 Y T^2 + c_3 T^3,$$
+
+<p>where</p>
+
+$$c_0 = -1,\quad c_1 = g(0, 1, 3\alpha^2, 0) = 9\alpha^4 + \cdots,$$
+$$c_2 = g_1(0, 1, 3\alpha^2, 0;\; 0, 0, -a^{(6)}, 1) = -6\alpha^8 + \cdots,$$
+$$c_3 = g(0, 0, -a^{(6)}, 1) = \alpha^{12} + \cdots.$$
+
+<p>Now by the result of Ex. 1.10, $B'$ and $C'$ have a common zero $(\eta : \tau)$ if and only if the $5 \times 5$ Sylvester <span class="vocab">determinant<span class="tooltip">/dɪˈtɜː.mɪ.nənt/ 行列式</span></span> vanishes. The determinant is a polynomial in $\alpha$, and it's not hard to see that its leading term comes from taking the leading term in each entry of the determinant, yielding $\alpha^{27}$.</p>
+
+<p>This completes the proof of the main claim. Q.E.D.</p>
+
+<blockquote>
+现在我从上述3个方程中消去 $Y, Z, T$，同时关注 $\alpha$ 的最高次幂。注意因为 $g(0, 0, 1, 0) = 1$，所以
+
+$$g(1, \alpha, \alpha^3, 0) = \alpha^6 + \cdots = a^{(6)},$$
+
+其中 $\ldots$ 表示 $\alpha$ 的低次项；因此 $a^{(6)}$ 是6次首一多项式。于是 $A = 0$ 给出 $Z$ 为 $Y$ 和 $T$ 的线性形式：
+
+$$Z = 3\alpha^2 Y - a^{(6)} T.$$
+
+将其代入 $B$，利用 $g_1$ 的双线性性得到
+
+$$B = b_0 Y^2 + b_1 YT + b_2 T^2,$$
+
+其中 $b_0 = -3\alpha$，$b_1 = 6\alpha^5 + \cdots$，$b_2 = -2\alpha^9 + \cdots$。
+
+类似地，在 $C$ 中代入 $Z$ 的表达式并展开二次形式 $g$ 得到
+
+$$C = c_0 Y^3 + c_1 Y^2 T + c_2 Y T^2 + c_3 T^3,$$
+
+其中 $c_0 = -1$，$c_1 = 9\alpha^4 + \cdots$，$c_2 = -6\alpha^8 + \cdots$，$c_3 = \alpha^{12} + \cdots$。
+
+由习题 1.10 的结果，$B'$ 和 $C'$ 有公共零点 $(\eta : \tau)$ 当且仅当 $5 \times 5$ Sylvester 行列式为零。该行列式是 $\alpha$ 的多项式，不难看出其首项来自取行列式每个元素的首项，最终得到 $\alpha^{27}$。
+
+这就完成了主断言的证明。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

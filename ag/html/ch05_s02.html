@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.2 The homogeneous V-I correspondences — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.2 The homogeneous $V$-$I$ correspondences</h1>
+<h2>5.2 齐次 $V$-$I$ 对应</h2>
+
+<p>Let $\mathbb{P}^n_k$ be $n$-dimensional projective space over a field $k$, with $X_0, \ldots, X_n$ as homogeneous coordinates. Then $f \in k[X_0, \ldots, X_n]$ is <em>not</em> a function on $\mathbb{P}^n_k$: by definition, $\mathbb{P}^n_k = k^{n+1} \setminus \{0\} / {\sim}$, where $\sim$ is the <span class="vocab">equivalence<span class="tooltip">/ɪˈkwɪv.əl.əns/ 等价</span></span> relation given by $(X_0, \ldots, X_n) \sim (\lambda X_0, \ldots, \lambda X_n)$ for $\lambda \in k \setminus \{0\}$; $f$ is a function on $k^{n+1}$. Nevertheless, for $P \in \mathbb{P}^n$, the condition $f(P) = 0$ is well defined provided that $f$ is homogeneous: suppose $P = (X_0 : \cdots : X_n)$, so that $(X_0, \ldots, X_n)$ is a <span class="vocab">representative<span class="tooltip">/ˌrep.rɪˈzen.tə.tɪv/ 代表元</span></span> in $k^{n+1} \setminus \{0\}$ of the equivalence class of $P$. Then since $f(\lambda X) = \lambda^d f(X)$, if $f(X_0, \ldots, X_n) = 0$ then also $f(\lambda X_0, \ldots, \lambda X_n) = 0$, so that the condition $f(P) = 0$ is independent of the choice of representative.</p>
+
+<blockquote>
+设 $\mathbb{P}^n_k$ 是域 $k$ 上的 $n$ 维射影空间，以 $X_0, \ldots, X_n$ 为齐次坐标。那么 $f \in k[X_0, \ldots, X_n]$ <em>不是</em> $\mathbb{P}^n_k$ 上的函数：按定义，$\mathbb{P}^n_k = k^{n+1} \setminus \{0\} / {\sim}$，其中等价关系为 $(X_0, \ldots, X_n) \sim (\lambda X_0, \ldots, \lambda X_n)$（$\lambda \in k \setminus \{0\}$）；$f$ 只是 $k^{n+1}$ 上的函数。不过，对于 $P \in \mathbb{P}^n$，条件 $f(P) = 0$ 在 $f$ 齐次时是良定义的：设 $P = (X_0 : \cdots : X_n)$，则 $(X_0, \ldots, X_n)$ 是 $P$ 的等价类在 $k^{n+1} \setminus \{0\}$ 中的一个代表元。由于 $f(\lambda X) = \lambda^d f(X)$，若 $f(X_0, \ldots, X_n) = 0$，则 $f(\lambda X_0, \ldots, \lambda X_n) = 0$，所以条件 $f(P) = 0$ 与代表元的选取无关。
+</blockquote>
+
+<p>With this in mind, define as before correspondences</p>
+$$\big\{\text{homog. ideals } J \subset k[X_0, \ldots, X_n]\big\} \xleftrightarrow{V\text{-}I} \big\{\text{subsets } X \subset \mathbb{P}^n_k\big\}$$
+<p>by</p>
+$$V(J) = \big\{P \in \mathbb{P}^n_k \;\big|\; f(P) = 0 \;\; \forall \text{ homogeneous } f \in J\big\}$$
+<p>and</p>
+$$I(X) = \big\{f \in k[X_0, \ldots, X_n] \;\big|\; f(P) = 0 \text{ for all } P \in X\big\}.$$
+
+<blockquote>
+有了这些准备，我们像之前一样定义对应
+$$\big\{\text{齐次理想 } J \subset k[X_0, \ldots, X_n]\big\} \xleftrightarrow{V\text{-}I} \big\{\text{子集 } X \subset \mathbb{P}^n_k\big\}$$
+其中
+$$V(J) = \big\{P \in \mathbb{P}^n_k \;\big|\; f(P) = 0, \;\; \forall \text{ 齐次 } f \in J\big\}$$
+以及
+$$I(X) = \big\{f \in k[X_0, \ldots, X_n] \;\big|\; f(P) = 0, \;\; \forall\, P \in X\big\}.$$
+</blockquote>
+
+<p>As an exercise, check that you understand why $I(X)$ is a homogeneous ideal.</p>
+
+<blockquote>
+作为练习，请验证你理解了为什么 $I(X)$ 是齐次理想。
+</blockquote>
+
+<p>The correspondences $V$ and $I$ satisfy the same formal properties as the affine $V$ and $I$ correspondences introduced in &sect;3 (for example $V(J_1 + J_2) = V(J_1) \cap V(J_2)$). A subset of the form $V(I)$ is an <em>algebraic subset</em> of $\mathbb{P}^n_k$, and as in the affine case, $\mathbb{P}^n_k$ has a <span class="vocab">Zariski<span class="tooltip">/zəˈrɪs.ki/ 扎里斯基</span></span> <em>topology</em> in which the closed sets are the algebraic subsets.</p>
+
+<blockquote>
+对应 $V$ 和 $I$ 满足与第3章引入的仿射 $V$-$I$ 对应相同的形式性质（例如 $V(J_1 + J_2) = V(J_1) \cap V(J_2)$）。形如 $V(I)$ 的子集是 $\mathbb{P}^n_k$ 的<em>代数子集</em>，和仿射情形一样，$\mathbb{P}^n_k$ 具有以代数子集为闭集的 <em>Zariski 拓扑</em>。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

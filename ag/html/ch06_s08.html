@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.8 Intrinsic nature of T_P V — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s09.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.8 Intrinsic nature of $T_P V$</h1>
+<h2>6.8 $T_P V$ 的内蕴性质</h2>
+
+<p>From now on, given $P = (a_1, \ldots, a_n) \in V \subset \mathbb{A}^n$, I take new coordinates $X_i' = X_i - a_i$ to bring $P$ to the origin, and thus assume that $P = (0, \ldots, 0)$. Then $T_P V \subset \mathbb{A}^n$ is a vector subspace of $k^n$.</p>
+
+<blockquote>
+从现在起，给定 $P = (a_1, \ldots, a_n) \in V \subset \mathbb{A}^n$，取新坐标 $X_i' = X_i - a_i$ 将 $P$ 平移到原点，从而假设 $P = (0, \ldots, 0)$。则 $T_P V \subset \mathbb{A}^n$ 是 $k^n$ 的一个向量子空间。
+</blockquote>
+
+<p><strong>Notation</strong> &nbsp; Write $\mathfrak{m}_P = $ ideal of $P$ in $k[V]$, and</p>
+
+$$M_P = \text{the ideal } (X_1, \ldots, X_n) \subset k[X_1, \ldots, X_n].$$
+
+<p>Then of course $\mathfrak{m}_P = M_P / I(V) \subset k[V]$.</p>
+
+<blockquote>
+<strong>记号</strong>：记 $\mathfrak{m}_P$ 为 $P$ 在 $k[V]$ 中的理想，以及
+$$M_P = \text{理想 } (X_1, \ldots, X_n) \subset k[X_1, \ldots, X_n].$$
+当然 $\mathfrak{m}_P = M_P / I(V) \subset k[V]$。
+</blockquote>
+
+<p><strong>Theorem</strong> &nbsp; <em>In the above notation,</em></p>
+
+<p><em>(a) there is a natural <span class="vocab">isomorphism<span class="tooltip">/ˌaɪ.səˈmɔː.fɪ.zəm/ 同构</span></span> of vector spaces</em></p>
+
+$$(T_P V)^* = \mathfrak{m}_P / \mathfrak{m}_P^2,$$
+
+<p><em>where $( )^*$ denotes the <span class="vocab">dual<span class="tooltip">/ˈdjuː.əl/ 对偶的</span></span> of a vector space.</em></p>
+
+<p><em>(b) If $f \in k[V]$ is such that $f(P) \neq 0$, and $V_f \subset V$ is the standard affine open as in (4.13), then the natural map</em></p>
+
+$$T_P(V_f) \to T_P V$$
+
+<p><em>is an isomorphism.</em></p>
+
+<blockquote>
+<strong>定理</strong>：在上述记号下，<br>
+(a) 存在向量空间的自然同构
+$$(T_P V)^* = \mathfrak{m}_P / \mathfrak{m}_P^2,$$
+其中 $( )^*$ 表示向量空间的对偶。<br><br>
+(b) 如果 $f \in k[V]$ 满足 $f(P) \neq 0$，且 $V_f \subset V$ 是如(4.13)中的标准仿射开集，则自然映射
+$$T_P(V_f) \to T_P V$$
+是同构。
+</blockquote>
+
+<p><strong>Proof of (a)</strong> &nbsp; Write $(k^n)^*$ for the vector space of linear forms on $k^n$; this is the vector space with basis $X_1, \ldots, X_n$. Since $P = (0, \ldots, 0)$, for any $f \in k[X_1, \ldots, X_n]$, the linear part $f_P^{(1)}$ is naturally an element of $(k^n)^*$; define a map $d\colon M_P \to (k^n)^*$ by taking $f \in M_P$ into $df = f_P^{(1)}$.</p>
+
+<p>Now $d$ is <span class="vocab">surjective<span class="tooltip">/sərˈdʒek.tɪv/ 满射的</span></span>, since the $X_i \in M_P$ go into the natural basis of $(k^n)^*$; also $\ker d = M_P^2$, since</p>
+
+$$f_P^{(1)} = 0 \iff f \text{ starts with quadratic terms in } X_1, \ldots, X_n \iff f \in M_P^2.$$
+
+<p>Hence $M_P / M_P^2 \cong (k^n)^*$. This is statement (a) for the special case $V = \mathbb{A}^n$. In the general case, dual to the inclusion $T_P V \subset k^n$, there is a restriction map $(k^n)^* \to (T_P V)^*$, taking a linear form $\lambda$ on $k^n$ into its restriction to $T_P V$; composing then defines a map</p>
+
+$$D\colon M_P \to (k^n)^* \to (T_P V)^*.$$
+
+<p>The composite $D$ is surjective since each factor is. I claim that the kernel of $D$ is just $M_P^2 + I(V)$, so that</p>
+
+$$\mathfrak{m}_P / \mathfrak{m}_P^2 = M_P / (M_P^2 + I(V)) \cong (T_P V)^*,$$
+
+<p>as required. To prove the claim,</p>
+
+$$f \in \ker D \iff f_P^{(1)}|_{T_P V} = 0$$
+$$\iff f_P^{(1)} = \sum_i a_i g_{i,P}^{(1)} \text{ for some } g_i \in I(V)$$
+
+<p>(since $T_P V \subset k^n$ is the vector subspace defined by $(g_P^{(1)} = 0)$ for $g \in I(V)$)</p>
+
+$$\iff f - \sum_i a_i g_i \in M_P^2 \text{ for some } g_i \in I(V) \iff f \in M_P^2 + I(V).$$
+
+<p>The proof of (b) of Theorem 6.8 is left to the reader (see Ex. 6.2). &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>(a)的证明</strong>：记 $(k^n)^*$ 为 $k^n$ 上线性形式的向量空间，以 $X_1, \ldots, X_n$ 为基。因为 $P = (0, \ldots, 0)$，对任意 $f \in k[X_1, \ldots, X_n]$，线性部分 $f_P^{(1)}$ 自然是 $(k^n)^*$ 的元素；定义映射 $d\colon M_P \to (k^n)^*$，将 $f \in M_P$ 映为 $df = f_P^{(1)}$。<br><br>
+$d$ 是满射的，因为 $X_i \in M_P$ 映到 $(k^n)^*$ 的自然基；并且 $\ker d = M_P^2$，因为
+$$f_P^{(1)} = 0 \iff f \text{ 以 } X_1, \ldots, X_n \text{ 的二次项开始} \iff f \in M_P^2.$$
+因此 $M_P / M_P^2 \cong (k^n)^*$。这就是 $V = \mathbb{A}^n$ 特殊情形下的(a)。在一般情形下，对偶于包含 $T_P V \subset k^n$，有限制映射 $(k^n)^* \to (T_P V)^*$，将 $k^n$ 上的线性形式 $\lambda$ 限制到 $T_P V$ 上；复合得到映射
+$$D\colon M_P \to (k^n)^* \to (T_P V)^*.$$
+复合映射 $D$ 是满射的，因为每个因子都是。我断言 $D$ 的核恰好是 $M_P^2 + I(V)$，因此
+$$\mathfrak{m}_P / \mathfrak{m}_P^2 = M_P / (M_P^2 + I(V)) \cong (T_P V)^*,$$
+这正是所需。为证明此断言，
+$$f \in \ker D \iff f_P^{(1)}|_{T_P V} = 0$$
+$$\iff f_P^{(1)} = \sum_i a_i g_{i,P}^{(1)} \text{ 对某些 } g_i \in I(V)$$
+（因为 $T_P V \subset k^n$ 是由 $(g_P^{(1)} = 0)$（$g \in I(V)$）定义的向量子空间）
+$$\iff f - \sum_i a_i g_i \in M_P^2 \text{ 对某些 } g_i \in I(V) \iff f \in M_P^2 + I(V).$$
+定理6.8的(b)的证明留给读者（见习题6.2）。Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s09.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

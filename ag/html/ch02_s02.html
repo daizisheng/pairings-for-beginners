@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.2 The curve has no rational parametrisation — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.2 The curve $(y^2 = x(x-1)(x-\lambda))$ has no rational parametrisation</h1>
+<h2>2.2 曲线 $(y^2 = x(x-1)(x-\lambda))$ 没有有理参数化</h2>
+
+<p>Parametrised curves are nice; for example, if you're interested in <span class="vocab">Diophantine<span class="tooltip">/ˌdaɪ.əˈfæn.tiːn/ 丢番图的</span></span> problems, you could hope for a rule giving all $\mathbb{Q}$-valued points, as in (1.1). The parametrisation of (1.1) was of the form $x = f(t)$, $y = g(t)$, where $f$ and $g$ were <span class="vocab">rational functions<span class="tooltip">/ˈræʃ.ən.əl ˈfʌŋk.ʃənz/ 有理函数</span></span>, that is, quotients of two polynomials.</p>
+
+<blockquote>
+参数化的曲线很好用；比如，如果你对丢番图问题感兴趣，你可能希望有一个规则把所有 $\mathbb{Q}$-值点都给出来，就像 (1.1) 那样。(1.1) 的参数化形如 $x = f(t)$，$y = g(t)$，其中 $f$ 和 $g$ 是有理函数，也就是两个多项式的商。
+</blockquote>
+
+<p><strong>Theorem</strong> &nbsp; Let $k$ be a field of characteristic $\neq 2$, and let $\lambda \in k$ with $\lambda \neq 0, 1$; let $f, g \in k(t)$ be rational functions such that</p>
+
+$$f^2 = g(g - 1)(g - \lambda). \qquad (*)$$
+
+<p>Then $f, g \in k$.</p>
+
+<blockquote>
+<strong>定理</strong> &nbsp; 设 $k$ 是特征 $\neq 2$ 的域，$\lambda \in k$ 且 $\lambda \neq 0, 1$；设 $f, g \in k(t)$ 是有理函数，满足
+$$f^2 = g(g-1)(g-\lambda). \qquad (*)$$
+则 $f, g \in k$。
+</blockquote>
+
+<p>This is <span class="vocab">equivalent<span class="tooltip">/ɪˈkwɪv.əl.ənt/ 等价的</span></span> to saying that there does not exist any nonconstant map $\mathbb{R}^1 \dashrightarrow C : (y^2 = x(x-1)(x-\lambda))$ given by rational functions. This reflects a very strong '<span class="vocab">rigidity<span class="tooltip">/rɪˈdʒɪd.ɪ.ti/ 刚性</span></span>' property of varieties.</p>
+
+<blockquote>
+这等价于说不存在由有理函数给出的非常值映射 $\mathbb{R}^1 \dashrightarrow C : (y^2 = x(x-1)(x-\lambda))$。这反映了簇的一种非常强的"刚性"性质。
+</blockquote>
+
+<p>The proof of the theorem is <span class="vocab">arithmetic<span class="tooltip">/əˈrɪθ.mə.tɪk/ 算术的</span></span> in the field $k(t)$ using the fact that $k(t)$ is the field of fractions of the UFD $k[t]$. It's quite a long proof, so either be prepared to study it in detail, or skip it for now (GOTO 2.4). In Ex. 2.12, there is a very similar example of a nonexistence proof by arithmetic in $\mathbb{Q}$.</p>
+
+<blockquote>
+定理的证明是在域 $k(t)$ 中做算术运算，用到 $k(t)$ 是唯一分解整环 $k[t]$ 的分式域这一事实。这个证明相当长，所以你要么准备好仔细研读，要么先跳过（直接去看 2.4）。在习题 2.12 中有一个非常类似的在 $\mathbb{Q}$ 中用算术方法证明不存在性的例子。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Using the fact that $k[t]$ is a UFD, I write</p>
+
+$$f = r/s \quad \text{with } r, s \in k[t] \text{ and coprime},$$
+$$g = p/q \quad \text{with } p, q \in k[t] \text{ and coprime}.$$
+
+<p>Clearing <span class="vocab">denominators<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.tərz/ 分母</span></span>, $(*)$ becomes</p>
+
+$$r^2 q^3 = s^2 p(p - q)(p - \lambda q).$$
+
+<p>Then since $r$ and $s$ are coprime, the factor $s^2$ on the right-hand side must divide $q^3$, and in the same way, since $p$ and $q$ are coprime, the left-hand factor $q^3$ must divide $s^2$. Therefore,</p>
+
+$$s^2 \mid q^3 \quad \text{and} \quad q^3 \mid s^2, \quad \text{so that } s^2 = a q^3 \quad \text{with } a \in k$$
+
+<p>($a$ is a unit of $k[t]$, therefore in $k$).</p>
+
+<p>Then</p>
+
+$$aq = (s/q)^2 \quad \text{is a square in } k[t].$$
+
+<p>Also,</p>
+
+$$r^2 = a p(p - q)(p - \lambda q),$$
+
+<p>so that by considering <span class="vocab">factorisation<span class="tooltip">/ˌfæk.tər.aɪˈzeɪ.ʃən/ 因式分解</span></span> into primes, there exist nonzero constants $b, c, d \in k$ such that</p>
+
+$$bp, \quad c(p - q), \quad d(p - \lambda q)$$
+
+<p>are all squares in $k[t]$. If I can prove that $p, q$ are constants, then it follows from what's already been said that $r, s$ are also, proving the theorem. To prove that $p, q$ are constants, set $K$ for the <span class="vocab">algebraic closure<span class="tooltip">/ˌæl.dʒɪˌbreɪ.ɪk ˈkloʊ.ʒər/ 代数闭包</span></span> of $k$; then $p, q \in K[t]$ satisfy the conditions of the next lemma.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 利用 $k[t]$ 是唯一分解整环，我写
+$$f = r/s，\quad r, s \in k[t] \text{ 且互素}，$$
+$$g = p/q，\quad p, q \in k[t] \text{ 且互素}。$$
+通分后，$(*)$ 变成
+$$r^2 q^3 = s^2 p(p-q)(p-\lambda q).$$
+因为 $r$ 和 $s$ 互素，右边的因子 $s^2$ 必须整除 $q^3$；同理，因为 $p$ 和 $q$ 互素，左边的因子 $q^3$ 必须整除 $s^2$。所以
+$$s^2 \mid q^3 \quad \text{且} \quad q^3 \mid s^2, \quad \text{从而 } s^2 = aq^3，\quad a \in k$$
+（$a$ 是 $k[t]$ 的单位，因此属于 $k$）。于是
+$$aq = (s/q)^2 \quad \text{是 } k[t] \text{ 中的平方}。$$
+另外，
+$$r^2 = ap(p-q)(p-\lambda q),$$
+考虑素元分解，存在非零常数 $b, c, d \in k$ 使得 $bp$，$c(p-q)$，$d(p-\lambda q)$ 都是 $k[t]$ 中的平方。如果我能证明 $p, q$ 是常数，那么由前面已经说过的，$r, s$ 也是常数，定理就证完了。为了证明 $p, q$ 是常数，设 $K$ 是 $k$ 的代数闭包；则 $p, q \in K[t]$ 满足下一个引理的条件。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

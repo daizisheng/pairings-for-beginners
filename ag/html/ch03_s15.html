@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.15 Proof of 3.8 — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s16.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.15 Proof of (3.8)</h1>
+<h2>3.15 (3.8)的证明</h2>
+
+<p>Let $A = k[a_1, \dots, a_n]$ be a finitely generated $k$-algebra and suppose that $y_1, \dots, y_m \in A$ are as in (3.13). Write $B = k[y_1, \dots, y_m]$. Then $A$ is a finite $B$-algebra, and it is given that $A$ is a field. If I knew that $B$ is a field, it would follow at once that $m = 0$, so that $A$ is a finite $k$-algebra, that is, a finite field extension of $k$, and (3.8) would be proved. Therefore it remains only to prove the following statement:</p>
+
+<blockquote>
+设 $A = k[a_1, \dots, a_n]$ 是有限生成的 $k$-代数，并假设 $y_1, \dots, y_m \in A$ 如 (3.13) 所述。记 $B = k[y_1, \dots, y_m]$。则 $A$ 是有限 $B$-代数，而已知 $A$ 是域。如果我知道 $B$ 是域，那么立刻得出 $m = 0$，从而 $A$ 是有限 $k$-代数，即 $k$ 的有限域扩张，(3.8) 就证完了。因此只需证明以下命题：
+</blockquote>
+
+<p><strong>Lemma</strong> &nbsp; <em>If $A$ is a field, and $B \subset A$ a <span class="vocab">subring<span class="tooltip">/ˈsʌb.rɪŋ/ 子环</span></span> such that $A$ is a finite $B$-algebra, then $B$ is a field.</em></p>
+
+<blockquote>
+<strong>引理</strong> &nbsp; 如果 $A$ 是域，$B \subset A$ 是子环且 $A$ 是有限 $B$-代数，则 $B$ 是域。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; For any $0 \neq b \in B$, the <span class="vocab">inverse<span class="tooltip">/ˈɪn.vɜːs/ 逆元</span></span> $b^{-1} \in A$ exists in $A$. Now by (3.12, ii), the finiteness implies that $b^{-1}$ satisfies a monic equation over $B$, that is, there exists a relation</p>
+
+$$b^{-n} + a_{n-1}b^{-(n-1)} + \cdots + a_1 b^{-1} + a_0 = 0, \quad \text{with } a_i \in B;$$
+
+<p>then multiplying through by $b^{n-1}$,</p>
+
+$$b^{-1} = -(a_{n-1} + a_{n-2}b + \cdots + a_0 b^{n-1}) \in B.$$
+
+<p>Therefore $B$ is a field. This proves (3.8) and completes the proof of NSS.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 对任意 $0 \neq b \in B$，逆元 $b^{-1} \in A$ 存在。由 (3.12, ii)，有限性意味着 $b^{-1}$ 满足 $B$ 上的首一方程，即存在关系式
+$$b^{-n} + a_{n-1}b^{-(n-1)} + \cdots + a_1 b^{-1} + a_0 = 0, \quad a_i \in B;$$
+两边乘以 $b^{n-1}$，得
+$$b^{-1} = -(a_{n-1} + a_{n-2}b + \cdots + a_0 b^{n-1}) \in B.$$
+因此 $B$ 是域。这就证明了 (3.8)，从而完成了零点定理 (NSS) 的证明。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s16.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

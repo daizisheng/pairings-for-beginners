@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.12 Worked example: blowup — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s11.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_exercises.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.12 Worked example: blowup</h1>
+<h2>6.12 详解例题：爆破</h2>
+
+<p>Let $B = \mathbb{A}^2$ with coordinates $(u, v)$, and $\sigma\colon B \to \mathbb{A}^2$ the map $(u, v) \mapsto (x = u,\; y = uv)$; clearly, $\sigma$ is a birational <span class="vocab">morphism<span class="tooltip">/ˈmɔː.fɪ.zəm/ 态射</span></span>: it <span class="vocab">contracts<span class="tooltip">/kənˈtrækts/ 收缩</span></span> the $v$-axis $\ell : (u = 0)$ to the origin $0$ and is an isomorphism outside this <span class="vocab">exceptional<span class="tooltip">/ɪkˈsep.ʃən.əl/ 例外的</span></span> set. Let's find out what happens under $\sigma$ to a curve $C : (f = 0) \subset \mathbb{A}^2$; the question will only be of interest if $C$ passes through $0$.</p>
+
+<blockquote>
+设 $B = \mathbb{A}^2$，坐标为 $(u,v)$，$\sigma\colon B \to \mathbb{A}^2$ 是映射 $(u,v) \mapsto (x = u,\; y = uv)$；显然 $\sigma$ 是一个双有理态射：它将 $v$ 轴 $\ell : (u = 0)$ 收缩到原点 $0$，在这个例外集之外是同构。我们来看曲线 $C : (f = 0) \subset \mathbb{A}^2$ 在 $\sigma$ 下发生了什么；只有当 $C$ 过原点 $0$ 时这个问题才有意义。
+</blockquote>
+
+<p>Clearly $\sigma^{-1}(C) \subset B$ is the algebraic subset defined by $(f \circ \sigma)(u, v) = f(u, uv) = 0$; since $0 \in C$ by assumption, it follows that $\ell : (u = 0)$ is contained in $\sigma^{-1}(C)$, or equivalently, that $u \mid f(u, uv)$. It's easy to see that the highest power $u^m$ of $u$ dividing $f(u, uv)$ is equal to the smallest degree $m = a + b$ of the <span class="vocab">monomials<span class="tooltip">/ˈmɒn.əʊ.mi.əlz/ 单项式</span></span> $x^a y^b$ occurring in $f$, that is, the <em><span class="vocab">multiplicity<span class="tooltip">/ˌmʌl.tɪˈplɪs.ɪ.ti/ 重数</span></span></em> of $f$ at $0$; so $\sigma^{-1}(C)$ decomposes as the union of the exceptional curve $\sigma^{-1}(0) = \ell$ (with multiplicity $m$), together with a new curve $C_1$ defined by $f_1(u, v) = f(u, uv)/u^m$.</p>
+
+<blockquote>
+显然 $\sigma^{-1}(C) \subset B$ 是由 $(f \circ \sigma)(u, v) = f(u, uv) = 0$ 定义的代数子集；因为假设 $0 \in C$，所以 $\ell : (u = 0)$ 包含在 $\sigma^{-1}(C)$ 中，等价地说 $u \mid f(u, uv)$。容易看出 $f(u, uv)$ 能被 $u$ 整除的最高幂次 $u^m$ 等于 $f$ 中出现的单项式 $x^a y^b$ 的最小次数 $m = a + b$，即 $f$ 在 $0$ 处的<strong>重数</strong>；因此 $\sigma^{-1}(C)$ 分解为例外曲线 $\sigma^{-1}(0) = \ell$（重数为 $m$）与新曲线 $C_1$（由 $f_1(u,v) = f(u,uv)/u^m$ 定义）的并。
+</blockquote>
+
+<p>Consider the examples</p>
+
+<p>(a) $f = \alpha x - y + \cdots$;</p>
+<p>(b) $f = y^2 - x^2 + \cdots$;</p>
+<p>(c) $f = y^2 - x^3$,</p>
+
+<p>where $\cdots$ denotes terms of higher degree.</p>
+
+<blockquote>
+考虑以下例子：<br>
+(a) $f = \alpha x - y + \cdots$；<br>
+(b) $f = y^2 - x^2 + \cdots$；<br>
+(c) $f = y^2 - x^3$，<br>
+其中 $\cdots$ 表示更高次的项。
+</blockquote>
+
+<p>Clearly in (a) $f$ has multiplicity 1, and $f_1 = \alpha - v + \cdots$ (where $\cdots$ consists of terms divisible by $u$), so $C_1$ is again nonsingular, and meets $\ell$ <span class="vocab">transversally<span class="tooltip">/trænzˈvɜː.səl.i/ 横截地</span></span> at $(0, \alpha)$; thus $\sigma$ replaces $0 \in \mathbb{A}^2$ with the line $\ell$ whose points correspond to tangent directions at $0$ (excluding $(x = 0)$).</p>
+
+<blockquote>
+在(a)中，$f$ 的重数为1，$f_1 = \alpha - v + \cdots$（其中 $\cdots$ 由 $u$ 的倍数组成），所以 $C_1$ 仍然非奇异，并在 $(0, \alpha)$ 处与 $\ell$ 横截相交；因此 $\sigma$ 将 $0 \in \mathbb{A}^2$ 替换为直线 $\ell$，其上的点对应于 $0$ 处的切方向（不含 $(x=0)$）。
+</blockquote>
+
+<p>In (b) $f_1 = v^2 - 1 + \cdots$, so $C_1$ has two nonsingular points $(0, \pm 1)$ above $0 \in C$; thus the blowup $\sigma$ 'separates the two branches' of the singular curve $C$.</p>
+
+<blockquote>
+在(b)中，$f_1 = v^2 - 1 + \cdots$，所以 $C_1$ 在 $0 \in C$ 上方有两个非奇异点 $(0, \pm 1)$；因此爆破 $\sigma$ "分离了"奇异曲线 $C$ 的两个分支。
+</blockquote>
+
+<p>In (c) $f_1 = v^2 - u$, so that $C_1$ is nonsingular, but above $0$ it is tangent to the contracted curve $\ell$.</p>
+
+<blockquote>
+在(c)中，$f_1 = v^2 - u$，所以 $C_1$ 是非奇异的，但在 $0$ 上方它与被收缩的曲线 $\ell$ 相切。
+</blockquote>
+
+<p>In either case (b) or (c), $\sigma$ replaces a singular curve $C$ by a nonsingular one $C_1$ birational to $C$ (by introducing 'new coordinates' $u = x$, $v = y/x$). This is what is meant by a <em><span class="vocab">resolution<span class="tooltip">/ˌrez.əˈluː.ʃən/ 消解</span></span> of singularities</em>. In the case of plane curves, a resolution can always be obtained by a chain of blowups (see Ex. 6.6 for examples, and [Fulton, pp. 162&ndash;171] for more details), and the process of resolution gives detailed information about the singularities.</p>
+
+<blockquote>
+在(b)和(c)两种情形下，$\sigma$ 都将奇异曲线 $C$ 替换为与 $C$ 双有理的非奇异曲线 $C_1$（通过引入"新坐标" $u = x$，$v = y/x$）。这就是所谓的<strong>奇点消解</strong>。对于平面曲线，总可以通过一连串爆破来获得消解（例子见习题6.6，更多细节见 [Fulton, pp. 162--171]），消解过程给出了关于奇点的详细信息。
+</blockquote>
+
+<p>A famous theorem of H. Hironaka guarantees the possibility of resolving singularities by blowups (in any dimension, over a field of characteristic zero). This is a crucial <span class="vocab">theoretical<span class="tooltip">/ˌθɪə.ˈret.ɪ.kəl/ 理论的</span></span> result that reduces the birational study of varieties to nonsingular ones; however, the actual process of resolution by blowups is in general extremely complicated, and does not necessarily contribute very much to the understanding of the singularities or varieties concerned.</p>
+
+<blockquote>
+广中平祐（H. Hironaka）的一个著名定理保证了通过爆破消解奇点的可能性（在任意维数、特征零的域上）。这是一个至关重要的理论结果，它将簇的双有理研究归结为非奇异簇的研究；然而，通过爆破实际进行消解的过程一般来说极其复杂，而且未必对理解相关的奇点或簇有很大帮助。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s11.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_exercises.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

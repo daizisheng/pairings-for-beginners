@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.0 Why projective varieties? — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_projective.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s01.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.0 Why projective varieties?</h1>
+<h2>5.0 为什么要射影簇？</h2>
+
+<p>The cubic curve</p>
+$$C : (Y^2 Z = X^3 + aXZ^2 + bZ^3) \subset \mathbb{P}^2$$
+<p>is the union of two <span class="vocab">affine<span class="tooltip">/əˈfaɪn/ 仿射的</span></span> curves</p>
+$$C_0 : (y^2 = x^3 + ax + b) \subset \mathbb{A}^2 \quad \text{(the piece } (Z=1) \text{ of } C\text{)}$$
+<p>and</p>
+$$C_1 : (z_1 = x_1^3 + ax_1 z_1^2 + bz_1^3) \subset \mathbb{A}^2 \quad \text{(the piece } (Y=1) \text{)},$$
+<p>glued together by the <span class="vocab">isomorphism<span class="tooltip">/ˌaɪ.səˈmɔː.fɪ.zəm/ 同构</span></span></p>
+$$C_0 \setminus (y=0) \longrightarrow C_1 \setminus (z_1 = 0)$$
+<p>by</p>
+$$(x,y) \longmapsto (x/y, \; 1/y).$$
+
+<blockquote>
+三次曲线
+$$C : (Y^2 Z = X^3 + aXZ^2 + bZ^3) \subset \mathbb{P}^2$$
+是两条仿射曲线的并集：
+$$C_0 : (y^2 = x^3 + ax + b) \subset \mathbb{A}^2 \quad \text{（}C \text{ 的 }(Z=1)\text{ 片）}$$
+和
+$$C_1 : (z_1 = x_1^3 + ax_1 z_1^2 + bz_1^3) \subset \mathbb{A}^2 \quad \text{（}(Y=1)\text{ 片）},$$
+通过同构
+$$C_0 \setminus (y=0) \longrightarrow C_1 \setminus (z_1 = 0), \quad (x,y) \longmapsto (x/y, \; 1/y)$$
+粘合在一起。
+</blockquote>
+
+<p>As a much simpler example, $\mathbb{P}^1$ with <span class="vocab">homogeneous<span class="tooltip">/ˌhɒm.əˈdʒiː.ni.əs/ 齐次的</span></span> coordinates $(X,Y)$ is the union of 2 copies of $\mathbb{A}^1$ with coordinates $x_0, y_1$ respectively, glued together by the isomorphism</p>
+$$\mathbb{A}^1 \setminus (x_0 = 0) \longrightarrow \mathbb{A}^1 \setminus (y_1 = 0)$$
+<p>by</p>
+$$x_0 \longmapsto 1/x_0.$$
+
+<blockquote>
+一个更简单的例子：$\mathbb{P}^1$（齐次坐标 $(X,Y)$）是两个 $\mathbb{A}^1$ 的并集，分别用坐标 $x_0$ 和 $y_1$，通过同构
+$$\mathbb{A}^1 \setminus (x_0 = 0) \longrightarrow \mathbb{A}^1 \setminus (y_1 = 0), \quad x_0 \longmapsto 1/x_0$$
+粘合在一起。
+</blockquote>
+
+<p>The usual picture is</p>
+<figure>
+    <img src="images/fig_page86_img1.png" alt="P^1 glued from two A^1s">
+    <figcaption>Figure 5.1: $\mathbb{P}^1$ glued from two $\mathbb{A}^1$s (the arrows $\leftrightarrow$ denote glueing).</figcaption>
+</figure>
+
+<p>It's important to understand that <em>these varieties are strictly bigger than any affine variety</em>. In fact, with the natural notion of <span class="vocab">morphism<span class="tooltip">/ˈmɔː.fɪ.zəm/ 态射</span></span> (to be introduced shortly), it can be seen that there are no nonconstant morphisms $\mathbb{P}^1 \to \mathbb{A}^n$ or $C \to \mathbb{A}^n$ for any $n$ (see Ex.&nbsp;5.1 and Ex.&nbsp;5.12, and the discussion in (8.10)).</p>
+
+<blockquote>
+重要的一点是，<em>这些簇严格地比任何仿射簇都大</em>。事实上，在自然的态射概念（马上就会引入）下，可以证明不存在非常值的态射 $\mathbb{P}^1 \to \mathbb{A}^n$ 或 $C \to \mathbb{A}^n$（对任意 $n$），参见习题 5.1 和 5.12，以及 (8.10) 的讨论。
+</blockquote>
+
+<p>One solution to this problem is to define the notion of 'abstract variety' $V$ as a union $V = \bigcup V_i$ of affine varieties, modulo suitable glueing. By <span class="vocab">analogy<span class="tooltip">/əˈnæl.ə.dʒi/ 类比</span></span> with the definition of manifolds in topology, this is an attractive idea, but it leads to many more technical difficulties. Using projective varieties <span class="vocab">sidesteps<span class="tooltip">/ˈsaɪd.steps/ 回避</span></span> these problems by working in the ready-made <span class="vocab">ambient<span class="tooltip">/ˈæm.bi.ənt/ 周围的，环境的</span></span> space $\mathbb{P}^n$, so that (apart from a little messing about with homogeneous polynomials) they are not much harder to study than affine varieties. In fact, although this may not be clear at an elementary level, projective varieties to a quite remarkable extent provide a natural framework for studying varieties (this is briefly discussed from a more advanced point of view in (8.11)).</p>
+
+<blockquote>
+解决这个问题的一种方案是定义"抽象簇" $V$，将它作为仿射簇 $V = \bigcup V_i$ 经过适当粘合得到。类比拓扑学中流形的定义，这是个很有吸引力的想法，但它会引出更多的技术困难。使用射影簇则回避了这些麻烦——我们直接在现成的环境空间 $\mathbb{P}^n$ 中工作，这样（除了处理齐次多项式时有一点额外操作）研究起来并不比仿射簇困难多少。事实上，尽管在入门阶段可能还看不出来，射影簇在很大程度上为研究簇提供了一个自然的框架（这一点在 (8.11) 中从更高的观点有简要讨论）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_projective.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s01.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

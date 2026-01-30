@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.14 Remarks — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s15.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.14 Remarks</h1>
+<h2>3.14 注记</h2>
+
+<p><strong>(I)</strong> In fact, the proof of (3.13) shows that $y_1, \dots, y_m$ can be chosen to be $m$ general linear forms in $a_1, \dots, a_n$. To understand the significance of (3.13), write $I = \ker\{k[X_1, \dots, X_n] \to k[a_1, \dots, a_n] = A\}$, and assume for simplicity that $I$ is prime. Consider $V = V(I) \subset \mathbb{A}^n_k$; let $\pi\colon \mathbb{A}^n_k \to \mathbb{A}^m_k$ be the linear <span class="vocab">projection<span class="tooltip">/prəˈdʒek.ʃən/ 投影</span></span> defined by $y_1, \dots, y_m$, and $p = \pi|_V\colon V \to \mathbb{A}^m_k$. It can be seen that the conclusions (i) and (ii) of (3.13) imply that above every $P \in \mathbb{A}^m_k$, $p^{-1}(P)$ is a finite nonempty set (see Ex. 3.16).</p>
+
+<blockquote>
+<strong>(I)</strong> 事实上，(3.13) 的证明表明 $y_1, \dots, y_m$ 可以取为 $a_1, \dots, a_n$ 的 $m$ 个一般线性形式。为理解 (3.13) 的意义，写 $I = \ker\{k[X_1, \dots, X_n] \to k[a_1, \dots, a_n] = A\}$，简单起见假设 $I$ 是素理想。考虑 $V = V(I) \subset \mathbb{A}^n_k$；设 $\pi\colon \mathbb{A}^n_k \to \mathbb{A}^m_k$ 是由 $y_1, \dots, y_m$ 定义的线性投影，$p = \pi|_V\colon V \to \mathbb{A}^m_k$。可以看出 (3.13) 的结论 (i) 和 (ii) 意味着在每个 $P \in \mathbb{A}^m_k$ 的上方，$p^{-1}(P)$ 是一个有限非空集合（见习题 3.16）。
+</blockquote>
+
+<p><strong>(II)</strong> The proof of (3.13) has also a simple geometric interpretation: choosing $n-1$ linear forms in the $n$ variables $X_1, \dots, X_n$ corresponds to making a linear projection $\pi\colon \mathbb{A}^n_k \to \mathbb{A}^{n-1}_k$; the <span class="vocab">fibres<span class="tooltip">/ˈfaɪ.bəz/ 纤维</span></span> of $\pi$ then form an $(n-1)$-dimensional family of parallel lines. Having chosen the polynomial $f \in I$, it is not hard to see that $f$ gives rise to a monic relation in the final $X_n$ if and only if none of the parallel lines are <span class="vocab">asymptotes<span class="tooltip">/ˈæs.ɪm.təʊts/ 渐近线</span></span> of the variety $(f = 0)$; in terms of projective geometry, this means that the point at infinity $(0, \alpha_1, \dots, \alpha_{n-1}, 1) \in \mathbb{P}^{n-1}_k$ specifying the parallel projection does not belong to the <span class="vocab">projective<span class="tooltip">/prəˈdʒek.tɪv/ 射影的</span></span> closure of $(f = 0)$.</p>
+
+<blockquote>
+<strong>(II)</strong> (3.13) 的证明也有一个简单的几何解释：在 $n$ 个变量 $X_1, \dots, X_n$ 中选 $n-1$ 个线性形式，对应于做一个线性投影 $\pi\colon \mathbb{A}^n_k \to \mathbb{A}^{n-1}_k$；$\pi$ 的纤维构成一族 $(n-1)$ 维的平行线。选定多项式 $f \in I$ 之后，不难看出 $f$ 给出关于 $X_n$ 的首一关系式当且仅当这些平行线中没有一条是簇 $(f = 0)$ 的渐近线；用射影几何的语言来说，就是指定平行投影的无穷远点 $(0, \alpha_1, \dots, \alpha_{n-1}, 1) \in \mathbb{P}^{n-1}_k$ 不属于 $(f = 0)$ 的射影闭包。
+</blockquote>
+
+<p><strong>(III)</strong> The above proof of (3.13) does not work for a finite field (see Ex. 3.14). However, the theorem itself is true without any condition on $k$ (see [Mumford, Introduction, p. 4] or [Atiyah and Macdonald, (7.9)]).</p>
+
+<blockquote>
+<strong>(III)</strong> 上面 (3.13) 的证明对有限域不适用（见习题 3.14）。但定理本身不需要对 $k$ 加任何条件就成立（见 [Mumford, Introduction, p. 4] 或 [Atiyah and Macdonald, (7.9)]）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s15.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.2 Remarks — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.2 Remarks</h1>
+<h2>6.2 注记</h2>
+
+<p>(a) The <span class="vocab">derivatives<span class="tooltip">/dɪˈrɪv.ə.tɪvz/ 导数</span></span> $\partial f / \partial X_i(P)$ appearing above are formal algebraic operations (that is, $\partial / \partial X_i$ takes $X_i^n$ into $nX_i^{n-1}$); no calculus is involved.</p>
+
+<blockquote>
+(a) 上面出现的导数 $\partial f / \partial X_i(P)$ 是形式的代数运算（即 $\partial / \partial X_i$ 把 $X_i^n$ 映为 $nX_i^{n-1}$）；这里不涉及任何微积分。
+</blockquote>
+
+<p>(b) Suppose $k = \mathbb{R}$ or $\mathbb{C}$, and that $\partial f / \partial X_i(P) \neq 0$; for clarity let me take $i = 1$. Then the map $p\colon \mathbb{A}^n \to \mathbb{A}^n$ defined by $(X_1, \ldots, X_n) \mapsto (f, X_2, \ldots, X_n)$ has <span class="vocab">nonvanishing<span class="tooltip">/nɒnˈvæn.ɪ.ʃɪŋ/ 不消失的</span></span> <span class="vocab">Jacobian<span class="tooltip">/dʒəˈkoʊ.bi.ən/ 雅可比（行列式）</span></span> determinant at $P$, so that by the inverse function theorem, there exists a neighbourhood $P \in U \subset \mathbb{A}^n$ such that $p|_U \colon U \to p(U) \subset \mathbb{A}^n$ is a <span class="vocab">diffeomorphism<span class="tooltip">/ˌdɪf.i.əˈmɔː.fɪ.zəm/ 微分同胚</span></span> of the neighbourhood $U$ with an open set $p(U)$ of $\mathbb{A}^n$ (in the usual topology of $\mathbb{R}^n$ or $\mathbb{C}^n$); that is, $p|_U$ is <span class="vocab">bijective<span class="tooltip">/baɪˈdʒek.tɪv/ 双射的</span></span>, and both $p$ and $p^{-1}$ are differentiable functions of real or complex variables. In other words, $(f, X_2, \ldots, X_n)$ form a new differentiable coordinate system on $\mathbb{A}^n$ near $P$; this implies that a neighbourhood of $P$ in $V : (f = 0)$ is diffeomorphic to an open set in $\mathbb{A}^{n-1}$ with coordinates $(X_2, \ldots, X_n)$. Thus near a nonsingular point $P$, $V$ is a <em><span class="vocab">manifold<span class="tooltip">/ˈmæn.ɪ.fəʊld/ 流形</span></span></em> with $(X_2, \ldots, X_n)$ as local parameters.</p>
+
+<blockquote>
+(b) 设 $k = \mathbb{R}$ 或 $\mathbb{C}$，且 $\partial f / \partial X_i(P) \neq 0$；为清楚起见取 $i=1$。则映射 $p\colon \mathbb{A}^n \to \mathbb{A}^n$，定义为 $(X_1, \ldots, X_n) \mapsto (f, X_2, \ldots, X_n)$，在 $P$ 处的雅可比行列式不为零。因此，由反函数定理，存在邻域 $P \in U \subset \mathbb{A}^n$ 使得 $p|_U \colon U \to p(U) \subset \mathbb{A}^n$ 是邻域 $U$ 与 $\mathbb{A}^n$ 的开集 $p(U)$ 之间的微分同胚（在 $\mathbb{R}^n$ 或 $\mathbb{C}^n$ 的通常拓扑下）；即 $p|_U$ 是双射，且 $p$ 和 $p^{-1}$ 都是实变量或复变量的可微函数。换言之，$(f, X_2, \ldots, X_n)$ 在 $P$ 附近构成 $\mathbb{A}^n$ 上的一个新的可微坐标系；这意味着 $P$ 在 $V : (f=0)$ 中的邻域微分同胚于以 $(X_2, \ldots, X_n)$ 为坐标的 $\mathbb{A}^{n-1}$ 的开集。因此在非奇异点 $P$ 附近，$V$ 是一个以 $(X_2, \ldots, X_n)$ 为局部参数的<strong>流形</strong>。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

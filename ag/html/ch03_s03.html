@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.3 Hilbert Basis Theorem — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s04.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.3 Hilbert Basis Theorem</h1>
+<h2>3.3 Hilbert基定理</h2>
+
+<p><strong>Theorem 3.3 (Hilbert Basis Theorem)</strong> &nbsp; <em>For a ring $A$,</em></p>
+
+$$A \text{ Noetherian} \implies A[X] \text{ Noetherian}.$$
+
+<blockquote>
+<strong>定理3.3（Hilbert基定理）</strong>：如果 $A$ 是Noether环，那么多项式环 $A[X]$ 也是Noether环。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Let $J \subset A[X]$ be any ideal; I prove that $J$ is finitely generated. Define the ideal of <span class="vocab">leading<span class="tooltip">/ˈliː.dɪŋ/ 首项的</span></span> terms of degree $n$ in $J$ to be</p>
+
+$$J_n = \left\{a \in A \;\middle|\; \exists\, f = aX^n + b_{n-1}X^{n-1} + \cdots + b_0 \in J\right\}.$$
+
+<p>Then $J_n$ is an ideal of $A$ and $J_n \subset J_{n+1}$ (please provide your own proofs). Hence, using the a.c.c., there exists $N$ such that</p>
+
+$$J_N = J_{N+1} = \cdots .$$
+
+<p>Now build a set of generators of $J$ as follows: for $i \leq N$, let $a_{i1}, \ldots, a_{im_i}$ be generators of $J_i$ and, as in the definition of $J_i$, for each of the $a_{ik}$, let $f_{ik} = a_{ik}X^i + \cdots \in J$ be an element of degree $i$ and leading term $a_{ik}$.</p>
+
+<p>I claim that the set</p>
+
+$$\{f_{ik} \mid i = 0, \ldots, N,\; k = 1, \ldots, m_i\}$$
+
+<p>just constructed generates $J$: for given $g \in J$, suppose $\deg g = m$. Then the leading term of $g$ is $bX^m$ with $b \in J_m$, so that by what I know about $J_m$, I can write $b = \sum c_{m'k}\, a_{m'k}$ (here $m' = m$ if $m \leq N$, otherwise $m' = N$). Then consider $g_1 = g - X^{m-m'} \cdot \sum c_{m'k}\, f_{m'k}$: by construction the term of degree $m$ is zero, so that $\deg g_1 \leq \deg g - 1$; by <span class="vocab">induction<span class="tooltip">/ɪnˈdʌk.ʃən/ 归纳法</span></span>, I can therefore write out $g$ as a combination of $f_{ik}$, so that these generate $J$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong>：设 $J \subset A[X]$ 是任意理想，我们要证 $J$ 是有限生成的。定义 $J$ 中 $n$ 次首项系数构成的集合：
+$$J_n = \{a \in A \mid \exists\, f = aX^n + b_{n-1}X^{n-1} + \cdots + b_0 \in J\}.$$
+$J_n$ 是 $A$ 的理想，且 $J_n \subset J_{n+1}$（请自行验证）。由升链条件知存在 $N$ 使得 $J_N = J_{N+1} = \cdots$。<br><br>
+接下来构造 $J$ 的生成元：对每个 $i \leq N$，设 $a_{i1},\ldots,a_{im_i}$ 是 $J_i$ 的生成元，对每个 $a_{ik}$ 选取 $f_{ik} = a_{ik}X^i + \cdots \in J$（$i$ 次多项式，首项系数为 $a_{ik}$）。<br><br>
+断言 $\{f_{ik}\}$ 生成 $J$：给定 $g \in J$，设 $\deg g = m$，首项为 $bX^m$，$b \in J_m$。可以将 $b$ 写成 $J_{m'}$ 的生成元的线性组合（$m' = \min(m,N)$）。然后 $g_1 = g - X^{m-m'}\sum c_{m'k}f_{m'k}$ 的次数严格小于 $m$，由归纳法知 $g$ 可以写成 $f_{ik}$ 的组合。Q.E.D.
+</blockquote>
+
+<p><strong>Corollary</strong> &nbsp; <em>For $k$ a field, a finitely generated $k$-algebra is Noetherian.</em></p>
+
+<p>A finitely generated $k$-algebra is a ring of the form $A = k[a_1, \ldots, a_n]$, so that $A$ is generated as a ring by $k$ and $a_1, \ldots, a_n$; clearly, every such ring is <span class="vocab">isomorphic<span class="tooltip">/ˌaɪ.səˈmɔːr.fɪk/ 同构的</span></span> to a quotient of the polynomial ring, $A \cong k[X_1, \ldots, X_n]/I$. A field is Noetherian, and by induction on (3.3), $k[X_1, \ldots, X_n]$ is Noetherian; finally, passing to the quotient is OK by Proposition 3.2, (i). &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>推论</strong>：设 $k$ 是一个域，则有限生成的 $k$-代数是Noether环。<br><br>
+有限生成 $k$-代数形如 $A=k[a_1,\ldots,a_n]$，它同构于多项式环的商：$A \cong k[X_1,\ldots,X_n]/I$。域显然是Noether的；由定理3.3反复应用归纳法知 $k[X_1,\ldots,X_n]$ 是Noether的；再由命题3.2(i)，其商环也是Noether的。Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s04.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

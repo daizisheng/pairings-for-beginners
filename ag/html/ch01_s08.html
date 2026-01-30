@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.8 Homogeneous Form in 2 Variables — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s07.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s09.html">下一节 →</a>
+</nav>
+
+<h1>1.8 Homogeneous Form in 2 Variables</h1>
+<h2>二元齐次形式</h2>
+
+<p>Let $F(U, V)$ be a nonzero homogeneous polynomial of degree $d$ in $U, V$, with <span class="vocab">coefficients<span class="tooltip">/ˌkəʊ.ɪˈfɪʃ.ənts/ 系数</span></span> in a fixed field $k$; (I will follow tradition, and use the word <em>form</em> for 'homogeneous polynomial'):</p>
+
+$$F(U, V) = a_d U^d + a_{d-1} U^{d-1} V + \cdots + a_i U^i V^{d-i} + \cdots + a_0 V^d.$$
+
+<blockquote>
+设 $F(U,V)$ 是 $U, V$ 的非零 $d$ 次齐次多项式，系数在固定的域 $k$ 中。（我将遵循传统，用"形式"(form) 一词来表示"齐次多项式"。）
+$$F(U, V) = a_d U^d + a_{d-1} U^{d-1} V + \cdots + a_i U^i V^{d-i} + \cdots + a_0 V^d.$$
+</blockquote>
+
+<p>$F$ has an associated <span class="vocab">inhomogeneous<span class="tooltip">/ˌɪn.hə.məˈdʒiː.ni.əs/ 非齐次的</span></span> polynomial in 1 variable,</p>
+
+$$f(u) = a_d u^d + a_{d-1} u^{d-1} + \cdots + a_i u^i + \cdots + a_0.$$
+
+<p>Clearly for $\alpha \in k$,</p>
+
+$$f(\alpha) = 0 \iff (u - \alpha) \mid f(u) \iff (U - \alpha V) \mid F(U, V) \iff F(\alpha, 1) = 0;$$
+
+<p>so zeros of $f$ correspond to zeros of $F$ on $\mathbb{P}^1$ away from the point $(1, 0)$, the 'point $\alpha = \infty$.' What does it mean for $F$ to have a zero at infinity?</p>
+
+$$F(1, 0) = 0 \iff a_d = 0 \iff \deg f < d.$$
+
+<blockquote>
+$F$ 有一个关联的单变量非齐次多项式 $f(u) = a_d u^d + a_{d-1} u^{d-1} + \cdots + a_0$。显然对 $\alpha \in k$，$f(\alpha) = 0 \iff (u - \alpha) \mid f(u) \iff (U - \alpha V) \mid F(U,V) \iff F(\alpha, 1) = 0$。因此 $f$ 的零点对应于 $F$ 在 $\mathbb{P}^1$ 上除 $(1,0)$（即"$\alpha = \infty$ 点"）以外的零点。$F$ 在无穷远处有零点意味着什么呢？$F(1,0) = 0 \iff a_d = 0 \iff \deg f < d$。
+</blockquote>
+
+<p>Now define the <span class="vocab">multiplicity<span class="tooltip">/ˌmʌl.tɪˈplɪs.ɪ.ti/ 重数</span></span> of a zero of $F$ on $\mathbb{P}^1$ to be</p>
+
+<ol type="i">
+    <li>the multiplicity of $f$ at the corresponding $\alpha \in k$; or</li>
+    <li>$d - \deg f$ if $(1, 0)$ is the zero.</li>
+</ol>
+
+<p>So the multiplicity of zero of $F$ at a point $(\alpha, 1)$ is the greatest power of $(U - \alpha V)$ dividing $F$, and at $(1, 0)$ it is the greatest power of $V$ dividing $F$.</p>
+
+<blockquote>
+现在定义 $F$ 在 $\mathbb{P}^1$ 上零点的<b>重数</b>为：(i) 如果零点对应于 $\alpha \in k$，则为 $f$ 在 $\alpha$ 处的重数；(ii) 如果零点是 $(1,0)$，则为 $d - \deg f$。换言之，$F$ 在点 $(\alpha, 1)$ 处零点的重数是 $(U - \alpha V)$ 整除 $F$ 的最高次幂，而在 $(1,0)$ 处则是 $V$ 整除 $F$ 的最高次幂。
+</blockquote>
+
+<h3>Proposition</h3>
+
+<p>Let $F(U, V)$ be a nonzero form of degree $d$ in $U, V$. Then $F$ has at most $d$ zeros on $\mathbb{P}^1$; furthermore, if $k$ is <span class="vocab">algebraically<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪ.kli/ 代数地</span></span> closed, then $F$ has exactly $d$ zeros on $\mathbb{P}^1$ provided these are counted with multiplicities as defined above.</p>
+
+<blockquote>
+<b>命题</b>&ensp;设 $F(U,V)$ 是 $U, V$ 的非零 $d$ 次形式。则 $F$ 在 $\mathbb{P}^1$ 上至多有 $d$ 个零点；进一步地，如果 $k$ 是代数封闭域，则按上述定义的重数计算，$F$ 在 $\mathbb{P}^1$ 上恰好有 $d$ 个零点。
+</blockquote>
+
+<h3>Proof</h3>
+
+<p>Let $m_\infty$ be the multiplicity of the zero of $F$ at $(1, 0)$; then by definition, $d - m_\infty$ is the degree of the inhomogeneous polynomial $f$, and the <span class="vocab">proposition<span class="tooltip">/ˌprɒp.əˈzɪʃ.ən/ 命题</span></span> reduces to the well known fact that a polynomial in one variable has at most $\deg f$ roots. &ensp;Q.E.D.</p>
+
+<blockquote>
+<b>证明</b>&ensp;设 $m_\infty$ 是 $F$ 在 $(1,0)$ 处零点的重数；则按定义，$d - m_\infty$ 是非齐次多项式 $f$ 的次数，于是命题归结为众所周知的事实：一元多项式至多有 $\deg f$ 个根。Q.E.D.
+</blockquote>
+
+<p>Note that over an algebraically closed field, $F$ will <span class="vocab">factorise<span class="tooltip">/ˈfæk.tər.aɪz/ 分解因式</span></span> as a product $F = \prod \lambda_i^{m_i}$ of linear forms $\lambda_i = (a_i U + b_i V)$, and treated in this way, the point $(1, 0)$ corresponds to the form $\lambda_\infty = V$, and is on the same footing as all other points.</p>
+
+<blockquote>
+注意在代数封闭域上，$F$ 将分解为线性形式的乘积 $F = \prod \lambda_i^{m_i}$，其中 $\lambda_i = (a_i U + b_i V)$。这样处理时，点 $(1,0)$ 对应于形式 $\lambda_\infty = V$，与其他所有点处于同等地位。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s07.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s09.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.7 Corollary: cubic through 8 points — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s08.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.7 Corollary: cubic through 8 points</h1>
+<h2>2.7 推论：过8个点的三次曲线</h2>
+
+<p><strong>Corollary 2.7</strong> &nbsp; Let $C_1, C_2$ be two cubic curves whose intersection consists of 9 distinct points, $C_1 \cap C_2 = \{P_1, \ldots, P_9\}$. Then a cubic $D$ through $P_1, \ldots, P_8$ also passes through $P_9$.</p>
+
+<blockquote>
+<strong>推论 2.7</strong> &nbsp; 设 $C_1, C_2$ 是两条三次曲线，它们的交集由 9 个不同的点组成，$C_1 \cap C_2 = \{P_1, \ldots, P_9\}$。则过 $P_1, \ldots, P_8$ 的三次曲线 $D$ 也过 $P_9$。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; If 4 of the points $P_1, \ldots, P_8$ were on a line $L$, then each of $C_1$ and $C_2$ would meet $L$ in $\geq 4$ points, and thus contain $L$, which <span class="vocab">contradicts<span class="tooltip">/ˌkɒn.trəˈdɪkts/ 矛盾</span></span> the assumption on $C_1 \cap C_2$. For exactly the same reason, no 7 of the points can be conconic. Therefore the assumptions of (2.6) are satisfied, so I can conclude that</p>
+
+$$\dim S_3(P_1, \ldots, P_8) = 2;$$
+
+<p>this means that the equations $F_1, F_2$ of the two cubics $C_1, C_2$ form a <span class="vocab">basis<span class="tooltip">/ˈbeɪ.sɪs/ 基</span></span> of $S_3(P_1, \ldots, P_8)$, and hence $D : (G = 0)$, where $G = \lambda F_1 + \mu F_2$. Now $F_1, F_2$ <span class="vocab">vanish<span class="tooltip">/ˈvæn.ɪʃ/ 消失，为零</span></span> at $P_9$, hence so does $G$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 如果 $P_1, \ldots, P_8$ 中有 4 个点在一条直线 $L$ 上，那么 $C_1$ 和 $C_2$ 各自与 $L$ 交于 $\geq 4$ 个点，因此都包含 $L$，这与 $C_1 \cap C_2$ 的假设矛盾。出于完全相同的原因，没有 7 个点共圆锥曲线。所以 (2.6) 的假设被满足，我可以得出
+$$\dim S_3(P_1, \ldots, P_8) = 2；$$
+这意味着两条三次曲线 $C_1, C_2$ 的方程 $F_1, F_2$ 构成 $S_3(P_1, \ldots, P_8)$ 的一组基，因此 $D : (G = 0)$，其中 $G = \lambda F_1 + \mu F_2$。由于 $F_1, F_2$ 在 $P_9$ 处为零，$G$ 也是。 &nbsp; Q.E.D.
+</blockquote>
+
+<p>This corollary is a beautiful and surprising result: two cubics meet in 9 points, and any cubic through 8 of them is <span class="vocab">forced<span class="tooltip">/fɔːrst/ 被迫的</span></span> to pass through the 9th. It is the key ingredient in the proof of the group law on a cubic curve.</p>
+
+<blockquote>
+这个推论是一个漂亮又令人惊讶的结果：两条三次曲线交于 9 个点，而过其中 8 个点的任意三次曲线必然也过第 9 个点。它是证明三次曲线上群律的关键工具。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s08.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

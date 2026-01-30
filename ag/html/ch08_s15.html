@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.15 Proof of the Existence of Lines on a Cubic Surface — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch08_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s16.html">下一节 &rarr;</a>
+</nav>
+
+<h1>8.15 Proof of the Existence of Lines on a Cubic Surface</h1>
+<h2>三次曲面上直线存在性的证明</h2>
+
+<p>Every adult algebraic geometer knows the traditional proof of (7.2) by dimension counting (see for example [Beauville, Complex algebraic surfaces, p. 50], or [Mumford, Algebraic geometry I, Complex projective varieties, p. 174]). I run through this before commenting on the difficulties.</p>
+
+<blockquote>
+每一位成年代数几何学家都知道用维数计数法对 (7.2) 的传统证明（例如参见 [Beauville, Complex algebraic surfaces, p. 50] 或 [Mumford, Algebraic geometry I, Complex projective varieties, p. 174]）。在评论其困难之前，我先把这个证明过一遍。
+</blockquote>
+
+<p>The set of lines of $\mathbb{P}^3$ is <span class="vocab">parametrised<span class="tooltip">/pəˈræm.ɪ.traɪzd/ 参数化的</span></span> by the 4-dimensional Grassmannian $\operatorname{Gr} = \operatorname{Gr}(2,4)$, and cubic surfaces by the projective space $\mathcal{S} = \mathbb{P}^N$ of cubic forms in $(X,Y,Z,T)$ (in fact $N = 19$). Write $Z \subset \operatorname{Gr} \times \mathcal{S}$ for the <span class="vocab">incidence<span class="tooltip">/ˈɪn.sɪ.dəns/ 关联</span></span> subvariety</p>
+
+$$Z = \big\{ (\ell, X) \;\big|\; \ell \in \operatorname{Gr},\, X \in \mathcal{S} \text{ s.t. } \ell \subset X \big\}.$$
+
+<p>Since cubic forms vanishing on a given line $\ell$ form a $\mathbb{P}^{N-4}$, it is easy to deduce from the first projection $Z \to \operatorname{Gr}$ that $Z$ is a rational $N$-dimensional variety. So the second projection $p\colon Z \to \mathcal{S}$ is a morphism between two $N$-dimensional varieties, and therefore</p>
+
+<ol>
+  <li><em>either</em> the image $p(Z)$ is an $N$-dimensional variety in $\mathcal{S}$, and so contains a dense open of $\mathcal{S}$, <em>or</em> every fibre of $p$ has dimension $\ge 1$.</li>
+  <li>$Z$ is a projective variety, so that the image $p(Z)$ is closed in $\mathcal{S}$.</li>
+</ol>
+
+<blockquote>
+$\mathbb{P}^3$ 中的直线集由四维Grassmann簇 $\operatorname{Gr} = \operatorname{Gr}(2,4)$ 参数化，三次曲面由 $(X,Y,Z,T)$ 中的三次齐式的射影空间 $\mathcal{S} = \mathbb{P}^N$ 参数化（实际上 $N = 19$）。记 $Z \subset \operatorname{Gr} \times \mathcal{S}$ 为关联子簇
+
+$$Z = \big\{ (\ell, X) \;\big|\; \ell \in \operatorname{Gr},\, X \in \mathcal{S}, \; \ell \subset X \big\}.$$
+
+由于在给定直线 $\ell$ 上消失的三次齐式构成 $\mathbb{P}^{N-4}$，从第一投影 $Z \to \operatorname{Gr}$ 容易推出 $Z$ 是一个有理的 $N$ 维簇。因此第二投影 $p\colon Z \to \mathcal{S}$ 是两个 $N$ 维簇之间的态射，从而
+
+<ol>
+  <li>要么 $p(Z)$ 是 $\mathcal{S}$ 中的 $N$ 维簇，从而包含 $\mathcal{S}$ 的一个稠密开集；要么 $p$ 的每条纤维的维数 $\ge 1$。</li>
+  <li>$Z$ 是射影簇，因此像 $p(Z)$ 在 $\mathcal{S}$ 中是闭的。</li>
+</ol>
+</blockquote>
+
+<p>Since cubic surfaces containing only finitely many lines do exist, the second possibility in (i) doesn't occur, so every sufficiently general cubic surface contains lines. Then (ii) ensures that $p(Z) = \mathcal{S}$, and every cubic surface contains lines.</p>
+
+<blockquote>
+由于确实存在只含有限多条直线的三次曲面，(i) 中的第二种可能不会发生，因此每个充分一般的三次曲面都包含直线。然后 (ii) 保证 $p(Z) = \mathcal{S}$，从而每个三次曲面都包含直线。
+</blockquote>
+
+<p>This argument seems to me to be unsuitable for an undergraduate course for two reasons: statement (i) assumes results about the dimension of fibres, which however intuitively acceptable (especially to students in the last week of a course) are hard to do rigorously; whereas (ii) is the theorem that a projective variety is complete, that again requires proof (by elimination theory, compactness, or a full-scale treatment of the <span class="vocab">valuative<span class="tooltip">/ˈvæl.ju.ə.tɪv/ 赋值的</span></span> criterion for <span class="vocab">properness<span class="tooltip">/ˈprɒp.ə.nəs/ 正常性</span></span>).</p>
+
+<blockquote>
+在我看来，这个论证不适合本科课程，原因有二：命题 (i) 假设了关于纤维维数的结果，虽然直觉上可以接受（特别是对课程最后一周的学生），但严格证明起来很困难；而 (ii) 是射影簇完备性定理，也需要证明（通过消去理论、紧性，或赋值正常性准则的完整处理）。
+</blockquote>
+
+<p>To the best of my knowledge, my proof in (7.2) is new; the knowledgeable reader will of course see its relation to the other traditional argument by vector bundles: the Grassmannian $\operatorname{Gr}(2,4)$ has a <span class="vocab">tautological<span class="tooltip">/ˌtɔː.təˈlɒdʒ.ɪ.kəl/ 重言的，典范的</span></span> rank 2 vector bundle $E$ (consisting of linear forms on the lines of $\mathbb{P}^3$); restricting the equation $f$ of a cubic surface to every line $\ell \subset \mathbb{P}^3$ defines a section $s(f) \in S^3 E$ of the 3rd symmetric power of $E$. Finally, every section of $S^3 E$ must have a zero, either by <span class="vocab">ampleness<span class="tooltip">/ˈæm.pəl.nəs/ 丰性</span></span> of $E$ or by a Chern class argument (that also gives the magic number 27).</p>
+
+<blockquote>
+据我所知，我在 (7.2) 中的证明是新的；博学的读者当然会看到它与另一个传统的向量丛论证的关系：Grassmann簇 $\operatorname{Gr}(2,4)$ 有一个典范的秩2向量丛 $E$（由 $\mathbb{P}^3$ 中直线上的线性形式组成）；将三次曲面的方程 $f$ 限制到每条直线 $\ell \subset \mathbb{P}^3$ 上，定义了 $E$ 的第3对称幂的一个截面 $s(f) \in S^3 E$。最后，$S^3 E$ 的每个截面都必须有一个零点，这要么由 $E$ 的丰性给出，要么由Chern类论证给出（后者也给出了那个神奇的数字27）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch08_s14.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s16.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

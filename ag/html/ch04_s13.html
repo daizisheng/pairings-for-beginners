@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.13 Standard Open Subsets — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s14.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.13 Standard Open Subsets</h1>
+<h2>标准开子集</h2>
+
+<p>Let $V$ be an affine variety. For $f \in k[V]$, write $V_f$ for the open set $V_f = V \setminus V(f) = \bigl\{\, P \in V \;\big|\; f(P) \neq 0 \,\bigr\}$. The $V_f$ are called <strong>standard open sets</strong> of $V$.</p>
+
+<blockquote>
+设 $V$ 是一个仿射簇。对 $f \in k[V]$，记 $V_f$ 为开集 $V_f = V \setminus V(f) = \{ P \in V \mid f(P) \neq 0 \}$。$V_f$ 称为 $V$ 的<strong>标准开集</strong>。
+</blockquote>
+
+<p><strong>Proposition</strong> <em>$V_f$ is <span class="vocab">isomorphic<span class="tooltip">/ˌaɪ.səˈmɔːr.fɪk/ 同构的</span></span> to an affine variety, and</em></p>
+
+$$k[V_f] = k[V][f^{-1}].$$
+
+<blockquote>
+<strong>命题</strong> $V_f$ 同构于一个仿射簇，并且
+
+$$k[V_f] = k[V][f^{-1}].$$
+</blockquote>
+
+<p><strong>Proof</strong> The idea is to consider the graph of the function $f^{-1}$; a similar trick was used for (b) $\Longrightarrow$ (c) in the proof of NSS (3.10).</p>
+
+<p>Let $J = I(V) \subset k[X_1, \dots, X_n]$, and choose $F \in k[X_1, \dots, X_n]$ such that $f = F \bmod I(V)$. Now define $I = (J, YF - 1) \subset k[X_1, \dots, X_n, Y]$, and let</p>
+
+$$V(I) = W \subset \mathbb{A}^{n+1}.$$
+
+<p>It is easy to check that the maps indicated in the diagram are inverse <span class="vocab">morphisms<span class="tooltip">/ˈmɔːr.fɪ.zəmz/ 态射</span></span> between $W$ and $V_f$. The statement about the coordinate ring is contained in (4.8, III). &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> 思路是考虑函数 $f^{-1}$ 的图像；类似的技巧在 NSS (3.10) 的证明中已用于 (b) $\Longrightarrow$ (c)。
+
+令 $J = I(V) \subset k[X_1, \dots, X_n]$，选取 $F \in k[X_1, \dots, X_n]$ 使得 $f = F \bmod I(V)$。现在定义 $I = (J, YF - 1) \subset k[X_1, \dots, X_n, Y]$，令
+
+$$V(I) = W \subset \mathbb{A}^{n+1}.$$
+
+容易验证图中所示的映射是 $W$ 与 $V_f$ 之间的互逆态射。关于坐标环的结论包含在 (4.8, III) 中。 Q.E.D.
+</blockquote>
+
+<p>The standard open sets $V_f$ are important because they form a <span class="vocab">basis<span class="tooltip">/ˈbeɪ.sɪs/ 基</span></span> for the Zariski topology of $V$: every open set $U \subset V$ is a union of $V_f$ (since every closed subset is of the form $V(I) = \bigcap_{f \in I} V(f)$ for some ideal). Thus the point of the result just proved is that every open set $U \subset V$ is a union of open sets $V_f$ which are affine varieties.</p>
+
+<blockquote>
+标准开集 $V_f$ 很重要，因为它们构成 $V$ 的 Zariski 拓扑的一组基：每个开集 $U \subset V$ 都是某些 $V_f$ 的并（因为每个闭子集都具有 $V(I) = \bigcap_{f \in I} V(f)$ 的形式，其中 $I$ 是某个理想）。因此刚才证明的结果的要点在于：$V$ 的每个开集 $U$ 都是一些仿射簇 $V_f$ 的并。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s14.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

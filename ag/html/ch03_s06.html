@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.6 The correspondence I — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s07.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.6 The correspondence $I$</h1>
+<h2>3.6 对应 $I$</h2>
+
+<p>As a kind of <span class="vocab">inverse<span class="tooltip">/ɪnˈvɜːrs/ 逆，反向的</span></span> to $V$ there is a correspondence</p>
+
+$$\{\text{ideals } J \subset A\} \xleftarrow{\;I\;} \{\text{subsets } X \subset \mathbb{A}^n_k\}$$
+
+<p>by</p>
+
+$$I(X) = \{f \in k[X_1, \ldots, X_n] \mid f(P) = 0 \;\forall P \in X\} \longleftarrow X.$$
+
+<p>That is, $I$ takes a subset $X$ to the ideal of functions vanishing on it.</p>
+
+<blockquote>
+作为 $V$ 的某种"逆"操作，我们定义对应 $I$：给定子集 $X \subset \mathbb{A}^n_k$，令
+$$I(X) = \{f \in k[X_1,\ldots,X_n] \mid \text{对所有 } P \in X,\; f(P)=0\}.$$
+也就是说，$I$ 把子集 $X$ 映射到在 $X$ 上恒为零的所有多项式构成的理想。
+</blockquote>
+
+<p><strong>Proposition</strong></p>
+<p><em>(a) $X \subset Y \implies I(X) \supset I(Y)$;</em></p>
+<p><em>(b) for any subset $X \subset \mathbb{A}^n_k$, I have $X \subset V(I(X))$, with equality if and only if $X$ is an algebraic set;</em></p>
+<p><em>(c) for $J \subset A$, I have $J \subset I(V(J))$; the inclusion may well be strict.</em></p>
+
+<blockquote>
+<strong>命题</strong>：<br>
+(a) $X \subset Y \Rightarrow I(X) \supset I(Y)$；<br>
+(b) 对任何子集 $X \subset \mathbb{A}^n_k$，有 $X \subset V(I(X))$，且等号成立当且仅当 $X$ 是代数集；<br>
+(c) 对 $J \subset A$，有 $J \subset I(V(J))$；这个包含可能是严格的。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (a) is <span class="vocab">trivial<span class="tooltip">/ˈtrɪv.i.əl/ 显然的</span></span>. The two inclusion signs in (b) and (c) are <span class="vocab">tautologous<span class="tooltip">/tɔːˈtɒl.ə.ɡəs/ 同义反复的</span></span>: if $I(X)$ is defined as the set of functions vanishing at all points of $X$, then for any point of $X$, all the functions of $I(X)$ vanish at it. And indeed conversely, if not more so, just as I was about to say myself, Piglet.</p>
+
+<p>The remaining part of (b) is easy: if $X = V(I(X))$ then $X$ is certainly an algebraic set, since it's of the form $V(\text{ideal})$. Conversely, if $X = V(I_0)$ is an algebraic set, then $I(X)$ contains at least $I_0$, so $V(I(X)) \subset V(I_0) = X$.</p>
+
+<blockquote>
+<strong>证明</strong>：(a)显然。(b)和(c)中的包含方向是同义反复的：$I(X)$ 定义为在 $X$ 的所有点上消失的函数，那么 $X$ 的任何点当然使 $I(X)$ 的所有函数为零，就是这么简单。<br><br>
+(b)的剩余部分很容易：如果 $X=V(I(X))$ 则 $X$ 是代数集；反过来，如果 $X=V(I_0)$ 是代数集，则 $I(X)$ 至少包含 $I_0$，所以 $V(I(X)) \subset V(I_0) = X$。
+</blockquote>
+
+<p>There are two different ways in which the inclusion $J \subset I(V(J))$ in (c) may be strict. It's most important to understand these, since they lead directly to the correct statement of the Nullstellensatz.</p>
+
+<p><strong>Example 1</strong> &nbsp; Suppose that the field $k$ is not <span class="vocab">algebraically closed<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪk.li kloʊzd/ 代数闭的</span></span>, and let $f \in k[X]$ be a nonconstant polynomial not having a root in $k$. Consider the ideal $J = (f) \subset k[X]$. Then $J \neq k[X]$, since $1 \notin J$. But</p>
+
+$$V(J) = \{P \in \mathbb{A}^1_k \mid f(P) = 0\} = \varnothing.$$
+
+<p>Therefore $I(V(J)) = k[X]$ (since any function vanishes at all points of the empty set).</p>
+
+<p>So if your field is not algebraically closed, you may not get enough zeros. A rather similar example: in $\mathbb{R}^2$, the polynomial $X^2 + Y^2$ defines the single point $P = (0,0)$, so $V(X^2 + Y^2) = \{P\}$. But then many more polynomials vanish on $\{P\}$ than just the multiples of $X^2 + Y^2$, and in fact $I(P) = (X, Y)$.</p>
+
+<blockquote>
+包含 $J \subset I(V(J))$ 可能严格成立，有两种不同的原因。理解这两种原因至关重要，因为它们直接引出零点定理的正确表述。<br><br>
+<strong>例1</strong>：如果域 $k$ 不是代数闭的，取 $f \in k[X]$ 为在 $k$ 中没有根的非常数多项式，考虑理想 $J=(f)$。则 $J \neq k[X]$（因为 $1 \notin J$），但 $V(J) = \varnothing$，从而 $I(V(J)) = k[X]$（任何函数都在空集的所有点上消失）。所以如果域不是代数闭的，零点可能不够。<br><br>
+类似的例子：在 $\mathbb{R}^2$ 中，$X^2+Y^2$ 只定义一个点 $P=(0,0)$。但在 $\{P\}$ 上消失的多项式比 $X^2+Y^2$ 的倍式多得多，实际上 $I(P)=(X,Y)$。
+</blockquote>
+
+<p><strong>Example 2</strong> &nbsp; For any $f \in k[X_1, \ldots, X_n]$ and $a \geq 2$, $f^a$ defines the same locus as $f$, that is $f^a(P) = 0 \iff f(P) = 0$. So $V(f^a) = V(f)$, and $f \in I(V(f^a))$, but usually $f \notin (f^a)$. The trouble here is already present in $\mathbb{R}^2$: in Chapter 1, mention was made of the 'double line' defined by $X^2 = 0$. The only meaning that can be attached to this is the line $(X = 0)$ deemed to have <span class="vocab">multiplicity<span class="tooltip">/ˌmʌl.tɪˈplɪs.ə.ti/ 重数</span></span> 2; but the point set itself doesn't understand that it's being deemed.</p>
+
+<blockquote>
+<strong>例2</strong>：对任何 $f \in k[X_1,\ldots,X_n]$ 和 $a \geq 2$，$f^a$ 与 $f$ 定义相同的点集，即 $V(f^a) = V(f)$。所以 $f \in I(V(f^a))$，但通常 $f \notin (f^a)$。这个问题在 $\mathbb{R}^2$ 中就已经存在：第1章提到过 $X^2=0$ 定义的"重线"（double line）。这只能理解为直线 $(X=0)$ 被赋予了重数2，但点集本身并不知道自己被赋予了什么。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s07.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

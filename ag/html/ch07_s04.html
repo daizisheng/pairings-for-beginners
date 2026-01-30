@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.4 Corollary: Two Disjoint Lines — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.4 Corollary: Two Disjoint Lines</h1>
+<h2>推论：两条不相交的直线</h2>
+
+<p><strong>Corollary 7.4</strong></p>
+<ol>
+  <li><em>There exist two disjoint lines $\ell, m \subset S$.</em></li>
+  <li><em>$S$ is rational (that is, <span class="vocab">birational<span class="tooltip">/baɪˈræʃ.ən.əl/ 双有理的</span></span> to $\mathbb{P}^2$, see (5.9)).</em></li>
+</ol>
+
+<blockquote>
+<strong>推论 7.4</strong>
+<ol>
+  <li><em>存在两条不相交的直线 $\ell, m \subset S$。</em></li>
+  <li><em>$S$ 是有理的（即与 $\mathbb{P}^2$ 双有理等价，参见 (5.9)）。</em></li>
+</ol>
+</blockquote>
+
+<p><strong>Proof</strong> (a) By (7.3, ii), just take $\ell_1$ and $\ell_2$.</p>
+
+<p>(b) Consider two disjoint lines $\ell, m \subset S$, and define rational maps</p>
+
+$$\varphi\colon S \dashrightarrow \ell \times m \quad\text{and}\quad \psi\colon \ell \times m \dashrightarrow S$$
+
+<p>as follows. If $P \in \mathbb{P}^3 \setminus (\ell \cup m)$ then there exists a unique line $n$ through $P$ which meets both $\ell$ and $m$:</p>
+
+$$P \in n, \quad\text{and}\quad \ell \cap n \ne \varnothing,\; m \cap n \ne \varnothing.$$
+
+<p>Set $\Phi(P) = (\ell \cap n,\, m \cap n) \in \ell \times m$. This defines a <span class="vocab">morphism<span class="tooltip">/ˈmɔː.fɪ.zəm/ 态射</span></span></p>
+
+$$\Phi\colon \mathbb{P}^3 \setminus (\ell \cup m) \to \ell \times m,$$
+
+<p>whose <span class="vocab">fibre<span class="tooltip">/ˈfaɪ.bər/ 纤维</span></span> above $(Q, R) \in \ell \times m$ is the line $QR$ of $\mathbb{P}^3$. Define $\varphi\colon S \dashrightarrow \ell \times m$ as the restriction to $S$ of $\Phi$.</p>
+
+<blockquote>
+<strong>证明</strong> (a) 由 (7.3, ii)，取 $\ell_1$ 和 $\ell_2$ 即可。
+
+(b) 考虑两条不相交的直线 $\ell, m \subset S$，定义有理映射
+
+$$\varphi\colon S \dashrightarrow \ell \times m \quad\text{和}\quad \psi\colon \ell \times m \dashrightarrow S$$
+
+如下。如果 $P \in \mathbb{P}^3 \setminus (\ell \cup m)$，则存在唯一一条过 $P$ 且同时与 $\ell$ 和 $m$ 相交的直线 $n$：
+
+$$P \in n, \quad\text{且}\quad \ell \cap n \ne \varnothing,\; m \cap n \ne \varnothing.$$
+
+令 $\Phi(P) = (\ell \cap n,\, m \cap n) \in \ell \times m$。这定义了一个态射
+
+$$\Phi\colon \mathbb{P}^3 \setminus (\ell \cup m) \to \ell \times m,$$
+
+其在 $(Q, R) \in \ell \times m$ 上方的纤维就是 $\mathbb{P}^3$ 中的直线 $QR$。定义 $\varphi\colon S \dashrightarrow \ell \times m$ 为 $\Phi$ 限制到 $S$ 上。
+</blockquote>
+
+<p>Conversely, for $(Q, R) \in \ell \times m$, let $n$ be the line $n = QR$ in $\mathbb{P}^3$. By (7.3), there are only finitely many lines of $S$ meeting $\ell$, so that for almost all values of $(Q, R)$, $n$ intersects $S$ in 3 points $\{P, Q, R\}$, of which $Q$ and $R$ are the given points on $\ell$ and $m$. Thus define $\psi\colon \ell \times m \dashrightarrow S$ by $(Q, R) \mapsto P$; then $\psi$ is a rational map, since the ratios of coordinates of $P$ are rational functions of those of $Q, R$.</p>
+
+<p>Obviously $\varphi$ and $\psi$ are mutual inverses. Q.E.D.</p>
+
+<blockquote>
+反过来，对于 $(Q, R) \in \ell \times m$，令 $n = QR$ 为 $\mathbb{P}^3$ 中的直线。由 (7.3)，与 $\ell$ 相交的 $S$ 上的直线只有有限多条，因此对几乎所有的 $(Q, R)$，$n$ 与 $S$ 交于3个点 $\{P, Q, R\}$，其中 $Q$ 和 $R$ 是 $\ell$ 和 $m$ 上的给定点。于是定义 $\psi\colon \ell \times m \dashrightarrow S$ 为 $(Q, R) \mapsto P$；则 $\psi$ 是一个有理映射，因为 $P$ 的坐标之比是 $Q, R$ 的坐标的有理函数。
+
+显然 $\varphi$ 和 $\psi$ 互为逆映射。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

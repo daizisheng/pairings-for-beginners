@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.8 Birational maps — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s09.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.8 Birational maps</h1>
+<h2>5.8 双有理映射</h2>
+
+<p><strong>Definition</strong> &nbsp; Let $V$ and $W$ be (affine or projective) varieties; then a rational map $f \colon V \dashrightarrow W$ is <em>birational</em> (or is a <em>birational equivalence</em>) if it has a rational inverse, that is, if there exists a rational map $g \colon W \dashrightarrow V$ such that $f \circ g = \operatorname{id}_W$ and $g \circ f = \operatorname{id}_V$.</p>
+
+<blockquote>
+<strong>定义</strong> &nbsp; 设 $V$ 和 $W$ 是（仿射或射影的）簇。有理映射 $f \colon V \dashrightarrow W$ 被称为<em>双有理的</em>（或<em>双有理等价</em>），如果它有有理逆映射，即存在有理映射 $g \colon W \dashrightarrow V$ 使得 $f \circ g = \operatorname{id}_W$ 且 $g \circ f = \operatorname{id}_V$。
+</blockquote>
+
+<p><strong>Proposition</strong> &nbsp; The following three conditions on a rational map $f \colon V \dashrightarrow W$ are <span class="vocab">equivalent<span class="tooltip">/ɪˈkwɪv.əl.ənt/ 等价的</span></span>:</p>
+<p>(i) $f$ is a birational equivalence;</p>
+<p>(ii) $f$ is <span class="vocab">dominant<span class="tooltip">/ˈdɒm.ɪ.nənt/ 支配的</span></span> (see (4.10)), and $f^* \colon k(W) \to k(V)$ is an isomorphism;</p>
+<p>(iii) there exist open sets $V_0 \subset V$ and $W_0 \subset W$ such that $f$ restricted to $V_0$ is an isomorphism $f \colon V_0 \to W_0$.</p>
+
+<blockquote>
+<strong>命题</strong> &nbsp; 关于有理映射 $f \colon V \dashrightarrow W$，下面三个条件等价：
+<p>(i) $f$ 是双有理等价；</p>
+<p>(ii) $f$ 是支配的（见 (4.10)），且 $f^* \colon k(W) \to k(V)$ 是同构；</p>
+<p>(iii) 存在开集 $V_0 \subset V$ 和 $W_0 \subset W$，使得 $f$ 限制到 $V_0$ 上是同构 $f \colon V_0 \to W_0$。</p>
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; $f^*$ is defined in the same way as for affine varieties, and (i) $\iff$ (ii) is as in (4.11). (iii) $\implies$ (i) is clear, since an isomorphism $f \colon V_0 \to W_0$ and its inverse $g = f^{-1} \colon W_0 \to V_0$ are by definition rational maps between $V$ and $W$.</p>
+
+<p>The essential implication (i) $\implies$ (iii) is tricky, although content-free (GOTO (5.9) if you want to avoid a headache): by assumption (i), there are inverse rational maps $f \colon V \dashrightarrow W$ and $g \colon W \dashrightarrow V$; now set $V' = \operatorname{dom} f \subset V$ and $\varphi = f|_{V'} \colon V' \to W$, and similarly $W' = \operatorname{dom} g \subset W$ and $\psi = g|_{W'} \colon W' \to V$. In the diagram</p>
+$$\psi^{-1}V' \xrightarrow{\;\psi\;} V' \xrightarrow{\;\varphi\;} W$$
+<p>all the arrows are morphisms, and $\operatorname{id}_W |_{\psi^{-1}V'} = \varphi \circ \psi$ (as morphisms) follows from $\operatorname{id}_W = f \circ g$ (as rational maps). Hence</p>
+$$\varphi(\psi(P)) = P \quad \text{for all } P \in \psi^{-1}V'.$$
+
+<p>Now set $V_0 = \varphi^{-1}\psi^{-1}V'$, and $W_0 = \psi^{-1}\varphi^{-1}W'$; then $\varphi \colon V_0 \to \psi^{-1}V'$ is a morphism by construction. However, $\psi^{-1}V' \subset W_0$, since $P \in \psi^{-1}V'$ implies that $\varphi(\psi(P)) = P$, so that $P \in \psi^{-1}\varphi^{-1}W' = W_0$. Therefore, $\varphi \colon V_0 \to W_0$ is a morphism, and similarly $\psi \colon W_0 \to V_0$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; $f^*$ 的定义与仿射簇完全一样，(i) $\iff$ (ii) 如 (4.11)。(iii) $\implies$ (i) 显然，因为同构 $f \colon V_0 \to W_0$ 和逆映射 $g = f^{-1} \colon W_0 \to V_0$ 本身就是 $V$ 和 $W$ 之间的有理映射。
+
+<p>关键的蕴涵 (i) $\implies$ (iii) 虽然不含实质内容但有点绕（怕头疼就直接跳到 (5.9)）：由假设 (i)，有互逆的有理映射 $f \colon V \dashrightarrow W$ 和 $g \colon W \dashrightarrow V$；令 $V' = \operatorname{dom} f \subset V$，$\varphi = f|_{V'} \colon V' \to W$，类似地 $W' = \operatorname{dom} g \subset W$，$\psi = g|_{W'} \colon W' \to V$。在图</p>
+$$\psi^{-1}V' \xrightarrow{\;\psi\;} V' \xrightarrow{\;\varphi\;} W$$
+<p>中所有箭头都是态射，由 $\operatorname{id}_W = f \circ g$（作为有理映射）得到 $\operatorname{id}_W |_{\psi^{-1}V'} = \varphi \circ \psi$（作为态射）。于是</p>
+$$\varphi(\psi(P)) = P, \quad \forall\, P \in \psi^{-1}V'.$$
+
+<p>现在令 $V_0 = \varphi^{-1}\psi^{-1}V'$，$W_0 = \psi^{-1}\varphi^{-1}W'$；则 $\varphi \colon V_0 \to \psi^{-1}V'$ 是态射。而 $\psi^{-1}V' \subset W_0$，因为 $P \in \psi^{-1}V'$ 意味着 $\varphi(\psi(P)) = P$，从而 $P \in \psi^{-1}\varphi^{-1}W' = W_0$。因此 $\varphi \colon V_0 \to W_0$ 是态射，类似地 $\psi \colon W_0 \to V_0$ 也是。Q.E.D.</p>
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s09.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

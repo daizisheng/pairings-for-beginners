@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.13 Degenerate conics in a pencil — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s14.html">下一节 &rarr;</a>
+</nav>
+
+<h1>1.13 Degenerate conics in a pencil</h1>
+<h2>线性系中的退化二次曲线</h2>
+
+<p><strong>Definition</strong> A <span class="vocab">pencil<span class="tooltip">/ˈpen.sɪl/ 线性系（铅笔）</span></span> of conics is a family of the form</p>
+
+$$C_{(\lambda,\mu)}: (\lambda Q_1 + \mu Q_2 = 0);$$
+
+<p>each element is a plane curve, depending in a linear way on the parameters $(\lambda, \mu)$; think of the ratio $(\lambda : \mu)$ as a point of $\mathbb{P}^1$.</p>
+
+<blockquote>
+<strong>定义</strong> 二次曲线的线性系（pencil）是如下形式的族：$C_{(\lambda,\mu)}: (\lambda Q_1 + \mu Q_2 = 0)$；每个元素是一条平面曲线，以线性方式依赖于参数 $(\lambda, \mu)$；把比值 $(\lambda : \mu)$ 看作 $\mathbb{P}^1$ 的一个点。
+</blockquote>
+
+<p>Looking at the examples, one expects that for special values of $(\lambda : \mu)$ the conic $C_{(\lambda,\mu)}$ is degenerate. In fact, writing $\det(Q)$ for the <span class="vocab">determinant<span class="tooltip">/dɪˈtɜː.mɪ.nənt/ 行列式</span></span> of the symmetric $3 \times 3$ matrix corresponding to the quadratic form $Q$, it is clear that</p>
+
+$$C_{(\lambda,\mu)} \text{ is degenerate} \iff \det(\lambda Q_1 + \mu Q_2) = 0.$$
+
+<p>Writing out $Q_1$ and $Q_2$ as symmetric matrixes expresses this condition as</p>
+
+$$F(\lambda, \mu) = \det\left|\lambda \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix} + \mu \begin{pmatrix} a' & b' & d' \\ b' & c' & e' \\ d' & e' & f' \end{pmatrix}\right| = 0.$$
+
+<p>Now notice that $F(\lambda, \mu)$ is a <span class="vocab">homogeneous<span class="tooltip">/ˌhɒm.əˈdʒiː.ni.əs/ 齐次的</span></span> cubic form in $\lambda, \mu$. In turn I can apply (1.8) to $F$ to <span class="vocab">deduce<span class="tooltip">/dɪˈdjuːs/ 推导出</span></span>:</p>
+
+<blockquote>
+观察这些例子，我们预期对于 $(\lambda : \mu)$ 的某些特殊值，二次曲线 $C_{(\lambda,\mu)}$ 是退化的。事实上，用 $\det(Q)$ 表示二次型 $Q$ 对应的 $3 \times 3$ 对称矩阵的行列式，显然
+$$C_{(\lambda,\mu)} \text{ 退化} \iff \det(\lambda Q_1 + \mu Q_2) = 0.$$
+把 $Q_1$ 和 $Q_2$ 写成对称矩阵，这一条件表示为
+$$F(\lambda, \mu) = \det\left|\lambda \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix} + \mu \begin{pmatrix} a' & b' & d' \\ b' & c' & e' \\ d' & e' & f' \end{pmatrix}\right| = 0.$$
+注意 $F(\lambda, \mu)$ 是 $\lambda, \mu$ 的三次齐次式。对 $F$ 应用 (1.8) 即可推出：
+</blockquote>
+
+<p><strong>Proposition</strong> <em>Suppose $C_{(\lambda,\mu)}$ is a pencil of conics of $\mathbb{P}^2_k$, with at least one nondegenerate conic (so that $F(\lambda, \mu)$ is not <span class="vocab">identically<span class="tooltip">/aɪˈden.tɪ.kəl.i/ 恒等地</span></span> zero). Then the pencil has at most 3 degenerate conics. If $k = \mathbb{R}$ then the pencil has at least one degenerate conic.</em></p>
+
+<p><strong>Proof</strong> A cubic form has $\leq 3$ zeros. Also over $\mathbb{R}$, it must have at least one zero.</p>
+
+<blockquote>
+<strong>命题</strong> 设 $C_{(\lambda,\mu)}$ 是 $\mathbb{P}^2_k$ 中二次曲线的线性系，且至少包含一条非退化二次曲线（即 $F(\lambda, \mu)$ 不恒为零）。那么该线性系中至多有3条退化二次曲线。若 $k = \mathbb{R}$，则至少有一条退化二次曲线。
+
+<strong>证明</strong> 三次齐次式至多有3个零点。在 $\mathbb{R}$ 上，它至少有一个零点。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s14.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

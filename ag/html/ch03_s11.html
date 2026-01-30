@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.11 Worked examples — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s09.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s12.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.11 Worked examples</h1>
+<h2>3.11 详解例题</h2>
+
+<p><strong>(a) <span class="vocab">Hypersurfaces<span class="tooltip">/ˈhaɪ.pə.sɜː.fɪ.sɪz/ 超曲面</span></span>.</strong> The simplest example of a variety is the hypersurface $V(f) : (f = 0) \subset \mathbb{A}^n_k$. If $k$ is algebraically closed, there is just the obvious correspondence between <span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sə.bl/ 不可约的</span></span> elements $f \in k[X_1, \dots, X_n]$ and irreducible hypersurfaces: it follows from the Nullstellensatz that two distinct irreducible polynomials $f_1, f_2$ (not multiples of one another) define different hypersurfaces $V(f_1)$ and $V(f_2)$. This is not at all obvious (for example, it's false over $\mathbb{R}$), although it can be proved without using the Nullstellensatz by <em>elimination theory</em>, a much more explicit method with a nice 19th century flavour; see Ex. 3.13.</p>
+
+<blockquote>
+<strong>(a) 超曲面。</strong>簇最简单的例子就是超曲面 $V(f): (f=0) \subset \mathbb{A}^n_k$。如果 $k$ 是代数闭域，那么不可约元素 $f \in k[X_1,\dots,X_n]$ 与不可约超曲面之间就有一个显而易见的对应：由零点定理可知，两个不同的不可约多项式 $f_1, f_2$（不互为倍数）定义不同的超曲面 $V(f_1)$ 和 $V(f_2)$。这一点并不是显然的（例如在 $\mathbb{R}$ 上就不成立），不过也可以不用零点定理、而用<em>消元理论</em>来证明——那是一种更显式的方法，带有19世纪的优雅风味；参见习题 3.13。
+</blockquote>
+
+<p><strong>(b)</strong> Once past the hypersurfaces, most varieties are given by "lots" of equations; contrary to <span class="vocab">intuition<span class="tooltip">/ˌɪn.tjuˈɪʃ.ən/ 直觉</span></span>, it is usually the case that the ideal $I(X)$ needs many generators, that is, many more than the <span class="vocab">codimension<span class="tooltip">/ˌkəʊ.daɪˈmen.ʃən/ 余维数</span></span> of $X$. I give an example of a curve $C \subset \mathbb{A}^3_k$ for which $I(C)$ needs 3 generators; assume that $k$ is an infinite field.</p>
+
+<blockquote>
+<strong>(b)</strong> 离开超曲面之后，大多数簇是由"很多"方程给出的；与直觉相反，理想 $I(X)$ 通常需要很多生成元，远远多于 $X$ 的余维数。我给出一个曲线 $C \subset \mathbb{A}^3_k$ 的例子，其理想 $I(C)$ 需要3个生成元；假设 $k$ 是无限域。
+</blockquote>
+
+<p>Consider first $J = (uw - v^2,\; u^3 - vw)$. Then $J$ is not prime, since</p>
+
+$$J \ni w(uw - v^2) - v(u^3 - vw) = u(w^2 - u^2 v),$$
+
+<p>but $u,\; w^2 - u^2 v \notin J$. Therefore</p>
+
+$$V(J) = V(J, u) \cup V(J, w^2 - u^2 v);$$
+
+<p>obviously, $V(J, u)$ is the $w$-axis ($u = v = 0$). I claim that the other component $C = V(J, w^2 - u^2 v)$ is an irreducible curve; indeed, $C$ is given by</p>
+
+$$uw = v^2, \quad u^3 = vw, \quad w^2 = u^2 v.$$
+
+<p>I claim that $C \subset \mathbb{A}^3$ is the image of the map $\varphi\colon \mathbb{A}^1 \to C \subset \mathbb{A}^3$ given by $t \mapsto (t^3, t^4, t^5)$: to see this, if $u \neq 0$ then $v, w \neq 0$. Set $t = v/u$, then $t = w/v$ and $t^2 = (v/u)(w/v) = w/u$. Hence $v = w^2/u^2 = t^4$, $u = v/(v/u) = t^4/t = t^3$, and $w = tv = t^5$. Now $C$ is irreducible, since if $C = X_1 \cup X_2$ with $X_i \subset C$, and $f_i(u,v,w) \in I(X_i)$, then for all $t$, one of $f_i(t^3, t^4, t^5)$ must vanish. Since a nonzero polynomial has at most a finite number of zeros, one of $f_1, f_2$ must vanish <span class="vocab">identically<span class="tooltip">/aɪˈden.tɪ.kəl.i/ 恒等地</span></span>, so $f_i \in I(C)$.</p>
+
+<blockquote>
+首先考虑 $J = (uw - v^2,\; u^3 - vw)$。$J$ 不是素理想，因为
+$$J \ni w(uw - v^2) - v(u^3 - vw) = u(w^2 - u^2 v),$$
+但 $u,\; w^2 - u^2 v \notin J$。因此
+$$V(J) = V(J, u) \cup V(J, w^2 - u^2 v);$$
+显然 $V(J, u)$ 就是 $w$ 轴（$u = v = 0$）。我断言另一个分支 $C = V(J, w^2 - u^2 v)$ 是一条不可约曲线；事实上 $C$ 由以下方程给出：
+$$uw = v^2, \quad u^3 = vw, \quad w^2 = u^2 v.$$
+我断言 $C \subset \mathbb{A}^3$ 是映射 $\varphi\colon \mathbb{A}^1 \to C \subset \mathbb{A}^3$，$t \mapsto (t^3, t^4, t^5)$ 的像：要看这一点，如果 $u \neq 0$，则 $v, w \neq 0$。令 $t = v/u$，则 $t = w/v$，$t^2 = (v/u)(w/v) = w/u$。于是 $v = w^2/u^2 = t^4$，$u = v/(v/u) = t^4/t = t^3$，$w = tv = t^5$。现在 $C$ 是不可约的，因为如果 $C = X_1 \cup X_2$，$X_i \subset C$，且 $f_i(u,v,w) \in I(X_i)$，则对所有 $t$，$f_i(t^3, t^4, t^5)$ 中必有一个为零。由于非零多项式最多只有有限个零点，$f_1, f_2$ 中必有一个恒等为零，即 $f_i \in I(C)$。
+</blockquote>
+
+<p>This example is of a nice '<span class="vocab">monomial<span class="tooltip">/məˈnəʊ.mi.əl/ 单项式的</span></span>' kind; in general it might be quite tricky to guess the irreducible components of a variety, and even more so to prove that they are irreducible. A similar example is given in Ex. 3.11.</p>
+
+<blockquote>
+这个例子属于比较好处理的"单项式"类型；一般来说，要猜出一个簇的不可约分支可能相当棘手，要证明它们不可约就更难了。类似的例子见习题 3.11。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s09.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s12.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

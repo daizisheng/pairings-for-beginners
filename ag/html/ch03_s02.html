@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.2 Proposition: Noetherian passes to quotients — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.2 Proposition: Noetherian passes to quotients</h1>
+<h2>3.2 命题：Noether性传递到商</h2>
+
+<p><strong>Proposition 3.2</strong></p>
+
+<p><em>(i) Suppose that $A$ is Noetherian, and $I \subset A$ an ideal; then the <span class="vocab">quotient<span class="tooltip">/ˈkwoʊ.ʃənt/ 商（环、群等）</span></span> ring $B = A/I$ is Noetherian.</em></p>
+
+<p><em>(ii) Let $A$ be a Noetherian <span class="vocab">integral domain<span class="tooltip">/ˈɪn.tɪ.ɡrəl dəˈmeɪn/ 整环</span></span>, and $A \subset K$ its field of fractions; let $0 \notin S \subset A$ be a subset, and set</em></p>
+
+$$B = A[S^{-1}] = \left\{\frac{a}{b} \in K \;\middle|\; a \in A, \text{ and } b = 1 \text{ or a product of elements of } S\right\}.$$
+
+<p><em>Then $B$ is again Noetherian.</em></p>
+
+<blockquote>
+<strong>命题3.2</strong>：<br>
+(i) 如果 $A$ 是Noether环，$I \subset A$ 是一个理想，那么商环 $B = A/I$ 也是Noether环。<br><br>
+(ii) 设 $A$ 是Noether整环，$K$ 是它的分式域；设 $0 \notin S \subset A$ 是一个子集，令
+$$B = A[S^{-1}] = \left\{\frac{a}{b} \in K \;\middle|\; a \in A,\; b = 1 \text{ 或 } S \text{ 中元素的乘积}\right\}.$$
+则 $B$ 也是Noether环。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Exercise: in either case the ideals of $B$ can be described in terms of certain ideals of $A$; see Ex. 3.4 for hints.</p>
+
+<blockquote>
+<strong>证明</strong>：留作练习。关键在于，不管是(i)还是(ii)的情形，$B$ 的理想都可以用 $A$ 中某些理想来描述。具体提示见习题3.4。<br><br>
+对于(i)来说，$A/I$ 的理想与 $A$ 中包含 $I$ 的理想一一对应；由于 $A$ 是Noether的，包含 $I$ 的理想满足升链条件，所以 $A/I$ 也是Noether的。对于(ii)的局部化，思路类似。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

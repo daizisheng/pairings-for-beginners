@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.5 Finding All the Lines — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s06.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.5 Finding All the Lines</h1>
+<h2>找到所有直线</h2>
+
+<p>I want to find all the lines of $S$ in terms of the configuration given by Proposition 7.3 of a line $\ell$ and 5 disjoint pairs $(\ell_i, \ell_i')$. Any other line $n \subset S$ must meet exactly one of $\ell_i$ and $\ell_i'$ for $i = 1, \ldots, 5$: this is because in $\mathbb{P}^3$, $n$ meets the plane $\Pi_i$, and $\Pi_i \cap S = \ell \cup \ell_i \cup \ell_i'$; also, $n$ cannot meet both $\ell_i$ and $\ell_i'$, since this would <span class="vocab">contradict<span class="tooltip">/ˌkɒn.trəˈdɪkt/ 矛盾</span></span> (7.1, a). The key to sorting out the remaining lines is the following lemma, which tells us that $n$ is uniquely determined by which of the $\ell_i$ and $\ell_i'$ it meets. Let me say that a line $n$ is a <span class="vocab">transversal<span class="tooltip">/trænzˈvɜː.səl/ 截线</span></span> of a line $\ell$ if $\ell \cap n \ne \varnothing$.</p>
+
+<blockquote>
+我想根据命题 7.3 给出的构型——一条直线 $\ell$ 和5对不相交的直线对 $(\ell_i, \ell_i')$——来找到 $S$ 上所有的直线。任何其他直线 $n \subset S$ 必须对每个 $i = 1, \ldots, 5$ 恰好与 $\ell_i$ 和 $\ell_i'$ 之一相交：这是因为在 $\mathbb{P}^3$ 中，$n$ 与平面 $\Pi_i$ 相交，而 $\Pi_i \cap S = \ell \cup \ell_i \cup \ell_i'$；此外，$n$ 不能同时与 $\ell_i$ 和 $\ell_i'$ 都相交，因为这将与 (7.1, a) 矛盾。梳理剩余直线的关键是下面的引理，它告诉我们 $n$ 由它与哪些 $\ell_i$ 或 $\ell_i'$ 相交来唯一确定。我们说直线 $n$ 是直线 $\ell$ 的截线，如果 $\ell \cap n \ne \varnothing$。
+</blockquote>
+
+<p><strong>Lemma</strong> <em>If $\ell_1, \ldots, \ell_4 \subset \mathbb{P}^3$ are disjoint lines then</em></p>
+<ul>
+  <li><em>either all 4 lines $\ell_i$ lie on a smooth <span class="vocab">quadric<span class="tooltip">/ˈkwɒd.rɪk/ 二次曲面</span></span> $\ell_1, \ldots, \ell_4 \subset Q \subset \mathbb{P}^3$; and then they have an infinite number of common transversals;</em></li>
+  <li><em>or the 4 lines $\ell_i$ do not lie on any quadric $\ell_1, \ldots, \ell_4 \not\subset Q$; and then they have either 1 or 2 common transversals.</em></li>
+</ul>
+
+<blockquote>
+<strong>引理</strong> <em>如果 $\ell_1, \ldots, \ell_4 \subset \mathbb{P}^3$ 是不相交的直线，则</em>
+<ul>
+  <li><em>或者所有4条直线 $\ell_i$ 都落在一个光滑二次曲面 $Q \subset \mathbb{P}^3$ 上；此时它们有无穷多条公共截线；</em></li>
+  <li><em>或者4条直线 $\ell_i$ 不落在任何二次曲面上；此时它们有1条或2条公共截线。</em></li>
+</ul>
+</blockquote>
+
+<p><strong>Proof</strong> There exists a smooth quadric $Q \supset \ell_1, \ldots, \ell_3$: several proofs of this are possible (see Ex. 7.2).</p>
+
+<p>Then in some choice of coordinates, $Q : (XT - YZ)$, and $Q$ has two families of lines, or generators: any transversal of $\ell_1, \ldots, \ell_3$ must lie in $Q$, since it has 3 points in $Q$. Now if $\ell_4 \not\subset Q$, then $\ell_4 \cap Q = \{1 \text{ or } 2 \text{ points}\}$, and the generators of the other family through these points are all the common transversals of $\ell_1, \ldots, \ell_4$. Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> 存在一个光滑二次曲面 $Q \supset \ell_1, \ldots, \ell_3$：有好几种证法（参见习题 7.2）。
+
+在某种坐标选取下，$Q : (XT - YZ)$，$Q$ 有两族直线，即母线：$\ell_1, \ldots, \ell_3$ 的任何截线必定落在 $Q$ 中，因为它与 $Q$ 有3个交点。现在如果 $\ell_4 \not\subset Q$，那么 $\ell_4 \cap Q = \{1 \text{ 或 } 2 \text{ 个点}\}$，通过这些点的另一族母线就是 $\ell_1, \ldots, \ell_4$ 的所有公共截线。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s06.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

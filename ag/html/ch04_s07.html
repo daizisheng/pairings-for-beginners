@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.7 Function Field — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s08.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.7 Function Field</h1>
+<h2>函数域</h2>
+
+<p>Let $V$ be an affine variety; then the coordinate ring $k[V]$ of $V$ is an <span class="vocab">integral<span class="tooltip">/ˈɪn.tɪ.ɡrəl/ 整的</span></span> domain whose elements are $k$-valued functions of $V$.</p>
+
+<blockquote>
+设 $V$ 是一个仿射簇；那么 $V$ 的坐标环 $k[V]$ 是一个整环，其元素是 $V$ 上的 $k$-值函数。
+</blockquote>
+
+<p><strong>Definition</strong> The <strong>function field</strong> $k(V)$ of $V$ is the field of fractions $k(V) = \operatorname{Quot}(k[V])$ of $k[V]$. An element $f \in k(V)$ is a <strong>rational function</strong> on $V$; note that $f \in k(V)$ is by definition a quotient $f = g/h$ with $g, h \in k[V]$ and $h \neq 0$.</p>
+
+<blockquote>
+<strong>定义</strong> $V$ 的<strong>函数域</strong> $k(V)$ 是 $k[V]$ 的分式域 $k(V) = \operatorname{Quot}(k[V])$。元素 $f \in k(V)$ 称为 $V$ 上的<strong>有理函数</strong>；注意 $f \in k(V)$ 根据定义是一个商 $f = g/h$，其中 $g, h \in k[V]$，$h \neq 0$。
+</blockquote>
+
+<p>A <span class="vocab">priori<span class="tooltip">/praɪˈɔːr.aɪ/ 先验地</span></span> $f$ is not a function on $V$, because of the zeros of $h$; however, $f$ is well defined at $P \in V$ whenever $h(P) \neq 0$, so is at least a 'partially defined function'. I now introduce terminology to shore up this notion.</p>
+
+<blockquote>
+先验地说，$f$ 不是 $V$ 上的函数，因为 $h$ 有零点；但是只要 $h(P) \neq 0$，$f$ 在 $P \in V$ 处就是良定义的，所以它至少是一个"部分定义的函数"。我现在引入术语来巩固这个概念。
+</blockquote>
+
+<p><strong>Definition</strong> Let $f \in k(V)$ and $P \in V$; I say that $f$ is <strong>regular</strong> at $P$, or that $P$ is in the <strong>domain of definition</strong> of $f$ if there exists an expression $f = g/h$ with $g, h \in k[V]$ and $h(P) \neq 0$.</p>
+
+<blockquote>
+<strong>定义</strong> 设 $f \in k(V)$，$P \in V$；如果存在表达式 $f = g/h$，其中 $g, h \in k[V]$ 且 $h(P) \neq 0$，则称 $f$ 在 $P$ 处是<strong>正则的</strong>（regular），或者说 $P$ 在 $f$ 的<strong>定义域</strong>中。
+</blockquote>
+
+<p>An important point to bear in mind is that usually $k[V]$ will not be a UFD, so that $f \in k(V)$ may well have <span class="vocab">essentially<span class="tooltip">/ɪˈsen.ʃəl.i/ 本质上地</span></span> different representations as $f = g/h$; see Ex. 4.9 for an example.</p>
+
+<blockquote>
+要牢记一个重要的事实：通常 $k[V]$ 不是唯一分解整环（UFD），因此 $f \in k(V)$ 很可能有本质上不同的表示 $f = g/h$；参见习题 4.9 中的一个例子。
+</blockquote>
+
+<p>Write</p>
+
+$$\operatorname{dom} f = \bigl\{\, P \in V \;\big|\; f \text{ is regular at } P \,\bigr\}$$
+
+<p>for the <strong>domain of definition</strong> of $f$, and</p>
+
+$$\mathcal{O}_{V,P} = \bigl\{\, f \in k(V) \;\big|\; f \text{ is regular at } P \,\bigr\} = k[V]\bigl[\{h^{-1} \mid h(P) \neq 0\}\bigr].$$
+
+<p>Then $\mathcal{O}_{V,P} \subset k(V)$ is a subring, the <strong>local ring</strong> of $V$ at $P$.</p>
+
+<blockquote>
+记
+
+$$\operatorname{dom} f = \bigl\{\, P \in V \;\big|\; f \text{ 在 } P \text{ 处正则}\,\bigr\}$$
+
+为 $f$ 的<strong>定义域</strong>，以及
+
+$$\mathcal{O}_{V,P} = \bigl\{\, f \in k(V) \;\big|\; f \text{ 在 } P \text{ 处正则}\,\bigr\} = k[V]\bigl[\{h^{-1} \mid h(P) \neq 0\}\bigr].$$
+
+则 $\mathcal{O}_{V,P} \subset k(V)$ 是一个子环，称为 $V$ 在 $P$ 处的<strong>局部环</strong>。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s08.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.3 Projective Nullstellensatz — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s04.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.3 Projective Nullstellensatz</h1>
+<h2>5.3 射影零点定理</h2>
+
+<p>As with the affine correspondences, it is purely formal that $I(V(J)) \supset \operatorname{rad} J$ for any ideal $J$, and that for an algebraic set, $V(I(X)) = X$. There's just one point where care is needed: the <span class="vocab">trivial<span class="tooltip">/ˈtrɪv.i.əl/ 平凡的</span></span> ideal $(1) = k[X_0, \ldots, X_n]$ (the whole ring) defines the empty set in $k^{n+1}$, hence also in $\mathbb{P}^n_k$, which is as it should be; however, the ideal $(X_0, \ldots, X_n)$ defines $\{0\}$ in $k^{n+1}$, which also corresponds to the empty set in $\mathbb{P}^n_k$. The ideal $(X_0, \ldots, X_n)$ is an awkward (empty-set theoretical) exception to several statements in the theory, and is traditionally known as the '<span class="vocab">irrelevant<span class="tooltip">/ɪˈrel.ə.vənt/ 无关的</span></span> ideal'.</p>
+
+<blockquote>
+和仿射情形一样，$I(V(J)) \supset \operatorname{rad} J$ 对任意理想 $J$ 成立这一点纯粹是形式上的，而对代数集有 $V(I(X)) = X$。只有一个地方需要注意：平凡理想 $(1) = k[X_0, \ldots, X_n]$（即整个环）在 $k^{n+1}$ 中定义空集，从而在 $\mathbb{P}^n_k$ 中也是空集，这没问题；然而理想 $(X_0, \ldots, X_n)$ 在 $k^{n+1}$ 中定义 $\{0\}$，这在 $\mathbb{P}^n_k$ 中同样对应空集。理想 $(X_0, \ldots, X_n)$ 是理论中若干命题的一个麻烦的（空集论的）例外，传统上称为"无关理想"。
+</blockquote>
+
+<p>The homogeneous version of the Nullstellensatz thus becomes:</p>
+
+<p><strong>Theorem</strong> &nbsp; Assume that $k$ is an <span class="vocab">algebraically<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪ.kli/ 代数地</span></span> closed field. Then</p>
+<p>(i) $V(J) = \varnothing \iff \operatorname{rad} J \supset (X_0, \ldots, X_n)$;</p>
+<p>(ii) if $V(J) \neq \varnothing$ then $I(V(J)) = \operatorname{rad} J$.</p>
+
+<blockquote>
+齐次版的零点定理如下：
+
+<p><strong>定理</strong> &nbsp; 设 $k$ 是代数闭域。则</p>
+<p>(i) $V(J) = \varnothing \iff \operatorname{rad} J \supset (X_0, \ldots, X_n)$；</p>
+<p>(ii) 若 $V(J) \neq \varnothing$，则 $I(V(J)) = \operatorname{rad} J$。</p>
+</blockquote>
+
+<p><strong>Corollary</strong> &nbsp; $I$ and $V$ determine inverse <span class="vocab">bijections<span class="tooltip">/baɪˈdʒek.ʃənz/ 双射</span></span></p>
+$$\left\{\begin{array}{c}\text{homogeneous radical}\\ \text{ideals } J \subset k[X_0, \ldots, X_n]\\ \text{with } J \not\supset (X_0, \ldots, X_n)\end{array}\right\} \longleftrightarrow \left\{\begin{array}{c}\text{algebraic subsets}\\ X \subset \mathbb{P}^n\end{array}\right\}$$
+$$\bigcup \qquad\qquad\qquad\qquad\qquad \bigcup$$
+$$\left\{\begin{array}{c}\text{homogeneous prime}\\ \text{ideals } J \subset k[X_0, \ldots, X_n]\\ \text{with } J \not\supset (X_0, \ldots, X_n)\end{array}\right\} \longleftrightarrow \left\{\begin{array}{c}\text{irreducible algebraic}\\ \text{subsets } X \subset \mathbb{P}^n\end{array}\right\}$$
+
+<blockquote>
+<strong>推论</strong> &nbsp; $I$ 和 $V$ 给出互逆的双射：
+$$\left\{\begin{array}{c}\text{齐次根理想 } J \subset k[X_0, \ldots, X_n]\\ \text{且 } J \not\supset (X_0, \ldots, X_n)\end{array}\right\} \longleftrightarrow \left\{\begin{array}{c}\text{代数子集}\\ X \subset \mathbb{P}^n\end{array}\right\}$$
+$$\bigcup \qquad\qquad\qquad\qquad \bigcup$$
+$$\left\{\begin{array}{c}\text{齐次素理想 } J \subset k[X_0, \ldots, X_n]\\ \text{且 } J \not\supset (X_0, \ldots, X_n)\end{array}\right\} \longleftrightarrow \left\{\begin{array}{c}\text{不可约代数子集}\\ X \subset \mathbb{P}^n\end{array}\right\}$$
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Let $\pi \colon \mathbb{A}^{n+1} \setminus \{0\} \to \mathbb{P}^n$ be the map defining $\mathbb{P}^n$. For a homogeneous ideal $J \subset k[X_0, \ldots, X_n]$, write (in temporary notation) $V^a(J) \subset \mathbb{A}^{n+1}$ for the affine algebraic set defined by $J$. Then since $J$ is homogeneous, $V^a(J)$ has the property</p>
+$$(\alpha_0, \ldots, \alpha_n) \in V^a(J) \iff (\lambda\alpha_0, \ldots, \lambda\alpha_n) \in V^a(J),$$
+<p>and $V(J) = V^a(J) \setminus \{0\} / {\sim} \subset \mathbb{P}^n$. Hence</p>
+$$V(J) = \varnothing \iff V^a(J) \subset \{0\} \iff \operatorname{rad} J \supset (X_0, \ldots, X_n),$$
+<p>where the last <span class="vocab">implication<span class="tooltip">/ˌɪm.plɪˈkeɪ.ʃən/ 蕴涵</span></span> uses the affine Nullstellensatz. Also, if $V(J) \neq \varnothing$ then</p>
+$$f \in I(V(J)) \iff f \in I(V^a(J)) \iff f \in \operatorname{rad} J. \quad \text{Q.E.D.}$$
+
+<blockquote>
+<strong>证明</strong> &nbsp; 设 $\pi \colon \mathbb{A}^{n+1} \setminus \{0\} \to \mathbb{P}^n$ 是定义 $\mathbb{P}^n$ 的映射。对齐次理想 $J \subset k[X_0, \ldots, X_n]$，（暂时）记 $V^a(J) \subset \mathbb{A}^{n+1}$ 为 $J$ 定义的仿射代数集。由于 $J$ 齐次，$V^a(J)$ 具有性质
+$$(\alpha_0, \ldots, \alpha_n) \in V^a(J) \iff (\lambda\alpha_0, \ldots, \lambda\alpha_n) \in V^a(J),$$
+且 $V(J) = V^a(J) \setminus \{0\} / {\sim} \subset \mathbb{P}^n$。因此
+$$V(J) = \varnothing \iff V^a(J) \subset \{0\} \iff \operatorname{rad} J \supset (X_0, \ldots, X_n),$$
+最后一步用了仿射零点定理。另外，若 $V(J) \neq \varnothing$，则
+$$f \in I(V(J)) \iff f \in I(V^a(J)) \iff f \in \operatorname{rad} J. \quad \text{Q.E.D.}$$
+</blockquote>
+
+<p>The affine subset $V^a(J)$ occurring above is called the <em>affine cone</em> over the projective algebraic subset $V(J)$.</p>
+
+<blockquote>
+上面出现的仿射子集 $V^a(J)$ 称为射影代数子集 $V(J)$ 上的<em>仿射锥</em>。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s04.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

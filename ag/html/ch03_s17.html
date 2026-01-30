@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.17 Reduction to a hypersurface — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s16.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_exercises.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.17 Reduction to a hypersurface</h1>
+<h2>3.17 化归为超曲面</h2>
+
+<p>Recall the following result from Galois theory:</p>
+
+<blockquote>
+回忆Galois理论中的以下结果：
+</blockquote>
+
+<p><strong>Theorem (Primitive element theorem)</strong> &nbsp; <em>Let $K$ be an infinite field, and $K \subset L$ a finite separable field extension; then there exists $x \in L$ such that $L = K(x)$. Moreover, if $L$ is generated over $K$ by elements $z_1, \dots, z_k$, the element $x$ can be chosen to be a linear combination $\sum_i \alpha_i z_i$.</em></p>
+
+<blockquote>
+<strong>定理（本原元定理）</strong> &nbsp; 设 $K$ 是无限域，$K \subset L$ 是有限可分域扩张；则存在 $x \in L$ 使得 $L = K(x)$。而且，如果 $L$ 由元素 $z_1, \dots, z_k$ 在 $K$ 上生成，则 $x$ 可以取为线性组合 $\sum_i \alpha_i z_i$。
+</blockquote>
+
+<p>(This follows at once from the <span class="vocab">Fundamental<span class="tooltip">/ˌfʌn.dəˈmen.təl/ 基本的</span></span> Theorem of Galois theory: if $K \subset M$ is the normal closure of $L$ over $K$ then $K \subset M$ is a finite Galois field extension, so that by the Fundamental Theorem there only exist finitely many <span class="vocab">intermediate<span class="tooltip">/ˌɪn.təˈmiː.di.ət/ 中间的</span></span> field extensions between $K$ and $M$. The intermediate subfields between $K$ and $L$ form a finite collection $\{K_j\}$ of $K$-vector subspaces of $L$, so that I can choose $x \in L$ not belonging to any of these. If $z_1, \dots, z_k$ are given, not all belonging to any $K_i$, then $x$ can be chosen as a $K$-linear combination of the $z_i$. Then $K(x) = L$.)</p>
+
+<blockquote>
+（这直接由Galois理论基本定理得出：如果 $K \subset M$ 是 $L$ 在 $K$ 上的正规闭包，则 $K \subset M$ 是有限Galois域扩张，由基本定理，$K$ 与 $M$ 之间只存在有限多个中间域扩张。$K$ 与 $L$ 之间的中间子域构成 $L$ 的 $K$-向量子空间的有限集合 $\{K_j\}$，于是我可以选取 $x \in L$ 不属于其中任何一个。如果已给定 $z_1, \dots, z_k$，它们不全属于任何一个 $K_i$，则 $x$ 可以取为 $z_i$ 的 $K$-线性组合。于是 $K(x) = L$。）
+</blockquote>
+
+<p><strong>Corollary</strong> &nbsp; <em>Under the <span class="vocab">hypotheses<span class="tooltip">/haɪˈpɒθ.ɪ.siːz/ 假设（复数）</span></span> of the Noether normalisation lemma (3.13), there exist $y_1, \dots, y_{m+1} \in A$ such that $y_1, \dots, y_m$ satisfy the conclusion of (3.13), and in addition, the field of fractions $K$ of $A$ is generated over $k$ by $y_1, \dots, y_{m+1}$.</em></p>
+
+<blockquote>
+<strong>推论</strong> &nbsp; 在Noether正规化引理 (3.13) 的假设下，存在 $y_1, \dots, y_{m+1} \in A$ 使得 $y_1, \dots, y_m$ 满足 (3.13) 的结论，且 $A$ 的分式域 $K$ 由 $y_1, \dots, y_{m+1}$ 在 $k$ 上生成。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; According to (3.16), I can arrange that $K$ is a separable extension of $k(y_1, \dots, y_m)$. If $A = k[x_1, \dots, x_n]$, then the $x_i$ certainly generate $K$ as a field extension of $k(y_1, \dots, y_m)$, so that a suitable linear combination $y_{m+1}$ of the $x_i$ with coefficients in $k(y_1, \dots, y_m)$ generates the field extension; clearing <span class="vocab">denominators<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.təz/ 分母</span></span>, $y_{m+1}$ can be taken as a linear combination of the $x_i$ with coefficients in $k[y_1, \dots, y_m]$, hence as an element of $A$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 由 (3.16)，我可以安排 $K$ 是 $k(y_1, \dots, y_m)$ 的可分扩张。如果 $A = k[x_1, \dots, x_n]$，那么 $x_i$ 当然在 $k(y_1, \dots, y_m)$ 上生成 $K$ 作为域扩张，因此 $x_i$ 的某个以 $k(y_1, \dots, y_m)$ 中元素为系数的适当线性组合 $y_{m+1}$ 就能生成该域扩张；通分后，$y_{m+1}$ 可以取为 $x_i$ 的以 $k[y_1, \dots, y_m]$ 中元素为系数的线性组合，从而是 $A$ 的一个元素。证毕。
+</blockquote>
+
+<p>Algebraically, what I have proved is that the field extension $k \subset K$, while not necessarily purely <span class="vocab">transcendental<span class="tooltip">/ˌtræn.senˈden.təl/ 超越的</span></span>, can be generated as a composite of a purely transcendental extension $k \subset k(y_1, \dots, y_m) = K_0$ followed by a <span class="vocab">primitive<span class="tooltip">/ˈprɪm.ɪ.tɪv/ 本原的</span></span> algebraic extension $K_0 \subset K = K_0(y_{m+1})$. In other words, $K = k(y_1, \dots, y_{m+1})$, with only one algebraic dependence relation between the generators. The geometric significance of the result will become clear in (5.10).</p>
+
+<blockquote>
+从代数的角度看，我证明的是：域扩张 $k \subset K$ 虽然未必是纯超越的，但可以表示为先做一个纯超越扩张 $k \subset k(y_1, \dots, y_m) = K_0$，再做一个本原代数扩张 $K_0 \subset K = K_0(y_{m+1})$ 的复合。换句话说，$K = k(y_1, \dots, y_{m+1})$，生成元之间只有一个代数依赖关系。这个结果的几何意义将在 (5.10) 中变得清晰。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s16.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_exercises.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

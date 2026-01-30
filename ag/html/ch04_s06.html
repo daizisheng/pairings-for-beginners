@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.6 Affine Variety — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s07.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.6 Affine Variety</h1>
+<h2>仿射簇</h2>
+
+<p>Let $k$ be a field; I want an <strong>affine variety</strong> to be an irreducible algebraic subset $V \subset \mathbb{A}^n_k$, defined up to isomorphism.</p>
+
+<blockquote>
+设 $k$ 是一个域；我希望<strong>仿射簇</strong>是一个不可约代数子集 $V \subset \mathbb{A}^n_k$，在同构意义下确定。
+</blockquote>
+
+<p>Theorem 4.4 tells us that the coordinate ring $k[V]$ is an <span class="vocab">invariant<span class="tooltip">/ɪnˈveə.ri.ənt/ 不变量</span></span> of the isomorphism class of $V$. This allows me to give a definition of a variety making less use of the <span class="vocab">ambient<span class="tooltip">/ˈæm.bi.ənt/ 周围的；环绕的</span></span> space $\mathbb{A}^n_k$; the reason for wanting to do this is rather obscure, and for practical purposes you will not miss much if you ignore it: <span class="vocab">subsequent<span class="tooltip">/ˈsʌb.sɪ.kwənt/ 后续的</span></span> references to an affine variety will always be taken in the sense given above (GOTO 4.7).</p>
+
+<blockquote>
+定理 4.4 告诉我们坐标环 $k[V]$ 是 $V$ 的同构类的一个不变量。这使我能够给出一个较少依赖于环境空间 $\mathbb{A}^n_k$ 的簇的定义；想要这样做的原因相当不明显，从实用角度来说，忽略它你不会错过太多：后续对仿射簇的引用总是取上面给出的含义（跳至 4.7）。
+</blockquote>
+
+<p><strong>Definition</strong> An <strong>affine variety</strong> over a field $k$ is a set $V$, together with a ring $k[V]$ of $k$-valued functions $f \colon V \to k$ such that</p>
+
+<p>(i) $k[V]$ is a finitely generated $k$-algebra, and</p>
+
+<p>(ii) for some choice $x_1, \dots, x_n$ of generators of $k[V]$ over $k$, the map</p>
+
+$$V \to \mathbb{A}^n_k \quad \text{by} \quad P \mapsto \bigl(x_1(P), \dots, x_n(P)\bigr)$$
+
+<p>embeds $V$ as an irreducible algebraic set.</p>
+
+<blockquote>
+<strong>定义</strong> 域 $k$ 上的一个<strong>仿射簇</strong>是一个集合 $V$，连同一个由 $k$-值函数 $f \colon V \to k$ 构成的环 $k[V]$，满足：
+
+<br>(i) $k[V]$ 是有限生成的 $k$-代数，并且
+
+<br>(ii) 对 $k[V]$ 在 $k$ 上的某组生成元 $x_1, \dots, x_n$，映射
+
+$$V \to \mathbb{A}^n_k, \quad P \mapsto \bigl(x_1(P), \dots, x_n(P)\bigr)$$
+
+将 $V$ 嵌入为一个不可约代数集。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s07.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

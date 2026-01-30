@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.11 The Surprising Sufficiency of Projective Algebraic Geometry — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch08_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s12.html">下一节 &rarr;</a>
+</nav>
+
+<h1>8.11 The Surprising Sufficiency of Projective Algebraic Geometry</h1>
+<h2>射影代数几何的惊人充分性</h2>
+
+<p>Weil's abstract definition of a variety (affine algebraic sets glued together along <span class="vocab">isomorphic<span class="tooltip">/ˌaɪ.səˈmɔː.fɪk/ 同构的</span></span> open sets) was referred to briefly in (0.4), and is quite easy to handle in terms of sheaves. Given this, the idea of working only with varieties embedded in a fixed <span class="vocab">ambient<span class="tooltip">/ˈæm.bi.ənt/ 环绕的，周围的</span></span> space $\mathbb{P}^N_k$ seems at first sight unduly <span class="vocab">restrictive<span class="tooltip">/rɪˈstrɪk.tɪv/ 限制性的</span></span>. I want to describe briefly the modern point of view on this question.</p>
+
+<blockquote>
+Weil对簇的抽象定义（沿同构开集粘合仿射代数集）在 (0.4) 中已简要提及，用层的语言来处理相当容易。在此基础上，仅研究嵌入在固定环绕空间 $\mathbb{P}^N_k$ 中的簇这一想法，乍看之下似乎过于限制。我想简要描述一下对这个问题的现代观点。
+</blockquote>
+
+<h3>(a) Polarisation and positivity</h3>
+<h4>(a) 极化与正性</h4>
+
+<p>Firstly, varieties are usually considered up to isomorphism, so saying a variety $X$ is <em>projective</em> means that $X$ can be embedded in some $\mathbb{P}^N$, that is, is isomorphic to a closed subvariety $X \subset \mathbb{P}^N$ as in (5.1--7). <em>Quasiprojective</em> means isomorphic to a locally closed subvariety of $\mathbb{P}^N$, so an open dense subset of a projective variety; <span class="vocab">projectivity<span class="tooltip">/prəˌdʒek.ˈtɪv.ɪ.ti/ 射影性</span></span> includes the property of <em>completeness</em>, that $X$ cannot be embedded as a dense open set of any bigger variety.</p>
+
+<blockquote>
+首先，簇通常考虑到同构为止，因此说一个簇 $X$ 是射影的意味着 $X$ 可以嵌入某个 $\mathbb{P}^N$，即同构于 (5.1--7) 中那样的闭子簇 $X \subset \mathbb{P}^N$。拟射影意味着同构于 $\mathbb{P}^N$ 的一个局部闭子簇，即射影簇的一个稠密开子集；射影性包含完备性——即 $X$ 不能作为任何更大簇的稠密开集嵌入。
+</blockquote>
+
+<p>The choice of an actual embedding $X \hookrightarrow \mathbb{P}^N$ (or of a very ample line bundle $\mathcal{O}_X(1)$ whose sections will be the homogeneous coordinates of $\mathbb{P}^N$) is often called a <em><span class="vocab">polarisation<span class="tooltip">/ˌpəʊ.lər.aɪˈzeɪ.ʃən/ 极化</span></span></em>, and we write $(X, \mathcal{O}_X(1))$ to indicate that the choice has been made. In addition to completeness, a projective variety $X \subset \mathbb{P}^N$ satisfies a key condition of 'positive degree': if $V \subset X$ is a $k$-dimensional subvariety then $V$ intersects a general linear subspace $\mathbb{P}^{N-k}$ in a positive finite number of points. Conversely, the Kleiman <span class="vocab">criterion<span class="tooltip">/kraɪˈtɪə.ri.ən/ 准则</span></span> says that some multiple of a line bundle on a complete variety $X$ can be used to provide a projective embedding of $X$ if its degree on every curve $C \subset X$ is consistently greater than zero (that is, $\ge \varepsilon \cdot (\text{any reasonable measure of } C)$). This kind of positivity relates closely to the choice of a K&auml;hler metric on a complex manifold (a Riemannian metric with the right kind of compatibility with the complex structure). So we understand projectivity as a kind of 'positive definiteness'.</p>
+
+<blockquote>
+选择一个实际的嵌入 $X \hookrightarrow \mathbb{P}^N$（或选择一个极丰线丛 $\mathcal{O}_X(1)$，其截面将成为 $\mathbb{P}^N$ 的齐次坐标）常被称为极化，我们用 $(X, \mathcal{O}_X(1))$ 表示已做出了这一选择。除了完备性之外，射影簇 $X \subset \mathbb{P}^N$ 还满足一个关键的"正次数"条件：如果 $V \subset X$ 是 $k$ 维子簇，则 $V$ 与一般的线性子空间 $\mathbb{P}^{N-k}$ 交于正的有限个点。反过来，Kleiman准则说，如果完备簇 $X$ 上一个线丛的某个倍数在 $X$ 的每条曲线 $C \subset X$ 上的次数一致大于零（即 $\ge \varepsilon \cdot (C \text{ 的任何合理度量})$），那么它可以给出 $X$ 的射影嵌入。这种正性与复流形上K&auml;hler度量（一种与复结构有恰当相容性的Riemann度量）的选择密切相关。因此我们将射影性理解为一种"正定性"。
+</blockquote>
+
+<h3>(b) Sufficiency</h3>
+<h4>(b) 充分性</h4>
+
+<p>The surprising thing is the many problems of algebraic geometry having answers within the framework of projective varieties. The construction of Chow varieties mentioned in (8.2) is one such example; another is Mumford's work of the 1960s, in which he constructed Picard varieties and many moduli spaces as <span class="vocab">quasiprojective<span class="tooltip">/ˌkweɪ.zi.prəˈdʒek.tɪv/ 拟射影的</span></span> varieties (schemes). Mori theory (responsible for important conceptual advances in classification of varieties related to rationality, see [Koll&aacute;r]) is the most recent example; here the ideas and techniques are <span class="vocab">inescapably<span class="tooltip">/ˌɪn.ɪˈskeɪ.pə.bli/ 不可避免地</span></span> projective in nature.</p>
+
+<blockquote>
+令人惊讶的是，代数几何的许多问题都能在射影簇的框架内找到答案。(8.2) 中提到的Chow簇的构造就是一个例子；另一个是Mumford在1960年代的工作，他将Picard簇和许多模空间构造为拟射影簇（概形）。Mori理论（它在与有理性相关的簇分类方面做出了重要的概念推进，参见 [Koll&aacute;r]）是最近的例子；在这里，思想和技术本质上不可避免地是射影性的。
+</blockquote>
+
+<h3>(c) Insufficiency of abstract varieties</h3>
+<h4>(c) 抽象簇的不充分性</h4>
+
+<p>Curves and nonsingular surfaces are automatically quasiprojective; but abstract varieties that are not quasiprojective do exist (singular surfaces, or nonsingular varieties of dimension $\ge 3$). However, if you feel the need for these constructions, you will almost certainly also want Moishezon varieties (M. Artin's algebraic spaces), objects of algebraic geometry more general than abstract varieties, obtained by a somewhat more <span class="vocab">liberal<span class="tooltip">/ˈlɪb.ər.əl/ 自由的，宽泛的</span></span> interpretation of 'glueing local pieces'.</p>
+
+<blockquote>
+曲线和非奇异曲面自动是拟射影的；但确实存在不是拟射影的抽象簇（奇异曲面，或维数 $\ge 3$ 的非奇异簇）。然而，如果你感到需要这类构造，你几乎肯定也会需要Moishezon簇（M. Artin的代数空间），这是比抽象簇更一般的代数几何对象，通过对"粘合局部片段"稍微更自由的诠释而得到。
+</blockquote>
+
+<p>Theorems on abstract varieties are often proved by a reduction to the quasiprojective case, so whether the quasiprojective proof or the detail of the reduction process is more useful, interesting, essential or likely-to-lead-to-cheap-publishable-work will depend on the particular problem and the individual student's interests and employment situation. It has recently been proved that a nonsingular abstract variety or Moishezon variety that is not quasiprojective necessarily contains a rational curve; however, the proof (due to J. Koll&aacute;r) is Mori theoretic, so hardcore projective algebraic geometry.</p>
+
+<blockquote>
+关于抽象簇的定理常常通过归约到拟射影情形来证明，因此是拟射影的证明还是归约过程的细节更有用、更有趣、更本质或更容易发表，将取决于具体问题以及每个学生的兴趣和就业状况。最近已证明，一个不是拟射影的非奇异抽象簇或Moishezon簇必然包含一条有理曲线；然而，这个证明（归功于J. Koll&aacute;r）属于Mori理论，也就是说是硬核的射影代数几何。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch08_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s12.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

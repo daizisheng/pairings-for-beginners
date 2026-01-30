@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§0.1 What it's about — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch00_woffle.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch00_s02.html">下一节 →</a>
+</nav>
+
+<h1>0.1 What it's about</h1>
+<h2>0.1 这门课讲什么</h2>
+
+<p>A <span class="vocab">variety<span class="tooltip">/vəˈraɪ.ə.ti/ （代数）簇</span></span> is (roughly) a <span class="vocab">locus<span class="tooltip">/ˈloʊ.kəs/ 轨迹，（满足条件的）点集</span></span> defined by <span class="vocab">polynomial<span class="tooltip">/ˌpɒl.ɪˈnoʊ.mi.əl/ 多项式</span></span> equations:</p>
+
+$$V = \left\{ P \in k^n \;\middle|\; f_i(P) = 0 \right\} \subset k^n,$$
+
+<p>where $k$ is a field and $f_i \in k[X_1, \ldots, X_n]$ are polynomials; so for example, the <span class="vocab">plane curves<span class="tooltip">平面曲线</span></span> $C : (f(x,y) = 0) \subset \mathbb{R}^2$ or $\mathbb{C}^2$.</p>
+
+<blockquote>
+<strong>簇（variety）</strong>的粗略定义：由多项式方程定义的点集（轨迹）。给定一个域 $k$ 和多项式 $f_i \in k[X_1,\ldots,X_n]$，满足所有 $f_i(P)=0$ 的点 $P$ 的集合就是一个簇 $V \subset k^n$。最简单的例子是平面曲线 $C: (f(x,y)=0) \subset \mathbb{R}^2$ 或 $\mathbb{C}^2$。
+</blockquote>
+
+<figure>
+    <img src="images/fig_page9_img1.png" alt="The cubic curves (a), (b), (c)">
+    <figcaption>Figure 1: The cubic curves (a) $y^2 = (x+1)(x^2+\varepsilon)$, &nbsp; (b) $y^2 = (x+1)x^2$, &nbsp; and (c) $y^2 = (x+1)(x^2-\varepsilon)$.</figcaption>
+</figure>
+
+<blockquote>
+图1：三条三次曲线。随着参数 $\varepsilon$ 从正变到负，曲线的拓扑形状发生变化——从(a)一个连通分支、经过(b)出现一个结点（node）、到(c)分裂成两个分支。
+</blockquote>
+
+<p>I want to study $V$; several questions present themselves:</p>
+
+<p><strong>Number Theory</strong> &nbsp; For example, if $k = \mathbb{Q}$ and $V \subset \mathbb{Q}^n$, how can we tell if $V$ is nonempty, or find all its points if it is? A specific case is historically of some significance: how many solutions are there to</p>
+
+$$x^n + y^n = 1, \quad \text{with } x, y \in \mathbb{Q} \text{ and } n \geq 3?$$
+
+<p>Questions of this kind are generally known as <span class="vocab">Diophantine<span class="tooltip">/ˌdaɪ.əˈfæn.tiːn/ 丢番图的（以古希腊数学家命名）</span></span> problems.</p>
+
+<blockquote>
+<strong>数论方向</strong>：若 $k = \mathbb{Q}$，$V \subset \mathbb{Q}^n$，如何判断 $V$ 是否非空？如何找到它的所有点？一个有历史意义的特例：方程 $x^n + y^n = 1$（$x,y \in \mathbb{Q}$，$n \geq 3$）有多少组解？这就是著名的<strong>费马大定理</strong>（Fermat's Last Theorem），1995年被Andrew Wiles证明答案是：只有平凡解。这类问题统称为<strong>丢番图问题</strong>。
+</blockquote>
+
+<p><strong>Topology</strong> &nbsp; If $k$ is $\mathbb{R}$ or $\mathbb{C}$ (which it quite often is), what kind of <span class="vocab">topological<span class="tooltip">/ˌtɒp.əˈlɒdʒ.ɪ.kəl/ 拓扑的</span></span> space is $V$? For example, the connected components of the above cubics are obvious topological <span class="vocab">invariants<span class="tooltip">/ɪnˈveə.ri.ənts/ 不变量</span></span>.</p>
+
+<blockquote>
+<strong>拓扑方向</strong>：若 $k$ 是 $\mathbb{R}$ 或 $\mathbb{C}$，$V$ 是什么样的拓扑空间？例如，上面三条三次曲线的<strong>连通分支数</strong>就是一个显而易见的拓扑不变量。
+</blockquote>
+
+<p><strong><span class="vocab">Singularity<span class="tooltip">/ˌsɪŋ.ɡjʊˈlær.ə.ti/ 奇异性，奇点</span></span> theory</strong> &nbsp; What kind of topological space is $V$ near $P \in V$; if $f \colon V_1 \to V_2$ is a regular map between two varieties (for example, a polynomial map $\mathbb{R}^2 \to \mathbb{R}$), what kind of topology and geometry does $f$ have near $P \in V_1$?</p>
+
+<blockquote>
+<strong>奇异性理论</strong>：$V$ 在点 $P \in V$ 附近是什么样的拓扑空间？如果 $f: V_1 \to V_2$ 是两个簇之间的正则映射（比如一个多项式映射 $\mathbb{R}^2 \to \mathbb{R}$），$f$ 在 $P \in V_1$ 附近有什么样的拓扑和几何性质？
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch00_woffle.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch00_s02.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

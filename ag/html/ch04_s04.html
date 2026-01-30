@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.4 Polynomial Maps and k[V] — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.4 Polynomial Maps and $k[V]$</h1>
+<h2>多项式映射与 $k[V]$</h2>
+
+<p><strong>Theorem</strong> <em>Let $V \subset \mathbb{A}^n_k$ and $W \subset \mathbb{A}^m_k$ be algebraic sets as above.</em></p>
+
+<p><em>(1) A polynomial map $f \colon V \to W$ <span class="vocab">induces<span class="tooltip">/ɪnˈdjuːsɪz/ 诱导</span></span> a ring homomorphism $f^* \colon k[W] \to k[V]$, defined by composition of functions; that is, if $g \in k[W]$ is a polynomial function then so is $f^*(g) = g \circ f$, and $g \mapsto g \circ f$ defines a ring homomorphism, in fact a $k$-algebra homomorphism $f^* \colon k[W] \to k[V]$. (Note that it goes backwards.)</em></p>
+
+<p><em>(2) Conversely, any $k$-algebra homomorphism $\Phi \colon k[W] \to k[V]$ is of the form $\Phi = f^*$ for a uniquely defined polynomial map $f \colon V \to W$.</em></p>
+
+<p><em>Thus (1) and (2) show that</em></p>
+
+$$\left\{\begin{array}{c}\text{polynomial}\\ \text{maps } f\colon V \to W\end{array}\right\} \longrightarrow \left\{\begin{array}{c}k\text{-algebra homs.}\\ \Phi\colon k[W] \to k[V]\end{array}\right\} \quad \text{by} \quad f \longmapsto f^*$$
+
+<p><em>is a bijection.</em></p>
+
+<p><em>(3) If $f \colon V \to W$ and $g \colon W \to U$ are polynomial maps then the two ring homomorphisms $(g \circ f)^* = f^* \circ g^* \colon k[U] \to k[V]$ coincide.</em></p>
+
+<blockquote>
+<strong>定理</strong> 设 $V \subset \mathbb{A}^n_k$，$W \subset \mathbb{A}^m_k$ 是如上的代数集。
+
+<br><br>(1) 多项式映射 $f \colon V \to W$ 诱导一个环同态 $f^* \colon k[W] \to k[V]$，由函数的复合定义；即如果 $g \in k[W]$ 是多项式函数，那么 $f^*(g) = g \circ f$ 也是，而且 $g \mapsto g \circ f$ 定义了一个环同态，实际上是一个 $k$-代数同态 $f^* \colon k[W] \to k[V]$。（注意方向是反的。）
+
+<br><br>(2) 反过来，任何 $k$-代数同态 $\Phi \colon k[W] \to k[V]$ 都具有 $\Phi = f^*$ 的形式，其中 $f \colon V \to W$ 是唯一确定的多项式映射。
+
+<br><br>因此 (1) 和 (2) 表明
+
+$$\left\{\text{多项式映射 } f\colon V \to W\right\} \longrightarrow \left\{k\text{-代数同态 } \Phi\colon k[W] \to k[V]\right\}, \quad f \longmapsto f^*$$
+
+是一个双射。
+
+<br><br>(3) 如果 $f \colon V \to W$，$g \colon W \to U$ 是多项式映射，那么两个环同态 $(g \circ f)^* = f^* \circ g^* \colon k[U] \to k[V]$ 是一致的。
+</blockquote>
+
+<p><strong>Proof</strong> (I) By what I said in (4.3), $f^*(g)$ is a polynomial map $V \to k$, hence $f^*(g) \in k[V]$. Obviously $f^*(a) = a$ for all $a \in k$ (since $k$ is being considered as the constant functions on $V, W$). Finally the fact that $f^*$ is a ring homomorphism is formal, since both $k[W]$ and $k[V]$ are rings of functions. (The ring structure is defined <span class="vocab">pointwise<span class="tooltip">/ˈpɔɪnt.waɪz/ 逐点地</span></span>, so for example, for $g_1, g_2 \in k[W]$, the sum $g_1 + g_2$ is defined as the function on $W$ such that $(g_1 + g_2)(P) = g_1(P) + g_2(P)$ for all $P \in W$; therefore $f^*(g_1 + g_2)(Q) = (g_1 + g_2)(f(Q)) = g_1(f(Q)) + g_2(f(Q)) = f^*g_1(Q) + f^*g_2(Q)$. No-one's going to read this rubbish, are they?)</p>
+
+<blockquote>
+<strong>证明</strong> (I) 由 (4.3) 中所述，$f^*(g)$ 是 $V \to k$ 的多项式映射，因此 $f^*(g) \in k[V]$。显然对所有 $a \in k$ 有 $f^*(a) = a$（因为 $k$ 被视为 $V, W$ 上的常值函数）。最后，$f^*$ 是环同态这一事实是形式化的，因为 $k[W]$ 和 $k[V]$ 都是函数环。（环结构是逐点定义的，例如对 $g_1, g_2 \in k[W]$，和 $g_1 + g_2$ 定义为 $W$ 上的函数，满足 $(g_1 + g_2)(P) = g_1(P) + g_2(P)$；因此 $f^*(g_1 + g_2)(Q) = (g_1 + g_2)(f(Q)) = g_1(f(Q)) + g_2(f(Q)) = f^*g_1(Q) + f^*g_2(Q)$。没人会读这些废话吧？）
+</blockquote>
+
+<p>(III) is just the fact that composition of maps is <span class="vocab">associative<span class="tooltip">/əˈsoʊ.ʃi.eɪ.tɪv/ 结合的</span></span>.</p>
+
+<blockquote>
+(III) 不过是映射复合的结合律。
+</blockquote>
+
+<p>(II) is a little more tricky to get right, although it's still content-free. For $i = 1, \dots, m$, let $y_i \in k[W]$ be the $i$th coordinate function on $W$, so that</p>
+
+$$k[W] = k[y_1, \dots, y_m] = k[Y_1, \dots, Y_m]/I(W).$$
+
+<p>Now $\Phi \colon k[W] \to k[V]$ is given, so I can define $f_i \in k[V]$ by $f_i = \Phi(y_i)$.</p>
+
+<p>Consider the map $f \colon V \to \mathbb{A}^m_k$ defined by $f(P) = \bigl(f_1(P), \dots, f_m(P)\bigr)$. This is a polynomial map since $f_i \in k[V]$. Furthermore, I claim that $f$ takes $V$ into $W$, that is, $f(V) \subset W$. Indeed, suppose that $G \in I(W) \subset k[Y_1, \dots, Y_m]$; then</p>
+
+$$G(y_1, \dots, y_m) = 0 \in k[W],$$
+
+<p>where the left-hand side means that I substitute the ring elements $y_i$ into the polynomial expression $G$. Therefore, $\Phi(G(y_1, \dots, y_m)) = 0 \in k[V]$; but $\Phi$ is a $k$-algebra homomorphism, so that</p>
+
+$$k[V] \ni 0 = \Phi(G(y_1, \dots, y_m)) = G(\Phi(y_1), \dots, \Phi(y_m)) = G(f_1, \dots, f_m).$$
+
+<p>The $f_i$ are functions on $V$, and $G(f_1, \dots, f_m) \in k[V]$ is by definition the function $P \mapsto G(f_1(P), \dots, f_m(P))$. This proves that for $P \in V$, and for every $G \in I(W)$, the coordinates $(f_1(P), \dots, f_m(P))$ of $f(P)$ satisfy $G(f_1(P), \dots, f_m(P)) = 0$. Since $W$ is the subset of $\mathbb{A}^m_k$ defined by the vanishing of $G \in I(W)$, it follows that $f(P) \in W$. This proves that $f$ given above is a polynomial map $f \colon V \to W$. To check that the two $k$-algebra homomorphisms $f^*, \Phi \colon k[W] \to k[V]$ coincide, it's enough to check that they agree on the generators, that is $f^*(y_i) = \Phi(y_i)$; a minute inspection of the construction of $f$ (at the start of the proof of (II) above) will reveal that this is in fact the case. An exactly similar argument shows that the map $f$ is uniquely determined by the condition $f^*(y_i) = \Phi(y_i)$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+(II) 的证明稍微需要些技巧，虽然本质上仍然没什么内容。对 $i = 1, \dots, m$，设 $y_i \in k[W]$ 为 $W$ 上的第 $i$ 个坐标函数，于是
+
+$$k[W] = k[y_1, \dots, y_m] = k[Y_1, \dots, Y_m]/I(W).$$
+
+已知 $\Phi \colon k[W] \to k[V]$，我可以定义 $f_i \in k[V]$，令 $f_i = \Phi(y_i)$。
+
+考虑映射 $f \colon V \to \mathbb{A}^m_k$，定义为 $f(P) = (f_1(P), \dots, f_m(P))$。这是一个多项式映射，因为 $f_i \in k[V]$。此外，我断言 $f$ 将 $V$ 映入 $W$，即 $f(V) \subset W$。确实，假设 $G \in I(W) \subset k[Y_1, \dots, Y_m]$，则
+
+$$G(y_1, \dots, y_m) = 0 \in k[W],$$
+
+左边表示将环元素 $y_i$ 代入多项式表达式 $G$。因此 $\Phi(G(y_1, \dots, y_m)) = 0 \in k[V]$；但 $\Phi$ 是 $k$-代数同态，所以
+
+$$k[V] \ni 0 = \Phi(G(y_1, \dots, y_m)) = G(\Phi(y_1), \dots, \Phi(y_m)) = G(f_1, \dots, f_m).$$
+
+$f_i$ 是 $V$ 上的函数，而 $G(f_1, \dots, f_m) \in k[V]$ 根据定义就是函数 $P \mapsto G(f_1(P), \dots, f_m(P))$。这证明了对 $P \in V$ 和每个 $G \in I(W)$，$f(P)$ 的坐标 $(f_1(P), \dots, f_m(P))$ 满足 $G(f_1(P), \dots, f_m(P)) = 0$。由于 $W$ 是 $\mathbb{A}^m_k$ 中由 $G \in I(W)$ 的零点集定义的子集，因此 $f(P) \in W$。这就证明了上面给出的 $f$ 是一个多项式映射 $f \colon V \to W$。要验证两个 $k$-代数同态 $f^*, \Phi \colon k[W] \to k[V]$ 一致，只需检查它们在生成元上一致，即 $f^*(y_i) = \Phi(y_i)$；仔细检查 $f$ 的构造（在 (II) 证明的开头）就会发现确实如此。完全类似的论证表明映射 $f$ 由条件 $f^*(y_i) = \Phi(y_i)$ 唯一确定。 Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

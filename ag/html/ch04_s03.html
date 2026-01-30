@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.3 Polynomial Maps — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s04.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.3 Polynomial Maps</h1>
+<h2>多项式映射</h2>
+
+<p>Let $V \subset \mathbb{A}^n$ and $W \subset \mathbb{A}^m$ be algebraic sets; write $X_1, \dots, X_n$ and $Y_1, \dots, Y_m$ for the coordinates on $\mathbb{A}^n$ and $\mathbb{A}^m$ respectively.</p>
+
+<blockquote>
+设 $V \subset \mathbb{A}^n$ 和 $W \subset \mathbb{A}^m$ 是代数集；分别用 $X_1, \dots, X_n$ 和 $Y_1, \dots, Y_m$ 表示 $\mathbb{A}^n$ 和 $\mathbb{A}^m$ 上的坐标。
+</blockquote>
+
+<p><strong>Definition</strong> A map $f \colon V \to W$ is a <strong>polynomial map</strong> if there exist $m$ polynomials $F_1, \dots, F_m \in k[X_1, \dots, X_n]$ such that</p>
+
+$$f(P) = \bigl(F_1(P), \dots, F_m(P)\bigr) \in \mathbb{A}^m_k \quad \text{for all } P \in V.$$
+
+<p>This is an obvious <span class="vocab">generalisation<span class="tooltip">/ˌdʒen.ər.əl.aɪˈzeɪ.ʃən/ 推广</span></span> of the above notion of a polynomial function.</p>
+
+<blockquote>
+<strong>定义</strong> 映射 $f \colon V \to W$ 称为<strong>多项式映射</strong>，如果存在 $m$ 个多项式 $F_1, \dots, F_m \in k[X_1, \dots, X_n]$ 使得
+
+$$f(P) = \bigl(F_1(P), \dots, F_m(P)\bigr) \in \mathbb{A}^m_k \quad \text{对所有 } P \in V.$$
+
+这是前面多项式函数概念的一个明显推广。
+</blockquote>
+
+<p><strong>Claim</strong> <em>A map $f \colon V \to W$ is a polynomial map if and only if for all $j$, the composite map $f_j = Y_j \circ f \in k[V]$</em> ($j$th coordinate function).</p>
+
+<blockquote>
+<strong>断言</strong> 映射 $f \colon V \to W$ 是多项式映射，当且仅当对所有 $j$，复合映射 $f_j = Y_j \circ f \in k[V]$（第 $j$ 个坐标函数）。
+</blockquote>
+
+<p>This is clear: if $f$ is given by $F_1, \dots, F_m$, then the composite is just $P \mapsto F_j(P)$, which is a polynomial function. Conversely, if $f_j \in k[V]$ for each $j$, then for any choice of $F_j \in k[X_1, \dots, X_n]$ such that $f_j = F_j \bmod I(V)$, I get a description of $f$ as the polynomial map given by $(F_1, \dots, F_m)$.</p>
+
+<p>In view of this claim, the map $f$ can be written $f = (f_1, \dots, f_m)$.</p>
+
+<blockquote>
+这很明显：如果 $f$ 由 $F_1, \dots, F_m$ 给出，那么复合映射就是 $P \mapsto F_j(P)$，这是一个多项式函数。反过来，如果对每个 $j$ 都有 $f_j \in k[V]$，那么对于 $F_j \in k[X_1, \dots, X_n]$ 的任意选取（只要满足 $f_j = F_j \bmod I(V)$），我就得到了 $f$ 作为由 $(F_1, \dots, F_m)$ 给出的多项式映射的描述。
+
+根据这个断言，映射 $f$ 可以写成 $f = (f_1, \dots, f_m)$。
+</blockquote>
+
+<p>The composite of polynomial maps is defined in the obvious way: if $V \subset \mathbb{A}^n$, $W \subset \mathbb{A}^m$ and $U \subset \mathbb{A}^\ell$ are algebraic sets, and $f \colon V \to W$, $g \colon W \to U$ are polynomial maps, then $g \circ f \colon V \to U$ is again a polynomial map; for if $f$ is given by $F_1, \dots, F_m \in k[X_1, \dots, X_n]$, and $g$ by $G_1, \dots, G_\ell \in k[Y_1, \dots, Y_m]$, then $g \circ f$ is given by</p>
+
+$$G_1(F_1, \dots, F_m), \dots, G_\ell(F_1, \dots, F_m) \in k[X_1, \dots, X_n].$$
+
+<blockquote>
+多项式映射的复合以显然的方式定义：如果 $V \subset \mathbb{A}^n$、$W \subset \mathbb{A}^m$ 和 $U \subset \mathbb{A}^\ell$ 是代数集，而 $f \colon V \to W$、$g \colon W \to U$ 是多项式映射，那么 $g \circ f \colon V \to U$ 仍然是多项式映射；因为如果 $f$ 由 $F_1, \dots, F_m \in k[X_1, \dots, X_n]$ 给出，$g$ 由 $G_1, \dots, G_\ell \in k[Y_1, \dots, Y_m]$ 给出，那么 $g \circ f$ 由
+
+$$G_1(F_1, \dots, F_m), \dots, G_\ell(F_1, \dots, F_m) \in k[X_1, \dots, X_n]$$
+
+给出。
+</blockquote>
+
+<p><strong>Definition</strong> A polynomial map $f \colon V \to W$ between algebraic sets is an <strong>isomorphism</strong> if there exists a polynomial map $g \colon W \to V$ such that $f \circ g = g \circ f = \mathrm{id}$.</p>
+
+<blockquote>
+<strong>定义</strong> 代数集之间的多项式映射 $f \colon V \to W$ 称为<strong>同构</strong>，如果存在多项式映射 $g \colon W \to V$ 使得 $f \circ g = g \circ f = \mathrm{id}$。
+</blockquote>
+
+<p>Several examples of polynomial maps have already been given: the <span class="vocab">parametrisations<span class="tooltip">/ˌpær.ə.mɪ.trɪˈzeɪ.ʃənz/ 参数化</span></span> $\mathbb{R}^1 \to C \subset \mathbb{R}^2$ by $t \mapsto (t^2, t^3)$ or $(t^2 - 1, t^3 - t)$ given in (2.1), and the map $k \to C \subset \mathbb{A}^3_k$ by $t \mapsto (t^3, t^4, t^5)$ discussed in (3.11, b) are clearly of this kind. Also, while discussing Noether normalisation, I had an algebraic set $V \subset \mathbb{A}^n_k$, and considered the general projection $p \colon V \to \mathbb{A}^m_k$ defined by $m$ 'fairly general' linear forms $Y_1, \dots, Y_m$; since the $Y_i$ are linear forms in the coordinates $X_i$ of $\mathbb{A}^n_k$, this projection is a polynomial map.</p>
+
+<blockquote>
+前面已经给出了若干多项式映射的例子：(2.1) 中的参数化 $\mathbb{R}^1 \to C \subset \mathbb{R}^2$，$t \mapsto (t^2, t^3)$ 或 $(t^2 - 1, t^3 - t)$，以及 (3.11, b) 中讨论的映射 $k \to C \subset \mathbb{A}^3_k$，$t \mapsto (t^3, t^4, t^5)$，显然都是这种类型。此外，在讨论 Noether 正规化时，我有一个代数集 $V \subset \mathbb{A}^n_k$，并考虑了由 $m$ 个"相当一般的"线性形式 $Y_1, \dots, Y_m$ 定义的一般投影 $p \colon V \to \mathbb{A}^m_k$；由于 $Y_i$ 是 $\mathbb{A}^n_k$ 的坐标 $X_i$ 的线性形式，这个投影就是一个多项式映射。
+</blockquote>
+
+<p>On the other hand the parametrisation of the circle given in (1.1) is given by rational functions (there's a term $\lambda^2 + 1$ in the <span class="vocab">denominator<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.tər/ 分母</span></span>); and the inverse map $(X, Y) \dashrightarrow t = Y/X$ from either of the singular cubics $C \subset \mathbb{R}^2$ back to $\mathbb{R}^1$ is also <span class="vocab">disqualified<span class="tooltip">/dɪsˈkwɒl.ɪ.faɪd/ 被取消资格的</span></span> (or at least, doesn't qualify as written) for the same reason.</p>
+
+<blockquote>
+另一方面，(1.1) 中圆的参数化是由有理函数给出的（分母中有 $\lambda^2 + 1$ 这一项）；而从任一奇异三次曲线 $C \subset \mathbb{R}^2$ 回到 $\mathbb{R}^1$ 的逆映射 $(X, Y) \dashrightarrow t = Y/X$ 也因同样的原因不合格（或者至少按所写的形式不合格）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s04.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

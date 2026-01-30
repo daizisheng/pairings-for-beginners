@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.5 Proposition: dim T_P V is upper semicontinuous — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s06.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.5 Proposition: $\dim T_P V$ is upper semicontinuous</h1>
+<h2>6.5 命题：$\dim T_P V$ 上半连续</h2>
+
+<p><strong>Proposition 6.5</strong> &nbsp; <em>The function $V \to \mathbb{N}$ defined by $P \mapsto \dim T_P V$ is an <span class="vocab">upper semicontinuous<span class="tooltip">/ˌʌp.ə ˌsem.i.kənˈtɪn.ju.əs/ 上半连续的</span></span> function (in the Zariski topology of $V$). In other words, for any integer $r$, the subset</em></p>
+
+$$S(r) = \{ P \in V \mid \dim T_P V \geq r \} \subset V$$
+
+<p><em>is closed.</em></p>
+
+<blockquote>
+<strong>命题 6.5</strong>：由 $P \mapsto \dim T_P V$ 定义的函数 $V \to \mathbb{N}$ 是上半连续函数（在 $V$ 的 Zariski 拓扑下）。换言之，对任意整数 $r$，子集
+$$S(r) = \{ P \in V \mid \dim T_P V \geq r \} \subset V$$
+是闭集。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Let $(f_1, \ldots, f_m)$ be a set of <span class="vocab">generators<span class="tooltip">/ˈdʒen.ə.reɪ.tərz/ 生成元</span></span> of $I(V)$; it is easy to see that for any $g \in I(V)$, the linear part $g_P^{(1)}$ of $g$ is a linear combination of those of the $f_i$, so that the definition of $T_P V$ simplifies to</p>
+
+$$T_P V = \bigcap_{i=1}^m \left( f_{i,P}^{(1)} = 0 \right) \subset \mathbb{A}^n.$$
+
+<p>Then by elementary linear algebra,</p>
+
+$$P \in S(r) \iff \text{the matrix } \left( \frac{\partial f_i}{\partial X_j}(P) \right)_{\substack{i=1,\ldots,m \\ j=1,\ldots,n}} \text{ has rank} \leq n - r$$
+
+$$\iff \text{every } (n - r + 1) \times (n - r + 1) \text{ minor vanishes.}$$
+
+<p>Now each entry $\partial f_i / \partial X_j(P)$ of the matrix is a polynomial function of $P$; thus each <span class="vocab">minor<span class="tooltip">/ˈmaɪ.nər/ 子式</span></span> is a <span class="vocab">determinant<span class="tooltip">/dɪˈtɜː.mɪ.nənt/ 行列式</span></span> of a matrix of polynomials, and so is itself a polynomial. Hence $S(r) \subset V \subset \mathbb{A}^n$ is an algebraic subset. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong>：设 $(f_1, \ldots, f_m)$ 是 $I(V)$ 的一组生成元；容易看出，对任意 $g \in I(V)$，$g$ 的线性部分 $g_P^{(1)}$ 是各 $f_i$ 的线性部分的线性组合，因此 $T_P V$ 的定义简化为
+$$T_P V = \bigcap_{i=1}^m \left( f_{i,P}^{(1)} = 0 \right) \subset \mathbb{A}^n.$$
+然后由初等线性代数，
+$$P \in S(r) \iff \text{矩阵 } \left( \frac{\partial f_i}{\partial X_j}(P) \right)_{\substack{i=1,\ldots,m \\ j=1,\ldots,n}} \text{ 的秩} \leq n - r$$
+$$\iff \text{所有 } (n - r + 1) \times (n - r + 1) \text{ 阶子式为零。}$$
+矩阵的每个元素 $\partial f_i / \partial X_j(P)$ 都是 $P$ 的多项式函数；因此每个子式是多项式矩阵的行列式，本身也是多项式。所以 $S(r) \subset V \subset \mathbb{A}^n$ 是代数子集。Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s06.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

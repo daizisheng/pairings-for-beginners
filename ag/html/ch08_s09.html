@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.9 Regular Functions and Sheaves — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch08_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s10.html">下一节 &rarr;</a>
+</nav>
+
+<h1>8.9 Regular Functions and Sheaves</h1>
+<h2>正则函数与层</h2>
+
+<p>The reader who has properly grasped the notion of rational function $f \in k(X)$ on a variety $X$ and of <span class="vocab">regularity<span class="tooltip">/ˌreɡ.jəˈlær.ɪ.ti/ 正则性</span></span> of $f$ at $P \in X$ ((4.7) and (5.4)) already has a pretty good intuitive idea of the structure <span class="vocab">sheaf<span class="tooltip">/ʃiːf/ 层</span></span> $\mathcal{O}_X$. For an open set $U \subset X$, the set of regular functions $U \to k$</p>
+
+$$\mathcal{O}_X(U) = \big\{ f \in k(X) \;\big|\; f \text{ is regular } \forall P \in U \big\} = \bigcap_{P \in U} \mathcal{O}_{X,P}$$
+
+<p>is a subring of the field $k(X)$. The sheaf $\mathcal{O}_X$ is just the family of rings $\mathcal{O}_X(U)$ as $U$ runs through the opens of $X$. Clearly, any element of the local ring $\mathcal{O}_{X,P}$ (see (4.7) and (5.4) for the definition) is regular in some <span class="vocab">neighbourhood<span class="tooltip">/ˈneɪ.bə.hʊd/ 邻域</span></span> $U$ of $P$, so that $\mathcal{O}_{X,P} = \bigcup_{U \ni P} \mathcal{O}_X(U)$. There's no more to it than that; there's a fixed pool of rational sections $k(X)$, and sections of the sheaf over an open $U$ are just rational sections with a regularity condition at every $P \in U$.</p>
+
+<blockquote>
+正确理解了簇 $X$ 上的有理函数 $f \in k(X)$ 以及 $f$ 在 $P \in X$ 处的正则性（(4.7) 和 (5.4)）的读者，已经对结构层 $\mathcal{O}_X$ 有了相当好的直觉认识。对于开集 $U \subset X$，正则函数 $U \to k$ 的集合
+
+$$\mathcal{O}_X(U) = \big\{ f \in k(X) \;\big|\; f \text{ 在所有 } P \in U \text{ 处正则} \big\} = \bigcap_{P \in U} \mathcal{O}_{X,P}$$
+
+是域 $k(X)$ 的一个子环。层 $\mathcal{O}_X$ 就是当 $U$ 遍历 $X$ 的开集时的环族 $\mathcal{O}_X(U)$。显然，局部环 $\mathcal{O}_{X,P}$（参见 (4.7) 和 (5.4) 的定义）中的任何元素都在 $P$ 的某个邻域 $U$ 中正则，因此 $\mathcal{O}_{X,P} = \bigcup_{U \ni P} \mathcal{O}_X(U)$。就这么简单；有一个固定的有理截面的储备池 $k(X)$，层在开集 $U$ 上的截面就是在每个 $P \in U$ 处满足正则性条件的有理截面。
+</blockquote>
+
+<p>This language is adequate to describe any <span class="vocab">torsion<span class="tooltip">/ˈtɔː.ʃən/ 挠</span></span> free sheaf on an irreducible variety with the Zariski topology. Of course, you need the full definition of sheaves if $X$ is <span class="vocab">reducible<span class="tooltip">/rɪˈdjuː.sɪ.bəl/ 可约的</span></span>, or if you want to handle more complicated sheaves, or to use the complex topology.</p>
+
+<blockquote>
+这种语言足以描述具有Zariski拓扑的不可约簇上的任何无挠层。当然，如果 $X$ 是可约的，或者你想处理更复杂的层，或者要使用复拓扑，就需要层的完整定义。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch08_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s10.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

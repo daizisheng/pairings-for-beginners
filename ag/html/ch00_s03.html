@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§0.3 Rings of functions and categories of geometry — Reid</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch00_s02.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch00_s04.html">下一节 →</a>
+</nav>
+
+<h1>0.3 Rings of functions and categories of geometry</h1>
+<h2>0.3 函数环与几何范畴</h2>
+
+<p>The specific <span class="vocab">flavour<span class="tooltip">/ˈfleɪ.vər/ 风味，特色</span></span> of algebraic geometry comes from the use of only polynomial functions (together with rational functions); to explain this, if $U \subset \mathbb{R}^2$ is an open interval, one can reasonably consider the following rings of functions on $U$:</p>
+
+<ul>
+    <li>$C^0(U)$ = all continuous functions $f \colon U \to \mathbb{R}$;</li>
+    <li>$C^\infty(U)$ = all smooth functions (that is, <span class="vocab">differentiable<span class="tooltip">/ˌdɪf.əˈren.ʃə.bl/ 可微的</span></span> to any order);</li>
+    <li>$C^\omega(U)$ = all <span class="vocab">analytic<span class="tooltip">/ˌæn.əˈlɪt.ɪk/ 解析的</span></span> functions (that is, convergent power series);</li>
+    <li>$\mathbb{R}[X]$ = the polynomial ring, viewed as polynomial functions on $U$.</li>
+</ul>
+
+<p>There are of course inclusions $\mathbb{R}[X] \subset C^\omega(U) \subset C^\infty(U) \subset C^0(U)$.</p>
+
+<blockquote>
+<strong>函数环的层级</strong>：代数几何的独特风味来自于只使用多项式函数（以及有理函数）。给定 $\mathbb{R}^2$ 中的开区间 $U$，可以考虑 $U$ 上的以下函数环：
+<ul>
+<li>$C^0(U)$：所有连续函数</li>
+<li>$C^\infty(U)$：所有光滑函数（即任意阶可微）</li>
+<li>$C^\omega(U)$：所有解析函数（即收敛幂级数）</li>
+<li>$\mathbb{R}[X]$：多项式环</li>
+</ul>
+<p>包含关系：$\mathbb{R}[X] \subset C^\omega(U) \subset C^\infty(U) \subset C^0(U)$。</p>
+</blockquote>
+
+<p>These rings of functions correspond to some of the important categories of geometry: $C^0(U)$ to the <span class="vocab">topological<span class="tooltip">/ˌtɒp.əˈlɒdʒ.ɪ.kəl/ 拓扑的</span></span> category, $C^\infty(U)$ to the differentiable category (differentiable <span class="vocab">manifolds<span class="tooltip">/ˈmæn.ɪ.foʊldz/ 流形</span></span>), $C^\omega$ to real analytic geometry, and $\mathbb{R}[X]$ to algebraic geometry. The point I want to make here is that each of these inclusion signs represents an absolutely <em>huge</em> gap, and that this leads to the main characteristics of geometry in the different categories.</p>
+
+<blockquote>
+<strong>每个包含号都代表一个巨大的鸿沟</strong>：这些函数环对应几何学的重要范畴——$C^0(U)$ 对应拓扑范畴，$C^\infty(U)$ 对应微分范畴（微分流形），$C^\omega$ 对应实解析几何，$\mathbb{R}[X]$ 对应代数几何。作者想强调的重点是：每一个包含号都代表一个<strong>巨大的</strong>鸿沟，正是这些鸿沟导致了不同范畴中几何学的主要特征差异。
+</blockquote>
+
+<p>Although it's not stressed very much in school and first year university calculus, any reasonable way of measuring $C^0(U)$ will reveal that the differentiable functions have measure 0 in the continuous functions (so if you pick a continuous function at random then with probability 1 it will be nowhere differentiable, like Brownian motion).</p>
+
+<blockquote>
+虽然在中学和大一微积分中不太强调这一点，但用任何合理的方式去"度量"$C^0(U)$，都会发现可微函数在连续函数中的测度为0（所以如果你随机选一个连续函数，它几乎肯定处处不可微，就像布朗运动那样）。
+</blockquote>
+
+<p>The gap between $C^\omega(U)$ and $C^\infty(U)$ is <span class="vocab">exemplified<span class="tooltip">/ɪɡˈzem.plɪ.faɪd/ 举例说明</span></span> by the behaviour of $\exp(-1/x^2)$, the standard function which is differentiable infinitely often, but for which the Taylor series (at 0) does not converge to $f$; using this, you can easily build a $C^\infty$ 'bump function' $f \colon \mathbb{R} \to \mathbb{R}$ such that $f(x) = 1$ if $|x| \leq 0.9$, and $f(x) = 0$ if $|x| \geq 1$.</p>
+
+<p>In contrast, an analytic function on $U$ extends (as a convergent power series) to an analytic function of a complex variable on a suitable domain in $\mathbb{C}$, so that (using results from complex analysis), if $f \in C^\omega(U)$ vanishes on a real interval, it must vanish identically. This is a kind of '<span class="vocab">rigidity<span class="tooltip">/rɪˈdʒɪd.ə.ti/ 刚性</span></span>' property which characterises analytic geometry as opposed to differential topology.</p>
+
+<blockquote>
+<strong>$C^\omega$ 与 $C^\infty$ 之间的鸿沟</strong>：经典例子是 $\exp(-1/x^2)$——这个函数无穷次可微，但它在原点的Taylor级数不收敛到自身。利用它可以轻松构造 $C^\infty$ 的"隆起函数"（bump function）：$f(x)=1$（$|x|\le 0.9$），$f(x)=0$（$|x|\ge 1$）。
+
+<p>相反，解析函数可以扩展为适当 $\mathbb{C}$ 域上的复变量解析函数，因此（由复分析的结论）如果 $f \in C^\omega(U)$ 在一个实区间上为零，它就必须恒等为零。这是一种<strong>"刚性"</strong>性质，它区分了解析几何与微分拓扑。</p>
+
+<p><strong>一句话总结</strong>：代数几何比解析几何还要"刚"——它只用多项式函数，这是所有函数类中最"少"的一类，但正是这种极端的稀少性赋予了代数几何独特的力量。</p>
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch00_s02.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch00_s04.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

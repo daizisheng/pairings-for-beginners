@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.4 The Grothendieck Era — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch08_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>8.4 The Grothendieck Era</h1>
+<h2>Grothendieck时代</h2>
+
+<p>From around 1955 to 1970, algebraic geometry was <span class="vocab">dominated<span class="tooltip">/ˈdɒm.ɪ.neɪ.tɪd/ 主导的</span></span> by Paris mathematicians, first Serre then more especially Grothendieck and his school. It is important not to <span class="vocab">underestimate<span class="tooltip">/ˌʌn.dərˈes.tɪ.meɪt/ 低估</span></span> the influence of Grothendieck's approach, especially now that it has to some extent gone out of fashion. This was a period in which <span class="vocab">tremendous<span class="tooltip">/trɪˈmen.dəs/ 巨大的</span></span> conceptual and technical advances were made, and thanks to the systematic use of the notion of scheme (more general than a variety, see (8.12--14) below), algebraic geometry was able to absorb practically all the advances made in topology, <span class="vocab">homological<span class="tooltip">/ˌhɒm.əˈlɒdʒ.ɪ.kəl/ 同调的</span></span> algebra, number theory, etc., and even to play a <span class="vocab">dominant<span class="tooltip">/ˈdɒm.ɪ.nənt/ 支配的，主导的</span></span> role in their development. Grothendieck himself retired from the scene around 1970 in his early forties, which must be counted a tragic waste (he initially left the IHES in a protest over military funding of science). As a practising algebraic geometer, one is keenly aware of the large blocks of powerful machinery developed during this period, many of which still remain to be written up in an approachable way.</p>
+
+<blockquote>
+大约从1955年到1970年，代数几何由巴黎的数学家所主导，先是Serre，然后更主要的是Grothendieck及其学派。不低估Grothendieck方法的影响是很重要的，尤其是现在它在某种程度上已不再时髦。这是一个取得了巨大概念和技术突破的时期，由于系统地使用了概形（scheme）的概念（比簇更一般，参见下面的 (8.12--14)），代数几何得以吸收拓扑学、同调代数、数论等领域几乎所有的进展，甚至在它们的发展中起了主导作用。Grothendieck本人在四十岁出头时（约1970年）退出了学术舞台，这不能不说是一个悲剧性的浪费（他最初离开IHES是为了抗议科学的军事资助）。作为一名在职的代数几何学家，我深切地意识到这一时期发展出的大量强有力的工具，其中许多至今仍未被以易于理解的方式写出来。
+</blockquote>
+
+<p>On the other hand, the Grothendieck <span class="vocab">personality cult<span class="tooltip">/ˌpɜː.sənˈæl.ɪ.ti kʌlt/ 个人崇拜</span></span> had serious side effects: many people who had devoted a large part of their lives to mastering Weil foundations suffered rejection and <span class="vocab">humiliation<span class="tooltip">/hjuːˌmɪl.iˈeɪ.ʃən/ 屈辱</span></span>, and to my knowledge only one or two have adapted to the new language; a whole generation of students (mainly French) got themselves <span class="vocab">brainwashed<span class="tooltip">/ˈbreɪn.wɒʃt/ 被洗脑的</span></span> into the foolish belief that a problem that can't be dressed up in high powered abstract <span class="vocab">formalism<span class="tooltip">/ˈfɔː.məl.ɪ.zəm/ 形式主义</span></span> is unworthy of study, and were thus excluded from the mathematician's natural development of starting with a small problem he or she can handle and exploring outwards from there. (I actually know of a thesis on the arithmetic of cubic surfaces that was initially not considered because 'the natural context for the construction is over a general locally Noetherian ringed topos'. This is not a joke.) Many students of the time could apparently not think of any higher ambition than <em>&Eacute;tudier les EGA</em>s. The study of category theory for its own sake (surely one of the most <span class="vocab">sterile<span class="tooltip">/ˈster.aɪl/ 贫瘠的，无结果的</span></span> of all intellectual pursuits) also dates from this time; Grothendieck himself can't necessarily be blamed for this, since his own use of categories was very successful in solving problems.</p>
+
+<blockquote>
+另一方面，Grothendieck的个人崇拜带来了严重的副作用：许多将大半生精力投入到掌握Weil基础体系中的人遭受了排斥和屈辱，据我所知只有一两个人适应了新语言；整整一代学生（主要是法国学生）被洗脑，愚蠢地相信一个无法用高级抽象形式主义包装起来的问题就不值得研究，从而被排斥在数学家的自然成长路径之外——即从一个自己能够处理的小问题开始，向外探索。（我确实知道一篇关于三次曲面算术的论文，起初不被考虑，因为"该构造的自然背景是在一般的局部Noether赋环拓扑上"。这不是玩笑。）那个时代的许多学生似乎想不到比"研读EGA"更高的抱负。为范畴论本身而研究范畴论（无疑是所有智力追求中最贫瘠的之一）也始于这一时期；Grothendieck本人倒不一定要为此负责，因为他自己对范畴的使用在解决问题方面是非常成功的。
+</blockquote>
+
+<p>The fashion has since swung the other way. At a recent conference in France I commented on the change in attitude, and got back the sarcastic answer 'but the twisted cubic is a very good example of a <span class="vocab">prorepresentable<span class="tooltip">/ˌprəʊ.rep.rɪˈzen.tə.bəl/ 可表函子的</span></span> functor'. I understand that some of the mathematicians now involved in administering French research money are individuals who suffered during this period of intellectual <span class="vocab">terrorism<span class="tooltip">/ˈter.ər.ɪ.zəm/ 恐怖主义</span></span>, and that applications for CNRS research projects are in consequence regularly dressed up to minimise their connection with algebraic geometry.</p>
+
+<blockquote>
+此后风尚已经转向了另一个方向。在法国的一次最近的会议上，我评论了态度的变化，得到的讽刺回答是"但扭三次曲线是可表函子的一个很好的例子"。我了解到，一些现在参与管理法国科研经费的数学家，正是在这段学术恐怖主义时期受过苦的人，因此CNRS研究项目的申请经常被刻意包装，以尽量减少与代数几何的关联。
+</blockquote>
+
+<p>Apart from a very small number of his own students who were able to take the pace and survive, the people who got most lasting benefit from Grothendieck's ideas, and who have <span class="vocab">propagated<span class="tooltip">/ˈprɒp.ə.ɡeɪ.tɪd/ 传播的</span></span> them most usefully, were influenced at a distance: the Harvard school (through Zariski, Mumford and M. Artin), the Moscow school of Shafarevich, perhaps also the Japanese school of commutative algebraists.</p>
+
+<blockquote>
+除了极少数他自己的学生能够跟上节奏并幸存下来之外，从Grothendieck的思想中获得最持久收益、并最有效地传播这些思想的人，都是在一定距离之外受到影响的：哈佛学派（通过Zariski、Mumford和M. Artin）、Shafarevich的莫斯科学派，或许还有日本的交换代数学派。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch08_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.16 Separable addendum — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s15.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s17.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.16 Separable addendum</h1>
+<h2>3.16 可分补遗</h2>
+
+<p>For the purposes of arranging that everything goes through in characteristic $p$, it is useful to add a tiny <span class="vocab">precision<span class="tooltip">/prɪˈsɪʒ.ən/ 精确说明</span></span>. I'm only going to use this in one place in the <span class="vocab">sequel<span class="tooltip">/ˈsiː.kwəl/ 后续</span></span>, so if you can't remember too much about <span class="vocab">separability<span class="tooltip">/ˌsep.ər.əˈbɪl.ɪ.ti/ 可分性</span></span> from Galois theory, don't lose too much sleep over it (GOTO 3.17).</p>
+
+<blockquote>
+为了保证一切在特征 $p$ 的情形也能走通，添加一个小小的精确说明是有用的。后面我只会在一个地方用到这个结论，所以如果你记不太清Galois理论中关于可分性的知识，也不必太担心（请直接跳到 3.17）。
+</blockquote>
+
+<p><strong>Addendum</strong> &nbsp; <em>Under the conditions of (3.13), if furthermore $k$ is algebraically closed, and $A$ is an integral domain with field of fractions $K$ then $y_1, \dots, y_m \in A$ can be chosen as above so that (i) and (ii) hold, and in addition</em></p>
+
+<p><em>(iii) $k(y_1, \dots, y_m) \subset K$ is a <span class="vocab">separable<span class="tooltip">/ˈsep.ər.ə.bl/ 可分的</span></span> extension.</em></p>
+
+<blockquote>
+<strong>补遗</strong> &nbsp; 在 (3.13) 的条件下，如果进一步假设 $k$ 是代数闭域，且 $A$ 是整环，分式域为 $K$，则 $y_1, \dots, y_m \in A$ 可以如上选取使得 (i) 和 (ii) 成立，且额外满足：<br>
+(iii) $k(y_1, \dots, y_m) \subset K$ 是可分扩张。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; If $k$ is of characteristic 0, then every field extension is separable; suppose therefore that $k$ has characteristic $p$. Since $A$ is an integral domain, $I$ is prime; hence if $I \neq 0$, it contains an irreducible element $f$. Now for each $i$, there is a <span class="vocab">dichotomy<span class="tooltip">/daɪˈkɒt.ə.mi/ 二分法</span></span>: either $f$ is separable in $X_i$, or $f \in k[X_1, \dots, X_i^p, \dots, X_n]$.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 如果 $k$ 的特征为 0，则每个域扩张都是可分的；因此假设 $k$ 的特征为 $p$。由于 $A$ 是整环，$I$ 是素理想；因此如果 $I \neq 0$，它包含一个不可约元素 $f$。对每个 $i$，存在一个二择性：要么 $f$ 关于 $X_i$ 是可分的，要么 $f \in k[X_1, \dots, X_i^p, \dots, X_n]$。
+</blockquote>
+
+<p><strong>Claim</strong> &nbsp; <em>If $f$ is inseparable in each $X_i$, then $f = g^p$ for some $g$, contradicting the irreducibility of $f$.</em></p>
+
+<p>The assumption is that $f$ is of the form:</p>
+
+$$f = F(X_1^p, \dots, X_n^p), \quad \text{with } F \in k[X_1, \dots, X_n].$$
+
+<p>If this happens, let $g \in k[X_1, \dots, X_n]$ be the polynomial obtained by taking the $p$th root of each coefficient of $F$; then making repeated use of the standard identity $(a + b)^p = a^p + b^p$ in characteristic $p$, it is easy to see that $f = g^p$.</p>
+
+<blockquote>
+<strong>断言</strong> &nbsp; 如果 $f$ 关于每个 $X_i$ 都是不可分的，则 $f = g^p$ 对某个 $g$ 成立，这与 $f$ 的不可约性矛盾。<br><br>
+假设是说 $f$ 具有形式 $f = F(X_1^p, \dots, X_n^p)$，其中 $F \in k[X_1, \dots, X_n]$。如果是这样，取 $g \in k[X_1, \dots, X_n]$ 为将 $F$ 的每个系数取 $p$ 次方根所得的多项式；然后反复使用特征 $p$ 中的标准恒等式 $(a+b)^p = a^p + b^p$，容易看出 $f = g^p$。
+</blockquote>
+
+<p>It follows that any irreducible $f$ is separable in at least one of the $X_i$, say in $X_n$. Then arguing exactly as above,</p>
+
+$$f(X_1' + \alpha_1 X_n, \dots, X_{n-1}' + \alpha_{n-1} X_n, X_n)$$
+
+<p>provides a monic, separable relation for $a_n$ over $A' = k[a_1', \dots, a_{n-1}']$. The result then follows by the same induction argument, using this time the fact that a <span class="vocab">composite<span class="tooltip">/ˈkɒm.pə.zɪt/ 复合的</span></span> of separable field extensions is separable. &nbsp; Q.E.D.</p>
+
+<blockquote>
+由此可知，任何不可约的 $f$ 至少关于某个 $X_i$ 是可分的，不妨设关于 $X_n$ 可分。然后和上面完全一样地论证，
+$$f(X_1' + \alpha_1 X_n, \dots, X_{n-1}' + \alpha_{n-1} X_n, X_n)$$
+给出 $a_n$ 在 $A' = k[a_1', \dots, a_{n-1}']$ 上的首一可分关系式。结论由同样的归纳论证得出，这次用到的事实是可分域扩张的复合仍然是可分的。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s15.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s17.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

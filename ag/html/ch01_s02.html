@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.2 Similar example — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s03.html">下一节 &rarr;</a>
+</nav>
+
+<h1>1.2 Similar example</h1>
+<h2>1.2 类似的例子</h2>
+
+<p>$C : (2X^2 + Y^2 = 5Z^2)$. The same method leads to the <span class="vocab">parametrisation<span class="tooltip">/ˌpær.ə.mɪ.traɪˈzeɪ.ʃən/ 参数化</span></span> $\mathbb{R} \to C$ given by</p>
+
+$$x = \frac{2\sqrt{5}\,\lambda}{1 + 2\lambda^2}, \quad y = \frac{2\lambda^2 - 1}{1 + 2\lambda^2}.$$
+
+<p>This allows us to understand all about points of $C$ with <span class="vocab">coefficients<span class="tooltip">/ˌkoʊ.ɪˈfɪʃ.ənts/ 系数</span></span> in $\mathbb{R}$, and there's no real difference from the previous example; what about $\mathbb{Q}$?</p>
+
+<blockquote>
+考虑曲线 $C: (2X^2 + Y^2 = 5Z^2)$。用和上一节同样的方法可以得到参数化 $\mathbb{R} \to C$：
+$$x = \frac{2\sqrt{5}\,\lambda}{1 + 2\lambda^2}, \quad y = \frac{2\lambda^2 - 1}{1 + 2\lambda^2}.$$
+这让我们完全理解了 $C$ 上系数在 $\mathbb{R}$ 中的点，与上一个例子没有本质区别。那有理数 $\mathbb{Q}$ 上的情况呢？
+</blockquote>
+
+<p><strong>Proposition</strong> &nbsp; <em>If $(a, b, c) \in \mathbb{Q}$ satisfies $2a^2 + b^2 = 5c^2$ then $(a, b, c) = (0, 0, 0)$.</em></p>
+
+<blockquote>
+<strong>命题</strong>：如果 $(a,b,c) \in \mathbb{Q}$ 满足 $2a^2 + b^2 = 5c^2$，那么 $(a,b,c) = (0,0,0)$。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Multiplying through by a common <span class="vocab">denominator<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.tər/ 分母</span></span> and taking out a common factor if necessary, I can assume that $a, b, c$ are integers, not all of which are <span class="vocab">divisible<span class="tooltip">/dɪˈvɪz.ə.bəl/ 可整除的</span></span> by 5; also if $5 \mid a$ and $5 \mid b$ then $25 \mid 5c^2$, so that $5 \mid c$, which <span class="vocab">contradicts<span class="tooltip">/ˌkɒn.trəˈdɪkts/ 与...矛盾</span></span> what I've just said. It is now easy to get a contradiction by considering the possible values of $a$ and $b$ mod 5: since any square is $0$, $1$ or $4$ mod 5, clearly $2a^2 + b^2$ is one of $0+1$, $0+4$, $2+0$, $2+1$, $2+4$, $8+0$, $8+1$ or $8+4$ mod 5, none of which can be of the form $5c^2$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong>：先乘以公分母，再约去公因子，可以假设 $a,b,c$ 都是整数，而且不全被5整除。另外，如果 $5\mid a$ 且 $5\mid b$，那么 $25\mid 5c^2$，所以 $5\mid c$，这就和"不全被5整除"矛盾了。现在考虑 $a$ 和 $b$ 模5的所有可能值就容易得到矛盾：任何平方数模5只能是 $0$、$1$ 或 $4$，所以 $2a^2 + b^2$ 模5只能取 $0+1$、$0+4$、$2+0$、$2+1$、$2+4$、$8+0$、$8+1$ 或 $8+4$ 这些值，没有一个能被写成 $5c^2$ 的形式。证毕。
+</blockquote>
+
+<p>Note that this is a <span class="vocab">thoroughly<span class="tooltip">/ˈθʌr.ə.li/ 彻底地</span></span> <span class="vocab">arithmetic<span class="tooltip">/ə.rɪθˈmet.ɪk/ 算术的</span></span> argument.</p>
+
+<blockquote>
+注意这是一个纯粹的算术论证。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s01.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s03.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

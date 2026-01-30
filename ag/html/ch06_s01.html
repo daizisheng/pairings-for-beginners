@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.1 Nonsingular points of a hypersurface — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_tangent.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s02.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.1 Nonsingular points of a hypersurface</h1>
+<h2>6.1 超曲面的非奇异点</h2>
+
+<p>Suppose $f \in k[X_1, \ldots, X_n]$ is <span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sə.bl/ 不可约的</span></span>, $f \notin k$, and set $V = V(f) \subset \mathbb{A}^n$; let $P = (a_1, \ldots, a_n) \in V$, and $\ell$ be a line through $P$. Since $P \in V$, obviously $P$ is a root of $f|_\ell$.</p>
+
+<blockquote>
+设 $f \in k[X_1, \ldots, X_n]$ 是不可约多项式，$f \notin k$，令 $V = V(f) \subset \mathbb{A}^n$；设 $P = (a_1, \ldots, a_n) \in V$，$\ell$ 是过 $P$ 的一条直线。因为 $P \in V$，显然 $P$ 是 $f|_\ell$ 的一个根。
+</blockquote>
+
+<p><strong>Question:</strong> When is $P$ a <span class="vocab">multiple<span class="tooltip">/ˈmʌl.tɪ.pl/ 重的，多重的</span></span> root of $f|_\ell$?</p>
+
+<blockquote>
+<strong>问题：</strong>$P$ 什么时候是 $f|_\ell$ 的重根？
+</blockquote>
+
+<p><strong>Answer:</strong> If and only if $\ell$ is contained in the affine linear subspace</p>
+
+$$T_P V : \left( \sum_i \frac{\partial f}{\partial X_i}(P) \cdot (X_i - a_i) = 0 \right) \subset \mathbb{A}^n,$$
+
+<p>called the <em>tangent space</em> to $V$ at $P$.</p>
+
+<blockquote>
+<strong>答案：</strong>当且仅当 $\ell$ 包含在如下仿射线性子空间中：
+$$T_P V : \left( \sum_i \frac{\partial f}{\partial X_i}(P) \cdot (X_i - a_i) = 0 \right) \subset \mathbb{A}^n,$$
+这个子空间称为 $V$ 在 $P$ 点的<strong>切空间</strong>。
+</blockquote>
+
+<p>To prove this, <span class="vocab">parametrise<span class="tooltip">/ˈpær.ə.mɪ.traɪz/ 参数化</span></span> $\ell$ as</p>
+
+$$\ell : X_i = a_i + b_i T,$$
+
+<p>where $P = (a_1, \ldots, a_n)$ and $(b_1, \ldots, b_n)$ is the slope or direction vector of $\ell$. Then $f|_\ell = f(\ldots, a_i + b_i T, \ldots) = g(T)$ is a polynomial in $T$, and we know that $(T = 0)$ is one root of $g$. Hence</p>
+
+$$0 \text{ is a multiple root of } g \iff \frac{\partial g}{\partial T}(0) = 0,$$
+
+<p>that is,</p>
+
+$$\iff \sum_i b_i \frac{\partial f}{\partial X_i}(P) = 0 \iff \ell \subset T_P V.$$
+
+<blockquote>
+为了证明这一点，将 $\ell$ 参数化为
+$$\ell : X_i = a_i + b_i T,$$
+其中 $P = (a_1, \ldots, a_n)$，$(b_1, \ldots, b_n)$ 是 $\ell$ 的斜率或方向向量。则 $f|_\ell = f(\ldots, a_i + b_i T, \ldots) = g(T)$ 是关于 $T$ 的多项式，且 $(T=0)$ 是 $g$ 的一个根。因此
+$$0 \text{ 是 } g \text{ 的重根} \iff \frac{\partial g}{\partial T}(0) = 0,$$
+即
+$$\iff \sum_i b_i \frac{\partial f}{\partial X_i}(P) = 0 \iff \ell \subset T_P V.$$
+</blockquote>
+
+<p><strong>Definition</strong> &nbsp; $P \in V \subset \mathbb{A}^n$ is a <em><span class="vocab">nonsingular<span class="tooltip">/nɒnˈsɪŋ.ɡjʊ.lər/ 非奇异的</span></span> point</em> of $V$ if $\partial f / \partial X_i(P) \neq 0$ for some $i$; otherwise $P$ is a <em>singular point</em>, or a <em><span class="vocab">singularity<span class="tooltip">/ˌsɪŋ.ɡjʊˈlær.ɪ.ti/ 奇异点，奇点</span></span></em> of $V$.</p>
+
+<blockquote>
+<strong>定义</strong>：如果存在某个 $i$ 使得 $\partial f / \partial X_i(P) \neq 0$，则称 $P \in V \subset \mathbb{A}^n$ 是 $V$ 的一个<strong>非奇异点</strong>；否则称 $P$ 是一个<strong>奇异点</strong>，或 $V$ 的一个<strong>奇点</strong>。
+</blockquote>
+
+<p>Obviously $T_P V$ is an $(n-1)$-dimensional affine subspace of $\mathbb{A}^n$ if $P$ is nonsingular, and $T_P V = \mathbb{A}^n$ if $P \in V$ is singular.</p>
+
+<blockquote>
+显然，如果 $P$ 是非奇异点，则 $T_P V$ 是 $\mathbb{A}^n$ 的一个 $(n-1)$ 维仿射子空间；如果 $P \in V$ 是奇异点，则 $T_P V = \mathbb{A}^n$。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_tangent.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s02.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

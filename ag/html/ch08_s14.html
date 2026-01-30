@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.14 How Schemes Are More General — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch08_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s15.html">下一节 &rarr;</a>
+</nav>
+
+<h1>8.14 How Schemes Are More General than Varieties</h1>
+<h2>概形如何比簇更一般</h2>
+
+<p>I now discuss in isolation 3 ways in which affine schemes are more general than affine varieties; in cases of severe <span class="vocab">affliction<span class="tooltip">/əˈflɪk.ʃən/ 折磨，苦难</span></span>, these complications may occur in combination with each other, with the global problems discussed in (8.11), or even in combination with new phenomena such as $p$-adic convergence or Arakelov Hermitian metrics. Considerations of space fortunately save me from having to say more on these <span class="vocab">fascinating<span class="tooltip">/ˈfæs.ɪ.neɪ.tɪŋ/ 迷人的</span></span> topics.</p>
+
+<blockquote>
+我现在分别讨论仿射概形比仿射簇更一般的三种方式；在严重的情形中，这些复杂性可能彼此叠加，与 (8.11) 中讨论的整体问题叠加，甚至与 $p$-进收敛或Arakelov Hermite度量等新现象叠加。篇幅所限，我就不必对这些迷人的话题多说什么了。
+</blockquote>
+
+<h3>(i) Not restricted to finitely generated algebras</h3>
+<h4>(i) 不限于有限生成代数</h4>
+
+<p>Suppose $C \subset S$ is a curve on a nonsingular affine surface (over $\mathbb{C}$, if you must). The ring</p>
+
+$$\mathcal{O}_{S,C} = \big\{ f \in k(S) \;\big|\; f = g/h \text{ with } h \notin I_C \big\} \subset k(S)$$
+
+<p>is the <em>local ring</em> of $S$ at $C$; elements $f \in \mathcal{O}_{S,C}$ are regular on an open set of $S$ containing a dense open subset of $C$. Divisibility theory in this ring is very <span class="vocab">splendid<span class="tooltip">/ˈsplen.dɪd/ 极好的</span></span>, and relates to the geometric idea of zeros and poles of a <span class="vocab">meromorphic<span class="tooltip">/ˌmer.əˈmɔː.fɪk/ 亚纯的</span></span> function: $C$ is locally defined by a single equation ($y = 0$) with $y \in I_C$ a local generator, and every nonzero element $f \in \mathcal{O}_{S,C}$ is of the form $f = y^n \cdot f_0$, where $n \in \mathbb{Z}$ and $f_0$ is an invertible element of $\mathcal{O}_{S,C}$. A ring with this property is called a <em>discrete <span class="vocab">valuation<span class="tooltip">/ˌvæl.juˈeɪ.ʃən/ 赋值</span></span> ring</em> (d.v.r.), in honour of the discrete valuation $f \mapsto n$, which counts the order of zero of $f$ along $C$ ($n < 0$ corresponds to poles); the element $y$ is called a <em>local parameter</em> of $\mathcal{O}_{S,C}$.</p>
+
+<blockquote>
+设 $C \subset S$ 是非奇异仿射曲面上的一条曲线（如果你非要的话，在 $\mathbb{C}$ 上）。环
+
+$$\mathcal{O}_{S,C} = \big\{ f \in k(S) \;\big|\; f = g/h, \; h \notin I_C \big\} \subset k(S)$$
+
+是 $S$ 在 $C$ 处的局部环；元素 $f \in \mathcal{O}_{S,C}$ 在 $S$ 的一个包含 $C$ 的稠密开子集的开集上正则。这个环中的整除性理论非常精彩，它与亚纯函数的零点和极点的几何概念有关：$C$ 局部由单个方程 ($y = 0$) 定义，其中 $y \in I_C$ 是一个局部生成元，$\mathcal{O}_{S,C}$ 中每个非零元素 $f$ 都具有 $f = y^n \cdot f_0$ 的形式，其中 $n \in \mathbb{Z}$ 且 $f_0$ 是 $\mathcal{O}_{S,C}$ 的一个可逆元素。具有这种性质的环称为离散赋值环（d.v.r.），以纪念离散赋值 $f \mapsto n$，它计算 $f$ 沿 $C$ 的零点阶数（$n < 0$ 对应极点）；元素 $y$ 称为 $\mathcal{O}_{S,C}$ 的局部参数。
+</blockquote>
+
+<h3>(ii) Nilpotents</h3>
+<h4>(ii) 幂零元</h4>
+
+<p>The ring $A$ can have <span class="vocab">nilpotent<span class="tooltip">/ˈnɪl.pə.tənt/ 幂零的</span></span> elements; for example $A = k[x,y]/(y^2 = 0)$ corresponds to the 'double line' $2\ell \subset \mathbb{A}^2_k$, to be thought of as an <span class="vocab">infinitesimal<span class="tooltip">/ˌɪn.fɪn.ɪˈtes.ɪ.məl/ 无穷小的</span></span> strip neighbourhood of the line. An element of $A$ is of the form $f(x) + \varepsilon f_1(x)$ (with $\varepsilon^2 = 0$), so it looks like a Taylor series expansion of a polynomial about $\ell$ truncated to first order. If you practise hard several times a day, you should be able to <span class="vocab">visualise<span class="tooltip">/ˈvɪʒ.u.ə.laɪz/ 形象化</span></span> this as a function on the double line $2\ell$.</p>
+
+<blockquote>
+环 $A$ 可以有幂零元素；例如 $A = k[x,y]/(y^2 = 0)$ 对应于"双重直线" $2\ell \subset \mathbb{A}^2_k$，可以被看作直线的无穷小条形邻域。$A$ 中的元素具有 $f(x) + \varepsilon f_1(x)$（其中 $\varepsilon^2 = 0$）的形式，因此看起来像多项式在 $\ell$ 处截断到一阶的Taylor级数展开。如果你每天努力练习好几次，应该就能把这想象为双重直线 $2\ell$ 上的函数了。
+</blockquote>
+
+<p>Nilpotents allow scheme theory to deal in Taylor series truncated to any order, so for example to deal with points of a variety by power series methods. They are crucial in the context of the moduli problems discussed at the end of (8.14, d): for example, they provide a precise language for handling first order infinitesimal <span class="vocab">deformations<span class="tooltip">/ˌdiː.fɔːˈmeɪ.ʃənz/ 形变</span></span> of a geometric construction (as a construction over the parameter space $\operatorname{Spec}(k[\varepsilon]/(\varepsilon^2 = 0))$), and viewing these as tangent vectors to the universal parameter variety.</p>
+
+<blockquote>
+幂零元使得概形理论可以处理截断到任意阶的Taylor级数，从而例如可以用幂级数方法处理簇的点。它们在 (8.14, d) 末尾讨论的模问题中至关重要：例如，它们提供了精确的语言来处理几何构造的一阶无穷小形变（作为参数空间 $\operatorname{Spec}(k[\varepsilon]/(\varepsilon^2 = 0))$ 上的构造），并将这些形变看作万有参数簇的切向量。
+</blockquote>
+
+<h3>(iii) No base field</h3>
+<h4>(iii) 没有基域</h4>
+
+<p>Let $p$ be a prime number, and $\mathbb{Z}_{(p)} \subset \mathbb{Q}$ the subring of rationals with no $p$ in the denominator; $\mathbb{Z}_{(p)}$ is another discrete valuation ring, with parameter $p$. It has a unique maximal ideal $0 \ne p\mathbb{Z}_{(p)}$, with residue field $\mathbb{Z}_{(p)}/p\mathbb{Z}_{(p)} \cong \mathbb{F}_p = \mathbb{Z}_{(p)}/(p)$. If $F \in \mathbb{Z}_{(p)}[X,Y]$, then it makes sense to consider the curve $C_\mathbb{C} : (F = 0) \subset \mathbb{A}^2_\mathbb{C}$, or alternatively to take the reduction $f$ of $F$ mod $p$, and to consider the curve $C_p : (f = 0) \subset \mathbb{A}^2_{\mathbb{F}_p}$. What kind of geometric object is it that contains both a curve over the complexes and a curve over a finite field? Whether you consider it to be truly geometric is a matter of opinion, but the scheme $\operatorname{Spec} \mathbb{Z}_{(p)}[X,Y]/(F)$ does exactly this.</p>
+
+<blockquote>
+设 $p$ 为素数，$\mathbb{Z}_{(p)} \subset \mathbb{Q}$ 是分母中没有 $p$ 的有理数构成的子环；$\mathbb{Z}_{(p)}$ 是另一个离散赋值环，参数为 $p$。它有唯一的极大理想 $0 \ne p\mathbb{Z}_{(p)}$，剩余域为 $\mathbb{Z}_{(p)}/p\mathbb{Z}_{(p)} \cong \mathbb{F}_p = \mathbb{Z}_{(p)}/(p)$。如果 $F \in \mathbb{Z}_{(p)}[X,Y]$，那么考虑曲线 $C_\mathbb{C} : (F = 0) \subset \mathbb{A}^2_\mathbb{C}$ 是有意义的，或者取 $F$ 模 $p$ 的约化 $f$，考虑曲线 $C_p : (f = 0) \subset \mathbb{A}^2_{\mathbb{F}_p}$。什么样的几何对象能同时包含复数上的一条曲线和有限域上的一条曲线？你是否认为它真的是几何的，这是见仁见智的事，但概形 $\operatorname{Spec} \mathbb{Z}_{(p)}[X,Y]/(F)$ 恰好做到了这一点。
+</blockquote>
+
+<p>In the same way, for $F \in \mathbb{Z}[X,Y]$, the scheme $\operatorname{Spec} \mathbb{Z}[X,Y]/(F)$ is a geometric object containing for every prime $p$ the curve $C_p : (f_p = 0) \subset \mathbb{A}^2_{\mathbb{F}_p}$ over $\mathbb{F}_p$, where $f_p$ is the reduction of $F$ mod $p$, and at the same time the curve $C_\mathbb{C} : (F = 0) \subset \mathbb{A}^2_\mathbb{C}$, and is called an <em><span class="vocab">arithmetic<span class="tooltip">/əˈrɪθ.mə.tɪk/ 算术的</span></span> surface</em>. However <span class="vocab">grotesquely<span class="tooltip">/ɡrəʊˈtesk.li/ 荒诞地</span></span> implausible this object may seem at first sight (you can again get used to it if you practise), it is a key ingredient in modern number theory, and is the basic foundation on which the work of Arakelov and Faltings rests.</p>
+
+<blockquote>
+同样，对于 $F \in \mathbb{Z}[X,Y]$，概形 $\operatorname{Spec} \mathbb{Z}[X,Y]/(F)$ 是一个几何对象，它对每个素数 $p$ 都包含 $\mathbb{F}_p$ 上的曲线 $C_p : (f_p = 0) \subset \mathbb{A}^2_{\mathbb{F}_p}$（其中 $f_p$ 是 $F$ 模 $p$ 的约化），同时也包含曲线 $C_\mathbb{C} : (F = 0) \subset \mathbb{A}^2_\mathbb{C}$，称为算术曲面。这个对象乍看之下可能荒诞得难以置信（但如果你练习的话又会习惯的），它是现代数论的一个关键要素，是Arakelov和Faltings工作赖以建立的基本基础。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch08_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_s15.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

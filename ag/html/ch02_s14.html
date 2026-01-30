@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.14 Topology of a nonsingular cubic — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s15.html">下一节 &rarr;</a>
+</nav>
+
+<h1>Appendix to Part I: Curves and their genus</h1>
+<h2>第I部分附录：曲线及其亏格</h2>
+
+<h3>2.14 Topology of a nonsingular cubic</h3>
+<h4>2.14 非奇异三次曲线的拓扑</h4>
+
+<p>It is easy to see that a <span class="vocab">nonsingular<span class="tooltip">/nɒnˈsɪŋ.ɡjʊ.lər/ 非奇异的</span></span> plane cubic $C : (y^2 = x^3 + ax + b) \subset \mathbb{P}^2_{\mathbb{R}}$ has one of the two shapes</p>
+
+<!-- Figure 2.7: Real cubics -->
+<figure>
+    <img src="images/fig_page47_img1.png" alt="Real cubics: one or two components">
+    <figcaption>Figure 2.7: Real cubics / 图2.7：实三次曲线</figcaption>
+</figure>
+
+<p>That is, <span class="vocab">topologically<span class="tooltip">/ˌtɒp.əˈlɒdʒ.ɪ.kəl.i/ 从拓扑上讲</span></span>, $C$ is either one or two circles (including the single point at infinity, of course). To look at the same question over $\mathbb{C}$, take the alternative normal form</p>
+
+$$C : (y^2 = x(x-1)(x-\lambda)) \cup \{\infty\};$$
+
+<p>what is the topology of $C \subset \mathbb{P}^2_{\mathbb{C}}$? The answer is a <span class="vocab">torus<span class="tooltip">/ˈtɔːr.əs/ 环面</span></span>:</p>
+
+<blockquote>
+很容易看出，非奇异平面三次曲线 $C: (y^2 = x^3 + ax + b) \subset \mathbb{P}^2_{\mathbb{R}}$ 有两种形状之一。也就是说，拓扑上 $C$ 要么是一个圆，要么是两个圆（当然包括无穷远处那个点）。要在 $\mathbb{C}$ 上考虑同一个问题，取另一种标准形式 $C: (y^2 = x(x-1)(x-\lambda)) \cup \{\infty\}$；$C \subset \mathbb{P}^2_{\mathbb{C}}$ 的拓扑是什么？答案是一个环面：
+</blockquote>
+
+<!-- Figure 2.8: Torus -->
+<figure>
+    <img src="images/fig_page47_img2.png" alt="Torus">
+    <figcaption>Figure 2.8: Torus / 图2.8：环面</figcaption>
+</figure>
+
+<p>The idea of the proof is to consider the map</p>
+
+$$\pi \colon C \to \mathbb{P}^1_{\mathbb{C}} \quad \text{by} \quad (X, Y, Z) \mapsto (X, Z) \quad \text{and} \quad \infty \mapsto (1, 0);$$
+
+<p>in affine coordinates this is $(x, y) \mapsto x$, so it's the 2-to-1 map corresponding to the graph of $y = \pm\sqrt{x(x-1)(x-\lambda)}$. Everyone knows that $\mathbb{P}^1_{\mathbb{C}}$ is <span class="vocab">homeomorphic<span class="tooltip">/ˌhoʊ.mi.əˈmɔːr.fɪk/ 同胚的</span></span> to $S^2$, the Riemann sphere ('stereographic projection'); consider the 'function' $y(x) = \pm\sqrt{x(x-1)(x-\lambda)}$ on $\mathbb{P}^1_{\mathbb{C}}$. This is 2-valued outside $\{0, 1, \lambda, \infty\}$:</p>
+
+<blockquote>
+证明的思路是考虑映射 $\pi: C \to \mathbb{P}^1_{\mathbb{C}}$，定义为 $(X,Y,Z) \mapsto (X,Z)$，$\infty \mapsto (1,0)$；在仿射坐标下就是 $(x,y) \mapsto x$，所以这是对应于 $y = \pm\sqrt{x(x-1)(x-\lambda)}$ 图像的2对1映射。众所周知 $\mathbb{P}^1_{\mathbb{C}}$ 同胚于 $S^2$（黎曼球，通过"球极投影"）；考虑 $\mathbb{P}^1_{\mathbb{C}}$ 上的"函数" $y(x) = \pm\sqrt{x(x-1)(x-\lambda)}$。它在 $\{0, 1, \lambda, \infty\}$ 之外是双值的：
+</blockquote>
+
+<!-- Figure 2.9: Two paths 01 and λ∞ -->
+<figure>
+    <img src="images/fig_page48_img1.png" alt="Riemann sphere with branch points 0, 1, lambda, infinity">
+    <figcaption>Figure 2.9: Two paths $01$ and $\lambda\infty$ / 图2.9：两条路径 $01$ 和 $\lambda\infty$</figcaption>
+</figure>
+
+<p>Now cut $\mathbb{P}^1_{\mathbb{C}}$ along two paths $01$ and $\lambda\infty$; the double cover falls apart as 2 pieces, so that the function $y$ is single valued on each sheet. So (the shading indicates how the two sheets match up under the <span class="vocab">glueing<span class="tooltip">/ˈɡluː.ɪŋ/ 粘合</span></span>).</p>
+
+<blockquote>
+现在沿两条路径 $01$ 和 $\lambda\infty$ 把 $\mathbb{P}^1_{\mathbb{C}}$ 切开；双覆盖就分成了两片，使得 $y$ 在每一片上都是单值的（阴影表示两片在粘合时是如何对应的）。
+</blockquote>
+
+<!-- Figure 2.10: C as a union of two spheres with slits -->
+<figure>
+    <img src="images/fig_page48_img2.png" alt="C as union of two spheres with slits">
+    <figcaption>Figure 2.10: $C$ as a union of two spheres with slits / 图2.10：$C$ 表示为两个有裂缝的球面的并</figcaption>
+</figure>
+
+<p>To see what's going on, open up the slits:</p>
+
+<blockquote>
+为了看清楚是怎么回事，把裂缝打开：
+</blockquote>
+
+<!-- Figure 2.11: Union of two spheres with open slits -->
+<figure>
+    <img src="images/fig_page48_img3.png" alt="Union of two spheres with open slits, homeomorphic to torus">
+    <figcaption>Figure 2.11: Union of two spheres with open slits / 图2.11：两个裂缝打开的球面的并</figcaption>
+</figure>
+
+<nav class="nav-links">
+    <a href="ch02_s13.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s15.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

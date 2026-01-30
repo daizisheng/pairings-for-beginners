@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.11 Space of all conics — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s12.html">下一节 &rarr;</a>
+</nav>
+
+<h1>1.11 Space of all conics</h1>
+<h2>所有二次曲线的空间</h2>
+
+<p>Let</p>
+
+$$S_2 = \{\text{quadratic forms on } \mathbb{R}^3\} = \{3 \times 3 \text{ symmetric matrixes}\} \cong \mathbb{R}^6.$$
+
+<p>If $Q \in S_2$, write $Q = aX^2 + 2bXY + \cdots + fZ^2$; for $P_0 = (X_0, Y_0, Z_0) \in \mathbb{P}^2_{\mathbb{R}}$, consider the relation $P_0 \in C : (Q = 0)$. This is of the form</p>
+
+$$Q(X_0, Y_0, Z_0) = aX_0^2 + 2bX_0 Y_0 + \cdots + fZ_0^2 = 0,$$
+
+<p>and for fixed $P_0$, this is a linear equation in $(a, b, \ldots, f)$. So</p>
+
+$$S_2(P_0) = \left\{Q \in S_2 \;\middle|\; Q(P_0) = 0\right\} \cong \mathbb{R}^5 \subset S_2 = \mathbb{R}^6$$
+
+<p>is a 5-dimensional <span class="vocab">hyperplane<span class="tooltip">/ˈhaɪ.pə.pleɪn/ 超平面</span></span>. For $P_1, \ldots, P_n \in \mathbb{P}^2_{\mathbb{R}}$, define similarly</p>
+
+$$S_2(P_1, \ldots, P_n) = \left\{Q \in S_2 \;\middle|\; Q(P_i) = 0 \text{ for } i = 1, \ldots, n\right\};$$
+
+<p>then there are $n$ linear equations in the 6 <span class="vocab">coefficients<span class="tooltip">/ˌkəʊ.ɪˈfɪʃ.ənts/ 系数</span></span> $(a, b, \ldots, f)$ of $Q$. This gives the result:</p>
+
+<blockquote>
+令 $S_2 = \{\mathbb{R}^3 \text{ 上的二次型}\} = \{3 \times 3 \text{ 对称矩阵}\} \cong \mathbb{R}^6$。若 $Q \in S_2$，记 $Q = aX^2 + 2bXY + \cdots + fZ^2$；对 $P_0 = (X_0, Y_0, Z_0) \in \mathbb{P}^2_{\mathbb{R}}$，考虑关系 $P_0 \in C : (Q = 0)$，即
+$$Q(X_0, Y_0, Z_0) = aX_0^2 + 2bX_0 Y_0 + \cdots + fZ_0^2 = 0,$$
+对固定的 $P_0$，这是关于 $(a, b, \ldots, f)$ 的线性方程。因此
+$$S_2(P_0) = \{Q \in S_2 \mid Q(P_0) = 0\} \cong \mathbb{R}^5 \subset S_2 = \mathbb{R}^6$$
+是一个5维超平面。对 $P_1, \ldots, P_n \in \mathbb{P}^2_{\mathbb{R}}$，类似定义 $S_2(P_1, \ldots, P_n) = \{Q \in S_2 \mid Q(P_i) = 0, \; i = 1, \ldots, n\}$；这就有 $n$ 个关于 $Q$ 的6个系数 $(a, b, \ldots, f)$ 的线性方程。由此得到：
+</blockquote>
+
+<p><strong>Proposition</strong> $\dim S_2(P_1, \ldots, P_n) \geq 6 - n$.</p>
+
+<blockquote>
+<strong>命题</strong> $\dim S_2(P_1, \ldots, P_n) \geq 6 - n$。
+</blockquote>
+
+<p>We can also expect that 'equality holds if $P_1, \ldots, P_n$ are general enough'. More <span class="vocab">precisely<span class="tooltip">/prɪˈsaɪs.li/ 精确地</span></span>:</p>
+
+<p><strong>Corollary</strong> <em>If $n \leq 5$ and no 4 of $P_1, \ldots, P_n$ are collinear, then</em></p>
+
+$$\dim S_2(P_1, \ldots, P_n) = 6 - n.$$
+
+<blockquote>
+我们也可以预期"当 $P_1, \ldots, P_n$ 足够一般时等号成立"。更精确地：
+
+<strong>推论</strong> 若 $n \leq 5$ 且 $P_1, \ldots, P_n$ 中没有4个共线，则 $\dim S_2(P_1, \ldots, P_n) = 6 - n$。
+</blockquote>
+
+<p><strong>Proof</strong> Corollary 1.10 implies that if $n = 5$, $\dim S_2(P_1, \ldots, P_5) \leq 1$, which gives the corollary in this case. If $n \leq 4$, then I can add in points $P_{n+1}, \ldots, P_5$ while <span class="vocab">preserving<span class="tooltip">/prɪˈzɜːv.ɪŋ/ 保持</span></span> the condition that no 4 points are collinear, and since each point <span class="vocab">imposes<span class="tooltip">/ɪmˈpəʊ.zɪz/ 施加</span></span> at most one linear condition, this gives</p>
+
+$$1 = \dim S_2(P_1, \ldots, P_5) \geq \dim S_2(P_1, \ldots, P_n) - (5 - n). \quad \text{Q.E.D.}$$
+
+<p>Note that if 6 points $P_1, \ldots, P_6 \in \mathbb{P}^2_{\mathbb{R}}$ are given, they may or may not lie on a conic.</p>
+
+<blockquote>
+<strong>证明</strong> 推论 1.10 表明当 $n = 5$ 时 $\dim S_2(P_1, \ldots, P_5) \leq 1$，从而本推论在此情形成立。若 $n \leq 4$，可以在保持没有4点共线的条件下添加点 $P_{n+1}, \ldots, P_5$，因为每个点至多施加一个线性条件，所以
+$$1 = \dim S_2(P_1, \ldots, P_5) \geq \dim S_2(P_1, \ldots, P_n) - (5 - n). \quad \text{证毕。}$$
+注意，如果给定6个点 $P_1, \ldots, P_6 \in \mathbb{P}^2_{\mathbb{R}}$，它们未必在同一条二次曲线上。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s12.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

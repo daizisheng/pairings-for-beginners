@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.8 Group law on a plane cubic — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s09.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.8 Group law on a plane cubic</h1>
+<h2>2.8 平面三次曲线上的群律</h2>
+
+<p>Suppose $k \subset \mathbb{C}$ is a subfield of $\mathbb{C}$, and $F \in k[X, Y, Z]$ a cubic form defining a (nonempty) plane curve $C : (F = 0) \subset \mathbb{P}^2_k$. Assume that $F$ satisfies the following two conditions:</p>
+
+<p>(a) $F$ is <span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sɪ.bəl/ 不可约的</span></span> (so that $C$ does not contain a line or conic);</p>
+
+<p>(b) for every point $P \in C$, there exists a unique line $L \subset \mathbb{P}^2_k$ such that $P$ is a repeated zero of $F|_L$.</p>
+
+<blockquote>
+假设 $k \subset \mathbb{C}$ 是 $\mathbb{C}$ 的子域，$F \in k[X,Y,Z]$ 是一个三次齐次式，定义了（非空的）平面曲线 $C : (F = 0) \subset \mathbb{P}^2_k$。假设 $F$ 满足以下两个条件：<br>
+(a) $F$ 不可约（因此 $C$ 不包含直线或圆锥曲线）；<br>
+(b) 对 $C$ 上每个点 $P$，存在唯一的直线 $L \subset \mathbb{P}^2_k$ 使得 $P$ 是 $F|_L$ 的重零点。
+</blockquote>
+
+<p>Note that geometrically, the condition in (b) is that $C$ should be <span class="vocab">nonsingular<span class="tooltip">/nɒnˈsɪŋ.ɡjʊ.lər/ 非奇异的</span></span>, and the line $L$ referred to is the tangent line $L = T_P C$ (see Ex. 2.3). This will be motivation for the general definition of nonsingularity and tangent spaces to a variety in &sect;6.</p>
+
+<blockquote>
+注意从几何上看，条件 (b) 是说 $C$ 应该是非奇异的，而所指的直线 $L$ 就是切线 $L = T_P C$（参见习题 2.3）。这将作为在第6节中给出簇的非奇异性和切空间的一般定义的动机。
+</blockquote>
+
+<p>Fix any point $O \in C$, and make the following construction:</p>
+
+<blockquote>
+固定 $C$ 上的任意一点 $O$，做如下构造：
+</blockquote>
+
+<p><strong>Construction</strong></p>
+<p>(i) For $A \in C$, let $\overline{A}$ = 3rd point of intersection of $C$ with the line $OA$;</p>
+<p>(ii) for $A, B \in C$, write $R$ = 3rd point of intersection of $AB$ with $C$, and define $A + B$ by $A + B = \overline{R}$ (see diagram below).</p>
+
+<blockquote>
+<strong>构造</strong><br>
+(i) 对 $A \in C$，令 $\overline{A}$ = $C$ 与直线 $OA$ 的第三个交点；<br>
+(ii) 对 $A, B \in C$，记 $R$ = 直线 $AB$ 与 $C$ 的第三个交点，定义 $A + B = \overline{R}$（见下图）。
+</blockquote>
+
+<p><strong>Theorem</strong> &nbsp; The above construction defines an <span class="vocab">Abelian<span class="tooltip">/əˈbiː.li.ən/ 阿贝尔的</span></span> group law on $C$, with $O$ as zero (= neutral element).</p>
+
+<blockquote>
+<strong>定理</strong> &nbsp; 上述构造在 $C$ 上定义了一个阿贝尔群律，以 $O$ 为零元（= 单位元）。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; <span class="vocab">Associativity<span class="tooltip">/əˌsoʊ.ʃi.əˈtɪv.ɪ.ti/ 结合律</span></span> is the crunch here; I start the proof by first clearing up the easy bits.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 结合律是这里的难点；我先把容易的部分处理掉。
+</blockquote>
+
+<p><strong>(I)</strong> I have to prove that the addition and inverse operations are well defined. If $P, Q \in C$ are any two points, then either $P \neq Q$, and the line $L = PQ \subset \mathbb{P}^2_k$ is uniquely determined, or $P = Q$, and then by the assumption (b), there is a unique line $L \subset \mathbb{P}^2_k$ such that $P$ is a repeated zero of $F|_L$; in either case, $F|_L$ is a cubic form in two variables, having 2 given $k$-valued zeros. It therefore splits as a product of 3 linear factors, and hence without exception, the 3rd <span class="vocab">residual<span class="tooltip">/rɪˈzɪdʒ.u.əl/ 剩余的</span></span> point of intersection $R$ is defined and has coordinates in $k$. Note that any of $P = Q$, $P = R$, $Q = R$, or $P = Q = R$ is allowed; these correspond algebraically to $F|_L$ having multiple zeros, and geometrically to tangent and <span class="vocab">inflexion<span class="tooltip">/ɪnˈflek.ʃən/ 拐点</span></span> points.</p>
+
+<blockquote>
+<strong>(I)</strong> 我需要证明加法和逆元运算是良定义的。如果 $P, Q \in C$ 是任意两点，那么要么 $P \neq Q$，直线 $L = PQ \subset \mathbb{P}^2_k$ 是唯一确定的；要么 $P = Q$，此时由假设 (b)，存在唯一的直线 $L \subset \mathbb{P}^2_k$ 使 $P$ 是 $F|_L$ 的重零点。无论哪种情况，$F|_L$ 是二元三次式，有 2 个已知的 $k$-值零点。因此它分解为 3 个线性因子的乘积，于是第三个交点 $R$ 总是有定义的，且坐标在 $k$ 中。注意 $P = Q$、$P = R$、$Q = R$ 或 $P = Q = R$ 都是允许的；它们分别对应于 $F|_L$ 有重零点（代数上），以及切点和拐点（几何上）。
+</blockquote>
+
+<figure>
+    <img src="images/fig_p41_grouplaw.png" alt="Cubic curve and its group law: showing points A, B, R, O, S and the construction lines">
+    <figcaption>Figure 2.3: Cubic curve and its group law</figcaption>
+</figure>
+
+<p><strong>(II)</strong> Verifying that the given point $O$ is the neutral element is completely formal: since $O$, $A$, $\overline{A}$ are collinear, the construction of $O + A$ consists of taking the line $L = OA$ to get the 3rd point of intersection $\overline{A}$, then the same line $L = O\overline{A}$ to get back to $A$.</p>
+
+<blockquote>
+<strong>(II)</strong> 验证给定的点 $O$ 是单位元完全是形式化的：因为 $O$、$A$、$\overline{A}$ 共线，$O + A$ 的构造就是取直线 $L = OA$ 得到第三交点 $\overline{A}$，然后同一条直线 $L = O\overline{A}$ 把我们带回 $A$。
+</blockquote>
+
+<p><strong>(III)</strong> I think I'll leave $A + B = B + A$ to the reader.</p>
+
+<blockquote>
+<strong>(III)</strong> $A + B = B + A$ 就留给读者吧。
+</blockquote>
+
+<p><strong>(IV)</strong> To find the inverse, first define the point $\overline{O}$ as in (i) of the construction: let $L$ be the line such that $F|_L$ has $O$ as a repeated zero, and define $\overline{O}$ to be the 3rd point of intersection of $L$ with $C$; then it is easy to check that the 3rd point of intersection of $\overline{O}A$ with $C$ is the inverse of $A$ for every $A \in C$.</p>
+
+<blockquote>
+<strong>(IV)</strong> 要找逆元，先按构造 (i) 定义点 $\overline{O}$：取直线 $L$ 使得 $F|_L$ 以 $O$ 为重零点，定义 $\overline{O}$ 为 $L$ 与 $C$ 的第三个交点；然后容易验证，$\overline{O}A$ 与 $C$ 的第三个交点就是 $A$ 的逆元，对所有 $A \in C$ 成立。
+</blockquote>
+
+<h3>2.9 Associativity "in general"</h3>
+<h4>2.9 "一般情形"下的结合律</h4>
+
+<p>Now I give the proof of associativity for 'sufficiently general' points: suppose that $A, B, C$ are 3 given points of $C$; then the construction of $(A + B) + C = \overline{S}$ uses 4 lines (see diagram above)</p>
+
+$$L_1 : ABR, \quad L_2 : RO\overline{R}, \quad L_3 : C\overline{R}S \quad \text{and} \quad L_4 : SO\overline{S}.$$
+
+<p>The construction of $(B + C) + A = \overline{T}$ uses 4 lines</p>
+
+$$M_1 : BCQ, \quad M_2 : QO\overline{Q}, \quad M_3 : A\overline{Q}T \quad \text{and} \quad M_4 : TO\overline{T}.$$
+
+<p>I want to prove $\overline{S} = \overline{T}$, and clearly for this, it is enough to prove $S = T$; to do this, consider the 2 cubics</p>
+
+$$D_1 = L_1 + M_2 + L_3 \quad \text{and} \quad D_2 = M_1 + L_2 + M_3.$$
+
+<p>Then by construction,</p>
+
+$$C \cap D_1 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, S\},$$
+
+<p>and</p>
+
+$$C \cap D_2 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, T\}.$$
+
+<p>Now provided the 9 points $A, B, C, O, R, \overline{R}, Q, \overline{Q}, S$ are all distinct, the two cubics $C$ and $D_1$ satisfy the conditions of Corollary 2.7; therefore, $D_2$ must pass through $S$, and the only way that this can happen is if $S = T$.</p>
+
+<blockquote>
+现在给出"足够一般"的点的结合律证明：设 $A, B, C$ 是 $C$ 上的 3 个给定点；则 $(A+B)+C = \overline{S}$ 的构造用了 4 条线（见上图）
+$$L_1: ABR, \quad L_2: RO\overline{R}, \quad L_3: C\overline{R}S, \quad L_4: SO\overline{S}.$$
+$(B+C)+A = \overline{T}$ 的构造用了 4 条线
+$$M_1: BCQ, \quad M_2: QO\overline{Q}, \quad M_3: A\overline{Q}T, \quad M_4: TO\overline{T}.$$
+我想证明 $\overline{S} = \overline{T}$，显然只需证 $S = T$；为此考虑两条三次曲线
+$$D_1 = L_1 + M_2 + L_3 \quad \text{和} \quad D_2 = M_1 + L_2 + M_3.$$
+由构造，
+$$C \cap D_1 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, S\}，$$
+$$C \cap D_2 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, T\}.$$
+只要这 9 个点 $A, B, C, O, R, \overline{R}, Q, \overline{Q}, S$ 全部不同，两条三次曲线 $C$ 和 $D_1$ 就满足推论 2.7 的条件；因此 $D_2$ 必须过 $S$，而这只有当 $S = T$ 时才可能。
+</blockquote>
+
+<p>There are several ways to complete the argument. The most thorough of these gives a genuine treatment of the intersection of two curves taking into account multiple intersections (roughly, in terms of 'ideals of intersection'), and the statement corresponding to Corollary 2.7 is Max Noether's Lemma (see [Fulton, p. 120 and p. 124]).</p>
+
+<blockquote>
+有几种方式可以完成整个论证。最彻底的方式是给出两条曲线交集的真正处理，考虑重交点（粗略地说，用"交的理想"来表述），对应于推论 2.7 的陈述就是 Max Noether 引理（参见 [Fulton, p. 120 和 p. 124]）。
+</blockquote>
+
+<h3>2.10 Proof by continuity</h3>
+<h4>2.10 连续性证明</h4>
+
+<p>I sketch one version of the argument 'by <span class="vocab">continuity<span class="tooltip">/ˌkɒn.tɪˈnjuː.ɪ.ti/ 连续性</span></span>', which uses the fact that $k \subset \mathbb{C}$. Write $C_{\mathbb{C}} \subset \mathbb{P}^2_{\mathbb{C}}$ for the <span class="vocab">complexified<span class="tooltip">/kəmˈplek.sɪ.faɪd/ 复化的</span></span> curve $C$, that is, the set of ratios $(X : Y : Z)$ of complex numbers satisfying the same equation $F(X, Y, Z) = 0$. If the associative law holds for all $A, B, C \in C_{\mathbb{C}}$, then obviously also for all points in $C$. Therefore, I can assume that $k = \mathbb{C}$.</p>
+
+<blockquote>
+我简述一种"用连续性"论证的版本，它利用 $k \subset \mathbb{C}$ 这个事实。记 $C_{\mathbb{C}} \subset \mathbb{P}^2_{\mathbb{C}}$ 为 $C$ 的复化曲线，即满足同一方程 $F(X,Y,Z) = 0$ 的复数比 $(X:Y:Z)$ 的集合。如果结合律对所有 $A, B, C \in C_{\mathbb{C}}$ 成立，那么对 $C$ 中所有点显然也成立。所以可以假设 $k = \mathbb{C}$。
+</blockquote>
+
+<p>The reader who cares about it will have no difficulty in finding proofs of the following two statements (see Ex. 2.8):</p>
+
+<p><strong>Lemma</strong></p>
+<p>(i) $A + B$ is a continuous function of $A$ and $B$;</p>
+<p>(ii) for all $A, B, C \in C$ there exist $A', B', C' \in C$ <span class="vocab">arbitrarily<span class="tooltip">/ˈɑːr.bɪ.trər.əl.i/ 任意地</span></span> near to $A, B, C$ such that the 9 points $A', B', C', O, R, \overline{R}, Q, \overline{Q}, S$ constructed from them are all distinct.</p>
+
+<blockquote>
+对此感兴趣的读者不难找到以下两个命题的证明（参见习题 2.8）：<br>
+<strong>引理</strong><br>
+(i) $A + B$ 是 $A$ 和 $B$ 的连续函数；<br>
+(ii) 对所有 $A, B, C \in C$，存在任意接近 $A, B, C$ 的点 $A', B', C' \in C$，使得由它们构造出的 9 个点 $A', B', C', O, R, \overline{R}, Q, \overline{Q}, S$ 全部不同。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s09.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

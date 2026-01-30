@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.5 Equation of a Conic — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s04.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s05b.html">下一节 →</a>
+</nav>
+
+<h1>1.5 Equation of a Conic</h1>
+<h2>二次曲线的方程</h2>
+
+<p>The <span class="vocab">inhomogeneous<span class="tooltip">/ˌɪn.hə.məˈdʒiː.ni.əs/ 非齐次的</span></span> quadratic polynomial</p>
+
+$$q(x, y) = ax^2 + bxy + cy^2 + dx + ey + f$$
+
+<p>corresponds to the homogeneous quadratic</p>
+
+$$Q(X, Y, Z) = aX^2 + bXY + cY^2 + dXZ + eYZ + fZ^2;$$
+
+<p>the <span class="vocab">correspondence<span class="tooltip">/ˌkɒr.ɪˈspɒn.dəns/ 对应关系</span></span> is easy to understand as a recipe, or you can think of it as the <span class="vocab">bijection<span class="tooltip">/baɪˈdʒek.ʃən/ 双射</span></span> $q \leftrightarrow Q$ given by</p>
+
+$$q(x, y) = Q(X/Z,\, Y/Z,\, 1) \quad \text{with } x = X/Z,\; y = Y/Z$$
+
+<p>and inversely,</p>
+
+$$Q = Z^2\, q(X/Z,\, Y/Z).$$
+
+<blockquote>
+非齐次二次多项式 $q(x,y) = ax^2 + bxy + cy^2 + dx + ey + f$ 对应于齐次二次式 $Q(X,Y,Z) = aX^2 + bXY + cY^2 + dXZ + eYZ + fZ^2$。这个对应关系可以直接当作公式来理解，也可以把它看成双射 $q \leftrightarrow Q$：令 $x = X/Z$, $y = Y/Z$ 则 $q(x,y) = Q(X/Z, Y/Z, 1)$，反过来 $Q = Z^2\, q(X/Z, Y/Z)$。
+</blockquote>
+
+<p>A <span class="vocab">conic<span class="tooltip">/ˈkɒn.ɪk/ 二次曲线</span></span> $C \subset \mathbb{P}^2$ is the curve given by $C : (Q(X, Y, Z) = 0)$, where $Q$ is a homogeneous quadratic expression; note that the condition $Q(X, Y, Z) = 0$ is well defined on the <span class="vocab">equivalence<span class="tooltip">/ɪˈkwɪv.əl.əns/ 等价</span></span> class, since $Q(\lambda \mathbf{X}) = \lambda^2 Q(\mathbf{X})$ for any $\lambda \in \mathbb{R}$. As an exercise, check that the projective curve $C$ meets the <span class="vocab">affine<span class="tooltip">/əˈfaɪn/ 仿射的</span></span> piece $\mathbb{R}^2$ in the affine conic given by $(q = 0)$.</p>
+
+<blockquote>
+二次曲线 $C \subset \mathbb{P}^2$ 是由 $C : (Q(X,Y,Z) = 0)$ 给出的曲线，其中 $Q$ 是齐次二次表达式。注意条件 $Q(X,Y,Z)=0$ 在等价类上是良定义的，因为对任何 $\lambda \in \mathbb{R}$ 都有 $Q(\lambda \mathbf{X}) = \lambda^2 Q(\mathbf{X})$。作为练习，请验证射影曲线 $C$ 与仿射片 $\mathbb{R}^2$ 的交就是由 $(q = 0)$ 给出的仿射二次曲线。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s04.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s05b.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.13 Noether normalisation — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s14.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.13 Noether normalisation</h1>
+<h2>3.13 Noether正规化</h2>
+
+<p><strong>Theorem (Noether normalisation lemma)</strong> &nbsp; <em>Let $k$ be an infinite field, and $A = k[a_1, \dots, a_n]$ a finitely generated $k$-algebra. Then there exist $m \leq n$ and $y_1, \dots, y_m \in A$ such that</em></p>
+
+<p><em>(i) $y_1, \dots, y_m$ are <span class="vocab">algebraically<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪ.kəl.i/ 代数地</span></span> independent over $k$; and</em></p>
+<p><em>(ii) $A$ is a finite $k[y_1, \dots, y_m]$-algebra.</em></p>
+
+<p>((i) means as usual that there are no nonzero polynomial relations holding between the $y_i$; an algebraist's way of saying this is that the natural (<span class="vocab">surjective<span class="tooltip">/sɜːˈdʒek.tɪv/ 满射的</span></span>) map $k[Y_1, \dots, Y_m] \to k[y_1, \dots, y_m] \subset A$ is injective.)</p>
+
+<blockquote>
+<strong>定理（Noether正规化引理）</strong> &nbsp; 设 $k$ 是无限域，$A = k[a_1, \dots, a_n]$ 是有限生成的 $k$-代数。则存在 $m \leq n$ 和 $y_1, \dots, y_m \in A$ 使得：<br>
+(i) $y_1, \dots, y_m$ 在 $k$ 上代数无关；<br>
+(ii) $A$ 是有限 $k[y_1, \dots, y_m]$-代数。<br><br>
+（(i) 的意思照例是 $y_i$ 之间没有非零多项式关系；代数学家的说法是自然的满射 $k[Y_1, \dots, Y_m] \to k[y_1, \dots, y_m] \subset A$ 是单射。）
+</blockquote>
+
+<p>It is being <span class="vocab">asserted<span class="tooltip">/əˈsɜː.tɪd/ 断言的</span></span> that, as you might expect, the extension of rings can be built up by first throwing in algebraically independent elements, then 'making an algebraic extension'; however, the statement (ii) is far more precise than this, since it says that every element of $A$ is not just algebraic over $k[y_1, \dots, y_m]$, but satisfies a monic equation over it.</p>
+
+<blockquote>
+这里断言的是，正如你可能预期的那样，环的扩张可以通过先加入代数无关的元素、再"做一个代数扩张"来构建；然而，(ii) 的陈述比这精确得多，因为它说 $A$ 的每个元素不仅仅在 $k[y_1, \dots, y_m]$ 上是代数的，而且满足其上的首一方程。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Let $I$ be the kernel of the natural <span class="vocab">surjection<span class="tooltip">/sɜːˈdʒek.ʃən/ 满射</span></span>,</p>
+
+$$I = \ker\big\{k[X_1, \dots, X_n] \to k[a_1, \dots, a_n] = A\big\}.$$
+
+<p>Suppose that $0 \neq f \in I$; the idea of the proof is to replace $X_1, \dots, X_{n-1}$ by certain $X_1', \dots, X_{n-1}'$ so that $f$ becomes a monic equation for $a_n$ over $A' = k[a_1', \dots, a_{n-1}']$. So write</p>
+
+$$a_1' = a_1 - \alpha_1 a_n, \quad \dots, \quad a_{n-1}' = a_{n-1} - \alpha_{n-1} a_n$$
+
+<p>(where the $\alpha_i \in k$ are elements to be specified later). Then</p>
+
+$$0 = f(a_1' + \alpha_1 a_n, \dots, a_{n-1}' + \alpha_{n-1} a_n, a_n).$$
+
+<p><strong>Claim</strong> &nbsp; <em>For suitable choice of $\alpha_1, \dots, \alpha_{n-1} \in k$, the polynomial</em></p>
+
+$$f(X_1' + \alpha_1 X_n, \dots, X_{n-1}' + \alpha_{n-1} X_n, X_n)$$
+
+<p><em>is monic in $X_n$.</em></p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 设 $I$ 为自然满射的核，
+$$I = \ker\big\{k[X_1, \dots, X_n] \to k[a_1, \dots, a_n] = A\big\}.$$
+假设 $0 \neq f \in I$；证明的思路是将 $X_1, \dots, X_{n-1}$ 替换为某些 $X_1', \dots, X_{n-1}'$，使得 $f$ 变成 $a_n$ 在 $A' = k[a_1', \dots, a_{n-1}']$ 上的首一方程。于是写
+$$a_1' = a_1 - \alpha_1 a_n, \quad \dots, \quad a_{n-1}' = a_{n-1} - \alpha_{n-1} a_n$$
+（其中 $\alpha_i \in k$ 是待定元素）。则
+$$0 = f(a_1' + \alpha_1 a_n, \dots, a_{n-1}' + \alpha_{n-1} a_n, a_n).$$
+<strong>断言</strong> &nbsp; 对 $\alpha_1, \dots, \alpha_{n-1} \in k$ 的适当选取，多项式 $f(X_1' + \alpha_1 X_n, \dots, X_{n-1}' + \alpha_{n-1} X_n, X_n)$ 关于 $X_n$ 是首一的。
+</blockquote>
+
+<p>Using the claim, the theorem is proved by <span class="vocab">induction<span class="tooltip">/ɪnˈdʌk.ʃən/ 归纳法</span></span> on $n$: if $I = 0$ then there's nothing to prove, since $a_1, \dots, a_n$ are algebraically independent. Otherwise, pick $0 \neq f \in I$, and let $\alpha_1, \dots, \alpha_{n-1}$ be as in the claim; then $f$ gives a monic relation satisfied by $a_n$ with coefficients in $A' = k[a_1', \dots, a_{n-1}'] \subset A$. By the <span class="vocab">inductive<span class="tooltip">/ɪnˈdʌk.tɪv/ 归纳的</span></span> assumption, there exist $y_1, \dots, y_m \in A'$ such that</p>
+
+<p>(1) $y_1, \dots, y_m$ are algebraically independent over $k$;</p>
+<p>(2) $A'$ is a finite $k[y_1, \dots, y_m]$-algebra.</p>
+
+<p>Then $A = A'[a_n]$ is finite over $A'$ (by (3.12, iii)), so by (3.12, i), $A$ is finite over $k[y_1, \dots, y_m]$, proving the theorem.</p>
+
+<blockquote>
+利用这个断言，定理可以对 $n$ 用归纳法证明：如果 $I = 0$，则没什么要证的，因为 $a_1, \dots, a_n$ 代数无关。否则，取 $0 \neq f \in I$，令 $\alpha_1, \dots, \alpha_{n-1}$ 如断言所述；则 $f$ 给出 $a_n$ 在 $A' = k[a_1', \dots, a_{n-1}'] \subset A$ 上满足的首一关系式。由归纳假设，存在 $y_1, \dots, y_m \in A'$ 使得：(1) $y_1, \dots, y_m$ 在 $k$ 上代数无关；(2) $A'$ 是有限 $k[y_1, \dots, y_m]$-代数。则 $A = A'[a_n]$ 在 $A'$ 上是有限的（由 (3.12, iii)），从而由 (3.12, i)，$A$ 在 $k[y_1, \dots, y_m]$ 上是有限的，定理证毕。
+</blockquote>
+
+<p>It only remains to prove the claim. Let $d = \deg f$, and write</p>
+
+$$f = F_d + G,$$
+
+<p>with $F_d$ <span class="vocab">homogeneous<span class="tooltip">/ˌhɒm.əˈdʒiː.ni.əs/ 齐次的</span></span> of degree $d$, and $\deg G \leq d - 1$. Then</p>
+
+$$\begin{aligned}
+f(X_1, \dots, X_{n-1}, X_n) &= f(X_1' + \alpha_1 X_n, \dots, X_{n-1}' + \alpha_{n-1} X_n, X_n) \\
+&= F_d(\alpha_1, \dots, \alpha_{n-1}, 1) \cdot X_n^d \\
+&\quad + (\text{stuff involving } X_n \text{ to power} \leq d-1);
+\end{aligned}$$
+
+<p>I'm now home provided that $F_d(\alpha_1, \dots, \alpha_{n-1}, 1) \neq 0$. Since $F_d$ is a nonzero polynomial, it's not hard to check that this is the case for 'almost all' values of $\alpha_1, \dots, \alpha_{n-1}$ (the proof of this is discussed in Ex. 3.13). &nbsp; Q.E.D.</p>
+
+<blockquote>
+只剩下证明断言。设 $d = \deg f$，写 $f = F_d + G$，其中 $F_d$ 是 $d$ 次齐次部分，$\deg G \leq d-1$。则
+$$f(X_1, \dots, X_{n-1}, X_n) = F_d(\alpha_1, \dots, \alpha_{n-1}, 1) \cdot X_n^d + (\text{关于 } X_n \text{ 的次数} \leq d-1 \text{ 的项});$$
+只要 $F_d(\alpha_1, \dots, \alpha_{n-1}, 1) \neq 0$ 就大功告成了。由于 $F_d$ 是非零多项式，不难验证对"几乎所有" $\alpha_1, \dots, \alpha_{n-1}$ 的取值都满足这一条件（这一点的证明见习题 3.13）。证毕。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s12.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s14.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

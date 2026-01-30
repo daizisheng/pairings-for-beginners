@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.11 Products — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_exercises.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.11 Products</h1>
+<h2>5.11 乘积</h2>
+
+<p>If $V$ and $W$ are two affine varieties then there is a natural sense in which $V \times W$ is again a variety: if $V \subset \mathbb{A}^n$ and $W \subset \mathbb{A}^m$ then $V \times W$ is the subset of $\mathbb{A}^{n+m}$ given by</p>
+$$\left\{\big((\alpha_1, \ldots, \alpha_n); (\beta_1, \ldots, \beta_m)\big) \;\middle|\; \begin{array}{l} f(\underline{\alpha}) = 0 \text{ for all } f \in I(V)\\ g(\underline{\beta}) = 0 \text{ for all } g \in I(W)\end{array}\right\}$$
+
+<p>It's easy to check that $V \times W$ remains <span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sə.bl/ 不可约的</span></span>. Note however that the Zariski topology of the product is <em>not</em> the product of the Zariski topologies (see Ex.&nbsp;5.10).</p>
+
+<blockquote>
+如果 $V$ 和 $W$ 是两个仿射簇，那么 $V \times W$ 自然也是簇：若 $V \subset \mathbb{A}^n$，$W \subset \mathbb{A}^m$，则 $V \times W$ 是 $\mathbb{A}^{n+m}$ 中满足如下条件的子集：
+$$\left\{\big((\alpha_1, \ldots, \alpha_n); (\beta_1, \ldots, \beta_m)\big) \;\middle|\; f(\underline{\alpha}) = 0, \;\forall f \in I(V); \quad g(\underline{\beta}) = 0, \;\forall g \in I(W)\right\}$$
+容易验证 $V \times W$ 仍然不可约。但要注意，乘积的 Zariski 拓扑<em>不是</em>两个因子 Zariski 拓扑的乘积拓扑（见习题 5.10）。
+</blockquote>
+
+<p>The case of projective varieties is not so obvious; to be able to define products, we need to know that $\mathbb{P}^n \times \mathbb{P}^m$ is itself a projective variety. Notice that it is definitely not isomorphic to $\mathbb{P}^{n+m}$ (see Ex.&nbsp;5.2, ii). To do this, I use a construction rather similar in spirit to that of (5.7, I): make an <span class="vocab">embedding<span class="tooltip">/ɪmˈbed.ɪŋ/ 嵌入</span></span> (the 'Segre embedding')</p>
+$$\varphi \colon \mathbb{P}^n \times \mathbb{P}^m \to S_{n,m} \subset \mathbb{P}^N,$$
+<p>where $N = (n+1)(m+1) - 1$ as follows: $\mathbb{P}^N$ is the projective space with homogeneous coordinates $(U_{ij})_{\substack{i=0,\ldots,n \\ j=0,\ldots,m}}$.</p>
+
+<p>It's useful to think of the $U_{ij}$ as being set out in a matrix</p>
+$$\begin{pmatrix} U_{00} & \cdots & U_{0m} \\ U_{10} & \cdots & \cdots \\ \cdots & \cdots & U_{nm} \end{pmatrix}$$
+
+<p>Then define $\varphi$ by $\big((X_0, \ldots, X_n), (Y_0, \ldots, Y_m)\big) \mapsto (X_i Y_j)_{\substack{i=0,\ldots,n \\ j=0,\ldots,m}}$. This is obviously a well defined morphism, and the image $S_{n,m}$ is easily seen to be the projective <span class="vocab">subvariety<span class="tooltip">/ˌsʌb.vəˈraɪ.ə.ti/ 子簇</span></span> given by</p>
+$$\operatorname{rank}\begin{pmatrix} U_{00} & \cdots & U_{0m} \\ U_{10} & \cdots & \cdots \\ \cdots & \cdots & U_{nm} \end{pmatrix} \leq 1, \quad \text{that is,} \quad \det\begin{pmatrix} U_{ik} & U_{i\ell} \\ U_{jk} & U_{j\ell} \end{pmatrix} = 0$$
+<p>for all $i, j = 0, \ldots, n$ and $k, \ell = 0, \ldots, m$.</p>
+
+<blockquote>
+射影簇的情形就没那么显然了；为了定义乘积，我们需要知道 $\mathbb{P}^n \times \mathbb{P}^m$ 本身是射影簇。注意它绝对不同构于 $\mathbb{P}^{n+m}$（见习题 5.2, ii）。为此，我使用一个与 (5.7, I) 精神类似的构造：做一个嵌入（"Segre 嵌入"）
+$$\varphi \colon \mathbb{P}^n \times \mathbb{P}^m \to S_{n,m} \subset \mathbb{P}^N,$$
+其中 $N = (n+1)(m+1) - 1$。$\mathbb{P}^N$ 以 $(U_{ij})$ 为齐次坐标（$i = 0,\ldots,n$，$j = 0,\ldots,m$）。
+
+<p>把 $U_{ij}$ 排成矩阵来看是很有用的：</p>
+$$\begin{pmatrix} U_{00} & \cdots & U_{0m} \\ U_{10} & \cdots & \cdots \\ \cdots & \cdots & U_{nm} \end{pmatrix}$$
+
+<p>然后定义 $\varphi$ 为 $\big((X_0,\ldots,X_n),(Y_0,\ldots,Y_m)\big) \mapsto (X_i Y_j)$。这显然是良定义的态射，其像 $S_{n,m}$ 容易看出是由如下条件给出的射影子簇</p>
+$$\operatorname{rank}\begin{pmatrix} U_{00} & \cdots & U_{0m} \\ \vdots & & \vdots \\ U_{n0} & \cdots & U_{nm} \end{pmatrix} \leq 1, \quad \text{即 } \det\begin{pmatrix} U_{ik} & U_{i\ell} \\ U_{jk} & U_{j\ell} \end{pmatrix} = 0$$
+<p>对所有 $i,j = 0,\ldots,n$ 和 $k,\ell = 0,\ldots,m$。</p>
+</blockquote>
+
+<p>We get an inverse map $S_{n,m} \to \mathbb{P}^n \times \mathbb{P}^m$ as follows. For $P \in S_{n,m}$ there exists at least one pair $(i,j)$ such that $U_{ij}(P) \neq 0$; fixing this $(i,j)$, send</p>
+$$S_{n,m} \ni P \mapsto \big((U_{0j}, \ldots, U_{nj}), (U_{i0}, \ldots, U_{im})\big) \in \mathbb{P}^n \times \mathbb{P}^m.$$
+
+<p>Note that the choice of $(i,j)$ doesn't matter, since the matrix $U_{ij}(P)$ has rank 1, and hence all its rows and all its columns are <span class="vocab">proportional<span class="tooltip">/prəˈpɔː.ʃən.əl/ 成比例的</span></span>.</p>
+
+<blockquote>
+逆映射 $S_{n,m} \to \mathbb{P}^n \times \mathbb{P}^m$ 如下构造：对 $P \in S_{n,m}$，至少存在一对 $(i,j)$ 使得 $U_{ij}(P) \neq 0$；固定该 $(i,j)$，令
+$$S_{n,m} \ni P \mapsto \big((U_{0j}, \ldots, U_{nj}), (U_{i0}, \ldots, U_{im})\big) \in \mathbb{P}^n \times \mathbb{P}^m.$$
+注意 $(i,j)$ 的选取无关紧要，因为矩阵 $U_{ij}(P)$ 秩为 1，所以它的所有行和所有列都成比例。
+</blockquote>
+
+<p>From this it is not hard to see that if $V \subset \mathbb{P}^n$ and $W \subset \mathbb{P}^m$ are projective varieties, then $V \times W \subset \mathbb{P}^n \times \mathbb{P}^m \cong S_{n,m} \subset \mathbb{P}^N$ is again a projective variety (see Ex.&nbsp;5.11).</p>
+
+<blockquote>
+由此不难看出，如果 $V \subset \mathbb{P}^n$ 和 $W \subset \mathbb{P}^m$ 是射影簇，那么 $V \times W \subset \mathbb{P}^n \times \mathbb{P}^m \cong S_{n,m} \subset \mathbb{P}^N$ 仍然是射影簇（见习题 5.11）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_exercises.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

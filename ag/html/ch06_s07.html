@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.7 dim V = tr deg: hypersurface case — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s08.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.7 $\dim V = \operatorname{tr\,deg} k(V)$ &mdash; the hypersurface case</h1>
+<h2>6.7 $\dim V = \operatorname{tr\,deg} k(V)$ &mdash; 超曲面情形</h2>
+
+<p>It follows from Proposition 6.3 that if $V = V(f) \subset \mathbb{A}^n$ is a hypersurface defined by some nonconstant polynomial $f$, then $\dim V = n - 1$. On the other hand, for a hypersurface, $k[V] = k[X_1, \ldots, X_n]/(f)$, so that, assuming that $f$ involves $X_1$ in a <span class="vocab">nontrivial<span class="tooltip">/nɒnˈtrɪv.i.əl/ 非平凡的</span></span> way, the function field of $V$ is of the form</p>
+
+$$k(V) = k(X_2, \ldots, X_n)[X_1]/(f),$$
+
+<p>that is, it is built up from $k$ by <span class="vocab">adjoining<span class="tooltip">/əˈdʒɔɪ.nɪŋ/ 添加，附加</span></span> $n-1$ <span class="vocab">algebraically<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪ.kli/ 代数地</span></span> independent elements, then making a primitive algebraic extension.</p>
+
+<blockquote>
+由命题6.3可得，如果 $V = V(f) \subset \mathbb{A}^n$ 是由某个非常数多项式 $f$ 定义的超曲面，则 $\dim V = n - 1$。另一方面，对于超曲面，$k[V] = k[X_1, \ldots, X_n]/(f)$，因此假设 $f$ 以非平凡的方式涉及 $X_1$，则 $V$ 的函数域具有形式
+$$k(V) = k(X_2, \ldots, X_n)[X_1]/(f),$$
+即，它是从 $k$ 出发，先添加 $n-1$ 个代数独立元素，再做一次本原代数扩张而得到的。
+</blockquote>
+
+<p><strong>Definition</strong> &nbsp; If $k \subset K$ is a field extension, the <em><span class="vocab">transcendence<span class="tooltip">/trænˈsen.dəns/ 超越</span></span> degree</em> of $K$ over $k$ is the maximum number of elements of $K$ algebraically independent over $k$. It is denoted $\operatorname{tr\,deg}_k K$.</p>
+
+<blockquote>
+<strong>定义</strong>：如果 $k \subset K$ 是域扩张，则 $K$ 在 $k$ 上的<strong>超越次数</strong>是 $K$ 中在 $k$ 上代数独立的元素的最大个数，记作 $\operatorname{tr\,deg}_k K$。
+</blockquote>
+
+<p>The elementary theory of transcendence degree of a field extension $K/k$ is formally quite similar to that of the dimension of a vector space: given $\alpha_1, \ldots, \alpha_m \in K$, we know what it means for them to be <em>algebraically independent</em> over $k$ (see (3.13)); they <em>span</em> the <span class="vocab">transcendental<span class="tooltip">/ˌtræn.senˈden.təl/ 超越的</span></span> part of the extension if $K/k(\alpha_1, \ldots, \alpha_m)$ is algebraic; and they form a <em>transcendence basis</em> if they are algebraically independent and span. Then it is an easy theorem that a transcendence basis is a maximal algebraically independent set, and a minimal spanning set, and that any two transcendence bases of $K/k$ have the same number of elements (see Ex. 6.1).</p>
+
+<blockquote>
+域扩张 $K/k$ 的超越次数的初等理论，在形式上与向量空间的维数理论很相似：给定 $\alpha_1, \ldots, \alpha_m \in K$，我们知道它们在 $k$ 上<em>代数独立</em>是什么意思（见(3.13)）；如果 $K/k(\alpha_1, \ldots, \alpha_m)$ 是代数的，则它们<em>张成</em>扩张的超越部分；如果它们既代数独立又张成，则构成一组<em>超越基</em>。容易证明：超越基是极大代数独立集，也是极小张成集，而且 $K/k$ 的任意两组超越基有相同数量的元素（见习题6.1）。
+</blockquote>
+
+<p>Thus for a hypersurface $V \subset \mathbb{A}^n$, $\dim V = n - 1 = \operatorname{tr\,deg}_k\, k(V)$. The rest of this section is concerned with proving that the equality $\dim V = \operatorname{tr\,deg}_k\, k(V)$ holds for all varieties, by reducing to the case of a hypersurface. The first thing to show is that for a point $P \in V$ of a variety, the tangent space $T_P V$, which so far has been discussed in terms of a particular coordinate system in the <span class="vocab">ambient<span class="tooltip">/ˈæm.bi.ənt/ 环绕的，周围的</span></span> space $\mathbb{A}^n$, is in fact an <span class="vocab">intrinsic<span class="tooltip">/ɪnˈtrɪn.zɪk/ 内蕴的，固有的</span></span> property of a neighbourhood of $P \in V$.</p>
+
+<blockquote>
+因此对超曲面 $V \subset \mathbb{A}^n$，$\dim V = n - 1 = \operatorname{tr\,deg}_k\, k(V)$。本节剩余部分致力于证明等式 $\dim V = \operatorname{tr\,deg}_k\, k(V)$ 对所有簇都成立，方法是归结到超曲面的情形。首先要证明的是：簇上一点 $P \in V$ 的切空间 $T_P V$——到目前为止是用环绕空间 $\mathbb{A}^n$ 中特定坐标系来讨论的——实际上是 $P \in V$ 的邻域的一个内蕴性质。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s08.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

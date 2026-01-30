@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.1 Definition of Noetherian ring — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_affine.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s02.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.1 Definition of Noetherian ring</h1>
+<h2>3.1 Noether环的定义</h2>
+
+<p><strong>Proposition-Definition</strong> &nbsp; <em>The following conditions on a ring $A$ are <span class="vocab">equivalent<span class="tooltip">/ɪˈkwɪv.əl.ənt/ 等价的</span></span>.</em></p>
+
+<p><em>(i) Every ideal $I \subset A$ is <span class="vocab">finitely generated<span class="tooltip">/ˈfaɪ.naɪt.li ˈdʒen.ə.reɪ.tɪd/ 有限生成的</span></span>; that is, for every ideal $I \subset A$, there exist $f_1, \ldots, f_k \in I$ such that $I = (f_1, \ldots, f_k)$.</em></p>
+
+<p><em>(ii) Every <span class="vocab">ascending<span class="tooltip">/əˈsend.ɪŋ/ 上升的</span></span> chain</em></p>
+
+$$I_1 \subset \cdots \subset I_m \subset \cdots$$
+
+<p><em>of ideals of $A$ terminates, that is the chain is eventually <span class="vocab">stationary<span class="tooltip">/ˈsteɪ.ʃən.ər.i/ 稳定的，不变的</span></span>, with $I_N = I_{N+1} = \cdots$ (the ascending chain condition, or a.c.c.).</em></p>
+
+<p><em>(iii) Every nonempty set of ideals of $A$ has a <span class="vocab">maximal<span class="tooltip">/ˈmæk.sɪ.məl/ 极大的</span></span> element.</em></p>
+
+<p><em>If they hold, $A$ is a</em> <strong>Noetherian ring</strong>.</p>
+
+<blockquote>
+<strong>命题-定义</strong>：以下关于环 $A$ 的三个条件是等价的：<br>
+(i) $A$ 的每个理想 $I$ 都是有限生成的，即存在 $f_1,\ldots,f_k \in I$ 使得 $I=(f_1,\ldots,f_k)$。<br>
+(ii) $A$ 的理想的每条上升链 $I_1 \subset \cdots \subset I_m \subset \cdots$ 最终稳定，即存在 $N$ 使得 $I_N = I_{N+1} = \cdots$（升链条件，简称 a.c.c.）。<br>
+(iii) $A$ 的理想的每个非空集合都有极大元。<br>
+如果这些条件成立，就称 $A$ 是 <strong>Noether环</strong>。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (i) $\Longrightarrow$ (ii) &nbsp; Given $I_1 \subset \cdots \subset I_m \subset \cdots$, set $I = \bigcup I_m$. Then clearly $I$ is still an ideal. If $I = (f_1, \ldots, f_k)$, then each $f_i$ is an element of some $I_{m_i}$ for some $m_i$, so that taking $m = \max\{m_i\}$ gives $I = I_m$, and the chain stops at $I_m$.</p>
+
+<p>(ii) $\Longrightarrow$ (iii) is clear. (Actually, it uses the axiom of choice.)</p>
+
+<p>(iii) $\Longrightarrow$ (i) &nbsp; Let $I$ be any ideal; write $\Sigma = \{J \subset I \mid J \text{ is a f.g. ideal}\}$. Then by (iii), $\Sigma$ has a maximal element, say $J_0$. But then $J_0 = I$, because otherwise any $f \in I \setminus J_0$ gives an ideal $J_0 + Af$ which is still finitely generated, but strictly bigger than $J_0$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong>：<br>
+(i)$\Rightarrow$(ii)：给定上升链 $I_1 \subset \cdots \subset I_m \subset \cdots$，令 $I = \bigcup I_m$，则 $I$ 仍然是一个理想。如果 $I=(f_1,\ldots,f_k)$，则每个 $f_i$ 属于某个 $I_{m_i}$，取 $m=\max\{m_i\}$ 就得到 $I=I_m$，链在 $I_m$ 处停止。<br><br>
+(ii)$\Rightarrow$(iii)：显然成立。（严格来说要用选择公理。）<br><br>
+(iii)$\Rightarrow$(i)：对任意理想 $I$，令 $\Sigma = \{J \subset I \mid J \text{ 是有限生成理想}\}$。由(iii)知 $\Sigma$ 有极大元 $J_0$。那么必有 $J_0 = I$，否则取 $f \in I \setminus J_0$，则 $J_0 + Af$ 仍然是有限生成的，但严格大于 $J_0$，矛盾。Q.E.D.
+</blockquote>
+
+<p>As a thought experiment, prove that $\mathbb{Z}$ and $k[X]$ are Noetherian.</p>
+
+<blockquote>
+作为一个思维练习，请证明 $\mathbb{Z}$ 和 $k[X]$ 是Noether环。（提示：它们都是主理想整环。）
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_affine.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s02.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

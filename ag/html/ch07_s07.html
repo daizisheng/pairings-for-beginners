@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.7 The Configuration of Lines — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_exercises.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.7 The Configuration of Lines</h1>
+<h2>直线的构型</h2>
+
+<p>An alternative statement is that the lines of $S$ are $\ell, \ell_1, \ldots, \ell_5, \ell_1', \ldots, \ell_5'$, and 16 other lines which meet an odd number of $\ell_1, \ldots, \ell_5$:</p>
+
+<ul>
+  <li>$\ell_i''$ meets $\ell_i$ only</li>
+  <li>$\ell_{ijk}$ meets $\ell_i, \ell_j, \ell_k$ only</li>
+  <li>$m$ meets all of $\ell_1, \ldots, \ell_5$.</li>
+</ul>
+
+<blockquote>
+一个等价的表述是：$S$ 上的直线为 $\ell, \ell_1, \ldots, \ell_5, \ell_1', \ldots, \ell_5'$，以及另外16条直线，它们与 $\ell_1, \ldots, \ell_5$ 中奇数条相交：
+
+<ul>
+  <li>$\ell_i''$ 只与 $\ell_i$ 相交</li>
+  <li>$\ell_{ijk}$ 只与 $\ell_i, \ell_j, \ell_k$ 相交</li>
+  <li>$m$ 与所有 $\ell_1, \ldots, \ell_5$ 相交。</li>
+</ul>
+</blockquote>
+
+<p>In the notation I have introduced, it is easy to see that the <span class="vocab">incidence<span class="tooltip">/ˈɪn.sɪ.dəns/ 关联，相交关系</span></span> relation between the 27 lines of $S$ is as follows:</p>
+
+<ul>
+  <li>$\ell$ meets $\ell_1, \ldots, \ell_5, \ell_1', \ldots, \ell_5'$;</li>
+  <li>$\ell_1$ meets $\ell, m, \ell_1', \ell_1''$, and $\ell_{1jk}$ for 6 choices of $\{j, k\} \subset \{2, 3, 4, 5\}$;</li>
+  <li>$\ell_1'$ meets $\ell, \ell_1, \ell_j''$ (for 4 choices of $j \ne 1$), and $\ell_{ijk}$ (for 4 choices of $\{i, j, k\} \subset \{2, 3, 4, 5\}$);</li>
+  <li>$\ell_1''$ meets $m, \ell_1, \ell_j'$ (for 4 choices of $j \ne 1$), and $\ell_{ijk}$ (for 4 choices of $\{i, j, k\} \subset \{2, 3, 4, 5\}$);</li>
+  <li>$\ell_{123}$ meets $\ell_1, \ell_2, \ell_3, \ell_{145}, \ell_{245}, \ell_{345}, \ell_4', \ell_5', \ell_4'', \ell_5''$.</li>
+</ul>
+
+<blockquote>
+用我引入的记号，不难看出 $S$ 的27条直线之间的相交关系如下：
+
+<ul>
+  <li>$\ell$ 与 $\ell_1, \ldots, \ell_5, \ell_1', \ldots, \ell_5'$ 相交；</li>
+  <li>$\ell_1$ 与 $\ell, m, \ell_1', \ell_1''$ 以及 $\ell_{1jk}$（$\{j, k\} \subset \{2, 3, 4, 5\}$ 的6种选取）相交；</li>
+  <li>$\ell_1'$ 与 $\ell, \ell_1, \ell_j''$（$j \ne 1$ 的4种选取）以及 $\ell_{ijk}$（$\{i, j, k\} \subset \{2, 3, 4, 5\}$ 的4种选取）相交；</li>
+  <li>$\ell_1''$ 与 $m, \ell_1, \ell_j'$（$j \ne 1$ 的4种选取）以及 $\ell_{ijk}$（$\{i, j, k\} \subset \{2, 3, 4, 5\}$ 的4种选取）相交；</li>
+  <li>$\ell_{123}$ 与 $\ell_1, \ell_2, \ell_3, \ell_{145}, \ell_{245}, \ell_{345}, \ell_4', \ell_5', \ell_4'', \ell_5''$ 相交。</li>
+</ul>
+</blockquote>
+
+<p>This <span class="vocab">combinatorial<span class="tooltip">/ˌkɒm.bɪˈnæ.tɔː.ri.əl/ 组合的</span></span> configuration has many different representations, some of them much more <span class="vocab">symmetric<span class="tooltip">/sɪˈmet.rɪk/ 对称的</span></span> than that given here; see for example [Semple and Roth, pp. 122--128 and 151--152].</p>
+
+<blockquote>
+这个组合构型有许多不同的表示方式，其中一些比这里给出的对称得多；例如参见 [Semple and Roth, pp. 122--128 和 151--152]。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s06.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_exercises.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

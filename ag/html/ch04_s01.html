@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§4.1 Polynomial Functions — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch04_functions.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s02.html">下一节 &rarr;</a>
+</nav>
+
+<h1>4.1 Polynomial Functions</h1>
+<h2>多项式函数</h2>
+
+<p>Let $V \subset \mathbb{A}^n_k$ be an algebraic set, and $I(V)$ its ideal. Then the <span class="vocab">quotient<span class="tooltip">/ˈkwoʊ.ʃənt/ 商（环）</span></span> ring $k[V] = k[X_1, \dots, X_n]/I(V)$ is in a natural way a ring of functions on $V$. In more detail, define a <strong>polynomial function</strong> on $V$ to be a map $f \colon V \to k$ of the form $P \mapsto F(P)$, with $F \in k[X_1, \dots, X_n]$; this just means that $f$ is the restriction of a map $F \colon \mathbb{A}^n \to k$ defined by a polynomial. By definition of $I(V)$, two elements $F, G \in k[X_1, \dots, X_n]$ define the same function on $V$ if and only if</p>
+
+$$F(P) - G(P) = 0 \quad \text{for all } P \in V,$$
+
+<p>that is, if and only if $F - G \in I(V)$. Thus I define the <strong>coordinate ring</strong> $k[V]$ by</p>
+
+$$k[V] = \bigl\{\, f \colon V \to k \;\big|\; f \text{ is a polynomial function}\,\bigr\} \cong k[X_1, \dots, X_n]/I(V).$$
+
+<blockquote>
+设 $V \subset \mathbb{A}^n_k$ 是一个代数集，$I(V)$ 是它的理想。那么商环 $k[V] = k[X_1, \dots, X_n]/I(V)$ 以自然的方式成为 $V$ 上的一个函数环。更详细地说，定义 $V$ 上的一个<strong>多项式函数</strong>为形如 $P \mapsto F(P)$ 的映射 $f \colon V \to k$，其中 $F \in k[X_1, \dots, X_n]$；这只不过是说 $f$ 是由多项式定义的映射 $F \colon \mathbb{A}^n \to k$ 限制到 $V$ 上的结果。根据 $I(V)$ 的定义，两个元素 $F, G \in k[X_1, \dots, X_n]$ 在 $V$ 上定义相同的函数，当且仅当
+
+$$F(P) - G(P) = 0 \quad \text{对所有 } P \in V,$$
+
+即 $F - G \in I(V)$。于是我定义<strong>坐标环</strong> $k[V]$ 为
+
+$$k[V] = \bigl\{\, f \colon V \to k \;\big|\; f \text{ 是多项式函数}\,\bigr\} \cong k[X_1, \dots, X_n]/I(V).$$
+</blockquote>
+
+<p>This is the smallest ring of functions on $V$ containing the coordinate functions $X_i$ (together with $k$), so for once the traditional <span class="vocab">terminology<span class="tooltip">/ˌtɜːr.mɪˈnɒl.ə.dʒi/ 术语</span></span> is not too <span class="vocab">obscure<span class="tooltip">/əbˈskjʊr/ 晦涩的</span></span>.</p>
+
+<blockquote>
+这是 $V$ 上包含坐标函数 $X_i$（以及 $k$）的最小函数环，所以传统术语这次倒不算太难理解。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch04_functions.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch04_s02.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

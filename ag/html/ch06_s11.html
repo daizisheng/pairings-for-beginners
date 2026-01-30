@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.11 Nonsingularity and projective varieties — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s12.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.11 Nonsingularity and projective varieties</h1>
+<h2>6.11 非奇异性与射影簇</h2>
+
+<p>Although the above results were discussed in terms of affine varieties, the idea of nonsingularity and of dimension applies directly to any variety $V$: a point $P \in V$ is nonsingular if it is a nonsingular point of an affine open $V_0 \subset V$ containing it; by Corollary 6.9, this notion does not depend on the choice of $V_0$.</p>
+
+<blockquote>
+虽然以上结果是针对仿射簇讨论的，但非奇异性和维数的概念直接适用于任何簇 $V$：点 $P \in V$ 是非奇异的，如果它是包含它的某个仿射开集 $V_0 \subset V$ 的非奇异点；由推论6.9，这个概念不依赖于 $V_0$ 的选取。
+</blockquote>
+
+<p>On the other hand, for a <span class="vocab">projective<span class="tooltip">/prəˈdʒek.tɪv/ 射影的</span></span> variety $V \subset \mathbb{P}^n$, it is sometimes useful to consider the tangent space to $V$ at $P$ as a projective subspace of $\mathbb{P}^n$. I give the definition for a hypersurface only: if $V = V(f)$ is a hypersurface defined by a form (= <span class="vocab">homogeneous<span class="tooltip">/ˌhɒm.əˈdʒiː.ni.əs/ 齐次的</span></span> polynomial) $f \in k[X_0, \ldots, X_n]$ of degree $d$, and $V \ni P = (a_0, \ldots, a_n)$, then $\sum \partial f / \partial X_i(P) \cdot X_i = 0$ is the equation of a <span class="vocab">hyperplane<span class="tooltip">/ˈhaɪ.pə.pleɪn/ 超平面</span></span> in $\mathbb{P}^n$ which plays the role of the tangent plane to $V$ at $P$.</p>
+
+<blockquote>
+另一方面，对于射影簇 $V \subset \mathbb{P}^n$，有时将 $V$ 在 $P$ 处的切空间视为 $\mathbb{P}^n$ 的一个射影子空间是有用的。这里只给出超曲面的定义：如果 $V = V(f)$ 是由次数为 $d$ 的齐次多项式 $f \in k[X_0, \ldots, X_n]$ 定义的超曲面，且 $V \ni P = (a_0, \ldots, a_n)$，则 $\sum \partial f / \partial X_i(P) \cdot X_i = 0$ 是 $\mathbb{P}^n$ 中一个超平面的方程，它充当 $V$ 在 $P$ 处的切平面。
+</blockquote>
+
+<p>If $P \in \mathbb{A}^n_{(0)}$, then this projective hyperplane is the projective closure of the affine tangent hyperplane to $V_{(0)}$ at $P$, as can be checked easily using Euler's formula:</p>
+
+$$\sum X_i \cdot \frac{\partial f}{\partial X_i} = d\,f \quad \text{for } f \in k[X_0, \ldots, X_n] \text{ homogeneous of degree } d.$$
+
+<blockquote>
+如果 $P \in \mathbb{A}^n_{(0)}$，则这个射影超平面是 $V_{(0)}$ 在 $P$ 处的仿射切超平面的射影闭包，这可以用 Euler 公式容易地验证：
+$$\sum X_i \cdot \frac{\partial f}{\partial X_i} = d\,f \quad \text{对齐次多项式 } f \in k[X_0, \ldots, X_n] \text{（次数 } d\text{）成立。}$$
+</blockquote>
+
+<p>Because of this formula, to find out whether a point $P \in \mathbb{P}^n$ is a singular point of $V$, we only have to check $(n+1)$ out of the $(n+2)$ conditions</p>
+
+$$f(P) = 0, \qquad \frac{\partial f}{\partial X_i}(P) = 0 \text{ for } i = 0, \ldots, n,$$
+
+<p>so that for example, if the degree of $f$ is not divisible by $\operatorname{char} k$,</p>
+
+$$\frac{\partial f}{\partial X_i}(P) = 0 \text{ for } i = 0, \ldots, n \implies f(P) = 0,$$
+
+<p>and $P \in V$ is a <span class="vocab">singularity<span class="tooltip">/ˌsɪŋ.ɡjʊˈlær.ɪ.ti/ 奇点</span></span>.</p>
+
+<blockquote>
+由于这个公式，要判断点 $P \in \mathbb{P}^n$ 是否是 $V$ 的奇异点，我们只需检验 $(n+2)$ 个条件中的 $(n+1)$ 个：
+$$f(P) = 0, \qquad \frac{\partial f}{\partial X_i}(P) = 0 \text{ 对 } i = 0, \ldots, n,$$
+因此例如，如果 $f$ 的次数不能被 $\operatorname{char} k$ 整除，则
+$$\frac{\partial f}{\partial X_i}(P) = 0 \text{ 对 } i = 0, \ldots, n \implies f(P) = 0,$$
+从而 $P \in V$ 就是一个奇点。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s10.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s12.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

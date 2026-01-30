@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.4 Tangent space — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.4 Tangent space</h1>
+<h2>6.4 切空间</h2>
+
+<p><strong>Definition</strong> &nbsp; Let $V \subset \mathbb{A}^n$ be a <span class="vocab">subvariety<span class="tooltip">/sʌbˈvɑː.raɪ.ə.ti/ 子簇</span></span>, with $V \ni P = (a_1, \ldots, a_n)$. For any $f \in k[X_1, \ldots, X_n]$, write</p>
+
+$$f_P^{(1)} = \sum_i \frac{\partial f}{\partial X_i}(P) \cdot (X_i - a_i).$$
+
+<p>This is an affine linear polynomial (that is, linear plus constant), the 'first order part' of $f$ at $P$. Now define the <em>tangent space</em> to $V$ at $P$ by</p>
+
+$$T_P V = \bigcap \left( f_P^{(1)} = 0 \right) \subset \mathbb{A}^n,$$
+
+<p>where the <span class="vocab">intersection<span class="tooltip">/ˌɪn.tə.ˈsek.ʃən/ 交集</span></span> takes place over all $f \in I(V)$.</p>
+
+<blockquote>
+<strong>定义</strong>：设 $V \subset \mathbb{A}^n$ 是子簇，$V \ni P = (a_1, \ldots, a_n)$。对任意 $f \in k[X_1, \ldots, X_n]$，记
+$$f_P^{(1)} = \sum_i \frac{\partial f}{\partial X_i}(P) \cdot (X_i - a_i).$$
+这是一个仿射线性多项式（即线性加常数），即 $f$ 在 $P$ 处的"一阶部分"。现在定义 $V$ 在 $P$ 处的<strong>切空间</strong>为
+$$T_P V = \bigcap \left( f_P^{(1)} = 0 \right) \subset \mathbb{A}^n,$$
+其中交集取遍所有 $f \in I(V)$。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

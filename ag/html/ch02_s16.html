@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.16 Commercial break — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s15.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_exercises.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.16 Commercial break</h1>
+<h2>2.16 广告时间</h2>
+
+<p>Complex curves (= compact Riemann surfaces) appear across a whole <span class="vocab">spectrum<span class="tooltip">/ˈspek.trəm/ 范围，光谱</span></span> of math problems, from <span class="vocab">Diophantine<span class="tooltip">/ˌdaɪ.əˈfæn.tiːn/ 丢番图的</span></span> arithmetic through complex function theory and low dimensional topology to differential equations of math physics. So go out and buy a complex curve today.</p>
+
+<blockquote>
+复曲线（= 紧黎曼面）出现在数学问题的各个领域，从丢番图算术到复函数论，从低维拓扑到数学物理中的微分方程。所以快去买一条复曲线吧。
+</blockquote>
+
+<p>To a quite <span class="vocab">extraordinary<span class="tooltip">/ɪkˈstrɔːr.dɪ.nər.i/ 非凡的，惊人的</span></span> degree, the properties of a curve are determined by its genus, and more particularly by the <span class="vocab">trichotomy<span class="tooltip">/traɪˈkɒt.ə.mi/ 三分法</span></span> $g = 0$, $g = 1$ or $g \geq 2$. Some of the more striking aspects of this are described in the table on the following page, and I give a brief discussion; this ought to be in the background culture of every mathematician.</p>
+
+<blockquote>
+曲线的性质在很大程度上由其亏格决定，更具体地说由三分法 $g = 0$、$g = 1$ 或 $g \geq 2$ 决定，这一点是相当惊人的。其中一些引人注目的方面在下面的表格中描述，我来简要讨论一下；这些应该是每个数学家都了解的背景知识。
+</blockquote>
+
+<p>To give a partial answer to the Diophantine question mentioned in (1.1&ndash;2) and again in (2.1), it is known that a curve can be <span class="vocab">parametrised<span class="tooltip">/ˈpær.ə.mɪ.traɪzd/ 参数化的</span></span> by rational functions if and only if $g = 0$; if I'm working over a fixed field, a curve of genus 0 may have no $k$-valued points at all (for example, the conic in (1.2)), but if it has one point, it can be parametrised over $k$, so that its $k$-valued points are in bijection with $\mathbb{P}^1_k$.</p>
+
+<blockquote>
+作为(1.1&ndash;2)和(2.1)中提到的丢番图问题的部分回答：一条曲线可以用有理函数参数化当且仅当 $g = 0$；如果我们在固定的域上工作，亏格0的曲线可能根本没有 $k$-值点（例如(1.2)中的圆锥曲线），但如果有一个点，它就可以在 $k$ 上参数化，使得其 $k$-值点与 $\mathbb{P}^1_k$ 一一对应。
+</blockquote>
+
+<p>Any curve of genus 1 is <span class="vocab">isomorphic<span class="tooltip">/ˌaɪ.soʊˈmɔːr.fɪk/ 同构的</span></span> to a cubic as in this section, and a group law is defined on the $k$-valued points (provided of course that there exists at least one &ndash; there's no such thing as the empty group); if $k$ is a number field (for example, $k = \mathbb{Q}$), the $k$-valued points form an Abelian group which is <span class="vocab">finitely generated<span class="tooltip">/ˌfaɪ.naɪt.li ˈdʒen.ər.eɪ.tɪd/ 有限生成的</span></span> (the Mordell&ndash;Weil Theorem).</p>
+
+<blockquote>
+任何亏格1的曲线都同构于本节中讨论的三次曲线，在其 $k$-值点上可以定义群律（当然前提是至少有一个 $k$-值点——不存在空群这回事）；如果 $k$ 是数域（例如 $k = \mathbb{Q}$），$k$-值点构成一个有限生成的Abel群（Mordell&ndash;Weil定理）。
+</blockquote>
+
+<p>Whereas a curve of genus $g \geq 2$ is now known to have only a finite set of $k$-valued points; this is a famous theorem proved by Faltings in 1983, and for which he received the Fields medal in 1986. Thus for example, for any $n \geq 4$, the Fermat curve $x^n + y^n = 1$ has at most a finite number of rational points.</p>
+
+<blockquote>
+而亏格 $g \geq 2$ 的曲线现在已知只有有限多个 $k$-值点；这是Faltings在1983年证明的著名定理，他因此获得了1986年的菲尔兹奖。因此例如，对任意 $n \geq 4$，费马曲线 $x^n + y^n = 1$ 最多有有限个有理点。
+</blockquote>
+
+<p>Over $\mathbb{C}$, a curve $C$ of genus 1 is topologically a torus, and has a group law, so that it is analytically of the form $C \cong \mathbb{C}/(\mathbb{Z} \oplus \mathbb{Z} \cdot \tau)$:</p>
+
+<blockquote>
+在 $\mathbb{C}$ 上，亏格1的曲线 $C$ 拓扑上是一个环面，并有群律，因此解析地可以写成 $C \cong \mathbb{C}/(\mathbb{Z} \oplus \mathbb{Z} \cdot \tau)$：
+</blockquote>
+
+<!-- Figure 2.13: Genus 1 curve as C ≅ C/(Z ⊕ Z·τ) -->
+<figure>
+    <img src="images/fig_page50_img1.png" alt="Genus 1 curve as C/lattice">
+    <figcaption>Figure 2.13: Genus 1 curve as $C \cong \mathbb{C}/(\mathbb{Z} \oplus \mathbb{Z} \cdot \tau)$ / 图2.13：亏格1曲线表示为 $C \cong \mathbb{C}/(\mathbb{Z} \oplus \mathbb{Z} \cdot \tau)$</figcaption>
+</figure>
+
+<p>The isomorphism between this quotient and a plane curve $C_3 \subset \mathbb{P}^2_{\mathbb{C}}$ is given by a <span class="vocab">holomorphic<span class="tooltip">/ˌhɒl.əˈmɔːr.fɪk/ 全纯的</span></span> map $\varphi \colon \mathbb{C} \to C_3$, that is, a kind of 'parametrisation' of $C_3$; but $\varphi$ cannot be in terms of rational functions (by (2.2)), and is infinity-to-one; this is the theory of doubly periodic functions of a complex variable, which was one of the mainstays of 19th century analysis (Weierstrass $\wp$-function, Riemann theta function).</p>
+
+<blockquote>
+这个商与平面曲线 $C_3 \subset \mathbb{P}^2_{\mathbb{C}}$ 之间的同构由全纯映射 $\varphi: \mathbb{C} \to C_3$ 给出，也就是 $C_3$ 的一种"参数化"；但 $\varphi$ 不可能用有理函数表达（由(2.2)），而且是无穷对一的；这就是复变函数中双周期函数的理论，是19世纪分析学的支柱之一（Weierstrass的 $\wp$ 函数，Riemann的theta函数）。
+</blockquote>
+
+<p>Another important thing to notice is that different periods $\tau$ will usually lead to different curves; they're all <span class="vocab">homeomorphic<span class="tooltip">/ˌhoʊ.mi.əˈmɔːr.fɪk/ 同胚的</span></span> to the standard torus $S^1 \times S^1$, but as algebraic curves, or complex analytic curves, they're not isomorphic. The period $\tau$ is a <em>modulus</em>, that is, a complex parameter which governs variation of the complex structure $C$ on the fixed topological object $S^1 \times S^1$.</p>
+
+<blockquote>
+另一个重要的事情是，不同的周期 $\tau$ 通常会导致不同的曲线；它们全都同胚于标准环面 $S^1 \times S^1$，但作为代数曲线或复解析曲线，它们是不同构的。周期 $\tau$ 就是一个模（modulus），也就是一个复参数，它控制着固定拓扑对象 $S^1 \times S^1$ 上复结构 $C$ 的变化。
+</blockquote>
+
+<p>The student interested in more on curves should look at [D. Mumford, <em>Curves and their Jacobians</em>], the first part of which is fairly <span class="vocab">colloquial<span class="tooltip">/kəˈloʊ.kwi.əl/ 通俗的，口语化的</span></span>, or [Clemens].</p>
+
+<blockquote>
+对曲线有更多兴趣的同学可以参看 [D. Mumford, <em>Curves and their Jacobians</em>]，其第一部分写得相当通俗易懂，或者参看 [Clemens]。
+</blockquote>
+
+<h3>Table: The trichotomy by genus</h3>
+<h4>表：按亏格的三分法</h4>
+
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-size: 0.95em;">
+<thead>
+<tr>
+    <th></th>
+    <th>$g = 0$</th>
+    <th>$g = 1$</th>
+    <th>$g \geq 2$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td><strong>Topology</strong><br>拓扑<br>$C$ is homeomorphic to:</td>
+    <td>$S^2$ (sphere)<br>simply-connected<br>单连通</td>
+    <td>$S^1 \times S^1$ (torus)<br>$\pi_1 = \mathbb{Z} \oplus \mathbb{Z}$</td>
+    <td>Surface with $g$ holes<br>like free group on $2g$ generators</td>
+</tr>
+<tr>
+    <td><strong>Algebraic/complex analytic geometry</strong><br>代数/复解析几何<br>embeddings, concrete descriptions:</td>
+    <td>$C \cong \mathbb{P}^1_{\mathbb{C}}$<br>$\cong C_2 \subset \mathbb{P}^2_{\mathbb{C}}$</td>
+    <td>$C \cong C_3 \subset \mathbb{P}^2_{\mathbb{C}}$<br>$\cong \mathbb{C}/(\mathbb{Z} \oplus \mathbb{Z}\tau)$</td>
+    <td>no simple description, but e.g. most curves of genus 3 are non-sing. $C_4 \subset \mathbb{P}^2_{\mathbb{C}}$</td>
+</tr>
+<tr>
+    <td><strong>automorphisms:</strong><br>自同构：</td>
+    <td>3-dimensional group of projective transformations</td>
+    <td>translations in group law $\times$ finite group</td>
+    <td>finite group</td>
+</tr>
+<tr>
+    <td><strong>moduli:</strong><br>模：</td>
+    <td>none</td>
+    <td>1 modulus (cross-ratio or $j$-invariant)</td>
+    <td>$3g - 3$ moduli</td>
+</tr>
+<tr>
+    <td><strong>Differential geometry</strong><br>微分几何<br>there exists a natural class of Riemannian metrics with constant curvature:</td>
+    <td>constant positive curvature</td>
+    <td>zero curvature (that is, flat)</td>
+    <td>constant negative curvature</td>
+</tr>
+<tr>
+    <td><strong>Diophantine problems</strong><br>丢番图问题<br>if $k = \mathbb{Q}$ or a number field (that is, $k : \mathbb{Q}| &lt; \infty$) then:</td>
+    <td>$C_k = \emptyset$ or $\mathbb{P}^1_k$</td>
+    <td>$C_k$ is a finitely generated Abelian group (Mordell&ndash;Weil theorem)</td>
+    <td>$C_k$ is a finite set (Faltings' Theorem, Mordell conjecture)</td>
+</tr>
+</tbody>
+</table>
+
+<nav class="nav-links">
+    <a href="ch02_s15.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_exercises.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.1 Example of a parametrised curve — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_plane_conics.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s02.html">下一节 &rarr;</a>
+</nav>
+
+<h1>1.1 Example of a parametrised curve</h1>
+<h2>1.1 参数化曲线的例子</h2>
+
+<p><span class="vocab">Pythagoras<span class="tooltip">/paɪˈθæɡ.ər.əs/ 毕达哥拉斯</span></span>' Theorem says that, in the diagram</p>
+
+<figure>
+    <img src="images/fig_p19_right_triangle.png" alt="Right triangle with sides X, Y, Z">
+    <figcaption>A right triangle with sides $X$, $Y$ and hypotenuse $Z$.</figcaption>
+</figure>
+
+$$X^2 + Y^2 = Z^2,$$
+
+<p>so $(3, 4, 5)$ and $(5, 12, 13)$, as every ancient Egyptian knew. How do you find all integer solutions? The equation is <span class="vocab">homogeneous<span class="tooltip">/ˌhɒm.əˈdʒiː.ni.əs/ 齐次的</span></span>, so that $x = X/Z$, $y = Y/Z$ gives the circle $C : (x^2 + y^2 = 1) \subset \mathbb{R}^2$, which can easily be seen to be <span class="vocab">parametrised<span class="tooltip">/ˈpær.ə.mɪ.traɪzd/ 参数化的</span></span> as</p>
+
+$$x = \frac{2\lambda}{\lambda^2 + 1}, \quad y = \frac{\lambda^2 - 1}{\lambda^2 + 1}, \quad \text{where } \lambda = \frac{x}{1 - y}\,;$$
+
+<p>so this gives all solutions:</p>
+
+$$X = 2\ell m, \quad Y = \ell^2 - m^2, \quad Z = \ell^2 + m^2 \quad \text{with } \ell, m \in \mathbb{Z} \text{ coprime}$$
+
+<blockquote>
+毕达哥拉斯定理告诉我们，在直角三角形中 $X^2 + Y^2 = Z^2$，比如 $(3,4,5)$ 和 $(5,12,13)$，这些是每个古埃及人都知道的。怎么找到所有整数解呢？方程是齐次的，所以令 $x = X/Z$，$y = Y/Z$，就得到单位圆 $C: (x^2 + y^2 = 1) \subset \mathbb{R}^2$。容易验证它可以参数化为
+$$x = \frac{2\lambda}{\lambda^2 + 1}, \quad y = \frac{\lambda^2 - 1}{\lambda^2 + 1}, \quad \text{其中 } \lambda = \frac{x}{1 - y}\,.$$
+于是所有整数解就是：$X = 2\ell m$，$Y = \ell^2 - m^2$，$Z = \ell^2 + m^2$，其中 $\ell, m \in \mathbb{Z}$ 互素。
+</blockquote>
+
+<p>(or each divided by 2 if $\ell, m$ are both odd). Note that the equation is homogeneous, so that if $(X, Y, Z)$ is a solution, then so is $(\lambda X, \lambda Y, \lambda Z)$.</p>
+
+<blockquote>
+（如果 $\ell, m$ 都是奇数，则各除以2。）注意方程是齐次的，所以如果 $(X,Y,Z)$ 是一组解，那么 $(\lambda X, \lambda Y, \lambda Z)$ 也是。
+</blockquote>
+
+<p>Maybe the <span class="vocab">parametrisation<span class="tooltip">/ˌpær.ə.mɪ.traɪˈzeɪ.ʃən/ 参数化</span></span> was already familiar from school geometry, and in any case, it's easy to verify that it works. However, if I didn't know it already, I could have obtained it by an easy geometric argument, namely <span class="vocab">linear<span class="tooltip">/ˈlɪn.i.ər/ 线性的</span></span> projection from a given point: $P = (0, 1) \in C$, and if $\lambda \in \mathbb{Q}$</p>
+
+<figure>
+    <img src="images/fig_p20_projection.png" alt="Linear projection of a conic to a line">
+    <figcaption>Figure 1.1: Linear projection of a conic to a line</figcaption>
+</figure>
+
+<p>is any value, then the line $L_\lambda$ through $P$ with slope $-\lambda$ meets $C$ in a further point $Q_\lambda$. This construction of a map by means of linear projection will appear many times in what follows.</p>
+
+<blockquote>
+也许这个参数化你在中学几何里就见过了，无论如何，验证它是对的很容易。不过就算我事先不知道，也可以通过一个简单的几何论证得到它，就是从一个已知点做线性投影：取 $P = (0,1) \in C$，对任意 $\lambda \in \mathbb{Q}$，过 $P$ 斜率为 $-\lambda$ 的直线 $L_\lambda$ 与 $C$ 交于另一点 $Q_\lambda$。这种通过线性投影构造映射的方法，在后面会反复出现。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_plane_conics.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s02.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

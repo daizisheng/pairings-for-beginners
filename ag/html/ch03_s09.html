@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.9 Definition: radical ideal — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s11.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.9 Definition: radical ideal</h1>
+<h2>3.9 定义：根理想</h2>
+
+<p><strong>Definition</strong> &nbsp; If $I$ is an ideal of $A$, the <em><span class="vocab">radical<span class="tooltip">/ˈræd.ɪ.kəl/ 根式的，根理想</span></span></em> of $I$ is</p>
+
+$$\operatorname{rad} I = \sqrt{I} = \{f \in A \mid f^n \in I \text{ for some } n\}.$$
+
+<p>$\operatorname{rad} I$ is an ideal, since $f, g \in \operatorname{rad} I \implies f^n, g^m \in I$ for suitable $n, m$, and therefore</p>
+
+$$(f + g)^r = \sum \binom{r}{a} f^a g^{r-a} \in I \quad \text{if } r \geq n + m - 1.$$
+
+<p>An ideal $I$ is <em>radical</em> if $I = \operatorname{rad} I$.</p>
+
+<blockquote>
+<strong>定义</strong>：如果 $I$ 是 $A$ 的一个理想，$I$ 的<strong>根</strong>（radical）定义为
+$$\operatorname{rad} I = \sqrt{I} = \{f \in A \mid \text{存在 } n \text{ 使得 } f^n \in I\}.$$
+$\operatorname{rad} I$ 是一个理想，因为若 $f,g \in \operatorname{rad} I$，即 $f^n, g^m \in I$，则当 $r \geq n+m-1$ 时，$(f+g)^r = \sum \binom{r}{a} f^a g^{r-a} \in I$。<br><br>
+如果 $I = \operatorname{rad} I$，就称 $I$ 是<strong>根理想</strong>。
+</blockquote>
+
+<p>Note that a prime ideal is radical. It's not hard to see that in a UFD like $k[X_1, \ldots, X_n]$, a principal ideal $I = (f)$ where $f = \prod f_i^{n_i}$ (<span class="vocab">factorisation<span class="tooltip">/ˌfæk.tər.aɪˈzeɪ.ʃən/ 因式分解</span></span> into distinct prime factors), has $\operatorname{rad} I = (f_{\text{red}})$, where $f_{\text{red}} = \prod f_i$.</p>
+
+<blockquote>
+注意素理想一定是根理想。不难验证，在像 $k[X_1,\ldots,X_n]$ 这样的唯一分解整环中，主理想 $I=(f)$，其中 $f = \prod f_i^{n_i}$（分解为不同素因子的乘积），其根理想为 $\operatorname{rad} I = (f_{\text{red}})$，这里 $f_{\text{red}} = \prod f_i$（把所有重数降为1）。
+</blockquote>
+
+<h3>Nullstellensatz 3.10 (Hilbert's zeros theorem)</h3>
+
+<p><em>Let $k$ be an <span class="vocab">algebraically closed<span class="tooltip">/ˌæl.dʒɪˈbreɪ.ɪk.li kloʊzd/ 代数闭的</span></span> field.</em></p>
+
+<p><em>(a) Every maximal ideal of the polynomial ring $A = k[X_1, \ldots, X_n]$ is of the form $\mathfrak{m}_P = (X_1 - a_1, \ldots, X_n - a_n)$ for some point $P = (a_1, \ldots, a_n) \in \mathbb{A}^n_k$; that is, it's the ideal $I(P)$ of all functions vanishing at $P$.</em></p>
+
+<p><em>(b) Let $J \subset A$ be an ideal, $J \neq (1)$; then $V(J) \neq \varnothing$.</em></p>
+
+<p><em>(c) For any $J \subset A$,</em></p>
+
+$$I(V(J)) = \operatorname{rad} J.$$
+
+<blockquote>
+<strong>零点定理3.10（Hilbert零点定理）</strong> &nbsp; 设 $k$ 是代数闭域。<br>
+(a) 多项式环 $A = k[X_1,\ldots,X_n]$ 的每个极大理想都形如 $\mathfrak{m}_P = (X_1-a_1,\ldots,X_n-a_n)$，对应某个点 $P=(a_1,\ldots,a_n) \in \mathbb{A}^n_k$，即它就是在 $P$ 点消失的所有函数构成的理想 $I(P)$。<br>
+(b) 如果 $J \subset A$ 是理想且 $J \neq (1)$，则 $V(J) \neq \varnothing$。<br>
+(c) 对任意 $J \subset A$，有 $I(V(J)) = \operatorname{rad} J$。
+</blockquote>
+
+<p>The <span class="vocab">essential<span class="tooltip">/ɪˈsen.ʃəl/ 本质的</span></span> content of the theorem is (b), which says that if an ideal $J$ is not the whole of $k[X_1, \ldots, X_n]$, then it will have zeros in $\mathbb{A}^n_k$. Note that (b) is completely false if $k$ is not algebraically closed, since if $f \in k[X]$ is a nonconstant polynomial then it will not generate the whole of $k[X]$ as an ideal, but $V(f) = \varnothing \subset \mathbb{A}^1_k$ is perfectly possible. The name of the theorem (<em>Nullstelle</em> = zero of a polynomial + <em>Satz</em> = theorem) should help to remind you of the content (but stick to the German if you don't want to be considered an <span class="vocab">ignorant<span class="tooltip">/ˈɪɡ.nər.ənt/ 无知的</span></span> peasant).</p>
+
+<blockquote>
+定理最核心的内容是(b)：如果理想 $J$ 不是整个 $k[X_1,\ldots,X_n]$，那么它在 $\mathbb{A}^n_k$ 中一定有零点。注意如果 $k$ 不是代数闭的，(b)完全错误。定理的名字 Nullstellensatz 来自德语：Nullstelle = 多项式的零点，Satz = 定理。
+</blockquote>
+
+<p><strong>Corollary</strong> &nbsp; <em>The correspondences $V$ and $I$</em></p>
+
+$$\{\text{ideals } I \subset A\} \xleftrightarrow{\;V, I\;} \{\text{subsets } X \subset \mathbb{A}^n_k\}$$
+
+<p><em>induce bijections</em></p>
+
+$$\{\text{radical ideals}\} \longleftrightarrow \{\text{algebraic subsets}\}$$
+
+<p><em>and</em></p>
+
+$$\{\text{prime ideals}\} \longleftrightarrow \{\text{irreducible algebraic subsets}\}.$$
+
+<p>This holds because $V(I(X)) = X$ for any algebraic set $X$ by (3.6, b), and $I(V(J)) = J$ for any radical ideal $J$ by (c) above.</p>
+
+<blockquote>
+<strong>推论</strong>：对应 $V$ 和 $I$ 建立了以下双射：<br>
+-- 根理想 $\longleftrightarrow$ 代数子集<br>
+-- 素理想 $\longleftrightarrow$ 不可约代数子集<br><br>
+这是因为：对任何代数集 $X$，由(3.6,b)有 $V(I(X))=X$；对任何根理想 $J$，由(c)有 $I(V(J))=J$。
+</blockquote>
+
+<h3>Proof of NSS (assuming (3.8))</h3>
+
+<p><strong>(a)</strong> &nbsp; Let $\mathfrak{m} \subset k[X_1, \ldots, X_n]$ be a maximal ideal; write $K = k[X_1, \ldots, X_n]/\mathfrak{m}$, and $\varphi$ for the composite of natural maps $\varphi\colon k \to k[X_1, \ldots, X_n] \to K$. Then $K$ is a field (since $\mathfrak{m}$ is maximal), and it is finitely generated as $k$-algebra (since it is generated by the images of the $X_i$). So by (3.8), $\varphi\colon k \to K$ is an algebraic field extension. But $k$ is algebraically closed, hence $\varphi$ is an isomorphism.</p>
+
+<p>Now for each $i$, $X_i \in k[X_1, \ldots, X_n]$ maps to some element $b_i \in K$; so taking $a_i = \varphi^{-1}(b_i)$ gives $X_i - a_i \in \ker\{k[X_1, \ldots, X_n] \to K\} = \mathfrak{m}$. Hence there exist $a_1, \ldots, a_n \in k$ such that $(X_1 - a_1, \ldots, X_n - a_n) \subset \mathfrak{m}$. On the other hand, it's clear that the left-hand side is a maximal ideal, so $(X_1 - a_1, \ldots, X_n - a_n) = \mathfrak{m}$. This proves (a).</p>
+
+<blockquote>
+<strong>零点定理的证明（假设(3.8)成立）</strong><br><br>
+<strong>(a)</strong> 设 $\mathfrak{m} \subset k[X_1,\ldots,X_n]$ 是极大理想，令 $K = k[X_1,\ldots,X_n]/\mathfrak{m}$，$\varphi: k \to K$ 是自然映射的复合。则 $K$ 是域（因为 $\mathfrak{m}$ 极大），且作为 $k$-代数是有限生成的。由(3.8)知 $\varphi: k \to K$ 是代数扩张。但 $k$ 是代数闭的，所以 $\varphi$ 是同构。<br><br>
+对每个 $i$，$X_i$ 映射到 $K$ 中某个元素 $b_i$，取 $a_i = \varphi^{-1}(b_i)$ 则 $X_i - a_i \in \mathfrak{m}$。因此 $(X_1-a_1,\ldots,X_n-a_n) \subset \mathfrak{m}$。但左边本身已经是极大理想，所以等号成立。
+</blockquote>
+
+<p><strong>(a) $\Longrightarrow$ (b)</strong> &nbsp; This is easy. If $J \neq A = k[X_1, \ldots, X_n]$ then there exists a maximal ideal $\mathfrak{m}$ of $A$ such that $J \subset \mathfrak{m}$ (the existence of $\mathfrak{m}$ is easy to check, using the a.c.c.). By (a), $\mathfrak{m}$ is of the form $\mathfrak{m} = (X_1 - a_1, \ldots, X_n - a_n)$; then $J \subset \mathfrak{m}$ just means that $f(P) = 0$ for all $f \in J$, where $P = (a_1, \ldots, a_n)$. Therefore $P \in V(J)$.</p>
+
+<blockquote>
+<strong>(a)$\Rightarrow$(b)</strong>：简单。若 $J \neq A$，则存在极大理想 $\mathfrak{m} \supset J$。由(a)知 $\mathfrak{m} = (X_1-a_1,\ldots,X_n-a_n)$，则 $J \subset \mathfrak{m}$ 意味着对所有 $f \in J$ 有 $f(P)=0$，其中 $P=(a_1,\ldots,a_n)$，于是 $P \in V(J)$。
+</blockquote>
+
+<p><strong>(b) $\Longrightarrow$ (c)</strong> &nbsp; This requires a <span class="vocab">cunning<span class="tooltip">/ˈkʌn.ɪŋ/ 巧妙的</span></span> trick. Let $J \subset k[X_1, \ldots, X_n]$ be any ideal, and $f \in k[X_1, \ldots, X_n]$. Introduce another variable $Y$, and consider the new ideal</p>
+
+$$J_1 = (J,\; fY - 1) \subset k[X_1, \ldots, X_n, Y]$$
+
+<p>generated by $J$ and $fY - 1$. Roughly speaking, $V(J_1)$ is the variety consisting of $P \in V(J)$ such that $f(P) \neq 0$. More precisely, a point $Q \in V(J_1) \subset \mathbb{A}^{n+1}_k$ is an $(n+1)$-tuple $Q = (a_1, \ldots, a_n, b)$ such that</p>
+
+$$g(a_1, \ldots, a_n) = 0 \text{ for all } g \in J, \quad \text{that is, } P = (a_1, \ldots, a_n) \in V(J),$$
+
+<p>and</p>
+
+$$f(P) \cdot b = 1, \quad \text{that is, } f(P) \neq 0 \text{ and } b = f(P)^{-1}.$$
+
+<p>Now suppose that $f(P) = 0$ for all $P \in V(J)$; then clearly, from what I've just said, $V(J_1) = \varnothing$. So I can use (b) to deduce that $1 \in J_1$, that is, there exists an expression</p>
+
+$$1 = \sum g_i f_i + g_0(fY - 1) \in k[X_1, \ldots, X_n, Y] \qquad (**)$$
+
+<p>with $f_i \in J$, and $g_0, g_i \in k[X_1, \ldots, X_n, Y]$.</p>
+
+<p>Consider the way in which $Y$ appears in the right-hand side of $(**)$: apart from its explicit appearance in the second term, it can appear in each of the $g_i$; suppose that $Y^N$ is the highest power of $Y$ appearing in any of $g_0, g_i$. If I then multiply through both sides of $(**)$ by $f^N$, I get a relation of the form</p>
+
+$$f^N = \sum G_i(X_1, \ldots, X_n, fY)\, f_i + G_0(X_1, \ldots, X_n, fY)(fY - 1); \qquad (***)$$
+
+<p>here $G_i$ is just $f^N g_i$ written out as a polynomial in $X_1, \ldots, X_n$ and $fY$.</p>
+
+<p>$(***)$ is just an equality of polynomials in $k[X_1, \ldots, X_n, Y]$, so I can reduce it modulo $(fY - 1)$ to get</p>
+
+$$f^N = \sum h_i(X_1, \ldots, X_n) f_i \in k[X_1, \ldots, X_n, Y]/(fY - 1);$$
+
+<p>both sides of the equation are elements of $k[X_1, \ldots, X_n]$. Since the natural homomorphism $k[X_1, \ldots, X_n] \hookrightarrow k[X_1, \ldots, X_n, Y]/(fY - 1)$ is injective (it is just the inclusion of $k[X_1, \ldots, X_n]$ into $k[X_1, \ldots, X_n][f^{-1}]$, as a subring of its field of fractions), it follows that</p>
+
+$$f^N = \sum h_i(X_1, \ldots, X_n) f_i \in k[X_1, \ldots, X_n];$$
+
+<p>that is, $f^N \in J$ for some $N$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>(b)$\Rightarrow$(c)</strong>：这需要一个巧妙的技巧。设 $J \subset k[X_1,\ldots,X_n]$ 是任意理想，$f \in k[X_1,\ldots,X_n]$。引入新变量 $Y$，考虑新理想
+$$J_1 = (J,\; fY-1) \subset k[X_1,\ldots,X_n,Y].$$
+直观上，$V(J_1)$ 是 $V(J)$ 中使 $f(P) \neq 0$ 的那些点。<br><br>
+现在假设对所有 $P \in V(J)$ 都有 $f(P)=0$，则 $V(J_1)=\varnothing$。由(b)推出 $1 \in J_1$，即存在表达式
+$$1 = \sum g_i f_i + g_0(fY-1)$$
+其中 $f_i \in J$。设 $Y^N$ 是 $g_0,g_i$ 中出现的 $Y$ 的最高次幂，两边乘以 $f^N$，再对 $(fY-1)$ 取模（即令 $fY=1$），就得到
+$$f^N = \sum h_i(X_1,\ldots,X_n) f_i \in k[X_1,\ldots,X_n],$$
+即 $f^N \in J$。Q.E.D.
+</blockquote>
+
+<p><strong>Remark</strong> &nbsp; Several of the textbooks cut the argument short by just saying that $(**)$ is an identity, so it remains true if we set $Y = f^{-1}$. This is of course perfectly valid, but I have preferred to spell it out in detail.</p>
+
+<blockquote>
+<strong>注</strong>：一些教科书在这里简化论证，直接说 $(**)$ 是一个恒等式，所以令 $Y = f^{-1}$ 仍然成立。这当然完全正确，但我更愿意把细节写清楚。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s11.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises to Chapter 7 — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_final.html">下一节 &rarr;</a>
+</nav>
+
+<h1>Exercises to Chapter 7</h1>
+<h2>第7章习题</h2>
+
+<p><strong>7.1</strong> Prove case (ii) of the claim in Proposition 7.3. [Hint: as in the given proof of case (i), $f = X(X - T)T + Zg$, so that $A = T + aZ$, $D = -T^2 + Z \cdot \ell$, where $\ell$ is linear, so that $Z \mid B, C, E, F$, and $Z$ does not divide $D$; also, the nonsingularity of $S$ at $(0, 1, 0, 0)$ implies that $C = cZ$, with $c \ne 0$. Now calculate $\Delta(Z, T)$ modulo $Z^2$.]</p>
+
+<blockquote>
+<strong>7.1</strong> 证明命题 7.3 断言的情形 (ii)。[提示：如同情形 (i) 的已有证明，$f = X(X - T)T + Zg$，因此 $A = T + aZ$，$D = -T^2 + Z \cdot \ell$（$\ell$ 是线性的），使得 $Z \mid B, C, E, F$ 且 $Z$ 不整除 $D$；又由 $S$ 在 $(0, 1, 0, 0)$ 处的非奇异性可得 $C = cZ$，$c \ne 0$。现在计算 $\Delta(Z, T)$ 模 $Z^2$。]
+</blockquote>
+
+<p><strong>7.2</strong> Prove that given 3 disjoint lines $\ell_1, \ldots, \ell_3 \subset \mathbb{P}^3$, there exists a nonsingular quadric $Q \supset \ell_1, \ldots, \ell_3$. [Hint: on each line $\ell_i$, take 3 points $P_i, P_i', P_i'' \in \ell_i$, and show as in (1.11) or (2.4) that there is at least one quadric $Q$ through them; it follows that each $\ell_i \subset Q$. Now show that $Q$ can't be singular: for example, what happens if $Q$ is a pair of planes?]</p>
+
+<blockquote>
+<strong>7.2</strong> 证明给定3条不相交的直线 $\ell_1, \ldots, \ell_3 \subset \mathbb{P}^3$，存在一个非奇异二次曲面 $Q \supset \ell_1, \ldots, \ell_3$。[提示：在每条直线 $\ell_i$ 上取3个点 $P_i, P_i', P_i'' \in \ell_i$，如 (1.11) 或 (2.4) 所示证明至少存在一个通过它们的二次曲面 $Q$；由此可得每条 $\ell_i \subset Q$。然后证明 $Q$ 不可能是奇异的：例如，如果 $Q$ 是一对平面会怎样？]
+</blockquote>
+
+<p><strong>7.3</strong> <em>The <span class="vocab">Hessian<span class="tooltip">/ˈhes.i.ən/ Hesse的，Hessian矩阵</span></span>.</em> Let $f = f_d(x_0, \ldots, x_n)$ be a form of degree $d$ in $x_0, \ldots, x_n$, defining a <span class="vocab">hypersurface<span class="tooltip">/ˈhaɪ.pə.sɜː.fɪs/ 超曲面</span></span> $V : (f = 0) \subset \mathbb{P}^n$; suppose for simplicity that the characteristic $\ne 2$ and does not divide $(d - 1)$. Define the Hessian matrix of $f$ by $H(f) = H(f, x) = \{f_{x_i x_j}\}_{i,j}$, and the Hessian $h(f) = \det H(f)$.</p>
+
+<p>(i) Let $x_i' = \sum a_{ij} x_j$ be a projective coordinate change with $A = (a_{ij})$ a nonsingular $(n + 1) \times (n + 1)$ matrix. If $g(x') = f(Ax)$, prove that $H(g, x') = ({}^t A) H(f, x) A$, and deduce that $h(g, x') = (\det A)^2 h(f, x)$.</p>
+
+<p>(ii) Consider an affine piece $V_{(i)} \subset \mathbb{A}^n_{(i)}$ of $V : (f = 0)$. Let $P \in V_{(i)}$ be a nonsingular point, and $\Pi = T_P V_{(i)}$ the affine tangent plane; write $\varphi$ for the restriction to $\Pi$ of $f/x_i^d$. Prove that the Taylor expansion of $\varphi$ at $P$ starts with a <span class="vocab">nondegenerate<span class="tooltip">/ˌnɒn.dɪˈdʒen.ər.ət/ 非退化的</span></span> quadratic form $\varphi^{(2)}$ (in $n - 1$ variables) if and only if $h(f)(P) \ne 0$.</p>
+
+<p>(iii) Let $C : (f = 0) \subset \mathbb{P}^2$ be a nonsingular plane cubic curve; deduce from (ii) that $P \in C$ is an <span class="vocab">inflexion<span class="tooltip">/ɪnˈflek.ʃən/ 拐点</span></span> point if and only if $H(f)(P) = 0$. B&eacute;zout's theorem implies that $(f = H(f) = 0) \subset \mathbb{P}^2$ is nonempty.</p>
+
+<p>(iv) Let $S : (f = 0) \subset \mathbb{P}^3$ be a nonsingular cubic surface; for $P \in S$ prove that if $P$ is not on a line of $S$ then the intersection $S \cap T_P S$ is a cuspidal cubic if and only if $H(f)(P) = 0$. Deduce that cuspidal cubic sections exist, as required in Step 1 of the proof of (7.2).</p>
+
+<blockquote>
+<strong>7.3</strong> <em>Hessian 矩阵。</em>设 $f = f_d(x_0, \ldots, x_n)$ 是 $x_0, \ldots, x_n$ 的 $d$ 次形式，定义超曲面 $V : (f = 0) \subset \mathbb{P}^n$；为简单起见假设特征 $\ne 2$ 且不整除 $(d - 1)$。定义 $f$ 的 Hessian 矩阵为 $H(f) = \{f_{x_i x_j}\}_{i,j}$，Hessian 为 $h(f) = \det H(f)$。
+
+(i) 设 $x_i' = \sum a_{ij} x_j$ 是射影坐标变换，$A = (a_{ij})$ 是非奇异的 $(n+1) \times (n+1)$ 矩阵。若 $g(x') = f(Ax)$，证明 $H(g, x') = ({}^t A) H(f, x) A$，并推出 $h(g, x') = (\det A)^2 h(f, x)$。
+
+(ii) 考虑 $V : (f = 0)$ 的仿射片 $V_{(i)} \subset \mathbb{A}^n_{(i)}$。设 $P \in V_{(i)}$ 是非奇异点，$\Pi = T_P V_{(i)}$ 是仿射切平面；记 $\varphi$ 为 $f/x_i^d$ 限制到 $\Pi$ 的结果。证明 $\varphi$ 在 $P$ 处的 Taylor 展开以非退化二次形式 $\varphi^{(2)}$（$n - 1$ 个变量）开始当且仅当 $h(f)(P) \ne 0$。
+
+(iii) 设 $C : (f = 0) \subset \mathbb{P}^2$ 是非奇异平面三次曲线；由 (ii) 推出 $P \in C$ 是拐点当且仅当 $H(f)(P) = 0$。B&eacute;zout 定理蕴含 $(f = H(f) = 0) \subset \mathbb{P}^2$ 非空。
+
+(iv) 设 $S : (f = 0) \subset \mathbb{P}^3$ 是非奇异三次曲面；对于 $P \in S$，证明如果 $P$ 不在 $S$ 的任何直线上，则交 $S \cap T_P S$ 是尖点三次曲线当且仅当 $H(f)(P) = 0$。推出尖点三次截面的存在性，即 (7.2) 证明的步骤 1 所需的。
+</blockquote>
+
+<p><strong>7.4</strong> (i) Prove that if $P \in S$ is a singular point of a cubic surface then there is at least one line $\ell \subset S$ through $P$ (and 'in general' 6).</p>
+<p>(ii) If $X \subset \mathbb{P}^4$ is a nonsingular cubic hypersurface (a cubic 3-fold) and $P \in X$ then there is at least one line $\ell \subset X$ through $P$ (and 'in general' 6). [Hint: write down the equation of $X$ in coordinates with $P = (1, 0, \ldots, 0)$.]</p>
+
+<blockquote>
+<strong>7.4</strong> (i) 证明如果 $P \in S$ 是三次曲面的奇异点，则至少存在一条通过 $P$ 的直线 $\ell \subset S$（"一般"情况下有6条）。
+
+(ii) 如果 $X \subset \mathbb{P}^4$ 是非奇异三次超曲面（三次三维体）且 $P \in X$，则至少存在一条通过 $P$ 的直线 $\ell \subset X$（"一般"情况下有6条）。[提示：在 $P = (1, 0, \ldots, 0)$ 的坐标下写出 $X$ 的方程。]
+</blockquote>
+
+<p><strong>7.5</strong> Prove that the rational map $\varphi\colon S \dashrightarrow \ell \times m$ of Corollary 7.4, (b) is in fact a morphism; prove that it contracts 5 lines of $S$ to points.</p>
+
+<blockquote>
+<strong>7.5</strong> 证明推论 7.4 (b) 中的有理映射 $\varphi\colon S \dashrightarrow \ell \times m$ 实际上是一个态射；证明它将 $S$ 的5条直线收缩为点。
+</blockquote>
+
+<p><strong>7.6</strong> Find all 27 lines of the diagonal (or 'Fermat') cubic surface $S : (X^3 + Y^3 + Z^3 + T^3 = 0) \subset \mathbb{P}^3$ in terms of planes such as $(X = \rho Y)$, where $\rho^3 = 1$.</p>
+
+<blockquote>
+<strong>7.6</strong> 找出对角线（或 "Fermat"）三次曲面 $S : (X^3 + Y^3 + Z^3 + T^3 = 0) \subset \mathbb{P}^3$ 的所有27条直线，用形如 $(X = \rho Y)$（其中 $\rho^3 = 1$）的平面来表示。
+</blockquote>
+
+<p><strong>7.7</strong> Let $S \subset \mathbb{P}^3$ be the cubic surface given by $S : (f = 0)$, where $f(X, Y, Z, T) = ZX^2 + TY^2 + (Z - d^2 T)(Z - e^2 T)(Z - f^2 T)$, with $d, e, f$ distinct nonzero elements of $k$, and $\ell \subset S$ the line given by $Z = T = 0$. By considering as in (7.3) the variable plane through $\ell$, write down the equations of the 10 lines of $S$ meeting $\ell$.</p>
+
+<blockquote>
+<strong>7.7</strong> 设 $S \subset \mathbb{P}^3$ 是由 $f(X, Y, Z, T) = ZX^2 + TY^2 + (Z - d^2 T)(Z - e^2 T)(Z - f^2 T)$ 给出的三次曲面，其中 $d, e, f$ 是 $k$ 中不同的非零元素，$\ell \subset S$ 是由 $Z = T = 0$ 给出的直线。仿照 (7.3) 考虑过 $\ell$ 的活动平面，写出与 $\ell$ 相交的 $S$ 上的10条直线的方程。
+</blockquote>
+
+<p><strong>7.8</strong> <em>suggested by R. Casdagli.</em> Consider the cubic surface $S_{(0)} \subset \mathbb{R}^3$ given in affine coordinates by $x^2 + y^2 + z^2 - 2xyz = 1 + \lambda^2$, where $\lambda \in \mathbb{R}$, $\lambda > 0$ is a constant.</p>
+
+<p>(i) By rewriting $(*)$ as $(x - yz)^2 = (y^2 - 1)(z^2 - 1) + \lambda^2$, show that $S_{(0)}$ has 4 tubes going off to <span class="vocab">infinity<span class="tooltip">/ɪnˈfɪn.ɪ.ti/ 无穷</span></span>.</p>
+
+<p>(ii) By considering $(*)$ as the equation of a variable conic in the $(x, y)$-plane with parameter $z$, show that the four pairs of lines of $S_{(0)}$ which meet $(Z = 0)$ <span class="vocab">asymptotically<span class="tooltip">/ˌæs.ɪmpˈtɒt.ɪk.li/ 渐近地</span></span> are given by $z = \mu, x = (\mu \pm \lambda)y$; $z = -\mu, x = (-\mu \pm \lambda)y$; $z = 1, x - y = \pm\lambda$; and $z = -1, x + y = \pm\lambda$, where $\mu^2 = 1 + \lambda^2$.</p>
+
+<blockquote>
+<strong>7.8</strong> <em>由 R. Casdagli 建议。</em>考虑仿射坐标下 $\mathbb{R}^3$ 中的三次曲面 $S_{(0)}$：$x^2 + y^2 + z^2 - 2xyz = 1 + \lambda^2$，其中 $\lambda \in \mathbb{R}$，$\lambda > 0$ 是常数。
+
+(i) 将 $(*)$ 改写为 $(x - yz)^2 = (y^2 - 1)(z^2 - 1) + \lambda^2$，证明 $S_{(0)}$ 有4个延伸到无穷远的管道。
+
+(ii) 将 $(*)$ 看作以 $z$ 为参数的 $(x, y)$-平面上的活动二次曲线方程，证明 $S_{(0)}$ 渐近地与 $(Z = 0)$ 相交的四对直线为：$z = \mu, x = (\mu \pm \lambda)y$；$z = -\mu, x = (-\mu \pm \lambda)y$；$z = 1, x - y = \pm\lambda$；以及 $z = -1, x + y = \pm\lambda$，其中 $\mu^2 = 1 + \lambda^2$。
+</blockquote>
+
+<p><strong>7.9</strong> <em>A case when all the lines are rational.</em> Suppose $\operatorname{char} k \ne 2$ and let $S : (f = 0)$ be a nonsingular cubic surface, with $f = A(X, Y) \cdot T - B(X, Y) \cdot Z + (\text{terms of degree} \ge 2 \text{ in } Z \text{ and } T)$. Then $S$ contains $\ell : (Z = T = 0)$.</p>
+
+<blockquote>
+<strong>7.9</strong> <em>所有直线都是有理的情形。</em>设 $\operatorname{char} k \ne 2$，令 $S : (f = 0)$ 是非奇异三次曲面，其中 $f = A(X, Y) \cdot T - B(X, Y) \cdot Z + (\text{$Z$ 和 $T$ 的 $\ge 2$ 次项})$。于是 $S$ 包含 $\ell : (Z = T = 0)$。
+</blockquote>
+
+<p><strong>7.10</strong> This exercise is for the reader who likes big calculations, or has access to a computer algebra system. If a nonsingular cubic surface $S$ has a nodal cubic curve $C$ as a section, its equation can be written as $f = XYZ - X^3 - Y^3 + Tg$. Prove that there is a 'resultant' polynomial $R_{27}(\alpha)$, which is monic in $\alpha$ of degree 27 and with constant term 1.</p>
+
+<blockquote>
+<strong>7.10</strong> 本习题适合喜欢大量计算或有计算机代数系统的读者。如果非奇异三次曲面 $S$ 以结点三次曲线 $C$ 为截面，其方程可以写为 $f = XYZ - X^3 - Y^3 + Tg$。证明存在一个"结式"多项式 $R_{27}(\alpha)$，它是 $\alpha$ 的首一27次多项式，且常数项为1。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch08_final.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.9 Associativity "in general" — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s10.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.9 Associativity "in general"</h1>
+<h2>2.9 一般的结合律</h2>
+
+<p>Now I give the proof of <span class="vocab">associativity<span class="tooltip">/əˌsoʊ.ʃi.əˈtɪv.ɪ.ti/ 结合律</span></span> for 'sufficiently general' points: suppose that $A, B, C$ are 3 given points of $C$; then the construction of $(A + B) + C = \overline{S}$ uses 4 lines (see diagram above)</p>
+
+$$L_1 : ABR, \quad L_2 : RO\overline{R}, \quad L_3 : C\overline{R}S \quad \text{and} \quad L_4 : SO\overline{S}.$$
+
+<p>The construction of $(B + C) + A = \overline{T}$ uses 4 lines</p>
+
+$$M_1 : BCQ, \quad M_2 : QO\overline{Q}, \quad M_3 : A\overline{Q}T \quad \text{and} \quad M_4 : TO\overline{T}.$$
+
+<blockquote>
+现在我来证明"足够一般"的点满足结合律。设 $A, B, C$ 是 $C$ 上的3个给定的点；那么 $(A + B) + C = \overline{S}$ 的构造用到4条直线 $L_1: ABR$，$L_2: RO\overline{R}$，$L_3: C\overline{R}S$，$L_4: SO\overline{S}$。而 $(B + C) + A = \overline{T}$ 的构造也用到4条直线 $M_1: BCQ$，$M_2: QO\overline{Q}$，$M_3: A\overline{Q}T$，$M_4: TO\overline{T}$。
+</blockquote>
+
+<p>I want to prove $\overline{S} = \overline{T}$, and clearly for this, it is enough to prove $S = T$; to do this, consider the 2 cubics</p>
+
+$$D_1 = L_1 + M_2 + L_3 \quad \text{and} \quad D_2 = M_1 + L_2 + M_3.$$
+
+<p>Then by construction,</p>
+
+$$C \cap D_1 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, S\},$$
+$$\text{and} \quad C \cap D_2 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, T\}.$$
+
+<blockquote>
+我想证明 $\overline{S} = \overline{T}$，显然只需要证明 $S = T$ 就够了。为此，考虑两条三次曲线 $D_1 = L_1 + M_2 + L_3$ 和 $D_2 = M_1 + L_2 + M_3$。由构造可知，$C \cap D_1 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, S\}$，$C \cap D_2 = \{A, B, C, O, R, \overline{R}, Q, \overline{Q}, T\}$。
+</blockquote>
+
+<p>Now provided the 9 points $A, B, C, O, R, \overline{R}, Q, \overline{Q}, S$ are all <span class="vocab">distinct<span class="tooltip">/dɪˈstɪŋkt/ 不同的，各异的</span></span>, the two cubics $C$ and $D_1$ satisfy the conditions of Corollary 2.7; therefore, $D_2$ must pass through $S$, and the only way that this can happen is if $S = T$.</p>
+
+<blockquote>
+现在只要这9个点 $A, B, C, O, R, \overline{R}, Q, \overline{Q}, S$ 互不相同，两条三次曲线 $C$ 和 $D_1$ 就满足推论2.7的条件；因此 $D_2$ 必须通过 $S$，而这只有在 $S = T$ 时才可能。
+</blockquote>
+
+<p>There are several ways to complete the argument. The most <span class="vocab">thorough<span class="tooltip">/ˈθɜːr.oʊ/ 彻底的，详尽的</span></span> of these gives a <span class="vocab">genuine<span class="tooltip">/ˈdʒen.ju.ɪn/ 真正的，名副其实的</span></span> treatment of the intersection of two curves taking into account multiple intersections (roughly, in terms of 'ideals of intersection'), and the statement corresponding to Corollary 2.7 is Max Noether's Lemma (see [Fulton, p. 120 and p. 124]).</p>
+
+<blockquote>
+有好几种方法来补全这个论证。其中最彻底的一种是真正处理两条曲线的交集，把重交点也考虑进去（大致来说，用"交理想"的语言），对应推论2.7的那个结论就是Max Noether引理（参见[Fulton, p. 120 和 p. 124]）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s08.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s10.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

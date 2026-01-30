@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.5b 'Line at Infinity' and Asymptotic Directions — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s05.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s06.html">下一节 →</a>
+</nav>
+
+<h1>1.5b 'Line at Infinity' and Asymptotic Directions</h1>
+<h2>"无穷远直线"与渐近方向</h2>
+
+<p>Points of $\mathbb{P}^2$ with $Z = 0$ correspond to ratios $(X : Y : 0)$. These points form the <em>line at infinity</em>, a copy of $\mathbb{P}^1_{\mathbb{R}} = \mathbb{R} \cup \{\infty\}$ (since $(X : Y) \mapsto X/Y$ defines a <span class="vocab">bijection<span class="tooltip">/baɪˈdʒek.ʃən/ 双射</span></span> $\mathbb{P}^1_{\mathbb{R}} \to \mathbb{R} \cup \{\infty\}$).</p>
+
+<blockquote>
+$\mathbb{P}^2$ 中 $Z = 0$ 的点对应于比值 $(X:Y:0)$。这些点构成了<b>无穷远直线</b>，它是 $\mathbb{P}^1_{\mathbb{R}} = \mathbb{R} \cup \{\infty\}$ 的一个副本（因为 $(X:Y) \mapsto X/Y$ 定义了一个双射 $\mathbb{P}^1_{\mathbb{R}} \to \mathbb{R} \cup \{\infty\}$）。
+</blockquote>
+
+<p>A line in $\mathbb{P}^2$ is by definition given by $L : (aX + bY + cZ = 0)$, and</p>
+
+$$L \text{ passes through } (X, Y, 0) \iff aX + bY = 0.$$
+
+<p>In affine coordinates the same line is given by $ax + by + c = 0$, so that all lines with the same ratio $a : b$ pass through the same point at infinity. This is called 'parallel lines meet at infinity'.</p>
+
+<blockquote>
+$\mathbb{P}^2$ 中的一条直线按定义由 $L:(aX + bY + cZ = 0)$ 给出，而 $L$ 过 $(X,Y,0)$ 当且仅当 $aX + bY = 0$。在仿射坐标中同一条直线为 $ax + by + c = 0$，因此所有 $a:b$ 比值相同的直线都过同一个无穷远点。这就是所谓的"平行线在无穷远处相交"。
+</blockquote>
+
+<h3>Example</h3>
+
+<p>(a) The <span class="vocab">hyperbola<span class="tooltip">/haɪˈpɜː.bəl.ə/ 双曲线</span></span> $\left(\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1\right)$ in $\mathbb{R}^2$ corresponds in $\mathbb{P}^2_{\mathbb{R}}$ to $C : \left(\dfrac{X^2}{a^2} - \dfrac{Y^2}{b^2} = Z^2\right)$; clearly this meets $(Z = 0)$ in the two points $(a, \pm b, 0) \in \mathbb{P}^2_{\mathbb{R}}$, corresponding in the obvious way to the <span class="vocab">asymptotic<span class="tooltip">/ˌæs.ɪmpˈtɒt.ɪk/ 渐近的</span></span> lines of the hyperbola.</p>
+
+<blockquote>
+(a) $\mathbb{R}^2$ 中的双曲线 $\left(\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1\right)$ 在 $\mathbb{P}^2_{\mathbb{R}}$ 中对应于 $C:\left(\dfrac{X^2}{a^2} - \dfrac{Y^2}{b^2} = Z^2\right)$。它显然与 $(Z=0)$ 交于两点 $(a, \pm b, 0) \in \mathbb{P}^2_{\mathbb{R}}$，正好对应双曲线的渐近线方向。
+</blockquote>
+
+<p>Note that in the affine piece $(X \neq 0)$ of $\mathbb{P}^2_{\mathbb{R}}$, the affine coordinates are $u = Y/X$, $v = Z/X$, so that $C$ becomes the <span class="vocab">ellipse<span class="tooltip">/ɪˈlɪps/ 椭圆</span></span> $\left(\dfrac{u^2}{b^2} + v^2 = \dfrac{1}{a^2}\right)$. See Ex. 1.7 for an artistic <span class="vocab">interpretation<span class="tooltip">/ɪnˌtɜː.prɪˈteɪ.ʃən/ 诠释，解读</span></span>.</p>
+
+<blockquote>
+注意在 $\mathbb{P}^2_{\mathbb{R}}$ 的仿射片 $(X \neq 0)$ 中，仿射坐标为 $u = Y/X$, $v = Z/X$，此时 $C$ 变成椭圆 $\left(\dfrac{u^2}{b^2} + v^2 = \dfrac{1}{a^2}\right)$。参见习题 1.7 的艺术性诠释。
+</blockquote>
+
+<p>(b) The <span class="vocab">parabola<span class="tooltip">/pəˈræb.əl.ə/ 抛物线</span></span> $(y = mx^2)$ in $\mathbb{R}^2$ corresponds to $C : (YZ = mX^2)$ in $\mathbb{P}^2_{\mathbb{R}}$; this now meets $(Z = 0)$ at the single point $(0, 1, 0)$. So in $\mathbb{P}^2$, the 'two branches of the parabola meet at infinity'; note that this is a statement with <span class="vocab">intuitive<span class="tooltip">/ɪnˈtjuː.ɪ.tɪv/ 直觉的</span></span> content (maybe you feel it's pretty <span class="vocab">implausible<span class="tooltip">/ɪmˈplɔː.zɪ.bəl/ 难以置信的</span></span>?), but is not a result you could arrive at just by <span class="vocab">contemplating<span class="tooltip">/ˈkɒn.təm.pleɪ.tɪŋ/ 思索，沉思</span></span> within $\mathbb{R}^2$ -- maybe it's not even meaningful.</p>
+
+<blockquote>
+(b) $\mathbb{R}^2$ 中的抛物线 $(y = mx^2)$ 在 $\mathbb{P}^2_{\mathbb{R}}$ 中对应于 $C:(YZ = mX^2)$；它与 $(Z = 0)$ 只交于一个点 $(0,1,0)$。因此在 $\mathbb{P}^2$ 中，"抛物线的两支在无穷远处相交"。注意这个说法具有直觉上的内涵（也许你觉得相当难以置信？），但这并不是你仅在 $\mathbb{R}^2$ 里冥思苦想就能得到的结论——也许在 $\mathbb{R}^2$ 中它根本没有意义。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s05.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s06.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

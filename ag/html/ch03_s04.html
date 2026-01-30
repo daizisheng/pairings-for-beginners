@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.4 The correspondence V — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.4 The correspondence $V$</h1>
+<h2>3.4 对应 $V$</h2>
+
+<p>$k$ is any field, and $A = k[X_1, \ldots, X_n]$. Following an almost universal <span class="vocab">idiosyncrasy<span class="tooltip">/ˌɪd.i.əˈsɪŋ.krə.si/ 特殊习惯</span></span> of algebraic geometers, I write $\mathbb{A}^n_k = k^n$ for the $n$-dimensional <span class="vocab">affine<span class="tooltip">/əˈfaɪn/ 仿射的</span></span> space over $k$; given a polynomial $f(X_1, \ldots, X_n) \in A$ and a point $P = (a_1, \ldots, a_n) \in \mathbb{A}^n_k$, the element $f(a_1, \ldots, a_n) \in k$ is thought of as 'evaluating the function $f$ at $P$'. Define a <span class="vocab">correspondence<span class="tooltip">/ˌkɒr.ɪˈspɒn.dəns/ 对应</span></span></p>
+
+$$\{\text{ideals } J \subset A\} \longrightarrow \{\text{subsets } X \subset \mathbb{A}^n_k\}$$
+
+<p>by</p>
+
+$$J \longmapsto V(J) = \{P \in \mathbb{A}^n_k \mid f(P) = 0 \;\forall f \in J\}.$$
+
+<blockquote>
+$k$ 是任意域，$A = k[X_1,\ldots,X_n]$。代数几何学家有一个几乎普遍的特殊记法：用 $\mathbb{A}^n_k = k^n$ 表示 $k$ 上的 $n$ 维仿射空间。给定多项式 $f(X_1,\ldots,X_n) \in A$ 和点 $P=(a_1,\ldots,a_n) \in \mathbb{A}^n_k$，$f(a_1,\ldots,a_n) \in k$ 被看作"在 $P$ 点处求值"。<br><br>
+定义从理想到子集的对应：$J \mapsto V(J) = \{P \in \mathbb{A}^n_k \mid \text{对所有 } f \in J,\; f(P)=0\}$。
+</blockquote>
+
+<p><strong>Definition</strong> &nbsp; A subset $X \subset \mathbb{A}^n_k$ is an <em>algebraic set</em> if $X = V(I)$ for some $I$. (This is the same thing as a variety, but I want to <span class="vocab">reserve<span class="tooltip">/rɪˈzɜːrv/ 保留</span></span> the word.) Notice that by Corollary 3.3, $I$ is finitely generated. If $I = (f_1, \ldots, f_r)$ then clearly</p>
+
+$$V(I) = \{P \in \mathbb{A}^n_k \mid f_i(P) = 0 \text{ for } i = 1, \ldots, r\},$$
+
+<p>so that an algebraic set is just a <span class="vocab">locus<span class="tooltip">/ˈloʊ.kəs/ 轨迹，点集</span></span> of points satisfying a finite number of polynomial equations.</p>
+
+<p>If $I = (f)$ is a <span class="vocab">principal<span class="tooltip">/ˈprɪn.sɪ.pəl/ 主的（主理想）</span></span> ideal, then I usually write $V(f)$ for $V(I)$; this is of course the same thing as $V : (f = 0)$ in the notation of Chapters 1--2.</p>
+
+<blockquote>
+<strong>定义</strong>：子集 $X \subset \mathbb{A}^n_k$ 是一个<strong>代数集</strong>，如果 $X = V(I)$ 对某个理想 $I$ 成立。（本质上就是"簇"，但这个词我先留着后面用。）注意根据推论3.3，$I$ 是有限生成的。如果 $I=(f_1,\ldots,f_r)$，那么
+$$V(I) = \{P \in \mathbb{A}^n_k \mid f_i(P) = 0,\; i=1,\ldots,r\},$$
+所以代数集就是满足有限个多项式方程的点的集合。<br><br>
+如果 $I=(f)$ 是主理想，通常简写 $V(f)$ 代替 $V(I)$，这和第1--2章中的记号 $V:(f=0)$ 是一回事。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

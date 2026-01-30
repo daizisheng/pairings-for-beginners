@@ -1,0 +1,149 @@
+--- Page 3 ---
+Contents
+0 Woﬄe 11
+0.1 What it’s about . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+0.2 Speciﬁc calculations versus general theory . . . . . . . . . . . . . . . . . . . . . . . . 12
+0.3 Rings of functions and categories of geometry . . . . . . . . . . . . . . . . . . . . . . 12
+0.4 Geometry from polynomials . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+0.5 “Purely algebraically deﬁned” . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+0.6 Plan of the book . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+Course prerequisites . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+Course relates to . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+Exercises to Chapter 0 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+Books . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+I Playing with plane curves 17
+1 Plane conics 19
+1.1 Example of a parametrised curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+1.2 Similar example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+1.3 Conics in R2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+1.4 Projective plane . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+1.5 Equation of a conic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+‘Line at inﬁnity’ and asymptotic directions . . . . . . . . . . . . . . . . . . . . . . . 23
+1.6 Classiﬁcation of conics in P2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+1.7 Parametrisation of a conic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+1.8 Homogeneous form in 2 variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+1.9 Easy cases of Bézout’s Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+1.10 Corollary: unique conic through 5 general points ofP2 . . . . . . . . . . . . . . . . 27
+1.11 Space of all conics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+1.12 Intersection of two conics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+1.13 Degenerate conics in a pencil . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+1.14 Worked example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+Exercises to Chapter 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+5
+
+--- Page 4 ---
+6 CONTENTS
+2 Cubics and the group law 35
+2.1 Examples of parametrised cubics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+2.2 The curve (y2 = x(x − 1)(x − λ)) has no rational parametrisation . . . . . . . . . . . 36
+2.3 Lemma . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+2.4 Linear systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+2.5 Lemma: divisibility by L or by Q . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+2.6 Proposition: cubics through 8 general points form a pencil . . . . . . . . . . . . . . . 39
+2.7 Corollary: cubic through 8 points C1 ∩ C2 pass through the 9th . . . . . . . . . . . . 40
+2.8 Group law on a plane cubic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+2.9 Associativity “in general” . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+2.10 Proof by continuity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+2.11 Pascal’s Theorem (the mystic hexagon) . . . . . . . . . . . . . . . . . . . . . . . . . 43
+2.12 Inﬂexion, normal form . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+2.13 Simpliﬁed group law . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 45
+Exercises to Chapter 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+2.14 Topology of a nonsingular cubic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+2.15 Discussion of genus . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+2.16 Commercial break . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+II The category of aﬃne varieties 55
+3 Aﬃne varieties and the Nullstellensatz 57
+3.1 Deﬁnition of Noetherian ring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+3.2 Proposition: Noetherian passes to quotients and rings of fractions . . . . . . . . . . . 58
+3.3 Hilbert Basis Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+3.4 The correspondence V . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+3.5 Deﬁnition: the Zariski topology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+3.6 The correspondence I . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+3.7 Irreducible algebraic set . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 61
+3.8 Preparation for the Nullstellensatz . . . . . . . . . . . . . . . . . . . . . . . . . . . . 62
+3.9 Deﬁnition: radical ideal . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 62
+3.11 Worked examples . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+3.12 Finite algebras . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+3.13 Noether normalisation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+3.14 Remarks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+3.15 Proof of (3.8) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+3.16 Separable addendum . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+3.17 Reduction to a hypersurface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 69
+Exercises to Chapter 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+4 Functions on varieties 73
+4.1 Polynomial functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73
+4.2 k[V ] and algebraic subsets ofV . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73
+4.3 Polynomial maps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 74
+4.4 Polynomial maps and k[V ] . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+
+--- Page 5 ---
+CONTENTS 7
+4.5 Corollary: f : V → W is an isomorphism if and only iff∗ is . . . . . . . . . . . . . . 76
+4.6 Aﬃne variety . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 77
+4.7 Function ﬁeld . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 77
+4.8 Criterion for dom f = V for f ∈ k(V ) . . . . . . . . . . . . . . . . . . . . . . . . . . . 78
+4.9 Rational maps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78
+4.10 Composition of rational maps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+4.11 Theorem: dominant rational maps . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+4.12 Morphisms from an open subset of an aﬃne variety . . . . . . . . . . . . . . . . . . . 79
+4.13 Standard open subsets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 80
+4.14 Worked example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 81
+Exercises to Chapter 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82
+III Applications 85
+5 Projective and birational geometry 87
+5.0 Why projective varieties? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 87
+5.1 Graded rings and homogeneous ideals . . . . . . . . . . . . . . . . . . . . . . . . . . 88
+5.2 The homogeneous V-I correspondences . . . . . . . . . . . . . . . . . . . . . . . . . 89
+5.3 Projective Nullstellensatz . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 89
+5.4 Rational functions on V . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 90
+5.5 Aﬃne covering of a projective variety . . . . . . . . . . . . . . . . . . . . . . . . . . . 91
+5.6 Rational maps and morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 92
+5.7 Examples . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 93
+5.8 Birational maps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 94
+5.9 Rational varieties . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+5.10 Reduction to a hypersurface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+5.11 Products . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+Exercises to Chapter 5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 96
+6 Tangent space and nonsingularity, dimension 101
+6.1 Nonsingular points of a hypersurface . . . . . . . . . . . . . . . . . . . . . . . . . . . 101
+6.2 Remarks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+6.3 Proposition: V nonsing is dense . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+6.4 Tangent space . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 103
+6.5 Proposition: dim TP V is upper semicontinuous . . . . . . . . . . . . . . . . . . . . . 103
+6.6 Corollary–Deﬁnition: dim TP V = dim V on a dense open set . . . . . . . . . . . . . . 103
+6.7 dim V = tr degk(V ) – the hypersurface case . . . . . . . . . . . . . . . . . . . . . . . 104
+6.8 Intrinsic nature of TP V . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+6.9 Corollary: TP V only depends onP ∈ V up to isomorphism . . . . . . . . . . . . . . 105
+6.10 Theorem: dim V = tr degk(V ) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+6.11 Nonsingularity and projective varieties . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+6.12 Worked example: blowup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+Exercises to Chapter 6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107
+
+--- Page 6 ---
+8 CONTENTS
+7 The 27 lines on a cubic surface 109
+7.1 Consequences of nonsingularity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 109
+7.2 Proposition: the existence of a line onS3 ⊂ P3 . . . . . . . . . . . . . . . . . . . . . 110
+7.3 Proposition: the lines of S ⊂ P3 meeting a given line . . . . . . . . . . . . . . . . . . 112
+7.4 Corollary: there exist 2 disjoint linesℓ, m ⊂ S ⊂ S3 . . . . . . . . . . . . . . . . . . . 114
+7.5 Finding all the lines of S . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+7.6 The 27 lines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115
+7.7 The conﬁguration of lines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 116
+Exercises to Chapter 7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117
+8 Final comments 121
+8.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 121
+8.2 Prehistory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 121
+8.3 Rigour, the ﬁrst wave . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122
+8.4 The Grothendieck era . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122
+8.5 The big bang . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123
+8.6 Choice of topics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+8.7 Computation versus theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+8.8 R versus C . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+8.9 Regular functions and sheaves . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125
+8.10 Globally deﬁned regular functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125
+8.11 The surprising suﬃciency of projective algebraic geometry . . . . . . . . . . . . . . . 125
+8.12 Aﬃne varieties and schemes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 126
+8.13 What’s the point? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 127
+8.14 How schemes are more general than varieties . . . . . . . . . . . . . . . . . . . . . . 129
+8.15 Proof of the existence of lines on a cubic surface . . . . . . . . . . . . . . . . . . . . 131
+8.16 Acknowledgements and name dropping . . . . . . . . . . . . . . . . . . . . . . . . . . 132

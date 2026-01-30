@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.5 Definition: the Zariski topology — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s06.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.5 Definition: the Zariski topology</h1>
+<h2>3.5 定义：Zariski拓扑</h2>
+
+<p><strong>Proposition-Definition</strong> &nbsp; <em>The correspondence $V$ satisfies the following formal properties:</em></p>
+
+<p><em>(i) $V(0) = \mathbb{A}^n_k$; &nbsp; $V(A) = \varnothing$;</em></p>
+
+<p><em>(ii) $I \subset J \implies V(I) \supset V(J)$;</em></p>
+
+<p><em>(iii) $V(I_1 \cap I_2) = V(I_1) \cup V(I_2)$;</em></p>
+
+<p><em>(iv) $V\!\bigl(\sum_{\lambda \in \Lambda} I_\lambda\bigr) = \bigcap_{\lambda \in \Lambda} V(I_\lambda)$.</em></p>
+
+<p><em>Hence the algebraic subsets of $\mathbb{A}^n_k$ form the closed sets of a topology on $\mathbb{A}^n_k$, the</em> <strong>Zariski topology</strong>.</p>
+
+<blockquote>
+<strong>命题-定义</strong>：对应 $V$ 满足以下性质：<br>
+(i) $V(0)=\mathbb{A}^n_k$，$V(A)=\varnothing$；<br>
+(ii) $I \subset J \Rightarrow V(I) \supset V(J)$；<br>
+(iii) $V(I_1 \cap I_2) = V(I_1) \cup V(I_2)$；<br>
+(iv) $V(\sum_\lambda I_\lambda) = \bigcap_\lambda V(I_\lambda)$。<br><br>
+因此 $\mathbb{A}^n_k$ 的代数子集构成 $\mathbb{A}^n_k$ 上一个拓扑的闭集，这个拓扑叫做 <strong>Zariski拓扑</strong>。
+</blockquote>
+
+<p>The above properties are quite <span class="vocab">trivial<span class="tooltip">/ˈtrɪv.i.əl/ 平凡的，显然的</span></span>, with the exception of the inclusion $\subset$ in (iii). For this, suppose $P \notin V(I_1) \cup V(I_2)$; then there exist $f \in I_1$, $g \in I_2$ such that $f(P) \neq 0$, $g(P) \neq 0$. So $fg \in I_1 \cap I_2$, but $fg(P) \neq 0$, and therefore $P \notin V(I_1 \cap I_2)$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+上面的性质大多显然，唯一需要说明的是(iii)中的 $\subset$ 方向。假设 $P \notin V(I_1) \cup V(I_2)$，则存在 $f \in I_1$、$g \in I_2$ 使得 $f(P) \neq 0$、$g(P) \neq 0$。于是 $fg \in I_1 \cap I_2$ 但 $fg(P) \neq 0$，所以 $P \notin V(I_1 \cap I_2)$。Q.E.D.
+</blockquote>
+
+<p>The Zariski topology on $\mathbb{A}^n_k$ induces a topology on any algebraic set $X \subset \mathbb{A}^n_k$: the closed subsets of $X$ are the algebraic subsets.</p>
+
+<p>It's important to notice that the Zariski topology on a variety is very weak, and is quite different from the familiar topology of <span class="vocab">metric<span class="tooltip">/ˈmet.rɪk/ 度量的</span></span> spaces like $\mathbb{R}^n$. As an example, a Zariski closed subset of $\mathbb{A}^1_k$ is either the whole of $\mathbb{A}^1_k$ or is finite; see Ex. 3.12 for a description of the Zariski topology on $\mathbb{A}^2_k$.</p>
+
+<p>If $k = \mathbb{R}$ or $\mathbb{C}$ then Zariski closed sets are also closed for the ordinary topology, since polynomial functions are <span class="vocab">continuous<span class="tooltip">/kənˈtɪn.ju.əs/ 连续的</span></span>. In fact they're very special open or closed subsets: a nonempty Zariski open subset of $\mathbb{R}^n$ is the <span class="vocab">complement<span class="tooltip">/ˈkɒm.plɪ.ment/ 补集</span></span> of a subvariety, so automatically <span class="vocab">dense<span class="tooltip">/dens/ 稠密的</span></span> in $\mathbb{R}^n$.</p>
+
+<p>The Zariski topology may cause trouble to some students; since it is only being used as a language, and has almost no content, the difficulty is likely to be <span class="vocab">psychological<span class="tooltip">/ˌsaɪ.kəˈlɒdʒ.ɪ.kəl/ 心理上的</span></span> rather than technical.</p>
+
+<blockquote>
+$\mathbb{A}^n_k$ 上的Zariski拓扑自然地在任何代数集 $X \subset \mathbb{A}^n_k$ 上诱导一个拓扑：$X$ 的闭集就是 $X$ 的代数子集。<br><br>
+重要的是要注意，簇上的Zariski拓扑非常弱，与 $\mathbb{R}^n$ 这样的度量空间的通常拓扑大不相同。例如，$\mathbb{A}^1_k$ 的Zariski闭集要么是整个 $\mathbb{A}^1_k$，要么是有限集。参见习题3.12对 $\mathbb{A}^2_k$ 上Zariski拓扑的描述。<br><br>
+如果 $k=\mathbb{R}$ 或 $\mathbb{C}$，Zariski闭集也是通常拓扑的闭集，因为多项式函数是连续的。实际上它们是非常特殊的开集或闭集：$\mathbb{R}^n$ 中非空的Zariski开集是某个子簇的补集，因此在 $\mathbb{R}^n$ 中自动稠密。<br><br>
+Zariski拓扑可能会给一些学生带来困扰；但它只是一种语言工具，几乎没有什么实质内容，困难更多是心理上的而非技术上的。
+</blockquote>
+
+<p><small><em>Footnote.</em> $\mathbb{A}^n$ is thought of as a variety, whereas $k^n$ is just a point set. Think of this as pure <span class="vocab">pedantry<span class="tooltip">/ˈped.ən.tri/ 学究气</span></span> if you like; compare (4.6) below, as well as (8.3).</small></p>
+
+<nav class="nav-links">
+    <a href="ch03_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s06.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

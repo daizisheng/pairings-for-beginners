@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§0.4 Geometry from polynomials — Reid</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch00_s03.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch00_s05.html">下一节 →</a>
+</nav>
+
+<h1>0.4 Geometry from polynomials</h1>
+<h2>0.4 从多项式出发的几何</h2>
+
+<p>There are very few polynomial functions: the polynomial ring $\mathbb{R}[X]$ is just a countable dimensional $\mathbb{R}$-vector space, whereas $C^\omega(U)$ is already uncountable. Even allowing rational functions &ndash; that is, extending $\mathbb{R}[X]$ to its field of fractions $\mathbb{R}(X)$ &ndash; doesn't help much. (2.2) will provide an example of the characteristic <span class="vocab">rigidity<span class="tooltip">/rɪˈdʒɪd.ə.ti/ 刚性</span></span> of the algebraic category. The fact that it is possible to construct a geometry using only this set of functions is itself quite remarkable. Not surprisingly, there are difficulties involved in setting up this theory:</p>
+
+<blockquote>
+多项式函数非常少：多项式环 $\mathbb{R}[X]$ 只是一个可数维的 $\mathbb{R}$-向量空间，而 $C^\omega(U)$ 已经是不可数的。即使允许有理函数——也就是把 $\mathbb{R}[X]$ 扩展到其分式域 $\mathbb{R}(X)$——也帮不了多少忙。(2.2)节将给出代数范畴的特征刚性的一个例子。仅用这么少的函数就能构建一套几何学，这本身就很了不起。不出所料，建立这套理论会遇到一些困难：
+</blockquote>
+
+<p><strong>Foundations via <span class="vocab">commutative<span class="tooltip">/kəˈmjuː.tə.tɪv/ 交换的</span></span> algebra</strong> &nbsp; Topology and differential topology can rely on the whole <span class="vocab">corpus<span class="tooltip">/ˈkɔːr.pəs/ 全集，整套</span></span> of $\varepsilon$-$\delta$ analysis taught in a series of 1st and 2nd year undergraduate courses; to do algebraic geometry working only with polynomial rings, we need instead to study rings such as the polynomial ring $k[X_1, \ldots, X_n]$ and their ideals. In other words, we have to develop commutative algebra in place of calculus. The <span class="vocab">Nullstellensatz<span class="tooltip">/ˈnʊl.ʃtɛl.ən.zats/ 零点定理（德语）</span></span> (&sect;3 below) is a typical example of a statement having direct intuitive geometric content (essentially, &ldquo;different ideals of functions in $k[X_1, \ldots, X_n]$ define different varieties $V \subset k^n$&rdquo;) whose proof involves quite a lengthy <span class="vocab">digression<span class="tooltip">/daɪˈɡreʃ.ən/ 离题，题外话</span></span> through finiteness conditions in commutative algebra.</p>
+
+<blockquote>
+<strong>通过交换代数打基础</strong>：拓扑学和微分拓扑可以依赖大一大二系列课程中教授的整套 $\varepsilon$-$\delta$ 分析。但要仅用多项式环来做代数几何，我们就需要研究多项式环 $k[X_1,\ldots,X_n]$ 及其理想。换句话说，我们必须用<strong>交换代数</strong>来替代微积分。零点定理（Nullstellensatz，§3）是一个典型的例子：它有直接的几何直觉含义（本质上说的是"$k[X_1,\ldots,X_n]$ 中不同的函数理想定义不同的簇 $V \subset k^n$"），但证明却需要绕一大圈，经过交换代数中的有限性条件。
+</blockquote>
+
+<p><strong>Rational maps and functions</strong> &nbsp; Another difficulty arising from the decision to work with polynomials is the necessity of introducing 'partially defined functions'; because of the 'rigidity' hinted at above, we'll see that for some varieties (in fact for all projective varieties), there do not exist any nonconstant regular functions (see Ex. 5.1, Ex. 5.12 and the discussion in (8.10)). Rational functions (that is, 'functions' of the form $f = g/h$, where $g, h$ are polynomial functions) are not defined at points where the <span class="vocab">denominator<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.tər/ 分母</span></span> vanishes. Although <span class="vocab">reprehensible<span class="tooltip">/ˌrep.rɪˈhen.sə.bl/ 应受谴责的（此处幽默用法）</span></span>, it is a firmly <span class="vocab">entrenched<span class="tooltip">/ɪnˈtrentʃt/ 根深蒂固的</span></span> tradition among algebraic geometers to use 'rational function' and 'rational map' to mean 'only partially defined function (or map)'. So a rational map $f \colon V_1 \dashrightarrow V_2$ is not a map at all; the broken arrow here is also becoming traditional. Students who disapprove are recommended to give up at once and take a reading course in Category Theory instead.</p>
+
+<blockquote>
+<strong>有理映射与有理函数</strong>：决定只用多项式工作带来的另一个困难是必须引入"部分定义的函数"。由于前面提到的"刚性"，我们会看到某些簇（事实上是所有射影簇）上不存在任何非常值的正则函数。有理函数（即形如 $f=g/h$ 的"函数"，其中 $g,h$ 是多项式函数）在分母为零的点上没有定义。
+
+<p>虽然这样做有点"不太光彩"（reprehensible），但代数几何学家们已经根深蒂固地用"有理函数"和"有理映射"来表示"只在部分点上有定义的函数（或映射）"。所以有理映射 $f: V_1 \dashrightarrow V_2$ 根本不是一个真正的映射；这里的虚线箭头也正在成为约定俗成的写法。不赞成的学生建议立即放弃本课，转去选修范畴论导读。</p>
+</blockquote>
+
+<p>This is not at all a <span class="vocab">frivolous<span class="tooltip">/ˈfrɪv.əl.əs/ 无关紧要的，轻浮的</span></span> difficulty. Even regular maps (= morphisms, these are genuine maps) have to be defined as rational maps which are regular at all points $P \in V$ (that is, well defined, the denominator can be chosen not to vanish at $P$). Closely related to this is the difficulty of giving a proper <span class="vocab">intrinsic<span class="tooltip">/ɪnˈtrɪn.zɪk/ 内在的，内蕴的</span></span> definition of a variety: in this course (and in others like it, in my experience), affine varieties $V \subset \mathbb{A}^n$ and quasiprojective varieties $V \subset \mathbb{P}^n$ will be defined, but there will be no proper definition of 'variety' without reference to an ambient space. Roughly speaking, a variety should be what you get if you glue together a number of affine varieties along isomorphic open subsets. But our present language, in which isomorphisms are themselves defined more or less explicitly in terms of rational functions, is just too <span class="vocab">cumbersome<span class="tooltip">/ˈkʌm.bər.səm/ 繁琐的，笨重的</span></span>; the proper language for this glueing is <span class="vocab">sheaves<span class="tooltip">/ʃiːvz/ 层（数学概念）</span></span>, which are well treated in graduate textbooks.</p>
+
+<blockquote>
+这绝不是一个无关紧要的困难。连正则映射（= 态射，这些才是真正的映射）也必须定义为在所有点 $P \in V$ 上都正则的有理映射（也就是说，分母可以选择在 $P$ 处不为零，从而函数在 $P$ 有良好的定义）。
+
+<p>与此密切相关的是簇的内蕴定义的困难：在本课程中（据我的经验，在其他类似课程中也一样），我们会定义仿射簇 $V \subset \mathbb{A}^n$ 和拟射影簇 $V \subset \mathbb{P}^n$，但不会给出不依赖环境空间的"簇"的内在定义。粗略地说，簇应该是把若干仿射簇沿着同构的开子集粘起来得到的东西。但我们目前的语言——其中同构本身也或多或少地用有理函数来定义——实在太笨重了。描述这种粘合的恰当语言是<strong>层（sheaves）</strong>，这在研究生教材中有很好的处理。</p>
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch00_s03.html">← 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch00_s05.html">下一节 →</a>
+</nav>
+
+</body>
+</html>

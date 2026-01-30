@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§3.8 Preparation for the Nullstellensatz — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch03_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s09.html">下一节 &rarr;</a>
+</nav>
+
+<h1>3.8 Preparation for the Nullstellensatz</h1>
+<h2>3.8 零点定理的准备</h2>
+
+<p>I now want to state and prove the Nullstellensatz. There is an <span class="vocab">intrinsic<span class="tooltip">/ɪnˈtrɪn.zɪk/ 内在的，本质的</span></span> difficulty in any proof of the Nullstellensatz, and I choose to break it up into two <span class="vocab">segments<span class="tooltip">/ˈseɡ.mənts/ 部分，片段</span></span>. Firstly I state without proof an <span class="vocab">assertion<span class="tooltip">/əˈsɜːr.ʃən/ 断言，命题</span></span> in commutative algebra, which will be proved in (3.15) below (in fact parts of the proof will have strong geometric content).</p>
+
+<blockquote>
+现在我要陈述并证明零点定理（Nullstellensatz）。零点定理的任何证明都有一个内在的难点，我选择把它分成两部分。首先，我不加证明地陈述一个交换代数中的事实，它将在后面的(3.15)中被证明（实际上证明的某些部分具有很强的几何内容）。
+</blockquote>
+
+<p><strong>Hard Fact</strong> &nbsp; <em>Let $k$ be a (infinite) field, and $A = k[a_1, \ldots, a_n]$ a finitely generated $k$-algebra. Then</em></p>
+
+$$A \text{ is a field} \implies A \text{ is algebraic over } k.$$
+
+<blockquote>
+<strong>困难事实</strong>：设 $k$ 是一个（无限）域，$A = k[a_1,\ldots,a_n]$ 是有限生成 $k$-代数。那么 $A$ 是域 $\Rightarrow$ $A$ 在 $k$ 上代数。
+</blockquote>
+
+<p>Just to give a rough idea why this is true, notice that if $t \in A$ is <span class="vocab">transcendental<span class="tooltip">/ˌtræn.senˈden.təl/ 超越的</span></span> over $k$, then $k[t]$ is a polynomial ring, so has infinitely many primes (by Euclid's argument). Hence the extension $k \subset k(t)$ is not finitely generated as $k$-algebra: finitely many elements $p_i/q_i \in k(t)$ can have only finitely many primes among their <span class="vocab">denominators<span class="tooltip">/dɪˈnɒm.ɪ.neɪ.tərz/ 分母</span></span>.</p>
+
+<blockquote>
+粗略解释一下为什么这是对的：如果 $t \in A$ 在 $k$ 上超越，则 $k[t]$ 是多项式环，由Euclid的论证知它有无穷多个素元。因此 $k \subset k(t)$ 不是有限生成的 $k$-代数：有限多个元素 $p_i/q_i \in k(t)$ 的分母只能涉及有限多个素元。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch03_s07.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch03_s09.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

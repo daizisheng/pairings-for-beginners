@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.3 Proposition: Lines Meeting a Given Line — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch07_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s04.html">下一节 &rarr;</a>
+</nav>
+
+<h1>7.3 Proposition: Lines Meeting a Given Line</h1>
+<h2>命题：与给定直线相交的直线</h2>
+
+<p><strong>Proposition 7.3</strong> <em>Given a line $\ell \subset S$, there exist exactly 5 pairs $(\ell_i, \ell_i')$ of lines of $S$ meeting $\ell$, in such a way that</em></p>
+<ol>
+  <li><em>for $i = 1, \ldots, 5$, $\ell \cup \ell_i \cup \ell_i'$ is <span class="vocab">coplanar<span class="tooltip">/kəʊˈpleɪ.nər/ 共面的</span></span>, and</em></li>
+  <li><em>for $i \ne j$, $(\ell_i \cup \ell_i') \cap (\ell_j \cup \ell_j') = \varnothing$.</em></li>
+</ol>
+
+<blockquote>
+<strong>命题 7.3</strong> <em>给定一条直线 $\ell \subset S$，恰好存在5对 $S$ 上的直线 $(\ell_i, \ell_i')$ 与 $\ell$ 相交，满足</em>
+<ol>
+  <li><em>对 $i = 1, \ldots, 5$，$\ell \cup \ell_i \cup \ell_i'$ 共面；并且</em></li>
+  <li><em>对 $i \ne j$，$(\ell_i \cup \ell_i') \cap (\ell_j \cup \ell_j') = \varnothing$。</em></li>
+</ol>
+</blockquote>
+
+<p><strong>Proof</strong> (taken from [Beauville, p. 51]) If $\Pi$ is a plane of $\mathbb{P}^3$ containing $\ell$ then $\Pi \cap S = \ell + \text{conic}$ (since $f|_\Pi$ is <span class="vocab">divisible<span class="tooltip">/dɪˈvɪz.ə.bl/ 可整除的</span></span> by the equation of $\ell$). This conic can either be singular or nonsingular.</p>
+
+<blockquote>
+<strong>证明</strong>（取自 [Beauville, p. 51]）如果 $\Pi$ 是 $\mathbb{P}^3$ 中包含 $\ell$ 的一个平面，那么 $\Pi \cap S = \ell + \text{二次曲线}$（因为 $f|_\Pi$ 可被 $\ell$ 的方程整除）。这条二次曲线可以是奇异的或非奇异的。
+</blockquote>
+
+<p>I have to prove that there are exactly 5 distinct planes $\Pi_i \supset \ell$ for which the singular case occurs. The fact stated as property (ii) that lines in different planes are <span class="vocab">disjoint<span class="tooltip">/dɪsˈdʒɔɪnt/ 不相交的</span></span> will then follow from (7.1, a).</p>
+
+<blockquote>
+我需要证明恰好有5个不同的平面 $\Pi_i \supset \ell$ 使得奇异情形出现。性质 (ii) 所陈述的不同平面中的直线不相交这一事实随后由 (7.1, a) 得出。
+</blockquote>
+
+<p>Suppose that $\ell : (Z = T = 0)$; then I can expand $f$ out as</p>
+
+$$f = AX^2 + BXY + CY^2 + DX + EY + F, \qquad (*)$$
+
+<p>where $A, B, C, D, E, F \in k[Z, T]$, with $A$, $B$ and $C$ linear forms, $D$ and $E$ quadratic forms, and $F$ a cubic form. If I consider this equation as a variable conic in $X$ and $Y$, it is singular if and only if</p>
+
+$$\Delta(Z, T) = \det\begin{vmatrix} A & B & D \\ B & C & E \\ D & E & F \end{vmatrix} = 4ACF + BDE - AE^2 - B^2 F - CD^2 = 0.$$
+
+<blockquote>
+设 $\ell : (Z = T = 0)$；则我可以把 $f$ 展开为
+
+$$f = AX^2 + BXY + CY^2 + DX + EY + F, \qquad (*)$$
+
+其中 $A, B, C, D, E, F \in k[Z, T]$，$A$、$B$、$C$ 是线性形式，$D$、$E$ 是二次形式，$F$ 是三次形式。如果把这个方程视为 $X$ 和 $Y$ 的活动二次曲线，它是奇异的当且仅当
+
+$$\Delta(Z, T) = \det\begin{vmatrix} A & B & D \\ B & C & E \\ D & E & F \end{vmatrix} = 4ACF + BDE - AE^2 - B^2 F - CD^2 = 0.$$
+</blockquote>
+
+<p>Now $\Delta(Z, T)$ is a homogeneous <span class="vocab">quintic<span class="tooltip">/ˈkwɪn.tɪk/ 五次的</span></span>, so by (1.8), it has 5 roots counted with multiplicities. To prove the proposition, I have to show that it doesn't have multiple roots; this also is a consequence of the nonsingularity of $S$.</p>
+
+<blockquote>
+现在 $\Delta(Z, T)$ 是一个齐次五次多项式，所以由 (1.8)，算上重数它有5个根。为了证明这个命题，我需要证明它没有重根；这也是 $S$ 的非奇异性的一个推论。
+</blockquote>
+
+<figure>
+    <img src="images/fig_page107_img1.png" alt="Two configurations of 3 coplanar lines: concurrent and non-concurrent">
+    <figcaption>Three coplanar lines on $S$: concurrent (left) vs non-concurrent (right) / 三条共面直线：共点（左）与不共点（右）</figcaption>
+</figure>
+
+<p><strong>Claim</strong> $\Delta(Z, T)$ <em>has only simple roots.</em></p>
+
+<p>Suppose $Z = 0$ is a root of $\Delta$, and let $\Pi : (Z = 0)$ be the corresponding plane; I have to prove that $\Delta$ is not divisible by $Z^2$. By the above picture, $\Pi \cap S$ is a set of 3 lines, and according to whether they are <span class="vocab">concurrent<span class="tooltip">/kənˈkʌr.ənt/ 共点的</span></span>, I can arrange the coordinates so that</p>
+
+<p><strong>either (i)</strong> $\ell : (T = 0)$, $\ell_1 : (X = 0)$, $\ell_1' : (Y = 0)$,</p>
+<p><strong>or (ii)</strong> $\ell : (T = 0)$, $\ell_1 : (X = 0)$, $\ell_1' : (X = T)$.</p>
+
+<blockquote>
+<strong>断言</strong> $\Delta(Z, T)$ <em>只有单根。</em>
+
+设 $Z = 0$ 是 $\Delta$ 的一个根，令 $\Pi : (Z = 0)$ 是对应的平面；我要证明 $\Delta$ 不能被 $Z^2$ 整除。由上面的图景，$\Pi \cap S$ 是3条直线的集合，根据它们是否共点，我可以选取坐标使得
+
+<strong>情形 (i)</strong> $\ell : (T = 0)$，$\ell_1 : (X = 0)$，$\ell_1' : (Y = 0)$；
+
+<strong>或情形 (ii)</strong> $\ell : (T = 0)$，$\ell_1 : (X = 0)$，$\ell_1' : (X = T)$。
+</blockquote>
+
+<p>Hence, in case (i), $f = XYT + Zg$, with $g$ quadratic, and in terms of the expression $(*)$, this means that $B = T + aZ$, and $Z \mid A, C, D, E, F$. Therefore, modulo terms divisible by $Z^2$,</p>
+
+$$\Delta \equiv -T^2 F \mod Z^2.$$
+
+<p>In addition, the point $P = (0, 0, 0, 1) \in S$, and nonsingularity at $P$ means that $F$ must contain the term $ZT^2$ with nonzero coefficient. In particular, $Z^2$ does not divide $F$. Therefore $(Z = 0)$ is a simple root of $\Delta$.</p>
+
+<p>Case (ii) is a similar calculation (see Ex. 7.1).</p>
+
+<blockquote>
+因此，在情形 (i) 中，$f = XYT + Zg$，其中 $g$ 是二次的，用表达式 $(*)$ 来说，这意味着 $B = T + aZ$，并且 $Z \mid A, C, D, E, F$。因此，模 $Z^2$ 可整除的项，
+
+$$\Delta \equiv -T^2 F \mod Z^2.$$
+
+此外，点 $P = (0, 0, 0, 1) \in S$，$P$ 处的非奇异性意味着 $F$ 必须包含系数非零的项 $ZT^2$。特别地，$Z^2$ 不整除 $F$。因此 $(Z = 0)$ 是 $\Delta$ 的一个单根。
+
+情形 (ii) 的计算类似（参见习题 7.1）。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch07_s02.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch07_s04.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

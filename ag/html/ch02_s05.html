@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.5 Lemma: divisibility by L or by Q — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s06.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.5 Lemma: divisibility by $L$ or by $Q$</h1>
+<h2>2.5 引理：被 $L$ 或 $Q$ 整除</h2>
+
+<p><strong>Lemma 2.5</strong> &nbsp; Suppose that $k$ is an infinite field, and let $F \in S_d$.</p>
+
+<p>(i) Let $L \subset \mathbb{P}^2_k$ be a line; if $F \equiv 0$ on $L$, then $F$ is <span class="vocab">divisible<span class="tooltip">/dɪˈvɪz.ɪ.bəl/ 可整除的</span></span> in $k[X, Y, Z]$ by the equation of $L$. That is, $F = H \cdot F'$ where $H$ is the equation of $L$ and $F' \in S_{d-1}$.</p>
+
+<p>(ii) Let $C \subset \mathbb{P}^2_k$ be a nonempty <span class="vocab">nondegenerate<span class="tooltip">/ˌnɒn.dɪˈdʒen.ər.ɪt/ 非退化的</span></span> conic; if $F \equiv 0$ on $C$, then $F$ is divisible in $k[X, Y, Z]$ by the equation of $C$. That is, $F = Q \cdot F'$ where $Q$ is the equation of $C$ and $F' \in S_{d-2}$.</p>
+
+<blockquote>
+<strong>引理 2.5</strong> &nbsp; 假设 $k$ 是无穷域，$F \in S_d$。<br>
+(i) 设 $L \subset \mathbb{P}^2_k$ 是一条直线；若 $F \equiv 0$ 在 $L$ 上，则 $F$ 在 $k[X,Y,Z]$ 中可被 $L$ 的方程整除。即 $F = H \cdot F'$，其中 $H$ 是 $L$ 的方程，$F' \in S_{d-1}$。<br>
+(ii) 设 $C \subset \mathbb{P}^2_k$ 是一条非空非退化圆锥曲线；若 $F \equiv 0$ 在 $C$ 上，则 $F$ 在 $k[X,Y,Z]$ 中可被 $C$ 的方程整除。即 $F = Q \cdot F'$，其中 $Q$ 是 $C$ 的方程，$F' \in S_{d-2}$。
+</blockquote>
+
+<p>If you think this statement is obvious, congratulations on your <span class="vocab">intuition<span class="tooltip">/ˌɪn.tjuˈɪʃ.ən/ 直觉</span></span>: you have just guessed a particular case of the Nullstellensatz. Now find your own proof (GOTO 2.6).</p>
+
+<blockquote>
+如果你觉得这个命题显然，那恭喜你的直觉：你刚猜到了零点定理（Nullstellensatz）的一个特殊情形。现在试试自己证明（跳到 2.6）。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (i) By a change of coordinates, I can assume $H = X$. Then for any $F \in S_d$, there exists a unique expression $F = X \cdot F'_{d-1} + G(Y, Z)$: just gather together all the <span class="vocab">monomials<span class="tooltip">/məˈnoʊ.mi.əlz/ 单项式</span></span> involving $X$ into the first summand, and what's left must be a polynomial in $Y, Z$ only. Now</p>
+
+$$F \equiv 0 \text{ on } L \iff G \equiv 0 \text{ on } L \iff G(Y, Z) = 0.$$
+
+<p>The last step holds because of (1.8): if $G(Y, Z) \neq 0$ then it has at most $d$ zeros on $\mathbb{P}^1_k$, whereas if $k$ is infinite, then so is $\mathbb{P}^1_k$.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; (i) 经坐标变换，可设 $H = X$。对任意 $F \in S_d$，存在唯一的表达式 $F = X \cdot F'_{d-1} + G(Y,Z)$：只需把所有含 $X$ 的单项式归入第一项，剩下的必然是只关于 $Y, Z$ 的多项式。于是
+$$F \equiv 0 \text{ 在 } L \text{ 上} \iff G \equiv 0 \text{ 在 } L \text{ 上} \iff G(Y,Z) = 0.$$
+最后一步成立是因为 (1.8)：如果 $G(Y,Z) \neq 0$，它在 $\mathbb{P}^1_k$ 上至多有 $d$ 个零点，但如果 $k$ 是无穷域，$\mathbb{P}^1_k$ 也是无穷的。
+</blockquote>
+
+<p>(ii) By a change of coordinates, $Q = XZ - Y^2$. Now let me prove that for any $F \in S_d$, there exists a unique expression</p>
+
+$$F = Q \cdot F'_{d-2} + A(X, Z) + Y B(X, Z)\,:$$
+
+<p>if I just substitute $XZ - Q$ for $Y^2$ wherever it occurs in $F$, what's left has degree $\leq 1$ in $Y$, and is therefore of the form $A(X, Z) + YB(X, Z)$. Now as in (1.7), $C$ is the parametrised conic given by $X = U^2$, $Y = UV$, $Z = V^2$, so that</p>
+
+$$\begin{aligned}
+F \equiv 0 \text{ on } C &\iff A(U^2, V^2) + UV\, B(U^2, V^2) \equiv 0 \text{ on } C \\
+&\iff A(U^2, V^2) + UV\, B(U^2, V^2) = 0 \in k[U, V] \\
+&\iff A(X, Z) = B(X, Z) = 0.
+\end{aligned}$$
+
+<p>Here the last equality comes by considering separately the terms of even and odd degrees in the form $A(U^2, V^2) + UV\, B(U^2, V^2)$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+(ii) 经坐标变换，$Q = XZ - Y^2$。现在证明对任意 $F \in S_d$，存在唯一表达式
+$$F = Q \cdot F'_{d-2} + A(X,Z) + YB(X,Z)\,:$$
+只需把 $F$ 中出现的 $Y^2$ 都用 $XZ - Q$ 代替，剩下的关于 $Y$ 的次数 $\leq 1$，因此形如 $A(X,Z) + YB(X,Z)$。如 (1.7) 所述，$C$ 是参数化圆锥曲线 $X = U^2$，$Y = UV$，$Z = V^2$，于是
+$$F \equiv 0 \text{ 在 } C \text{ 上} \iff A(U^2, V^2) + UV\,B(U^2, V^2) = 0 \in k[U,V] \iff A(X,Z) = B(X,Z) = 0.$$
+最后的等式来自分别考虑 $A(U^2,V^2) + UV\,B(U^2,V^2)$ 中偶次项和奇次项。 &nbsp; Q.E.D.
+</blockquote>
+
+<p>Ex. 2.2 gives similar cases of 'explicit' Nullstellensatz.</p>
+
+<blockquote>
+习题 2.2 给出了类似的"显式"零点定理的例子。
+</blockquote>
+
+<p><strong>Corollary</strong> &nbsp; Let $L : (H = 0) \subset \mathbb{P}^2_k$ be a line (or $C : (Q = 0) \subset \mathbb{P}^2_k$ a nondegenerate conic); suppose that points $P_1, \ldots, P_n \in \mathbb{P}^2_k$ are given, and consider $S_d(P_1, \ldots, P_n)$ for some fixed $d$. Then</p>
+
+<p>(i) If $P_1, \ldots, P_a \in L$, $P_{a+1}, \ldots, P_n \notin L$ and $a > d$, then</p>
+
+$$S_d(P_1, \ldots, P_n) = H \cdot S_{d-1}(P_{a+1}, \ldots, P_n).$$
+
+<p>(ii) If $P_1, \ldots, P_a \in C$, $P_{a+1}, \ldots, P_n \notin C$ and $a > 2d$, then</p>
+
+$$S_d(P_1, \ldots, P_n) = Q \cdot S_{d-2}(P_{a+1}, \ldots, P_n).$$
+
+<blockquote>
+<strong>推论</strong> &nbsp; 设 $L : (H = 0) \subset \mathbb{P}^2_k$ 是一条直线（或 $C : (Q = 0) \subset \mathbb{P}^2_k$ 是非退化圆锥曲线）；假设给定了点 $P_1, \ldots, P_n \in \mathbb{P}^2_k$，考虑某个固定 $d$ 下的 $S_d(P_1, \ldots, P_n)$。则<br>
+(i) 若 $P_1, \ldots, P_a \in L$，$P_{a+1}, \ldots, P_n \notin L$ 且 $a > d$，则
+$$S_d(P_1, \ldots, P_n) = H \cdot S_{d-1}(P_{a+1}, \ldots, P_n).$$
+(ii) 若 $P_1, \ldots, P_a \in C$，$P_{a+1}, \ldots, P_n \notin C$ 且 $a > 2d$，则
+$$S_d(P_1, \ldots, P_n) = Q \cdot S_{d-2}(P_{a+1}, \ldots, P_n).$$
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; (i) If $F$ is homogeneous of degree $d$, and the curve $D : (F = 0)$ meets $L$ in points $P_1, \ldots, P_a$ with $a > d$, then by (1.9), I must have $L \subset D$, so that by the lemma, $F = H \cdot F'$; now since $P_{a+1}, \ldots, P_n \notin L$, obviously $F' \in S_{d-1}(P_{a+1}, \ldots, P_n)$. (ii) is exactly the same. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; (i) 若 $F$ 是 $d$ 次齐次的，且曲线 $D : (F = 0)$ 与 $L$ 交于点 $P_1, \ldots, P_a$，其中 $a > d$，则由 (1.9) 必有 $L \subset D$，所以由引理，$F = H \cdot F'$；又因为 $P_{a+1}, \ldots, P_n \notin L$，显然 $F' \in S_{d-1}(P_{a+1}, \ldots, P_n)$。(ii) 完全类似。 &nbsp; Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s04.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s06.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

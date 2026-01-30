@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§6.6 Corollary-Definition: dim T_P V — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch06_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s07.html">下一节 &rarr;</a>
+</nav>
+
+<h1>6.6 Corollary&ndash;Definition: $\dim T_P V$</h1>
+<h2>6.6 推论-定义：$\dim T_P V$</h2>
+
+<p><strong>Corollary&ndash;Definition 6.6</strong> &nbsp; <em>There exists an integer $r$ and a dense open subset $V_0 \subset V$ such that</em></p>
+
+$$\dim T_P V = r \text{ for } P \in V_0, \quad \text{and} \quad \dim T_P V \geq r \text{ for all } P \in V.$$
+
+<p><em>Define $r$ to be the <span class="vocab">dimension<span class="tooltip">/dɪˈmen.ʃən/ 维数</span></span> of $V$, and write $\dim V = r$; and say that $P \in V$ is nonsingular if $\dim T_P V = r$, and singular if $\dim T_P V > r$. A variety $V$ is nonsingular if it is nonsingular at each point $P \in V$.</em></p>
+
+<blockquote>
+<strong>推论-定义 6.6</strong>：存在整数 $r$ 和稠密开子集 $V_0 \subset V$，使得
+$$\dim T_P V = r \text{ 对 } P \in V_0, \quad \text{且} \quad \dim T_P V \geq r \text{ 对所有 } P \in V.$$
+定义 $r$ 为 $V$ 的<strong>维数</strong>，记 $\dim V = r$；如果 $\dim T_P V = r$，则称 $P \in V$ 为非奇异的；如果 $\dim T_P V > r$，则称 $P$ 为奇异的。如果簇 $V$ 在每个点 $P \in V$ 都是非奇异的，则称 $V$ 是非奇异簇。
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; Let $r = \min\{\dim T_P V\}$, taken over all points $P \in V$. Then clearly</p>
+
+$$S(r-1) = \emptyset, \quad S(r) = V, \quad \text{and} \quad S(r+1) \subsetneq V;$$
+
+<p>therefore $S(r) \setminus S(r+1) = \{P \in V \mid \dim T_P V = r\}$ is open and nonempty. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>证明</strong>：取 $r = \min\{\dim T_P V\}$，遍取 $V$ 的所有点 $P$。则显然
+$$S(r-1) = \emptyset, \quad S(r) = V, \quad \text{且} \quad S(r+1) \subsetneq V;$$
+因此 $S(r) \setminus S(r+1) = \{P \in V \mid \dim T_P V = r\}$ 是开集且非空。Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch06_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch06_s07.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

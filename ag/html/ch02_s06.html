@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§2.6 Proposition: cubics through 8 general points — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch02_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s07.html">下一节 &rarr;</a>
+</nav>
+
+<h1>2.6 Proposition: cubics through 8 general points</h1>
+<h2>2.6 命题：过8个一般点的三次曲线</h2>
+
+<p><strong>Proposition 2.6</strong> &nbsp; Let $k$ be an infinite field, and $P_1, \ldots, P_8 \in \mathbb{P}^2_k$ distinct points; suppose that no 4 of $P_1, \ldots, P_8$ are <span class="vocab">collinear<span class="tooltip">/kəˈlɪn.i.ər/ 共线的</span></span>, and no 7 of them lie on a nondegenerate conic; then</p>
+
+$$\dim S_3(P_1, \ldots, P_8) = 2.$$
+
+<blockquote>
+<strong>命题 2.6</strong> &nbsp; 设 $k$ 是无穷域，$P_1, \ldots, P_8 \in \mathbb{P}^2_k$ 是不同的点；假设 $P_1, \ldots, P_8$ 中没有 4 个共线，也没有 7 个在同一条非退化圆锥曲线上；则
+$$\dim S_3(P_1, \ldots, P_8) = 2.$$
+</blockquote>
+
+<p><strong>Proof</strong> &nbsp; For brevity, let me say that a set of points are <em><span class="vocab">conconic<span class="tooltip">/kɒnˈkɒn.ɪk/ 共圆锥曲线的</span></span></em> if they all lie on a nondegenerate conic. The proof of (2.6) breaks up into several cases.</p>
+
+<blockquote>
+<strong>证明</strong> &nbsp; 为简洁起见，如果一组点都在同一条非退化圆锥曲线上，就说它们"共圆锥曲线"。(2.6) 的证明分成几种情形。
+</blockquote>
+
+<p><strong>Main case</strong> &nbsp; No 3 points are collinear, no 6 conconic. This is the 'general position' case.</p>
+
+<p>Suppose for a contradiction that $\dim S_3(P_1, \ldots, P_8) \geq 3$, and let $P_9, P_{10}$ be distinct points on the line $L = P_1 P_2$. Then</p>
+
+$$\dim S_3(P_1, \ldots, P_{10}) \geq \dim S_3(P_1, \ldots, P_8) - 2 \geq 1,$$
+
+<p>so that there exists $0 \neq F \in S_3(P_1, \ldots, P_{10})$. By Corollary 2.5, $F = H \cdot Q$, with $Q \in S_2(P_3, \ldots, P_8)$. Now I have a contradiction to the case assumption: if $Q$ is nondegenerate then the 6 points $P_3, \ldots, P_8$ are conconic, whereas if $Q$ is a line pair or a double line, then at least 3 of them are collinear.</p>
+
+<blockquote>
+<strong>主要情形</strong> &nbsp; 没有 3 点共线，没有 6 点共圆锥曲线。这是"一般位置"的情形。<br>
+假设 $\dim S_3(P_1, \ldots, P_8) \geq 3$ 以求矛盾，取直线 $L = P_1P_2$ 上的两个不同点 $P_9, P_{10}$。则
+$$\dim S_3(P_1, \ldots, P_{10}) \geq \dim S_3(P_1, \ldots, P_8) - 2 \geq 1，$$
+所以存在 $0 \neq F \in S_3(P_1, \ldots, P_{10})$。由推论 2.5，$F = H \cdot Q$，其中 $Q \in S_2(P_3, \ldots, P_8)$。这就产生了矛盾：如果 $Q$ 是非退化的，那么 6 个点 $P_3, \ldots, P_8$ 共圆锥曲线；如果 $Q$ 是一对直线或二重直线，则至少有 3 个点共线。
+</blockquote>
+
+<figure>
+    <img src="images/fig_p39_reducible.png" alt="10 points on a reducible cubic: line through P1,P2 plus conic through P3,...,P8">
+    <figcaption>Figure 2.2: 10 points on a reducible cubic</figcaption>
+</figure>
+
+<p><strong>First <span class="vocab">degenerate<span class="tooltip">/dɪˈdʒen.ər.ɪt/ 退化的</span></span> case</strong> &nbsp; Suppose $P_1, P_2, P_3 \in L$ are collinear, and let $L : (H = 0)$. Let $P_9$ be a 4th point on the line $L$. Then by Corollary 2.5,</p>
+
+$$S_3(P_1, \ldots, P_9) = H \cdot S_2(P_4, \ldots, P_8).$$
+
+<p>Also, since no 4 of $P_4, \ldots, P_8$ are collinear, by Corollary 1.11,</p>
+
+$$\dim S_2(P_4, \ldots, P_8) = 1, \quad \text{and then} \quad \dim S_3(P_1, \ldots, P_9) = 1,$$
+
+<p>which implies $\dim S_3(P_1, \ldots, P_8) \leq 2$.</p>
+
+<blockquote>
+<strong>第一退化情形</strong> &nbsp; 假设 $P_1, P_2, P_3 \in L$ 共线，$L : (H = 0)$。取 $L$ 上的第 4 个点 $P_9$。由推论 2.5，
+$$S_3(P_1, \ldots, P_9) = H \cdot S_2(P_4, \ldots, P_8).$$
+又因为 $P_4, \ldots, P_8$ 中没有 4 个共线，由推论 1.11，
+$$\dim S_2(P_4, \ldots, P_8) = 1，\quad \text{从而} \quad \dim S_3(P_1, \ldots, P_9) = 1，$$
+这就意味着 $\dim S_3(P_1, \ldots, P_8) \leq 2$。
+</blockquote>
+
+<p><strong>Second degenerate case</strong> &nbsp; Suppose $P_1, \ldots, P_6 \in C$ are conconic, with $C : (Q = 0)$ a nondegenerate conic. Then choose $P_9 \in Q$ distinct from $P_1, \ldots, P_6$. By Corollary 2.5 again,</p>
+
+$$S_3(P_1, \ldots, P_9) = Q \cdot S_1(P_7, P_8);$$
+
+<p>the line $L = P_7 P_8$ is unique, so that $S_3(P_1, \ldots, P_9)$ is the 1-dimensional space spanned by $QL$, and hence $\dim S_3(P_1, \ldots, P_8) \leq 2$. &nbsp; Q.E.D.</p>
+
+<blockquote>
+<strong>第二退化情形</strong> &nbsp; 假设 $P_1, \ldots, P_6 \in C$ 共圆锥曲线，$C : (Q = 0)$ 是非退化圆锥曲线。取 $P_9 \in Q$ 且与 $P_1, \ldots, P_6$ 不同。再次由推论 2.5，
+$$S_3(P_1, \ldots, P_9) = Q \cdot S_1(P_7, P_8)；$$
+直线 $L = P_7P_8$ 是唯一的，所以 $S_3(P_1, \ldots, P_9)$ 是由 $QL$ 张成的 1 维空间，因此 $\dim S_3(P_1, \ldots, P_8) \leq 2$。 &nbsp; Q.E.D.
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch02_s05.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch02_s07.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

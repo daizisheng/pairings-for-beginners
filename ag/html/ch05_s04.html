@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§5.4 Rational functions on V — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch05_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>5.4 Rational functions on $V$</h1>
+<h2>5.4 $V$ 上的有理函数</h2>
+
+<p>Let $V \subset \mathbb{P}^n_k$ be an <span class="vocab">irreducible<span class="tooltip">/ˌɪr.ɪˈdjuː.sə.bl/ 不可约的</span></span> algebraic set, and $I(V) \subset k[X_0, \ldots, X_n]$ its ideal; there is no direct way of defining regular functions on $V$ in terms of polynomials: an element $F \in k[X_0, \ldots, X_n]$ gives a function on the affine cone over $V$, but (by case $d = 0$ of Proposition 5.1) this will be constant on equivalence classes only if $F$ is homogeneous of degree $0$, that is, a constant. So from the start, I work with rational functions only:</p>
+
+<blockquote>
+设 $V \subset \mathbb{P}^n_k$ 是不可约代数集，$I(V) \subset k[X_0, \ldots, X_n]$ 是它的理想。没有直接的办法用多项式来定义 $V$ 上的正则函数：$F \in k[X_0, \ldots, X_n]$ 给出仿射锥上的函数，但（由命题 5.1 的 $d=0$ 情形）它在等价类上为常数当且仅当 $F$ 是 $0$ 次齐次的，即为常数。所以我们从一开始就只处理有理函数：
+</blockquote>
+
+<p><strong>Definition</strong> &nbsp; A <em>rational function</em> on $V$ is a (partially defined) function $f \colon V \dashrightarrow k$ given by $f(P) = g(P)/h(P)$, where $g, h \in k[X_0, \ldots, X_n]$ are homogeneous polynomials of the same degree $d$.</p>
+
+<p>Note here that provided $h(P) \neq 0$, the <span class="vocab">quotient<span class="tooltip">/ˈkwoʊ.ʃənt/ 商</span></span> $g(P)/h(P)$ is well defined, since</p>
+$$g(\lambda X)/h(\lambda X) = \lambda^d g(X) / \lambda^d h(X) = g(X)/h(X) \quad \text{for } 0 \neq \lambda \in k.$$
+
+<blockquote>
+<strong>定义</strong> &nbsp; $V$ 上的<em>有理函数</em>是一个（部分定义的）函数 $f \colon V \dashrightarrow k$，由 $f(P) = g(P)/h(P)$ 给出，其中 $g, h \in k[X_0, \ldots, X_n]$ 是同次数 $d$ 的齐次多项式。
+
+<p>注意只要 $h(P) \neq 0$，商 $g(P)/h(P)$ 就是良定义的，因为</p>
+$$g(\lambda X)/h(\lambda X) = \lambda^d g(X) / \lambda^d h(X) = g(X)/h(X), \quad 0 \neq \lambda \in k.$$
+</blockquote>
+
+<p>Now obviously $g/h$ and $g'/h'$ define the same rational function on $V$ if and only if $h'g - g'h \in I(V)$, so that the set of all rational functions is the field</p>
+$$k(V) = \left\{\frac{g}{h} \;\middle|\; \begin{array}{l} g, h \in k[X_0, \ldots, X_n] \text{ homogeneous}\\ \text{of the same degree, and } h \notin I(V)\end{array}\right\} \Big/ {\sim},$$
+<p>where $\sim$ is the equivalence relation</p>
+$$\frac{g}{h} \sim \frac{g'}{h'} \iff h'g - g'h \in I(V).$$
+
+<p>$k(V)$ is the (rational) <em>function field</em> of $V$.</p>
+
+<blockquote>
+显然 $g/h$ 和 $g'/h'$ 定义 $V$ 上同一有理函数当且仅当 $h'g - g'h \in I(V)$，因此所有有理函数构成域
+$$k(V) = \left\{\frac{g}{h} \;\middle|\; g, h \in k[X_0, \ldots, X_n] \text{ 同次齐次}, \; h \notin I(V)\right\} \Big/ {\sim},$$
+其中等价关系为
+$$\frac{g}{h} \sim \frac{g'}{h'} \iff h'g - g'h \in I(V).$$
+$k(V)$ 称为 $V$ 的（有理）<em>函数域</em>。
+</blockquote>
+
+<p>The following definitions are just as in the affine case. For $f \in k(V)$ and $P \in V$, say that $f$ is <em>regular</em> at $P$ if there exists an expression $f = g/h$, with $g, h$ homogeneous polynomials of the same degree, such that $h(P) \neq 0$. Write</p>
+$$\operatorname{dom} f = \big\{P \in V \;\big|\; f \text{ is regular at } P\big\}$$
+<p>and</p>
+$$\mathcal{O}_{V,P} = \big\{f \in k(V) \;\big|\; f \text{ is regular at } P\big\}.$$
+
+<p>Clearly, $\operatorname{dom} f \subset V$ is a dense Zariski open set in $V$ (the proof is as in (4.8, I)), and $\mathcal{O}_{V,P} \subset k(V)$ is a <span class="vocab">subring<span class="tooltip">/ˈsʌb.rɪŋ/ 子环</span></span>.</p>
+
+<blockquote>
+下面的定义与仿射情形完全一样。对 $f \in k(V)$ 和 $P \in V$，称 $f$ 在 $P$ <em>正则</em>，如果存在表达式 $f = g/h$（$g, h$ 同次齐次）使得 $h(P) \neq 0$。记
+$$\operatorname{dom} f = \big\{P \in V \;\big|\; f \text{ 在 } P \text{ 正则}\big\}$$
+和
+$$\mathcal{O}_{V,P} = \big\{f \in k(V) \;\big|\; f \text{ 在 } P \text{ 正则}\big\}.$$
+显然 $\operatorname{dom} f \subset V$ 是 $V$ 中的稠密 Zariski 开集（证明与 (4.8, I) 相同），而 $\mathcal{O}_{V,P} \subset k(V)$ 是一个子环。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch05_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch05_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>

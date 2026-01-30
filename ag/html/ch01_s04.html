@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§1.4 Projective plane — Reid, Undergraduate Algebraic Geometry</title>
+    <link rel="stylesheet" href="common.css">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="nav-links">
+    <a href="ch01_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s05.html">下一节 &rarr;</a>
+</nav>
+
+<h1>1.4 Projective plane</h1>
+<h2>1.4 射影平面</h2>
+
+<p>The definition 'out of the blue':</p>
+
+$$\mathbb{P}^2_{\mathbb{R}} = \big\{\text{lines of } \mathbb{R}^3 \text{ through origin}\big\} = \big\{\text{ratios } X : Y : Z\big\} = \big(\mathbb{R}^3 \setminus \{0\}\big)\big/{\sim},$$
+
+<p>where $(X, Y, Z) \sim (\lambda X, \lambda Y, \lambda Z)$ if $\lambda \in \mathbb{R} \setminus \{0\}$.</p>
+
+<blockquote>
+射影平面的定义（"从天而降"的定义）：
+$$\mathbb{P}^2_{\mathbb{R}} = \big\{\mathbb{R}^3 \text{ 中过原点的直线}\big\} = \big\{\text{比} X:Y:Z\big\} = \big(\mathbb{R}^3 \setminus \{0\}\big)\big/{\sim},$$
+其中 $(X,Y,Z) \sim (\lambda X, \lambda Y, \lambda Z)$，只要 $\lambda \in \mathbb{R} \setminus \{0\}$。
+</blockquote>
+
+<p>(The <span class="vocab">sophisticated<span class="tooltip">/səˈfɪs.tɪ.keɪ.tɪd/ 老练的，高深的</span></span> reader will have no difficulty in <span class="vocab">generalising<span class="tooltip">/ˈdʒen.ər.əl.aɪ.zɪŋ/ 推广</span></span> from $\mathbb{R}^3$ to an <span class="vocab">arbitrary<span class="tooltip">/ˈɑːr.bɪ.trer.i/ 任意的</span></span> vector space over a field, and in replacing work in a chosen coordinate system with <span class="vocab">intrinsic<span class="tooltip">/ɪnˈtrɪn.zɪk/ 内在的，本征的</span></span> arguments.)</p>
+
+<blockquote>
+（有经验的读者不难把这个定义从 $\mathbb{R}^3$ 推广到域上的任意向量空间，也不难把在特定坐标系下的讨论换成内在的论证。）
+</blockquote>
+
+<p>To represent a ratio $X : Y : Z$ for which $Z \neq 0$, I can set $x = X/Z$, $y = Y/Z$; this simplifies things, since the ratio corresponds to just two real numbers. In other words, the <span class="vocab">equivalence<span class="tooltip">/ɪˈkwɪv.əl.əns/ 等价</span></span> class of $(X, Y, Z)$ under $\sim$ has a unique representative $(x, y, 1)$ with 3rd coordinate $= 1$. Unfortunately, sometimes $Z$ might be $= 0$, so that this way of choosing a representative of the equivalence class is then no good. This discussion means that $\mathbb{P}^2_{\mathbb{R}}$ contains a copy of $\mathbb{R}^2$. A picture:</p>
+
+<blockquote>
+要表示一个 $Z \neq 0$ 的比 $X:Y:Z$，可以令 $x = X/Z$，$y = Y/Z$；这样就简化了，因为一个比就对应两个实数。换句话说，$(X,Y,Z)$ 在 $\sim$ 下的等价类有唯一的代表元 $(x,y,1)$（第三个坐标为1）。可惜有时候 $Z$ 可能等于0，这时候这种选代表元的方式就不行了。以上讨论说明 $\mathbb{P}^2_{\mathbb{R}}$ 包含 $\mathbb{R}^2$ 的一个副本。看图：
+</blockquote>
+
+<figure>
+    <img src="images/fig_p22_projective.png" alt="R² ↪ R³\{0} → P²_R by (x,y) ↦ (x,y,1)">
+    <figcaption>Figure 1.3: $\mathbb{R}^2 \hookrightarrow \mathbb{R}^3 \setminus \{0\} \to \mathbb{P}^2_{\mathbb{R}}$ by $(x, y) \mapsto (x, y, 1)$</figcaption>
+</figure>
+
+<p>The general line in $\mathbb{R}^3$ through $0$ is not contained in the plane $(Z = 0)$, so that it meets $(Z = 1)$ in exactly one point, which is a representative for that equivalence class. The lines in $(Z = 0)$ never meet $(Z = 1)$, so they correspond not to points of $\mathbb{R}^2$, but to <em><span class="vocab">asymptotic<span class="tooltip">/ˌæs.ɪmpˈtɒt.ɪk/ 渐近的</span></span> directions</em>, or to <span class="vocab">pencils<span class="tooltip">/ˈpen.sɪlz/ 束（线束）</span></span> of parallel lines of $\mathbb{R}^2$; so you can think of $\mathbb{P}^2_{\mathbb{R}}$ as consisting of $\mathbb{R}^2$ together with one 'point at infinity' for every pencil of parallel lines. From this point of view, you calculate in $\mathbb{R}^2$, try to guess what's going on at infinity by some kind of 'asymptotic' argument, then (if necessary), prove it in terms of homogeneous coordinates. The definition in terms of lines in $\mathbb{R}^3$ makes this <span class="vocab">respectable<span class="tooltip">/rɪˈspek.tə.bəl/ 正当的，体面的</span></span>, since it treats all points of $\mathbb{P}^2_{\mathbb{R}}$ on an equal footing.</p>
+
+<blockquote>
+$\mathbb{R}^3$ 中过原点的一般直线不在平面 $(Z=0)$ 里，所以它与平面 $(Z=1)$ 恰好交于一点，那就是该等价类的代表元。但是那些落在 $(Z=0)$ 里的直线永远不会与 $(Z=1)$ 相交，它们对应的不是 $\mathbb{R}^2$ 的点，而是<strong>渐近方向</strong>，或者说是 $\mathbb{R}^2$ 中平行线的<strong>线束</strong>。因此你可以把 $\mathbb{P}^2_{\mathbb{R}}$ 看成 $\mathbb{R}^2$ 再加上每一族平行线对应的一个"无穷远点"。从这个视角看，你在 $\mathbb{R}^2$ 里计算，试着用"渐近"的方式猜无穷远处发生了什么，然后（如果需要的话）用齐次坐标来证明。用 $\mathbb{R}^3$ 中直线来定义射影平面让这一切都变得合理了，因为它平等地对待 $\mathbb{P}^2_{\mathbb{R}}$ 的所有点。
+</blockquote>
+
+<p>Groups of transformations are of central importance throughout geometry; properties of a geometric figure must be <span class="vocab">invariant<span class="tooltip">/ɪnˈveə.ri.ənt/ 不变的</span></span> under the appropriate kind of transformations before they are significant. An <em>affine</em> change of coordinates in $\mathbb{R}^2$ is of the form $T(\mathbf{x}) = A\mathbf{x} + B$, where $\mathbf{x} = (x, y) \in \mathbb{R}^2$, and $A$ is a $2 \times 2$ <span class="vocab">invertible<span class="tooltip">/ɪnˈvɜːr.tə.bəl/ 可逆的</span></span> matrix, $B$ a translation vector; if $A$ is <span class="vocab">orthogonal<span class="tooltip">/ɔːrˈθɒɡ.ən.əl/ 正交的</span></span> then the transformation $T$ is <em>Euclidean</em>. As everyone knows, every nondegenerate conic can be reduced to one of the standard forms (a--c) above by a Euclidean transformation. It is an exercise to the reader to show that every conic can be reduced to one of the forms (a--l) by an affine transformation.</p>
+
+<blockquote>
+变换群在整个几何学中都至关重要：一个几何图形的性质必须在适当的变换下不变，才有意义。$\mathbb{R}^2$ 中的<strong>仿射</strong>坐标变换形如 $T(\mathbf{x}) = A\mathbf{x} + B$，其中 $\mathbf{x} = (x,y) \in \mathbb{R}^2$，$A$ 是 $2\times 2$ 可逆矩阵，$B$ 是平移向量；如果 $A$ 是正交矩阵，则 $T$ 是<strong>欧几里得</strong>变换。大家都知道，任何非退化二次曲线都可以通过欧几里得变换化为上面 (a--c) 的标准形式之一。留给读者的练习是：任何二次曲线都可以通过仿射变换化为 (a--l) 中的某一种形式。
+</blockquote>
+
+<p>A <em><span class="vocab">projectivity<span class="tooltip">/prəˌdʒekˈtɪv.ɪ.ti/ 射影变换</span></span></em>, or projective transformation of $\mathbb{P}^2_{\mathbb{R}}$ is a map of the form $T(\mathbf{X}) = M\mathbf{X}$, where $M$ is an invertible $3 \times 3$ matrix. It's easy to understand the effect of this transformation on the affine piece $\mathbb{R}^2 \subset \mathbb{P}^2_{\mathbb{R}}$: as a partially defined map $\mathbb{R}^2 \dashrightarrow \mathbb{R}^2$, it is the <span class="vocab">fractional<span class="tooltip">/ˈfræk.ʃən.əl/ 分式的</span></span>-linear transformation</p>
+
+$$\begin{pmatrix} x \\ y \end{pmatrix} \mapsto \left( A \begin{pmatrix} x \\ y \end{pmatrix} + B \right) \Big/ (cx + dy + e), \quad \text{where } M = \left( \begin{array}{c|c} A & B \\ \hline c \;\; d & e \end{array} \right).$$
+
+<p>$T$ is of course not defined when $cx + dy + e = 0$. Perhaps this looks rather <span class="vocab">unintuitive<span class="tooltip">/ˌʌn.ɪnˈtjuː.ɪ.tɪv/ 不直观的</span></span>, but it really occurs in nature: two different photographs of the same (plane) object are obviously related by a projectivity; see for example [Berger, 4.7.4] for pictures. So a math graduate getting a job interpreting satellite photography (whether for the peaceful purposes of the Forestry Commission, or as part of the vast career prospects opened up by President Reagan's defence policy) will spend a good part of his or her time computing projectivities.</p>
+
+<blockquote>
+$\mathbb{P}^2_{\mathbb{R}}$ 的<strong>射影变换</strong>（projectivity）是形如 $T(\mathbf{X}) = M\mathbf{X}$ 的映射，其中 $M$ 是 $3\times 3$ 可逆矩阵。在仿射片 $\mathbb{R}^2 \subset \mathbb{P}^2_{\mathbb{R}}$ 上理解这个变换的效果很容易：作为 $\mathbb{R}^2 \dashrightarrow \mathbb{R}^2$ 的部分定义映射，它就是分式线性变换：
+$$\begin{pmatrix} x \\ y \end{pmatrix} \mapsto \left( A \begin{pmatrix} x \\ y \end{pmatrix} + B \right) \Big/ (cx + dy + e).$$
+当然 $T$ 在 $cx+dy+e=0$ 时无定义。也许这看起来不太直观，但它确实出现在现实中：同一个（平面）物体的两张不同照片，显然就是通过一个射影变换联系起来的。所以一个数学专业毕业生如果去做卫星照片解读的工作，就会花大量时间计算射影变换。
+</blockquote>
+
+<p>Projective transformations are used <span class="vocab">implicitly<span class="tooltip">/ɪmˈplɪs.ɪt.li/ 隐含地</span></span> throughout these notes, usually in the form 'by a suitable choice of coordinates, I can assume . . . '.</p>
+
+<blockquote>
+射影变换在这些讲义中被隐含地反复使用，通常表现为"适当选取坐标后，可以假设......"这种说法。
+</blockquote>
+
+<nav class="nav-links">
+    <a href="ch01_s03.html">&larr; 上一节</a>
+    <a href="../index.html">目录 Contents</a>
+    <a href="ch01_s05.html">下一节 &rarr;</a>
+</nav>
+
+</body>
+</html>
