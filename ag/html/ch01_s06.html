@@ -36,7 +36,7 @@
 
 <p>There are natural <span class="vocab">bijections<span class="tooltip">/baɪˈdʒek.ʃənz/ 双射</span></span></p>
 
-$$\left\{\text{homogeneous quadratic polys.}\right\} = \left\{\text{quad. forms } k^3 \to k\right\} \xleftrightarrow{\;\text{bij}\;} \left\{\text{symmetric bilinear forms on } k^3\right\}$$
+$$\left\{\text{homogeneous quadratic polys.}\right\} = \left\{\text{quad. forms } k^3 \to k\right\} \overset{\text{bij}}{\longleftrightarrow} \left\{\text{symmetric bilinear forms on } k^3\right\}$$
 
 <p>given in formulas by</p>
 
@@ -45,7 +45,13 @@ $$aX^2 + 2bXY + cY^2 + 2dXZ + 2eYZ + fZ^2 \;\longleftrightarrow\; \begin{pmatrix
 <p>A quadratic form is <span class="vocab">nondegenerate<span class="tooltip">/ˌnɒn.dɪˈdʒen.ər.ət/ 非退化的</span></span> if the corresponding <span class="vocab">bilinear<span class="tooltip">/baɪˈlɪn.i.ər/ 双线性的</span></span> form is nondegenerate, that is, its matrix is <span class="vocab">nonsingular<span class="tooltip">/nɒnˈsɪŋ.ɡjʊ.lər/ 非奇异的</span></span>.</p>
 
 <blockquote>
-<b>命题 (A)</b>&ensp;存在自然的双射：齐次二次多项式 $=$ 二次型 $k^3 \to k$ $\xleftrightarrow{\text{bij}}$ $k^3$ 上的对称双线性型，由公式 $aX^2 + 2bXY + cY^2 + 2dXZ + 2eYZ + fZ^2 \longleftrightarrow \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix}$ 给出。若对应的双线性型是非退化的（即其矩阵非奇异），则该二次型称为<b>非退化</b>的。
+<b>命题 (A)</b>&ensp;存在自然的双射：齐次二次多项式 $=$ 二次型 $k^3 \to k$ $\overset{\text{bij}}{\longleftrightarrow}$ $k^3$ 上的对称双线性型，由公式 $aX^2 + 2bXY + cY^2 + 2dXZ + 2eYZ + fZ^2 \longleftrightarrow \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix}$ 给出。若对应的双线性型是非退化的（即其矩阵非奇异），则该二次型称为<b>非退化</b>的。
+<br><br>
+<em>注：符号"二次型 $k^3 \to k$"表示一个从向量空间 $k^3$ 到域 $k$ 的<b>映射</b>（函数）$Q\colon k^3 \to k$。具体地说，$k$ 是一个域（如实数域 $\mathbb{R}$、复数域 $\mathbb{C}$ 等），$k^3$ 是 $k$ 上的 3 维向量空间，而 $Q$ 是一个将向量 $(x,y,z) \in k^3$ 映射到标量 $Q(x,y,z) \in k$ 的二次齐次多项式函数。例如 $Q(X,Y,Z) = aX^2 + 2bXY + cY^2 + 2dXZ + 2eYZ + fZ^2$ 就是这样一个二次型。</em>
+<br><br>
+<em><b>对称双线性型</b>（symmetric bilinear form）是一个函数 $B\colon V \times V \to k$，它对两个变量都是线性的，并且满足对称性 $B(u,v) = B(v,u)$。可以用对称矩阵 $M$ 表示：$B(u,v) = u^T M v$。二次型 $Q$ 与对称双线性型 $B$ 的关系是 $Q(v) = B(v,v)$，即 $Q(X,Y,Z) = (X,Y,Z) \begin{pmatrix} a & b & d \\ b & c & e \\ d & e & f \end{pmatrix} \begin{pmatrix} X \\ Y \\ Z \end{pmatrix}$。</em>
+<br><br>
+<em><b>非退化</b>（nondegenerate）的意思是对应的矩阵 $M$ 可逆（即 $\det M \neq 0$）。等价地说，如果对所有非零向量 $v \neq 0$，都存在某个 $u$ 使得 $B(u,v) \neq 0$，则称 $B$ 是非退化的。几何上，非退化的二次型对应"完整的"二次曲线（如椭圆、双曲线），而退化的二次型会坍缩成低维对象（如点、线、线对）。在上面的推论中，情形 $(\alpha)$ 是非退化的（$\det M \neq 0$），而情形 $(\beta)$ 到 $(\varepsilon)$ 都是退化的（$\det M = 0$）。</em>
 </blockquote>
 
 <h3>Theorem (B)</h3>
