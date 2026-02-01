@@ -1,0 +1,255 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+ChapterEleven
+Argument Principle
+11.1.Argumentprinciple.LetCbeasimpleclosedcurve,andsupposefisanalyticonC.
+SupposemoreoverthattheonlysingularitiesoffinsideCarepoles.Iffz ≠ 0forallzεC,then
+Γ = fCisaclosedcurvewhichdoesnotpassthroughtheorigin.If
+γt, α ≤ t ≤ β
+isacomplexdescriptionofC,then
+ζt = fγt, α ≤ t ≤ β
+isacomplexdescriptionofΓ. Now,let’scompute
+β
+f′z f′γt
+∫ dz = ∫ γ′tdt.
+fz fγt
+C α
+Butnoticethatζ′t = f′γtγ′t.Hence,
+β β
+f′z f′γt ζ′t
+∫ dz = ∫ γ′tdt = ∫ dt
+fz fγt ζt
+C α α
+= ∫ 1 dz = n2πi,
+z
+Γ
+where|n|isthenumberoftimesΓ”windsaround”theorigin.TheintegernispositiveincaseΓis
+traversedinthepositivedirection,andnegativeincasethetraversalisinthenegativedirection.
+Next,weshallusetheResidueTheoremtoevaluatetheintegral∫
+f′zdz.
+Thesingularitiesofthe
+fz
+C
+integrand
+f′z
+arethepolesofftogetherwiththezerosoff.Let’sfindtheresiduesatthesepoints.
+fz
+First,letZ = z ,z ,…,z besetofallzerosoff.Supposetheorderofthezeroz isn . Then
+1 2 K j j
+fz = z−z
+j
+njhzandhz
+j
+ ≠ 0. Thus,
+f′z
+=
+z−z
+j
+njh′z+n
+j
+z−z
+j
+nj−1hz
+fz z−z
+j
+njhz
+h′z n
+= + j .
+hz z−z 
+j
+11.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+Then
+f′z h′z
+φz = z−z  = z−z  +n
+j fz j hz j,
+and
+Res
+f′
+= n .
+z=zj f j
+Thesumofalltheseresiduesisthus
+N = n +n +…+n .
+1 2 K
+Next,wegoaftertheresiduesatthepolesoff.LetthesetofpolesoffbeP = p ,p ,…,p .
+1 2 J
+Supposep isapoleoforderm . Then
+j j
+hz = z−p
+j
+mjfz
+isanalyticatp .Inotherwords,
+j
+hz
+fz = .
+z−p
+j
+mj
+Hence,
+f′z
+=
+z−p
+j
+mjh′z−m
+j
+z−p
+j
+mj−1hz
+⋅
+z−p
+j
+mj
+fz z−p
+j
+2mj hz
+h′z m
+= − j .
+hz z−p
+j
+mj
+Nowthen,
+f′z h′z
+φz = z−p
+j
+mj
+fz
+= z−p
+j
+mj
+hz
+−m
+j
+,
+andso
+Res
+f′
+= φp  = −m .
+z=pj f j j
+Thesumofalltheseresiduesis
+−P = −m −m − … −m
+1 2 J
+11.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+Then,
+f′z
+∫ dz = 2πiN−P;
+fz
+C
+andwealreadyfoundthat
+f′z
+∫ dz = n2πi,
+fz
+C
+wherenisthe”windingnumber”,orthenumberoftimesΓwindsaroundtheorigin—n > 0means
+Γwindsinthepositivesense,andnnegativemeansitwindsinthenegativesense. Finally,wehave
+n = N−P,
+whereN = n +n +…+n isthenumberofzerosinsideC,countingmultiplicity,ortheorderof
+1 2 K
+thezeros,andP = m +m +…+m isthenumberofpoles,countingtheorder. Thisresultisthe
+1 2 J
+celebratedargumentprinciple.
+Exercises
+1.LetCbetheunitcircle|z| = 1positivelyoriented,andletfbegivenby
+fz = z3.
+HowmanytimesdoesthecurvefCwindaroundtheorigin?Explain.
+2.LetCbetheunitcircle|z| = 1positivelyoriented,andletfbegivenby
+fz =
+z2 +2
+.
+z3
+HowmanytimesdoesthecurvefCwindaroundtheorigin?Explain.
+3. Letpz = a zn +a zn−1 +…+a z+a ,witha ≠ 0. ProvethereisanR > 0sothatifCis
+n n−1 1 0 n
+thecircle|z| = Rpositivelyoriented,then
+p′z
+∫ dz = 2nπi.
+pz
+C
+4.Supposefisentireandfzisrealifandonlyifzisreal.Explainhowyouknowthatfhasat
+11.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+mostonezero.
+11.2Rouche’sTheorem.SupposefandgareanalyticonandinsideasimpleclosedcontourC.
+Supposemoreoverthat|fz| > |gz|forallzεC.Thenweshallseethatfandf+ghavethesame
+numberofzerosinsideC.ThisresultisRouche’sTheorem.Toseewhyitisso,startbydefiningthe
+functionΨtontheinterval0 ≤ t ≤ 1 :
+Ψt = 1 ∫
+f′z+tg′z
+dz.
+2πi fz+tgz
+C
+Observethatthisisokay—thatis,thedenominatoroftheintegrandisneverzero:
+|fz+tgz| ≥ ||ft|−t|gt|| ≥ ||ft|−|gt|| > 0.
+ObservethatΨiscontinuousontheinterval0,1andisinteger-valued—Ψtisthenumberof
+zerosoff+tginsideC.Beingcontinuousandinteger-valuedontheconnectedset0,1,itmustbe
+constant.Inparticular,Ψ0 = Ψ1. Thisdoesthejob!
+Ψ0 = 1 ∫
+f′z
+dz
+2πi fz
+C
+isthenumberofzerosoffinsideC,and
+Ψ1 = 1 ∫
+f′z+g′z
+dz
+2πi fz+gz
+C
+isthenumberofzerosoff+ginsideC.
+Example
+Howmanysolutionsoftheequationz6 −5z5 +z3 −2 = 0areinsidethecircle|z| = 1?Rouche’s
+Theoremmakesitquiteeasytoanswerthis.Simplyletfz = −5z5 andletgz = z6 +z3 −2. Then
+|fz| = 5and|gz| ≤ |z|6 +|z|3 +2 = 4forall|z| = 1. Hence|fz| > |gz|ontheunitcircle.From
+Rouche’sTheoremweknowthenthatfandf+ghavethesamenumberofzerosinside|z| = 1. Thus,
+thereare5suchsolutions.
+ThefollowingniceresultfollowseasilyfromRouche’sTheorem.SupposeUisanopenset(i.e.,
+everypointofUisaninteriorpoint)andsupposethatasequencef offunctionsanalyticonU
+n
+convergesuniformlytothefunctionf. Supposefurtherthatfisnotzeroonthecircle
+C = z : |z−z | = R ⊂ U. ThenthereisanintegerNsothatforalln ≥ N,thefunctionsf andf
+0 n
+havethesamenumberofzerosinsideC.
+Thisresult,calledHurwitz’sTheorem,isaneasyconsequenceofRouche’sTheorem.Simply
+11.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+observethatforzεC,wehave|fz| >  > 0forsome.NowletNbelargeenoughtoinsurethat
+|f z−fz| < onC.ItfollowsfromRouche’sTheoremthatfandf+f −f = f havethesame
+n n n
+numberofzerosinsideC.
+Example
+Onanyboundedset,thesequencef ,wheref z = 1+z+ z2 +…+zn ,convergesuniformlyto
+n n 2 n!
+fz = ez,andfz ≠ 0forallz.ThusforanyR,thereisanNsothatforn > N,everyzeroof
+1+z+ z2 +…+zn hasmodulus> R.Ortoputitanotherway,givenanRthereisanNsothatfor
+2 n!
+n > Nnopolynomial1+z+ z2 +…+zn hasazeroinsidethecircleofradiusR.
+2 n!
+Exercises
+5.Howmanysolutionsof3ez −z = 0areinthedisk|z| ≤ 1?Explain.
+6.Showthatthepolynomialz6 +4z2 −1hasexactlytwozerosinsidethecircle|z| = 1.
+7. Howmanysolutionsof2z4 −2z3 +2z2 −2z+9 = 0lieinsidethecircle|z| = 1?
+8.UseRouche’sTheoremtoprovethateverypolynomialofdegreenhasexactlynzeros
+(countingmultiplicity,ofcourse).
+9.LetCbetheclosedunitdisk|z| ≤ 1.SupposethefunctionfanalyticonCmapsCintotheopen
+unitdisk|z| < 1—thatis,|fz| < 1forallzεC. ProvethereisexactlyonewεCsuchthatfw = w.
+(Thepointwiscalledafixedpointoff.)
+11.5

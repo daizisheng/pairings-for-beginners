@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Complex Functions</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 0.3em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            color: #2c3e50;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 1.5em;
+            color: #34495e;
+        }
+        p {
+            margin: 1em 0;
+            text-align: justify;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background-color: #ecf0f1;
+            font-style: normal;
+            color: #555;
+        }
+        .exercises {
+            background-color: #f8f9fa;
+            padding: 1.5em;
+            margin: 2em 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 4px;
+        }
+        .exercises h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .exercise-item {
+            margin: 1em 0;
+            padding-left: 1.5em;
+        }
+        .example {
+            background-color: #fff9e6;
+            padding: 1em;
+            margin: 1.5em 0;
+            border-left: 4px solid #f39c12;
+            border-radius: 4px;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Chapter Two<br>Complex Functions</h1>
+
+        <blockquote>
+            <h1 style="text-align: center; font-size: 2.2em;">第二章<br>复变函数</h1>
+        </blockquote>
+
+        <h2>2.1 Functions of a real variable</h2>
+
+        <p>A function \( \phi: I \to \mathbb{C} \) from a set \( I \) of reals into the complex numbers \( \mathbb{C} \) is actually a familiar concept from elementary calculus. It is simply a function from a subset of the reals into the plane, what we sometimes call a vector-valued function. Assuming the function \( \phi \) is nice, it provides a vector, or parametric, description of a curve. Thus, the set of all \( \phi(t) : t \in [0, 2\pi] \) where \( \phi(t) = e^{it} = \cos t + i\sin t = (\cos t, \sin t) \) is the circle of radius one, centered at the origin.</p>
+
+        <blockquote>
+            <p>从实数集合 \( I \) 到复数 \( \mathbb{C} \) 的函数 \( \phi: I \to \mathbb{C} \) 实际上是我们在初等微积分中熟悉的概念。它只是从实数的子集到平面的函数，我们有时称之为向量值函数。假设函数 \( \phi \) 足够好，它提供了曲线的向量或参数描述。因此，所有 \( \phi(t) : t \in [0, 2\pi] \) 的集合，其中 \( \phi(t) = e^{it} = \cos t + i\sin t = (\cos t, \sin t) \)，就是以原点为中心、半径为1的圆。</p>
+        </blockquote>
+
+        <p>We also already know about the derivatives of such functions. If \( \phi(t) = x(t) + iy(t) \), then the derivative of \( \phi \) is simply \( \phi'(t) = x'(t) + iy'(t) \); interpreted as a vector in the plane, it is tangent to the curve described by \( \phi \) at the point \( \phi(t) \).</p>
+
+        <blockquote>
+            <p>我们也已经知道这类函数的导数。如果 \( \phi(t) = x(t) + iy(t) \)，那么 \( \phi \) 的导数就是 \( \phi'(t) = x'(t) + iy'(t) \)；将其理解为平面上的向量，它与 \( \phi \) 在点 \( \phi(t) \) 处描述的曲线相切。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Let \( \phi(t) = t + it^2 \), \( -1 \leq t \leq 1 \). One easily sees that this function describes that part of the curve \( y = x^2 \) between \( x = -1 \) and \( x = 1 \):</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>设 \( \phi(t) = t + it^2 \)，\( -1 \leq t \leq 1 \)。容易看出这个函数描述了曲线 \( y = x^2 \) 在 \( x = -1 \) 和 \( x = 1 \) 之间的部分。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Another example</div>
+            <p>Suppose there is a body of mass \( M \) "fixed" at the origin–perhaps the sun–and there is a body of mass \( m \) which is free to move–perhaps a planet. Let the location of this second body at time \( t \) be given by the complex-valued function \( z(t) \). We assume the only force on this mass is the gravitational force of the fixed body. This force \( \mathbf{f} \) is thus</p>
+
+            <p>\[ \mathbf{f} = -\frac{GMm}{|z(t)|^2} \cdot \frac{z(t)}{|z(t)|} \]</p>
+
+            <p>where \( G \) is the universal gravitational constant. Sir Isaac Newton tells us that</p>
+
+            <p>\[ m z''(t) = \mathbf{f} = -\frac{GMm}{|z(t)|^2} \cdot \frac{z(t)}{|z(t)|} \]</p>
+
+            <p>Hence,</p>
+
+            <p>\[ z'' = -\frac{GM}{|z|^3} z \]</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">另一个例子</div>
+            <p>假设有一个质量为 \( M \) 的物体"固定"在原点——也许是太阳——还有一个质量为 \( m \) 的物体可以自由移动——也许是行星。设这第二个物体在时间 \( t \) 的位置由复值函数 \( z(t) \) 给出。我们假设这个质量上的唯一力是固定物体的引力。这个力 \( \mathbf{f} \) 因此是 \[ \mathbf{f} = -\frac{GMm}{|z(t)|^2} \cdot \frac{z(t)}{|z(t)|} \] 其中 \( G \) 是万有引力常数。艾萨克·牛顿爵士告诉我们 \[ m z''(t) = \mathbf{f} = -\frac{GMm}{|z(t)|^2} \cdot \frac{z(t)}{|z(t)|} \] 因此，\[ z'' = -\frac{GM}{|z|^3} z \]</p>
+        </blockquote>
+
+        <p>Next, let's write this in polar form, \( z = re^{i\theta} \):</p>
+
+        <p>\[ \frac{d^2}{dt^2}(re^{i\theta}) = -\frac{k}{r^2} e^{i\theta} \]</p>
+
+        <p>where we have written \( GM = k \). Now, let's see what we have.</p>
+
+        <p>\[ \frac{d}{dt}(re^{i\theta}) = \frac{dr}{dt}e^{i\theta} + r\frac{d}{dt}e^{i\theta} \]</p>
+
+        <p>Now,</p>
+
+        <p>\[ \frac{d}{dt}e^{i\theta} = \frac{d}{dt}(\cos\theta + i\sin\theta) = -\sin\theta\frac{d\theta}{dt} + i\cos\theta\frac{d\theta}{dt} \]</p>
+        <p>\[ = i(\cos\theta + i\sin\theta)\frac{d\theta}{dt} = i\frac{d\theta}{dt}e^{i\theta}. \]</p>
+
+        <p>(Additional evidence that our notation \( e^{i\theta} = \cos\theta + i\sin\theta \) is reasonable.)</p>
+
+        <blockquote>
+            <p>接下来，让我们用极坐标形式写出这个式子，\( z = re^{i\theta} \)：\[ \frac{d^2}{dt^2}(re^{i\theta}) = -\frac{k}{r^2} e^{i\theta} \] 其中我们写 \( GM = k \)。现在，让我们看看我们得到了什么。\[ \frac{d}{dt}(re^{i\theta}) = \frac{dr}{dt}e^{i\theta} + r\frac{d}{dt}e^{i\theta} \] 现在，\[ \frac{d}{dt}e^{i\theta} = \frac{d}{dt}(\cos\theta + i\sin\theta) = -\sin\theta\frac{d\theta}{dt} + i\cos\theta\frac{d\theta}{dt} \] \[ = i(\cos\theta + i\sin\theta)\frac{d\theta}{dt} = i\frac{d\theta}{dt}e^{i\theta}. \] （这进一步证明我们的记号 \( e^{i\theta} = \cos\theta + i\sin\theta \) 是合理的。）</p>
+        </blockquote>
+
+        <p>Thus,</p>
+
+        <p>\[ \frac{d}{dt}(re^{i\theta}) = \frac{dr}{dt}e^{i\theta} + r\frac{d}{dt}e^{i\theta} = ri\frac{d\theta}{dt}e^{i\theta} + \frac{dr}{dt}e^{i\theta} = \left(\frac{dr}{dt} + ir\frac{d\theta}{dt}\right)e^{i\theta}. \]</p>
+
+        <p>Now,</p>
+
+        <p>\[ \frac{d^2}{dt^2}(re^{i\theta}) = \frac{d^2r}{dt^2} + i\frac{dr}{dt}\frac{d\theta}{dt} + ir\frac{d^2\theta}{dt^2} + i\frac{dr}{dt}\frac{d\theta}{dt} - r\left(\frac{d\theta}{dt}\right)^2 \]</p>
+        <p>\[ = \left[\frac{d^2r}{dt^2} - r\left(\frac{d\theta}{dt}\right)^2\right] + i\left[r\frac{d^2\theta}{dt^2} + 2\frac{dr}{dt}\frac{d\theta}{dt}\right]e^{i\theta} \]</p>
+
+        <p>Now, the equation \( \frac{d^2}{dt^2}(re^{i\theta}) = -\frac{k}{r^2} e^{i\theta} \) becomes</p>
+
+        <p>\[ \frac{d^2r}{dt^2} - r\left(\frac{d\theta}{dt}\right)^2 + i\left[r\frac{d^2\theta}{dt^2} + 2\frac{dr}{dt}\frac{d\theta}{dt}\right] = -\frac{k}{r^2}. \]</p>
+
+        <blockquote>
+            <p>因此，\[ \frac{d}{dt}(re^{i\theta}) = \frac{dr}{dt}e^{i\theta} + r\frac{d}{dt}e^{i\theta} = ri\frac{d\theta}{dt}e^{i\theta} + \frac{dr}{dt}e^{i\theta} = \left(\frac{dr}{dt} + ir\frac{d\theta}{dt}\right)e^{i\theta}. \] 现在，\[ \frac{d^2}{dt^2}(re^{i\theta}) = \frac{d^2r}{dt^2} + i\frac{dr}{dt}\frac{d\theta}{dt} + ir\frac{d^2\theta}{dt^2} + i\frac{dr}{dt}\frac{d\theta}{dt} - r\left(\frac{d\theta}{dt}\right)^2 \] \[ = \left[\frac{d^2r}{dt^2} - r\left(\frac{d\theta}{dt}\right)^2\right] + i\left[r\frac{d^2\theta}{dt^2} + 2\frac{dr}{dt}\frac{d\theta}{dt}\right]e^{i\theta} \] 现在，方程 \( \frac{d^2}{dt^2}(re^{i\theta}) = -\frac{k}{r^2} e^{i\theta} \) 变成 \[ \frac{d^2r}{dt^2} - r\left(\frac{d\theta}{dt}\right)^2 + i\left[r\frac{d^2\theta}{dt^2} + 2\frac{dr}{dt}\frac{d\theta}{dt}\right] = -\frac{k}{r^2}. \]</p>
+        </blockquote>
+
+        <p>This gives us the two equations</p>
+
+        <p>\[ \frac{d^2r}{dt^2} - r\left(\frac{d\theta}{dt}\right)^2 = -\frac{k}{r^2}, \]</p>
+
+        <p>and,</p>
+
+        <p>\[ r\frac{d^2\theta}{dt^2} + 2\frac{dr}{dt}\frac{d\theta}{dt} = 0. \]</p>
+
+        <p>Multiply by \( r \) and this second equation becomes</p>
+
+        <p>\[ \frac{d}{dt}\left(r^2\frac{d\theta}{dt}\right) = 0. \]</p>
+
+        <p>This tells us that</p>
+
+        <p>\[ \ell = r^2\frac{d\theta}{dt} \]</p>
+
+        <p>is a constant. (This constant \( \ell \) is called the angular momentum.) This result allows us to get rid of \( \frac{d\theta}{dt} \) in the first of the two differential equations above:</p>
+
+        <p>\[ \frac{d^2r}{dt^2} - r\left(\frac{\ell^2}{r^4}\right) = -\frac{k}{r^2} \]</p>
+
+        <p>or,</p>
+
+        <p>\[ \frac{d^2r}{dt^2} - \frac{\ell^2}{r^3} = -\frac{k}{r^2}. \]</p>
+
+        <blockquote>
+            <p>这给了我们两个方程 \[ \frac{d^2r}{dt^2} - r\left(\frac{d\theta}{dt}\right)^2 = -\frac{k}{r^2}, \] 和 \[ r\frac{d^2\theta}{dt^2} + 2\frac{dr}{dt}\frac{d\theta}{dt} = 0. \] 乘以 \( r \)，第二个方程变成 \[ \frac{d}{dt}\left(r^2\frac{d\theta}{dt}\right) = 0. \] 这告诉我们 \[ \ell = r^2\frac{d\theta}{dt} \] 是一个常数。（这个常数 \( \ell \) 称为角动量。）这个结果允许我们在上面两个微分方程的第一个中去掉 \( \frac{d\theta}{dt} \)：\[ \frac{d^2r}{dt^2} - r\left(\frac{\ell^2}{r^4}\right) = -\frac{k}{r^2} \] 或者，\[ \frac{d^2r}{dt^2} - \frac{\ell^2}{r^3} = -\frac{k}{r^2}. \]</p>
+        </blockquote>
+
+        <p>Although this now involves only the one unknown function \( r \), as it stands it is tough to solve. Let's change variables and think of \( r \) as a function of \( \theta \). Let's also write things in terms of the function \( s = \frac{1}{r} \). Then,</p>
+
+        <p>\[ \frac{d}{dt} = \frac{d\theta}{dt}\frac{d}{d\theta} = \frac{\ell}{r^2}\frac{d}{d\theta}. \]</p>
+
+        <p>Hence,</p>
+
+        <p>\[ \frac{dr}{dt} = \frac{\ell}{r^2}\frac{dr}{d\theta} = -\ell\frac{ds}{d\theta}, \]</p>
+
+        <p>and so</p>
+
+        <p>\[ \frac{d^2r}{dt^2} = \frac{d}{dt}\left(-\ell\frac{ds}{d\theta}\right) = -\ell\frac{d}{dt}\left(\frac{ds}{d\theta}\right) = -\ell s^2\ell\frac{d^2s}{d\theta^2} = -\ell^2 s^2\frac{d^2s}{d\theta^2}, \]</p>
+
+        <p>and our differential equation looks like</p>
+
+        <p>\[ -\ell^2 s^2\frac{d^2s}{d\theta^2} - \frac{\ell^2}{r^3} = -ks^2, \]</p>
+
+        <p>or,</p>
+
+        <p>\[ \frac{d^2s}{d\theta^2} + s = \frac{k}{\ell^2}. \]</p>
+
+        <blockquote>
+            <p>尽管现在只涉及一个未知函数 \( r \)，但它仍然很难求解。让我们换变量，将 \( r \) 看作 \( \theta \) 的函数。我们也用函数 \( s = \frac{1}{r} \) 来表示。那么，\[ \frac{d}{dt} = \frac{d\theta}{dt}\frac{d}{d\theta} = \frac{\ell}{r^2}\frac{d}{d\theta}. \] 因此，\[ \frac{dr}{dt} = \frac{\ell}{r^2}\frac{dr}{d\theta} = -\ell\frac{ds}{d\theta}, \] 所以 \[ \frac{d^2r}{dt^2} = \frac{d}{dt}\left(-\ell\frac{ds}{d\theta}\right) = -\ell\frac{d}{dt}\left(\frac{ds}{d\theta}\right) = -\ell s^2\ell\frac{d^2s}{d\theta^2} = -\ell^2 s^2\frac{d^2s}{d\theta^2}, \] 我们的微分方程看起来像 \[ -\ell^2 s^2\frac{d^2s}{d\theta^2} - \frac{\ell^2}{r^3} = -ks^2, \] 或者，\[ \frac{d^2s}{d\theta^2} + s = \frac{k}{\ell^2}. \]</p>
+        </blockquote>
+
+        <p>This one is easy. From high school differential equations class, we remember that</p>
+
+        <p>\[ \frac{1}{r} = s = A\cos(\theta - \alpha) + \frac{k}{\ell^2}, \]</p>
+
+        <p>where \( A \) and \( \alpha \) are constants which depend on the initial conditions. At long last,</p>
+
+        <p>\[ r = \frac{\ell^2/k}{1 + \varepsilon\cos(\theta - \alpha)}, \]</p>
+
+        <p>where we have set \( \varepsilon = A\ell^2/k \). The graph of this equation is, of course, a conic section of eccentricity \( \varepsilon \).</p>
+
+        <blockquote>
+            <p>这个很容易。从高中微分方程课上，我们记得 \[ \frac{1}{r} = s = A\cos(\theta - \alpha) + \frac{k}{\ell^2}, \] 其中 \( A \) 和 \( \alpha \) 是依赖于初始条件的常数。最后，\[ r = \frac{\ell^2/k}{1 + \varepsilon\cos(\theta - \alpha)}, \] 其中我们设 \( \varepsilon = A\ell^2/k \)。这个方程的图形当然是离心率为 \( \varepsilon \) 的圆锥曲线。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>1.</strong>
+                <br>a) What curve is described by the function \( \phi(t) = 3t + 4 + i(t - 6) \), \( 0 \leq t \leq 1 \)?
+                <br>b) Suppose \( z \) and \( w \) are complex numbers. What is the curve described by \( \phi(t) = (1-t)w + tz \), \( 0 \leq t \leq 1 \)?
+            </div>
+
+            <blockquote>
+                <strong>1.</strong>
+                <br>a) 函数 \( \phi(t) = 3t + 4 + i(t - 6) \)，\( 0 \leq t \leq 1 \) 描述什么曲线？
+                <br>b) 假设 \( z \) 和 \( w \) 是复数。\( \phi(t) = (1-t)w + tz \)，\( 0 \leq t \leq 1 \) 描述什么曲线？
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>2.</strong> Find a function \( \phi \) that describes that part of the curve \( y = 4x^3 - 1 \) between \( x = 0 \) and \( x = 10 \).
+            </div>
+
+            <blockquote>
+                <strong>2.</strong> 求一个函数 \( \phi \) 描述曲线 \( y = 4x^3 - 1 \) 在 \( x = 0 \) 和 \( x = 10 \) 之间的部分。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>3.</strong> Find a function \( \phi \) that describes the circle of radius 2 centered at \( z = 3 - 2i \).
+            </div>
+
+            <blockquote>
+                <strong>3.</strong> 求一个函数 \( \phi \) 描述以 \( z = 3 - 2i \) 为中心、半径为2的圆。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>4.</strong> Note that in the discussion of the motion of a body in a central gravitational force field, it was assumed that the angular momentum is nonzero. Explain what happens in case \( \ell = 0 \).
+            </div>
+
+            <blockquote>
+                <strong>4.</strong> 注意在讨论中心引力场中物体的运动时，假设角动量非零。解释当 \( \ell = 0 \) 时会发生什么。
+            </blockquote>
+        </div>
+
+        <h2>2.2 Functions of a complex variable</h2>
+
+        <p>The real excitement begins when we consider function \( f: D \to \mathbb{C} \) in which the domain \( D \) is a subset of the complex numbers. In some sense, these too are familiar to us from elementary calculus—they are simply functions from a subset of the plane into the plane:</p>
+
+        <p>\[ f(z) = f(x,y) = u(x,y) + iv(x,y) = (u(x,y), v(x,y)) \]</p>
+
+        <p>Thus \( f(z) = z^2 \) looks like \( f(z) = z^2 = (x + iy)^2 = x^2 - y^2 + 2xyi \). In other words, \( u(x,y) = x^2 - y^2 \) and \( v(x,y) = 2xy \). The complex perspective, as we shall see, generally provides richer and more profitable insights into these functions.</p>
+
+        <blockquote>
+            <p>当我们考虑函数 \( f: D \to \mathbb{C} \)，其中定义域 \( D \) 是复数的子集时，真正令人兴奋的部分开始了。在某种意义上，这些对我们来说也是从初等微积分中熟悉的——它们只是从平面的子集到平面的函数：\[ f(z) = f(x,y) = u(x,y) + iv(x,y) = (u(x,y), v(x,y)) \] 因此 \( f(z) = z^2 \) 看起来像 \( f(z) = z^2 = (x + iy)^2 = x^2 - y^2 + 2xyi \)。换句话说，\( u(x,y) = x^2 - y^2 \) 和 \( v(x,y) = 2xy \)。正如我们将看到的，复数的视角通常为这些函数提供了更丰富、更有益的洞察。</p>
+        </blockquote>
+
+        <p>The definition of the limit of a function \( f \) at a point \( z = z_0 \) is essentially the same as that which we learned in elementary calculus:</p>
+
+        <p>\[ \lim_{z \to z_0} f(z) = L \]</p>
+
+        <p>means that given an \( \varepsilon > 0 \), there is a \( \delta \) so that \( |f(z) - L| < \varepsilon \) whenever \( 0 < |z - z_0| < \delta \). As you could guess, we say that \( f \) is continuous at \( z_0 \) if it is true that \( \lim_{z \to z_0} f(z) = f(z_0) \). If \( f \) is continuous at each point of its domain, we say simply that \( f \) is continuous.</p>
+
+        <blockquote>
+            <p>函数 \( f \) 在点 \( z = z_0 \) 处的极限定义本质上与我们在初等微积分中学到的相同：\[ \lim_{z \to z_0} f(z) = L \] 意味着给定 \( \varepsilon > 0 \)，存在 \( \delta \) 使得当 \( 0 < |z - z_0| < \delta \) 时 \( |f(z) - L| < \varepsilon \)。正如你能猜到的，如果 \( \lim_{z \to z_0} f(z) = f(z_0) \) 成立，我们就说 \( f \) 在 \( z_0 \) 处连续。如果 \( f \) 在其定义域的每个点都连续，我们简单地说 \( f \) 是连续的。</p>
+        </blockquote>
+
+        <p>Suppose both \( \lim_{z \to z_0} f(z) \) and \( \lim_{z \to z_0} g(z) \) exist. Then the following properties are easy to establish:</p>
+
+        <p>\[ \lim_{z \to z_0} [f(z) + g(z)] = \lim_{z \to z_0} f(z) + \lim_{z \to z_0} g(z) \]</p>
+
+        <p>\[ \lim_{z \to z_0} f(z)g(z) = \lim_{z \to z_0} f(z) \cdot \lim_{z \to z_0} g(z) \]</p>
+
+        <p>and,</p>
+
+        <p>\[ \lim_{z \to z_0} \frac{f(z)}{g(z)} = \frac{\lim_{z \to z_0} f(z)}{\lim_{z \to z_0} g(z)} \]</p>
+
+        <p>provided, of course, that \( \lim_{z \to z_0} g(z) \neq 0 \).</p>
+
+        <blockquote>
+            <p>假设 \( \lim_{z \to z_0} f(z) \) 和 \( \lim_{z \to z_0} g(z) \) 都存在。那么以下性质容易建立：\[ \lim_{z \to z_0} [f(z) + g(z)] = \lim_{z \to z_0} f(z) + \lim_{z \to z_0} g(z) \] \[ \lim_{z \to z_0} f(z)g(z) = \lim_{z \to z_0} f(z) \cdot \lim_{z \to z_0} g(z) \] 和 \[ \lim_{z \to z_0} \frac{f(z)}{g(z)} = \frac{\lim_{z \to z_0} f(z)}{\lim_{z \to z_0} g(z)} \] 当然，前提是 \( \lim_{z \to z_0} g(z) \neq 0 \)。</p>
+        </blockquote>
+
+        <p>It now follows at once from these properties that the sum, difference, product, and quotient of two functions continuous at \( z_0 \) are also continuous at \( z_0 \). (We must, as usual, except the dreaded 0 in the denominator.)</p>
+
+        <blockquote>
+            <p>现在立即从这些性质得出，在 \( z_0 \) 处连续的两个函数的和、差、积和商也在 \( z_0 \) 处连续。（我们必须像往常一样，排除可怕的分母为0的情况。）</p>
+        </blockquote>
+
+        <p>It should not be too difficult to convince yourself that if \( z = (x,y) \), \( z_0 = (x_0, y_0) \), and \( f(z) = u(x,y) + iv(x,y) \), then</p>
+
+        <p>\[ \lim_{z \to z_0} f(z) = \lim_{(x,y) \to (x_0,y_0)} u(x,y) + i\lim_{(x,y) \to (x_0,y_0)} v(x,y) \]</p>
+
+        <p>Thus \( f \) is continuous at \( z_0 = (x_0, y_0) \) precisely when \( u \) and \( v \) are.</p>
+
+        <blockquote>
+            <p>你应该不难说服自己，如果 \( z = (x,y) \)，\( z_0 = (x_0, y_0) \)，且 \( f(z) = u(x,y) + iv(x,y) \)，那么 \[ \lim_{z \to z_0} f(z) = \lim_{(x,y) \to (x_0,y_0)} u(x,y) + i\lim_{(x,y) \to (x_0,y_0)} v(x,y) \] 因此 \( f \) 在 \( z_0 = (x_0, y_0) \) 处连续当且仅当 \( u \) 和 \( v \) 都连续。</p>
+        </blockquote>
+
+        <p>Our next step is the definition of the derivative of a complex function \( f \). It is the obvious thing. Suppose \( f \) is a function and \( z_0 \) is an interior point of the domain of \( f \). The derivative \( f'(z_0) \) of \( f \) is</p>
+
+        <p>\[ f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} \]</p>
+
+        <blockquote>
+            <p>我们的下一步是复变函数 \( f \) 的导数的定义。这是显而易见的事情。假设 \( f \) 是一个函数，\( z_0 \) 是 \( f \) 定义域的内点。\( f \) 的导数 \( f'(z_0) \) 是 \[ f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} \]</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Suppose \( f(z) = z^2 \). Then, letting \( \Delta z = z - z_0 \), we have</p>
+
+            <p>\[ \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} \]</p>
+            <p>\[ = \lim_{\Delta z \to 0} \frac{(z_0 + \Delta z)^2 - z_0^2}{\Delta z} = \lim_{\Delta z \to 0} \frac{2z_0\Delta z + (\Delta z)^2}{\Delta z} \]</p>
+            <p>\[ = \lim_{\Delta z \to 0} (2z_0 + \Delta z) = 2z_0 \]</p>
+
+            <p>No surprise here–the function \( f(z) = z^2 \) has a derivative at every \( z \), and it's simply \( 2z \).</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>假设 \( f(z) = z^2 \)。那么，令 \( \Delta z = z - z_0 \)，我们有 \[ \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} \] \[ = \lim_{\Delta z \to 0} \frac{(z_0 + \Delta z)^2 - z_0^2}{\Delta z} = \lim_{\Delta z \to 0} \frac{2z_0\Delta z + (\Delta z)^2}{\Delta z} \] \[ = \lim_{\Delta z \to 0} (2z_0 + \Delta z) = 2z_0 \] 这里没有意外——函数 \( f(z) = z^2 \) 在每个 \( z \) 处都有导数，它就是 \( 2z \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Another Example</div>
+            <p>Let \( f(z) = z\overline{z} \). Then,</p>
+
+            <p>\[ \lim_{z \to z_0} \frac{f(z + \Delta z) - f(z_0)}{\Delta z} = \lim_{\Delta z \to 0} \frac{(z_0 + \Delta z)(\overline{z_0} + \overline{\Delta z}) - z_0\overline{z_0}}{\Delta z} \]</p>
+            <p>\[ = \lim_{\Delta z \to 0} \frac{z_0\overline{\Delta z} + \Delta z\overline{z_0} + \Delta z\overline{\Delta z}}{\Delta z} = \lim_{\Delta z \to 0} \left(z_0\frac{\overline{\Delta z}}{\Delta z} + \overline{z_0} + \overline{\Delta z}\right) \]</p>
+
+            <p>Suppose this limit exists, and choose \( \Delta z = (\Delta x, 0) \). Then,</p>
+
+            <p>\[ \lim_{\Delta z \to 0} \left(z_0\frac{\overline{\Delta z}}{\Delta z} + \overline{z_0} + \overline{\Delta z}\right) = \lim_{\Delta x \to 0} \left(z_0\frac{\Delta x}{\Delta x} + \overline{z_0}\right) = z_0 + \overline{z_0} \]</p>
+
+            <p>Now, choose \( \Delta z = (0, \Delta y) \). Then,</p>
+
+            <p>\[ \lim_{\Delta z \to 0} \left(z_0\frac{\overline{\Delta z}}{\Delta z} + \overline{z_0} + \overline{\Delta z}\right) = \lim_{\Delta y \to 0} \left(z_0\frac{-i\Delta y}{i\Delta y} + \overline{z_0}\right) = -z_0 + \overline{z_0} \]</p>
+
+            <p>Thus, we must have \( z_0 + \overline{z_0} = -z_0 + \overline{z_0} \), or \( z_0 = 0 \). In other words, there is no chance of this limit's existing, except possibly at \( z_0 = 0 \). So, this function does not have a derivative at most places.</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">另一个例子</div>
+            <p>设 \( f(z) = z\overline{z} \)。那么，\[ \lim_{z \to z_0} \frac{f(z + \Delta z) - f(z_0)}{\Delta z} = \lim_{\Delta z \to 0} \frac{(z_0 + \Delta z)(\overline{z_0} + \overline{\Delta z}) - z_0\overline{z_0}}{\Delta z} \] \[ = \lim_{\Delta z \to 0} \frac{z_0\overline{\Delta z} + \Delta z\overline{z_0} + \Delta z\overline{\Delta z}}{\Delta z} = \lim_{\Delta z \to 0} \left(z_0\frac{\overline{\Delta z}}{\Delta z} + \overline{z_0} + \overline{\Delta z}\right) \] 假设这个极限存在，选择 \( \Delta z = (\Delta x, 0) \)。那么，\[ \lim_{\Delta z \to 0} \left(z_0\frac{\overline{\Delta z}}{\Delta z} + \overline{z_0} + \overline{\Delta z}\right) = \lim_{\Delta x \to 0} \left(z_0\frac{\Delta x}{\Delta x} + \overline{z_0}\right) = z_0 + \overline{z_0} \] 现在，选择 \( \Delta z = (0, \Delta y) \)。那么，\[ \lim_{\Delta z \to 0} \left(z_0\frac{\overline{\Delta z}}{\Delta z} + \overline{z_0} + \overline{\Delta z}\right) = \lim_{\Delta y \to 0} \left(z_0\frac{-i\Delta y}{i\Delta y} + \overline{z_0}\right) = -z_0 + \overline{z_0} \] 因此，我们必须有 \( z_0 + \overline{z_0} = -z_0 + \overline{z_0} \)，或 \( z_0 = 0 \)。换句话说，这个极限不可能存在，除非可能在 \( z_0 = 0 \) 处。所以，这个函数在大多数地方都没有导数。</p>
+        </blockquote>
+
+        <p>Now, take another look at the first of these two examples. It looks exactly like what you did in Mrs. Turner's 3rd grade calculus class for plain old real-valued functions. Meditate on this and you will be convinced that all the "usual" results for real-valued functions also hold for these new complex functions: the derivative of a constant is zero, the derivative of the sum of two functions is the sum of the derivatives, the "product" and "quotient" rules for derivatives are valid, the chain rule for the composition of functions holds, etc., etc. For proofs, you need only go back to your elementary calculus book and change x's to z's.</p>
+
+        <blockquote>
+            <p>现在，再看看这两个例子中的第一个。它看起来就像你在特纳老师的三年级微积分课上对普通的实值函数所做的一样。思考一下，你会确信所有对实值函数"通常"的结果也适用于这些新的复变函数：常数的导数是零，两个函数的和的导数是导数的和，导数的"乘积"和"商"规则是有效的，函数复合的链式法则成立，等等，等等。要证明这些，你只需回到初等微积分书并将x改成z。</p>
+        </blockquote>
+
+        <p>A bit of jargon is in order. If \( f \) has a derivative at \( z_0 \), we say that \( f \) is <strong>differentiable</strong> at \( z_0 \). If \( f \) is differentiable at every point of a neighborhood of \( z_0 \), we say that \( f \) is <strong>analytic</strong> at \( z_0 \). (A set \( S \) is a neighborhood of \( z_0 \) if there is a disk \( D = \{z : |z - z_0| < r\}, r > 0 \) so that \( D \subseteq S \).) If \( f \) is analytic at every point of some set \( S \), we say that \( f \) is analytic on \( S \). A function that is analytic on the set of all complex numbers is said to be an <strong>entire function</strong>.</p>
+
+        <blockquote>
+            <p>需要一些术语。如果 \( f \) 在 \( z_0 \) 处有导数，我们说 \( f \) 在 \( z_0 \) 处<strong>可微</strong>。如果 \( f \) 在 \( z_0 \) 的一个邻域的每个点都可微，我们说 \( f \) 在 \( z_0 \) 处<strong>解析</strong>。（如果存在一个圆盘 \( D = \{z : |z - z_0| < r\}, r > 0 \) 使得 \( D \subseteq S \)，则集合 \( S \) 是 \( z_0 \) 的邻域。）如果 \( f \) 在某个集合 \( S \) 的每个点都解析，我们说 \( f \) 在 \( S \) 上解析。在所有复数集合上解析的函数称为<strong>整函数</strong>。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>5.</strong> Suppose \( f(z) = 3xy + i(x - y^2) \). Find \( \lim_{z \to 3+2i} f(z) \), or explain carefully why it does not exist.
+            </div>
+
+            <blockquote>
+                <strong>5.</strong> 假设 \( f(z) = 3xy + i(x - y^2) \)。求 \( \lim_{z \to 3+2i} f(z) \)，或仔细解释为什么它不存在。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>6.</strong> Prove that if \( f \) has a derivative at \( z \), then \( f \) is continuous at \( z \).
+            </div>
+
+            <blockquote>
+                <strong>6.</strong> 证明如果 \( f \) 在 \( z \) 处有导数，那么 \( f \) 在 \( z \) 处连续。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>7.</strong> Find all points at which the valued function \( f \) defined by \( f(z) = |z| \) has a derivative.
+            </div>
+
+            <blockquote>
+                <strong>7.</strong> 求由 \( f(z) = |z| \) 定义的函数 \( f \) 有导数的所有点。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>8.</strong> Find all points at which the valued function \( f \) defined by
+                \[ f(z) = 2 + iz^3 - iz^2 + 4z + 1 - 7i \]
+                has a derivative.
+            </div>
+
+            <blockquote>
+                <strong>8.</strong> 求由 \[ f(z) = 2 + iz^3 - iz^2 + 4z + 1 - 7i \] 定义的函数 \( f \) 有导数的所有点。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>9.</strong> Is the function \( f \) given by
+                \[ f(z) = \begin{cases} \frac{z^2}{|z|} & z \neq 0 \\ 0 & z = 0 \end{cases} \]
+                differentiable at \( z = 0 \)? Explain.
+            </div>
+
+            <blockquote>
+                <strong>9.</strong> 由下式给出的函数 \( f \)
+                \[ f(z) = \begin{cases} \frac{z^2}{|z|} & z \neq 0 \\ 0 & z = 0 \end{cases} \]
+                在 \( z = 0 \) 处可微吗？解释。
+            </blockquote>
+        </div>
+
+        <h2>2.3 Derivatives</h2>
+
+        <p>Suppose the function \( f \) given by \( f(z) = u(x,y) + iv(x,y) \) has a derivative at \( z_0 = (x_0, y_0) \). We know this means there is a number \( f'(z_0) \) so that</p>
+
+        <p>\[ f'(z_0) = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}. \]</p>
+
+        <blockquote>
+            <p>假设由 \( f(z) = u(x,y) + iv(x,y) \) 给出的函数 \( f \) 在 \( z_0 = (x_0, y_0) \) 处有导数。我们知道这意味着存在一个数 \( f'(z_0) \) 使得 \[ f'(z_0) = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z}. \]</p>
+        </blockquote>
+
+        <p>Choose \( \Delta z = (\Delta x, 0) = \Delta x \). Then,</p>
+
+        <p>\[ f'(z_0) = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} \]</p>
+        <p>\[ = \lim_{\Delta x \to 0} \frac{[u(x_0 + \Delta x, y_0) + iv(x_0 + \Delta x, y_0)] - [u(x_0, y_0) + iv(x_0, y_0)]}{\Delta x} \]</p>
+        <p>\[ = \lim_{\Delta x \to 0} \frac{u(x_0 + \Delta x, y_0) - u(x_0, y_0)}{\Delta x} + i\frac{v(x_0 + \Delta x, y_0) - v(x_0, y_0)}{\Delta x} \]</p>
+        <p>\[ = \frac{\partial u}{\partial x}(x_0, y_0) + i\frac{\partial v}{\partial x}(x_0, y_0) \]</p>
+
+        <blockquote>
+            <p>选择 \( \Delta z = (\Delta x, 0) = \Delta x \)。那么，\[ f'(z_0) = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} \] \[ = \lim_{\Delta x \to 0} \frac{[u(x_0 + \Delta x, y_0) + iv(x_0 + \Delta x, y_0)] - [u(x_0, y_0) + iv(x_0, y_0)]}{\Delta x} \] \[ = \lim_{\Delta x \to 0} \frac{u(x_0 + \Delta x, y_0) - u(x_0, y_0)}{\Delta x} + i\frac{v(x_0 + \Delta x, y_0) - v(x_0, y_0)}{\Delta x} \] \[ = \frac{\partial u}{\partial x}(x_0, y_0) + i\frac{\partial v}{\partial x}(x_0, y_0) \]</p>
+        </blockquote>
+
+        <p>Next, choose \( \Delta z = (0, \Delta y) = i\Delta y \). Then,</p>
+
+        <p>\[ f'(z_0) = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} \]</p>
+        <p>\[ = \lim_{\Delta y \to 0} \frac{[u(x_0, y_0 + \Delta y) + iv(x_0, y_0 + \Delta y)] - [u(x_0, y_0) + iv(x_0, y_0)]}{i\Delta y} \]</p>
+        <p>\[ = \lim_{\Delta y \to 0} \frac{v(x_0, y_0 + \Delta y) - v(x_0, y_0)}{\Delta y} - i\frac{u(x_0, y_0 + \Delta y) - u(x_0, y_0)}{\Delta y} \]</p>
+        <p>\[ = \frac{\partial v}{\partial y}(x_0, y_0) - i\frac{\partial u}{\partial y}(x_0, y_0) \]</p>
+
+        <blockquote>
+            <p>接下来，选择 \( \Delta z = (0, \Delta y) = i\Delta y \)。那么，\[ f'(z_0) = \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} \] \[ = \lim_{\Delta y \to 0} \frac{[u(x_0, y_0 + \Delta y) + iv(x_0, y_0 + \Delta y)] - [u(x_0, y_0) + iv(x_0, y_0)]}{i\Delta y} \] \[ = \lim_{\Delta y \to 0} \frac{v(x_0, y_0 + \Delta y) - v(x_0, y_0)}{\Delta y} - i\frac{u(x_0, y_0 + \Delta y) - u(x_0, y_0)}{\Delta y} \] \[ = \frac{\partial v}{\partial y}(x_0, y_0) - i\frac{\partial u}{\partial y}(x_0, y_0) \]</p>
+        </blockquote>
+
+        <p>We have two different expressions for the derivative \( f'(z_0) \), and so</p>
+
+        <p>\[ \frac{\partial u}{\partial x}(x_0, y_0) + i\frac{\partial v}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0) - i\frac{\partial u}{\partial y}(x_0, y_0) \]</p>
+
+        <p>or,</p>
+
+        <p>\[ \frac{\partial u}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0), \]</p>
+        <p>\[ \frac{\partial u}{\partial y}(x_0, y_0) = -\frac{\partial v}{\partial x}(x_0, y_0) \]</p>
+
+        <p>These equations are called the <strong>Cauchy-Riemann Equations</strong>.</p>
+
+        <blockquote>
+            <p>我们有两个不同的导数 \( f'(z_0) \) 的表达式，所以 \[ \frac{\partial u}{\partial x}(x_0, y_0) + i\frac{\partial v}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0) - i\frac{\partial u}{\partial y}(x_0, y_0) \] 或者，\[ \frac{\partial u}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0), \] \[ \frac{\partial u}{\partial y}(x_0, y_0) = -\frac{\partial v}{\partial x}(x_0, y_0) \] 这些方程被称为<strong>柯西-黎曼方程</strong>。</p>
+        </blockquote>
+
+        <p>We have shown that if \( f \) has a derivative at a point \( z_0 \), then its real and imaginary parts satisfy these equations. Even more exciting is the fact that if the real and imaginary parts of \( f \) satisfy these equations and if in addition, they have continuous first partial derivatives, then the function \( f \) has a derivative. Specifically, suppose \( u(x,y) \) and \( v(x,y) \) have partial derivatives in a neighborhood of \( z_0 = (x_0, y_0) \), suppose these derivatives are continuous at \( z_0 \), and suppose</p>
+
+        <p>\[ \frac{\partial u}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0), \]</p>
+        <p>\[ \frac{\partial u}{\partial y}(x_0, y_0) = -\frac{\partial v}{\partial x}(x_0, y_0). \]</p>
+
+        <p>We shall see that \( f \) is differentiable at \( z_0 \).</p>
+
+        <blockquote>
+            <p>我们已经证明，如果 \( f \) 在点 \( z_0 \) 处有导数，那么它的实部和虚部满足这些方程。更令人兴奋的是，如果 \( f \) 的实部和虚部满足这些方程，并且如果它们还有连续的一阶偏导数，那么函数 \( f \) 就有导数。具体地说，假设 \( u(x,y) \) 和 \( v(x,y) \) 在 \( z_0 = (x_0, y_0) \) 的邻域有偏导数，假设这些导数在 \( z_0 \) 处连续，并且假设 \[ \frac{\partial u}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0), \] \[ \frac{\partial u}{\partial y}(x_0, y_0) = -\frac{\partial v}{\partial x}(x_0, y_0). \] 我们将看到 \( f \) 在 \( z_0 \) 处可微。</p>
+        </blockquote>
+
+        <p>\[ \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \frac{[u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0)] + i[v(x_0 + \Delta x, y_0 + \Delta y) - v(x_0, y_0)]}{\Delta x + i\Delta y}. \]</p>
+
+        <p>Observe that</p>
+
+        <p>\[ u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0) = [u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0 + \Delta y)] + [u(x_0, y_0 + \Delta y) - u(x_0, y_0)]. \]</p>
+
+        <p>Thus,</p>
+
+        <p>\[ u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0 + \Delta y) = \frac{\partial u}{\partial x}(x_0, y_0)\Delta x + \varepsilon_1, \]</p>
+
+        <p>and,</p>
+
+        <p>\[ \frac{\partial u}{\partial x}(\cdot, y_0 + \Delta y) - \frac{\partial u}{\partial x}(x_0, y_0) = \varepsilon_1, \]</p>
+
+        <p>where,</p>
+
+        <p>\[ \lim_{\Delta z \to 0} \varepsilon_1 = 0. \]</p>
+
+        <p>Thus,</p>
+
+        <p>\[ u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0 + \Delta y) = \frac{\partial u}{\partial x}(x_0, y_0)\Delta x + \varepsilon_1. \]</p>
+
+        <p>Proceeding similarly, we get</p>
+
+        <p>\[ \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \frac{\Delta x\frac{\partial u}{\partial x}(x_0, y_0) + \Delta x\varepsilon_1 + i\Delta x\frac{\partial v}{\partial x}(x_0, y_0) + i\Delta x\varepsilon_2 + i\Delta y\frac{\partial u}{\partial y}(x_0, y_0) + i\Delta y\varepsilon_3 + i^2\Delta y\frac{\partial v}{\partial y}(x_0, y_0) + i^2\Delta y\varepsilon_4}{\Delta x + i\Delta y}, \]</p>
+
+        <p>where \( \varepsilon_i \to 0 \) as \( \Delta z \to 0 \). Now, unleash the Cauchy-Riemann equations on this quotient and obtain,</p>
+
+        <p>\[ \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \frac{\Delta x\left(\frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x}\right) + i\Delta y\left(\frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x}\right) + \text{stuff}}{\Delta x + i\Delta y} \]</p>
+        <p>\[ = \frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x} + \frac{\text{stuff}}{\Delta x + i\Delta y}. \]</p>
+
+        <p>Here,</p>
+
+        <p>\[ \text{stuff} = \Delta x\varepsilon_1 + i\Delta x\varepsilon_2 + i\Delta y\varepsilon_3 + i^2\Delta y\varepsilon_4. \]</p>
+
+        <p>It's easy to show that</p>
+
+        <p>\[ \lim_{\Delta z \to 0} \frac{\text{stuff}}{\Delta z} = 0, \]</p>
+
+        <p>and so,</p>
+
+        <p>\[ \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x}. \]</p>
+
+        <p>In particular we have, as promised, shown that \( f \) is differentiable at \( z_0 \).</p>
+
+        <blockquote>
+            <p>[长篇推导的中文翻译] 观察到 \[ u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0) = [u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0 + \Delta y)] + [u(x_0, y_0 + \Delta y) - u(x_0, y_0)]. \] 因此，\[ u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0 + \Delta y) = \frac{\partial u}{\partial x}(x_0, y_0)\Delta x + \varepsilon_1, \] 其中 \( \lim_{\Delta z \to 0} \varepsilon_1 = 0 \)。类似地进行，我们得到...最后，\[ \lim_{\Delta z \to 0} \frac{f(z_0 + \Delta z) - f(z_0)}{\Delta z} = \frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x}. \] 特别地，正如所承诺的，我们证明了 \( f \) 在 \( z_0 \) 处可微。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Let's find all points at which the function \( f \) given by \( f(z) = x^3 + i(1 - y)^3 \) is differentiable. Here we have \( u = x^3 \) and \( v = (1 - y)^3 \). The Cauchy-Riemann equations thus look like</p>
+
+            <p>\[ 3x^2 = -3(1 - y)^2, \]</p>
+
+            <p>and,</p>
+
+            <p>\[ 0 = 0. \]</p>
+
+            <p>The partial derivatives of \( u \) and \( v \) are nice and continuous everywhere, so \( f \) will be differentiable everywhere the C-R equations are satisfied. That is, everywhere</p>
+
+            <p>\[ x^2 = -(1 - y)^2; \]</p>
+
+            <p>that is, where</p>
+
+            <p>\[ x = i(1 - y), \quad \text{or} \quad x = -i(1 - y). \]</p>
+
+            <p>This is simply the set of all points on the cross formed by the two straight lines.</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>让我们找出由 \( f(z) = x^3 + i(1 - y)^3 \) 给出的函数 \( f \) 可微的所有点。这里我们有 \( u = x^3 \) 和 \( v = (1 - y)^3 \)。柯西-黎曼方程因此看起来像 \[ 3x^2 = -3(1 - y)^2, \] 和 \[ 0 = 0. \] \( u \) 和 \( v \) 的偏导数处处都很好且连续，所以 \( f \) 在满足C-R方程的任何地方都可微。也就是说，处处 \[ x^2 = -(1 - y)^2; \] 也就是，在 \[ x = i(1 - y), \quad \text{或} \quad x = -i(1 - y) \] 的地方。这只是两条直线形成的十字上的所有点的集合。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>10.</strong> At what points is the function \( f \) given by \( f(z) = x^3 + i(1 - y)^3 \) analytic? Explain.
+            </div>
+
+            <blockquote>
+                <strong>10.</strong> 由 \( f(z) = x^3 + i(1 - y)^3 \) 给出的函数 \( f \) 在什么点解析？解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>11.</strong> Do the real and imaginary parts of the function \( f \) in Exercise 9 satisfy the Cauchy-Riemann equations at \( z = 0 \)? What do you make of your answer?
+            </div>
+
+            <blockquote>
+                <strong>11.</strong> 练习9中函数 \( f \) 的实部和虚部在 \( z = 0 \) 处满足柯西-黎曼方程吗？你对你的答案有什么看法？
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>12.</strong> Find all points at which \( f(z) = 2y - ix \) is differentiable.
+            </div>
+
+            <blockquote>
+                <strong>12.</strong> 求 \( f(z) = 2y - ix \) 可微的所有点。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>13.</strong> Suppose \( f \) is analytic on a connected open set \( D \), and \( f'(z) = 0 \) for all \( z \in D \). Prove that \( f \) is constant.
+            </div>
+
+            <blockquote>
+                <strong>13.</strong> 假设 \( f \) 在连通开集 \( D \) 上解析，且对所有 \( z \in D \) 有 \( f'(z) = 0 \)。证明 \( f \) 是常数。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>14.</strong> Find all points at which
+                \[ f(z) = \frac{x}{x^2 + y^2} + i\frac{y}{x^2 + y^2} \]
+                is differentiable. At what points is \( f \) analytic? Explain.
+            </div>
+
+            <blockquote>
+                <strong>14.</strong> 求
+                \[ f(z) = \frac{x}{x^2 + y^2} + i\frac{y}{x^2 + y^2} \]
+                可微的所有点。\( f \) 在什么点解析？解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>15.</strong> Suppose \( f \) is analytic on the set \( D \), and suppose \( \text{Re}\,f \) is constant on \( D \). Is \( f \) necessarily constant on \( D \)? Explain.
+            </div>
+
+            <blockquote>
+                <strong>15.</strong> 假设 \( f \) 在集合 \( D \) 上解析，并且假设 \( \text{Re}\,f \) 在 \( D \) 上是常数。\( f \) 必然在 \( D \) 上是常数吗？解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>16.</strong> Suppose \( f \) is analytic on the set \( D \), and suppose \( |f(z)| \) is constant on \( D \). Is \( f \) necessarily constant on \( D \)? Explain.
+            </div>
+
+            <blockquote>
+                <strong>16.</strong> 假设 \( f \) 在集合 \( D \) 上解析，并且假设 \( |f(z)| \) 在 \( D \) 上是常数。\( f \) 必然在 \( D \) 上是常数吗？解释。
+            </blockquote>
+        </div>
+
+    </div>
+</body>
+</html>

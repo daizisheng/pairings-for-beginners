@@ -1,0 +1,400 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Four
+Integration
+4.1. Introduction. If  : D  C is simply a function on a real interval D  , , then the
+
+integral tdt is, of course, simply an ordered pair of everyday 3rd grade calculus
+
+integrals:
+  
+ tdt  xtdt  iytdt,
+  
+where t  xt  iyt. Thus, for example,
+1
+ t2  1  it3dt  4  i .
+3 4
+0
+Nothing really new here. The excitement begins when we consider the idea of an integral
+of an honest-to-goodness complex function f : D  C, where D is a subset of the complex
+plane. Let’s define the integral of such things; it is pretty much a straight-forward extension
+to two dimensions of what we did in one dimension back in Mrs. Turner’s class.
+Suppose f is a complex-valued function on a subset of the complex plane and suppose a
+and b are complex numbers in the domain of f. In one dimension, there is just one way to
+get fromone number to the other; here we must also specify a path from a to b. Let C be a
+path froma to b, and we must also require that C be a subset of the domain of f.
+4.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+Note we do not even require that a  b; but in case a  b, we must specify an orientation
+for the closed path C. We call a path, or curve, closed in case the initial and terminal points
+are the same, and a simple closedpath is one in which no other points coincide. Next, let P
+be a partition of the curve; that is, P  z ,z ,z ,,z  is a finite subset of C, such that
+0 1 2 n
+a  z , b  z , and such that z comes immediately after z as we travel along C froma to
+0 n j j1
+b.
+A Riemann sumassociated with the partition P is just what it is in the real case:
+n
+SP  fzz ,
+j j
+j1
+where z is a point on the arc between z and z , and z  z  z . (Note that for a
+j j1 j j j j1
+given partition P, there are many SP—depending on how the points z are chosen.) If
+j
+there is a number L so that given any   0, there is a partition P of C such that
+
+|SP  L|  
+whenever P  P , then f is said to be integrable on C and the number L is called the
+
+integral of f on C. This number L is usually written fzdz.
+C
+Some properties of integrals are more or less evident fromlooking at Riemann sums:
+cfzdz
+
+cfzdz
+C C
+for any complex constant c.
+4.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+ fz  gzdz  fzdz  gzdz
+C C C
+4.2 Evaluating integrals. Now, how on Earth do we ever find such an integral? Let
+ : ,  C be a complex description of the curve C. We partition C by partitioning the
+interval , in the usual way:   t  t  t  t  . Then
+0 1 2 n
+a  ,t ,t ,,  b is partition of C. (Recall we assume that t  0
+1 2
+for a complex description of a curve C.) A corresponding Riemann sumlooks like
+n
+SP  ftt   t .
+j j j1
+j1
+We have chosen the points z  t, where t  t  t . Next, multiply each termin the
+j j j1 j j
+sumby 1 in disguise:
+n
+t   t 
+SP  ft j j1 t  t .
+j t  t j j1
+j j1
+j1
+I hope it is now reasonably convincing that ”in the limit”, we have
+
+fzdz
+
+fttdt.
+C 
+(We are, of course, assuming that the derivative  exists.)
+Example
+We shall find the integral of fz  x2  y  ixy froma  0 to b  1  i along three
+different paths, or contours, as some call them.
+First, let C be the part of the parabola y  x2 connecting the two points. A complex
+1
+description of C is  t  t  it2, 0  t  1:
+1 1
+4.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+1
+0.8
+0.6
+0.4
+0.2
+0 0.2 0.4 x 0.6 0.8 1
+Now, t  1  2ti, and f  t  t2  t2  itt2  2t2  it3. Hence,
+1 1
+1
+ fzdz  f  ttdt
+1 1
+C1 0
+1
+  2t2  it31  2tidt
+0
+1
+  2t2  2t4  5t3idt
+0
+4 5
+  i
+15 4
+Next, let’s integrate along the straight line segment C joining 0 and 1  i.
+2
+1
+0.8
+0.6
+0.4
+0.2
+0 0.2 0.4 x 0.6 0.8 1
+Here we have  t  t  it, 0  t  1. Thus, t  1  i, and our integral looks like
+2 2
+4.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+1
+ fzdz  f  ttdt
+2 2
+C2 0
+1
+  t2  t  it21  idt
+0
+1
+  t  it  2t2dt
+0
+1 7
+  i
+2 6
+Finally, let’s integrate along C , the path consisting of the line segment from0 to 1
+3
+together with the segment from1 to 1  i.
+1
+0.8
+0.6
+0.4
+0.2
+0 0.2 0.4 0.6 0.8 1
+We shall do this in two parts: C , the line from0 to 1 ; and C , the line from1 to 1  i.
+31 32
+Then we have
+ fzdz   fzdz   fzdz.
+C3 C31 C32
+For C we have t  t, 0  t  1. Hence,
+31
+1
+ fzdz  t2dt  1 .
+3
+C31 0
+For C we have t  1  it, 0  t  1. Hence,
+32
+1
+ fzdz   1  t  itidt   1  3 i.
+2 2
+C32 0
+4.5
+
+================================================================================
+PAGE 6
+================================================================================
+
+Thus,
+ fzdz   fzdz   fzdz
+C3 C31 C32
+1 3
+   i.
+6 2
+Suppose there is a number M so that |fz|  M for all zC. Then
+
+fzdz
+
+fttdt
+C 
+
+  |ftt|dt
+
+
+ M |t|dt  ML,
+
+
+where L  |t|dt is the length of C.
+
+Exercises
+1. Evaluate the integral  zdz, where C is the parabola y  x2 from0 to 1  i.
+C
+2. Evaluate  1 dz, where C is the circle of radius 2 centered at 0 oriented
+z
+C
+counterclockwise.
+4. Evaluate fzdz, where C is the curve y  x3 from1  i to 1  i , and
+C
+1 for y  0
+fz  .
+4y for y  0
+5. Let C be the part of the circle t  eit in the first quadrant froma  1 to b  i. Find as
+small an upper bound as you can for  z2  z 4  5dz .
+C
+4.6
+
+================================================================================
+PAGE 7
+================================================================================
+
+6. Evaluate fzdz where fz  z  2z and C is the path fromz  0 to z  1  2i
+C
+consisting of the line segment from0 to 1 together with the segment from1 to 1  2i.
+4.3 Antiderivatives. Suppose D is a subset of the reals and  : D  C is differentiable at t.
+Suppose further that g is differentiable at t. Then let’s see about the derivative of the
+composition gt. It is, in fact, exactly what one would guess. First,
+gt  uxt,yt  ivxt,yt,
+where gz  ux,y  ivx,y and t  xt  iyt. Then,
+d u dx u dy v dx v dy
+gt    i  .
+dt x dt y dt x dt y dt
+The places at which the functions on the right-hand side of the equation are evaluated are
+obvious. Now, apply the Cauchy-Riemann equations:
+d u dx v dy v dx u dy
+gt    i 
+dt x dt x dt x dt x dt
+u v dx dy
+  i  i
+x x dt dt
+ gtt.
+The nicest result in the world!
+Now, back to integrals. Let F : D  C and suppose Fz  fz in D. Suppose moreover
+that a and b are in D and that C  D is a contour froma to b. Then
+
+fzdz
+
+fttdt,
+C 
+where  : ,  C describes C. Fromour introductory discussion, we know that
+d Ft  Ftt  ftt. Hence,
+dt
+4.7
+
+================================================================================
+PAGE 8
+================================================================================
+
+
+fzdz
+
+fttdt
+C 
+
+  d Ftdt  F  F
+dt
+
+ Fb  Fa.
+This is very pleasing. Note that integral depends only on the pointsa and b and not at all
+on the path C. We say the integral is path independent. Observe that this is equivalent to
+saying that the integral of f around any closed path is 0. We have thus shown that if in D
+the integrand f is the derivative of a function F, then any integral fzdz for C  D is path
+C
+independent.
+Example
+Let C be the curve y  1 fromthe point z  1  i to the point z  3  i . Let’s find
+x2 9
+z2dz.
+C
+This is easy—we know that Fz  z2 , where Fz  1 z3. Thus,
+3
+z2dz  1 1  i 3  3  i 3
+3 9
+C
+260 728
+   i
+27 2187
+Now, instead of assuming f has an antiderivative, let us suppose that the integral of f
+between any two points in the domain is independent of path and that f is continuous.
+Assume also that every point in the domain D is an interior point of D and that D is
+connected. We shall see that in this case, f has an antiderivative. To do so, let z be any
+0
+point in D, and define the function F by
+Fz   fzdz,
+Cz
+where C is any path in D fromz to z. Here is important that the integral is path
+z 0
+independent, otherwise Fz would not be well-defined. Note also we need the assumption
+that D is connected in order to be sure there always is at least one such path.
+4.8
+
+================================================================================
+PAGE 9
+================================================================================
+
+Now, for the computation of the derivative of F:
+Fz  z  Fz   fsds,
+L z
+where L is the line segment fromz to z  z.
+z
+Next, observe that  ds  z. Thus, fz  1  fzds, and we have
+z
+L z L z
+Fz  z  Fz  fz  1  fs  fzds.
+z z
+L z
+Now then,
+1  fs  fzds  1 |z|max|fs  fz| : sL 
+z z z
+L z
+ max|fs  fz| : sL .
+z
+We know f is continuous at z, and so lim max|fs  fz| : sL   0. Hence,
+z
+z0
+lim Fz  z  Fz  fz  lim 1  fs  fzds
+z z
+z0 z0
+L z
+ 0.
+4.9
+
+================================================================================
+PAGE 10
+================================================================================
+
+In other words, Fz  fz, and so, just as promised, f has an antiderivative! Let’s
+summarize what we have shown in this section:
+Suppose f : D  C is continuous, where D is connected and every point of D is an interior
+point. Then f has an antiderivative if and only if the integral between any two points of D is
+path independent.
+Exercises
+7. Suppose C is any curve from0 to   2i. Evaluate the integral
+cos z dz.
+2
+C
+8. a)Let Fz  logz,  3   argz  5 . Show that the derivative Fz  1 .
+4 4 z
+b)Let Gz  logz,    argz  7 . Show that the derivative Gz  1 .
+4 4 z
+c)Let C be a curve in the right-half plane D  z : Rez  0 fromi to i that does not
+1 1
+pass through the origin. Find the integral
+ 1 dz.
+z
+C1
+d)Let C be a curve in the left-half plane D  z : Rez  0 fromi to i that does not
+2 2
+pass through the origin. Find the integral.
+ 1 dz.
+z
+C2
+9. Let C be the circle of radius 1 centered at 0 with the clockwise orientation. Find
+ 1 dz.
+z
+C
+10. a)Let Hz  zc,  argz  . Find the derivative Hz.
+b)Let Kz  zc,   argz  7 . Find the derivative Kz.
+4 4
+c)Let C be any path from1 to 1 that lies completely in the upper half-plane and does not
+pass through the origin. (Upper half-plane  z : Imz  0.) Find
+4.10
+
+================================================================================
+PAGE 11
+================================================================================
+
+Fzdz,
+C
+where Fz  zi,  argz  .
+11. Suppose P is a polynomial and C is a closed curve. Explain how you know that
+Pzdz  0.
+C
+4.11

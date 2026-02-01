@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Complex Numbers</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 0.3em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            color: #2c3e50;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 1.5em;
+            color: #34495e;
+        }
+        p {
+            margin: 1em 0;
+            text-align: justify;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background-color: #ecf0f1;
+            font-style: normal;
+            color: #555;
+        }
+        .exercises {
+            background-color: #f8f9fa;
+            padding: 1.5em;
+            margin: 2em 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 4px;
+        }
+        .exercises h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .exercise-item {
+            margin: 1em 0;
+            padding-left: 1.5em;
+        }
+        .figure {
+            text-align: center;
+            margin: 2em 0;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5em;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Chapter One<br>Complex Numbers</h1>
+
+        <blockquote>
+            <h1 style="text-align: center; font-size: 2.2em;">第一章<br>复数</h1>
+        </blockquote>
+
+        <h2>1.1 Introduction</h2>
+
+        <p>Let us hark back to the first grade when the only numbers you knew were the ordinary everyday integers. You had no trouble solving problems in which you were, for instance, asked to find a number \( x \) such that \( 3x = 6 \). You were quick to answer "2". Then, in the second grade, Miss Holt asked you to find a number \( x \) such that \( 3x = 8 \). You were stumped—there was no such "number"! You perhaps explained to Miss Holt that \( 3 \times 2 = 6 \) and \( 3 \times 3 = 9 \), and since 8 is between 6 and 9, you would somehow need a number between 2 and 3, but there isn't any such number. Thus were you introduced to "fractions."</p>
+
+        <blockquote>
+            <p>让我们回到小学一年级，那时你只知道普通的日常整数。你能轻松解决这样的问题：比如找到一个数 \( x \) 使得 \( 3x = 6 \)。你很快回答"2"。然后，在二年级时，霍尔特老师让你找一个数 \( x \) 使得 \( 3x = 8 \)。你被难住了——没有这样的"数"！你可能向霍尔特老师解释说 \( 3 \times 2 = 6 \) 而 \( 3 \times 3 = 9 \)，既然8在6和9之间，你需要一个介于2和3之间的数，但不存在这样的数。于是你就接触到了"分数"。</p>
+        </blockquote>
+
+        <p>These fractions, or rational numbers, were defined by Miss Holt to be ordered pairs of integers—thus, for instance, \( (8,3) \) is a rational number. Two rational numbers \( (n,m) \) and \( (p,q) \) were defined to be equal whenever \( nq = pm \). (More precisely, in other words, a rational number is an equivalence class of ordered pairs, etc.) Recall that the arithmetic of these pairs was then introduced: the sum of \( (n,m) \) and \( (p,q) \) was defined by</p>
+
+        <p>\[ (n,m) + (p,q) = (nq + pm, mq), \]</p>
+
+        <p>and the product by</p>
+
+        <p>\[ (n,m)(p,q) = (np, mq). \]</p>
+
+        <p>Subtraction and division were defined, as usual, simply as the inverses of the two operations.</p>
+
+        <blockquote>
+            <p>这些分数，或称有理数，被霍尔特老师定义为整数的有序对——因此，例如 \( (8,3) \) 是一个有理数。当 \( nq = pm \) 时，两个有理数 \( (n,m) \) 和 \( (p,q) \) 被定义为相等。（更准确地说，有理数是有序对的一个等价类，等等。）回忆一下，有序对的算术随后被引入：\( (n,m) \) 和 \( (p,q) \) 的和定义为 \[ (n,m) + (p,q) = (nq + pm, mq), \] 乘积定义为 \[ (n,m)(p,q) = (np, mq). \] 减法和除法照常定义为这两个运算的逆运算。</p>
+        </blockquote>
+
+        <p>In the second grade, you probably felt at first like you had thrown away the familiar integers and were starting over. But no. You noticed that \( (n,1) + (p,1) = (n+p,1) \) and also \( (n,1)(p,1) = (np,1) \). Thus the set of all rational numbers whose second coordinate is one behave just like the integers. If we simply abbreviate the rational number \( (n,1) \) by \( n \), there is absolutely no danger of confusion: \( 2 + 3 = 5 \) stands for \( (2,1) + (3,1) = (5,1) \). The equation \( 3x = 8 \) that started this all may then be interpreted as shorthand for the equation \( (3,1)(u,v) = (8,1) \), and one easily verifies that \( x = (u,v) = (8,3) \) is a solution. Now, if someone runs at you in the night and hands you a note with 5 written on it, you do not know whether this is simply the integer 5 or whether it is shorthand for the rational number \( (5,1) \). What we see is that it really doesn't matter. What we have "really" done is expanded the collection of integers to the collection of rational numbers. In other words, we can think of the set of all rational numbers as including the integers–they are simply the rationals with second coordinate 1.</p>
+
+        <blockquote>
+            <p>在二年级时，你一开始可能觉得自己抛弃了熟悉的整数，重新开始学习。但事实并非如此。你注意到 \( (n,1) + (p,1) = (n+p,1) \) 并且 \( (n,1)(p,1) = (np,1) \)。因此，所有第二坐标为1的有理数的集合表现得就像整数一样。如果我们简单地用 \( n \) 来缩写有理数 \( (n,1) \)，就完全不会产生混淆：\( 2 + 3 = 5 \) 代表 \( (2,1) + (3,1) = (5,1) \)。最初引发这一切的方程 \( 3x = 8 \) 可以理解为方程 \( (3,1)(u,v) = (8,1) \) 的简写，很容易验证 \( x = (u,v) = (8,3) \) 是一个解。现在，如果有人在夜里跑向你，递给你一张写着5的纸条，你不知道这是整数5还是有理数 \( (5,1) \) 的简写。我们看到这其实无关紧要。我们"真正"做的是将整数集合扩展到有理数集合。换句话说，我们可以将所有有理数的集合视为包含整数——它们只是第二坐标为1的有理数。</p>
+        </blockquote>
+
+        <p>One last observation about rational numbers. It is, as everyone must know, traditional to write the ordered pair \( (n,m) \) as \( \frac{n}{m} \). Thus \( n \) stands simply for the rational number \( \frac{n}{1} \), etc.</p>
+
+        <blockquote>
+            <p>关于有理数的最后一点说明。众所周知，习惯上将有序对 \( (n,m) \) 写作 \( \frac{n}{m} \)。因此 \( n \) 只是表示有理数 \( \frac{n}{1} \)，等等。</p>
+        </blockquote>
+
+        <p>Now why have we spent this time on something everyone learned in the second grade? Because this is almost a paradigm for what we do in constructing or defining the so-called complex numbers. Watch.</p>
+
+        <blockquote>
+            <p>现在，我们为什么要花时间讨论每个人在二年级就学过的东西呢？因为这几乎是我们构造或定义所谓复数时的一个范例。请看。</p>
+        </blockquote>
+
+        <p>Euclid showed us there is no rational solution to the equation \( x^2 = 2 \). We were thus led to defining even more new numbers, the so-called real numbers, which, of course, include the rationals. This is hard, and you likely did not see it done in elementary school, but we shall assume you know all about it and move along to the equation \( x^2 = -1 \). Now we define complex numbers. These are simply ordered pairs \( (x,y) \) of real numbers, just as the rationals are ordered pairs of integers. Two complex numbers are equal only when there are actually the same–that is \( (x,y) = (u,v) \) precisely when \( x = u \) and \( y = v \). We define the sum and product of two complex numbers:</p>
+
+        <p>\[ (x,y) + (u,v) = (x+u, y+v) \]</p>
+
+        <p>and</p>
+
+        <p>\[ (x,y)(u,v) = (xu - yv, xv + yu) \]</p>
+
+        <p>As always, subtraction and division are the inverses of these operations.</p>
+
+        <blockquote>
+            <p>欧几里得告诉我们方程 \( x^2 = 2 \) 没有有理数解。因此我们被引导去定义更多的新数，即所谓的实数，当然实数包括有理数。这很难理解，你在小学时可能没有看到这个过程，但我们假设你了解所有这些，现在转到方程 \( x^2 = -1 \)。现在我们定义复数。这些只是实数的有序对 \( (x,y) \)，就像有理数是整数的有序对一样。只有当两个复数实际相同时它们才相等——即 \( (x,y) = (u,v) \) 当且仅当 \( x = u \) 且 \( y = v \)。我们定义两个复数的和与积：\[ (x,y) + (u,v) = (x+u, y+v) \] 和 \[ (x,y)(u,v) = (xu - yv, xv + yu) \] 照常，减法和除法是这两个运算的逆运算。</p>
+        </blockquote>
+
+        <p>Now let's consider the arithmetic of the complex numbers with second coordinate 0:</p>
+
+        <p>\[ (x,0) + (u,0) = (x+u, 0), \]</p>
+
+        <p>and</p>
+
+        <p>\[ (x,0)(u,0) = (xu, 0). \]</p>
+
+        <p>Note that what happens is completely analogous to what happens with rationals with second coordinate 1. We simply use \( x \) as an abbreviation for \( (x,0) \) and there is no danger of confusion: \( x + u \) is short-hand for \( (x,0) + (u,0) = (x+u,0) \) and \( xu \) is short-hand for \( (x,0)(u,0) \). We see that our new complex numbers include a copy of the real numbers, just as the rational numbers include a copy of the integers.</p>
+
+        <blockquote>
+            <p>现在让我们考虑第二坐标为0的复数的算术：\[ (x,0) + (u,0) = (x+u, 0), \] 和 \[ (x,0)(u,0) = (xu, 0). \] 注意这里发生的事情完全类似于第二坐标为1的有理数的情况。我们简单地用 \( x \) 作为 \( (x,0) \) 的缩写，不会产生混淆：\( x + u \) 是 \( (x,0) + (u,0) = (x+u,0) \) 的简写，\( xu \) 是 \( (x,0)(u,0) \) 的简写。我们看到新的复数包含了实数的副本，就像有理数包含整数的副本一样。</p>
+        </blockquote>
+
+        <p>Next, notice that \( x(u,v) = (u,v)x = (x,0)(u,v) = (xu, xv) \). Now then, any complex number \( z = (x,y) \) may be written</p>
+
+        <p>\[ z = (x,y) = (x,0) + (0,y) = x + y(0,1) \]</p>
+
+        <p>When we let \( i = (0,1) \), then we have</p>
+
+        <p>\[ z = (x,y) = x + yi \]</p>
+
+        <blockquote>
+            <p>接下来，注意 \( x(u,v) = (u,v)x = (x,0)(u,v) = (xu, xv) \)。那么，任何复数 \( z = (x,y) \) 可以写成 \[ z = (x,y) = (x,0) + (0,y) = x + y(0,1) \] 当我们令 \( i = (0,1) \) 时，我们有 \[ z = (x,y) = x + yi \]</p>
+        </blockquote>
+
+        <p>Now, suppose \( z = (x,y) = x + yi \) and \( w = (u,v) = u + vi \). Then we have</p>
+
+        <p>\[ zw = (x + yi)(u + vi) = xu + xvi + yui + yvi^2 \]</p>
+
+        <p>We need only see what \( i^2 \) is: \( i^2 = (0,1)(0,1) = (-1,0) \), and we have agreed that we can safely abbreviate \( (-1,0) \) as \( -1 \). Thus, \( i^2 = -1 \), and so</p>
+
+        <p>\[ zw = xu - yv + (xv + yu)i \]</p>
+
+        <p>and we have reduced the fairly complicated definition of complex arithmetic simply to ordinary real arithmetic together with the fact that \( i^2 = -1 \).</p>
+
+        <blockquote>
+            <p>现在，假设 \( z = (x,y) = x + yi \) 和 \( w = (u,v) = u + vi \)。那么我们有 \[ zw = (x + yi)(u + vi) = xu + xvi + yui + yvi^2 \] 我们只需要看 \( i^2 \) 是什么：\( i^2 = (0,1)(0,1) = (-1,0) \)，我们已经约定可以安全地将 \( (-1,0) \) 缩写为 \( -1 \)。因此，\( i^2 = -1 \)，所以 \[ zw = xu - yv + (xv + yu)i \] 我们已经将相当复杂的复数算术定义简化为普通的实数算术加上 \( i^2 = -1 \) 这个事实。</p>
+        </blockquote>
+
+        <p>Let's take a look at division–the inverse of multiplication. Thus \( \frac{z}{w} \) stands for that complex number you must multiply \( w \) by in order to get \( z \). An example:</p>
+
+        <p>\[ \frac{z}{w} = \frac{x + yi}{u + vi} = \frac{x + yi}{u + vi} \cdot \frac{u - vi}{u - vi} = \frac{(xu + yv) + (yu - xv)i}{u^2 + v^2} = \frac{xu + yv}{u^2 + v^2} + \frac{yu - xv}{u^2 + v^2}i \]</p>
+
+        <p>Note this is just fine except when \( u^2 + v^2 = 0 \); that is, when \( u = v = 0 \). We may thus divide by any complex number except \( 0 = (0,0) \).</p>
+
+        <blockquote>
+            <p>让我们看看除法——乘法的逆运算。因此 \( \frac{z}{w} \) 代表你必须用来乘以 \( w \) 以得到 \( z \) 的那个复数。一个例子：\[ \frac{z}{w} = \frac{x + yi}{u + vi} = \frac{x + yi}{u + vi} \cdot \frac{u - vi}{u - vi} = \frac{(xu + yv) + (yu - xv)i}{u^2 + v^2} = \frac{xu + yv}{u^2 + v^2} + \frac{yu - xv}{u^2 + v^2}i \] 注意这很好，除非 \( u^2 + v^2 = 0 \)；也就是说，当 \( u = v = 0 \) 时。因此我们可以除以任何复数，除了 \( 0 = (0,0) \)。</p>
+        </blockquote>
+
+        <p>One final note in all this. Almost everyone in the world except an electrical engineer uses the letter \( i \) to denote the complex number we have called \( i \). We shall accordingly use \( i \) rather than another symbol to stand for the number \( (0,1) \).</p>
+
+        <blockquote>
+            <p>关于这一切的最后一点说明。除了电气工程师外，世界上几乎每个人都用字母 \( i \) 来表示我们称之为 \( i \) 的复数。因此我们将使用 \( i \) 而不是其他符号来表示数 \( (0,1) \)。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>1.</strong> Find the following complex numbers in the form \( x + iy \):
+                <br>a) \( (4 + 7i)(2 - 3i) \)
+                <br>b) \( (1 + i)^3 \)
+                <br>c) \( \frac{5}{2i} \)
+                <br>d) \( \frac{1}{1+i} \)
+                <br>e) \( \frac{1}{i} \)
+            </div>
+
+            <blockquote>
+                <strong>1.</strong> 求下列复数的 \( x + iy \) 形式：
+                <br>a) \( (4 + 7i)(2 - 3i) \)
+                <br>b) \( (1 + i)^3 \)
+                <br>c) \( \frac{5}{2i} \)
+                <br>d) \( \frac{1}{1+i} \)
+                <br>e) \( \frac{1}{i} \)
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>2.</strong> Find all complex \( z = (x,y) \) such that
+                \[ z^2 - z + 1 = 0 \]
+            </div>
+
+            <blockquote>
+                <strong>2.</strong> 求所有满足下式的复数 \( z = (x,y) \)：
+                \[ z^2 - z + 1 = 0 \]
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>3.</strong> Prove that if \( wz = 0 \), then \( w = 0 \) or \( z = 0 \).
+            </div>
+
+            <blockquote>
+                <strong>3.</strong> 证明如果 \( wz = 0 \)，那么 \( w = 0 \) 或 \( z = 0 \)。
+            </blockquote>
+        </div>
+
+        <h2>1.2 Geometry</h2>
+
+        <p>We now have this collection of all ordered pairs of real numbers, and so there is an uncontrollable urge to plot them on the usual coordinate axes. We see at once then there is a one-to-one correspondence between the complex numbers and the points in the plane. In the usual way, we can think of the sum of two complex numbers, the point in the plane corresponding to \( z + w \) is the diagonal of the parallelogram having \( z \) and \( w \) as sides:</p>
+
+        <blockquote>
+            <p>现在我们有了所有实数有序对的集合，因此有一种不可抑制的冲动想把它们画在通常的坐标轴上。我们立即看到复数和平面上的点之间存在一一对应关系。按照通常的方式，我们可以考虑两个复数的和，平面上对应于 \( z + w \) 的点是以 \( z \) 和 \( w \) 为边的平行四边形的对角线：</p>
+        </blockquote>
+
+        <div class="figure">
+            <img src="images/ch1_p4_Im1.png" alt="Parallelogram law for complex addition">
+            <div class="figure-caption">Figure: Geometric representation of complex addition</div>
+        </div>
+
+        <blockquote>
+            <p class="figure-caption">图：复数加法的几何表示</p>
+        </blockquote>
+
+        <p>We shall postpone until the next section the geometric interpretation of the product of two complex numbers.</p>
+
+        <blockquote>
+            <p>我们将在下一节中推迟讨论两个复数乘积的几何解释。</p>
+        </blockquote>
+
+        <p>The <strong>modulus</strong> of a complex number \( z = x + iy \) is defined to be the nonnegative real number \( \sqrt{x^2 + y^2} \), which is, of course, the length of the vector interpretation of \( z \). This modulus is traditionally denoted \( |z| \), and is sometimes called the <strong>length</strong> of \( z \). Note that \( |(x,0)| = \sqrt{x^2} = |x| \), and so \( |\cdot| \) is an excellent choice of notation for the modulus.</p>
+
+        <blockquote>
+            <p>复数 \( z = x + iy \) 的<strong>模</strong>定义为非负实数 \( \sqrt{x^2 + y^2} \)，这当然是 \( z \) 的向量解释的长度。这个模传统上记为 \( |z| \)，有时也称为 \( z \) 的<strong>长度</strong>。注意 \( |(x,0)| = \sqrt{x^2} = |x| \)，所以 \( |\cdot| \) 是模的一个极好的记号选择。</p>
+        </blockquote>
+
+        <p>The <strong>conjugate</strong> \( \overline{z} \) of a complex number \( z = x + iy \) is defined by \( \overline{z} = x - iy \). Thus \( |z|^2 = z\overline{z} \). Geometrically, the conjugate of \( z \) is simply the reflection of \( z \) in the horizontal axis:</p>
+
+        <blockquote>
+            <p>复数 \( z = x + iy \) 的<strong>共轭</strong> \( \overline{z} \) 定义为 \( \overline{z} = x - iy \)。因此 \( |z|^2 = z\overline{z} \)。从几何上讲，\( z \) 的共轭就是 \( z \) 关于横轴的反射：</p>
+        </blockquote>
+
+        <div class="figure">
+            <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Axes -->
+                <line x1="200" y1="0" x2="200" y2="300" stroke="#333" stroke-width="1"/>
+                <line x1="0" y1="150" x2="400" y2="300" stroke="#333" stroke-width="1"/>
+
+                <!-- Point z -->
+                <circle cx="280" cy="80" r="4" fill="#e74c3c"/>
+                <text x="290" y="75" font-size="16" fill="#e74c3c">z</text>
+
+                <!-- Point z-bar -->
+                <circle cx="280" cy="220" r="4" fill="#3498db"/>
+                <text x="290" y="230" font-size="16" fill="#3498db">z̄</text>
+
+                <!-- Dashed line -->
+                <line x1="280" y1="80" x2="280" y2="220" stroke="#999" stroke-width="1" stroke-dasharray="5,5"/>
+
+                <!-- Labels -->
+                <text x="380" y="155" font-size="14">Re</text>
+                <text x="205" y="15" font-size="14">Im</text>
+            </svg>
+            <div class="figure-caption">Figure: Complex conjugate as reflection</div>
+        </div>
+
+        <blockquote>
+            <p class="figure-caption">图：共轭复数作为反射</p>
+        </blockquote>
+
+        <p>Observe that if \( z = x + iy \) and \( w = u + iv \), then</p>
+
+        <p>\[ \overline{z + w} = \overline{(x+u) + i(y+v)} = (x+u) - i(y+v) = (x - iy) + (u - iv) = \overline{z} + \overline{w}. \]</p>
+
+        <p>In other words, the conjugate of the sum is the sum of the conjugates. It is also true that \( \overline{zw} = \overline{z} \cdot \overline{w} \). If \( z = x + iy \), then \( x \) is called the <strong>real part</strong> of \( z \), and \( y \) is called the <strong>imaginary part</strong> of \( z \). These are usually denoted \( \text{Re}\,z \) and \( \text{Im}\,z \), respectively. Observe then that</p>
+
+        <p>\[ z + \overline{z} = 2\text{Re}\,z \quad \text{and} \quad z - \overline{z} = 2i\,\text{Im}\,z. \]</p>
+
+        <blockquote>
+            <p>观察如果 \( z = x + iy \) 和 \( w = u + iv \)，那么 \[ \overline{z + w} = \overline{(x+u) + i(y+v)} = (x+u) - i(y+v) = (x - iy) + (u - iv) = \overline{z} + \overline{w}. \] 换句话说，和的共轭是共轭的和。同样正确的是 \( \overline{zw} = \overline{z} \cdot \overline{w} \)。如果 \( z = x + iy \)，那么 \( x \) 称为 \( z \) 的<strong>实部</strong>，\( y \) 称为 \( z \) 的<strong>虚部</strong>。它们通常分别记为 \( \text{Re}\,z \) 和 \( \text{Im}\,z \)。因此观察到 \[ z + \overline{z} = 2\text{Re}\,z \quad \text{和} \quad z - \overline{z} = 2i\,\text{Im}\,z. \]</p>
+        </blockquote>
+
+        <p>Now, for any two complex numbers \( z \) and \( w \) consider</p>
+
+        <p>\[ |z + w|^2 = (z + w)(\overline{z + w}) = (z + w)(\overline{z} + \overline{w}) = z\overline{z} + w\overline{z} + z\overline{w} + w\overline{w} \]</p>
+        <p>\[ = |z|^2 + 2\text{Re}(w\overline{z}) + |w|^2 \leq |z|^2 + 2|z||w| + |w|^2 = (|z| + |w|)^2 \]</p>
+
+        <p>In other words,</p>
+
+        <p>\[ |z + w| \leq |z| + |w| \]</p>
+
+        <p>the so-called <strong>triangle inequality</strong>. (This inequality is an obvious geometric fact–can you guess why it is called the triangle inequality?)</p>
+
+        <blockquote>
+            <p>现在，对于任意两个复数 \( z \) 和 \( w \)，考虑 \[ |z + w|^2 = (z + w)(\overline{z + w}) = (z + w)(\overline{z} + \overline{w}) = z\overline{z} + w\overline{z} + z\overline{w} + w\overline{w} \] \[ = |z|^2 + 2\text{Re}(w\overline{z}) + |w|^2 \leq |z|^2 + 2|z||w| + |w|^2 = (|z| + |w|)^2 \] 换句话说，\[ |z + w| \leq |z| + |w| \] 这就是所谓的<strong>三角不等式</strong>。（这个不等式是一个明显的几何事实——你能猜到为什么叫三角不等式吗？）</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>4.</strong>
+                <br>a) Prove that for any two complex numbers, \( \overline{zw} = \overline{z} \cdot \overline{w} \).
+                <br>b) Prove that \( \overline{\left(\frac{z}{w}\right)} = \frac{\overline{z}}{\overline{w}} \).
+                <br>c) Prove that \( ||z| - |w|| \leq |z - w| \).
+            </div>
+
+            <blockquote>
+                <strong>4.</strong>
+                <br>a) 证明对于任意两个复数，\( \overline{zw} = \overline{z} \cdot \overline{w} \)。
+                <br>b) 证明 \( \overline{\left(\frac{z}{w}\right)} = \frac{\overline{z}}{\overline{w}} \)。
+                <br>c) 证明 \( ||z| - |w|| \leq |z - w| \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>5.</strong> Prove that \( |zw| = |z||w| \) and that \( \left|\frac{z}{w}\right| = \frac{|z|}{|w|} \).
+            </div>
+
+            <blockquote>
+                <strong>5.</strong> 证明 \( |zw| = |z||w| \) 和 \( \left|\frac{z}{w}\right| = \frac{|z|}{|w|} \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>6.</strong> Sketch the set of points satisfying
+                <br>a) \( |z - 2 + 3i| = 2 \)
+                <br>b) \( |z - 2i| \leq 1 \)
+                <br>c) \( \text{Re}(z - i) = 4 \)
+                <br>d) \( |z - 1 + 2i| = |z - 3 + i| \)
+                <br>e) \( |z - 1| + |z + 1| = 4 \)
+                <br>f) \( |z - 1| - |z + 1| = 4 \)
+            </div>
+
+            <blockquote>
+                <strong>6.</strong> 画出满足以下条件的点的集合
+                <br>a) \( |z - 2 + 3i| = 2 \)
+                <br>b) \( |z - 2i| \leq 1 \)
+                <br>c) \( \text{Re}(z - i) = 4 \)
+                <br>d) \( |z - 1 + 2i| = |z - 3 + i| \)
+                <br>e) \( |z - 1| + |z + 1| = 4 \)
+                <br>f) \( |z - 1| - |z + 1| = 4 \)
+            </blockquote>
+        </div>
+
+        <h2>1.3 Polar coordinates</h2>
+
+        <p>Now let's look at polar coordinates \( (r,\theta) \) of complex numbers. Then we may write \( z = r(\cos\theta + i\sin\theta) \). In complex analysis, we do not allow \( r \) to be negative; thus \( r \) is simply the modulus of \( z \). The number \( \theta \) is called an <strong>argument</strong> of \( z \), and there are, of course, many different possibilities for \( \theta \). Thus a complex numbers has an infinite number of arguments, any two of which differ by an integral multiple of \( 2\pi \). We usually write \( \theta = \arg z \). The <strong>principal argument</strong> of \( z \) is the unique argument that lies on the interval \( (-\pi, \pi] \).</p>
+
+        <blockquote>
+            <p>现在让我们看看复数的极坐标 \( (r,\theta) \)。那么我们可以写成 \( z = r(\cos\theta + i\sin\theta) \)。在复分析中，我们不允许 \( r \) 为负；因此 \( r \) 就是 \( z \) 的模。数 \( \theta \) 称为 \( z \) 的一个<strong>幅角</strong>，当然 \( \theta \) 有许多不同的可能值。因此一个复数有无穷多个幅角，其中任意两个相差 \( 2\pi \) 的整数倍。我们通常写 \( \theta = \arg z \)。\( z \) 的<strong>主幅角</strong>是位于区间 \( (-\pi, \pi] \) 上的唯一幅角。</p>
+        </blockquote>
+
+        <p><strong>Example.</strong> For \( -1 - i \), we have</p>
+
+        <p>\[ -1 - i = \sqrt{2}\left(\cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4}\right) = \sqrt{2}\left(\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right) \]</p>
+        <p>\[ = \sqrt{2}\left(\cos\frac{399\pi}{4} + i\sin\frac{399\pi}{4}\right) \]</p>
+
+        <p>etc., etc., etc. Each of the numbers \( \frac{7\pi}{4} \), \( -\frac{\pi}{4} \), and \( \frac{399\pi}{4} \) is an argument of \( -1 - i \), but the principal argument is \( -\frac{\pi}{4} \).</p>
+
+        <blockquote>
+            <p><strong>例子。</strong> 对于 \( -1 - i \)，我们有 \[ -1 - i = \sqrt{2}\left(\cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4}\right) = \sqrt{2}\left(\cos\left(-\frac{\pi}{4}\right) + i\sin\left(-\frac{\pi}{4}\right)\right) \] \[ = \sqrt{2}\left(\cos\frac{399\pi}{4} + i\sin\frac{399\pi}{4}\right) \] 等等，等等，等等。数 \( \frac{7\pi}{4} \)、\( -\frac{\pi}{4} \) 和 \( \frac{399\pi}{4} \) 都是 \( -1 - i \) 的幅角，但主幅角是 \( -\frac{\pi}{4} \)。</p>
+        </blockquote>
+
+        <p>Suppose \( z = r(\cos\theta + i\sin\theta) \) and \( w = s(\cos\phi + i\sin\phi) \). Then</p>
+
+        <p>\[ zw = r(\cos\theta + i\sin\theta) \cdot s(\cos\phi + i\sin\phi) \]</p>
+        <p>\[ = rs[(\cos\theta\cos\phi - \sin\theta\sin\phi) + i(\sin\theta\cos\phi + \sin\phi\cos\theta)] \]</p>
+        <p>\[ = rs[\cos(\theta + \phi) + i\sin(\theta + \phi)] \]</p>
+
+        <p>We have the nice result that the product of two complex numbers is the complex number whose modulus is the product of the moduli of the two factors and an argument is the sum of arguments of the factors. A picture:</p>
+
+        <blockquote>
+            <p>假设 \( z = r(\cos\theta + i\sin\theta) \) 和 \( w = s(\cos\phi + i\sin\phi) \)。那么 \[ zw = r(\cos\theta + i\sin\theta) \cdot s(\cos\phi + i\sin\phi) \] \[ = rs[(\cos\theta\cos\phi - \sin\theta\sin\phi) + i(\sin\theta\cos\phi + \sin\phi\cos\theta)] \] \[ = rs[\cos(\theta + \phi) + i\sin(\theta + \phi)] \] 我们得到一个很好的结果：两个复数的乘积是一个复数，其模是两个因子的模的乘积，其幅角是因子的幅角之和。一幅图：</p>
+        </blockquote>
+
+        <div class="figure">
+            <img src="images/ch1_p6_Im3.png" alt="Geometric interpretation of complex multiplication">
+            <div class="figure-caption">Figure: Geometric interpretation of multiplication in polar form</div>
+        </div>
+
+        <blockquote>
+            <p class="figure-caption">图：极坐标形式下乘法的几何解释</p>
+        </blockquote>
+
+        <p>We now define \( \exp(i\theta) \), or \( e^{i\theta} \) by</p>
+
+        <p>\[ e^{i\theta} = \cos\theta + i\sin\theta \]</p>
+
+        <p>We shall see later as the drama of the term unfolds that this very suggestive notation is an excellent choice. Now, we have in polar form</p>
+
+        <p>\[ z = re^{i\theta}, \]</p>
+
+        <p>where \( r = |z| \) and \( \theta \) is any argument of \( z \). Observe we have just shown that</p>
+
+        <p>\[ e^{i\theta}e^{i\phi} = e^{i(\theta + \phi)}. \]</p>
+
+        <p>It follows from this that \( e^{i\theta}e^{-i\theta} = 1 \). Thus</p>
+
+        <p>\[ \frac{1}{e^{i\theta}} = e^{-i\theta} \]</p>
+
+        <p>It is easy to see that</p>
+
+        <p>\[ \frac{z}{w} = \frac{re^{i\theta}}{se^{i\phi}} = \frac{r}{s}[\cos(\theta - \phi) + i\sin(\theta - \phi)] \]</p>
+
+        <blockquote>
+            <p>我们现在定义 \( \exp(i\theta) \)，或 \( e^{i\theta} \) 为 \[ e^{i\theta} = \cos\theta + i\sin\theta \] 随着本学期学习的展开，我们将看到这个非常有启发性的记号是一个极好的选择。现在，我们用极坐标形式表示为 \[ z = re^{i\theta}, \] 其中 \( r = |z| \)，\( \theta \) 是 \( z \) 的任意幅角。观察我们刚刚证明了 \[ e^{i\theta}e^{i\phi} = e^{i(\theta + \phi)}. \] 由此可得 \( e^{i\theta}e^{-i\theta} = 1 \)。因此 \[ \frac{1}{e^{i\theta}} = e^{-i\theta} \] 容易看出 \[ \frac{z}{w} = \frac{re^{i\theta}}{se^{i\phi}} = \frac{r}{s}[\cos(\theta - \phi) + i\sin(\theta - \phi)] \]</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>7.</strong> Write in polar form \( re^{i\theta} \):
+                <br>a) \( i \)
+                <br>b) \( -1 + i \)
+                <br>c) \( -2 \)
+                <br>d) \( 3i \)
+                <br>e) \( \sqrt{3} - 3i \)
+            </div>
+
+            <blockquote>
+                <strong>7.</strong> 写成极坐标形式 \( re^{i\theta} \)：
+                <br>a) \( i \)
+                <br>b) \( -1 + i \)
+                <br>c) \( -2 \)
+                <br>d) \( 3i \)
+                <br>e) \( \sqrt{3} - 3i \)
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>8.</strong> Write in rectangular form—no decimal approximations, no trig functions:
+                <br>a) \( 2e^{i\pi/3} \)
+                <br>b) \( e^{i100\pi} \)
+                <br>c) \( 10e^{i\pi/6} \)
+                <br>d) \( 2e^{i5\pi/4} \)
+            </div>
+
+            <blockquote>
+                <strong>8.</strong> 写成直角坐标形式——不要小数近似，不要三角函数：
+                <br>a) \( 2e^{i\pi/3} \)
+                <br>b) \( e^{i100\pi} \)
+                <br>c) \( 10e^{i\pi/6} \)
+                <br>d) \( 2e^{i5\pi/4} \)
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>9.</strong>
+                <br>a) Find a polar form of \( (1 + i)(1 + i\sqrt{3}) \).
+                <br>b) Use the result of a) to find \( \cos\frac{7\pi}{12} \) and \( \sin\frac{7\pi}{12} \).
+            </div>
+
+            <blockquote>
+                <strong>9.</strong>
+                <br>a) 求 \( (1 + i)(1 + i\sqrt{3}) \) 的极坐标形式。
+                <br>b) 用a)的结果求 \( \cos\frac{7\pi}{12} \) 和 \( \sin\frac{7\pi}{12} \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>10.</strong> Find the rectangular form of \( (1 + i)^{100} \).
+            </div>
+
+            <blockquote>
+                <strong>10.</strong> 求 \( (1 + i)^{100} \) 的直角坐标形式。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>11.</strong> Find all \( z \) such that \( z^3 = 1 \). (Again, rectangular form, no trig functions.)
+            </div>
+
+            <blockquote>
+                <strong>11.</strong> 求所有满足 \( z^3 = 1 \) 的 \( z \)。（同样，用直角坐标形式，不要三角函数。）
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>12.</strong> Find all \( z \) such that \( z^4 = 16i \). (Rectangular form, etc.)
+            </div>
+
+            <blockquote>
+                <strong>12.</strong> 求所有满足 \( z^4 = 16i \) 的 \( z \)。（直角坐标形式，等等。）
+            </blockquote>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Elementary Functions</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 0.3em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            color: #2c3e50;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 1.5em;
+            color: #34495e;
+        }
+        p {
+            margin: 1em 0;
+            text-align: justify;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background-color: #ecf0f1;
+            font-style: normal;
+            color: #555;
+        }
+        .exercises {
+            background-color: #f8f9fa;
+            padding: 1.5em;
+            margin: 2em 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 4px;
+        }
+        .exercises h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .exercise-item {
+            margin: 1em 0;
+            padding-left: 1.5em;
+        }
+        .example {
+            background-color: #fff9e6;
+            padding: 1em;
+            margin: 1.5em 0;
+            border-left: 4px solid #f39c12;
+            border-radius: 4px;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 0.5em;
+        }
+        .figure {
+            text-align: center;
+            margin: 2em 0;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5em;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Chapter Three<br>Elementary Functions</h1>
+
+        <blockquote>
+            <h1 style="text-align: center; font-size: 2.2em;">第三章<br>初等函数</h1>
+        </blockquote>
+
+        <h2>3.1 Introduction</h2>
+
+        <p>Complex functions are, of course, quite easy to come by—they are simply ordered pairs of real-valued functions of two variables. We have, however, already seen enough to realize that it is those complex functions that are differentiable that are the most interesting. It was important in our invention of the complex numbers that these new numbers in some sense included the old real numbers—in other words, we extended the reals. We shall find it most useful and profitable to do a similar thing with many of the familiar real functions. That is, we seek complex functions such that when restricted to the reals are familiar real functions. As we have seen, the extension of polynomials and rational functions to complex functions is easy; we simply change x's to z's. Thus, for instance, the function \( f \) defined by</p>
+
+        <p>\[ f(z) = \frac{z^2 + z + 1}{z - 1} \]</p>
+
+        <p>has a derivative at each point of its domain, and for \( z = x + 0i \), becomes a familiar real rational function</p>
+
+        <p>\[ f(x) = \frac{x^2 + x + 1}{x - 1}. \]</p>
+
+        <p>What happens with the trigonometric functions, exponentials, logarithms, etc., is not so obvious. Let us begin.</p>
+
+        <blockquote>
+            <p>当然,复变函数很容易获得——它们只是两个变量的实值函数的有序对。然而,我们已经看到,那些可微的复变函数才是最有趣的。在我们发明复数时,一个重要的事实是这些新数在某种意义上包含了旧的实数——换句话说,我们扩展了实数。我们会发现对许多熟悉的实函数做类似的事情是最有用和最有益的。也就是说,我们寻找这样的复变函数:当限制在实数上时,它们就是熟悉的实函数。正如我们所见,将多项式和有理函数扩展到复变函数很容易;我们只需将x改为z。因此,例如,由以下定义的函数 \( f \)</p>
+
+            <p>\[ f(z) = \frac{z^2 + z + 1}{z - 1} \]</p>
+
+            <p>在其定义域的每个点都有导数,并且当 \( z = x + 0i \) 时,变成熟悉的实有理函数</p>
+
+            <p>\[ f(x) = \frac{x^2 + x + 1}{x - 1}. \]</p>
+
+            <p>对于三角函数、指数函数、对数函数等会发生什么就不那么明显了。让我们开始吧。</p>
+        </blockquote>
+
+        <h2>3.2 The Exponential Function</h2>
+
+        <p>Let the so-called exponential function \( \exp \) be defined by</p>
+
+        <p>\[ \exp(z) = e^x(\cos y + i\sin y), \]</p>
+
+        <p>where, as usual, \( z = x + iy \). From the Cauchy-Riemann equations, we see at once that this function has a derivative everywhere—it is an entire function. Moreover,</p>
+
+        <p>\[ \frac{d}{dz}\exp(z) = \exp(z). \]</p>
+
+        <p>Note next that if \( z = x + iy \) and \( w = u + iv \), then</p>
+
+        <p>\[ \exp(z + w) = e^{x+u}(\cos(y + v) + i\sin(y + v)) \]</p>
+        <p>\[ = e^x e^u(\cos y \cos v - \sin y \sin v) + i(\sin y \cos v + \cos y \sin v) \]</p>
+        <p>\[ = e^x e^u(\cos y + i\sin y)(\cos v + i\sin v) \]</p>
+        <p>\[ = \exp(z)\exp(w). \]</p>
+
+        <p>We thus use the quite reasonable notation \( e^z = \exp(z) \) and observe that we have extended the real exponential \( e^x \) to the complex numbers.</p>
+
+        <blockquote>
+            <p>设所谓的指数函数 \( \exp \) 定义为</p>
+
+            <p>\[ \exp(z) = e^x(\cos y + i\sin y), \]</p>
+
+            <p>其中,像往常一样,\( z = x + iy \)。从柯西-黎曼方程,我们立即看到这个函数处处有导数——它是一个整函数。此外,</p>
+
+            <p>\[ \frac{d}{dz}\exp(z) = \exp(z). \]</p>
+
+            <p>接下来注意,如果 \( z = x + iy \) 和 \( w = u + iv \),那么</p>
+
+            <p>\[ \exp(z + w) = e^{x+u}(\cos(y + v) + i\sin(y + v)) \]</p>
+            <p>\[ = e^x e^u(\cos y \cos v - \sin y \sin v) + i(\sin y \cos v + \cos y \sin v) \]</p>
+            <p>\[ = e^x e^u(\cos y + i\sin y)(\cos v + i\sin v) \]</p>
+            <p>\[ = \exp(z)\exp(w). \]</p>
+
+            <p>因此我们使用相当合理的记号 \( e^z = \exp(z) \),并且观察到我们已经将实指数 \( e^x \) 扩展到复数。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example: RLC Circuit Analysis</div>
+
+            <p>Recall from elementary circuit analysis that the relation between the voltage drop \( V \) and the current flow \( I \) through a resistor is \( V = RI \), where \( R \) is the resistance. For an inductor, the relation is \( V = L\frac{dI}{dt} \), where \( L \) is the inductance; and for a capacitor, \( C\frac{dV}{dt} = I \), where \( C \) is the capacitance. (The variable \( t \) is, of course, time.) Note that if \( V \) is sinusoidal with a frequency \( \omega \), then so also is \( I \). Suppose then that \( V = A\sin(\omega t + \alpha) \). We can write this as</p>
+
+            <p>\[ V = \text{Im}(Ae^{i\alpha}e^{i\omega t}) = \text{Im}(Be^{i\omega t}), \]</p>
+
+            <p>where \( B \) is complex. We know the current \( I \) will have this same form: \( I = \text{Im}(Ce^{i\omega t}) \). The relations between the voltage and the current are linear, and so we can consider complex voltages and currents and use the fact that</p>
+
+            <p>\[ \frac{d}{dt}e^{i\omega t} = i\omega e^{i\omega t}. \]</p>
+
+            <p>We thus assume a more or less fictional complex voltage \( V \), the imaginary part of which is the actual voltage, and then the actual current will be the imaginary part of the resulting complex current.</p>
+
+            <p>What makes this a good idea is the fact that differentiation with respect to time \( t \) becomes simply multiplication by \( i\omega \): \( \frac{d}{dt}Ae^{i\omega t} = i\omega Ae^{i\omega t} \). If \( I = be^{i\omega t} \), the above relations between current and voltage become \( V = i\omega LI \) for an inductor, and \( i\omega VC = I \), or \( V = \frac{I}{i\omega C} \) for a capacitor. Calculus is thereby turned into algebra.</p>
+
+            <p>To illustrate, suppose we have a simple RLC circuit with a voltage source \( V = a\sin(\omega t) \). We let \( E = ae^{i\omega t} \). Then the fact that the voltage drop around a closed circuit must be zero (one of Kirchhoff's celebrated laws) looks like</p>
+
+            <p>\[ i\omega LI + \frac{I}{i\omega C} + RI = ae^{i\omega t}, \]</p>
+
+            <p>or</p>
+
+            <p>\[ i\omega Lb + \frac{b}{i\omega C} + Rb = a. \]</p>
+
+            <p>Thus,</p>
+
+            <p>\[ b = \frac{a}{R + i\omega\left(\omega L - \frac{1}{\omega C}\right)}. \]</p>
+
+            <p>In polar form,</p>
+
+            <p>\[ b = \frac{a}{\sqrt{R^2 + \left(\omega L - \frac{1}{\omega C}\right)^2}}e^{i\theta}, \]</p>
+
+            <p>where</p>
+
+            <p>\[ \tan\theta = \frac{\omega L - \frac{1}{\omega C}}{R} \quad (R \neq 0). \]</p>
+
+            <p>Hence,</p>
+
+            <p>\[ I = \text{Im}(be^{i\omega t}) = \text{Im}\left(\frac{a}{\sqrt{R^2 + \left(\omega L - \frac{1}{\omega C}\right)^2}}e^{i(\omega t + \theta)}\right) \]</p>
+            <p>\[ = \frac{a}{\sqrt{R^2 + \left(\omega L - \frac{1}{\omega C}\right)^2}}\sin(\omega t + \theta). \]</p>
+
+            <p>This result is well-known to all, but I hope you are convinced that this algebraic approach afforded us by the use of complex numbers is far easier than solving the differential equation. You should note that this method yields the steady state solution—the transient solution is not necessarily sinusoidal.</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子: RLC电路分析</div>
+
+            <p>回忆初等电路分析中,电阻器上的电压降 \( V \) 与电流 \( I \) 之间的关系是 \( V = RI \),其中 \( R \) 是电阻。对于电感器,关系是 \( V = L\frac{dI}{dt} \),其中 \( L \) 是电感;对于电容器,\( C\frac{dV}{dt} = I \),其中 \( C \) 是电容。(变量 \( t \) 当然是时间。)注意如果 \( V \) 是频率为 \( \omega \) 的正弦波,那么 \( I \) 也是。假设 \( V = A\sin(\omega t + \alpha) \)。我们可以写成</p>
+
+            <p>\[ V = \text{Im}(Ae^{i\alpha}e^{i\omega t}) = \text{Im}(Be^{i\omega t}), \]</p>
+
+            <p>其中 \( B \) 是复数。我们知道电流 \( I \) 也有相同的形式:\( I = \text{Im}(Ce^{i\omega t}) \)。电压和电流之间的关系是线性的,所以我们可以考虑复电压和复电流,并利用</p>
+
+            <p>\[ \frac{d}{dt}e^{i\omega t} = i\omega e^{i\omega t}. \]</p>
+
+            <p>因此我们假设一个或多或少虚构的复电压 \( V \),其虚部是实际电压,然后实际电流将是所得复电流的虚部。这是个好主意的原因在于,对时间 \( t \) 的微分简单地变成乘以 \( i\omega \)。对于电感器,电流电压关系变成 \( V = i\omega LI \);对于电容器变成 \( V = \frac{I}{i\omega C} \)。微积分因此变成了代数。</p>
+
+            <p>为了说明,假设我们有一个简单的RLC电路,电压源为 \( V = a\sin(\omega t) \)。根据基尔霍夫定律,闭合电路的电压降必须为零,这看起来像</p>
+
+            <p>\[ i\omega LI + \frac{I}{i\omega C} + RI = ae^{i\omega t}. \]</p>
+
+            <p>通过代数运算,我们得到稳态解。这个结果是众所周知的,但我希望你确信,通过使用复数获得的这种代数方法比求解微分方程容易得多。你应该注意这种方法产生的是稳态解——瞬态解不一定是正弦的。</p>
+        </blockquote>
+
+        <div class="figure">
+            <img src="images/ch3_p2_Im1.png" alt="RLC Circuit Diagram">
+            <div class="figure-caption">Figure: Simple RLC Circuit</div>
+        </div>
+
+        <blockquote>
+            <p class="figure-caption">图: 简单RLC电路</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>1.</strong> Show that \( \exp(z + 2\pi i) = \exp(z) \).
+            </div>
+
+            <blockquote>
+                <strong>1.</strong> 证明 \( \exp(z + 2\pi i) = \exp(z) \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>2.</strong> Show that \( \frac{\exp(z)}{\exp(w)} = \exp(z - w) \).
+            </div>
+
+            <blockquote>
+                <strong>2.</strong> 证明 \( \frac{\exp(z)}{\exp(w)} = \exp(z - w) \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>3.</strong> Show that \( |\exp(z)| = e^x \), and \( \arg(\exp(z)) = y + 2k\pi \) for any \( \arg(\exp(z)) \) and some integer \( k \).
+            </div>
+
+            <blockquote>
+                <strong>3.</strong> 证明 \( |\exp(z)| = e^x \),且对于任意 \( \arg(\exp(z)) \) 和某个整数 \( k \),有 \( \arg(\exp(z)) = y + 2k\pi \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>4.</strong> Find all \( z \) such that \( \exp(z) = -1 \), or explain why there are none.
+            </div>
+
+            <blockquote>
+                <strong>4.</strong> 求所有满足 \( \exp(z) = -1 \) 的 \( z \),或解释为什么不存在。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>5.</strong> Find all \( z \) such that \( \exp(z) = 1 + i \), or explain why there are none.
+            </div>
+
+            <blockquote>
+                <strong>5.</strong> 求所有满足 \( \exp(z) = 1 + i \) 的 \( z \),或解释为什么不存在。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>6.</strong> For what complex numbers \( w \) does the equation \( \exp(z) = w \) have solutions? Explain.
+            </div>
+
+            <blockquote>
+                <strong>6.</strong> 对于什么复数 \( w \),方程 \( \exp(z) = w \) 有解?解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>7.</strong> Find the indicated mesh currents in the network shown in the figure.
+            </div>
+
+            <blockquote>
+                <strong>7.</strong> 求图中所示网络的指定网孔电流。
+            </blockquote>
+        </div>
+
+        <div class="figure">
+            <img src="images/ch3_p4_Im2.png" alt="Mesh Current Network">
+            <div class="figure-caption">Figure: Network for Exercise 7</div>
+        </div>
+
+        <blockquote>
+            <p class="figure-caption">图: 练习7的网络</p>
+        </blockquote>
+
+        <h2>3.3 Trigonometric Functions</h2>
+
+        <p>Define the functions cosine and sine as follows:</p>
+
+        <p>\[ \cos z = \frac{e^{iz} + e^{-iz}}{2}, \]</p>
+
+        <p>\[ \sin z = \frac{e^{iz} - e^{-iz}}{2i}, \]</p>
+
+        <p>where we are using \( e^z = \exp(z) \).</p>
+
+        <p>First, let's verify that these are honest-to-goodness extensions of the familiar real functions, cosine and sine—otherwise we have chosen very bad names for these complex functions. So, suppose \( z = x + 0i = x \). Then,</p>
+
+        <p>\[ e^{ix} = \cos x + i\sin x, \quad \text{and} \quad e^{-ix} = \cos x - i\sin x. \]</p>
+
+        <p>Thus,</p>
+
+        <p>\[ \cos x = \frac{e^{ix} + e^{-ix}}{2}, \]</p>
+
+        <p>\[ \sin x = \frac{e^{ix} - e^{-ix}}{2i}, \]</p>
+
+        <p>and everything is just fine.</p>
+
+        <blockquote>
+            <p>定义余弦和正弦函数如下:</p>
+
+            <p>\[ \cos z = \frac{e^{iz} + e^{-iz}}{2}, \]</p>
+
+            <p>\[ \sin z = \frac{e^{iz} - e^{-iz}}{2i}, \]</p>
+
+            <p>其中我们使用 \( e^z = \exp(z) \)。</p>
+
+            <p>首先,让我们验证这些确实是熟悉的实函数余弦和正弦的真正扩展——否则我们为这些复变函数选择了非常糟糕的名字。所以,假设 \( z = x + 0i = x \)。那么,</p>
+
+            <p>\[ e^{ix} = \cos x + i\sin x, \quad \text{和} \quad e^{-ix} = \cos x - i\sin x. \]</p>
+
+            <p>因此,</p>
+
+            <p>\[ \cos x = \frac{e^{ix} + e^{-ix}}{2}, \]</p>
+
+            <p>\[ \sin x = \frac{e^{ix} - e^{-ix}}{2i}, \]</p>
+
+            <p>一切都很好。</p>
+        </blockquote>
+
+        <p>Next, observe that the sine and cosine functions are entire—they are simply linear combinations of the entire functions \( e^{iz} \) and \( e^{-iz} \). Moreover, we see that</p>
+
+        <p>\[ \frac{d}{dz}\sin z = \cos z, \quad \text{and} \quad \frac{d}{dz}\cos z = -\sin z, \]</p>
+
+        <p>just as we would hope.</p>
+
+        <blockquote>
+            <p>接下来,观察正弦和余弦函数是整函数——它们只是整函数 \( e^{iz} \) 和 \( e^{-iz} \) 的线性组合。此外,我们看到</p>
+
+            <p>\[ \frac{d}{dz}\sin z = \cos z, \quad \text{和} \quad \frac{d}{dz}\cos z = -\sin z, \]</p>
+
+            <p>正如我们所希望的那样。</p>
+        </blockquote>
+
+        <p>It may not have been clear to you back in elementary calculus what the so-called hyperbolic sine and cosine functions had to do with the ordinary sine and cosine functions. Now perhaps it will be evident. Recall that for real \( t \),</p>
+
+        <p>\[ \sinh t = \frac{e^t - e^{-t}}{2}, \quad \text{and} \quad \cosh t = \frac{e^t + e^{-t}}{2}. \]</p>
+
+        <p>Thus,</p>
+
+        <p>\[ \sin(it) = \frac{e^{i(it)} - e^{-i(it)}}{2i} = \frac{e^{-t} - e^t}{2i} = i\frac{e^t - e^{-t}}{2} = i\sinh t. \]</p>
+
+        <p>Similarly,</p>
+
+        <p>\[ \cos(it) = \cosh t. \]</p>
+
+        <p>How nice!</p>
+
+        <blockquote>
+            <p>在初等微积分中,所谓的双曲正弦和双曲余弦函数与普通正弦和余弦函数有什么关系可能对你来说并不清楚。现在也许会变得明显。回忆对于实数 \( t \),</p>
+
+            <p>\[ \sinh t = \frac{e^t - e^{-t}}{2}, \quad \text{和} \quad \cosh t = \frac{e^t + e^{-t}}{2}. \]</p>
+
+            <p>因此,</p>
+
+            <p>\[ \sin(it) = \frac{e^{i(it)} - e^{-i(it)}}{2i} = \frac{e^{-t} - e^t}{2i} = i\frac{e^t - e^{-t}}{2} = i\sinh t. \]</p>
+
+            <p>类似地,</p>
+
+            <p>\[ \cos(it) = \cosh t. \]</p>
+
+            <p>多好啊!</p>
+        </blockquote>
+
+        <p>Most of the identities you learned in the 3rd grade for the real sine and cosine functions are also valid in the general complex case. Let's look at some.</p>
+
+        <p>\[ \sin^2 z + \cos^2 z = \left(\frac{e^{iz} - e^{-iz}}{2i}\right)^2 + \left(\frac{e^{iz} + e^{-iz}}{2}\right)^2 \]</p>
+        <p>\[ = \frac{1}{4}\left(e^{2iz} - 2e^{iz}e^{-iz} + e^{-2iz} + e^{2iz} + 2e^{iz}e^{-iz} + e^{-2iz}\right) \]</p>
+        <p>\[ = \frac{1}{4}(2 + 2) = 1. \]</p>
+
+        <p>It is also relatively straightforward and easy to show that:</p>
+
+        <p>\[ \sin(z + w) = \sin z \cos w + \cos z \sin w, \quad \text{and} \]</p>
+        <p>\[ \cos(z + w) = \cos z \cos w - \sin z \sin w. \]</p>
+
+        <p>Other familiar ones follow from these in the usual elementary school trigonometry fashion.</p>
+
+        <blockquote>
+            <p>你在三年级学到的关于实正弦和余弦函数的大多数恒等式在一般复数情况下也是有效的。让我们看一些。</p>
+
+            <p>\[ \sin^2 z + \cos^2 z = 1. \]</p>
+
+            <p>也相对直接且容易证明:</p>
+
+            <p>\[ \sin(z + w) = \sin z \cos w + \cos z \sin w, \quad \text{和} \]</p>
+            <p>\[ \cos(z + w) = \cos z \cos w - \sin z \sin w. \]</p>
+
+            <p>其他熟悉的恒等式以通常的初等三角学方式从这些推导出来。</p>
+        </blockquote>
+
+        <p>Let's find the real and imaginary parts of these functions:</p>
+
+        <p>\[ \sin z = \sin(x + iy) = \sin x \cos(iy) + \cos x \sin(iy) \]</p>
+        <p>\[ = \sin x \cosh y + i\cos x \sinh y. \]</p>
+
+        <p>In the same way, we get</p>
+
+        <p>\[ \cos z = \cos x \cosh y - i\sin x \sinh y. \]</p>
+
+        <blockquote>
+            <p>让我们找出这些函数的实部和虚部:</p>
+
+            <p>\[ \sin z = \sin(x + iy) = \sin x \cos(iy) + \cos x \sin(iy) \]</p>
+            <p>\[ = \sin x \cosh y + i\cos x \sinh y. \]</p>
+
+            <p>同样地,我们得到</p>
+
+            <p>\[ \cos z = \cos x \cosh y - i\sin x \sinh y. \]</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>8.</strong> Show that for all \( z \),
+                <br>a) \( \sin(z + 2\pi) = \sin z \);
+                <br>b) \( \cos(z + 2\pi) = \cos z \);
+                <br>c) \( \sin(z + \frac{\pi}{2}) = \cos z \).
+            </div>
+
+            <blockquote>
+                <strong>8.</strong> 证明对所有 \( z \),
+                <br>a) \( \sin(z + 2\pi) = \sin z \);
+                <br>b) \( \cos(z + 2\pi) = \cos z \);
+                <br>c) \( \sin(z + \frac{\pi}{2}) = \cos z \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>9.</strong> Show that \( |\sin z|^2 = \sin^2 x + \sinh^2 y \) and \( |\cos z|^2 = \cos^2 x + \sinh^2 y \).
+            </div>
+
+            <blockquote>
+                <strong>9.</strong> 证明 \( |\sin z|^2 = \sin^2 x + \sinh^2 y \) 和 \( |\cos z|^2 = \cos^2 x + \sinh^2 y \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>10.</strong> Find all \( z \) such that \( \sin z = 0 \).
+            </div>
+
+            <blockquote>
+                <strong>10.</strong> 求所有满足 \( \sin z = 0 \) 的 \( z \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>11.</strong> Find all \( z \) such that \( \cos z = 2 \), or explain why there are none.
+            </div>
+
+            <blockquote>
+                <strong>11.</strong> 求所有满足 \( \cos z = 2 \) 的 \( z \),或解释为什么不存在。
+            </blockquote>
+        </div>
+
+        <h2>3.4 Logarithms and Complex Exponents</h2>
+
+        <p>In the case of real functions, the logarithm function was simply the inverse of the exponential function. Life is more complicated in the complex case—as we have seen, the complex exponential function is not invertible. There are many solutions to the equation \( e^z = w \).</p>
+
+        <p>If \( z \neq 0 \), we define \( \log z \) by</p>
+
+        <p>\[ \log z = \ln|z| + i\arg z. \]</p>
+
+        <p>There are thus many \( \log z \)'s; one for each argument of \( z \). The difference between any two of these is thus an integral multiple of \( 2\pi i \). First, for any value of \( \log z \) we have</p>
+
+        <p>\[ e^{\log z} = e^{\ln|z| + i\arg z} = e^{\ln|z|}e^{i\arg z} = z. \]</p>
+
+        <p>This is familiar. But next there is a slight complication:</p>
+
+        <p>\[ \log(e^z) = \ln(e^x) + i\arg(e^z) = x + y + 2k\pi i = z + 2k\pi i, \]</p>
+
+        <p>where \( k \) is an integer. We also have</p>
+
+        <p>\[ \log(zw) = \ln|z||w| + i\arg(zw) \]</p>
+        <p>\[ = \ln|z| + i\arg z + \ln|w| + i\arg w + 2k\pi i \]</p>
+        <p>\[ = \log z + \log w + 2k\pi i \]</p>
+
+        <p>for some integer \( k \).</p>
+
+        <blockquote>
+            <p>在实函数的情况下,对数函数只是指数函数的逆函数。在复数情况下生活更复杂——正如我们所见,复指数函数是不可逆的。方程 \( e^z = w \) 有许多解。</p>
+
+            <p>如果 \( z \neq 0 \),我们定义 \( \log z \) 为</p>
+
+            <p>\[ \log z = \ln|z| + i\arg z. \]</p>
+
+            <p>因此有许多 \( \log z \);每个 \( z \) 的幅角对应一个。其中任意两个之间的差是 \( 2\pi i \) 的整数倍。首先,对于 \( \log z \) 的任何值,我们有</p>
+
+            <p>\[ e^{\log z} = e^{\ln|z| + i\arg z} = e^{\ln|z|}e^{i\arg z} = z. \]</p>
+
+            <p>这是熟悉的。但接下来有一个小小的复杂性:</p>
+
+            <p>\[ \log(e^z) = \ln(e^x) + i\arg(e^z) = x + y + 2k\pi i = z + 2k\pi i, \]</p>
+
+            <p>其中 \( k \) 是整数。我们还有</p>
+
+            <p>\[ \log(zw) = \log z + \log w + 2k\pi i \]</p>
+
+            <p>对某个整数 \( k \)。</p>
+        </blockquote>
+
+        <p>There is defined a function, called the <strong>principal logarithm</strong>, or principal branch of the logarithm function, given by</p>
+
+        <p>\[ \text{Log}\,z = \ln|z| + i\,\text{Arg}\,z, \]</p>
+
+        <p>where \( \text{Arg}\,z \) is the principal argument of \( z \). Observe that for any \( \log z \), it is true that</p>
+
+        <p>\[ \log z = \text{Log}\,z + 2k\pi i \]</p>
+
+        <p>for some integer \( k \) which depends on \( z \). This new function is an extension of the real logarithm function:</p>
+
+        <p>\[ \text{Log}\,x = \ln x + i\,\text{Arg}\,x = \ln x. \]</p>
+
+        <p>This function is analytic at a lot of places. First, note that it is not defined at \( z = 0 \), and is not continuous anywhere on the negative real axis (\( z = x + 0i \), where \( x \leq 0 \)). So, let's suppose \( z_0 = x_0 + iy_0 \), where \( z_0 \) is not zero or on the negative real axis, and see about a derivative of \( \text{Log}\,z \):</p>
+
+        <p>\[ \lim_{z \to z_0} \frac{\text{Log}\,z - \text{Log}\,z_0}{z - z_0} = \lim_{z \to z_0} \frac{\text{Log}\,z - \text{Log}\,z_0}{e^{\text{Log}\,z} - e^{\text{Log}\,z_0}}. \]</p>
+
+        <p>Now if we let \( w = \text{Log}\,z \) and \( w_0 = \text{Log}\,z_0 \), and notice that \( w \to w_0 \) as \( z \to z_0 \), this becomes</p>
+
+        <p>\[ \lim_{w \to w_0} \frac{w - w_0}{e^w - e^{w_0}} = \frac{1}{e^{w_0}} = \frac{1}{z_0}. \]</p>
+
+        <p>Thus, \( \text{Log} \) is differentiable at \( z_0 \), and its derivative is \( \frac{1}{z_0} \).</p>
+
+        <blockquote>
+            <p>定义了一个函数,称为<strong>主对数</strong>,或对数函数的主分支,由下式给出</p>
+
+            <p>\[ \text{Log}\,z = \ln|z| + i\,\text{Arg}\,z, \]</p>
+
+            <p>其中 \( \text{Arg}\,z \) 是 \( z \) 的主幅角。观察对于任何 \( \log z \),有</p>
+
+            <p>\[ \log z = \text{Log}\,z + 2k\pi i \]</p>
+
+            <p>对某个依赖于 \( z \) 的整数 \( k \)。这个新函数是实对数函数的扩展:</p>
+
+            <p>\[ \text{Log}\,x = \ln x + i\,\text{Arg}\,x = \ln x. \]</p>
+
+            <p>这个函数在许多地方是解析的。首先,注意它在 \( z = 0 \) 处未定义,并且在负实轴的任何地方都不连续。所以,假设 \( z_0 = x_0 + iy_0 \),其中 \( z_0 \) 不是零也不在负实轴上,看看 \( \text{Log}\,z \) 的导数。通过计算,我们得到 \( \text{Log} \) 在 \( z_0 \) 处可微,其导数是 \( \frac{1}{z_0} \)。</p>
+        </blockquote>
+
+        <p>We are now ready to give meaning to \( z^c \), where \( c \) is a complex number. We do the obvious and define</p>
+
+        <p>\[ z^c = e^{c\log z}. \]</p>
+
+        <p>There are many values of \( \log z \), and so there can be many values of \( z^c \). As one might guess, \( e^{c\,\text{Log}\,z} \) is called the principal value of \( z^c \).</p>
+
+        <p>Note that we are faced with two different definitions of \( z^c \) in case \( c \) is an integer. Let's see if we have anything to unlearn. Suppose \( c \) is simply an integer, \( c = n \). Then</p>
+
+        <p>\[ z^n = e^{n\log z} = e^{n(\text{Log}\,z + 2k\pi i)} = e^{n\,\text{Log}\,z}e^{2kn\pi i} = e^{n\,\text{Log}\,z}. \]</p>
+
+        <p>There is thus just one value of \( z^n \), and it is exactly what it should be: \( e^{n\,\text{Log}\,z} = |z|^n e^{in\arg z} \). It is easy to verify that in case \( c \) is a rational number, \( z^c \) is also exactly what it should be.</p>
+
+        <blockquote>
+            <p>我们现在准备给 \( z^c \) 赋予意义,其中 \( c \) 是复数。我们做显而易见的事情并定义</p>
+
+            <p>\[ z^c = e^{c\log z}. \]</p>
+
+            <p>\( \log z \) 有许多值,所以 \( z^c \) 可以有许多值。正如人们可能猜到的,\( e^{c\,\text{Log}\,z} \) 称为 \( z^c \) 的主值。</p>
+
+            <p>注意在 \( c \) 是整数的情况下,我们面临 \( z^c \) 的两个不同定义。让我们看看是否有什么需要重新学习的。假设 \( c \) 只是一个整数,\( c = n \)。那么</p>
+
+            <p>\[ z^n = e^{n\log z} = e^{n(\text{Log}\,z + 2k\pi i)} = e^{n\,\text{Log}\,z}e^{2kn\pi i} = e^{n\,\text{Log}\,z}. \]</p>
+
+            <p>因此 \( z^n \) 只有一个值,它恰好应该是: \( e^{n\,\text{Log}\,z} = |z|^n e^{in\arg z} \)。容易验证在 \( c \) 是有理数的情况下,\( z^c \) 也正是它应该的样子。</p>
+        </blockquote>
+
+        <p>Far more serious is the fact that we are faced with conflicting definitions of \( z^c \) in case \( z = e \). In the above discussion, we have assumed that \( e^z \) stands for \( \exp(z) \). Now we have a definition for \( e^z \) that implies that \( e^z \) can have many values. For instance, if someone runs at you in the night and hands you a note with \( e^{1/2} \) written on it, how do you know whether this means \( \exp(1/2) \) or the two values \( \sqrt{e} \) and \( -\sqrt{e} \)? Strictly speaking, you do not know. This ambiguity could be avoided, of course, by always using the notation \( \exp(z) \) for \( e^x e^{iy} \), but almost everybody in the world uses \( e^z \) with the understanding that this is \( \exp(z) \), or equivalently, the principal value of \( e^z \). This will be our practice.</p>
+
+        <blockquote>
+            <p>更严重的是,在 \( z = e \) 的情况下,我们面临 \( z^c \) 的冲突定义。在上面的讨论中,我们假设 \( e^z \) 代表 \( \exp(z) \)。现在我们有一个 \( e^z \) 的定义,暗示 \( e^z \) 可以有许多值。例如,如果有人在夜里跑向你并递给你一张写着 \( e^{1/2} \) 的纸条,你怎么知道这是指 \( \exp(1/2) \) 还是两个值 \( \sqrt{e} \) 和 \( -\sqrt{e} \)?严格来说,你不知道。这种歧义当然可以避免,总是使用记号 \( \exp(z) \) 来表示 \( e^x e^{iy} \),但世界上几乎每个人都使用 \( e^z \),理解这是 \( \exp(z) \),或等价地,\( e^z \) 的主值。这将是我们的做法。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>12.</strong> Is the collection of all values of \( (\log i)^{1/2} \) the same as the collection of all values of \( \frac{1}{2}\log i \)? Explain.
+            </div>
+
+            <blockquote>
+                <strong>12.</strong> 所有 \( (\log i)^{1/2} \) 的值的集合与所有 \( \frac{1}{2}\log i \) 的值的集合相同吗?解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>13.</strong> Is the collection of all values of \( (\log i)^2 \) the same as the collection of all values of \( 2\log i \)? Explain.
+            </div>
+
+            <blockquote>
+                <strong>13.</strong> 所有 \( (\log i)^2 \) 的值的集合与所有 \( 2\log i \) 的值的集合相同吗?解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>14.</strong> Find all values of \( \log(z^{1/2}) \). (in rectangular form)
+            </div>
+
+            <blockquote>
+                <strong>14.</strong> 求 \( \log(z^{1/2}) \) 的所有值。(用直角坐标形式)
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>15.</strong> At what points is the function given by \( \text{Log}(z^2 + 1) \) analytic? Explain.
+            </div>
+
+            <blockquote>
+                <strong>15.</strong> 由 \( \text{Log}(z^2 + 1) \) 给出的函数在什么点解析?解释。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>16.</strong> Find the principal value of
+                <br>a) \( i^i \).
+                <br>b) \( (1 + i)^{4i} \)
+            </div>
+
+            <blockquote>
+                <strong>16.</strong> 求主值
+                <br>a) \( i^i \)。
+                <br>b) \( (1 + i)^{4i} \)
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>17.</strong> a) Find all values of \( |i^i| \).
+            </div>
+
+            <blockquote>
+                <strong>17.</strong> a) 求 \( |i^i| \) 的所有值。
+            </blockquote>
+        </div>
+
+    </div>
+</body>
+</html>

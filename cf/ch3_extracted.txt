@@ -1,0 +1,294 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Three
+Elementary Functions
+3.1. Introduction. Complex functions are, of course, quite easy to come by—they are
+simply ordered pairs of real-valued functions of two variables. We have, however, already
+seen enough to realize that it is those complex functions that are differentiable that are the
+most interesting. It was important in our invention of the complex numbers that these new
+numbers in some sense included the old real numbers—in other words, we extended the
+reals. We shall find it most useful and profitable to do a similar thing with many of the
+familiar real functions. That is, we seek complex functions such that when restricted to the
+reals are familiar real functions. As we have seen, the extension of polynomials and
+rational functions to complex functions is easy; we simply change x’s to z’s. Thus, for
+instance, the function f defined by
+z2  z  1
+fz 
+z  1
+has a derivative at each point of its domain, and for z  x  0i, becomes a familiar real
+rational function
+x2  x  1
+fx  .
+x  1
+What happens with the trigonometric functions, exponentials, logarithms, etc., is not so
+obvious. Let us begin.
+3.2. The exponential function. Let the so-called exponential function exp be defined by
+expz  excosy  isiny,
+where, as usual, z  x  iy. Fromthe Cauchy-Riemann equations, we see at once that this
+function has a derivative every where—it is an entire function. Moreover,
+d
+expz  expz.
+dz
+Note next that if z  x  iy and w  u  iv, then
+3.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+expz  w  exucosy  v  isiny  v
+ exeucosycosv  sinysinv  isinycosv  cosysinv
+ exeucosy  isinycosv  isinv
+ expzexpw.
+We thus use the quite reasonable notation ez  expz and observe that we have extended
+the real exponential ex to the complex numbers.
+Example
+Recall fromelementary circuit analysis that the relation between the voltage dropV and the
+current flow I through a resistor is V  RI, where R is the resistance. For an inductor, the
+relation is V  L dI , where L is the inductance; and for a capacitor, C dV  I, where C is
+dt dt
+the capacitance. (The variable t is, of course, time.) Note that if V is sinusoidal with a
+frequency ,then so also is I. Suppose then that V  Asint  . We can write this as
+V  ImAeieit  ImBeit, where B is complex. We know the current I will have this
+same form: I  ImCeit. The relations between the voltage and the current are linear, and
+so we can consider complex voltages and currents and use the fact that
+eit  cost  isint. We thus assume a more or less fictional complex voltage V , the
+imaginary part of which is the actual voltage, and then the actual current will be the
+imaginary part of the resulting complex current.
+What makes this a good idea is the fact that differentiation with respect to timet becomes
+simply multiplication by i: d Aeit  iAeit. If I  beit, the above relations between
+dt
+current and voltage become V  iLI for an inductor, and iVC  I, or V  I for a
+iC
+capacitor. Calculus is thereby turned into algebra. To illustrate, suppose we have a simple
+RLC circuit with a voltage source V  asint. We let E  aeiwt .
+Then the fact that the voltage drop around a closed circuit must be zero (one of Kirchoff’s
+celebrated laws) looks like
+3.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+I
+iLI   RI  aeit,or
+iC
+b
+iLb   Rb  a
+iC
+Thus,
+a
+b  .
+R  i L  1
+C
+In polar form,
+a
+b  ei,
+R2  L  1 2
+C
+where
+L  1
+tan  C . (R  0)
+R
+Hence,
+a
+I  Imbeit  Im eit
+R2  L  1 2
+C
+a
+ sint  
+R2  L  1 2
+C
+This result is well-known to all, but I hope you are convinced that this algebraic approach
+afforded us by the use of complex numbers is far easier than solving the differential
+equation. You should note that this method yields the steady state solution—the transient
+solution is not necessarily sinusoidal.
+Exercises
+1. Show that expz  2i  expz.
+2. Show that expz  expz  w.
+expw
+3. Show that |expz|  ex, and argexpz  y  2k for any argexpz and some
+3.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+integer k.
+4. Find all z such that expz  1, or explain why there are none.
+5. Find all z such that expz  1  i,or explain why there are none.
+6. For what complex numbers w does the equation expz  w have solutions? Explain.
+7. Find the indicated mesh currents in the network:
+3.3 Trigonometric functions. Define the functions cosine and sine as follows:
+eiz  eiz
+cosz  ,
+2
+eiz  eiz
+sinz 
+2i
+where we are using ez  expz.
+First, let’s verify that these are honest-to-goodness extensions of the familiar real functions,
+cosine and sine–otherwise we have chosen very bad names for these complex functions.
+So, suppose z  x  0i  x. Then,
+eix  cosx  isinx, and
+eix  cosx  isinx.
+Thus,
+3.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+eix  eix
+cosx  ,
+2
+eix  eix
+sinx  ,
+2i
+and everything is just fine.
+Next, observe that the sine and cosine functions are entire–they are simply linear
+combinations of the entire functions eiz and eiz. Moreover, we see that
+d d
+sinz  cosz, and cosz  sinz,
+dz dz
+just as we would hope.
+It may not have been clear to you back in elementary calculus what the so-called
+hyperbolic sine and cosine functions had to do with the ordinary sine and cosine functions.
+Now perhaps it will be evident. Recall that for real t,
+et  et et  et
+sinht  , and cosht  .
+2 2
+Thus,
+eiit  eiit et  et
+sinit   i  isinht.
+2i 2
+Similarly,
+cosit  cosht.
+How nice!
+Most of the identities you learned in the 3rd grade for the real sine and cosine functions are
+also valid in the general complex case. Let’s look at some.
+sin2z  cos2z  1 eiz  eiz2  eiz  eiz2
+4
+1
+ e2iz  2eizeiz  e2iz  e2iz  2eizeiz  e2iz
+4
+1
+ 2  2  1
+4
+3.5
+
+================================================================================
+PAGE 6
+================================================================================
+
+It is also relative straight-forward and easy to show that:
+sinz  w  sinzcosw  coszsinw, and
+cosz  w  coszcosw  sinzsinw
+Other familiar ones follow fromthese in the usual elementary school trigonometry fashion.
+Let’s find the real and imaginary parts of these functions:
+sinz  sinx  iy  sinxcosiy  cosxsiniy
+ sinxcoshy  icosxsinhy.
+In the same way, we get cosz  cosxcoshy  isinxsinhy.
+Exercises
+8. Show that for all z,
+a)sinz  2  sinz; b)cosz  2  cosz; c)sin z    cosz.
+2
+9. Show that |sinz|2  sin2x  sinh2y and |cosz|2  cos2x  sinh2y.
+10. Find all z such that sinz  0.
+11. Find all z such that cosz  2, or explain why there are none.
+3.4. Logarithms and complex exponents. In the case of real functions, the logarithm
+function was simply the inverse of the exponential function. Life is more complicated in
+the complex case—as we have seen, the complex exponential function is not invertible.
+There are many solutions to the equation ez  w.
+If z  0, we define logz by
+logz  ln|z|  iargz.
+There are thus many logz’s; one for each argument of z. The difference between any two of
+these is thus an integral multiple of 2i. First, for any value of logz we have
+3.6
+
+================================================================================
+PAGE 7
+================================================================================
+
+elogz  eln|z|iargz  eln|z|eiargz  z.
+This is familiar. But next there is a slight complication:
+logez  lnex  iargez  x  y  2ki
+ z  2ki,
+where k is an integer. We also have
+logzw  ln|z||w|  iargzw
+ ln|z|  iargz  ln|w|  iargw  2ki
+ logz  logw  2ki
+for some integer k.
+There is defined a function, called the principal logarithm, or principal branch of the
+logarithm, function, given by
+Log z  ln|z|  iArg z,
+where Arg z is the principal argument of z. Observe that for any logz, it is true that
+logz Log z  2ki for some integer k which depends on z. This new function is an
+extension of the real logarithmfunction:
+Log x  lnx  iArg x  lnx.
+This function is analytic at a lot of places. First, note that it is not defined at z  0, and is
+not continuous anywhere on the negative real axis (z  x  0i, where x  0.). So, let’s
+suppose z  x  iy , where z is not zero or on the negative real axis, and see about a
+0 0 0 0
+derivative of Log z :
+Log z  Log z Log z  Log z
+lim 0 lim 0 .
+z  z
+zz0 0 zz0 eLogz  eLogz0
+Now if we let w Log z and w Log z , and notice that w  w as z  z , this becomes
+0 0 0 0
+3.7
+
+================================================================================
+PAGE 8
+================================================================================
+
+lim Log z  Log z 0  lim w  w 0
+zz0 z  z 0 ww0 ew  ew0
+1 1
+ 
+ew0 z
+0
+Thus, Log is differentiable at z , and its derivative is 1 .
+0 z0
+We are now ready to give meaning to zc, where c is a complex number. We do the obvious
+and define
+zc  eclogz.
+There are many values of logz, and so there can be many values of zc. As one might guess,
+ecLogz is called the principal value of zc.
+Note that we are faced with two different definitions of zc in case c is an integer. Let’s see
+if we have anything to unlearn. Suppose c is simply an integer, c  n. Then
+zn  enlogz  enLogz2ki
+ enLogze2kni  enLogz
+There is thus just one value of zn, and it is exactly what it should be: enLogz  |z|neinargz. It
+is easy to verify that in case c is a rational number, zc is also exactly what it should be.
+Far more serious is the fact that we are faced with conflicting definitions of zc in case
+z  e. In the above discussion, we have assumed that ez stands for expz. Now we have a
+definition for ez that implies that ez can have many values. For instance, if someone runs at
+you in the night and hands you a note with e1/2 written on it, how to you know whether this
+means exp1/2 or the two values e and  e ? Strictly speaking, you do not know. This
+ambiguity could be avoided, of course, by always using the notation expz for exeiy, but
+almost everybody in the world uses ez with the understanding that this is expz, or
+equivalently, the principal value of ez. This will be our practice.
+Exercises
+12. Is the collection of all values of logi1/2 the same as the collection of all values of
+1 logi ? Explain.
+2
+13. Is the collection of all values of logi2 the same as the collection of all values of
+2logi ? Explain.
+3.8
+
+================================================================================
+PAGE 9
+================================================================================
+
+14. Find all values of logz1/2. (in rectangular form)
+15. At what points is the function given by Log z2  1 analytic? Explain.
+16. Find the principal value of
+a) ii. b) 1  i4i
+17. a)Find all values of |ii|.
+3.9

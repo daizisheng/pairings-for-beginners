@@ -1,0 +1,192 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Five
+Cauchy’s Theorem
+5.1. Homotopy. Suppose D is a connected subset of the plane such that every point of D is
+an interior point—we call such a set a region—and let C and C be oriented closed curves
+1 2
+in D. We say C is homotopic to C in D if there is a continuous function H : S  D,
+1 2
+where S is the square S  t,s : 0  s,t  1, such that Ht,0 describes C and Ht,1
+1
+describes C , and for each fixed s, the function Ht,s describes a closed curve C in D.
+2 s
+The function H is called a homotopy between C and C . Note that if C is homotopic to
+1 2 1
+C in D, then C is homotopic to C in D. Just observe that the function
+2 2 1
+Kt,s  Ht,1  s is a homotopy.
+It is convenient to consider a point to be a closed curve. The point c is a described by a
+constant function t  c. We thus speak of a closed curve C being homotopic to a
+constant—we sometimes say C is contractible to a point.
+Emotionally, the fact that two closed curves are homotopic in D means that one can be
+continuously deformed into the other in D.
+Example
+Let D be the annular region D  z : 1  |z|  5. Suppose C is the circle described by
+1
+ t  2ei2t, 0  t  1; and C is the circle described by  t  4ei2t, 0  t  1. Then
+1 2 2
+Ht,s  2  2sei2t is a homotopy in D between C and C . Suppose C is the same
+1 2 3
+circle as C but with the opposite orientation; that is, a description is given by
+2
+ t  4ei2t, 0  t  1. A homotopy between C and C is not too easy to construct—in
+3 1 3
+fact, it is not possible! The moral: orientation counts. From now on, the term ”closed
+curve” will mean an oriented closed curve.
+5.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+Another Example
+Let D be the set obtained by removing the point z  0 from the plane. Take a look at the
+picture. Meditate on it and convince yourself that C and K are homotopic in D, but  and 
+are homotopic in D, while K and  are not homotopic in D.
+Exercises
+1. Suppose C is homotopic to C in D, and C is homotopic to C in D. Prove that C is
+1 2 2 3 1
+homotopic to C in D.
+3
+2. Explain how you know that any two closed curves in the plane C are homotopic in C.
+3. A region D is said to be simply connected if every closed curve in D is contractible to a
+point in D. Prove that any two closed curves in a simply connected region are homotopic in
+D.
+5.2 Cauchy’s Theorem. Suppose C and C are closed curves in a region D that are
+1 2
+homotopic in D, and suppose f is a function analytic on D. Let Ht,s be a homotopy
+between C and C . For each s, the function  t describes a closed curve C in D. Let
+1 2 s s
+Is be given by
+Is   fzdz.
+Cs
+Then,
+5.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+1
+Is  fHt,s
+Ht,s
+dt.
+t
+0
+Now let’s look at the derivative of Is. We assume everything is nice enough to allow us
+to differentiate under the integral:
+1
+Is  d fHt,s Ht,s dt
+ds t
+0
+1
+  fHt,s
+Ht,s Ht,s
+ fHt,s
+2Ht,s
+dt
+s t st
+0
+1
+  fHt,s
+Ht,s Ht,s
+ fHt,s
+2Ht,s
+dt
+s t ts
+0
+1
+   fHt,s Ht,s dt
+t s
+0
+H1,s H0,s
+ fH1,s  fH0,s .
+s s
+But we know each Ht,s describes a closed curve, and so H0,s  H1,s for all s. Thus,
+H1,s H0,s
+Is  fH1,s  fH0,s  0,
+s s
+which means Is is constant! In particular, I0  I1, or
+ fzdz   fzdz.
+C1 C2
+This is a big deal. We have shown that if C and C are closed curves in a region D that are
+1 2
+homotopic in D, and f is analytic on D, then  fzdz   fzdz.
+C1 C2
+An easy corollary of this result is the celebrated Cauchy’s Theorem, which says that if f is
+analytic on a simply connected region D, then for any closed curve C in D,
+5.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+fzdz  0.
+C
+In court testimony, one is admonished to tell the truth, the whole truth, and nothing but the
+truth. Well, so far in this chapter, we have told the truth and nothing but the truth, but we
+have not quite told the whole truth. We assumed all sorts of continuous derivatives in the
+preceding discussion. These are not always necessary—specifically, the results can be
+proved true without all our smoothness assumptions—think about approximation.
+Example
+Look at the picture below and convince your self that the path C is homotopic to the closed
+path consisting of the two curves C and C together with the line L. We traverse the line
+1 2
+twice, once from C to C and once from C to C .
+1 2 2 1
+Observe then that an integral over this closed path is simply the sum of the integrals over
+C and C , since the two integrals along L , being in opposite directions, would sum to
+1 2
+zero. Thus, if f is analytic in the region bounded by these curves (the region with two holes
+in it), then we know that
+fzdz   fzdz   fzdz.
+C C1 C2
+Exercises
+4. Prove Cauchy’s Theorem.
+5. Let S be the square with sides x  100, and y  100 with the counterclockwise
+orientation. Find
+5.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+ 1 dz.
+z
+S
+6. a)Find  1 dz, where C is any circle centered at z  1 with the usual counterclockwise
+z1
+C
+orientation: t  1  Ae2it, 0  t  1.
+b)Find  1 dz, where C is any circle centered at z  1 with the usual counterclockwise
+z1
+C
+orientation.
+c)Find  1 dz, where C is the ellipse 4x2  y2  100 with the counterclockwise
+z21
+C
+orientation. [Hint: partial fractions]
+d)Find  1 dz, where C is the circle x2  10x  y2  0 with the counterclockwise
+z21
+C
+orientation.
+8. Evaluate Log z  3dz, where C is the circle |z|  2 oriented counterclockwise.
+C
+9. Evaluate  1 dz where C is the circle described by t  e2it, 0  t  1, and n is an
+zn
+C
+integer  1.
+10. a)Does the function fz  1 have an antiderivative on the set of all z  0? Explain.
+z
+b)How about fz  1 , n an integer  1 ?
+zn
+11. Find as large a set D as you can so that the function fz  ez2 have an antiderivative
+on D.
+12. Explain how you know that every function analytic in a simply connected (cf. Exercise
+3) region D is the derivative of a function analytic in D.
+5.5

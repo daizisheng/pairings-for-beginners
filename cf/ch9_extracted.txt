@@ -1,0 +1,355 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Nine
+Taylor and Laurent Series
+9.1. Taylor series. Suppose f is analytic on the open disk |z  z |  r. Let z be any point in
+0
+this disk and choose C to be the positively oriented circle of radius , where
+|z  z |    r. Then for sC we have
+0
+1 1 1 1   z  z 0  j
+  
+s  z s  z 0   z  z 0  s  z 0 1  z s   z z 0 0 j0 s  z 0  j1
+since | zz0 |  1. The convergence is uniform, so we may integrate
+sz0
+
+
+fs
+ds   
+fs
+ds z  z j,or
+s  z s  z j1 0
+0
+C j0 C
+
+fz  1  fs ds   1  fs ds z  z j.
+2i s  z 2i s  z  j1 0
+C j0 C 0
+We have thus produced a power series having the given analytic function as a limit:
+
+fz  c z  z j, |z  z |  r,
+j 0 0
+j0
+where
+c  1  fs ds.
+j 2i s  z j1
+0
+C
+This is the celebrated Taylor Series for f at z  z .
+0
+We know we may differentiate the series to get
+
+fz  jc z  z j1
+j 0
+j1
+9.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+and this one converges uniformly where the series for f does. We can thus differentiate
+again and again to obtain
+
+fnz  jj  1j  2j  n  1c z  z jn.
+j 0
+jn
+Hence,
+fnz   n!c , or
+0 n
+fnz 
+c  0 .
+n n!
+But we also know that
+c  1  fs ds.
+n 2i s  z n1
+0
+C
+This gives us
+fnz   n!  fs ds, for n  0,1,2,.
+0 2i s  z n1
+0
+C
+This is the famous Generalized Cauchy Integral Formula. Recall that we previously
+derived this formula for n  0 and 1.
+What does all this tell us about the radius of convergence of a power series? Suppose we
+have
+
+fz  c z  z j,
+j 0
+j0
+and the radius of convergence is R. Then we know, of course, that the limit function f is
+analytic for |z  z |  R. We showed that if f is analytic in |z  z |  r, then the series
+0 0
+converges for |z  z |  r. Thus r  R, and so f cannot be analytic at any point z for which
+0
+|z  z |  R. In other words, the circle of convergence is the largest circle centered at z
+0 0
+inside of which the limit f is analytic.
+9.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+Example
+Let fz  expz  ez. Then f0  f0  fn0  1, and the Taylor series for f
+at z  0 is
+0
+
+ez   1 zj
+j!
+j0
+and this is valid for all values of z since f is entire. (We also showed earlier that this
+particular series has an infinite radius of convergence.)
+Exercises
+1. Show that for all z,
+
+ez  e 1 z  1j.
+j!
+j0
+n
+2. What is the radius of convergence of the Taylor series c zj for tanhz ?
+j
+j0
+3. Show that
+
+1  z  ij
+
+1  z 1  ij1
+j0
+for |z  i|  2.
+4. If fz  1 , what is f10i ?
+1z
+5. Suppose f is analytic at z  0 and f0  f0  f0  0. Prove there is a function g
+analytic at 0 such that fz  z3gz in a neighborhood of 0.
+6. Find the Taylor series for fz  sinz at z  0.
+0
+7. Show that the function f defined by
+9.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+sinz for z  0
+fz  z
+1 for z  0
+is analytic at z  0, and find f0.
+9.2. Laurent series. Suppose f is analytic in the region R  |z  z |  R , and let C be a
+1 0 2
+positively oriented simple closed curve around z in this region. (Note: we include the
+0
+possiblites that R can be 0, and R  .) We shall show that for z  C in this region
+1 2
+ 
+b
+fz  a z  z j   j ,
+j 0
+z  z j
+0
+j0 j1
+where
+a  1  fs ds, for j  0,1,2,
+j 2i s  z j1
+0
+C
+and
+b  1  fs ds, for j  1,2,.
+j 2i s  z j1
+0
+C
+The sumof the limits of these two series is frequently written
+
+fz  c z  z j,
+j 0
+j
+where
+c  1  fs ds, j  0,1,2,.
+j 2i s  z j1
+0
+C
+This recipe for fz is called a Laurent series,although it is important to keep in mind that
+it is really two series.
+9.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+Okay, now let’s derive the above formula. First, let r and r be so that
+1 2
+R  r  |z  z |  r  R and so that the point z and the curve C are included in the
+1 1 0 2 2
+region r  |z  z |  r . Also, let  be a circle centered at z and such that  is included in
+1 0 2
+this region.
+Then fs is an analytic function (of s) on the region bounded by C ,C , and , where C is
+sz 1 2 1
+the circle |z|  r and C is the circle |z|  r . Thus,
+1 2 2
+
+fs
+ds  
+fs
+ds  
+fs
+ds.
+s  z s  z s  z
+C2 C1 
+(All three circles are positively oriented, of course.) But  fs ds  2ifz, and so we have
+sz
+
+2ifz  
+fs
+ds  
+fs
+ds.
+s  z s  z
+C2 C1
+Look at the first of the two integrals on the right-hand side of this equation. For sC , we
+2
+have |z  z |  |s  z |, and so
+0 0
+1 1
+
+s  z s  z   z  z 
+0 0
+1 1
+
+s  z 0 1   zz0 
+sz0
+
+ 1  z  z 0 j
+s  z s  z
+0 0
+j0
+
+  1 z  z j.
+0
+s  z  j1
+j0 0
+9.5
+
+================================================================================
+PAGE 6
+================================================================================
+
+Hence,
+
+
+fs
+ds   
+fs
+ds z  z j
+s  z s  z  j1 0
+C2 j0 C2 0
+
+. 
+fs
+ds z  z j
+0
+s  z  j1
+j0 C 0
+For the second of these two integrals, note that for sC we have |s  z |  |z  z |, and so
+1 0 0
+1 1 1 1
+ 
+s  z z  z 0   s  z 0  z  z 0 1   s z   z z 0 0 
+ 
+ 1  s  z 0 j    s  z j 1
+z  z 0 z  z 0 0 z  z  j1
+j0 j0 0
+ 
+   s  z j1 1    1 1
+0
+z  z  j s  z j1 z  z  j
+j1 0 j1 0 0
+As before,
+
+ fs ds     fs ds 1
+s  z s  z j1 z  z  j
+C1 j1 C1 0 0
+
+    fs ds 1
+s  z j1 z  z  j
+j1 C 0 0
+Putting this altogether, we have the Laurent series:
+fz  1  fs ds  1  fs ds
+2i s  z 2i s  z
+C2 C1
+ 
+  1  fs ds z  z j   1  fs ds 1 .
+2i s  z  j1 0 2i s  z j1 z  z  j
+j0 C 0 j1 C 0 0
+Example
+9.6
+
+================================================================================
+PAGE 7
+================================================================================
+
+Let f be defined by
+1
+fz  .
+zz  1
+First, observe that f is analytic in the region 0  |z|  1. Let’s find the Laurent series for f
+valid in this region. First,
+1 1 1
+fz     .
+zz  1 z z  1
+Fromour vast knowledge of the Geometric series, we have
+
+fz   1  zj.
+z
+j0
+Now let’s find another Laurent series for f, the one valid for the region 1  |z|  .
+First,
+1 1 1
+ .
+z  1 z 1  1
+z
+Now since | 1 |  1, we have
+z
+ 
+1
+
+1 1
+
+1 zj
+
+zj,
+z  1 z 1  1 z
+z j0 j1
+and so
+
+fz   1  1   1  zj
+z z  1 z
+j1
+
+fz  zj.
+j2
+Exercises
+8. Find two Laurent series in powers of z for the function f defined by
+9.7
+
+================================================================================
+PAGE 8
+================================================================================
+
+1
+fz 
+z21  z
+and specify the regions in which the series converge to fz.
+9. Find two Laurent series in powers of z for the function f defined by
+1
+fz 
+z1  z2
+and specify the regions in which the series converge to fz.
+10. Find the Laurent series in powers of z  1 for fz  1 in the region 1  |z  1|  .
+z
+9.8

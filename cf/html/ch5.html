@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Cauchy's Theorem</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 0.3em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            color: #2c3e50;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 1.5em;
+            color: #34495e;
+        }
+        p {
+            margin: 1em 0;
+            text-align: justify;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background-color: #ecf0f1;
+            font-style: normal;
+            color: #555;
+        }
+        .exercises {
+            background-color: #f8f9fa;
+            padding: 1.5em;
+            margin: 2em 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 4px;
+        }
+        .exercises h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .exercise-item {
+            margin: 1em 0;
+            padding-left: 1.5em;
+        }
+        .example {
+            background-color: #fff9e6;
+            padding: 1em;
+            margin: 1.5em 0;
+            border-left: 4px solid #f39c12;
+            border-radius: 4px;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 0.5em;
+        }
+        .figure {
+            text-align: center;
+            margin: 2em 0;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Chapter Five<br>Cauchy's Theorem</h1>
+
+        <blockquote>
+            <h1 style="text-align: center; font-size: 2.2em;">第五章<br>柯西定理</h1>
+        </blockquote>
+
+        <h2>5.1 Homotopy</h2>
+
+        <p>Suppose \( D \) is a connected subset of the plane such that every point of \( D \) is an interior point—we call such a set a <strong>region</strong>—and let \( C_1 \) and \( C_2 \) be oriented closed curves in \( D \). We say \( C_1 \) is <strong>homotopic</strong> to \( C_2 \) in \( D \) if there is a continuous function \( H: S \to D \), where \( S \) is the square \( S = \{(t,s) : 0 \leq s,t \leq 1\} \), such that \( H(t,0) \) describes \( C_1 \) and \( H(t,1) \) describes \( C_2 \), and for each fixed \( s \), the function \( H(t,s) \) describes a closed curve \( C_s \) in \( D \). The function \( H \) is called a <strong>homotopy</strong> between \( C_1 \) and \( C_2 \). Note that if \( C_1 \) is homotopic to \( C_2 \) in \( D \), then \( C_2 \) is homotopic to \( C_1 \) in \( D \). Just observe that the function \( K(t,s) = H(t,1-s) \) is a homotopy.</p>
+
+        <blockquote>
+            <p>假设 \( D \) 是平面的连通子集,使得 \( D \) 的每个点都是内点——我们称这样的集合为<strong>区域</strong>——设 \( C_1 \) 和 \( C_2 \) 是 \( D \) 中的定向闭合曲线。如果存在连续函数 \( H: S \to D \),其中 \( S \) 是正方形 \( S = \{(t,s) : 0 \leq s,t \leq 1\} \),使得 \( H(t,0) \) 描述 \( C_1 \),\( H(t,1) \) 描述 \( C_2 \),并且对于每个固定的 \( s \),函数 \( H(t,s) \) 描述 \( D \) 中的闭合曲线 \( C_s \),我们就说 \( C_1 \) 在 \( D \) 中<strong>同伦</strong>于 \( C_2 \)。函数 \( H \) 称为 \( C_1 \) 和 \( C_2 \) 之间的<strong>同伦</strong>。注意如果 \( C_1 \) 在 \( D \) 中同伦于 \( C_2 \),那么 \( C_2 \) 在 \( D \) 中同伦于 \( C_1 \)。只需观察函数 \( K(t,s) = H(t,1-s) \) 是一个同伦。</p>
+        </blockquote>
+
+        <p>It is convenient to consider a point to be a closed curve. The point \( c \) is described by a constant function \( \phi(t) = c \). We thus speak of a closed curve \( C \) being homotopic to a constant—we sometimes say \( C \) is <strong>contractible</strong> to a point.</p>
+
+        <p>Emotionally, the fact that two closed curves are homotopic in \( D \) means that one can be continuously deformed into the other in \( D \).</p>
+
+        <blockquote>
+            <p>方便起见,我们认为一个点是一条闭合曲线。点 \( c \) 由常函数 \( \phi(t) = c \) 描述。因此我们说闭合曲线 \( C \) 同伦于常数——有时我们说 \( C \) 可<strong>收缩</strong>到一个点。</p>
+
+            <p>从直观上讲,两条闭合曲线在 \( D \) 中同伦意味着一条可以在 \( D \) 中连续变形为另一条。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+
+            <p>Let \( D \) be the annular region \( D = \{z : 1 < |z| < 5\} \). Suppose \( C_1 \) is the circle described by \( \phi_1(t) = 2e^{i2\pi t} \), \( 0 \leq t \leq 1 \); and \( C_2 \) is the circle described by \( \phi_2(t) = 4e^{i2\pi t} \), \( 0 \leq t \leq 1 \). Then \( H(t,s) = (2+2s)e^{i2\pi t} \) is a homotopy in \( D \) between \( C_1 \) and \( C_2 \). Suppose \( C_3 \) is the same circle as \( C_2 \) but with the opposite orientation; that is, a description is given by \( \phi_3(t) = 4e^{-i2\pi t} \), \( 0 \leq t \leq 1 \). A homotopy between \( C_1 \) and \( C_3 \) is not too easy to construct—in fact, it is not possible! The moral: orientation counts. From now on, the term "closed curve" will mean an oriented closed curve.</p>
+        </div>
+
+        <div class="figure">
+            <img src="images/ch5_p1_Im1.png" alt="Homotopy in annular region">
+            <div class="figure-caption">Figure: Homotopy between circles in an annular region</div>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>设 \( D \) 是环形区域 \( D = \{z : 1 < |z| < 5\} \)。假设 \( C_1 \) 是由 \( \phi_1(t) = 2e^{i2\pi t} \),\( 0 \leq t \leq 1 \) 描述的圆;\( C_2 \) 是由 \( \phi_2(t) = 4e^{i2\pi t} \),\( 0 \leq t \leq 1 \) 描述的圆。那么 \( H(t,s) = (2+2s)e^{i2\pi t} \) 是 \( D \) 中 \( C_1 \) 和 \( C_2 \) 之间的同伦。假设 \( C_3 \) 是与 \( C_2 \) 相同的圆但方向相反;也就是说,由 \( \phi_3(t) = 4e^{-i2\pi t} \),\( 0 \leq t \leq 1 \) 给出描述。\( C_1 \) 和 \( C_3 \) 之间的同伦不太容易构造——事实上,这是不可能的!寓意:方向很重要。从现在开始,术语"闭合曲线"将意味着定向闭合曲线。</p>
+        </blockquote>
+
+        <blockquote>
+            <p class="figure-caption">图:环形区域中圆之间的同伦</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Another Example</div>
+
+            <p>Let \( D \) be the set obtained by removing the point \( z = 0 \) from the plane. Take a look at the picture. Meditate on it and convince yourself that \( C \) and \( K \) are homotopic in \( D \), but \( \Gamma \) and \( \Lambda \) are homotopic in \( D \), while \( K \) and \( \Gamma \) are not homotopic in \( D \).</p>
+        </div>
+
+        <div class="figure">
+            <img src="images/ch5_p2_Im2.png" alt="Homotopy examples">
+            <div class="figure-caption">Figure: Various curves and their homotopic relationships</div>
+        </div>
+
+        <blockquote>
+            <div class="example-title">另一个例子</div>
+            <p>设 \( D \) 是从平面中去掉点 \( z = 0 \) 得到的集合。看一下图片。思考它并说服自己 \( C \) 和 \( K \) 在 \( D \) 中同伦,但 \( \Gamma \) 和 \( \Lambda \) 在 \( D \) 中同伦,而 \( K \) 和 \( \Gamma \) 在 \( D \) 中不同伦。</p>
+        </blockquote>
+
+        <blockquote>
+            <p class="figure-caption">图:各种曲线及其同伦关系</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>1.</strong> Suppose \( C_1 \) is homotopic to \( C_2 \) in \( D \), and \( C_2 \) is homotopic to \( C_3 \) in \( D \). Prove that \( C_1 \) is homotopic to \( C_3 \) in \( D \).
+            </div>
+
+            <blockquote>
+                <strong>1.</strong> 假设 \( C_1 \) 在 \( D \) 中同伦于 \( C_2 \),\( C_2 \) 在 \( D \) 中同伦于 \( C_3 \)。证明 \( C_1 \) 在 \( D \) 中同伦于 \( C_3 \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>2.</strong> Explain how you know that any two closed curves in the plane \( \mathbb{C} \) are homotopic in \( \mathbb{C} \).
+            </div>
+
+            <blockquote>
+                <strong>2.</strong> 解释你如何知道平面 \( \mathbb{C} \) 中的任意两条闭合曲线在 \( \mathbb{C} \) 中同伦。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>3.</strong> A region \( D \) is said to be <strong>simply connected</strong> if every closed curve in \( D \) is contractible to a point in \( D \). Prove that any two closed curves in a simply connected region are homotopic in \( D \).
+            </div>
+
+            <blockquote>
+                <strong>3.</strong> 如果 \( D \) 中的每条闭合曲线都可以收缩到 \( D \) 中的一个点,则称区域 \( D \) 为<strong>单连通的</strong>。证明单连通区域中的任意两条闭合曲线在 \( D \) 中同伦。
+            </blockquote>
+        </div>
+
+        <h2>5.2 Cauchy's Theorem</h2>
+
+        <p>Suppose \( C_1 \) and \( C_2 \) are closed curves in a region \( D \) that are homotopic in \( D \), and suppose \( f \) is a function analytic on \( D \). Let \( H(t,s) \) be a homotopy between \( C_1 \) and \( C_2 \). For each \( s \), the function \( \phi_s(t) \) describes a closed curve \( C_s \) in \( D \). Let \( I(s) \) be given by</p>
+
+        <p>\[ I(s) = \int_{C_s} f(z)\,dz. \]</p>
+
+        <p>Then,</p>
+
+        <p>\[ I(s) = \int_0^1 f(H(t,s))\frac{\partial H}{\partial t}(t,s)\,dt. \]</p>
+
+        <p>Now let's look at the derivative of \( I(s) \). We assume everything is nice enough to allow us to differentiate under the integral:</p>
+
+        <p>\[ I'(s) = \int_0^1 \frac{d}{ds}\left[f(H(t,s))\frac{\partial H}{\partial t}(t,s)\right]\,dt \]</p>
+        <p>\[ = \int_0^1 \left[f'(H(t,s))\frac{\partial H}{\partial s}(t,s)\frac{\partial H}{\partial t}(t,s) + f(H(t,s))\frac{\partial^2 H}{\partial s\partial t}(t,s)\right]\,dt \]</p>
+        <p>\[ = \int_0^1 \left[f'(H(t,s))\frac{\partial H}{\partial s}(t,s)\frac{\partial H}{\partial t}(t,s) + f(H(t,s))\frac{\partial^2 H}{\partial t\partial s}(t,s)\right]\,dt \]</p>
+        <p>\[ = \int_0^1 \frac{\partial}{\partial t}\left[f(H(t,s))\frac{\partial H}{\partial s}(t,s)\right]\,dt \]</p>
+        <p>\[ = f(H(1,s))\frac{\partial H}{\partial s}(1,s) - f(H(0,s))\frac{\partial H}{\partial s}(0,s). \]</p>
+
+        <p>But we know each \( H(t,s) \) describes a closed curve, and so \( H(0,s) = H(1,s) \) for all \( s \). Thus,</p>
+
+        <p>\[ I'(s) = f(H(1,s))\frac{\partial H}{\partial s}(1,s) - f(H(0,s))\frac{\partial H}{\partial s}(0,s) = 0, \]</p>
+
+        <p>which means \( I(s) \) is constant! In particular, \( I(0) = I(1) \), or</p>
+
+        <p>\[ \int_{C_1} f(z)\,dz = \int_{C_2} f(z)\,dz. \]</p>
+
+        <p>This is a big deal. We have shown that if \( C_1 \) and \( C_2 \) are closed curves in a region \( D \) that are homotopic in \( D \), and \( f \) is analytic on \( D \), then \( \int_{C_1} f(z)\,dz = \int_{C_2} f(z)\,dz \).</p>
+
+        <blockquote>
+            <p>假设 \( C_1 \) 和 \( C_2 \) 是区域 \( D \) 中在 \( D \) 中同伦的闭合曲线,并且假设 \( f \) 是 \( D \) 上的解析函数。设 \( H(t,s) \) 是 \( C_1 \) 和 \( C_2 \) 之间的同伦。对于每个 \( s \),函数 \( \phi_s(t) \) 描述 \( D \) 中的闭合曲线 \( C_s \)。经过推导,我们证明了 \( I(s) \) 是常数!特别地,\( I(0) = I(1) \),或 \[ \int_{C_1} f(z)\,dz = \int_{C_2} f(z)\,dz. \] 这是一件大事。我们已经证明,如果 \( C_1 \) 和 \( C_2 \) 是区域 \( D \) 中在 \( D \) 中同伦的闭合曲线,并且 \( f \) 在 \( D \) 上解析,那么 \( \int_{C_1} f(z)\,dz = \int_{C_2} f(z)\,dz \)。</p>
+        </blockquote>
+
+        <p>An easy corollary of this result is the celebrated <strong>Cauchy's Theorem</strong>, which says that if \( f \) is analytic on a simply connected region \( D \), then for any closed curve \( C \) in \( D \),</p>
+
+        <p>\[ \int_C f(z)\,dz = 0. \]</p>
+
+        <p>In court testimony, one is admonished to tell the truth, the whole truth, and nothing but the truth. Well, so far in this chapter, we have told the truth and nothing but the truth, but we have not quite told the whole truth. We assumed all sorts of continuous derivatives in the preceding discussion. These are not always necessary—specifically, the results can be proved true without all our smoothness assumptions—think about approximation.</p>
+
+        <blockquote>
+            <p>这个结果的一个简单推论是著名的<strong>柯西定理</strong>,它说如果 \( f \) 在单连通区域 \( D \) 上解析,那么对于 \( D \) 中的任何闭合曲线 \( C \),\[ \int_C f(z)\,dz = 0. \] 在法庭证词中,人们被告诫要说真话,全部真话,只说真话。嗯,到目前为止在本章中,我们说了真话,只说了真话,但我们还没有完全说出全部真话。我们在前面的讨论中假设了各种连续导数。这些并不总是必要的——具体来说,结果可以在没有我们所有平滑性假设的情况下被证明为真——想想逼近。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+
+            <p>Look at the picture below and convince yourself that the path \( C \) is homotopic to the closed path consisting of the two curves \( C_1 \) and \( C_2 \) together with the line \( L \). We traverse the line twice, once from \( C_1 \) to \( C_2 \) and once from \( C_2 \) to \( C_1 \).</p>
+
+            <p>Observe then that an integral over this closed path is simply the sum of the integrals over \( C_1 \) and \( C_2 \), since the two integrals along \( L \), being in opposite directions, would sum to zero. Thus, if \( f \) is analytic in the region bounded by these curves (the region with two holes in it), then we know that</p>
+
+            <p>\[ \int_C f(z)\,dz = \int_{C_1} f(z)\,dz + \int_{C_2} f(z)\,dz. \]</p>
+        </div>
+
+        <div class="figure">
+            <img src="images/ch5_p4_Im3.png" alt="Path deformation with holes">
+            <div class="figure-caption">Figure: Path deformation in a region with holes</div>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>看下面的图片并说服自己,路径 \( C \) 同伦于由两条曲线 \( C_1 \) 和 \( C_2 \) 以及直线 \( L \) 组成的闭合路径。我们沿直线走两次,一次从 \( C_1 \) 到 \( C_2 \),一次从 \( C_2 \) 到 \( C_1 \)。然后观察到这条闭合路径上的积分只是 \( C_1 \) 和 \( C_2 \) 上积分的和,因为沿 \( L \) 的两个积分方向相反,会相加为零。因此,如果 \( f \) 在这些曲线包围的区域(有两个洞的区域)中解析,那么我们知道 \[ \int_C f(z)\,dz = \int_{C_1} f(z)\,dz + \int_{C_2} f(z)\,dz. \]</p>
+        </blockquote>
+
+        <blockquote>
+            <p class="figure-caption">图:有洞区域中的路径变形</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>4.</strong> Prove Cauchy's Theorem.
+            </div>
+
+            <blockquote>
+                <strong>4.</strong> 证明柯西定理。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>5.</strong> Let \( S \) be the square with sides \( x = \pm 100 \), and \( y = \pm 100 \) with the counterclockwise orientation. Find \( \int_S \frac{1}{z}\,dz \).
+            </div>
+
+            <blockquote>
+                <strong>5.</strong> 设 \( S \) 是边为 \( x = \pm 100 \) 和 \( y = \pm 100 \) 的逆时针方向的正方形。求 \( \int_S \frac{1}{z}\,dz \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>6.</strong> a) Find \( \int_C \frac{1}{z-1}\,dz \), where \( C \) is any circle centered at \( z = 1 \) with the usual counterclockwise orientation: \( \phi(t) = 1 + Ae^{i2\pi t} \), \( 0 \leq t \leq 1 \).
+                <br>b) Find \( \int_C \frac{1}{z+1}\,dz \), where \( C \) is any circle centered at \( z = -1 \) with the usual counterclockwise orientation.
+                <br>c) Find \( \int_C \frac{1}{z^2-1}\,dz \), where \( C \) is the ellipse \( 4x^2 + y^2 = 100 \) with the counterclockwise orientation. [Hint: partial fractions]
+                <br>d) Find \( \int_C \frac{1}{z^2-1}\,dz \), where \( C \) is the circle \( x^2 - 10x + y^2 = 0 \) with the counterclockwise orientation.
+            </div>
+
+            <blockquote>
+                <strong>6.</strong> a) 求 \( \int_C \frac{1}{z-1}\,dz \),其中 \( C \) 是以 \( z = 1 \) 为中心的任意逆时针方向的圆:\( \phi(t) = 1 + Ae^{i2\pi t} \),\( 0 \leq t \leq 1 \)。
+                <br>b) 求 \( \int_C \frac{1}{z+1}\,dz \),其中 \( C \) 是以 \( z = -1 \) 为中心的任意逆时针方向的圆。
+                <br>c) 求 \( \int_C \frac{1}{z^2-1}\,dz \),其中 \( C \) 是逆时针方向的椭圆 \( 4x^2 + y^2 = 100 \)。[提示:部分分式]
+                <br>d) 求 \( \int_C \frac{1}{z^2-1}\,dz \),其中 \( C \) 是逆时针方向的圆 \( x^2 - 10x + y^2 = 0 \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>8.</strong> Evaluate \( \int_C \text{Log}(z+3)\,dz \), where \( C \) is the circle \( |z| = 2 \) oriented counterclockwise.
+            </div>
+
+            <blockquote>
+                <strong>8.</strong> 求 \( \int_C \text{Log}(z+3)\,dz \),其中 \( C \) 是逆时针方向的圆 \( |z| = 2 \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>9.</strong> Evaluate \( \int_C \frac{1}{z^n}\,dz \) where \( C \) is the circle described by \( \phi(t) = e^{i2\pi t} \), \( 0 \leq t \leq 1 \), and \( n \) is an integer \( \geq 1 \).
+            </div>
+
+            <blockquote>
+                <strong>9.</strong> 求 \( \int_C \frac{1}{z^n}\,dz \),其中 \( C \) 是由 \( \phi(t) = e^{i2\pi t} \),\( 0 \leq t \leq 1 \) 描述的圆,\( n \) 是整数 \( \geq 1 \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>10.</strong> a) Does the function \( f(z) = \frac{1}{z} \) have an antiderivative on the set of all \( z \neq 0 \)? Explain.
+                <br>b) How about \( f(z) = \frac{1}{z^n} \), \( n \) an integer \( \geq 1 \)?
+            </div>
+
+            <blockquote>
+                <strong>10.</strong> a) 函数 \( f(z) = \frac{1}{z} \) 在所有 \( z \neq 0 \) 的集合上有原函数吗?解释。
+                <br>b) \( f(z) = \frac{1}{z^n} \),\( n \) 是整数 \( \geq 1 \) 呢?
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>11.</strong> Find as large a set \( D \) as you can so that the function \( f(z) = e^{z^2} \) have an antiderivative on \( D \).
+            </div>
+
+            <blockquote>
+                <strong>11.</strong> 找到尽可能大的集合 \( D \) 使得函数 \( f(z) = e^{z^2} \) 在 \( D \) 上有原函数。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>12.</strong> Explain how you know that every function analytic in a simply connected (cf. Exercise 3) region \( D \) is the derivative of a function analytic in \( D \).
+            </div>
+
+            <blockquote>
+                <strong>12.</strong> 解释你如何知道在单连通(参见练习3)区域 \( D \) 中解析的每个函数都是 \( D \) 中解析函数的导数。
+            </blockquote>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supplement: Applications of the Residue Theorem</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
+.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
+h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
+h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
+p{margin:1em 0;text-align:justify}
+blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
+.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
+.exercises h3{color:#e74c3c;margin-top:0}
+.exercise-item{margin:1em 0;padding-left:1.5em}
+.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
+.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
+.note{background-color:#e8f4f8;padding:1em;margin:1.5em 0;border-left:4px solid #3498db;border-radius:4px}
+</style>
+</head>
+<body><div class="content">
+<h1>Some Applications of the Residue Theorem<br>Supplementary Lecture Notes</h1>
+
+<blockquote>
+<h1 style="text-align:center;font-size:2.2em;">留数定理的一些应用<br>补充讲义</h1>
+</blockquote>
+
+<div class="note">
+<p><strong>Author:</strong> Paweł Hitczenko<br>
+<strong>Course:</strong> MATH 322, Complex Analysis<br>
+<strong>Institution:</strong> Department of Mathematics, Drexel University<br>
+<strong>Winter 2005</strong></p>
+</div>
+
+<blockquote>
+<div class="note">
+<p><strong>作者:</strong> Paweł Hitczenko<br>
+<strong>课程:</strong> MATH 322, 复分析<br>
+<strong>机构:</strong> 德雷塞尔大学数学系<br>
+<strong>2005年冬季</strong></p>
+</div>
+</blockquote>
+
+<h2>Introduction</h2>
+
+<p>This supplementary material provides additional applications of the residue theorem, one of the most powerful tools in complex analysis. The residue theorem allows us to evaluate complex integrals by calculating residues at singular points, and it has numerous applications in pure and applied mathematics.</p>
+
+<blockquote>
+<p>本补充材料提供了留数定理的额外应用,留数定理是复分析中最强大的工具之一。留数定理允许我们通过计算奇点处的留数来评估复积分,它在纯数学和应用数学中有许多应用。</p>
+</blockquote>
+
+<h2>Application 1: Evaluation of Real Integrals</h2>
+
+<p>One of the most important applications of the residue theorem is the evaluation of real integrals that are difficult or impossible to compute using standard calculus techniques. By converting a real integral into a complex contour integral, we can often use the residue theorem to obtain the result.</p>
+
+<blockquote>
+<p>留数定理最重要的应用之一是评估使用标准微积分技术难以或不可能计算的实积分。通过将实积分转换为复围道积分,我们通常可以使用留数定理获得结果。</p>
+</blockquote>
+
+<div class="example">
+<div class="example-title">Example: Trigonometric Integrals</div>
+<p>Consider integrals of the form \( \int_0^{2\pi} R(\cos\theta, \sin\theta)\,d\theta \) where \( R \) is a rational function. By substituting \( z = e^{i\theta} \), we have:</p>
+<p>\[ \cos\theta = \frac{z + z^{-1}}{2}, \quad \sin\theta = \frac{z - z^{-1}}{2i}, \quad d\theta = \frac{dz}{iz} \]</p>
+<p>The integral becomes a contour integral around the unit circle \( |z| = 1 \), which can be evaluated using residues.</p>
+</div>
+
+<blockquote>
+<div class="example-title">例子:三角积分</div>
+<p>考虑形式为 \( \int_0^{2\pi} R(\cos\theta, \sin\theta)\,d\theta \) 的积分,其中 \( R \) 是有理函数。通过替换 \( z = e^{i\theta} \),我们有:
+\[ \cos\theta = \frac{z + z^{-1}}{2}, \quad \sin\theta = \frac{z - z^{-1}}{2i}, \quad d\theta = \frac{dz}{iz} \]
+积分变成围绕单位圆 \( |z| = 1 \) 的围道积分,可以使用留数来评估。</p>
+</blockquote>
+
+<h2>Application 2: Improper Integrals</h2>
+
+<p>The residue theorem is also useful for evaluating improper integrals of the form \( \int_{-\infty}^\infty f(x)\,dx \). The general strategy is to consider a contour integral along the real axis and a semicircular arc in the upper half-plane.</p>
+
+<blockquote>
+<p>留数定理对于评估形式为 \( \int_{-\infty}^\infty f(x)\,dx \) 的广义积分也很有用。一般策略是考虑沿实轴和上半平面半圆弧的围道积分。</p>
+</blockquote>
+
+<div class="example">
+<div class="example-title">Example: Rational Functions</div>
+<p>For integrals of the form \( \int_{-\infty}^\infty \frac{P(x)}{Q(x)}\,dx \) where \( P \) and \( Q \) are polynomials with degree of \( Q \) at least two more than degree of \( P \), and \( Q(x) \neq 0 \) for real \( x \), we can use a semicircular contour in the upper half-plane.</p>
+<p>The integral equals \( 2\pi i \) times the sum of residues at poles in the upper half-plane.</p>
+</div>
+
+<blockquote>
+<div class="example-title">例子:有理函数</div>
+<p>对于形式为 \( \int_{-\infty}^\infty \frac{P(x)}{Q(x)}\,dx \) 的积分,其中 \( P \) 和 \( Q \) 是多项式,\( Q \) 的次数至少比 \( P \) 的次数大2,且对于实数 \( x \) 有 \( Q(x) \neq 0 \),我们可以在上半平面使用半圆围道。积分等于 \( 2\pi i \) 乘以上半平面极点处留数之和。</p>
+</blockquote>
+
+<h2>Application 3: Integrals with Exponential Factors</h2>
+
+<p>Integrals of the form \( \int_{-\infty}^\infty f(x)e^{iax}\,dx \) where \( a > 0 \) can be evaluated using the residue theorem. The exponential factor \( e^{iaz} \) decays in the upper half-plane when \( a > 0 \), which helps us apply Jordan's lemma.</p>
+
+<blockquote>
+<p>形式为 \( \int_{-\infty}^\infty f(x)e^{iax}\,dx \) 的积分(其中 \( a > 0 \))可以使用留数定理来评估。当 \( a > 0 \) 时,指数因子 \( e^{iaz} \) 在上半平面衰减,这有助于我们应用约旦引理。</p>
+</blockquote>
+
+<h2>Application 4: Summation of Series</h2>
+
+<p>The residue theorem can also be used to sum certain infinite series. By finding a function with simple poles at the integers (or other discrete points) with residues equal to the terms of the series, we can sometimes evaluate the sum by integrating around a suitable contour.</p>
+
+<blockquote>
+<p>留数定理也可用于对某些无穷级数求和。通过找到在整数(或其他离散点)处具有简单极点且留数等于级数项的函数,我们有时可以通过围绕合适的围道积分来评估和。</p>
+</blockquote>
+
+<div class="example">
+<div class="example-title">Example: Using \( \pi \cot(\pi z) \)</div>
+<p>The function \( f(z) = \pi \cot(\pi z) \) has simple poles at every integer \( n \) with residue 1. This can be used to sum series of the form \( \sum_{n=-\infty}^\infty g(n) \) where \( g \) is a suitable function.</p>
+</div>
+
+<blockquote>
+<div class="example-title">例子:使用 \( \pi \cot(\pi z) \)</div>
+<p>函数 \( f(z) = \pi \cot(\pi z) \) 在每个整数 \( n \) 处有简单极点,留数为1。这可用于对形式为 \( \sum_{n=-\infty}^\infty g(n) \) 的级数求和,其中 \( g \) 是合适的函数。</p>
+</blockquote>
+
+<h2>Application 5: Inverse Laplace Transforms</h2>
+
+<p>The residue theorem is fundamental in computing inverse Laplace transforms, which are important in differential equations and control theory. The Bromwich integral formula expresses the inverse Laplace transform as a contour integral that can be evaluated using residues.</p>
+
+<blockquote>
+<p>留数定理在计算拉普拉斯逆变换中是基础性的,这在微分方程和控制理论中很重要。布罗米奇积分公式将拉普拉斯逆变换表示为可以使用留数评估的围道积分。</p>
+</blockquote>
+
+<h2>Techniques and Methods</h2>
+
+<h3>Jordan's Lemma</h3>
+<p>Jordan's lemma provides conditions under which the integral over a semicircular arc vanishes as the radius tends to infinity. This is crucial for evaluating improper integrals using contour integration.</p>
+
+<blockquote>
+<h3>约旦引理</h3>
+<p>约旦引理提供了半圆弧上的积分在半径趋于无穷时消失的条件。这对于使用围道积分评估广义积分至关重要。</p>
+</blockquote>
+
+<h3>Principal Value Integrals</h3>
+<p>When singularities lie on the real axis, we use the Cauchy principal value. The contribution from a simple pole on the contour is \( \pi i \) times the residue (half of \( 2\pi i \)).</p>
+
+<blockquote>
+<h3>主值积分</h3>
+<p>当奇点位于实轴上时,我们使用柯西主值。围道上简单极点的贡献是留数的 \( \pi i \) 倍(\( 2\pi i \) 的一半)。</p>
+</blockquote>
+
+<h2>Summary</h2>
+
+<p>The residue theorem is a versatile tool with applications far beyond the simple evaluation of complex integrals. Its power lies in transforming difficult real-variable problems into more tractable complex-variable problems. The applications covered in these notes—evaluation of real integrals, summation of series, and inverse transforms—represent just a fraction of the theorem's utility in mathematics, physics, and engineering.</p>
+
+<blockquote>
+<p>留数定理是一个多功能工具,其应用远远超出简单的复积分评估。它的力量在于将困难的实变量问题转化为更易处理的复变量问题。这些笔记中涵盖的应用——实积分评估、级数求和和逆变换——只代表该定理在数学、物理和工程中效用的一小部分。</p>
+</blockquote>
+
+<div class="exercises">
+<h3>Practice Exercises</h3>
+<div class="exercise-item"><strong>1.</strong> Evaluate \( \int_0^{2\pi} \frac{d\theta}{2 + \cos\theta} \) using residue theory.</div>
+<blockquote><strong>1.</strong> 使用留数理论求 \( \int_0^{2\pi} \frac{d\theta}{2 + \cos\theta} \)。</blockquote>
+
+<div class="exercise-item"><strong>2.</strong> Compute \( \int_{-\infty}^\infty \frac{dx}{1+x^4} \) using contour integration.</div>
+<blockquote><strong>2.</strong> 使用围道积分计算 \( \int_{-\infty}^\infty \frac{dx}{1+x^4} \)。</blockquote>
+
+<div class="exercise-item"><strong>3.</strong> Evaluate \( \int_{-\infty}^\infty \frac{\cos x}{1+x^2}\,dx \) using the residue theorem.</div>
+<blockquote><strong>3.</strong> 使用留数定理求 \( \int_{-\infty}^\infty \frac{\cos x}{1+x^2}\,dx \)。</blockquote>
+
+<div class="exercise-item"><strong>4.</strong> Use residues to sum the series \( \sum_{n=1}^\infty \frac{1}{n^2} \).</div>
+<blockquote><strong>4.</strong> 使用留数对级数 \( \sum_{n=1}^\infty \frac{1}{n^2} \) 求和。</blockquote>
+</div>
+
+<div class="note">
+<p><strong>Acknowledgment:</strong> The author would like to thank Frederick Akalin for pointing out a couple of typos in the original version.</p>
+</div>
+
+<blockquote>
+<div class="note">
+<p><strong>致谢:</strong> 作者感谢 Frederick Akalin 指出原版中的几个打字错误。</p>
+</div>
+</blockquote>
+
+</div></body>
+</html>

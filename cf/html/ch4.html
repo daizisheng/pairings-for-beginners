@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Integration</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 0.3em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            color: #2c3e50;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 1.5em;
+            color: #34495e;
+        }
+        p {
+            margin: 1em 0;
+            text-align: justify;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background-color: #ecf0f1;
+            font-style: normal;
+            color: #555;
+        }
+        .exercises {
+            background-color: #f8f9fa;
+            padding: 1.5em;
+            margin: 2em 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 4px;
+        }
+        .exercises h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .exercise-item {
+            margin: 1em 0;
+            padding-left: 1.5em;
+        }
+        .example {
+            background-color: #fff9e6;
+            padding: 1em;
+            margin: 1.5em 0;
+            border-left: 4px solid #f39c12;
+            border-radius: 4px;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 0.5em;
+        }
+        .figure {
+            text-align: center;
+            margin: 2em 0;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .figure-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5em;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Chapter Four<br>Integration</h1>
+
+        <blockquote>
+            <h1 style="text-align: center; font-size: 2.2em;">第四章<br>积分</h1>
+        </blockquote>
+
+        <h2>4.1 Introduction</h2>
+
+        <p>If \( \phi: D \to \mathbb{C} \) is simply a function on a real interval \( D = [\alpha, \beta] \), then the integral \( \int_\alpha^\beta \phi(t)\,dt \) is, of course, simply an ordered pair of everyday 3rd grade calculus integrals:</p>
+
+        <p>\[ \int_\alpha^\beta \phi(t)\,dt = \int_\alpha^\beta x(t)\,dt + i\int_\alpha^\beta y(t)\,dt, \]</p>
+
+        <p>where \( \phi(t) = x(t) + iy(t) \). Thus, for example,</p>
+
+        <p>\[ \int_0^1 (t^2 + 1 + it^3)\,dt = \frac{4}{3} + \frac{i}{4}. \]</p>
+
+        <p>Nothing really new here. The excitement begins when we consider the idea of an integral of an honest-to-goodness complex function \( f: D \to \mathbb{C} \), where \( D \) is a subset of the complex plane. Let's define the integral of such things; it is pretty much a straight-forward extension to two dimensions of what we did in one dimension back in Mrs. Turner's class.</p>
+
+        <blockquote>
+            <p>如果 \( \phi: D \to \mathbb{C} \) 只是实区间 \( D = [\alpha, \beta] \) 上的函数,那么积分 \( \int_\alpha^\beta \phi(t)\,dt \) 当然只是日常三年级微积分积分的有序对:</p>
+
+            <p>\[ \int_\alpha^\beta \phi(t)\,dt = \int_\alpha^\beta x(t)\,dt + i\int_\alpha^\beta y(t)\,dt, \]</p>
+
+            <p>其中 \( \phi(t) = x(t) + iy(t) \)。因此,例如,</p>
+
+            <p>\[ \int_0^1 (t^2 + 1 + it^3)\,dt = \frac{4}{3} + \frac{i}{4}. \]</p>
+
+            <p>这里真的没有什么新东西。当我们考虑一个真正的复变函数 \( f: D \to \mathbb{C} \) 的积分概念时,激动人心的部分开始了,其中 \( D \) 是复平面的子集。让我们定义这类事物的积分;它基本上是我们在特纳老师的课上所做的一维工作的直接二维扩展。</p>
+        </blockquote>
+
+        <p>Suppose \( f \) is a complex-valued function on a subset of the complex plane and suppose \( a \) and \( b \) are complex numbers in the domain of \( f \). In one dimension, there is just one way to get from one number to the other; here we must also specify a path from \( a \) to \( b \). Let \( C \) be a path from \( a \) to \( b \), and we must also require that \( C \) be a subset of the domain of \( f \).</p>
+
+        <blockquote>
+            <p>假设 \( f \) 是复平面子集上的复值函数,并且假设 \( a \) 和 \( b \) 是 \( f \) 定义域中的复数。在一维中,从一个数到另一个数只有一种方式;这里我们还必须指定从 \( a \) 到 \( b \) 的路径。设 \( C \) 是从 \( a \) 到 \( b \) 的路径,我们还必须要求 \( C \) 是 \( f \) 定义域的子集。</p>
+        </blockquote>
+
+        <p>Note we do not even require that \( a \neq b \); but in case \( a = b \), we must specify an orientation for the closed path \( C \). We call a path, or curve, closed in case the initial and terminal points are the same, and a simple closed path is one in which no other points coincide. Next, let \( P \) be a partition of the curve; that is, \( P = \{z_0, z_1, z_2, \ldots, z_n\} \) is a finite subset of \( C \), such that \( a = z_0 \), \( b = z_n \), and such that \( z_j \) comes immediately after \( z_{j-1} \) as we travel along \( C \) from \( a \) to \( b \).</p>
+
+        <p>A Riemann sum associated with the partition \( P \) is just what it is in the real case:</p>
+
+        <p>\[ S(P) = \sum_{j=1}^n f(z_j^*)\Delta z_j, \]</p>
+
+        <p>where \( z_j^* \) is a point on the arc between \( z_{j-1} \) and \( z_j \), and \( \Delta z_j = z_j - z_{j-1} \). (Note that for a given partition \( P \), there are many \( S(P) \)—depending on how the points \( z_j^* \) are chosen.) If there is a number \( L \) so that given any \( \varepsilon > 0 \), there is a partition \( P_\varepsilon \) of \( C \) such that</p>
+
+        <p>\[ |S(P) - L| < \varepsilon \]</p>
+
+        <p>whenever \( P \supset P_\varepsilon \), then \( f \) is said to be integrable on \( C \) and the number \( L \) is called the integral of \( f \) on \( C \). This number \( L \) is usually written \( \int_C f(z)\,dz \).</p>
+
+        <blockquote>
+            <p>注意我们甚至不要求 \( a \neq b \);但如果 \( a = b \),我们必须为闭合路径 \( C \) 指定方向。如果初始点和终点相同,我们称路径或曲线为闭合的,简单闭合路径是指没有其他点重合的路径。接下来,设 \( P \) 是曲线的一个分割;也就是说,\( P = \{z_0, z_1, z_2, \ldots, z_n\} \) 是 \( C \) 的有限子集,使得 \( a = z_0 \),\( b = z_n \),并且当我们沿着 \( C \) 从 \( a \) 到 \( b \) 时,\( z_j \) 紧接在 \( z_{j-1} \) 之后。</p>
+
+            <p>与分割 \( P \) 相关的黎曼和就是实数情况下的黎曼和:\[ S(P) = \sum_{j=1}^n f(z_j^*)\Delta z_j, \] 其中 \( z_j^* \) 是 \( z_{j-1} \) 和 \( z_j \) 之间弧上的点,\( \Delta z_j = z_j - z_{j-1} \)。如果存在数 \( L \) 使得给定任何 \( \varepsilon > 0 \),存在 \( C \) 的分割 \( P_\varepsilon \) 使得 \( |S(P) - L| < \varepsilon \),则称 \( f \) 在 \( C \) 上可积,数 \( L \) 称为 \( f \) 在 \( C \) 上的积分。这个数 \( L \) 通常写作 \( \int_C f(z)\,dz \)。</p>
+        </blockquote>
+
+        <p>Some properties of integrals are more or less evident from looking at Riemann sums:</p>
+
+        <p>\[ \int_C cf(z)\,dz = c\int_C f(z)\,dz \]</p>
+
+        <p>for any complex constant \( c \).</p>
+
+        <p>\[ \int_C [f(z) + g(z)]\,dz = \int_C f(z)\,dz + \int_C g(z)\,dz \]</p>
+
+        <blockquote>
+            <p>积分的一些性质从黎曼和来看或多或少是显而易见的:</p>
+
+            <p>\[ \int_C cf(z)\,dz = c\int_C f(z)\,dz \]</p>
+
+            <p>对于任何复常数 \( c \)。</p>
+
+            <p>\[ \int_C [f(z) + g(z)]\,dz = \int_C f(z)\,dz + \int_C g(z)\,dz \]</p>
+        </blockquote>
+
+        <h2>4.2 Evaluating Integrals</h2>
+
+        <p>Now, how on Earth do we ever find such an integral? Let \( \phi: [\alpha, \beta] \to \mathbb{C} \) be a complex description of the curve \( C \). We partition \( C \) by partitioning the interval \( [\alpha, \beta] \) in the usual way: \( \alpha = t_0 < t_1 < t_2 < \cdots < t_n = \beta \). Then \( \{a = \phi(\alpha), \phi(t_1), \phi(t_2), \ldots, \phi(\beta) = b\} \) is partition of \( C \). (Recall we assume that \( \phi'(t) \neq 0 \) for a complex description of a curve \( C \).) A corresponding Riemann sum looks like</p>
+
+        <p>\[ S(P) = \sum_{j=1}^n f(\phi(t_j^*))\Delta\phi_j. \]</p>
+
+        <p>We have chosen the points \( z_j^* = \phi(t_j^*) \), where \( t_{j-1} < t_j^* < t_j \). Next, multiply each term in the sum by 1 in disguise:</p>
+
+        <p>\[ S(P) = \sum_{j=1}^n f(\phi(t_j^*))\frac{\Delta\phi_j}{\Delta t_j}\Delta t_j. \]</p>
+
+        <p>I hope it is now reasonably convincing that "in the limit", we have</p>
+
+        <p>\[ \int_C f(z)\,dz = \int_\alpha^\beta f(\phi(t))\phi'(t)\,dt. \]</p>
+
+        <p>(We are, of course, assuming that the derivative \( \phi' \) exists.)</p>
+
+        <blockquote>
+            <p>现在,我们究竟如何找到这样的积分?设 \( \phi: [\alpha, \beta] \to \mathbb{C} \) 是曲线 \( C \) 的复数描述。我们通过以通常方式分割区间 \( [\alpha, \beta] \) 来分割 \( C \):\( \alpha = t_0 < t_1 < t_2 < \cdots < t_n = \beta \)。然后 \( \{a = \phi(\alpha), \phi(t_1), \phi(t_2), \ldots, \phi(\beta) = b\} \) 是 \( C \) 的分割。相应的黎曼和看起来像 \[ S(P) = \sum_{j=1}^n f(\phi(t_j^*))\Delta\phi_j. \] 我们选择点 \( z_j^* = \phi(t_j^*) \),其中 \( t_{j-1} < t_j^* < t_j \)。接下来,将和中的每一项乘以伪装的1。我希望现在"在极限下"相当令人信服地有 \[ \int_C f(z)\,dz = \int_\alpha^\beta f(\phi(t))\phi'(t)\,dt. \] (我们当然假设导数 \( \phi' \) 存在。)</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+
+            <p>We shall find the integral of \( f(z) = x^2 + y + ixy \) from \( a = 0 \) to \( b = 1 + i \) along three different paths, or contours, as some call them.</p>
+
+            <p><strong>First</strong>, let \( C_1 \) be the part of the parabola \( y = x^2 \) connecting the two points. A complex description of \( C_1 \) is \( \phi_1(t) = t + it^2 \), \( 0 \leq t \leq 1 \):</p>
+        </div>
+
+        <div class="figure">
+            <img src="images/ch4_p1_Im1.png" alt="Path C1 along parabola">
+            <div class="figure-caption">Figure: Integration path \( C_1 \) along parabola \( y = x^2 \)</div>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>我们将沿三条不同的路径或轮廓(有些人这样称呼)求函数 \( f(z) = x^2 + y + ixy \) 从 \( a = 0 \) 到 \( b = 1 + i \) 的积分。</p>
+            <p><strong>首先</strong>,设 \( C_1 \) 是连接两点的抛物线 \( y = x^2 \) 的部分。\( C_1 \) 的复数描述是 \( \phi_1(t) = t + it^2 \),\( 0 \leq t \leq 1 \):</p>
+        </blockquote>
+
+        <blockquote>
+            <p class="figure-caption">图:沿抛物线 \( y = x^2 \) 的积分路径 \( C_1 \)</p>
+        </blockquote>
+
+        <div class="example">
+            <p>Now, \( \phi_1'(t) = 1 + 2ti \), and \( f(\phi_1(t)) = t^2 + t^2 + i(t)(t^2) = 2t^2 + it^3 \). Hence,</p>
+
+            <p>\[ \int_{C_1} f(z)\,dz = \int_0^1 f(\phi_1(t))\phi_1'(t)\,dt \]</p>
+            <p>\[ = \int_0^1 (2t^2 + it^3)(1 + 2ti)\,dt \]</p>
+            <p>\[ = \int_0^1 (2t^2 - 2t^4 + 5t^3i)\,dt \]</p>
+            <p>\[ = \frac{4}{15} + \frac{5i}{4} \]</p>
+
+            <p><strong>Next</strong>, let's integrate along the straight line segment \( C_2 \) joining 0 and \( 1 + i \).</p>
+        </div>
+
+        <div class="figure">
+            <img src="images/ch4_p2_Im2.png" alt="Path C2 straight line">
+            <div class="figure-caption">Figure: Integration path \( C_2 \) along straight line</div>
+        </div>
+
+        <blockquote>
+            <p>现在,\( \phi_1'(t) = 1 + 2ti \),\( f(\phi_1(t)) = t^2 + t^2 + i(t)(t^2) = 2t^2 + it^3 \)。因此,</p>
+
+            <p>\[ \int_{C_1} f(z)\,dz = \int_0^1 (2t^2 - 2t^4 + 5t^3i)\,dt = \frac{4}{15} + \frac{5i}{4} \]</p>
+
+            <p><strong>接下来</strong>,让我们沿连接0和 \( 1 + i \) 的直线段 \( C_2 \) 积分。</p>
+        </blockquote>
+
+        <blockquote>
+            <p class="figure-caption">图:沿直线的积分路径 \( C_2 \)</p>
+        </blockquote>
+
+        <div class="example">
+            <p>Here we have \( \phi_2(t) = t + it \), \( 0 \leq t \leq 1 \). Thus, \( \phi_2'(t) = 1 + i \), and our integral looks like</p>
+
+            <p>\[ \int_{C_2} f(z)\,dz = \int_0^1 f(\phi_2(t))\phi_2'(t)\,dt \]</p>
+            <p>\[ = \int_0^1 (t^2 + t + it^2)(1 + i)\,dt \]</p>
+            <p>\[ = \int_0^1 (t - it + 2t^2)\,dt \]</p>
+            <p>\[ = \frac{1}{2} + \frac{7i}{6} \]</p>
+
+            <p><strong>Finally</strong>, let's integrate along \( C_3 \), the path consisting of the line segment from 0 to 1 together with the segment from 1 to \( 1 + i \).</p>
+
+            <p>We shall do this in two parts: \( C_{31} \), the line from 0 to 1; and \( C_{32} \), the line from 1 to \( 1 + i \). Then we have</p>
+
+            <p>\[ \int_{C_3} f(z)\,dz = \int_{C_{31}} f(z)\,dz + \int_{C_{32}} f(z)\,dz. \]</p>
+
+            <p>For \( C_{31} \) we have \( \phi(t) = t \), \( 0 \leq t \leq 1 \). Hence,</p>
+
+            <p>\[ \int_{C_{31}} f(z)\,dz = \int_0^1 t^2\,dt = \frac{1}{3}. \]</p>
+
+            <p>For \( C_{32} \) we have \( \phi(t) = 1 + it \), \( 0 \leq t \leq 1 \). Hence,</p>
+
+            <p>\[ \int_{C_{32}} f(z)\,dz = \int_0^1 (1 + t + it)i\,dt = -\frac{1}{2} + \frac{3i}{2}. \]</p>
+
+            <p>Thus,</p>
+
+            <p>\[ \int_{C_3} f(z)\,dz = \int_{C_{31}} f(z)\,dz + \int_{C_{32}} f(z)\,dz = \frac{1}{6} + \frac{3i}{2}. \]</p>
+        </div>
+
+        <blockquote>
+            <p>这里我们有 \( \phi_2(t) = t + it \),\( 0 \leq t \leq 1 \)。因此,\( \phi_2'(t) = 1 + i \),我们的积分看起来像 \[ \int_{C_2} f(z)\,dz = \int_0^1 (t - it + 2t^2)\,dt = \frac{1}{2} + \frac{7i}{6} \]</p>
+
+            <p><strong>最后</strong>,让我们沿 \( C_3 \) 积分,该路径由从0到1的线段和从1到 \( 1 + i \) 的线段组成。我们将分两部分进行:\( C_{31} \),从0到1的线;\( C_{32} \),从1到 \( 1 + i \) 的线。经过计算,\[ \int_{C_3} f(z)\,dz = \frac{1}{6} + \frac{3i}{2}. \]</p>
+        </blockquote>
+
+        <p>Suppose there is a number \( M \) so that \( |f(z)| \leq M \) for all \( z \in C \). Then</p>
+
+        <p>\[ \left|\int_C f(z)\,dz\right| = \left|\int_\alpha^\beta f(\phi(t))\phi'(t)\,dt\right| \]</p>
+        <p>\[ \leq \int_\alpha^\beta |f(\phi(t))\phi'(t)|\,dt \]</p>
+        <p>\[ \leq M\int_\alpha^\beta |\phi'(t)|\,dt = ML, \]</p>
+
+        <p>where \( L = \int_\alpha^\beta |\phi'(t)|\,dt \) is the length of \( C \).</p>
+
+        <blockquote>
+            <p>假设存在数 \( M \) 使得对所有 \( z \in C \) 有 \( |f(z)| \leq M \)。那么 \[ \left|\int_C f(z)\,dz\right| \leq ML, \] 其中 \( L = \int_\alpha^\beta |\phi'(t)|\,dt \) 是 \( C \) 的长度。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>1.</strong> Evaluate the integral \( \int_C z\,dz \), where \( C \) is the parabola \( y = x^2 \) from 0 to \( 1 + i \).
+            </div>
+
+            <blockquote>
+                <strong>1.</strong> 求积分 \( \int_C z\,dz \),其中 \( C \) 是从0到 \( 1 + i \) 的抛物线 \( y = x^2 \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>2.</strong> Evaluate \( \int_C \frac{1}{z}\,dz \), where \( C \) is the circle of radius 2 centered at 0 oriented counterclockwise.
+            </div>
+
+            <blockquote>
+                <strong>2.</strong> 求 \( \int_C \frac{1}{z}\,dz \),其中 \( C \) 是以0为中心、半径为2的逆时针方向的圆。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>4.</strong> Evaluate \( \int_C f(z)\,dz \), where \( C \) is the curve \( y = x^3 \) from \( -1 - i \) to \( 1 + i \), and
+                \[ f(z) = \begin{cases} 1 & \text{for } y \geq 0 \\ 4y & \text{for } y < 0 \end{cases} \]
+            </div>
+
+            <blockquote>
+                <strong>4.</strong> 求 \( \int_C f(z)\,dz \),其中 \( C \) 是从 \( -1 - i \) 到 \( 1 + i \) 的曲线 \( y = x^3 \),且
+                \[ f(z) = \begin{cases} 1 & \text{当 } y \geq 0 \\ 4y & \text{当 } y < 0 \end{cases} \]
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>5.</strong> Let \( C \) be the part of the circle \( \phi(t) = e^{it} \) in the first quadrant from \( a = 1 \) to \( b = i \). Find as small an upper bound as you can for \( \left|\int_C (z^2 + z^4 + 5)\,dz\right| \).
+            </div>
+
+            <blockquote>
+                <strong>5.</strong> 设 \( C \) 是第一象限中从 \( a = 1 \) 到 \( b = i \) 的圆 \( \phi(t) = e^{it} \) 的部分。求 \( \left|\int_C (z^2 + z^4 + 5)\,dz\right| \) 的尽可能小的上界。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>6.</strong> Evaluate \( \int_C f(z)\,dz \) where \( f(z) = z + 2\bar{z} \) and \( C \) is the path from \( z = 0 \) to \( z = 1 + 2i \) consisting of the line segment from 0 to 1 together with the segment from 1 to \( 1 + 2i \).
+            </div>
+
+            <blockquote>
+                <strong>6.</strong> 求 \( \int_C f(z)\,dz \),其中 \( f(z) = z + 2\bar{z} \),\( C \) 是从 \( z = 0 \) 到 \( z = 1 + 2i \) 的路径,由从0到1的线段和从1到 \( 1 + 2i \) 的线段组成。
+            </blockquote>
+        </div>
+
+        <h2>4.3 Antiderivatives</h2>
+
+        <p>Suppose \( D \) is a subset of the reals and \( \phi: D \to \mathbb{C} \) is differentiable at \( t \). Suppose further that \( g \) is differentiable at \( \phi(t) \). Then let's see about the derivative of the composition \( g(\phi(t)) \). It is, in fact, exactly what one would guess. First,</p>
+
+        <p>\[ g(\phi(t)) = u(x(t), y(t)) + iv(x(t), y(t)), \]</p>
+
+        <p>where \( g(z) = u(x,y) + iv(x,y) \) and \( \phi(t) = x(t) + iy(t) \). Then,</p>
+
+        <p>\[ \frac{d}{dt}g(\phi(t)) = \frac{\partial u}{\partial x}\frac{dx}{dt} + \frac{\partial u}{\partial y}\frac{dy}{dt} + i\left(\frac{\partial v}{\partial x}\frac{dx}{dt} + \frac{\partial v}{\partial y}\frac{dy}{dt}\right). \]</p>
+
+        <p>The places at which the functions on the right-hand side of the equation are evaluated are obvious. Now, apply the Cauchy-Riemann equations:</p>
+
+        <p>\[ \frac{d}{dt}g(\phi(t)) = \frac{\partial u}{\partial x}\frac{dx}{dt} + \frac{\partial v}{\partial x}\frac{dy}{dt} + i\left(\frac{\partial v}{\partial x}\frac{dx}{dt} - \frac{\partial u}{\partial x}\frac{dy}{dt}\right) \]</p>
+        <p>\[ = \left(\frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x}\right)\left(\frac{dx}{dt} + i\frac{dy}{dt}\right) \]</p>
+        <p>\[ = g'(\phi(t))\phi'(t). \]</p>
+
+        <p>The nicest result in the world!</p>
+
+        <blockquote>
+            <p>假设 \( D \) 是实数的子集,\( \phi: D \to \mathbb{C} \) 在 \( t \) 处可微。进一步假设 \( g \) 在 \( \phi(t) \) 处可微。那么让我们看看复合 \( g(\phi(t)) \) 的导数。实际上,它恰好是人们会猜到的。通过柯西-黎曼方程,我们得到 \[ \frac{d}{dt}g(\phi(t)) = g'(\phi(t))\phi'(t). \] 这是世界上最好的结果!</p>
+        </blockquote>
+
+        <p>Now, back to integrals. Let \( F: D \to \mathbb{C} \) and suppose \( F'(z) = f(z) \) in \( D \). Suppose moreover that \( a \) and \( b \) are in \( D \) and that \( C \subset D \) is a contour from \( a \) to \( b \). Then</p>
+
+        <p>\[ \int_C f(z)\,dz = \int_\alpha^\beta f(\phi(t))\phi'(t)\,dt, \]</p>
+
+        <p>where \( \phi: [\alpha, \beta] \to \mathbb{C} \) describes \( C \). From our introductory discussion, we know that \( \frac{d}{dt}F(\phi(t)) = F'(\phi(t))\phi'(t) = f(\phi(t))\phi'(t) \). Hence,</p>
+
+        <p>\[ \int_C f(z)\,dz = \int_\alpha^\beta f(\phi(t))\phi'(t)\,dt = \int_\alpha^\beta \frac{d}{dt}F(\phi(t))\,dt = F(\phi(\beta)) - F(\phi(\alpha)) = F(b) - F(a). \]</p>
+
+        <p>This is very pleasing. Note that integral depends only on the points \( a \) and \( b \) and not at all on the path \( C \). We say the integral is <strong>path independent</strong>. Observe that this is equivalent to saying that the integral of \( f \) around any closed path is 0. We have thus shown that if in \( D \) the integrand \( f \) is the derivative of a function \( F \), then any integral \( \int_C f(z)\,dz \) for \( C \subset D \) is path independent.</p>
+
+        <blockquote>
+            <p>现在,回到积分。设 \( F: D \to \mathbb{C} \) 并假设在 \( D \) 中 \( F'(z) = f(z) \)。进一步假设 \( a \) 和 \( b \) 在 \( D \) 中,\( C \subset D \) 是从 \( a \) 到 \( b \) 的轮廓。那么 \[ \int_C f(z)\,dz = F(b) - F(a). \] 这非常令人愉快。注意积分仅依赖于点 \( a \) 和 \( b \),而完全不依赖于路径 \( C \)。我们说积分是<strong>路径无关的</strong>。观察这等价于说 \( f \) 沿任何闭合路径的积分为0。因此我们证明了,如果在 \( D \) 中被积函数 \( f \) 是函数 \( F \) 的导数,那么对于 \( C \subset D \) 的任何积分 \( \int_C f(z)\,dz \) 都是路径无关的。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+
+            <p>Let \( C \) be the curve \( y = \frac{1}{x^2} \) from the point \( z = 1 + i \) to the point \( z = 3 + \frac{i}{9} \). Let's find \( \int_C z^2\,dz \).</p>
+
+            <p>This is easy—we know that \( F'(z) = z^2 \), where \( F(z) = \frac{1}{3}z^3 \). Thus,</p>
+
+            <p>\[ \int_C z^2\,dz = \frac{1}{3}\left[\left(1 + i\right)^3 - \left(3 + \frac{i}{9}\right)^3\right] = \frac{260}{27} - \frac{728i}{2187} \]</p>
+        </div>
+
+        <blockquote>
+            <div class="example-title">例子</div>
+            <p>设 \( C \) 是从点 \( z = 1 + i \) 到点 \( z = 3 + \frac{i}{9} \) 的曲线 \( y = \frac{1}{x^2} \)。让我们求 \( \int_C z^2\,dz \)。这很容易——我们知道 \( F'(z) = z^2 \),其中 \( F(z) = \frac{1}{3}z^3 \)。因此,\[ \int_C z^2\,dz = \frac{1}{3}\left[\left(1 + i\right)^3 - \left(3 + \frac{i}{9}\right)^3\right] = \frac{260}{27} - \frac{728i}{2187} \]</p>
+        </blockquote>
+
+        <p>Now, instead of assuming \( f \) has an antiderivative, let us suppose that the integral of \( f \) between any two points in the domain is independent of path and that \( f \) is continuous. Assume also that every point in the domain \( D \) is an interior point of \( D \) and that \( D \) is connected. We shall see that in this case, \( f \) has an antiderivative. To do so, let \( z_0 \) be any point in \( D \), and define the function \( F \) by</p>
+
+        <p>\[ F(z) = \int_{C_z} f(s)\,ds, \]</p>
+
+        <p>where \( C_z \) is any path in \( D \) from \( z_0 \) to \( z \). Here is important that the integral is path independent, otherwise \( F(z) \) would not be well-defined. Note also we need the assumption that \( D \) is connected in order to be sure there always is at least one such path.</p>
+
+        <blockquote>
+            <p>现在,不假设 \( f \) 有原函数,让我们假设 \( f \) 在定义域中任意两点之间的积分是路径无关的,并且 \( f \) 是连续的。还假设定义域 \( D \) 中的每个点都是 \( D \) 的内点,并且 \( D \) 是连通的。我们将看到在这种情况下,\( f \) 有原函数。为此,设 \( z_0 \) 是 \( D \) 中的任意点,定义函数 \( F \) 为 \[ F(z) = \int_{C_z} f(s)\,ds, \] 其中 \( C_z \) 是 \( D \) 中从 \( z_0 \) 到 \( z \) 的任意路径。这里重要的是积分是路径无关的,否则 \( F(z) \) 将不是良定义的。还要注意我们需要 \( D \) 是连通的假设,以确保总是至少存在一条这样的路径。</p>
+        </blockquote>
+
+        <div class="figure">
+            <img src="images/ch4_p9_Im3.png" alt="Path independence illustration">
+            <div class="figure-caption">Figure: Path independence and antiderivatives</div>
+        </div>
+
+        <blockquote>
+            <p class="figure-caption">图:路径无关性和原函数</p>
+        </blockquote>
+
+        <p>Now, for the computation of the derivative of \( F \):</p>
+
+        <p>\[ F(z + \Delta z) - F(z) = \int_{L_{\Delta z}} f(s)\,ds, \]</p>
+
+        <p>where \( L_{\Delta z} \) is the line segment from \( z \) to \( z + \Delta z \).</p>
+
+        <p>Next, observe that \( \int_{L_{\Delta z}} ds = \Delta z \). Thus, \( f(z)\Delta z = \int_{L_{\Delta z}} f(z)\,ds \), and we have</p>
+
+        <p>\[ F(z + \Delta z) - F(z) - f(z)\Delta z = \int_{L_{\Delta z}} [f(s) - f(z)]\,ds. \]</p>
+
+        <p>Now then,</p>
+
+        <p>\[ \left|\int_{L_{\Delta z}} [f(s) - f(z)]\,ds\right| \leq \frac{1}{|\Delta z|}|\Delta z|\max\{|f(s) - f(z)| : s \in L_{\Delta z}\} \]</p>
+        <p>\[ = \max\{|f(s) - f(z)| : s \in L_{\Delta z}\}. \]</p>
+
+        <p>We know \( f \) is continuous at \( z \), and so \( \lim_{\Delta z \to 0}\max\{|f(s) - f(z)| : s \in L_{\Delta z}\} = 0 \). Hence,</p>
+
+        <p>\[ \lim_{\Delta z \to 0}\frac{F(z + \Delta z) - F(z)}{\Delta z} - f(z) = \lim_{\Delta z \to 0}\frac{1}{\Delta z}\int_{L_{\Delta z}} [f(s) - f(z)]\,ds = 0. \]</p>
+
+        <p>In other words, \( F'(z) = f(z) \), and so, just as promised, \( f \) has an antiderivative! Let's summarize what we have shown in this section:</p>
+
+        <p><strong>Theorem:</strong> Suppose \( f: D \to \mathbb{C} \) is continuous, where \( D \) is connected and every point of \( D \) is an interior point. Then \( f \) has an antiderivative if and only if the integral between any two points of \( D \) is path independent.</p>
+
+        <blockquote>
+            <p>现在,计算 \( F \) 的导数。经过计算,我们得到 \[ F'(z) = f(z), \] 所以,正如承诺的那样,\( f \) 有原函数!让我们总结一下本节所证明的内容:</p>
+
+            <p><strong>定理:</strong> 假设 \( f: D \to \mathbb{C} \) 是连续的,其中 \( D \) 是连通的,\( D \) 的每个点都是内点。那么 \( f \) 有原函数当且仅当 \( D \) 中任意两点之间的积分是路径无关的。</p>
+        </blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item">
+                <strong>7.</strong> Suppose \( C \) is any curve from 0 to \( \pi + 2i \). Evaluate the integral \( \int_C \cos\frac{z}{2}\,dz \).
+            </div>
+
+            <blockquote>
+                <strong>7.</strong> 假设 \( C \) 是从0到 \( \pi + 2i \) 的任意曲线。求积分 \( \int_C \cos\frac{z}{2}\,dz \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>8.</strong> a) Let \( F(z) = \log z \), \( -\frac{3\pi}{4} < \arg z < \frac{5\pi}{4} \). Show that the derivative \( F'(z) = \frac{1}{z} \).
+                <br>b) Let \( G(z) = \log z \), \( -\frac{\pi}{4} < \arg z < \frac{7\pi}{4} \). Show that the derivative \( G'(z) = \frac{1}{z} \).
+                <br>c) Let \( C_1 \) be a curve in the right-half plane \( D_1 = \{z : \text{Re}\,z > 0\} \) from \( i \) to \( -i \) that does not pass through the origin. Find the integral \( \int_{C_1} \frac{1}{z}\,dz \).
+                <br>d) Let \( C_2 \) be a curve in the left-half plane \( D_2 = \{z : \text{Re}\,z < 0\} \) from \( i \) to \( -i \) that does not pass through the origin. Find the integral \( \int_{C_2} \frac{1}{z}\,dz \).
+            </div>
+
+            <blockquote>
+                <strong>8.</strong> a) 设 \( F(z) = \log z \),\( -\frac{3\pi}{4} < \arg z < \frac{5\pi}{4} \)。证明导数 \( F'(z) = \frac{1}{z} \)。
+                <br>b) 设 \( G(z) = \log z \),\( -\frac{\pi}{4} < \arg z < \frac{7\pi}{4} \)。证明导数 \( G'(z) = \frac{1}{z} \)。
+                <br>c) 设 \( C_1 \) 是右半平面 \( D_1 = \{z : \text{Re}\,z > 0\} \) 中从 \( i \) 到 \( -i \) 且不经过原点的曲线。求积分 \( \int_{C_1} \frac{1}{z}\,dz \)。
+                <br>d) 设 \( C_2 \) 是左半平面 \( D_2 = \{z : \text{Re}\,z < 0\} \) 中从 \( i \) 到 \( -i \) 且不经过原点的曲线。求积分 \( \int_{C_2} \frac{1}{z}\,dz \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>9.</strong> Let \( C \) be the circle of radius 1 centered at 0 with the clockwise orientation. Find \( \int_C \frac{1}{z}\,dz \).
+            </div>
+
+            <blockquote>
+                <strong>9.</strong> 设 \( C \) 是以0为中心、半径为1的顺时针方向的圆。求 \( \int_C \frac{1}{z}\,dz \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>10.</strong> a) Let \( H(z) = z^c \), \( -\pi < \arg z < \pi \). Find the derivative \( H'(z) \).
+                <br>b) Let \( K(z) = z^c \), \( -\frac{\pi}{4} < \arg z < \frac{7\pi}{4} \). Find the derivative \( K'(z) \).
+                <br>c) Let \( C \) be any path from 1 to \( -1 \) that lies completely in the upper half-plane and does not pass through the origin. (Upper half-plane \( = \{z : \text{Im}\,z > 0\} \).) Find \( \int_C F(z)\,dz \), where \( F(z) = z^i \), \( -\pi < \arg z < \pi \).
+            </div>
+
+            <blockquote>
+                <strong>10.</strong> a) 设 \( H(z) = z^c \),\( -\pi < \arg z < \pi \)。求导数 \( H'(z) \)。
+                <br>b) 设 \( K(z) = z^c \),\( -\frac{\pi}{4} < \arg z < \frac{7\pi}{4} \)。求导数 \( K'(z) \)。
+                <br>c) 设 \( C \) 是完全位于上半平面且不经过原点的从1到 \( -1 \) 的任意路径。(上半平面 \( = \{z : \text{Im}\,z > 0\} \)。)求 \( \int_C F(z)\,dz \),其中 \( F(z) = z^i \),\( -\pi < \arg z < \pi \)。
+            </blockquote>
+
+            <div class="exercise-item">
+                <strong>11.</strong> Suppose \( P \) is a polynomial and \( C \) is a closed curve. Explain how you know that \( \int_C P(z)\,dz = 0 \).
+            </div>
+
+            <blockquote>
+                <strong>11.</strong> 假设 \( P \) 是多项式,\( C \) 是闭合曲线。解释你如何知道 \( \int_C P(z)\,dz = 0 \)。
+            </blockquote>
+        </div>
+
+    </div>
+</body>
+</html>

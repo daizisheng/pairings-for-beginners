@@ -1,0 +1,457 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Six
+More Integration
+6.1. Cauchy’s Integral Formula. Suppose f is analytic in a region containing a simple
+closed contour C with the usual positive orientation and its inside , and suppose z is inside
+0
+C. Then it turns out that
+fz   1  fz dz.
+0 2i z  z 0
+C
+This is the famous Cauchy Integral Formula. Let’s see why it’s true.
+Let   0 be any positive number. We know that f is continuous at z and so there is a
+0
+number  such that |fz  fz |   whenever |z  z |  . Now let   0 be a number
+0 0
+such that    and the circle C  z : |z  z |   is also inside C. Now, the function
+0 0
+fz is analytic in the region between C and C ; thus
+zz0 0
+
+fz
+dz  
+fz
+dz.
+z  z z  z
+0 0
+C C0
+We know that  1 dz  2i, so we can write
+zz0
+C0
+ fz dz  2ifz    fz dz  fz   1 dz
+z  z 0 z  z 0 z  z
+0 0 0
+C0 C0 C0
+  fz  fz 0  dz.
+z  z
+0
+C0
+For zC we have
+0
+fz  fz 0   |fz  fz 0 |
+z  z 0 |z  z 0 |
+
+ .
+
+Thus,
+6.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+ fz dz  2ifz    fz  fz 0  dz
+z  z 0 z  z
+0 0
+C0 C0
+
+ 2  2.
+
+But  is any positive number, and so
+
+fz
+dz  2ifz   0,
+z  z 0
+0
+C0
+or,
+fz   1  fz dz  1  fz dz,
+0 2i z  z 0 2i z  z 0
+C0 C
+which is exactly what we set out to show.
+Meditate on this result. It says that if f is analytic on and inside a simple closed curve and
+we know the values fz for every z on the simple closed curve, then we know the value for
+the function at every point inside the curve—quite remarkable indeed.
+Example
+Let C be the circle |z|  4 traversed once in the counterclockwise direction. Let’s evaluate
+the integral
+ cosz dz.
+z2  6z  5
+C
+We simply write the integrand as
+cosz cosz fz
+  ,
+z2  6z  5 z  5z  1 z  1
+where
+cosz
+fz  .
+z  5
+Observe that f is analytic on and inside C,and so,
+6.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+ cosz dz   fz dz  2if1
+z2  6z  5 z  1
+C C
+cos1 i
+ 2i   cos1
+1  5 2
+Exercises
+1. Suppose f and g are analytic on and inside the simple closed curve C, and suppose
+moreover that fz  gz for all z on C. Prove that fz  gz for all z inside C.
+2. Let C be the ellipse 9x2  4y2  36 traversed once in the counterclockwise direction.
+Define the function g by
+gz   s2  s  1 ds.
+s  z
+C
+Find a) gi b) g4i
+3. Find
+ e2z dz,
+z2  4
+C
+where C is the closed curve in the picture:
+4. Find  e2z dz, where  is the contour in the picture:
+z24
+
+6.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+6.2. Functions defined by integrals. Suppose C is a curve (not necessarily a simple closed
+curve, just a curve) and suppose the function g is continuous on C (not necessarily analytic,
+just continuous). Let the function G be defined by
+Gz  
+gs
+ds
+s  z
+C
+for all z  C. We shall show that G is analytic. Here we go.
+Consider,
+Gz  z  Gz  1  1  1 gsds
+z z s  z  z s  z
+C
+ 
+gs
+ds.
+s  z  zs  z
+C
+Next,
+Gz  z  Gz   gs ds   1  1 gsds
+z s  z2 s  z  zs  z s  z2
+C C
+  s  z  s  z  z gsds
+s  z  zs  z2
+C
+ z
+gs
+ds.
+s  z  zs  z2
+C
+Now we want to show that
+6.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+lim z
+gs
+ds  0.
+s  z  zs  z2
+z0
+C
+To that end, let M  max|gs| : s  C, and let d be the shortest distance fromz to C.
+Thus, for s  C, we have |s  z|  d  0 and also
+|s  z  z|  |s  z|  |z|  d  |z|.
+Putting this all together, we can estimate the integrand above:
+gs M
+
+s  z  zs  z2 d  |z|d2
+for all s  C. Finally,
+z gs ds  |z| M lengthC,
+s  z  zs  z2 d  |z|d2
+C
+and it is clear that
+lim z
+gs
+ds  0,
+s  z  zs  z2
+z0
+C
+just as we set out to show. Hence G has a derivative at z, and
+Gz  
+gs
+ds.
+s  z2
+C
+Truly a miracle!
+Next we see that G has a derivative and it is just what you think it should be. Consider
+6.5
+
+================================================================================
+PAGE 6
+================================================================================
+
+Gz  z  Gz  1  1  1 gsds
+z z s  z  z2 s  z2
+C
+ 1  s  z2  s  z  z2 gsds
+z s  z  z2s  z2
+C
+ 1  2s  zz  z2 gsds
+z s  z  z2s  z2
+C
+  2s  z  z gsds
+s  z  z2s  z2
+C
+Next,
+Gz  z  Gz  2 gs ds
+z s  z3
+C
+  2s  z  z  2 gsds
+s  z  z2s  z2 s  z3
+C
+  2s  z2  zs  z  2s  z  z2 gsds
+s  z  z2s  z3
+C
+  2s  z2  zs  z  2s  z2  4zs  z  2z2 gsds
+s  z  z2s  z3
+C
+  3zs  z  2z2 gsds
+s  z  z2s  z3
+C
+Hence,
+Gz  z  Gz  2 gs ds   3zs  z  2z2 gsds
+z s  z3 s  z  z2s  z3
+C C
+|3m|  2|z|M
+ |z| ,
+d  z2d3
+where m  max|s  z| : s  C. It should be clear then that
+lim Gz  z  Gz  2 gs ds  0,
+z s  z3
+z0
+C
+or in other words,
+6.6
+
+================================================================================
+PAGE 7
+================================================================================
+
+Gz  2
+gs
+ds.
+s  z3
+C
+Suppose f is analytic in a region D and suppose C is a positively oriented simple closed
+curve in D. Suppose also the inside of C is in D. Then fromthe Cauchy Integral formula,
+we know that
+2ifz  
+fs
+ds
+s  z
+C
+and so with g  f in the formulas just derived, we have
+fz  1  fs ds, and fz  2  fs ds
+2i s  z2 2i s  z3
+C C
+for all z inside the closed curve C. Meditate on these results. They say that the derivative
+of an analytic function is also analytic. Now suppose f is continuous on a domain D in
+which every point of D is an interior point and suppose that fzdz  0 for every closed
+C
+curve in D. Then we know that f has an antiderivative in D—in other words f is the
+derivative of an analytic function. We now know this means that f is itself analytic. We
+thus have the celebrated Morera’s Theorem:
+If f:D  C is continuous and such that fzdz  0 for every closed curve in D, then f is
+C
+analytic in D.
+Example
+Let’s evaluate the integral
+ ez dz,
+z3
+C
+where C is any positively oriented closed curve around the origin. We simply use the
+equation
+fz  2  fs ds
+2i s  z3
+C
+6.7
+
+================================================================================
+PAGE 8
+================================================================================
+
+with z  0 and fs  es.Thus,
+ie0  i   ez dz.
+z3
+C
+Exercises
+5. Evaluate
+ sinz dz
+z2
+C
+where C is a positively oriented closed curve around the origin.
+6. Let C be the circle |z  i|  2 with the positive orientation. Evaluate
+a)  1 dz b)  1 dz
+z24 z242
+C C
+7. Suppose f is analytic inside and on the simple closed curve C. Show that
+
+fz
+dz  
+fz
+dz
+z  w z  w2
+C C
+for every w  C.
+8. a) Let  be a real constant, and let C be the circle t  eit,   t  . Evaluate
+ ez dz.
+z
+C
+b) Use your answer in part a) to show that
+
+ecostcossintdt  .
+0
+6.3. Liouville’s Theorem. Suppose f is entire and bounded; that is, f is analytic in the
+entire plane and there is a constant M such that |fz|  M for all z. Then it must be true
+that fz  0 identically. To see this, suppose that fw  0 for some w. Choose R large
+enough to insure that M  |fw|. Now let C be a circle centered at 0 and with radius
+R
+6.8
+
+================================================================================
+PAGE 9
+================================================================================
+
+  maxR,|w|. Then we have :
+M  |fw|  1  fs ds
+ 2i s  w2
+C
+1 M M
+ 2  ,
+2 2 
+a contradiction. It must therefore be true that there is no w for which fw  0; or, in other
+words, fz  0 for all z. This, of course, means that f is a constant function. What we
+have shown has a name, Liouville’s Theorem:
+The only bounded entire functions are the constant functions.
+Let’s put this theoremto some good use. Let pz  a zn  a zn1 a z  a be a
+n n1 1 0
+polynomial. Then
+a a a
+pz  a  n1  n2  0 zn.
+n z z2 zn
+Now choose R large enough to insure that for each j  1,2,,n, we have anj  |an|
+zj 2n
+whenever |z|  R. (We are assuming that a  0.) Hence, for |z|  R, we know that
+n
+a a a
+|pz|  |a |  n1  n2  0 |z|n
+n z z2 zn
+a a a
+ |a |  n1  n2  0 |z|n
+n z z2 zn
+|a | |a | |a |
+ |a |  n  n  n |z|n
+n 2n 2n 2n
+|a |
+ n |z|n.
+2
+Hence, for |z|  R,
+1 2 2
+  .
+|pz| |a ||z|n |a |Rn
+n n
+Now suppose pz  0 for all z. Then 1 is also bounded on the disk |z|  R. Thus, 1
+pz pz
+is a bounded entire function, and hence, by Liouville’s Theorem, constant! Hence the
+polynomial is constant if it has no zeros. In other words, if pz is of degree at least one,
+there must be at least one z for which pz   0. This is, of course, the celebrated
+0 0
+6.9
+
+================================================================================
+PAGE 10
+================================================================================
+
+Fundamental Theorem of Algebra.
+Exercises
+9. Suppose f is an entire function, and suppose there is an M such that Refz  M for all
+z. Prove that f is a constant function.
+10. Suppose w is a solution of 5z4  z3  z2  7z  14  0. Prove that |w|  3.
+11. Prove that if p is a polynomial of degree n, and if pa  0, then pz  z  aqz,
+where q is a polynomial of degree n  1.
+12. Prove that if p is a polynomial of degree n  1, then
+pz  cz  z
+1
+k1z  z
+2
+k2z  z
+j
+kj,
+where k ,k ,,k are positive integers such that n  k  k k .
+1 2 j 1 2 j
+13. Suppose p is a polynomial with real coefficients. Prove that p can be expressed as a
+product of linear and quadratic factors, each with real coefficients.
+6.4. Maximum moduli. Suppose f is analytic on a closed domain D. Then, being
+continuous, |fz| must attain its maximumvalue somewhere in this domain. Suppose this
+happens at an interior point. That is, suppose |fz|  M for all z  D and suppose that
+|fz |  M for some z in the interior of D. Now z is an interior point of D, so there is a
+0 0 0
+number R such that the disk  centered at z having radius R is included in D. Let C be a
+0
+positively oriented circle of radius   R centered at z . FromCauchy’s formula, we
+0
+know
+fz   1  fs ds.
+0 2i s  z 0
+C
+Hence,
+2
+fz   1  fz  eitdt,
+0 2 0
+0
+and so,
+6.10
+
+================================================================================
+PAGE 11
+================================================================================
+
+2
+M  |fz |  1  |fz  eit|dt  M.
+0 2 0
+0
+since |fz  eit|  M. This means
+0
+2
+M  1  |fz  eit|dt.
+2 0
+0
+Thus,
+2 2
+M  1  |fz  eit|dt  1  M  |fz  eit|dt  0.
+2 0 2 0
+0 0
+This integrand is continuous and non-negative, and so must be zero. In other words,
+|fz|  M for all z  C. There was nothing special about C except its radius   R, and so
+we have shown that f must be constant on the disk .
+I hope it is easy to see that if D is a region (connected and open), then the only way in
+which the modulus |fz| of the analytic function f can attain a maximumon D is for f to be
+constant.
+Exercises
+14. Suppose f is analytic and not constant on a region D and suppose fz  0 for all z  D.
+Explain why |fz| does not have a minimumin D.
+15. Suppose fz  ux,y  ivx,y is analytic on a region D. Prove that if ux,y attains a
+maximumvalue in D, then u must be constant.
+6.11

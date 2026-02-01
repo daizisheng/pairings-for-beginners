@@ -1,0 +1,367 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Ten
+Poles, Residues, and All That
+10.1. Residues. A point z is a singular point of a function f if f not analytic at z , but is
+0 0
+analytic at some point of each neighborhood of z . A singular point z of f is said to be
+0 0
+isolated if there is a neighborhood of z which contains no singular points of f save z . In
+0 0
+other words, f is analytic on some region 0  |z  z |  .
+0
+Examples
+The function f given by
+1
+fz 
+zz2  4
+has isolated singular points at z  0, z  2i, and z  2i.
+Every point on the negative real axis and the origin is a singular point of Log z , but there
+are no isolated singular points.
+Suppose now that z is an isolated singular point of f . Then there is a Laurent series
+0
+
+fz  c z  z j
+j 0
+j
+valid for 0  |z  z |  R, for some positive R. The coefficient c of z  z 1 is called the
+0 1 0
+residue of f at z , and is frequently written
+0
+Res f.
+zz0
+Now, why do we care enough about c to give it a special name? Well, observe that if C is
+1
+any positively oriented simple closed curve in 0  |z  z |  R and which contains z
+0 0
+inside, then
+c  1 fzdz.
+1 2i
+C
+10.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+This provides the key to evaluating many complex integrals.
+Example
+We shall evaluate the integral
+e1/zdz
+C
+where C is the circle |z|  1 with the usual positive orientation. Observe that the integrand
+has an isolated singularity at z  0. We know then that the value of the integral is simply
+2i times the residue of e1/z at 0. Let’s find the Laurent series about 0. We already know
+that
+
+ez   1 zj
+j!
+j0
+for all z . Thus,
+
+e1/z   1 zj  1  1  1 1 
+j! z 2! z2
+j0
+The residue c  1, and so the value of the integral is simply 2i.
+1
+Now suppose we have a function f which is analytic everywhere except for isolated
+singularities, and let C be a simple closed curve (positively oriented) on which f is analytic.
+Then there will be only a finite number of singularities of f inside C (why?). Call them z ,
+1
+z , , z . For each k  1,2,,n, let C be a positively oriented circle centered at z and
+2 n k k
+with radius small enough to insure that it is inside C and has no other singular points inside
+it.
+10.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+Then,
+fzdz   fzdz   fzdz   fzdz
+C C1 C2 Cn
+ 2i Res f  2i Res f 2i Res f
+zz1 zz2 zzn
+n
+ 2i Res f.
+k1
+zzk
+This is the celebrated Residue Theorem. It says that the integral of f is simply 2i times
+the sum of the residues at the singular points enclosed by the contour C.
+Exercises
+Evaluate the integrals. In each case, C is the positively oriented circle |z|  2.
+1. e1/z2dz.
+C
+2. sin 1 dz.
+z
+C
+3. cos 1 dz.
+z
+C
+4.  1 sin 1 dz.
+z z
+C
+5.  1 cos 1 dz.
+z z
+C
+10.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+10.2. Poles and other singularities. In order for the Residue Theorem to be of much help
+in evaluating integrals, there needs to be some better way of computing the
+residue—finding the Laurent expansion about each isolated singular point is a chore. We
+shall now see that in the case of a special but commonly occurring type of singularity the
+residue is easy to find. Suppose z is an isolated singularity of f and suppose that the
+0
+Laurent series of f at z contains only a finite number of terms involving negative powers
+0
+of z  z . Thus,
+0
+c c c
+fz  n  n1  1  c  c z  z  .
+z  z n z  z n1 z  z  0 1 0
+0 0 0
+Multiply this expression by z  z n :
+0
+z  z  z nfz  c  c z  z  c z  z n1 .
+0 n n1 0 1 0
+What we see is the Taylor series at z for the function z  z  z nfz. The coefficient
+0 0
+of z  z n1 is what we seek, and we know that this is
+0
+n1z 
+0
+n  1!
+.
+The sought after residue c is thus
+1
+n1z 
+c Res f  0 ,
+1
+zz0 n  1!
+where z  z  z nfz.
+0
+Example
+We shall find all the residues of the function
+ez
+fz  .
+z2z2  1
+First, observe that f has isolated singularities at 0,and i. Let’s see about the residue at 0.
+Here we have
+10.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+ez
+z  z2fz  .
+z2  1
+The residue is simply 0 :
+z2  1ez  2zez
+z  .
+z2  12
+Hence,
+Res f  0  1.
+z0
+Next, let’s see what we have at z  i:
+ez
+z  z  ifz  ,
+z2z  i
+and so
+ei
+Res fz  i   .
+2i
+zi
+In the same way, we see that
+ei
+Res f  .
+2i
+zi
+Let’s find the integral  ez dz , where C is the contour pictured:
+z2z21
+C
+10.5
+
+================================================================================
+PAGE 6
+================================================================================
+
+This is now easy. The contour is positive oriented and encloses two singularities of f; viz, i
+and i. Hence,
+ ez dz  2i Res f Res f
+z2z2  1
+zi zi
+C
+ei ei
+ 2i  
+2i 2i
+ 2isin1.
+Miraculously easy!
+There is some jargon that goes with all this. An isolated singular point z of f such that the
+0
+Laurent series at z includes only a finite number of terms involving negative powers of
+0
+z  z is called a pole. Thus, if z is a pole, there is an integer n so that z  z  z nfz
+0 0 0
+is analytic at z , and fz   0. The number n is called the order of the pole. Thus, in the
+0 0
+preceding example, 0 is a pole of order 2, while i and i are poles of order 1. (A pole of
+order 1 is frequently called a simple pole.) We must hedge just a bit here. If z is an
+0
+isolated singularity of f and there are no Laurent series terms involving negative powers of
+z  z , then we say z is a removable singularity.
+0 0
+Example
+Let
+sinz
+fz  ;
+z
+then the singularity z  0 is a removable singularity:
+1 1 z3 z5
+fz  sinz  z   
+z z 3! 5!
+z2 z4
+ 1   
+3! 5!
+and we see that in some sense f is ”really” analytic at z  0 if we would just define it to be
+the right thing there.
+A singularity that is neither a pole or removable is called an essential singularity.
+Let’s look at one more labor-saving trick—or technique, if you prefer. Suppose f is a
+function:
+10.6
+
+================================================================================
+PAGE 7
+================================================================================
+
+pz
+fz  ,
+qz
+where p and q are analytic at z , and we have qz   0, while qz   0, and pz   0.
+0 0 0 0
+Then
+pz pz   pz z  z  
+fz   0 0 0 ,
+qz qz z  z   qz0 z  z 2
+0 0 0
+2
+and so
+pz   pz z  z  
+z  z  z fz  0 0 0 .
+0
+qz  
+qz0
+z  z  
+0 0
+2
+Thus z is a simple pole and
+0
+pz 
+Res f  z   0 .
+0
+zz0 qz 0 
+Example
+Find the integral
+ cosz dz,
+ez  1
+C
+where C is the rectangle with sides x  1, y  , and y  3.
+The singularities of the integrand are all the places at which ez  1, or in other words, the
+points z  0,2i,4i,. The singularities enclosed by C are 0 and 2i. Thus,
+ cosz dz  2i Res f Res f ,
+ez  1
+z0 z2i
+C
+where
+cosz
+fz  .
+ez  1
+10.7
+
+================================================================================
+PAGE 8
+================================================================================
+
+Observe this is precisely the situation just discussed: fz  pz , where p and q are
+qz
+analytic, etc.,etc. Now,
+pz cosz
+ .
+qz ez
+Thus,
+cos0
+Res f   1,and
+1
+z0
+cos2i e2  e2
+Res f    cosh2.
+e2i 2
+z2i
+Finally,
+ cosz dz  2i Res f Res f
+ez  1
+z0 z2i
+C
+ 2i1  cosh2
+Exercises
+6. Suppose f has an isolated singularity at z . Then, of course, the derivative f also has an
+0
+isolated singularity at z . Find the residue Res f.
+0
+zz0
+7. Given an example of a function f with a simple pole at z such that Res f  0, or explain
+0
+zz0
+carefully why there is no such function.
+8. Given an example of a function f with a pole of order 2 at z such that Res f  0, or
+0
+zz0
+explain carefully why there is no such function.
+9. Suppose g is analytic and has a zero of order n at z (That is, gz  z  z nhz, where
+0 0
+hz   0.). Show that the function f given by
+0
+1
+fz 
+gz
+10.8
+
+================================================================================
+PAGE 9
+================================================================================
+
+has a pole of order n at z . What is Res f ?
+0
+zz0
+10. Suppose g is analytic and has a zero of order n at z . Show that the function f given by
+0
+gz
+fz 
+gz
+has a simple pole at z , and Res f  n.
+0
+zz0
+11. Find
+ cosz dz,
+z2  4
+C
+where C is the positively oriented circle |z|  6.
+12. Find
+tanzdz,
+C
+where C is the positively oriented circle |z|  2.
+13. Find
+ 1 dz,
+z2  z  1
+C
+where C is the positively oriented circle |z|  10.
+10.9

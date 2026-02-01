@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: Residues</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
+.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
+h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
+h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
+p{margin:1em 0;text-align:justify}
+blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
+.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
+.exercises h3{color:#e74c3c;margin-top:0}
+.exercise-item{margin:1em 0;padding-left:1.5em}
+.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
+.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
+.figure{text-align:center;margin:2em 0}
+.figure img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;padding:5px}
+.figure-caption{font-style:italic;color:#666;margin-top:0.5em}
+</style>
+</head>
+<body><div class="content"><h1>Chapter 8<br>Residues</h1>
+<blockquote><h1 style="text-align:center;font-size:2.2em;">第8章<br>留数</h1></blockquote>
+<h2>8.1 Laurent Series</h2>
+<blockquote><h2>8.1 洛朗级数</h2></blockquote>
+<p>A Laurent series is a series of the form \( \sum_{n=-\infty}^\infty a_n(z-z_0)^n \). It represents functions in an annular region.</p>
+<blockquote><p>洛朗级数是形式为 \( \sum_{n=-\infty}^\infty a_n(z-z_0)^n \) 的级数。它表示环形区域中的函数。</p></blockquote>
+<h2>8.2 Residues</h2>
+<blockquote><h2>8.2 留数</h2></blockquote>
+<p>The residue of \( f \) at \( z_0 \) is the coefficient \( a_{-1} \) in the Laurent expansion.</p>
+<blockquote><p>\( f \) 在 \( z_0 \) 处的留数是洛朗展开中的系数 \( a_{-1} \)。</p></blockquote>
+<h2>8.3 The Residue Theorem</h2>
+<blockquote><h2>8.3 留数定理</h2></blockquote>
+<p>If \( C \) is a simple closed curve and \( f \) is analytic inside and on \( C \) except for isolated singularities \( z_1,\ldots,z_n \) inside \( C \), then \( \int_C f(z)\,dz = 2\pi i\sum_{k=1}^n \text{Res}(f,z_k) \).</p>
+<blockquote><p>如果 \( C \) 是简单闭合曲线,\( f \) 在 \( C \) 上及内部解析,除了 \( C \) 内的孤立奇点 \( z_1,\ldots,z_n \),那么 \( \int_C f(z)\,dz = 2\pi i\sum_{k=1}^n \text{Res}(f,z_k) \)。</p></blockquote>
+</div></body></html>

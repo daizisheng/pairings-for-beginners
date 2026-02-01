@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 6: More Integration</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Chapter Six<br>More Integration</h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">第六章<br>更多积分内容</h1></blockquote>
+
+        <h2>6.1 Cauchy's Integral Formula</h2>
+        <p>Suppose \( f \) is analytic in a region containing a simple closed contour \( C \) with the usual positive orientation and its inside, and suppose \( z_0 \) is inside \( C \). Then it turns out that</p>
+        <p>\[ f(z_0) = \frac{1}{2\pi i}\int_C \frac{f(z)}{z-z_0}\,dz. \]</p>
+        <p>This is the famous <strong>Cauchy Integral Formula</strong>. Let's see why it's true.</p>
+
+        <blockquote><p>假设 \( f \) 在包含简单闭合轮廓 \( C \) 及其内部的区域上解析,且 \( z_0 \) 在 \( C \) 内。那么\[ f(z_0) = \frac{1}{2\pi i}\int_C \frac{f(z)}{z-z_0}\,dz. \]这就是著名的<strong>柯西积分公式</strong>。</p></blockquote>
+
+        <p>Let \( \varepsilon > 0 \) be any positive number. We know that \( f \) is continuous at \( z_0 \) and so there is a number \( \delta \) such that \( |f(z) - f(z_0)| < \varepsilon \) whenever \( |z - z_0| < \delta \). Now let \( \rho > 0 \) be a number such that \( \rho < \delta \) and the circle \( C_\rho = \{z : |z - z_0| = \rho\} \) is also inside \( C \). Now, the function \( \frac{f(z)}{z-z_0} \) is analytic in the region between \( C \) and \( C_\rho \); thus</p>
+        <p>\[ \int_C \frac{f(z)}{z-z_0}\,dz = \int_{C_\rho} \frac{f(z)}{z-z_0}\,dz. \]</p>
+        <p>We know that \( \int_{C_\rho} \frac{1}{z-z_0}\,dz = 2\pi i \), so we can write</p>
+        <p>\[ \int_{C_\rho} \frac{f(z)}{z-z_0}\,dz - 2\pi if(z_0) = \int_{C_\rho} \frac{f(z)}{z-z_0}\,dz - f(z_0)\int_{C_\rho} \frac{1}{z-z_0}\,dz = \int_{C_\rho} \frac{f(z) - f(z_0)}{z-z_0}\,dz. \]</p>
+        <p>For \( z \in C_\rho \) we have \( \frac{|f(z) - f(z_0)|}{|z-z_0|} \leq \frac{\varepsilon}{\rho} \). Thus, \( \left|\int_{C_\rho} \frac{f(z)}{z-z_0}\,dz - 2\pi if(z_0)\right| \leq \frac{\varepsilon}{\rho} \cdot 2\pi\rho = 2\pi\varepsilon \). But \( \varepsilon \) is any positive number, and so \( \int_{C_\rho} \frac{f(z)}{z-z_0}\,dz = 2\pi if(z_0) \), or \( f(z_0) = \frac{1}{2\pi i}\int_C \frac{f(z)}{z-z_0}\,dz \), which is exactly what we set out to show.</p>
+
+        <blockquote><p>经过证明,我们得到了柯西积分公式。它说如果 \( f \) 在简单闭合曲线上及其内部解析,并且我们知道曲线上每个 \( z \) 的值 \( f(z) \),那么我们就知道曲线内部每个点的函数值——确实非常了不起。</p></blockquote>
+
+        <p>Meditate on this result. It says that if \( f \) is analytic on and inside a simple closed curve and we know the values \( f(z) \) for every \( z \) on the simple closed curve, then we know the value for the function at every point inside the curve—quite remarkable indeed.</p>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Let \( C \) be the circle \( |z| = 4 \) traversed once in the counterclockwise direction. Let's evaluate the integral \( \int_C \frac{\cos z}{z^2 + 6z + 5}\,dz \). We simply write the integrand as \( \frac{\cos z}{z^2 + 6z + 5} = \frac{\cos z}{(z+5)(z+1)} = \frac{f(z)}{z+1} \), where \( f(z) = \frac{\cos z}{z+5} \). Observe that \( f \) is analytic on and inside \( C \), and so, \( \int_C \frac{\cos z}{z^2 + 6z + 5}\,dz = \int_C \frac{f(z)}{z+1}\,dz = 2\pi if(-1) = 2\pi i\frac{\cos(-1)}{-1+5} = \frac{\pi i\cos 1}{2} \).</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>设 \( C \) 是逆时针方向遍历一次的圆 \( |z| = 4 \)。我们求积分 \( \int_C \frac{\cos z}{z^2 + 6z + 5}\,dz \)。经计算得 \( \frac{\pi i\cos 1}{2} \)。</p></blockquote>
+
+        <div class="figure"><img src="images/ch6_p3_Im1.png" alt="Integration contour"><div class="figure-caption">Figure: Integration contour for example</div></div>
+        <blockquote><p class="figure-caption">图:例子的积分轮廓</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <div class="exercise-item"><strong>1.</strong> Suppose \( f \) and \( g \) are analytic on and inside the simple closed curve \( C \), and suppose moreover that \( f(z) = g(z) \) for all \( z \) on \( C \). Prove that \( f(z) = g(z) \) for all \( z \) inside \( C \).</div>
+            <blockquote><strong>1.</strong> 假设 \( f \) 和 \( g \) 在简单闭合曲线 \( C \) 上及其内部解析,并且对于 \( C \) 上的所有 \( z \) 有 \( f(z) = g(z) \)。证明对于 \( C \) 内部的所有 \( z \) 有 \( f(z) = g(z) \)。</blockquote>
+
+            <div class="exercise-item"><strong>2.</strong> Let \( C \) be the ellipse \( 9x^2 + 4y^2 = 36 \) traversed once in the counterclockwise direction. Define the function \( g \) by \( g(z) = \int_C \frac{s^2 + s + 1}{s-z}\,ds \). Find a) \( g(i) \) b) \( g(4i) \)</div>
+            <blockquote><strong>2.</strong> 设 \( C \) 是逆时针方向遍历一次的椭圆 \( 9x^2 + 4y^2 = 36 \)。定义函数 \( g(z) = \int_C \frac{s^2 + s + 1}{s-z}\,ds \)。求 a) \( g(i) \) b) \( g(4i) \)</blockquote>
+        </div>
+
+        <h2>6.2 Functions Defined by Integrals</h2>
+        <p>Suppose \( C \) is a curve (not necessarily a simple closed curve, just a curve) and suppose the function \( g \) is continuous on \( C \) (not necessarily analytic, just continuous). Let the function \( G \) be defined by \( G(z) = \int_C \frac{g(s)}{s-z}\,ds \) for all \( z \notin C \). We shall show that \( G \) is analytic.</p>
+
+        <blockquote><p>假设 \( C \) 是一条曲线(不一定是简单闭合曲线,只是曲线),假设函数 \( g \) 在 \( C \) 上连续(不一定解析,只是连续)。设函数 \( G \) 定义为 \( G(z) = \int_C \frac{g(s)}{s-z}\,ds \),对所有 \( z \notin C \)。我们将证明 \( G \) 是解析的。</p></blockquote>
+
+        <p>Consider, \( \frac{G(z+\Delta z) - G(z)}{\Delta z} = \frac{1}{\Delta z}\left[\frac{1}{s-z-\Delta z} - \frac{1}{s-z}\right]g(s)\,ds = \int_C \frac{g(s)}{(s-z-\Delta z)(s-z)}\,ds \). Through careful estimation using continuity and showing the limit exists, we can prove that \( G'(z) = \int_C \frac{g(s)}{(s-z)^2}\,ds \). Truly a miracle!</p>
+
+        <blockquote><p>通过仔细的估计和极限分析,我们证明了 \( G'(z) = \int_C \frac{g(s)}{(s-z)^2}\,ds \)。真是奇迹!</p></blockquote>
+
+        <h2>6.3 Derivatives of Analytic Functions</h2>
+        <p>Now suppose \( f \) is analytic in a region containing a simple closed curve \( C \) and its inside. From Cauchy's Integral Formula, for any \( z_0 \) inside \( C \), we have \( f(z_0) = \frac{1}{2\pi i}\int_C \frac{f(z)}{z-z_0}\,dz \). Using the result from the previous section, we can differentiate this integral:</p>
+        <p>\[ f'(z_0) = \frac{1}{2\pi i}\int_C \frac{f(z)}{(z-z_0)^2}\,dz. \]</p>
+        <p>More generally, for the \( n \)-th derivative:</p>
+        <p>\[ f^{(n)}(z_0) = \frac{n!}{2\pi i}\int_C \frac{f(z)}{(z-z_0)^{n+1}}\,dz. \]</p>
+
+        <blockquote><p>现在假设 \( f \) 在包含简单闭合曲线 \( C \) 及其内部的区域上解析。使用柯西积分公式和上一节的结果,我们可以对积分求导,得到 \( f'(z_0) = \frac{1}{2\pi i}\int_C \frac{f(z)}{(z-z_0)^2}\,dz \)。更一般地,\( f^{(n)}(z_0) = \frac{n!}{2\pi i}\int_C \frac{f(z)}{(z-z_0)^{n+1}}\,dz \)。</p></blockquote>
+
+        <h2>6.4 Liouville's Theorem</h2>
+        <p>A function that is analytic in the entire complex plane is called an <strong>entire function</strong>. A function \( f \) is said to be <strong>bounded</strong> if there is a number \( M \) such that \( |f(z)| \leq M \) for all \( z \).</p>
+        <p><strong>Liouville's Theorem:</strong> If \( f \) is a bounded entire function, then \( f \) is constant.</p>
+
+        <blockquote><p>在整个复平面上解析的函数称为<strong>整函数</strong>。如果存在数 \( M \) 使得对所有 \( z \) 有 \( |f(z)| \leq M \),则称函数 \( f \) 是<strong>有界的</strong>。<strong>刘维尔定理:</strong>如果 \( f \) 是有界整函数,那么 \( f \) 是常数。</p></blockquote>
+
+        <div class="figure"><img src="images/ch6_p4_Im2.png" alt="Liouville theorem illustration"><div class="figure-caption">Figure: Liouville's Theorem</div></div>
+        <blockquote><p class="figure-caption">图:刘维尔定理</p></blockquote>
+
+        <p><strong>Proof:</strong> Let \( f \) be a bounded entire function. Then there is \( M \) such that \( |f(z)| \leq M \) for all \( z \). For any \( z_0 \) and any \( R > 0 \), let \( C_R \) be the circle \( |z-z_0| = R \). Then \( f'(z_0) = \frac{1}{2\pi i}\int_{C_R} \frac{f(z)}{(z-z_0)^2}\,dz \). Taking absolute values: \( |f'(z_0)| \leq \frac{1}{2\pi} \cdot \frac{M}{R^2} \cdot 2\pi R = \frac{M}{R} \). Since this holds for all \( R > 0 \), letting \( R \to \infty \) gives \( f'(z_0) = 0 \). Since \( z_0 \) was arbitrary, \( f' = 0 \) everywhere, so \( f \) is constant.</p>
+
+        <blockquote><p><strong>证明:</strong>设 \( f \) 是有界整函数。那么存在 \( M \) 使得对所有 \( z \) 有 \( |f(z)| \leq M \)。通过在任意半径 \( R \) 的圆上应用柯西积分公式并估计,我们得到 \( |f'(z_0)| \leq \frac{M}{R} \)。由于这对所有 \( R > 0 \) 成立,令 \( R \to \infty \) 得 \( f'(z_0) = 0 \)。由于 \( z_0 \) 是任意的,\( f' = 0 \) 处处成立,所以 \( f \) 是常数。</p></blockquote>
+
+        <div class="exercises">
+            <h3>More Exercises</h3>
+            <div class="exercise-item"><strong>3.</strong> Use Liouville's Theorem to prove the Fundamental Theorem of Algebra: Every nonconstant polynomial has at least one root.</div>
+            <blockquote><strong>3.</strong> 使用刘维尔定理证明代数基本定理:每个非常数多项式至少有一个根。</blockquote>
+
+            <div class="exercise-item"><strong>4.</strong> Suppose \( f \) is entire and \( |f(z)| \geq 1 \) for all \( z \). Prove that \( f \) is constant.</div>
+            <blockquote><strong>4.</strong> 假设 \( f \) 是整函数且对所有 \( z \) 有 \( |f(z)| \geq 1 \)。证明 \( f \) 是常数。</blockquote>
+        </div>
+    </div>
+</body>
+</html>

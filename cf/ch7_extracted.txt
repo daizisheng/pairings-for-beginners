@@ -1,0 +1,258 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Chapter Seven
+Harmonic Functions
+7.1. The Laplace equation. The Fourier law of heat conduction says that the rate at which
+heat passes across a surface S is proportional to the flux, or surface integral, of the
+temperature gradient on the surface:
+k T  dA.
+S
+Here k is the constant of proportionality, generally called the thermal conductivity of the
+substance (We assume uniform stuff. ). We further assume no heat sources or sinks, and we
+assume steady-state conditions—the temperature does not depend on time. Now if we take
+S to be an arbitrary closed surface, then this rate of flow must be 0:
+k T  dA  0.
+S
+Otherwise there would be more heat entering the region B bounded by S than is coming
+out, or vice-versa. Now, apply the celebrated Divergence Theorem to conclude that
+   TdV  0,
+B
+where B is the region bounded by the closed surface S. But since the region B is completely
+arbitrary, this means that
+2T 2T 2T
+  T     0.
+x2 y2 z2
+This is the world-famous Laplace Equation.
+Now consider a slab of heat conducting material,
+7.1
+
+================================================================================
+PAGE 2
+================================================================================
+
+in which we assume there is no heat flow in the z-direction. Equivalently, we could assume
+we are looking at the cross-section of a long rod in which there is no longitudinal heat
+flow. In other words, we are looking at a two-dimensional problem—the temperature
+depends only on x and y, and satisfies the two-dimensional version of the Laplace equation:
+2T 2T
+  0.
+x2 y2
+Suppose now, for instance, the temperature is specified on the boundary of our region D,
+and we wish to find the temperature Tx,y in region. We are simply looking for a solution
+of the Laplace equation that satisfies the specified boundary condition.
+Let’s look at another physical problem which leads to Laplace’s equation. Gauss’s Law of
+electrostatics tells us that the integral over a closed surface S of the electric field E is
+proportional to the charge included in the region B enclosed by S. Thus in the absence of
+any charge, we have
+E dA  0.
+S
+But in this case, we know the field E is conservative; let  be the potential function—that
+is,
+E  .
+Thus,
+E dA    dA.
+S S
+Again, we call on the Divergence Theorem to conclude that  must satisfy the Laplace
+equation. Mathematically, we cannot tell the problem of finding the electric potential in a
+7.2
+
+================================================================================
+PAGE 3
+================================================================================
+
+region D, given the potential on the boundary of D, from the previous problem of finding
+the temperature in the region, given the temperature on the boundary. These are but two of
+the many physical problems that lead to the Laplace equation—You probably already know
+of some others. Let D be a domain and let  be a given function continuous on the
+boundary of D. The problem of finding a function  harmonic on the interior of D and
+which agrees with  on the boundary of D is called the Dirichlet problem.
+7.2. Harmonic functions. If D is a region in the plane, a real-valued function ux,y
+having continuous second partial derivatives is said to be harmonic on D if it satisfies
+Laplace’s equation on D :
+2u 2u
+  0.
+x2 y2
+There is an intimate relationship between harmonic functions and analytic functions.
+Suppose f is analytic on D, and let fz  ux,y  ivx,y. Now, from the Cauchy-Riemann
+equations, we know
+u v
+ , and
+x y
+u v
+  .
+y x
+If we differentiate the first of these with respect to x and the second with respect to y, and
+then add the two results, we have
+2u 2u 2v 2v
+    0.
+x2 y2 xy yx
+Thus the real part of any analytic function is harmonic! Next, if we differentiate the first of
+the Cauchy-Riemann equations with respect to y and the second with respect to x, and then
+subtract the second from the first, we have
+2v 2v
+  0,
+x2 y2
+and we see that the imaginary part of an analytic function is also harmonic.
+There is even more excitement. Suppose we are given a function  harmonic in a simply
+connected region D. Then there is a function f analytic on D which is such that Ref  .
+Let’s see why this is so. First, define g by
+7.3
+
+================================================================================
+PAGE 4
+================================================================================
+
+ 
+gz   i .
+x y
+We’ll show that g is analytic by verifying that the real and imaginary parts satisfy the
+Cauchy-Riemann equations:
+  2 2  
+     ,
+x x x2 y2 y y
+since  is harmonic. Next,
+  2 2  
+     .
+y x yx xy x y
+Since g is analytic on the simply connected region D, we know that the integral of g around
+any closed curve is zero, and so it has an antiderivative Gz  u  iv. This antiderivative
+is, of course, analytic on D, and we know that
+u u  
+Gz   i   i .
+x y x y
+Thus, ux,y  x,y  hy. From this,
+u 
+  hy,
+y y
+and so hy  0, or h  constant, from which it follows that ux,y  x,y  c. In other
+words, ReG  u, as we promised to show.
+Example
+The function x,y  x3  3xy2 is harmonic everywhere. We shall find an analytic
+function G so that ReG  . We know that Gz  x3  3xy2  iv, and so from the
+Cauchy-Riemann equations:
+v u
+   6xy
+x y
+7.4
+
+================================================================================
+PAGE 5
+================================================================================
+
+Hence,
+vx,y  3x2y  ky.
+To find ky differentiate with respect to y :
+v
+ 3x2  ky 
+u
+ 3x2  3y2,
+y x
+and so,
+ky  3y2, or
+ky  y3  any constant.
+If we choose the constant to be zero, this gives us
+v  3x2y  ky  3x2y  y3,
+and finally,
+Gz  u  iv  x3  3xy2  i3x2y  y3.
+Exercises
+1. Suppose  is harmonic on a simply connected region D. Prove that if  assumes its
+maximum or its minimum value at some point inD, then  is constant in D.
+2. Suppose  and  are harmonic in a simply connected region D bounded by the curve C.
+Suppose moreover that x,y  x,y for all x,y  C. Explain how you know that
+   everywhere in D.
+3. Find an entire function f such that Ref  x2  3x  y2, or explain why there is no such
+function f.
+4. Find an entire function f such that Ref  x2  3x  y2, or explain why there is no such
+function f.
+7.5
+
+================================================================================
+PAGE 6
+================================================================================
+
+7.3. Poisson’s integral formula. Let  be the disk bounded by the circle
+C  z : |z|  . Suppose  is harmonic on  and let f be a function analytic on  and
+
+such that Ref  . Now then, for fixed z with |z|  , the function
+fsz
+gs 
+2  sz
+is analyic on . Thus from Cauchy’s Theorem
+ gsds  
+fsz
+ds  0.
+2  sz
+C C
+We know also that
+fz  1  fs ds.
+2i s  z
+C
+Adding these two equations gives us
+fz  1  1  z fsds
+2i s  z 2  sz
+C
+ 1  2  |z|2 fsds.
+2i s  z2  sz
+C
+Next, let t  eit, and our integral becomes
+2
+fz  1  2  |z|2 feitieitdt
+2i eit  z2  eit z
+0
+2
+2  |z|2 feit
+  dt
+2 eit  zeit  z
+0
+2
+2  |z|2 feit
+  dt
+2 |eit  z| 2
+0
+Now,
+7.6
+
+================================================================================
+PAGE 7
+================================================================================
+
+2
+2  |z|2 eit
+x,y  Ref   dt.
+2 |eit  z| 2
+0
+Next, use polar coordinates: z  rei :
+2
+2  r2 eit
+r,   dt.
+2 |eit  rei| 2
+0
+Now,
+|eit  rei| 2  eit  reieit  rei  2  r2  reit  eit
+ 2  r2  2rcost  .
+Substituting this in the integral, we have Poisson’s integral formula:
+2
+2  r2 eit
+r,   dt
+2 2  r2  2rcost  
+0
+This famous formula essentially solves the Dirichlet problem for a disk.
+Exercises
+2
+5. Evaluate  1 dt. [Hint: This is easy.]
+2r22rcost
+0
+6. Suppose  is harmonic in a region D. If x ,y   D and if C  D is a circle centered at
+0 0
+x ,y , the inside of which is also in D, then x ,y  is the average value of  on the
+0 0 0 0
+circle C.
+7. Suppose  is harmonic on the disk   z : |z|  . Prove that
+0,0  1  dA.
+2
+
+7.7

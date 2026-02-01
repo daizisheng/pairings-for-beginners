@@ -1,0 +1,743 @@
+
+
+================================================================================
+PAGE 1
+================================================================================
+
+Some Applications of the Residue Theorem∗
+Supplementary Lecture Notes
+MATH 322, Complex Analysis
+Winter 2005
+Pawe l Hitczenko
+Department of Mathematics
+Drexel University
+Philadelphia, PA 19104, U.S.A.
+email: phitczenko@math.drexel.edu
+∗IwouldliketothankFrederickAkalinforpointingoutacoupleoftypos.
+1
+
+================================================================================
+PAGE 2
+================================================================================
+
+1 Introduction
+ThesenotessupplementafreelydownloadablebookComplexAnalysisbyGeorge
+Cain (henceforth referred to as Cain’s notes), that I served as a primary text
+for an undergraduate level course in complex analysis. Throughout these notes
+I will make occasional references to results stated in these notes. The aim of
+my notes is to provide a few examples of applications of the residue theorem.
+The main goal is to illustrate how this theorem can be used to evaluate various
+types of integrals of real valued functions of real variable.
+Following Sec. 10.1 of Cain’s notes, let us recall that if C is a simple, closed
+contour and f is analytic within the region bounded by C except for finitely
+many points z ,z ,...,z then
+0 1 k
+Z k
+X
+f(z)dz =2πi Res f(z),
+z=zj
+C j=0
+where Res f(z) is the residue of f at a.
+z=a
+2 Evaluation of Real-Valued Integrals.
+2.1 Definite integrals involving trigonometric functions
+We begin by briefly discussing integrals of the form
+Z 2π
+F(sinat,cosbt)dt. (1)
+0
+Our method is easily adaptable for integrals over a different range, for example
+between 0 and π or between ±π.
+Given the form of an integrand in (1) one can reasonably hope that the
+integral results from the usual parameterization of the unit circle z = eit, 0 ≤
+t≤2π. So, let’s try z =eit. Then (see Sec. 3.3 of Cain’s notes),
+eibt+e−ibt zb+1/zb eiat−e−iat za−1/za
+cosbt= = , sinat= = .
+2 2 2i 2i
+Moreover, dz =ieitdt, so that
+dz
+dt= .
+iz
+Putting all of this into (1) yields
+Z 2π Z (cid:18) za−1/za zb+1/zb(cid:19) dz
+F(sinat,cosbt)dt= F , ,
+2i 2 iz
+0 C
+whereC istheunitcircle. Thisintegraliswellwithinwhatcontourintegralsare
+about and we might be able to evaluate it with the aid of the residue theorem.
+2
+
+================================================================================
+PAGE 3
+================================================================================
+
+It is a good moment to look at an example. We will show that
+Z 2π cos3t π
+dt= . (2)
+5−4cost 12
+0
+Following our program, upon making all these substitutions, the integral in (1)
+becomes
+Z (z3+1/z3)/2 dz 1Z z6+1
+= dz
+5−4(z+1/z)/2 iz i z3(10z−4z2−4)
+C C
+1 Z z6+1
+= − dz
+2i z3(2z2−5z+2)
+C
+1 Z z6+1
+= − dz.
+2i z3(2z−1)(z−2)
+C
+The integrand has singularities at z = 0, z = 1/2, and z = 2, but since the
+0 1 2
+last one is outside the unit circle we only need to worry about the first two.
+Furthermore, it is clear that z = 0 is a pole of order 3 and that z = 1/2 is a
+0 1
+simple pole. One way of seeing it, is to notice that within a small circle around
+z =0 (say with radius 1/4) the function
+0
+z6+1
+(2z−1)(z−2)
+is analytic and so its Laurent series will have all coefficients corresponding to
+the negative powers of z zero. Moreover, since its value at z =0 is
+0
+06+1 1
+= ,
+(2·0−1)(0−2) 2
+the Laurent expansion of our integrand is
+1 z6+1 1 (cid:18) 1 (cid:19) 1 1 a
+= +a z+... = + 1 +...,
+z3(2z−1)(z−2) z3 2 1 2z3 z2
+which implies that z = 0 is a pole of order 3. By a similar argument (using a
+0
+small circle centered at z =1/2) we see that z =1/2 is a simple pole. Hence,
+1 1
+the value of integral in (2) is
+(cid:18) (cid:18) z6+1 (cid:19) (cid:18) z6+1 (cid:19)(cid:19)
+2πi Res +Res .
+z=0 z3(2z−1)(z−2) z=1/2 z3(2z−1)(z−2)
+The residue at a simple pole z =1/2 is easy to compute by following a discus-
+1
+sion preceding the second example in Sec. 10.2 in Cain’s notes:
+z6+1 z6+1 z6+1
+= =
+z3(2z−1)(z−2) z3(2z2−5z+2) 2z5−5z4+2z3
+3
+
+================================================================================
+PAGE 4
+================================================================================
+
+is of the form p(z)/q(z) with p(1/2) = 2−6 +1 6= 0 and q(1/2) = 0. Now,
+q0(z) = 10z4 −20z3 +6z2, so that q0(1/2) = 10/24 −20/23 +6/22 = −3/23.
+Hence, the residue at z =1/2 is
+1
+p(1/2) (26+1)·23 65
+=− =− .
+q0(1/2) 26·3 24
+The residue at a pole of degree 3, z = 0, can be obtained in various ways.
+0
+First, we can take a one step furthera method we usedto determine the degree
+of that pole: since on a small circle around 0,
+z6+1 z6 1
+= + . (3)
+(2z−1)(z−2) (2z−1)(z−2) (2z−1)(z−2)
+is analytic, the residue of our function will be the coefficient corresponding to
+z2 of Taylor expansion of the function given in (3). The first term will not
+contribute as its smallest non-zero coefficient is in front of z6 so we need to
+worry about the second term only. Expand each of the terms 1/(2z −1) and
+1/(z−2) into its Taylor series, and multiply out. As long as |2z|<1 we get
+1 1 1 1
+= · ·
+(2z−1)(z−2) 2 1−2z 1−z/2
+= 1(cid:0) 1+2z+22z2+... (cid:1) · (cid:18) 1+ z + z2 +... (cid:19)
+2 2 22
+(cid:18) (cid:19)
+1 1 1
+= 1+A z+2· z2+ z2+4z2+...
+2 1 2 4
+(cid:18) (cid:18) (cid:19) (cid:19)
+1 1
+= 1+A z+ 5+ z2+...
+2 1 4
+1 a 21
+= + 1z+ z2+...
+2 2 8
+so that the residue at z = 0 is 21/8 (from the calculations we see that A =
+0 1
+2+1/2, but since our interest is the coefficient in front of z2 we chose to leave
+A unspecified). The same result can be obtained by computing the second
+1
+derivative (see Sec. 10.2 of Cain’s notes) of
+1 z6+1
+z3 ,
+2! z3(2z−1)(z−2)
+and evaluating at z =0. Alternatively, one can open Maple session and type:
+residue((z^6+1)/z^3/(2*z-1)/(z-2),z=0);
+to get the same answer again.
+Combining all of this we get that the integral in (2) is
+1 Z z6+1 1 (cid:18) 21 65 (cid:19) 65−63 π
+− dz =− (2πi) − =π = ,
+2i z3(2z−1)(z−2) 2i 8 24 24 12
+C
+as required.
+4
+
+================================================================================
+PAGE 5
+================================================================================
+
+2.2 Evaluationofimproperintegralsinvolvingrationalfunc-
+tions
+Recall that improper integral
+Z ∞
+f(x)dx
+0
+is defined as a limit
+Z R
+lim f(x)dx,
+R→∞ 0
+provided that this limit exists. When the function f(x) is even (i.e. f(x) =
+f(−x), for x∈R) one has
+Z R 1Z R
+f(x)dx= f(x)dx,
+2
+0 −R
+and the above integral can be thought of as an integral over a part of a contour
+C consisting of a line segment along the real axis between −R and R. The
+R
+general idea is to “close”the contour (often by using one of the semi-circles
+with radius R centered at the origin), evaluate the resulting integral by means
+of residue theorem, and show that the integral over the “added”part of C
+R
+asymptotically vanishes as R→0. As an example we will show that
+Z ∞ dx π
+= . (4)
+(x2+1)2 4
+0
+Consider a function f(z) = 1/(z2+1)2. This function is not analytic at z =
+0
+i (and that is the only singularity of f(z)), so its integral over any contour
+encirclingicanbeevaluatedbyresiduetheorem. ConsiderC consistingofthe
+R
+linesegmentalongtherealaxisbetween−R≤x≤Randtheuppersemi-circle
+A :={z =Reit, 0≤t≤π}. By the residue theorem
+R
+Z dz (cid:18) 1 (cid:19)
+=2πiRes .
+(z2+1)2 z=i (z2+1)2
+CR
+The integral on the left can be written as
+Z R dz Z dz
++ .
+(z2+1)2 (z2+1)2
+−R AR
+Parameterization of the line segment is γ(t)=t+i·0, so that the first integral
+is just
+Z R dx Z R dx
+=2 .
+(x2+1)2 (x2+1)2
+−R 0
+Hence,
+Z R dx (cid:18) 1 (cid:19) 1Z dz
+=πiRes − . (5)
+(x2+1)2 z=i (z2+1)2 2 (z2+1)2
+0 AR
+5
+
+================================================================================
+PAGE 6
+================================================================================
+
+Since
+1 1
+= ,
+(z2+1)2 (z−i)2(z+i)2
+and 1/(z +i)2 is analytic on the upper half-plane, z = i is a pole of order 2.
+Thus (see Sec. 10.2 of Cain’s notes), the residue is
+(cid:18) (cid:19) (cid:18) (cid:19)
+d 1 −2 2 1 1
+(z−i)2 = =− =− =
+dz (z−i)2(z+i)2 (z+i)3 (2i)3 4i3 4i
+z=i z=i
+which implies that the first term on the right-hand side of (5) is
+πi π
+= .
+4i 4
+Thus the evaluation of (4) will be complete once we show that
+Z dz
+lim =0. (6)
+R→∞ AR (z2+1)2
+But this is straightforward; for z ∈A we have
+R
+|z2+1|≥|z|2−1=R2−1,
+so that for R>2
+(cid:12) (cid:12)
+(cid:12) 1 (cid:12) 1
+(cid:12) (cid:12)≤ .
+(cid:12)(z2+1)2(cid:12) (R2−1)2
+Using our favorite inequality
+(cid:12)Z (cid:12)
+(cid:12) (cid:12)
+(cid:12) g(z)dz(cid:12)≤M ·length(C), (7)
+(cid:12) (cid:12)
+C
+where |g(z)|≤M for z ∈C, and observing that length(A )=πR we obtain
+R
+(cid:12) (cid:12) Z dz (cid:12) (cid:12) πR
+(cid:12) (cid:12)≤ −→0,
+(cid:12) (z2+1)2(cid:12) (R2−1)2
+AR
+as R→∞. This proves (6) and thus also (4).
+2.3 Improper integrals involving trigonometric and ratio-
+nal functions.
+Integrals like one we just considered may be “spiced up”to allow us to handle
+an apparently more complicated integrals with very little extra effort. We will
+illustrate it by showing that
+Z ∞ cos3x 2π
+dx= .
+(x2+1)2 e3
+−∞
+6
+
+================================================================================
+PAGE 7
+================================================================================
+
+We keep the same function 1/(x2 +1)2, just to illustrate the main difference.
+Thistimeweconsiderthefunctione3izf(z),wheref(z)is,asbefore1/(z2+1)2.
+By following the same route we are led to
+Z R e3xi Z 2π Z
+dx=2πiRes (f(z)e3zi− f(z)e3zidz = − f(z)e3zidz.
+(x2+1)2 z=i e3
+−R AR AR
+At this point it only remains to use the fact that the real parts of both sides
+must the same, write e3xi = cos3x+isin3x, and observe that the real part of
+the left-hand side is exactly the integral we are seeking. All we need to do now
+is to show that the real part of the integral over A vanishes as R →∞. But,
+R
+since for a complex number w, |Re(w)|≤|w| we have
+(cid:12) (cid:18)Z (cid:19)(cid:12) (cid:12)Z (cid:12)
+(cid:12) (cid:12)Re f(z)e3izdz (cid:12) (cid:12)≤ (cid:12) (cid:12) f(z)e3izdz (cid:12) (cid:12),
+(cid:12) (cid:12) (cid:12) (cid:12)
+AR AR
+and the same bound as in (7) can be established since on A we have
+R
+|e3iz|=|e3i(x+iy)|=|e−3ye3xi|=e−3y ≤1,
+since A is in the upper half-plane so that y ≥0.
+R
+Remark.
+(i) This approach generally works for many integrals of the form
+Z ∞ Z ∞
+f(z)cosazdz and f(z)sinazdz,
+−∞ −∞
+where f(z) is a rational function (ratio of two polynomials), where degree
+of a polynomial in the denominator is larger than that of a polynomial
+in the numerator (although in some cases working out the bound on the
+integral over A may be more tricky than in the above example). The
+R
+following inequality, known as Jordan’s inequality, is often helpful (see
+Sec. 2.4 for an illustration as well as a proof)
+Z π π
+e−Rsintdt< . (8)
+R
+0
+(ii) The integrals involving sine rather than cosine are generally handled by
+comparing the imaginary parts. The example we considered would give
+Z ∞ sin3x
+dx=0,
+(x2+1)2
+−∞
+but that is trivially true since the integrand is an odd function, and,
+clearly, the improper integral
+Z ∞ sin3x
+dx
+(x2+1)2
+0
+converges. For a more meaningful examples see Exercises 4-6 at the end.
+7
+
+================================================================================
+PAGE 8
+================================================================================
+
+2.4 One more example of the same type.
+Here we will show that
+Z ∞ sinx π
+dx= . (9)
+x 2
+0
+This integral is quite useful (e.g. in Fourier analysis and probability) and has
+an interesting twist, namely a choice of a contour (that aspect is, by the way,
+one more thing to keep in mind; clever choice of a contour may make wonders).
+Basedonourknowledgeformtheprevioussectionweshouldconsiderf(z)=
+eiz/z andtrytointegratealongourusualcontourC consideredinSections2.2
+R
+and 2.3. The only problem is that our function f(z) has a singularity on the
+contour, namely at z = 0. To avoid that problem we will make a small detour
+around z =0. Specifically, consider pick a (small) ρ>0 and consider a contour
+consisting of the arc A that we considered in the last two sections followed
+R
+by a line segment along a real axis between −R and −ρ, followed by an upper
+semi-circle centered at 0 with radius ρ and, finally, a line segment along the
+positive part of the real exit from ρ to R (draw a picture to see what happens).
+We will call this contour B and we denote the line segments by L and L ,
+R,ρ − +
+respectivelyandthesmallsemi-circlebyA . Sinceourfunctionisanalyticwith
+ρ
+B its integral along this contour is 0. That is
+R,ρ
+Z eiz Z −ρ eix Z eiz Z R eix
+dz =0+ dx+ dz+ dx,
+z x z x
+AR −R Aρ ρ
+Since
+Z −ρ eix Z R e−ix
+dx=− dx,
+x x
+−R ρ
+by combining the second and the fourth integral we obtain
+Z R eix−e−ix Z eiz Z eiz
+dx+ dz+ dz =0.
+x z z
+ρ AR Aρ
+Since the integrand in the leftmost integral is
+eix−e−ix sinx
+2i =2i ,
+2ix x
+we obtain
+Z R sinx Z eiz Z eiz
+2i dx=− dz− dz =0,
+x z z
+ρ AR Aρ
+or upon dividing by 2i
+!
+Z R sinx i Z eiz Z eiz
+dx= dz+ dz .
+x 2 z z
+ρ AR Aρ
+TheplannowistoshowthattheintegraloverA vanishesasR→∞andthat
+R
+Z eiz
+lim dz =−πi. (10)
+ρ→0 Aρ z
+8
+
+================================================================================
+PAGE 9
+================================================================================
+
+To justify this last statement use the usual parameterization of A : z = ρeit,
+ρ
+0≤t≤π. Thendz =iρeitdtandnotice(lookatyourpicture)thattheintegral
+over A is supposed to be clockwise (i.e. in the negative direction. Hence,
+ρ
+Z eiz Z π eiρeitiρeit Z π
+− dz = dt=i
+eiρeit
+dt.
+z ρeit
+Aρ 0 0
+Thus to show (10) it suffices to show that
+Z π
+lim
+eiρeit
+dt=π.
+ρ→0 0
+To this end let us look at
+(cid:12) (cid:12)
+(cid:12)
+Z π eiρeit
+dt−π
+(cid:12) (cid:12)
+(cid:12)=
+(cid:12) (cid:12)
+(cid:12)
+Z π eiρeit
+dt−
+Z π
+dt
+(cid:12) (cid:12)
+(cid:12)=
+(cid:12) (cid:12)
+(cid:12)
+Z π(cid:16) eiρeit
+−1
+(cid:17)
+dt
+(cid:12) (cid:12)
+(cid:12).
+(cid:12) (cid:12) (cid:12) (cid:12) (cid:12) (cid:12)
+0 0 0 0
+We will want to use once again inequality (7). Since the length of the curve is
+π we only need to show that
+|eiρeit
+−1|−→0, as ρ→0. (11)
+But we have
+|eiρeit −1| = |eiρ(cost+isint)−1|=|e−ρsinteiρcost−1|
+= |e−ρsinteiρcost−e−ρsint+e−ρsint−1|
+≤ e−ρsint|eiρcost−1|+|e−ρsint−1|
+≤ |eiρcost−1|+|e−ρsint−1|.
+For 0≤t≤π, sint≥0 so that e−ρsint ≤1 and thus the second absolute value
+is actually equal to 1−e−ρsint which is less than ρsint, since for any real u,
+1−u≤e−u (just draw the graphs of these two functions).
+We will now bound |eiρcost−1|. For any real number v we have
+|eiv−1|2 =(cosv−1)2+sin2v =cos2v+sin2v−2cosv+1=2(1−cosv).
+We will show that
+v2
+1−cosv ≤ (12)
+2
+If we knew that, then (11) would follow since we would have
+|eiρeit −1|≤|eiρcost−1|+|e−ρsint−1|≤ρ(|cost|+|sint|)≤2ρ→0.
+But the proof of (12) is an easy exercise in calculus: let
+v2
+h(v):= +cosv−1.
+2
+9
+
+================================================================================
+PAGE 10
+================================================================================
+
+Than (12) is equivalent to
+h(v)≥0 for v ∈R.
+Since h(0) = 0, it suffices to show that h(v) has a global minimum at v = 0.
+But
+h0(v)=v−sinv so that h0(0)=0, and h00(v)=1−cosv ≥0.
+That means that v =0 is a critical point and h(v) is convex. Thus, it has to be
+the mininimum of h(v).
+All that remains to show is that
+Z eiz
+lim dz =0. (13)
+R→∞ AR z
+This is the place where Jordan’s inequality (8) comes into picture. Going once
+again through the routine of changing variables to z = Reit, 0 ≤ t ≤ π, we
+obtain
+(cid:12) (cid:12) (cid:12) (cid:12) Z e z iz dz (cid:12) (cid:12) (cid:12) (cid:12) = (cid:12) (cid:12) (cid:12) (cid:12) i Z π eiReit dt (cid:12) (cid:12) (cid:12) (cid:12) ≤ Z π(cid:12) (cid:12) (cid:12) eiR(cost+isint) (cid:12) (cid:12) (cid:12) dt
+AR 0 0
+= Z π (cid:12) (cid:12)eiRcost(cid:12) (cid:12)·e−Rsintdt≤ Z π e−Rsintdt≤ π ,
+R
+0 0
+where the last step follows from Jordan’s inequality (8). It is now clear that
+(13) is true.
+It remains to prove (8). To this end, first note that
+Z π Z π/2
+e−Rsintdt=2 e−Rsintdt.
+0 0
+That’s because the graph of sint and (thus also of e−Rsint) is symmetric about
+the vertical line at π/2. Now, since the function sint is concave between 0 ≤
+t≤π, its graph is above the graph of a line segment joining (0,0) and (π/2,1);
+in other words
+2t
+sint≥ .
+π
+Hence
+Z π/2 e−Rsintdt≤ Z π/2 e−2 π Rtdt= π (cid:0) 1−e−R(cid:1) ≤ π
+2R 2R
+0 0
+which proves Jordan’s inequality.
+3 Summation of series.
+As an example we will show that
+X ∞ 1 π2
+= , (14)
+n2 6
+n=1
+10
+
+================================================================================
+PAGE 11
+================================================================================
+
+but as we will see the approach is fairly universal.
+LetforanaturalnumberN C beapositivelyorientedsquarewithvertices
+N
+at (±1±i)(N +1/2) and consider the integral
+Z cosπz
+dz. (15)
+z2sinπz
+CN
+Since sinπz = 0 for z = 0,±1,±2,... the integrand has simple poles at
+±1,±2,... andapoleofdegreethreeat0. Theresiduesatthesimplepolesare
+(z−k)cosπz cosπk π(z−k) 1
+lim = lim = .
+z→k z2sinπz k2 z→k πsin(π(z−k)) πk2
+The residue at the triple pole z = 0 is −π/3. To see that you can either ask
+Maple to find it for you by typing:
+residue(cos(Pi*z)/sin(Pi*z)/z^2,z=0);
+in your Maple session or compute the second derivative (see Sec. 10.2 of Cain’s
+notes again) of
+1 cosπz 1zcosπz
+z3 = ,
+2! z2sinπz 2 sinπz
+and evaluate at z =0, or else use the series expansions for the sine and cosine,
+and figure out from there, what’ s the coefficient in front of 1/z in the Laurent
+series for
+cosπz
+z2sinπz
+around z = 0. Applying residue theorem, and collecting the poles within the
+0
+contour C we get
+N
+Z cosπz π X N 1 X −N 1 ! π X N 1 !
+dz =2πi − + + =2πi − +2 .
+z2sinπz 3 πk2 πk2 3 πk2
+CN k=1 k=−1 k=1
+The next step is to show that as N → ∞ the integral on the left converges
+to 0. Once this is accomplished, we could pass to the limit on the right hand
+side as well, obtaining
+N !
+2 X 1 π
+lim = ,
+N→∞ π k2 3
+k=1
+which is equivalent to (14).
+In order to show that the integral in (15) converges to 0 as N →∞, we will
+bound
+(cid:12) (cid:12) Z cosπz (cid:12) (cid:12)
+(cid:12) dz(cid:12)
+(cid:12) z2sinπz (cid:12)
+CN
+using our indispensable inequality (7).
+11
+
+================================================================================
+PAGE 12
+================================================================================
+
+First, observe that each side of C has length 2N +1 so that the length of
+N
+thecontourC isboundedby8N+4=O(N). Ontheotherhand,forz ∈C ,
+N N
+1
+|z|≥N + ≥N,
+2
+so that
+(cid:12) (cid:12)
+(cid:12) 1 (cid:12) 1
+(cid:12) (cid:12)≤ ,
+(cid:12)z2(cid:12) N2
+so that it would be (more than) enough to show that cosπz/sinπz is bounded
+on C by a constant independent of N. By Exercise 9 from Cain’s notes
+N
+|sinz|2 =sin2x+sinh2y, |cosz|2 =cos2x+sinh2y,
+where z =x+iy. Hence
+(cid:12)cosπz(cid:12)2 cos2πx+sinh2πy cos2πx sinh2πy
+(cid:12) (cid:12) = = +
+(cid:12)sinπz(cid:12) sin2πx+sinh2πy sin2πx+sinh2πy sin2πx+sinh2πy
+cos2πx
+≤ +1.
+sin2πx+sinh2πy
+On the vertical lines of the contour C x = ±(N +1/2) so that cos(πx) = 0
+N
+and sin(πx) = ±1. Hence the first term above is 0. We will show that on the
+horizontallinestheabsolutevalueofsinhπy isexponentiallylarge,thusmaking
+the first term exponentially small since sine and cosine are bounded functions.
+For t>0 we have
+et−e−t et−1
+sinht= ≥ .
+2 2
+Similarly, for t<0
+et−e−t 1−e−t e−t−1
+sinht= ≤ =− ,
+2 2 2
+so that, in either case
+e|t|−1
+|sinht|≥ .
+2
+Since on the upper horizontal line |y|=N +1/2 we obtain
+eπ(N+1/2)−1
+|sinhπy|≥ →∞,
+2
+asN →∞. AllofthisimpliesthatthereexistsapositiveconstantK suchthat
+for all N ≥1 and all for z ∈C
+N
+cosπz
+| |≤K.
+sinπz
+Hence, we conclude that
+(cid:12) (cid:12) Z cosπz (cid:12) (cid:12) 8N +4
+(cid:12) dz(cid:12)≤K ,
+(cid:12) z2sinπz (cid:12) N2
+CN
+12
+
+================================================================================
+PAGE 13
+================================================================================
+
+which converges to 0 as N →∞. This establishes (14).
+The above argument is fairly universal and applies generally to the sums of
+the form
+∞
+X
+f(n).
+n=−∞
+Sums from 0 (or 1) to infinity are then often handled by using a symmetry of
+f(n)orsimilarlysimpleobservations. Thecruxoftheargumentisthefollowing
+observation:
+Proposition 3.1 Under mild assumptions on f(z),
+∞
+X X (cid:16) cosπz(cid:17)
+f(n)=−π Res f(z) ,
+sinπz
+n=−∞
+where the sum extends over the poles of f(z).
+In our example we just took f(z)=1/z2.
+Variations of the above argument allow us to handle other sums. For exam-
+ple, we have
+Proposition 3.2 Under mild assumptions on f(z),
+∞ (cid:18) (cid:19)
+X X f(z)
+(−1)nf(n)=−π Res ,
+sinπz
+n=−∞
+where the sum extends over the poles of f(z).
+13
+
+================================================================================
+PAGE 14
+================================================================================
+
+4 Exercises.
+Z ∞ 2x2−1
+1. Evaluate dx. Answer: π/4.
+x4+5x2+4
+0
+Z ∞ x
+2. Evaluate dx. Answer: −π/5.
+(x2+1)(x2+2x+2)
+−∞
+Z ∞ dx π
+3. Evaluate . Answer: √ .
+x4+1 2 2
+0
+Z ∞ sinx π
+4. Evaluate dx. Answer: − sin2.
+x2+4x+5 e
+−∞
+Z ∞ xsinx π
+5. Evaluate dx. Answer: sin1.
+x4+4 2e
+−∞
+Z ∞ xsinπx
+6. Evaluate dx. Answer: −πe−2π.
+x2+2x+5
+−∞
+Z π dt √
+7. Evaluate . Answer: 2π.
+1+sin2t
+−π
+Z 2π cos23x 3
+8. Evaluate dx. Answer: π.
+5−4cos2x 8
+0
+X ∞ 1 π4
+9. Show that = .
+n4 90
+n=1
+X ∞ (−1)n+1 π2
+10. Use a suggestion of Proposition 3.2 to show that = .
+n2 12
+n=1
+14
