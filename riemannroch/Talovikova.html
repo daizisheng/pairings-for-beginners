@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riemann–Roch Theorem – Valeriya Talovikova</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Riemann–Roch Theorem<br><span style="font-size: 0.6em;">Valeriya Talovikova</span></h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">黎曼-罗赫定理<br><span style="font-size: 0.6em;">Valeriya Talovikova</span></h1></blockquote>
+
+        <p><strong>Abstract.</strong> This paper presents a brief introduction to algebraic geometry and provides several theorems and lemmas with proofs, along with many examples that allow one to gain a deeper intuitive understanding of the material. Finally, having worked through the prerequisites, this paper demonstrates an elementary proof of the Riemann–Roch Theorem, which is a vital tool to the fields of complex analysis and algebraic geometry. It is used for the computation of the dimension of the space of meromorphic functions with prescribed zeroes and allowed poles. It also relates the complex analysis of a compact, connected Riemann surface with the surface's purely topological genus, in a way that can be carried over into purely algebraic settings.</p>
+
+        <blockquote><p><strong>摘要.</strong> 本文简要介绍了代数几何,并提供了若干定理和引理及其证明,以及许多有助于深入直观理解相关内容的例子。在完成必要的预备知识之后,本文给出了黎曼-罗赫定理的初等证明。黎曼-罗赫定理是复分析和代数几何领域的重要工具,用于计算具有指定零点和允许极点的亚纯函数空间的维数。它还将紧致连通黎曼曲面的复分析与曲面的纯拓扑亏格联系起来,并且这种联系可以推广到纯代数的情形。</p></blockquote>
+
+        <p><strong>Contents</strong></p>
+        <p>1. Introduction to Riemann surfaces<br>
+        2. Holomorphic and meromorphic functions on Riemann surfaces<br>
+        3. Coverings<br>
+        4. Holomorphic and meromorphic 1-forms on Riemann surfaces<br>
+        5. Divisors<br>
+        6. Riemann–Roch Theorem</p>
+
+        <blockquote><p><strong>目录</strong><br>
+        1. 黎曼曲面简介<br>
+        2. 黎曼曲面上的全纯函数和亚纯函数<br>
+        3. 覆盖<br>
+        4. 黎曼曲面上的全纯和亚纯1-形式<br>
+        5. 因子<br>
+        6. 黎曼-罗赫定理</p></blockquote>
+
+        <p>Some preliminaries for this article can be found at [1], Preliminaries. Necessary information on coverings can be read at [3], Ch. 5.</p>
+
+        <blockquote><p>本文的一些预备知识可在[1]的"预备知识"部分找到。关于覆盖的必要信息可参阅[3]第5章。</p></blockquote>
+
+        <!-- Section 1 -->
+        <h2>1. Introduction to Riemann Surfaces</h2>
+        <blockquote><h2>1. 黎曼曲面简介</h2></blockquote>
+
+        <p>In order to understand the statement and proof of the Riemann–Roch Theorem, one must first state several basic definitions about Riemann surfaces, hence:</p>
+
+        <blockquote><p>为了理解黎曼-罗赫定理的陈述和证明,我们必须首先给出关于黎曼曲面的若干基本定义:</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 1.1 (定义 1.1)</div>
+            <p>A <strong>Riemann surface</strong> is a one-dimensional, connected, complex manifold. This means that every Riemann surface is a union of connected open subsets, which are homeomorphic to open sets in \( \mathbb{C} \) (these homeomorphisms are called <em>local charts</em>, and the full collection of such charts is called a <em>complex atlas</em>). Moreover, for each two such neighborhoods having a non-empty intersection, there must exist a conformal isomorphism between the two images of the intersection created correspondingly by two individual neighborhood isomorphisms.</p>
+            <blockquote><p><strong>黎曼曲面</strong>是一维连通复流形。这意味着每个黎曼曲面是连通开子集的并集,这些开子集同胚于 \( \mathbb{C} \) 中的开集(这些同胚称为<em>局部坐标卡</em>,所有坐标卡的全体称为<em>复图册</em>)。此外,对于具有非空交集的任意两个这样的邻域,由两个邻域同胚分别映射交集所得的两个像之间必须存在共形同构。</p></blockquote>
+        </div>
+
+        <p>A more formal definition of a complex atlas and local charts can be found at [1], Definition 2.1.1.</p>
+
+        <blockquote><p>复图册和局部坐标卡的更正式定义可参见[1]定义2.1.1。</p></blockquote>
+
+        <p>Any connected open set in \( \mathbb{C} \) is also a non-compact Riemann surface. An atlas of such surfaces can contain just one chart, and unlike more complicated surfaces there is no necessity for a change of coordinates.</p>
+
+        <blockquote><p>\( \mathbb{C} \) 中的任何连通开集也是一个非紧致黎曼曲面。这类曲面的图册可以只包含一个坐标卡,与更复杂的曲面不同,不需要坐标变换。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Remark 1.2 (注 1.2)</div>
+            <p>In the following, unless explicitly stated otherwise, we assume that our Riemann surfaces are compact topological spaces.</p>
+            <blockquote><p>在下文中,除非另有明确说明,我们假设我们的黎曼曲面是紧致拓扑空间。</p></blockquote>
+        </div>
+
+        <div class="example">
+            <div class="example-title">Definition 1.3 (定义 1.3)</div>
+            <p>Any compact Riemann surface is homeomorphic to a sphere with \( g \geq 0 \) handles attached, and the number \( g \) is called the <strong>genus</strong> of the Riemann surface.</p>
+            <blockquote><p>任何紧致黎曼曲面都同胚于一个附加了 \( g \geq 0 \) 个把手的球面,数 \( g \) 称为黎曼曲面的<strong>亏格</strong>。</p></blockquote>
+        </div>
+
+        <p>In particular, the simplest example of a compact Riemann surface is the Riemann sphere (i.e., a sphere with zero handles).</p>
+
+        <blockquote><p>特别地,紧致黎曼曲面最简单的例子是黎曼球面(即没有把手的球面)。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Fact 1.1 — Riemann Classification Theorem (事实 1.1 — 黎曼分类定理)</div>
+            <p>Every compact Riemann surface is homeomorphic to a sphere with \( g \) handles for a certain \( g \). A sphere with zero handles is simply a sphere. A sphere with one handle is homeomorphic to a torus.</p>
+            <blockquote><p>每个紧致黎曼曲面都同胚于带有 \( g \) 个把手的球面(对于某个 \( g \))。零个把手的球面就是球面本身。一个把手的球面同胚于环面。</p></blockquote>
+        </div>
+
+        <p>The proof of this Theorem can be found at [3], Ch. 1. Another example of a compact Riemann surface is a torus. The proof that a torus is, in fact, a Riemann surface can be found at [1] (Example 2.2.3, Proposition 2.2.4).</p>
+
+        <blockquote><p>该定理的证明可参见[3]第1章。紧致黎曼曲面的另一个例子是环面。环面确实是黎曼曲面的证明可参见[1](例2.2.3,命题2.2.4)。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 1.4 (定义 1.4)</div>
+            <p>The <strong>Riemann sphere</strong> is the set \( \hat{\mathbb{C}} = \mathbb{C} \cup \{\infty\} \) with the neighborhoods \( U_0 = \mathbb{C} \) and \( U_1 = (\mathbb{C} \setminus \{0\}) \cup \{\infty\} \) and corresponding charts given by:
+            \[ \varphi_0(z) = z \quad \text{and} \quad \varphi_1(z) = \begin{cases} \dfrac{1}{z}, & \text{if } z \neq \infty, \\ 0, & \text{if } z = \infty. \end{cases} \]</p>
+            <blockquote><p><strong>黎曼球面</strong>是集合 \( \hat{\mathbb{C}} = \mathbb{C} \cup \{\infty\} \),其邻域为 \( U_0 = \mathbb{C} \) 和 \( U_1 = (\mathbb{C} \setminus \{0\}) \cup \{\infty\} \),对应的坐标卡为:
+            \[ \varphi_0(z) = z \quad \text{且} \quad \varphi_1(z) = \begin{cases} \dfrac{1}{z}, & \text{若 } z \neq \infty, \\ 0, & \text{若 } z = \infty. \end{cases} \]</p></blockquote>
+        </div>
+
+        <p>The proof that the Riemann sphere is, indeed, a Riemann surface can be found at [1] (Proposition 2.2.2).</p>
+
+        <blockquote><p>黎曼球面确实是黎曼曲面的证明可参见[1](命题2.2.2)。</p></blockquote>
+
+        <!-- Section 2 -->
+        <h2>2. Holomorphic and Meromorphic Functions on Riemann Surfaces</h2>
+        <blockquote><h2>2. 黎曼曲面上的全纯函数和亚纯函数</h2></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 2.1 (定义 2.1)</div>
+            <p>(Cf. [1], Definition 2.3.1) Let \( X \) and \( Y \) be Riemann surfaces that are not necessarily compact. A function \( f : X \to Y \) is called <strong>holomorphic</strong> if for all charts \( \varphi : U_1 \to V_1 \) on \( X \), and \( \psi : U_2 \to V_2 \) on \( Y \), the function \( \psi \circ f \circ \varphi^{-1} \) is holomorphic (in the usual sense) on \( \varphi(U_1 \cap f^{-1}(U_2)) \).</p>
+            <blockquote><p>(参见[1]定义2.3.1)设 \( X \) 和 \( Y \) 是不一定紧致的黎曼曲面。函数 \( f : X \to Y \) 称为<strong>全纯的</strong>,如果对 \( X \) 上的所有坐标卡 \( \varphi : U_1 \to V_1 \) 和 \( Y \) 上的所有坐标卡 \( \psi : U_2 \to V_2 \),函数 \( \psi \circ f \circ \varphi^{-1} \) 在 \( \varphi(U_1 \cap f^{-1}(U_2)) \) 上是(通常意义下的)全纯函数。</p></blockquote>
+        </div>
+
+        <div class="example">
+            <div class="example-title">Proposition 2.2 (命题 2.2)</div>
+            <p>Let \( X \) be a compact Riemann surface. If \( f : X \to \mathbb{C} \) is holomorphic, then \( f \) is constant.</p>
+            <blockquote><p>设 \( X \) 是紧致黎曼曲面。若 \( f : X \to \mathbb{C} \) 是全纯的,则 \( f \) 是常数。</p></blockquote>
+        </div>
+
+        <p><strong>Proof.</strong> Can be found at [1], Theorem 2.3.3. &#9633;</p>
+
+        <blockquote><p><strong>证明.</strong> 可参见[1]定理2.3.3。&#9633;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 2.3 (定义 2.3)</div>
+            <p>Let \( X \) be a Riemann surface that is not necessarily compact. A function \( f \) on \( X \) is called <strong>meromorphic</strong> if \( f \) is holomorphic on \( X \setminus S \), where \( S \subset X \) is a discrete (possibly empty) subset of \( X \), and \( f \) has poles at every point \( x \in S \).</p>
+            <blockquote><p>设 \( X \) 是不一定紧致的黎曼曲面。\( X \) 上的函数 \( f \) 称为<strong>亚纯的</strong>,如果 \( f \) 在 \( X \setminus S \) 上全纯,其中 \( S \subset X \) 是 \( X \) 的一个离散(可能为空的)子集,且 \( f \) 在 \( S \) 中的每个点 \( x \in S \) 处有极点。</p></blockquote>
+        </div>
+
+        <p>Obviously, any holomorphic function is also meromorphic; the sums, differences, products, and quotients of two meromorphic functions are also meromorphic.</p>
+
+        <blockquote><p>显然,任何全纯函数也是亚纯的;两个亚纯函数的和、差、积、商也是亚纯的。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Proposition 2.4 (命题 2.4)</div>
+            <p>There exists a natural bijection between the set of meromorphic functions on a Riemann surface \( X \), which is not necessarily compact, and the set of holomorphic functions (maps) from \( X \) to \( \hat{\mathbb{C}} \).</p>
+            <blockquote><p>在不一定紧致的黎曼曲面 \( X \) 上的亚纯函数集合与从 \( X \) 到 \( \hat{\mathbb{C}} \) 的全纯映射集合之间存在自然的双射。</p></blockquote>
+        </div>
+
+        <p><strong>Proof.</strong> If \( f \) is our meromorphic function on \( X \), and \( S \) is the set of its poles, we can define a map \( \bar{f} : X \to \hat{\mathbb{C}} \) by the following rule: \( \bar{f}(x) = \infty \) if \( x \in S \), and \( \bar{f}(x) = f(x) \) otherwise. It is easy to see that \( \bar{f} \) is holomorphic: for \( x \notin S \), there is no contradiction because \( f \) is already holomorphic at \( x \). If \( x \in S \), then the composition of \( f \) with the chart \( \varphi_1 : U_1 \to \mathbb{C} \) is \( z \mapsto \dfrac{1}{f(z)} \), and if \( f \) has a pole at \( x \), then \( \dfrac{1}{f(z)} \) is bounded in the neighborhood of \( x \) and can be made holomorphic in accordance with the removable singularity theorem. Thus, \( \bar{f} \) is also holomorphic (since its local representation in the neighborhood of \( x \) is).</p>
+
+        <p>The converse is also true: if we have a holomorphic map \( \bar{f} \), we can easily build a meromorphic function \( f \) by restriction of \( \bar{f} \) to pre-images of \( \mathbb{C} \). Using the same ideas we can see that \( f \) has poles at the points in the pre-images of \( \infty \). &#9633;</p>
+
+        <blockquote><p><strong>证明.</strong> 设 \( f \) 是 \( X \) 上的亚纯函数,\( S \) 是其极点集合,我们可以定义映射 \( \bar{f} : X \to \hat{\mathbb{C}} \) 如下:\( \bar{f}(x) = \infty \) 若 \( x \in S \),否则 \( \bar{f}(x) = f(x) \)。容易看出 \( \bar{f} \) 是全纯的:对于 \( x \notin S \),没有矛盾,因为 \( f \) 在 \( x \) 处已经全纯。若 \( x \in S \),则 \( f \) 与坐标卡 \( \varphi_1 : U_1 \to \mathbb{C} \) 的复合是 \( z \mapsto \dfrac{1}{f(z)} \),若 \( f \) 在 \( x \) 处有极点,则 \( \dfrac{1}{f(z)} \) 在 \( x \) 的邻域内有界,根据可去奇点定理可以变为全纯函数。因此 \( \bar{f} \) 也是全纯的。</p>
+        <p>反过来也成立:如果我们有全纯映射 \( \bar{f} \),可以通过将 \( \bar{f} \) 限制到 \( \mathbb{C} \) 的原像上来构造亚纯函数 \( f \)。利用同样的思想可知 \( f \) 在 \( \infty \) 的原像点处有极点。&#9633;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Fact 2.1 — Riemann's Existence Theorem (事实 2.1 — 黎曼存在定理)</div>
+            <p>Every compact Riemann surface admits a non-constant meromorphic function. The proof of the Theorem can be found at [10].</p>
+            <blockquote><p>每个紧致黎曼曲面都容许非常数的亚纯函数。该定理的证明可参见[10]。</p></blockquote>
+        </div>
+
+        <div class="example">
+            <div class="example-title">Definition 2.5 (定义 2.5)</div>
+            <p>If \( f : X \to Y \) is a holomorphic map of Riemann surfaces and \( a \) is a point of \( X \), then we can find a local chart neighborhood \( U \) of \( a \), defined by the coordinate \( z \), such that \( a \) corresponds to \( z = 0 \). We can similarly find a chart for \( f(U) \) under which \( f(a) \) corresponds to zero. Under these coordinates, \( f \) in \( U \) will be represented by a Taylor series
+            \[ c_n z^n + c_{n+1} z^{n+1} + \cdots, \quad \text{where } n \geq 1. \]
+            We will call such coordinates <strong>local coordinates</strong>, and the corresponding Taylor series as the <strong>local representation</strong> for \( f \).</p>
+            <blockquote><p>若 \( f : X \to Y \) 是黎曼曲面之间的全纯映射,\( a \) 是 \( X \) 中的一点,则可以找到 \( a \) 的局部坐标卡邻域 \( U \),由坐标 \( z \) 定义,使得 \( a \) 对应于 \( z = 0 \)。类似地可以找到 \( f(U) \) 的坐标卡,使得 \( f(a) \) 对应于零。在这些坐标下,\( f \) 在 \( U \) 中表示为泰勒级数
+            \[ c_n z^n + c_{n+1} z^{n+1} + \cdots, \quad \text{其中 } n \geq 1. \]
+            我们称这样的坐标为<strong>局部坐标</strong>,对应的泰勒级数为 \( f \) 的<strong>局部表示</strong>。</p></blockquote>
+        </div>
+
+        <!-- Section 3 -->
+        <h2>3. Coverings</h2>
+        <blockquote><h2>3. 覆盖</h2></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 3.1 (定义 3.1)</div>
+            <p>A local homeomorphism \( \pi : M' \to M \), where \( M \) and \( M' \) are manifolds, is called a <strong>covering</strong> if each \( x \in M \) has a connected neighborhood \( V \) such that every connected component of \( \pi^{-1}(V) \) is mapped by \( \pi \) homeomorphically onto \( V \). If \( \pi \) is clear from the context, we sometimes also call \( M' \) a <strong>covering space</strong> of \( M \), and \( \pi \) is the <strong>covering map</strong>. The homeomorphic copies in \( M' \) of the connected neighborhood \( V \) are called <strong>sheets</strong>. For any point \( x \in M \), the inverse image of \( x \) in \( M' \) is called the <strong>fiber</strong> over \( x \).</p>
+            <blockquote><p>设 \( M \) 和 \( M' \) 是流形,局部同胚 \( \pi : M' \to M \) 称为<strong>覆盖</strong>,如果每个 \( x \in M \) 都有一个连通邻域 \( V \),使得 \( \pi^{-1}(V) \) 的每个连通分支都被 \( \pi \) 同胚地映射到 \( V \) 上。若 \( \pi \) 从上下文中清楚,有时也称 \( M' \) 为 \( M \) 的<strong>覆盖空间</strong>,\( \pi \) 为<strong>覆盖映射</strong>。\( M' \) 中连通邻域 \( V \) 的同胚副本称为<strong>层</strong>。对于任意点 \( x \in M \),\( x \) 在 \( M' \) 中的原像称为 \( x \) 上的<strong>纤维</strong>。</p></blockquote>
+        </div>
+
+        <p>For every \( x \in M \), the fiber over \( x \) is a discrete subset of \( M' \). If \( M \) is connected, the fibers are homeomorphic and so there is a discrete space \( F \) such that the fiber over each \( x \in M \) is homeomorphic to \( F \). Moreover, for every \( x \in M \) there is a neighborhood \( V \) of \( x \) such that its full pre-image \( \pi^{-1}(V) \) is homeomorphic to \( V \times F \). In particular, the cardinality of the fiber over \( x \) is equal to the cardinality of \( F \) and it is called the <strong>degree</strong> of the cover \( \pi \). Thus, if every fiber has \( n \) elements, we refer to it as an <strong>\( n \)-fold covering</strong>.</p>
+
+        <blockquote><p>对每个 \( x \in M \),\( x \) 上的纤维是 \( M' \) 的一个离散子集。若 \( M \) 连通,则所有纤维同胚,因此存在一个离散空间 \( F \),使得每个 \( x \in M \) 上的纤维都同胚于 \( F \)。此外,对每个 \( x \in M \),存在 \( x \) 的邻域 \( V \) 使得其完全原像 \( \pi^{-1}(V) \) 同胚于 \( V \times F \)。特别地,\( x \) 上纤维的基数等于 \( F \) 的基数,称为覆盖 \( \pi \) 的<strong>度数</strong>。因此,如果每个纤维有 \( n \) 个元素,我们称之为 <strong>\( n \) 重覆盖</strong>。</p></blockquote>
+
+        <p>The following proposition gives a useful criterion to determine if a map is a covering; its proof can be found at page 56 of [2].</p>
+
+        <blockquote><p>下面的命题给出了判断一个映射是否为覆盖的有用准则;其证明可参见[2]第56页。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Proposition 3.2 (命题 3.2)</div>
+            <p>([2], Proposition 7.2) Let \( f : M' \to M \) be a surjective continuous mapping of manifolds that satisfies the following conditions:</p>
+            <ol>
+                <li>\( f \) is a local homeomorphism;</li>
+                <li>For each compact subset \( K \subset M \), the set \( f^{-1}(K) \subset M' \) is also compact.</li>
+            </ol>
+            <p>Then, \( f \) is a covering map and for each \( x \in M \) the fiber of \( x \) is finite.</p>
+            <blockquote><p>([2],命题7.2)设 \( f : M' \to M \) 是流形之间的满射连续映射,满足以下条件:</p>
+            <ol>
+                <li>\( f \) 是局部同胚;</li>
+                <li>对每个紧致子集 \( K \subset M \),集合 \( f^{-1}(K) \subset M' \) 也是紧致的。</li>
+            </ol>
+            <p>则 \( f \) 是覆盖映射,且对每个 \( x \in M \),\( x \) 的纤维是有限的。</p></blockquote>
+        </div>
+
+        <div class="example">
+            <div class="example-title">Definition 3.3 (定义 3.3)</div>
+            <p>Let \( f \) be a holomorphic map from a Riemann surface \( X \) to a Riemann surface \( Y \) and let \( a \) be a point of \( X \). The winding number of \( f(X) \) with respect to the point \( f(a) \) is a positive integer called the <strong>ramification index</strong> of \( a \). If the ramification index is greater than 1, then \( a \) is called a <strong>ramification point</strong> of \( f \), and the corresponding value \( f(a) \) is called an (algebraic) <strong>branch point</strong>. Equivalently, \( a \) is a ramification point with ramification index \( k \) if there exists a holomorphic function \( \varphi \) defined in a neighborhood of \( a \) such that \( f(z) = \varphi(z)(z - a)^k \) for some positive integer \( k > 1 \). If \( z \) is a local coordinate, \( f \) can be presented as \( \varphi(z) z^k \).</p>
+            <blockquote><p>设 \( f \) 是从黎曼曲面 \( X \) 到黎曼曲面 \( Y \) 的全纯映射,\( a \) 是 \( X \) 中的一点。\( f(X) \) 关于点 \( f(a) \) 的绕数是一个正整数,称为 \( a \) 的<strong>分歧指数</strong>(或分支指数)。若分歧指数大于1,则 \( a \) 称为 \( f \) 的<strong>分歧点</strong>(或分支点),对应的值 \( f(a) \) 称为(代数)<strong>分支点</strong>。等价地,\( a \) 是分歧指数为 \( k \) 的分歧点,如果存在定义在 \( a \) 的邻域上的全纯函数 \( \varphi \),使得 \( f(z) = \varphi(z)(z - a)^k \),其中 \( k > 1 \) 是正整数。若 \( z \) 是局部坐标,则 \( f \) 可以表示为 \( \varphi(z) z^k \)。</p></blockquote>
+        </div>
+
+        <div class="example">
+            <div class="example-title">Proposition 3.4 (命题 3.4)</div>
+            <p>([2], pg. 55) Let \( f \) be a holomorphic map from a compact Riemann surface \( X \) to a compact Riemann surface \( Y \); then:</p>
+            <ol>
+                <li>\( f(X) = Y \) (i.e., \( f \) is surjective).</li>
+                <li>For each \( y \in Y \), the fiber of \( y \) is a finite set.</li>
+                <li>The number of ramification points on \( X \) is finite; if \( S \subset Y \) is the set containing images of all ramification points of \( X \), then the restriction of \( f \) on \( X \setminus f^{-1}(S) \to Y \setminus S \) is a covering map.</li>
+                <li>If the degree of this covering map equals \( n \) and \( f^{-1}(y) = \{x_1, \ldots, x_k\} \) is the pre-image of a point \( y \in Y \), then
+                \[ \sum_{i=1}^{k} e_i = n, \]
+                where \( e_i \) is the ramification index of \( x_i \).</li>
+            </ol>
+            <blockquote><p>([2]第55页)设 \( f \) 是从紧致黎曼曲面 \( X \) 到紧致黎曼曲面 \( Y \) 的全纯映射;则:</p>
+            <ol>
+                <li>\( f(X) = Y \)(即 \( f \) 是满射)。</li>
+                <li>对每个 \( y \in Y \),\( y \) 的纤维是有限集。</li>
+                <li>\( X \) 上分歧点的数目是有限的;若 \( S \subset Y \) 是包含 \( X \) 的所有分歧点的像的集合,则 \( f \) 在 \( X \setminus f^{-1}(S) \to Y \setminus S \) 上的限制是覆盖映射。</li>
+                <li>若该覆盖映射的度数为 \( n \),且 \( f^{-1}(y) = \{x_1, \ldots, x_k\} \) 是点 \( y \in Y \) 的原像,则
+                \[ \sum_{i=1}^{k} e_i = n, \]
+                其中 \( e_i \) 是 \( x_i \) 的分歧指数。</li>
+            </ol></blockquote>
+        </div>
+
+        <p><strong>Proof.</strong></p>
+
+        <p>(1) \( f(X) \) is closed in \( Y \), because \( X \) is compact and \( f \) is continuous, and \( f(X) \) is open in \( Y \), because \( f \) is holomorphic. Since \( Y \) is connected, it must be that \( f(X) = Y \).</p>
+
+        <p>(2) \( f^{-1}(y) \) cannot have an accumulation point \( x_0 \) in \( X \) (otherwise, \( f \) would be constant in a neighborhood of \( x_0 \) and, hence, everywhere). So, \( f^{-1}(y) \) is discrete and (since \( X \) is compact) finite.</p>
+
+        <p>(3) From the local representation viewpoint, a ramification point is a zero of the derivative of \( f \) (with \( f \) presented locally as \( \varphi(z) z^k \)). By the same reasoning, zeroes of the derivative cannot have an accumulation point (otherwise, the derivative will be zero everywhere, and \( f \) would be a constant). So, again this set is discrete and finite. To prove that the restriction of \( f \) to \( X \setminus f^{-1}(S) \to Y \setminus S \) is a covering map we can use Proposition 3.2, with \( M' = X \setminus f^{-1}(S) \) and \( M = Y \setminus S \). The second condition of Proposition 3.2 is satisfied because \( X \) is compact.</p>
+
+        <p>(4) We can find neighborhoods \( U_i \) for each \( x_i \) such that the local representation for \( f \) in \( U_i \) behaves like \( z^{e_i} \), so the restriction of \( f \) on \( U_i \setminus \{x_i\} \) covers its image \( e_i \) times. Since, for all points \( y' \) close enough to \( y \), we have \( f^{-1}(y') \subset \bigcup_i U_i \), the equality \( \sum_{i=1}^{k} e_i = n \) follows from the fact that all points \( y' \neq y \) close enough to \( y \) have \( n \) pre-images. &#9633;</p>
+
+        <blockquote><p><strong>证明.</strong></p>
+        <p>(1) \( f(X) \) 在 \( Y \) 中是闭的,因为 \( X \) 紧致且 \( f \) 连续;又 \( f(X) \) 在 \( Y \) 中是开的,因为 \( f \) 全纯。由于 \( Y \) 连通,必有 \( f(X) = Y \)。</p>
+        <p>(2) \( f^{-1}(y) \) 不可能在 \( X \) 中有聚点 \( x_0 \)(否则 \( f \) 在 \( x_0 \) 的邻域内将是常数,从而处处为常数)。所以 \( f^{-1}(y) \) 是离散的,且(由于 \( X \) 紧致)有限。</p>
+        <p>(3) 从局部表示的观点看,分歧点是 \( f \) 的导数的零点(其中 \( f \) 局部表示为 \( \varphi(z) z^k \))。同理,导数的零点不可能有聚点(否则导数处处为零,\( f \) 将是常数)。所以这个集合也是离散且有限的。为了证明 \( f \) 在 \( X \setminus f^{-1}(S) \to Y \setminus S \) 上的限制是覆盖映射,我们可以使用命题3.2,取 \( M' = X \setminus f^{-1}(S) \),\( M = Y \setminus S \)。命题3.2的第二个条件满足,因为 \( X \) 紧致。</p>
+        <p>(4) 对每个 \( x_i \) 可以找到邻域 \( U_i \),使得 \( f \) 在 \( U_i \) 中的局部表示类似于 \( z^{e_i} \),从而 \( f \) 在 \( U_i \setminus \{x_i\} \) 上的限制覆盖其像 \( e_i \) 次。由于对所有充分接近 \( y \) 的点 \( y' \),有 \( f^{-1}(y') \subset \bigcup_i U_i \),等式 \( \sum_{i=1}^{k} e_i = n \) 就由所有 \( y' \neq y \) 且充分接近 \( y \) 的点有 \( n \) 个原像这一事实得出。&#9633;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Proposition 3.5 (命题 3.5)</div>
+            <p>The number of zeroes is equal to the number of poles (counted with multiplicities) for any meromorphic function on a compact Riemann surface.</p>
+            <blockquote><p>对于紧致黎曼曲面上的任何亚纯函数,零点的个数等于极点的个数(均按重数计算)。</p></blockquote>
+        </div>
+
+        <p><strong>Proof.</strong> By virtue of Proposition 2.4, to the meromorphic function \( f \) corresponds a holomorphic map \( \bar{f} \) from our Riemann surface \( X \) to \( \hat{\mathbb{C}} \). By Proposition 3.4, to \( \bar{f} \) corresponds a covering map from \( X \) to \( \hat{\mathbb{C}} \) and the degree of the covering map is the number of pre-images for any point of \( \hat{\mathbb{C}} \) counted with multiplicities (ramification indices).</p>
+
+        <p>The degree is the same for every point, in particular, for \( 0 \) and \( \infty \). Thus, the number of pre-images of \( 0 \) counted with multiplicities (zeroes of \( f \)) is the same as the number of pre-images of \( \infty \) counted with multiplicities (poles of \( f \)). &#9633;</p>
+
+        <blockquote><p><strong>证明.</strong> 根据命题2.4,亚纯函数 \( f \) 对应从黎曼曲面 \( X \) 到 \( \hat{\mathbb{C}} \) 的全纯映射 \( \bar{f} \)。根据命题3.4,\( \bar{f} \) 对应从 \( X \) 到 \( \hat{\mathbb{C}} \) 的覆盖映射,覆盖映射的度数等于 \( \hat{\mathbb{C}} \) 中任意点按重数(分歧指数)计算的原像数。</p>
+        <p>度数对每个点都相同,特别是对 \( 0 \) 和 \( \infty \) 也是如此。因此,\( 0 \) 的按重数计算的原像数(\( f \) 的零点)等于 \( \infty \) 的按重数计算的原像数(\( f \) 的极点)。&#9633;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Theorem 3.1 — Fundamental Theorem of Algebra (定理 3.1 — 代数基本定理)</div>
+            <p>Every non-constant, single-variable, degree-\( n \) polynomial with complex coefficients has \( n \) complex roots (counted with multiplicities).</p>
+            <blockquote><p>每个具有复数系数的非常数单变量 \( n \) 次多项式有 \( n \) 个复数根(按重数计算)。</p></blockquote>
+        </div>
+
+        <p><strong>Proof.</strong> Our polynomial \( f \) is a meromorphic function \( f(z) = w \) on the Riemann surface \( \hat{\mathbb{C}} \) (the details can be found in [2], Lecture 6). Hence, \( f \) has to have as many zeroes as poles (counted with multiplicities). Clearly, \( f \) has just one pole of order \( n \) (at infinity), so the number of zeroes of \( f \) is also \( n \). &#9633;</p>
+
+        <blockquote><p><strong>证明.</strong> 多项式 \( f \) 是黎曼曲面 \( \hat{\mathbb{C}} \) 上的亚纯函数 \( f(z) = w \)(详情可参见[2]第6讲)。因此,\( f \) 的零点数(按重数计算)必须等于极点数。显然,\( f \) 只有一个 \( n \) 阶极点(在无穷远处),所以 \( f \) 的零点数也是 \( n \)。&#9633;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 3.6 (定义 3.6)</div>
+            <p>We can define the <strong>Euler characteristic</strong> for a Riemann surface \( X \) in the following way. Let us triangulate the Riemann surface (we assume that this is always possible). The Euler characteristic of the surface is then
+            \[ \chi = V - E + F, \]
+            where \( V \), \( E \), and \( F \) are respectively the numbers of vertices, edges, and faces of our triangulation. It is well-known that the Euler characteristic \( \chi \) is a topological invariant and, in particular, does not depend on the triangulation itself.</p>
+            <p>It is also well-known that if the genus of our Riemann surface is equal to \( g \), then
+            \[ \chi = 2 - 2g. \]
+            (For the proof, we could describe our Riemann surface as a sphere with \( g \) handles, triangulate it, and find the Euler characteristic directly.)</p>
+            <blockquote><p>我们可以如下定义黎曼曲面 \( X \) 的<strong>欧拉特征</strong>。对黎曼曲面进行三角剖分(我们假设这始终是可能的)。曲面的欧拉特征为
+            \[ \chi = V - E + F, \]
+            其中 \( V \)、\( E \)、\( F \) 分别是三角剖分的顶点数、边数和面数。众所周知,欧拉特征 \( \chi \) 是拓扑不变量,特别地不依赖于三角剖分本身。</p>
+            <p>同样众所周知,若黎曼曲面的亏格为 \( g \),则
+            \[ \chi = 2 - 2g. \]
+            (证明方法:将黎曼曲面描述为带有 \( g \) 个把手的球面,对其进行三角剖分,直接计算欧拉特征。)</p></blockquote>
+        </div>
+
+        <div class="example">
+            <div class="example-title">Theorem 3.2 — Riemann–Hurwitz Formula (定理 3.2 — 黎曼-赫尔维茨公式)</div>
+            <p>(Cf. [2], pp. 57–58) Let \( f : X \to Y \) be a non-constant holomorphic map of one compact Riemann surface into another. If \( \deg f = n \), the genus of \( X \) is equal to \( g(X) \), the genus of \( Y \) is equal to \( g(Y) \), and \( f \) is ramified at \( m \) points on \( X \) with indices of ramification \( e_1, \ldots, e_m \) correspondingly, then
+            \[ 2 - 2g(X) = n\bigl(2 - 2g(Y)\bigr) - \sum_{i=1}^{m} (e_i - 1). \]</p>
+            <blockquote><p>(参见[2]第57–58页)设 \( f : X \to Y \) 是从一个紧致黎曼曲面到另一个紧致黎曼曲面的非常数全纯映射。若 \( \deg f = n \),\( X \) 的亏格为 \( g(X) \),\( Y \) 的亏格为 \( g(Y) \),且 \( f \) 在 \( X \) 上的 \( m \) 个点处分歧,对应的分歧指数为 \( e_1, \ldots, e_m \),则
+            \[ 2 - 2g(X) = n\bigl(2 - 2g(Y)\bigr) - \sum_{i=1}^{m} (e_i - 1). \]</p></blockquote>
+        </div>
+
+        <p><strong>Proof.</strong> We will triangulate the surface \( Y \) in such a way that all branch points are among the vertices of the triangulation. Then, \( f \) will provide for a branched covering map from \( X \) to \( Y \). If \( V \), \( E \), and \( F \) are correspondingly the number of vertices, edges, and faces of the triangulation, then the Euler characteristic is
+        \[ \chi = 2 - 2g(Y) = V - E + F. \]</p>
+
+        <p>If we consider the pre-image of our \( Y \)-triangulation on \( X \), we will get a triangulation on \( X \), with the number of edges \( E' = nE \), the number of faces \( F' = nF \), and the number of vertices
+        \[ V' = nV - \sum_{i=1}^{m} (e_i - 1) \]
+        (because a single branch point \( i \) will correspond to \( e_i \) regular points).</p>
+
+        <p>Now, we can calculate the Euler characteristic for \( X \). It is:
+        \[ 2 - 2g(X) = V' - E' + F' = nV - \sum_{i=1}^{m}(e_i - 1) - nE + nF = n(2 - 2g(Y)) - \sum_{i=1}^{m}(e_i - 1). \]
+        &#9633;</p>
+
+        <blockquote><p><strong>证明.</strong> 我们对曲面 \( Y \) 进行三角剖分,使得所有分支点都在三角剖分的顶点之中。则 \( f \) 给出从 \( X \) 到 \( Y \) 的分支覆盖映射。设 \( V \)、\( E \)、\( F \) 分别为三角剖分的顶点数、边数和面数,则欧拉特征为
+        \[ \chi = 2 - 2g(Y) = V - E + F. \]</p>
+        <p>考虑 \( Y \) 的三角剖分在 \( X \) 上的原像,我们得到 \( X \) 上的三角剖分,其边数为 \( E' = nE \),面数为 \( F' = nF \),顶点数为
+        \[ V' = nV - \sum_{i=1}^{m} (e_i - 1) \]
+        (因为一个分支点 \( i \) 将对应 \( e_i \) 个正常点)。</p>
+        <p>现在可以计算 \( X \) 的欧拉特征:
+        \[ 2 - 2g(X) = V' - E' + F' = nV - \sum_{i=1}^{m}(e_i - 1) - nE + nF = n(2 - 2g(Y)) - \sum_{i=1}^{m}(e_i - 1). \]
+        &#9633;</p></blockquote>
+
+        <h2>4. Holomorphic and meromorphic 1-forms on Riemann surfaces</h2>
+        <blockquote><h2>4. 黎曼曲面上的全纯与亚纯1-形式</h2></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 4.1 (Holomorphic 1-form / 全纯1-形式)</div>
+            <p>A <strong>holomorphic 1-form</strong> on a Riemann surface \( X \) is a complex differential form of degree 1 on \( X \) that can be written in local coordinates as \( \omega = f\,dz \), where \( f \) is a holomorphic function of the local coordinate \( z \).</p>
+            <p>If we change our coordinate in a holomorphic way: \( z = z(w) \), where \( z(w) \) is a holomorphic function of argument \( w \), then
+            \[ f(z)\,dz = f(z(w))\,z'(w)\,dw. \]
+            So if a 1-form can be written as \( f\,dz \) with holomorphic \( f \) for some coordinate \( z \), it can be written this way for any coordinate.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 4.1（全纯1-形式）</div>
+        <p>黎曼曲面 \( X \) 上的<strong>全纯1-形式</strong>是 \( X \) 上的一个复微分1-形式，在局部坐标下可以写成 \( \omega = f\,dz \)，其中 \( f \) 是局部坐标 \( z \) 的全纯函数。</p>
+        <p>如果我们用全纯的方式换元：\( z = z(w) \)，其中 \( z(w) \) 是关于 \( w \) 的全纯函数，则
+        \[ f(z)\,dz = f(z(w))\,z'(w)\,dw. \]
+        因此，如果一个1-形式在某个坐标 \( z \) 下可以写成全纯函数 \( f \) 乘以 \( dz \)，那么它在任何坐标下都可以如此表示。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 4.2 (Meromorphic 1-form / 亚纯1-形式)</div>
+            <p>A <strong>meromorphic 1-form</strong> on a Riemann surface \( X \) is a complex differential form of degree 1 on \( X \) that is holomorphic on \( X \setminus S \), where \( S \subset X \) is a discrete (possibly empty) subset of \( X \), such that any point \( a \in S \) has a neighborhood \( U \) on which the restriction of \( \omega \) can be written as \( f\,\omega' \), where \( f \) is a meromorphic function on \( U \) with a pole at \( a \), and \( \omega' \) is a holomorphic 1-form on \( U \).</p>
+            <p>Informally, a meromorphic 1-form \( \omega \) is something that can be written in local coordinates as \( f(z)\,dz \), where \( f \) is a meromorphic function. \( \omega \) has a pole at the point \( a \) if and only if \( f(z) \) has a pole at \( a \), provided that \( \omega \) can be written as \( f(z)\,dz \) in a neighborhood of the point \( a \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 4.2（亚纯1-形式）</div>
+        <p>黎曼曲面 \( X \) 上的<strong>亚纯1-形式</strong>是 \( X \) 上的一个复微分1-形式，它在 \( X \setminus S \) 上是全纯的，其中 \( S \subset X \) 是 \( X \) 的一个离散（可能为空的）子集，使得任何点 \( a \in S \) 都有一个邻域 \( U \)，在其上 \( \omega \) 的限制可以写成 \( f\,\omega' \)，其中 \( f \) 是 \( U \) 上在 \( a \) 处有极点的亚纯函数，\( \omega' \) 是 \( U \) 上的全纯1-形式。</p>
+        <p>非形式地说，亚纯1-形式 \( \omega \) 是可以在局部坐标下写成 \( f(z)\,dz \) 的对象，其中 \( f \) 是亚纯函数。\( \omega \) 在点 \( a \) 处有极点当且仅当 \( f(z) \) 在 \( a \) 处有极点，只要 \( \omega \) 在 \( a \) 的邻域内可以写成 \( f(z)\,dz \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Proposition 4.3</div>
+            <p>If \( \omega_1 \) and \( \omega_2 \) are meromorphic 1-forms on a compact Riemann surface \( X \), then there exists a meromorphic function \( f \) for which \( \omega_1 = f\,\omega_2 \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">命题 4.3</div>
+        <p>如果 \( \omega_1 \) 和 \( \omega_2 \) 是紧黎曼曲面 \( X \) 上的亚纯1-形式，则存在亚纯函数 \( f \) 使得 \( \omega_1 = f\,\omega_2 \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> If in some neighborhood \( U \subset X \) our 1-forms can be written as \( \omega_1 = f_1\,dz \), \( \omega_2 = f_2\,dz \), where \( f_1 \) and \( f_2 \) are meromorphic functions on \( U \) and \( z \) is a local coordinate, we set \( f_U \) to be the meromorphic function \( f_1/f_2 \) on \( U \). If in some other neighborhood \( V \subset X \) having non-empty intersection with \( U \), we have \( \omega_1 = g_1\,dw \), \( \omega_2 = g_2\,dw \), then on \( U \cap V \) we have \( g_1 = f_1 \cdot (dz/dw) \) and \( g_2 = f_2 \cdot (dz/dw) \), so \( f_1/f_2 = g_1/g_2 \). Hence, the function \( f = f_1/f_2 \) is well-defined and \( \omega_1 = f\,\omega_2 \). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 如果在某邻域 \( U \subset X \) 中，我们的1-形式可以写成 \( \omega_1 = f_1\,dz \)，\( \omega_2 = f_2\,dz \)，其中 \( f_1 \) 和 \( f_2 \) 是 \( U \) 上的亚纯函数，\( z \) 是局部坐标，我们令 \( f_U \) 为 \( U \) 上的亚纯函数 \( f_1/f_2 \)。如果在另一个与 \( U \) 有非空交集的邻域 \( V \subset X \) 中，有 \( \omega_1 = g_1\,dw \)，\( \omega_2 = g_2\,dw \)，则在 \( U \cap V \) 上 \( g_1 = f_1 \cdot (dz/dw) \) 且 \( g_2 = f_2 \cdot (dz/dw) \)，所以 \( f_1/f_2 = g_1/g_2 \)。因此函数 \( f = f_1/f_2 \) 是良定义的，且 \( \omega_1 = f\,\omega_2 \)。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Proposition 4.4</div>
+            <p>The sum of all residues of a meromorphic 1-form \( \omega \) on any compact Riemann surface \( X \) is 0.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">命题 4.4</div>
+        <p>紧黎曼曲面 \( X \) 上的亚纯1-形式 \( \omega \) 的所有留数之和为0。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> Let \( a_1, \ldots, a_n \) be the set of all poles of the 1-form \( \omega \). Since this set is discrete, we can surround every point \( a_i \) with a small disk \( D_i \) which does not contain other poles. On the set \( X' = X \setminus \bigcup \operatorname{int}(D_i) \), our 1-form is holomorphic and closed. Hence, by the Stokes Theorem we have:
+        \[ \sum_i \oint_{\partial D_i} \omega = \int_{\partial X'} \omega = \int_{X'} d\omega = 0. \]
+        &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 设 \( a_1, \ldots, a_n \) 为1-形式 \( \omega \) 的所有极点的集合。由于该集合是离散的，我们可以用不包含其他极点的小圆盘 \( D_i \) 包围每个点 \( a_i \)。在集合 \( X' = X \setminus \bigcup \operatorname{int}(D_i) \) 上，我们的1-形式是全纯的和闭的。因此，由斯托克斯定理得：
+        \[ \sum_i \oint_{\partial D_i} \omega = \int_{\partial X'} \omega = \int_{X'} d\omega = 0. \]
+        &#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 4.5 (Principal part / 主部)</div>
+            <p>The <strong>principal part</strong> at \( z = a \) of a function
+            \[ f(z) = \sum_{k=-\infty}^{\infty} a_k (z - a)^k \]
+            is the portion of the Laurent series consisting of terms with negative degree. That is,
+            \[ \sum_{k=-\infty}^{-1} a_k (z - a)^k \]
+            is the principal part of \( f \) at \( a \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 4.5（主部）</div>
+        <p>函数 \( f(z) = \sum_{k=-\infty}^{\infty} a_k (z - a)^k \) 在 \( z = a \) 处的<strong>主部</strong>是洛朗级数中负次幂项的部分，即 \( \sum_{k=-\infty}^{-1} a_k (z - a)^k \) 是 \( f \) 在 \( a \) 处的主部。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Proposition 4.6 (Reverse Residue Theorem / 逆留数定理)</div>
+            <p>If we have a set of points \( \{a_1, \ldots, a_n\} \) on a compact Riemann surface and also a set of principal parts \( \{f_1, \ldots, f_n\} \), then the following are equivalent:</p>
+            <p>(1) There exists a meromorphic function \( f \) that has principal part \( f_i \) at each point \( a_i \) and has no other poles.</p>
+            <p>(2) \( \displaystyle\sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega = 0 \) for all holomorphic 1-forms \( \omega \) on our Riemann surface.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">命题 4.6（逆留数定理）</div>
+        <p>如果在紧黎曼曲面上有一组点 \( \{a_1, \ldots, a_n\} \) 和一组主部 \( \{f_1, \ldots, f_n\} \)，则以下两个条件等价：</p>
+        <p>(1) 存在亚纯函数 \( f \)，使得 \( f \) 在每个点 \( a_i \) 处的主部为 \( f_i \)，且没有其他极点。</p>
+        <p>(2) 对于我们黎曼曲面上所有的全纯1-形式 \( \omega \)，\( \displaystyle\sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega = 0 \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> We first prove the forward implication. If such a meromorphic function \( f \) exists, then for any holomorphic 1-form \( \omega \), we have \( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f\,\omega = 0 \) by Proposition 4.4. Now, \( f \) only has poles at the points \( \{a_1, \ldots, a_n\} \), and the principal part of \( f \) at \( a_i \) is equal to \( f_i \). Therefore the residue of \( f \) at the point \( a_i \) is the coefficient of the \( z^{-1} \) term of the Laurent series \( f_i \). Taking into account that \( \omega \) is a holomorphic 1-form, and so multiplying by \( \omega \) can only increase degrees but never decrease them, we have \( \operatorname{Res}_{a_i} f\,\omega = \operatorname{Res}_{a_i} f_i\,\omega \) and \( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega = 0 \).</p>
+        <p>As to the reverse implication &mdash; it follows from the Serre Duality (cf. [4], pg. 188). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 我们首先证明正向蕴含。如果这样的亚纯函数 \( f \) 存在，则对任何全纯1-形式 \( \omega \)，由命题4.4得 \( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f\,\omega = 0 \)。现在 \( f \) 只在点 \( \{a_1, \ldots, a_n\} \) 处有极点，且 \( f \) 在 \( a_i \) 处的主部等于 \( f_i \)。因此 \( f \) 在点 \( a_i \) 处的留数是洛朗级数 \( f_i \) 的 \( z^{-1} \) 项系数。考虑到 \( \omega \) 是全纯1-形式，乘以 \( \omega \) 只能增加次数而不会减少，我们有 \( \operatorname{Res}_{a_i} f\,\omega = \operatorname{Res}_{a_i} f_i\,\omega \)，从而 \( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega = 0 \)。</p>
+        <p>至于逆向蕴含，它由塞尔对偶性得出（参见 [4]，第188页）。&#x25A1;</p></blockquote>
+
+        <p>We will need to make use of the following theorem, whose proof can be found at [10].</p>
+        <blockquote><p>我们将使用以下定理，其证明可以在 [10] 中找到。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Theorem 4.1</div>
+            <p>If the genus of a Riemann surface \( X \) is equal to \( g \), there exist on \( X \) exactly \( g \) independent holomorphic 1-forms.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定理 4.1</div>
+        <p>如果黎曼曲面 \( X \) 的亏格等于 \( g \)，则 \( X \) 上恰好存在 \( g \) 个独立的全纯1-形式。</p>
+        </blockquote>
+
+        <!-- ==================== Section 5 ==================== -->
+
+        <h2>5. Divisors</h2>
+        <blockquote><h2>5. 因子</h2></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.1 (Divisor / 因子)</div>
+            <p>A <strong>divisor</strong> is an element of a free abelian group generated by the points of a Riemann surface. More simply stated, a divisor is a linear combination of a finite number of points with integer coefficients.</p>
+            <p>Since divisors are elements of an abelian group, they can be added, subtracted, and multiplied by integers. If \( D_1 = \sum_a n_a \cdot a \) and \( D_2 = \sum_a m_a \cdot a \) are divisors, then
+            \[ D_1 + D_2 = \sum_a (n_a + m_a) \cdot a. \]
+            We can also compare divisors: \( D_1 \leq D_2 \) if and only if \( n_a \leq m_a \) for all \( a \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.1（因子）</div>
+        <p><strong>因子</strong>是由黎曼曲面上的点生成的自由阿贝尔群的元素。更简单地说，因子是有限个点的整数系数线性组合。</p>
+        <p>由于因子是阿贝尔群的元素，它们可以进行加法、减法和整数倍乘运算。若 \( D_1 = \sum_a n_a \cdot a \)，\( D_2 = \sum_a m_a \cdot a \) 是因子，则 \( D_1 + D_2 = \sum_a (n_a + m_a) \cdot a \)。我们还可以比较因子：\( D_1 \leq D_2 \) 当且仅当对所有 \( a \) 都有 \( n_a \leq m_a \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.2 (Degree of a divisor / 因子的次数)</div>
+            <p>If \( D = \sum_a n_a \cdot a \) is a divisor, then the <strong>degree</strong> of \( D \) is the sum
+            \[ \deg(D) = \sum_a n_a. \]
+            Because \( \deg(D_1 + D_2) = \deg(D_1) + \deg(D_2) \), we see that \( \deg \) is a homomorphism from the abelian group of divisors to the abelian group \( \mathbb{Z} \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.2（因子的次数）</div>
+        <p>若 \( D = \sum_a n_a \cdot a \) 是因子，则 \( D \) 的<strong>次数</strong>为 \( \deg(D) = \sum_a n_a \)。由于 \( \deg(D_1 + D_2) = \deg(D_1) + \deg(D_2) \)，\( \deg \) 是从因子的阿贝尔群到阿贝尔群 \( \mathbb{Z} \) 的同态。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.3 (Order of a function / 函数的阶)</div>
+            <p>If \( f \) is a meromorphic function on a (not necessarily compact) Riemann surface \( X \), and \( a \) is a point of \( X \), we define the <strong>order</strong> of \( f \) at \( a \) as
+            \[ \operatorname{ord}_a(f) = \begin{cases} k, & \text{if } f \text{ has a zero of multiplicity } k \text{ at } a, \\ -k, & \text{if } f \text{ has a pole of multiplicity } k \text{ at } a. \end{cases} \]</p>
+            <p>For every meromorphic function \( f \) on a compact Riemann surface, there corresponds a divisor \( \sum_a \operatorname{ord}_a(f) \cdot a \) over the (discrete and hence finite) set of points where \( f \) has zeroes and poles.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.3（函数的阶）</div>
+        <p>若 \( f \) 是（不一定紧的）黎曼曲面 \( X \) 上的亚纯函数，\( a \) 是 \( X \) 的一个点，则定义 \( f \) 在 \( a \) 处的<strong>阶</strong>为：若 \( f \) 在 \( a \) 处有 \( k \) 重零点则 \( \operatorname{ord}_a(f) = k \)；若 \( f \) 在 \( a \) 处有 \( k \) 重极点则 \( \operatorname{ord}_a(f) = -k \)。</p>
+        <p>对于紧黎曼曲面上的每个亚纯函数 \( f \)，对应一个因子 \( \sum_a \operatorname{ord}_a(f) \cdot a \)，其中求和取遍 \( f \) 有零点和极点的（离散的因而有限的）点集。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.4 (Principal divisor / 主因子)</div>
+            <p>The divisor \( \sum_a \operatorname{ord}_a(f) \cdot a \) is denoted as \( (f) \) and called the <strong>principal divisor</strong> for \( f \).</p>
+            <p>It is obvious that \( (f \cdot g) = (f) + (g) \) and \( (f/g) = (f) - (g) \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.4（主因子）</div>
+        <p>因子 \( \sum_a \operatorname{ord}_a(f) \cdot a \) 记作 \( (f) \)，称为 \( f \) 的<strong>主因子</strong>。</p>
+        <p>显然 \( (f \cdot g) = (f) + (g) \) 且 \( (f/g) = (f) - (g) \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Lemma 5.1</div>
+            <p>If \( f \) is a meromorphic function on a compact Riemann surface, then \( \deg((f)) = 0 \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">引理 5.1</div>
+        <p>若 \( f \) 是紧黎曼曲面上的亚纯函数，则 \( \deg((f)) = 0 \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> As we proved earlier in the paper, any meromorphic function on a compact Riemann surface has as many poles (counted with multiplicities) as it has zeroes (counted with multiplicities). Thus, by definition of \( \operatorname{ord} \) and \( \deg \), \( \deg((f)) = 0 \). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 正如我们前面所证明的，紧黎曼曲面上的任何亚纯函数的极点数（计入重数）与零点数（计入重数）相等。因此，由 \( \operatorname{ord} \) 和 \( \deg \) 的定义得 \( \deg((f)) = 0 \)。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.5 (Order of a 1-form / 1-形式的阶)</div>
+            <p>If \( \omega \) is a meromorphic 1-form on a (not necessarily compact) Riemann surface \( X \), and \( a \) is a point of \( X \), we define the <strong>order</strong> of \( \omega \) at \( a \) to be
+            \[ \operatorname{ord}_a(\omega) = \operatorname{ord}_a(f_a), \]
+            where \( f_a \) is a local representation of \( \omega \) at the point \( a \), i.e., \( \omega \) is represented locally as \( f_a\,dz \) in a neighborhood of \( a \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.5（1-形式的阶）</div>
+        <p>若 \( \omega \) 是（不一定紧的）黎曼曲面 \( X \) 上的亚纯1-形式，\( a \) 是 \( X \) 的一个点，则定义 \( \omega \) 在 \( a \) 处的<strong>阶</strong>为 \( \operatorname{ord}_a(\omega) = \operatorname{ord}_a(f_a) \)，其中 \( f_a \) 是 \( \omega \) 在点 \( a \) 处的局部表示，即 \( \omega \) 在 \( a \) 的邻域中表示为 \( f_a\,dz \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.6 (Canonical divisor / 典范因子)</div>
+            <p>The divisor \( \sum_a \operatorname{ord}_a(\omega) \cdot a \) is denoted as \( (\omega) \) and called the <strong>canonical divisor</strong> of the meromorphic 1-form \( \omega \).</p>
+            <p>It is obvious from the given definitions that if \( f \) is a meromorphic function and \( \omega \) is a meromorphic 1-form, then \( (f \cdot \omega) = (f) + (\omega) \). Due to additivity of \( \deg \) and the previous lemma, we see that \( \deg((f\,\omega)) = \deg((f)) + \deg((\omega)) = \deg((\omega)) \).</p>
+            <p>Since any meromorphic 1-form can be presented as any other meromorphic 1-form multiplied by some meromorphic function, we see that all canonical divisors have the same degree.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.6（典范因子）</div>
+        <p>因子 \( \sum_a \operatorname{ord}_a(\omega) \cdot a \) 记作 \( (\omega) \)，称为亚纯1-形式 \( \omega \) 的<strong>典范因子</strong>。</p>
+        <p>由定义显然可得，若 \( f \) 是亚纯函数而 \( \omega \) 是亚纯1-形式，则 \( (f \cdot \omega) = (f) + (\omega) \)。由 \( \deg \) 的可加性和前面的引理得 \( \deg((f\,\omega)) = \deg((f)) + \deg((\omega)) = \deg((\omega)) \)。</p>
+        <p>由于任何亚纯1-形式都可以表示为另一个亚纯1-形式乘以某个亚纯函数，所以所有典范因子具有相同的次数。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Lemma 5.2</div>
+            <p>If \( \omega \) is a meromorphic 1-form on a compact Riemann surface \( X \), then
+            \[ \deg((\omega)) = -\chi, \]
+            where \( \chi \) is the Euler characteristic of the Riemann surface.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">引理 5.2</div>
+        <p>若 \( \omega \) 是紧黎曼曲面 \( X \) 上的亚纯1-形式，则 \( \deg((\omega)) = -\chi \)，其中 \( \chi \) 是黎曼曲面的欧拉特征。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> Due to the remark above, it is enough to prove the lemma for any 1-form. For our 1-form we choose \( df \), where \( f \) is some non-constant meromorphic function on our Riemann surface, which exists due to Riemann's Existence Theorem (2.1). We consider \( f \) as a holomorphic map from \( X \) to \( \overline{\mathbb{C}} \).</p>
+        <p>We may assume that there are no ramification points among pre-images of \( \infty \in \overline{\mathbb{C}} \) &mdash; otherwise, we can "rotate" the Riemann sphere (using some Moebius transformation) and consider the composition of \( f \) with this "rotation" and its inverse.</p>
+        <p>Let us count \( \deg(df) \). We denote the covering degree of \( f \) by \( n \), and ramification indexes of \( f \) by \( e_1, \ldots, e_m \).</p>
+        <p>Our function \( f \) has exactly \( n \) simple poles (pre-images of \( \infty \)), and at each of them the 1-form \( df \) has a pole of order 2 (because \( d(1/z) = -1/z^2 \)). On the other hand, zeroes of \( df \) are ramification points of the map \( f \), and if the ramification index at some point is equal to \( e \), then \( df \) has a zero of order \( e - 1 \) at this point. (Explanation: at this point the Taylor series for \( f \) starts with \( c_e z^e \), so the local representation of \( df \) at the point will start with \( e\,c_e\,z^{e-1} \), i.e., it has a zero of order \( (e-1) \).)</p>
+        <p>So, \( df \) has \( n \) poles of order 2 and \( m \) zeroes of orders \( e_1 - 1, \ldots, e_m - 1 \). Summing it all up, we get:
+        \[ \deg(df) = \sum_{i=1}^{m} (e_i - 1) - 2n, \]
+        and this number is equal to \( -\chi = 2g - 2 \) by the Riemann&ndash;Hurwitz formula. &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 由上面的注记，对任意一个1-形式证明该引理即可。我们选取 \( df \)，其中 \( f \) 是黎曼曲面上的某个非常数亚纯函数（由黎曼存在性定理保证其存在）。将 \( f \) 视为从 \( X \) 到 \( \overline{\mathbb{C}} \) 的全纯映射。</p>
+        <p>我们可以假设 \( \infty \in \overline{\mathbb{C}} \) 的原像中没有分歧点。设 \( f \) 的覆盖度为 \( n \)，分歧指标为 \( e_1, \ldots, e_m \)。</p>
+        <p>函数 \( f \) 恰好有 \( n \) 个单极点（\( \infty \) 的原像），在每个极点处1-形式 \( df \) 有2阶极点（因为 \( d(1/z) = -1/z^2 \)）。另一方面，\( df \) 的零点是映射 \( f \) 的分歧点，如果某点的分歧指标为 \( e \)，则 \( df \) 在该点有 \( e-1 \) 阶零点。因此：
+        \[ \deg(df) = \sum_{i=1}^{m}(e_i - 1) - 2n, \]
+        由黎曼-赫尔维茨公式，此数等于 \( -\chi = 2g - 2 \)。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.7 (The spaces \( L(D) \) and \( I(D) \))</div>
+            <p>If \( D \) is a divisor, we define \( L(D) \) to be the set of all meromorphic functions \( f \) for which \( (f) + D \geq 0 \). Obviously, \( L(D) \) is a vector space over \( \mathbb{C} \), and we define \( l(D) \) to be the dimension of this vector space.</p>
+            <p>Similarly, \( I(D) \) is defined as the set of all meromorphic 1-forms \( \omega \) for which \( (\omega) \geq D \). Obviously, \( I(D) \) is a linear space over \( \mathbb{C} \), and \( i(D) \) is defined to be \( \dim_{\mathbb{C}}(I(D)) \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.7（空间 \( L(D) \) 和 \( I(D) \)）</div>
+        <p>若 \( D \) 是因子，定义 \( L(D) \) 为满足 \( (f) + D \geq 0 \) 的所有亚纯函数 \( f \) 的集合。显然 \( L(D) \) 是 \( \mathbb{C} \) 上的向量空间，定义 \( l(D) \) 为该向量空间的维数。</p>
+        <p>类似地，\( I(D) \) 定义为满足 \( (\omega) \geq D \) 的所有亚纯1-形式 \( \omega \) 的集合。显然 \( I(D) \) 是 \( \mathbb{C} \) 上的线性空间，\( i(D) \) 定义为 \( \dim_{\mathbb{C}}(I(D)) \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Corollary 5.3</div>
+            <p>If \( \deg(D) < 0 \), then \( l(D) = 0 \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">推论 5.3</div>
+        <p>若 \( \deg(D) < 0 \)，则 \( l(D) = 0 \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> Since any meromorphic function satisfies \( \deg((f)) = 0 \), we see that \( L(D) = \emptyset \) (there is no such function \( f \) such that \( (f) + D \geq 0 \), otherwise we would have \( 0 = \deg((f)) + \deg(D) = \deg((f) + D) \geq 0 \), contradicting \( \deg(D) < 0 \)). Thus, \( l(D) = 0 \). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 由于任何亚纯函数满足 \( \deg((f)) = 0 \)，如果存在 \( f \) 使得 \( (f) + D \geq 0 \)，则 \( 0 \leq \deg((f) + D) = \deg((f)) + \deg(D) = \deg(D) < 0 \)，矛盾。因此 \( L(D) = \emptyset \)，\( l(D) = 0 \)。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Corollary 5.4</div>
+            <p>If the divisor \( D = 0 \), then \( l(D) = 1 \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">推论 5.4</div>
+        <p>若因子 \( D = 0 \)，则 \( l(D) = 1 \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> Indeed, the space of meromorphic functions \( f \) such that \( (f) \geq 0 \) is just the space of all holomorphic functions (no poles), i.e., the space of constants, which is isomorphic to \( \mathbb{C} \). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 事实上，满足 \( (f) \geq 0 \) 的亚纯函数 \( f \) 的空间就是所有全纯函数（无极点）的空间，即常数空间，它同构于 \( \mathbb{C} \)。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Lemma 5.5</div>
+            <p>The linear space \( I(D) \) is isomorphic to the space \( L(K - D) \), where \( K \) is a canonical divisor. The linear space \( I(K - D) \) is isomorphic to the space \( L(D) \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">引理 5.5</div>
+        <p>线性空间 \( I(D) \) 同构于空间 \( L(K - D) \)，其中 \( K \) 是典范因子。线性空间 \( I(K - D) \) 同构于空间 \( L(D) \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> We shall prove that \( I(K - D) \) is isomorphic to \( L(D) \) first. We assume that \( K = (\omega) \) for some meromorphic 1-form \( \omega \).</p>
+        <p>If \( f \) is a meromorphic function, then \( (f) + D = (f\omega) - (\omega) + D = (f\omega) - (K - D) \). So, \( f \in L(D) = \{g \mid (g) + D \geq 0\} \) if and only if \( f\omega \in I(K - D) = \{\beta \mid (\beta) \geq K - D\} \). Thus, we have a map \( L(D) \to I(K - D) \) given by \( f \mapsto f\omega \).</p>
+        <p>Since every meromorphic 1-form in \( I(K - D) \) can be presented as \( f\omega \) for some meromorphic function, we similarly have an inverse function \( I(K - D) \to L(D) \). Since linearity of our map is obvious, we have an isomorphism between \( I(K - D) \) and \( L(D) \) for any divisor \( D \).</p>
+        <p>Now, if we substitute \( K - D \) instead of \( D \), we will get an isomorphism between \( I(D) \) and \( L(K - D) \). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 我们首先证明 \( I(K - D) \) 同构于 \( L(D) \)。设 \( K = (\omega) \) 对某个亚纯1-形式 \( \omega \)。</p>
+        <p>若 \( f \) 是亚纯函数，则 \( (f) + D = (f\omega) - (\omega) + D = (f\omega) - (K - D) \)。因此 \( f \in L(D) \) 当且仅当 \( f\omega \in I(K - D) \)。于是我们有映射 \( L(D) \to I(K - D) \)，\( f \mapsto f\omega \)。</p>
+        <p>由于 \( I(K - D) \) 中的每个亚纯1-形式都可以表示为 \( f\omega \) 的形式，因此存在逆映射。由于线性性是显然的，\( I(K - D) \) 与 \( L(D) \) 同构。</p>
+        <p>以 \( K - D \) 代替 \( D \)，便得到 \( I(D) \) 与 \( L(K - D) \) 之间的同构。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Lemma 5.6</div>
+            <p>The linear space \( L(K) \), where \( K \) is a canonical divisor, is isomorphic to the linear space of all holomorphic 1-forms on the same Riemann surface.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">引理 5.6</div>
+        <p>线性空间 \( L(K) \)（其中 \( K \) 是典范因子）同构于同一黎曼曲面上所有全纯1-形式的线性空间。</p>
+        </blockquote>
+
+        <p>From the previous lemma, \( L(K) \) is isomorphic to \( I(K - K) = I(0) = \{\omega \mid (\omega) \geq 0\} \), which is obviously the space of all holomorphic 1-forms. From the previous lemma and Theorem 4.1 it follows that \( l(K) = \dim(L(K)) = g \).</p>
+
+        <blockquote><p>由前面的引理，\( L(K) \) 同构于 \( I(K - K) = I(0) = \{\omega \mid (\omega) \geq 0\} \)，这显然是所有全纯1-形式的空间。由前面的引理和定理4.1可得 \( l(K) = \dim(L(K)) = g \)。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Definition 5.8 (Linear equivalence / 线性等价)</div>
+            <p>Two divisors \( D_1 \) and \( D_2 \) on a Riemann surface are called <strong>linearly equivalent</strong> if there exists a meromorphic function \( f \) defined on the same surface such that \( D_1 \) and \( D_2 \) differ by its principal divisor \( (f) \), i.e., if \( D_2 = D_1 + (f) \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定义 5.8（线性等价）</div>
+        <p>黎曼曲面上的两个因子 \( D_1 \) 和 \( D_2 \) 称为<strong>线性等价</strong>的，如果存在定义在同一曲面上的亚纯函数 \( f \) 使得 \( D_1 \) 和 \( D_2 \) 相差其主因子 \( (f) \)，即 \( D_2 = D_1 + (f) \)。</p>
+        </blockquote>
+
+        <div class="example">
+            <div class="example-title">Lemma 5.7</div>
+            <p>Linearly equivalent divisors have equal degrees.</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">引理 5.7</div>
+        <p>线性等价的因子具有相同的次数。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> If \( D_2 = D_1 + (f) \), then \( \deg(D_2) = \deg(D_1 + (f)) = \deg(D_1) + \deg((f)) = \deg(D_1) \), since \( \deg((f)) = 0 \). &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 若 \( D_2 = D_1 + (f) \)，则 \( \deg(D_2) = \deg(D_1 + (f)) = \deg(D_1) + \deg((f)) = \deg(D_1) \)，因为 \( \deg((f)) = 0 \)。&#x25A1;</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Lemma 5.8</div>
+            <p>If divisors \( D_1 \) and \( D_2 \) are linearly equivalent, the space \( L(D_1) \) is isomorphic to \( L(D_2) \), and the space \( I(D_1) \) is isomorphic to \( I(D_2) \).</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">引理 5.8</div>
+        <p>若因子 \( D_1 \) 和 \( D_2 \) 线性等价，则空间 \( L(D_1) \) 同构于 \( L(D_2) \)，空间 \( I(D_1) \) 同构于 \( I(D_2) \)。</p>
+        </blockquote>
+
+        <p><strong>Proof.</strong> Let us assume that \( D_2 = D_1 + (f) \) for a certain meromorphic function \( f \). If \( g \) is a meromorphic function and \( g \in L(D_2) \), then \( (fg) + D_1 = (f) + (g) + D_1 = (g) + D_1 + (f) = (g) + D_2 \). It follows that \( (g) + D_2 \geq 0 \) if and only if \( (fg) + D_1 \geq 0 \). Therefore, we have a map \( L(D_2) \to L(D_1) \). Since \( f \) is a meromorphic function, its inverse \( f^{-1} \) also is a meromorphic function, which clearly provides us with the inverse map \( L(D_1) \to L(D_2) \). Since linearity is also obvious, we have an isomorphism between \( L(D_1) \) and \( L(D_2) \). The fact that \( I(D_1) \) is isomorphic to \( I(D_2) \) is proved similarly. &#x25A1;</p>
+
+        <blockquote><p><strong>证明.</strong> 设 \( D_2 = D_1 + (f) \) 对某个亚纯函数 \( f \) 成立。若 \( g \) 是亚纯函数且 \( g \in L(D_2) \)，则 \( (fg) + D_1 = (f) + (g) + D_1 = (g) + D_2 \)。因此 \( (g) + D_2 \geq 0 \) 当且仅当 \( (fg) + D_1 \geq 0 \)。这给出映射 \( L(D_2) \to L(D_1) \)。由于 \( f \) 是亚纯函数，其逆 \( f^{-1} \) 也是亚纯函数，提供了逆映射 \( L(D_1) \to L(D_2) \)。线性性是显然的，因此 \( L(D_1) \) 与 \( L(D_2) \) 同构。\( I(D_1) \) 与 \( I(D_2) \) 同构的证明类似。&#x25A1;</p></blockquote>
+
+        <!-- ==================== Section 6 ==================== -->
+
+        <h2>6. Riemann&ndash;Roch Theorem</h2>
+        <blockquote><h2>6. 黎曼&ndash;罗赫定理</h2></blockquote>
+
+        <div class="example">
+            <div class="example-title">Theorem 6.1 (Riemann&ndash;Roch Theorem / 黎曼&ndash;罗赫定理)</div>
+            <p>If \( D \) is a divisor on a compact Riemann surface of genus \( g \), then
+            \[ l(D) - i(D) = \deg(D) + 1 - g. \]</p>
+        </div>
+
+        <blockquote>
+        <div class="example-title">定理 6.1（黎曼&ndash;罗赫定理）</div>
+        <p>若 \( D \) 是亏格为 \( g \) 的紧黎曼曲面上的因子，则 \( l(D) - i(D) = \deg(D) + 1 - g \)。</p>
+        </blockquote>
+
+        <p>There are several obvious implications of the Riemann&ndash;Roch Theorem. If we assume that it is valid (without proof), we actually can prove the theorem that there exist exactly \( g \) holomorphic 1-forms on the Riemann surface \( X \) with genus \( g \).</p>
+
+        <blockquote><p>黎曼&ndash;罗赫定理有几个显而易见的推论。如果我们假定它成立（不加证明），实际上可以证明亏格为 \( g \) 的黎曼曲面 \( X \) 上恰好存在 \( g \) 个全纯1-形式的定理。</p></blockquote>
+
+        <p>Indeed, if we take \( D = 0 \) and substitute it in the Riemann&ndash;Roch Theorem, we get:
+        \[ l(0) - i(0) = \deg(0) + 1 - g. \]
+        Now, \( l(0) = 1 \) as we have established earlier, and \( \deg(0) \) is simply 0, as it is the sum of coefficients of the zero divisor.</p>
+
+        <blockquote><p>事实上，取 \( D = 0 \) 代入黎曼&ndash;罗赫定理，得 \( l(0) - i(0) = \deg(0) + 1 - g \)。由前面的结论 \( l(0) = 1 \)，且 \( \deg(0) = 0 \)。</p></blockquote>
+
+        <p>\( i(0) = l(K) \), where \( K \) is a canonical divisor. As we know, \( L(K) \) is isomorphic to the space \( I(0) = \{\omega \mid (\omega) \geq 0\} \), which is the space of all holomorphic 1-forms. Thus, the formula gives us:
+        \[ 1 - i(0) = 0 + 1 - g, \]
+        and we conclude that \( i(0) = g \) is equal to the dimension of the space \( I(0) = \{\omega \mid (\omega) \geq 0\} \) of all holomorphic 1-forms.</p>
+
+        <blockquote><p>\( i(0) = l(K) \)，其中 \( K \) 是典范因子。如我们所知，\( L(K) \) 同构于空间 \( I(0) = \{\omega \mid (\omega) \geq 0\} \)，即所有全纯1-形式的空间。因此公式给出 \( 1 - i(0) = 0 + 1 - g \)，从而 \( i(0) = g \)，即全纯1-形式空间的维数。</p></blockquote>
+
+        <p>Furthermore, if we substitute \( D = K \) into the Riemann&ndash;Roch formula, we get:
+        \[ l(K) - i(K) = \deg(K) + 1 - g. \]
+        Since \( l(K) = i(0) = g \) and \( i(K) = l(0) = 1 \) as mentioned above, we see that
+        \[ g - 1 = \deg(K) + 1 - g. \]
+        Therefore we obtain the same formula \( \deg(K) = 2g - 2 \) that was proven earlier.</p>
+
+        <blockquote><p>进一步地，将 \( D = K \) 代入黎曼&ndash;罗赫公式，得 \( l(K) - i(K) = \deg(K) + 1 - g \)。由于 \( l(K) = i(0) = g \) 且 \( i(K) = l(0) = 1 \)，我们得到 \( g - 1 = \deg(K) + 1 - g \)，因此 \( \deg(K) = 2g - 2 \)，这与之前证明的公式一致。</p></blockquote>
+
+        <h3>Proof of the Riemann&ndash;Roch Theorem</h3>
+        <blockquote><h3>黎曼&ndash;罗赫定理的证明</h3></blockquote>
+
+        <p><strong>Proof.</strong> The proof is done in three parts.</p>
+        <blockquote><p><strong>证明.</strong> 证明分三个部分进行。</p></blockquote>
+
+        <p><strong>Part I.</strong> First we prove the statement in the case where \( \deg(D) \geq 0 \). Consider a divisor
+        \[ D = \sum_{i=1}^{n} m_i a_i \]
+        with \( D \geq 0 \).</p>
+
+        <blockquote><p><strong>第一部分.</strong> 首先证明 \( \deg(D) \geq 0 \) 的情形。考虑因子 \( D = \sum_{i=1}^{n} m_i a_i \)，其中 \( D \geq 0 \)。</p></blockquote>
+
+        <p>Let \( V \) be the set of all tuples \( \{f_1, \ldots, f_n\} \) of principal parts of the form
+        \[ f_i = \frac{c_{-m_i}}{z^{m_i}} + \cdots + \frac{c_{-1}}{z}. \]
+        Obviously, \( V \) is a linear space over \( \mathbb{C} \) of dimension \( \deg(D) \).</p>
+
+        <blockquote><p>设 \( V \) 为所有形如 \( f_i = \frac{c_{-m_i}}{z^{m_i}} + \cdots + \frac{c_{-1}}{z} \) 的主部的元组 \( \{f_1, \ldots, f_n\} \) 的集合。显然 \( V \) 是 \( \mathbb{C} \) 上维数为 \( \deg(D) \) 的线性空间。</p></blockquote>
+
+        <p>(<em>Example:</em> Say \( D = 3a_1 + 2a_2 \). Then
+        \[ V = \left\{ \left( \frac{c_{-3}}{z^3} + \frac{c_{-2}}{z^2} + \frac{c_{-1}}{z},\; \frac{d_{-2}}{z^2} + \frac{d_{-1}}{z} \right) \right\}, \]
+        and \( \dim_{\mathbb{C}}(V) = 5 = \deg(D) \).)</p>
+
+        <blockquote><p>（<em>例子：</em>设 \( D = 3a_1 + 2a_2 \)。则 \( V = \left\{ \left( \frac{c_{-3}}{z^3} + \frac{c_{-2}}{z^2} + \frac{c_{-1}}{z},\; \frac{d_{-2}}{z^2} + \frac{d_{-1}}{z} \right) \right\} \)，且 \( \dim_{\mathbb{C}}(V) = 5 = \deg(D) \)。）</p></blockquote>
+
+        <p>Let us create a map \( \Phi : L(D) \to V \) that sends \( f \in L(D) \) to the tuple of principal parts of \( f \) at the points \( a_i \).</p>
+
+        <blockquote><p>构造映射 \( \Phi : L(D) \to V \)，将 \( f \in L(D) \) 映到 \( f \) 在各点 \( a_i \) 处的主部的元组。</p></blockquote>
+
+        <p>Consider the kernel of \( \Phi \), which is the set of functions in \( L(D) \) that are sent to 0. Since \( D \geq 0 \), a function \( f \) with \( (f) \geq -D \) that is in the kernel has no principal parts at the points \( a_i \) and can have no other poles. This implies that such an \( f \) is holomorphic and, therefore, constant. Thus \( \dim(\ker(\Phi)) = 1 \), since only constant functions are in the kernel.</p>
+
+        <blockquote><p>考虑 \( \Phi \) 的核，即 \( L(D) \) 中被映到0的函数集合。由于 \( D \geq 0 \)，一个满足 \( (f) \geq -D \) 的核中函数在各点 \( a_i \) 处没有主部，且不能有其他极点。这意味着这样的 \( f \) 是全纯的，因而是常数。所以 \( \dim(\ker(\Phi)) = 1 \)。</p></blockquote>
+
+        <p>Now, if we let \( \operatorname{Im}(\Phi) = W \), then we have
+        \[ l(D) = \dim(\ker(\Phi)) + \dim(\operatorname{Im}(\Phi)) = 1 + \dim(W). \]</p>
+
+        <blockquote><p>设 \( \operatorname{Im}(\Phi) = W \)，则 \( l(D) = \dim(\ker(\Phi)) + \dim(\operatorname{Im}(\Phi)) = 1 + \dim(W) \)。</p></blockquote>
+
+        <p>Next, we need to find \( \dim(W) \). \( W \) is the set of principal parts \( \{f_i\} \) such that there exists \( f \in L(D) \) with set of principal parts equal to \( \{f_i\} \). According to Proposition 4.6, such \( f \) exists if and only if for all holomorphic 1-forms \( \omega \) on our Riemann surface, \( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega = 0 \). For each holomorphic 1-form \( \omega \) we consider the linear map \( \lambda_\omega : V \to \mathbb{C} \) defined by
+        \[ \{f_1, \ldots, f_n\} \mapsto \sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega. \]</p>
+
+        <blockquote><p>接下来求 \( \dim(W) \)。\( W \) 是主部 \( \{f_i\} \) 的集合，使得存在 \( f \in L(D) \) 以 \( \{f_i\} \) 为主部。由命题4.6，这样的 \( f \) 存在当且仅当对所有全纯1-形式 \( \omega \)，\( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega = 0 \)。对每个全纯1-形式 \( \omega \)，考虑线性映射 \( \lambda_\omega : V \to \mathbb{C} \)，\( \{f_1, \ldots, f_n\} \mapsto \sum_{i=1}^{n} \operatorname{Res}_{a_i} f_i\,\omega \)。</p></blockquote>
+
+        <p>Now, \( W = \bigcap \ker(\lambda_\omega) \) is the intersection of the kernels of \( \lambda_\omega \) for all holomorphic 1-forms \( \omega \). It follows (due to the standard theorem from linear algebra) that
+        \[ \dim(W) = \dim\!\left(\bigcap \ker(\lambda_\omega)\right) = \dim(V) - \dim(\{\lambda_\omega\}), \]
+        where \( \{\lambda_\omega\} \) is the linear space generated by all \( \lambda_\omega \).</p>
+
+        <blockquote><p>\( W = \bigcap \ker(\lambda_\omega) \) 是所有全纯1-形式 \( \omega \) 对应的 \( \lambda_\omega \) 的核的交集。由线性代数的标准定理得 \( \dim(W) = \dim(V) - \dim(\{\lambda_\omega\}) \)，其中 \( \{\lambda_\omega\} \) 是所有 \( \lambda_\omega \) 生成的线性空间。</p></blockquote>
+
+        <p>We know that \( \dim(V) = \deg(D) \), so \( \dim(W) = \deg(D) - \dim(\{\lambda_\omega\}) \) and
+        \[ l(D) = 1 + \dim(W) = 1 + \deg(D) - \dim(\{\lambda_\omega\}). \]</p>
+
+        <blockquote><p>由 \( \dim(V) = \deg(D) \) 得 \( \dim(W) = \deg(D) - \dim(\{\lambda_\omega\}) \)，故 \( l(D) = 1 + \deg(D) - \dim(\{\lambda_\omega\}) \)。</p></blockquote>
+
+        <p>Next, we need to find \( \dim(\{\lambda_\omega\}) \). The dimension of \( \{\lambda_\omega\} \) is less than or equal to the genus \( g \), since we know that the number of independent holomorphic 1-forms \( \omega \) is \( g \). Thus, one needs to consider the 1-forms that turn all principal parts (elements of our space \( V \)) to zero, because these will exactly correspond to maps \( \lambda_\omega \) that do not contribute to the space generated by \( \{\lambda_\omega\} \).</p>
+
+        <blockquote><p>接下来求 \( \dim(\{\lambda_\omega\}) \)。\( \{\lambda_\omega\} \) 的维数不超过亏格 \( g \)，因为独立的全纯1-形式 \( \omega \) 的数目为 \( g \)。需要考虑使所有主部（空间 \( V \) 的元素）变为零的1-形式，因为它们恰好对应于不贡献于 \( \{\lambda_\omega\} \) 所生成空间的映射 \( \lambda_\omega \)。</p></blockquote>
+
+        <p>To make the principal part \( \frac{c_{-m_i}}{z^{m_i}} + \cdots \) at \( a_i \) turn to zero, we need to multiply it by an \( \omega \) which has \( \operatorname{ord}_{a_i}(\omega) \geq m_i \). This is true if and only if \( (\omega) \geq D \), i.e., if and only if \( \omega \in I(D) \). Thus, \( \lambda_\omega = 0 \) if and only if \( \omega \in I(D) \), and so
+        \[ \dim(\{\lambda_\omega\}) = g - i(D). \]
+        From which follows:
+        \[ l(D) = 1 + \deg(D) - g + i(D), \]
+        as desired.</p>
+
+        <blockquote><p>为使 \( a_i \) 处的主部 \( \frac{c_{-m_i}}{z^{m_i}} + \cdots \) 变为零，需要乘以一个满足 \( \operatorname{ord}_{a_i}(\omega) \geq m_i \) 的 \( \omega \)，这等价于 \( (\omega) \geq D \)，即 \( \omega \in I(D) \)。因此 \( \lambda_\omega = 0 \) 当且仅当 \( \omega \in I(D) \)，从而 \( \dim(\{\lambda_\omega\}) = g - i(D) \)。由此得 \( l(D) = 1 + \deg(D) - g + i(D) \)，即所要证的。</p></blockquote>
+
+        <p><strong>Part II.</strong> Next, we show that for all \( D \),
+        \[ l(D) - i(D) \geq \deg(D) + 1 - g. \]
+        Let \( a \in X \) be a point on our surface. Obviously, \( \deg(D - a) = \deg(D) - 1 \), so, if the inequality above is true for some divisor \( D \), it is easy to see that
+        \[ l(D - a) - i(D - a) \geq 1 + \deg(D - a) - g = \deg(D) + 1 - g - 1 = l(D) - i(D) - 1, \]
+        and the inequality is true for the divisor \( D - a \) too.</p>
+
+        <blockquote><p><strong>第二部分.</strong> 接下来证明对所有 \( D \) 都有 \( l(D) - i(D) \geq \deg(D) + 1 - g \)。设 \( a \in X \) 为曲面上的一个点。显然 \( \deg(D - a) = \deg(D) - 1 \)，因此如果对某个因子 \( D \) 不等式成立，则 \( l(D - a) - i(D - a) \geq l(D) - i(D) - 1 \)，不等式对 \( D - a \) 也成立。</p></blockquote>
+
+        <p>The idea is to take some divisor \( \geq 0 \) and subtract from it point-by-point. In fact, taking into account the equality established in Part I, in order to establish our inequality, we just need to show that
+        \[ l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1. \]</p>
+
+        <blockquote><p>其思路是取某个 \( \geq 0 \) 的因子，然后逐点减去。事实上，考虑到第一部分建立的等式，为了建立我们的不等式，只需证明 \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \)。</p></blockquote>
+
+        <p>It is obvious that \( l(D) \geq l(D - a) \geq l(D) - 1 \) and \( i(D) + 1 \geq i(D - a) \geq i(D) \) (since we only add/remove at most one coefficient/member at a single point \( a \)), so the worst case scenario occurs when \( l(D - a) = l(D) - 1 \) and \( i(D) + 1 = i(D - a) \), because only in this case
+        \[ l(D - a) - i(D - a) = (l(D) - i(D)) - 2 \]
+        (in all remaining cases either \( l(D-a) - i(D-a) = (l(D) - i(D)) - 1 \) or \( l(D-a) - i(D-a) = l(D) - i(D) \)).</p>
+
+        <blockquote><p>显然 \( l(D) \geq l(D - a) \geq l(D) - 1 \) 且 \( i(D) + 1 \geq i(D - a) \geq i(D) \)（因为在单个点 \( a \) 处最多只增减一个系数/成员），所以最坏情况发生在 \( l(D - a) = l(D) - 1 \) 且 \( i(D) + 1 = i(D - a) \) 时，此时 \( l(D - a) - i(D - a) = (l(D) - i(D)) - 2 \)。</p></blockquote>
+
+        <p>We will show that this scenario is impossible: let us take \( f \in L(D) \setminus L(D - a) \) and \( \omega \in I(D - a) \setminus I(D) \). Such \( f \) and \( \omega \) exist by our assumption that \( l(D - a) = l(D) - 1 \) and \( i(D) + 1 = i(D - a) \). Then, \( (f) \geq -D \), \( (f) \not\geq a - D \), \( (\omega) \geq D - a \), and \( (\omega) \not\geq D \).</p>
+
+        <blockquote><p>我们将证明这种情形是不可能的：取 \( f \in L(D) \setminus L(D - a) \) 和 \( \omega \in I(D - a) \setminus I(D) \)。由我们的假设 \( l(D - a) = l(D) - 1 \) 和 \( i(D) + 1 = i(D - a) \) 保证了这样的 \( f \) 和 \( \omega \) 存在。于是 \( (f) \geq -D \)，\( (f) \not\geq a - D \)，\( (\omega) \geq D - a \)，\( (\omega) \not\geq D \)。</p></blockquote>
+
+        <p>Say \( D = na + \ldots \). This implies that \( -n + 1 > \operatorname{ord}_a(f) \geq -n \), which means that \( \operatorname{ord}_a(f) = -n \).</p>
+        <p>Similarly, \( n > \operatorname{ord}_a(\omega) \geq n - 1 \), which implies \( \operatorname{ord}_a(\omega) = n - 1 \). Thus,
+        \[ \operatorname{ord}_a(f\omega) = -n + n - 1 = -1. \]
+        In addition, for all \( b \neq a \), \( \operatorname{ord}_b(f\omega) \geq 0 \), because \( (f) \geq -D \) and \( (f\omega) \geq -a \), which implies that the poles may be at \( a \) only. Indeed, \( \operatorname{ord}_a(f\omega) = -1 \).</p>
+
+        <blockquote><p>设 \( D = na + \ldots \)。这意味着 \( -n + 1 > \operatorname{ord}_a(f) \geq -n \)，故 \( \operatorname{ord}_a(f) = -n \)。</p>
+        <p>类似地，\( n > \operatorname{ord}_a(\omega) \geq n - 1 \)，故 \( \operatorname{ord}_a(\omega) = n - 1 \)。因此 \( \operatorname{ord}_a(f\omega) = -n + n - 1 = -1 \)。此外，对所有 \( b \neq a \)，\( \operatorname{ord}_b(f\omega) \geq 0 \)，极点只可能在 \( a \) 处。</p></blockquote>
+
+        <p>But now we have both \( \sum_{i=1}^{n} \operatorname{Res}_{a_i} f\omega = 0 \) and \( \operatorname{Res}_a(f\omega) = c_{-1} \neq 0 \) (for some \( c_{-1} \), which cannot be equal to 0 because we have a pole of exactly first order), with \( a \) being the only point where \( f\omega \) may have (and has) non-zero residue; but this is a contradiction and implies that the worst case scenario never happens.</p>
+        <p>Thus, \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \). This implies that for all divisors \( D \) we have
+        \[ l(D) - i(D) \geq \deg(D) + 1 - g. \]</p>
+
+        <blockquote><p>但现在我们同时有 \( \sum \operatorname{Res}_{a_i} f\omega = 0 \) 和 \( \operatorname{Res}_a(f\omega) = c_{-1} \neq 0 \)（因为有恰好一阶的极点），而 \( a \) 是 \( f\omega \) 可能有（且确实有）非零留数的唯一点；这是一个矛盾，说明最坏情形不可能发生。</p>
+        <p>因此 \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \)，从而对所有因子 \( D \) 都有 \( l(D) - i(D) \geq \deg(D) + 1 - g \)。</p></blockquote>
+
+        <p><strong>Part III.</strong> Finally, for the last part of the proof we use a clever trick to obtain the desired equality for an arbitrary divisor \( D \). We substitute \( K - D \) for \( D \) in the inequality proved in Part II. Since \( l(K - D) = i(D) \) (see Lemma 5.5):
+        \begin{align}
+        l(K - D) - i(K - D) &\geq \deg(K - D) + 1 - g \\
+        i(D) - l(D) &\geq \deg(K - D) + 1 - g \\
+        i(D) - l(D) &\geq \deg(K) - \deg(D) + 1 - g.
+        \end{align}</p>
+
+        <blockquote><p><strong>第三部分.</strong> 最后，我们用一个巧妙的技巧来得到对任意因子 \( D \) 的等式。在第二部分证明的不等式中以 \( K - D \) 代替 \( D \)。由 \( l(K - D) = i(D) \)（见引理5.5）：
+        \begin{align}
+        l(K - D) - i(K - D) &\geq \deg(K - D) + 1 - g \\
+        i(D) - l(D) &\geq \deg(K) - \deg(D) + 1 - g.
+        \end{align}</p></blockquote>
+
+        <p>Since \( \deg(K) = \deg((\omega)) = -\chi = 2g - 2 \), we then have
+        \begin{align}
+        i(D) - l(D) &\geq 2g - 2 - \deg(D) + 1 - g = g - 1 - \deg(D) \\
+        l(D) - i(D) &\leq \deg(D) + 1 - g.
+        \end{align}
+        Combining this with the inequality from Part II:
+        \[ l(D) - i(D) = \deg(D) + 1 - g. \]
+        This proves the theorem for an arbitrary divisor \( D \). &#x25A1;</p>
+
+        <blockquote><p>由 \( \deg(K) = \deg((\omega)) = -\chi = 2g - 2 \)，我们得到
+        \begin{align}
+        i(D) - l(D) &\geq 2g - 2 - \deg(D) + 1 - g = g - 1 - \deg(D) \\
+        l(D) - i(D) &\leq \deg(D) + 1 - g.
+        \end{align}
+        将此与第二部分的不等式结合，得到 \( l(D) - i(D) = \deg(D) + 1 - g \)。这就证明了对任意因子 \( D \) 的定理。&#x25A1;</p></blockquote>
+
+        <!-- ==================== Acknowledgments ==================== -->
+
+        <h2>Acknowledgments</h2>
+        <blockquote><h2>致谢</h2></blockquote>
+
+        <p>It is a pleasure to thank my mentors Spencer Dowdall and Ilya Gekhtman for all their assistance with this paper. I would also like to thank Andrew Ryan and Aleksandr Likhterman for their invaluable assistance in reviewing my work.</p>
+
+        <blockquote><p>感谢我的导师 Spencer Dowdall 和 Ilya Gekhtman 在撰写本文过程中给予的所有帮助。我也要感谢 Andrew Ryan 和 Aleksandr Likhterman 在审阅我的工作中所提供的宝贵帮助。</p></blockquote>
+
+        <!-- ==================== References ==================== -->
+
+        <h2>References</h2>
+        <blockquote><h2>参考文献</h2></blockquote>
+
+        <p>[1] Corrin Clarkson, <em>Riemann Surfaces</em>, REU project, available at <a href="http://www.math.uchicago.edu/~may/VIGRE/VIGRE2007/REUPapers/FINALFULL/Clarkson.pdf">http://www.math.uchicago.edu/~may/VIGRE/VIGRE2007/REUPapers/FINALFULL/Clarkson.pdf</a></p>
+
+        <p>[2] S. M. Lvovski, <em>Lectures on Complex Analysis</em> (in Russian), available at <a href="http://www.mccme.ru/free-books/lvo/can.html">http://www.mccme.ru/free-books/lvo/can.html</a></p>
+
+        <p>[3] William S. Massey, <em>Algebraic Topology: An Introduction</em>, New York, NY: Springer-Verlag, 1977.</p>
+
+        <p>[4] Rick Miranda, <em>Algebraic Curves and Riemann Surfaces</em> (Graduate Studies in Mathematics, Vol 5), American Mathematical Society, Providence, RI, 1995.</p>
+
+        <p>[5] Francis Kirwan, <em>Complex Algebraic Curves</em>, LMS Student Texts 23, Cambridge 1992.</p>
+
+        <p>[6] V. V. Prasolov and O. V. Schwarzman, <em>The Alphabet of Riemann Surfaces</em>, Fazis Publ. House, Moscow, 1999.</p>
+
+        <p>[7] M. Schlichenmaier, <em>An introduction to Riemann surfaces, algebraic curves and moduli spaces</em>, Lecture Notes in Phys., 1989.</p>
+
+        <p>[8] J&uuml;rgen Jost, <em>Compact Riemann Surfaces</em>, Berlin, New York: Springer-Verlag, 2006.</p>
+
+        <p>[9] William Fulton, <em>Algebraic Curves. Mathematics Lecture Note Series</em>, W.A. Benjamin, 1974, available at <a href="http://www.math.lsa.umich.edu/~wfulton/CurveBook.pdf">http://www.math.lsa.umich.edu/~wfulton/CurveBook.pdf</a></p>
+
+        <p>[10] George Springer, <em>Introduction To Riemann Surfaces</em>, Addison-Wesley Publishing, 1957.</p>
+
+    </div>
+</body>
+</html>
