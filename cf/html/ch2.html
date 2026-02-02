@@ -389,6 +389,17 @@
             <p>需要一些术语。如果 \( f \) 在 \( z_0 \) 处有导数，我们说 \( f \) 在 \( z_0 \) 处<strong>可微</strong>。如果 \( f \) 在 \( z_0 \) 的一个邻域的每个点都可微，我们说 \( f \) 在 \( z_0 \) 处<strong>解析</strong>。（如果存在一个圆盘 \( D = \{z : |z - z_0| < r\}, r > 0 \) 使得 \( D \subseteq S \)，则集合 \( S \) 是 \( z_0 \) 的邻域。）如果 \( f \) 在某个集合 \( S \) 的每个点都解析，我们说 \( f \) 在 \( S \) 上解析。在所有复数集合上解析的函数称为<strong>整函数</strong>。</p>
         </blockquote>
 
+        <blockquote style="background-color: #e8f4fd; border-left: 4px solid #5dade2;">
+            <p><strong>注释：整函数、全纯函数与亚纯函数的关系</strong></p>
+            <p>这三个概念是复分析中按"允许的奇点类型"和"定义域大小"对解析函数的逐层推广：</p>
+            <p><strong>全纯函数（holomorphic function）</strong>是最基本的概念：函数 \( f \) 在开集 \( U \subseteq \mathbb{C} \) 上全纯，意味着 \( f \) 在 \( U \) 中每一点都复可微。全纯与解析（analytic）在复分析中是等价的。</p>
+            <p><strong>整函数（entire function）</strong>是全纯函数的特例：定义域为整个复平面 \( \mathbb{C} \) 的全纯函数。换言之，整函数 = 在 \( \mathbb{C} \) 上处处全纯的函数。例如多项式、\( e^z \)、\( \sin z \)、\( \cos z \) 都是整函数。</p>
+            <p><strong>亚纯函数（meromorphic function）</strong>是全纯函数的推广：允许函数在孤立点处有<strong>极点</strong>（pole），但不允许有本性奇点。亚纯函数可以看作两个全纯函数的商 \( f(z) = g(z)/h(z) \)，其中 \( h \not\equiv 0 \)。例如有理函数 \( \frac{p(z)}{q(z)} \)、\( \tan z = \frac{\sin z}{\cos z} \)、\( \Gamma(z) \) 都是亚纯函数。</p>
+            <p>它们的包含关系为：</p>
+            <p>\[ \text{整函数} \;\subset\; \text{全纯函数} \;\subset\; \text{亚纯函数} \]</p>
+            <p>即：每个整函数都是全纯函数，每个全纯函数都是（无极点的）亚纯函数，但反之不然。</p>
+        </blockquote>
+
         <div class="exercises">
             <h3>Exercises</h3>
 

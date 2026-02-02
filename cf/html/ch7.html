@@ -1,39 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 7: Series</title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<style>
-body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
-.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
-h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
-h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
-p{margin:1em 0;text-align:justify}
-blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
-.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
-.exercises h3{color:#e74c3c;margin-top:0}
-.exercise-item{margin:1em 0;padding-left:1.5em}
-.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
-.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
-.figure{text-align:center;margin:2em 0}
-.figure img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;padding:5px}
-.figure-caption{font-style:italic;color:#666;margin-top:0.5em}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 7: Harmonic Functions</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
 </head>
-<body><div class="content"><h1>Chapter 7<br>Series</h1>
-<blockquote><h1 style="text-align:center;font-size:2.2em;">第7章<br>级数</h1></blockquote>
-<h2>7.1 Power Series</h2>
-<blockquote><h2>7.1 幂级数</h2></blockquote>
-<p>A power series is a series of the form \( \sum_{n=0}^\infty a_n(z-z_0)^n \) where \( a_n \) and \( z_0 \) are complex numbers.</p>
-<blockquote><p>幂级数是形式为 \( \sum_{n=0}^\infty a_n(z-z_0)^n \) 的级数,其中 \( a_n \) 和 \( z_0 \) 是复数。</p></blockquote>
-<h2>7.2 Taylor Series</h2>
-<blockquote><h2>7.2 泰勒级数</h2></blockquote>
-<p>If \( f \) is analytic in a disk \( |z-z_0| < R \), then \( f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n \).</p>
-<blockquote><p>如果 \( f \) 在圆盘 \( |z-z_0| < R \) 中解析,那么 \( f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n \)。</p></blockquote>
-<div class="figure"><img src="images/ch7_p2_Im1.png" alt="Series convergence"><div class="figure-caption">Figure: Series convergence</div></div>
-<blockquote><p class="figure-caption">图:级数收敛</p></blockquote>
-</div></body></html>
+<body>
+    <div class="content">
+        <h1>Chapter Seven<br>Harmonic Functions</h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">第七章<br>调和函数</h1></blockquote>
+
+        <h2>7.1 The Laplace Equation</h2>
+        <blockquote><h2>7.1 拉普拉斯方程</h2></blockquote>
+
+        <p>The Fourier law of heat conduction says that the rate at which heat passes across a surface \( S \) is proportional to the flux, or surface integral, of the temperature gradient on the surface:</p>
+        <p>\[ k \iint_S \nabla T \cdot d\mathbf{A}. \]</p>
+        <p>Here \( k \) is the constant of proportionality, generally called the <strong>thermal conductivity</strong> of the substance (we assume uniform stuff). We further assume no heat sources or sinks, and we assume steady-state conditions -- the temperature does not depend on time. Now if we take \( S \) to be an arbitrary closed surface, then this rate of flow must be 0:</p>
+        <p>\[ k \iint_S \nabla T \cdot d\mathbf{A} = 0. \]</p>
+        <p>Otherwise there would be more heat entering the region \( B \) bounded by \( S \) than is coming out, or vice-versa.</p>
+
+        <blockquote><p>傅里叶热传导定律指出,热量通过一个曲面 \( S \) 的速率与温度梯度在该曲面上的通量(即面积分)成正比:\[ k \iint_S \nabla T \cdot d\mathbf{A}. \]这里 \( k \) 是比例常数,通常称为该物质的<strong>热导率</strong>(我们假设材料是均匀的)。我们进一步假设没有热源或热汇,并且假设是稳态条件——温度不依赖于时间。现在,如果取 \( S \) 为任意闭曲面,则这个流动速率必须为零:\[ k \iint_S \nabla T \cdot d\mathbf{A} = 0. \]否则,进入由 \( S \) 所围区域 \( B \) 的热量就会多于流出的热量,反之亦然。</p></blockquote>
+
+        <p>Now, apply the celebrated <strong>Divergence Theorem</strong> to conclude that</p>
+        <p>\[ \iiint_B \nabla^2 T \, dV = 0, \]</p>
+        <p>where \( B \) is the region bounded by the closed surface \( S \). But since the region \( B \) is completely arbitrary, this means that</p>
+        <p>\[ \nabla^2 T = \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2 T}{\partial z^2} = 0. \]</p>
+        <p>This is the world-famous <strong>Laplace Equation</strong>.</p>
+
+        <blockquote><p>现在,应用著名的<strong>散度定理</strong>,可以得出\[ \iiint_B \nabla^2 T \, dV = 0, \]其中 \( B \) 是由闭曲面 \( S \) 所围的区域。但由于区域 \( B \) 是完全任意的,这意味着\[ \nabla^2 T = \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2 T}{\partial z^2} = 0. \]这就是举世闻名的<strong>拉普拉斯方程</strong>。</p></blockquote>
+
+        <p>Now consider a slab of heat conducting material, in which we assume there is no heat flow in the \( z \)-direction. Equivalently, we could assume we are looking at the cross-section of a long rod in which there is no longitudinal heat flow. In other words, we are looking at a two-dimensional problem -- the temperature depends only on \( x \) and \( y \), and satisfies the two-dimensional version of the Laplace equation:</p>
+        <p>\[ \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} = 0. \]</p>
+
+        <blockquote><p>现在考虑一块导热材料薄板,我们假设在 \( z \) 方向上没有热流。等价地,我们可以假设正在观察一根长杆的横截面,其中没有纵向热流。换句话说,我们面对的是一个二维问题——温度仅依赖于 \( x \) 和 \( y \),并满足拉普拉斯方程的二维形式:\[ \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} = 0. \]</p></blockquote>
+
+        <div class="figure"><img src="images/ch7_p2_Im1.png" alt="Heat conducting slab diagram"><div class="figure-caption">Figure: A slab of heat conducting material (two-dimensional problem)</div></div>
+        <blockquote><p class="figure-caption">图:一块导热材料薄板(二维问题)</p></blockquote>
+
+        <p>Suppose now, for instance, the temperature is specified on the boundary of our region \( D \), and we wish to find the temperature \( T(x,y) \) in the region. We are simply looking for a solution of the Laplace equation that satisfies the specified boundary condition.</p>
+
+        <blockquote><p>例如,假设温度在我们区域 \( D \) 的边界上已给定,而我们希望找到区域内的温度 \( T(x,y) \)。我们只需寻找满足给定边界条件的拉普拉斯方程的解。</p></blockquote>
+
+        <p>Let's look at another physical problem which leads to Laplace's equation. <strong>Gauss's Law</strong> of electrostatics tells us that the integral over a closed surface \( S \) of the electric field \( \mathbf{E} \) is proportional to the charge included in the region \( B \) enclosed by \( S \). Thus in the absence of any charge, we have</p>
+        <p>\[ \iint_S \mathbf{E} \cdot d\mathbf{A} = 0. \]</p>
+        <p>But in this case, we know the field \( \mathbf{E} \) is conservative; let \( \phi \) be the potential function -- that is, \( \mathbf{E} = -\nabla\phi \). Thus,</p>
+        <p>\[ \iint_S \mathbf{E} \cdot d\mathbf{A} = -\iint_S \nabla\phi \cdot d\mathbf{A}. \]</p>
+        <p>Again, we call on the Divergence Theorem to conclude that \( \phi \) must satisfy the Laplace equation.</p>
+
+        <blockquote><p>让我们看另一个导致拉普拉斯方程的物理问题。静电学的<strong>高斯定律</strong>告诉我们,电场 \( \mathbf{E} \) 在闭曲面 \( S \) 上的积分与 \( S \) 所围区域 \( B \) 内包含的电荷成正比。因此,在没有任何电荷的情况下,\[ \iint_S \mathbf{E} \cdot d\mathbf{A} = 0. \]但在这种情况下,我们知道场 \( \mathbf{E} \) 是保守的;设 \( \phi \) 为势函数——即 \( \mathbf{E} = -\nabla\phi \)。于是\[ \iint_S \mathbf{E} \cdot d\mathbf{A} = -\iint_S \nabla\phi \cdot d\mathbf{A}. \]再次利用散度定理,可以得出 \( \phi \) 必须满足拉普拉斯方程。</p></blockquote>
+
+        <p>Mathematically, we cannot tell the problem of finding the electric potential in a region \( D \), given the potential on the boundary of \( D \), from the previous problem of finding the temperature in the region, given the temperature on the boundary. These are but two of the many physical problems that lead to the Laplace equation -- you probably already know of some others.</p>
+
+        <blockquote><p>从数学角度看,在给定区域 \( D \) 边界上的电势的情况下求区域内电势的问题,与前面在给定边界温度的情况下求区域内温度的问题无法区分。这只是导致拉普拉斯方程的众多物理问题中的两个——你可能已经知道其他一些了。</p></blockquote>
+
+        <p>Let \( D \) be a domain and let \( \psi \) be a given function continuous on the boundary of \( D \). The problem of finding a function \( \phi \) harmonic on the interior of \( D \) and which agrees with \( \psi \) on the boundary of \( D \) is called the <strong>Dirichlet problem</strong>.</p>
+
+        <blockquote><p>设 \( D \) 是一个域,\( \psi \) 是在 \( D \) 的边界上连续的给定函数。寻找一个在 \( D \) 的内部调和且在 \( D \) 的边界上与 \( \psi \) 一致的函数 \( \phi \) 的问题,称为<strong>狄利克雷问题</strong>。</p></blockquote>
+
+        <h2>7.2 Harmonic Functions</h2>
+        <blockquote><h2>7.2 调和函数</h2></blockquote>
+
+        <p>If \( D \) is a region in the plane, a real-valued function \( u(x,y) \) having continuous second partial derivatives is said to be <strong>harmonic</strong> on \( D \) if it satisfies Laplace's equation on \( D \):</p>
+        <p>\[ \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0. \]</p>
+
+        <blockquote><p>如果 \( D \) 是平面上的一个区域,具有连续二阶偏导数的实值函数 \( u(x,y) \) 在 \( D \) 上满足拉普拉斯方程,则称 \( u \) 在 \( D \) 上是<strong>调和的</strong>:\[ \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0. \]</p></blockquote>
+
+        <p>There is an intimate relationship between harmonic functions and analytic functions. Suppose \( f \) is analytic on \( D \), and let \( f(z) = u(x,y) + iv(x,y) \). Now, from the Cauchy-Riemann equations, we know</p>
+        <p>\[ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \text{and} \quad \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}. \]</p>
+        <p>If we differentiate the first of these with respect to \( x \) and the second with respect to \( y \), and then add the two results, we have</p>
+        <p>\[ \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = \frac{\partial^2 v}{\partial x \partial y} - \frac{\partial^2 v}{\partial y \partial x} = 0. \]</p>
+        <p>Thus the real part of any analytic function is harmonic!</p>
+
+        <blockquote><p>调和函数与解析函数之间存在密切的关系。假设 \( f \) 在 \( D \) 上解析,令 \( f(z) = u(x,y) + iv(x,y) \)。由柯西-黎曼方程,我们知道\[ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}. \]将第一个方程对 \( x \) 求导,第二个对 \( y \) 求导,然后相加,得到\[ \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = \frac{\partial^2 v}{\partial x \partial y} - \frac{\partial^2 v}{\partial y \partial x} = 0. \]因此,任何解析函数的实部都是调和的!</p></blockquote>
+
+        <p>Next, if we differentiate the first of the Cauchy-Riemann equations with respect to \( y \) and the second with respect to \( x \), and then subtract the second from the first, we have</p>
+        <p>\[ \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} = 0, \]</p>
+        <p>and we see that the imaginary part of an analytic function is also harmonic.</p>
+
+        <blockquote><p>接下来,将第一个柯西-黎曼方程对 \( y \) 求导,第二个对 \( x \) 求导,然后用第一个减去第二个,得到\[ \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} = 0, \]由此可见,解析函数的虚部也是调和的。</p></blockquote>
+
+        <p>There is even more excitement. Suppose we are given a function \( \phi \) harmonic in a simply connected region \( D \). Then there is a function \( f \) analytic on \( D \) which is such that \( \operatorname{Re} f = \phi \). Let's see why this is so. First, define \( g \) by</p>
+        <p>\[ g(z) = \frac{\partial \phi}{\partial x} - i\frac{\partial \phi}{\partial y}. \]</p>
+        <p>We'll show that \( g \) is analytic by verifying that the real and imaginary parts satisfy the Cauchy-Riemann equations:</p>
+        <p>\[ \frac{\partial}{\partial x}\left(\frac{\partial \phi}{\partial x}\right) = \frac{\partial^2 \phi}{\partial x^2} = -\frac{\partial^2 \phi}{\partial y^2} = \frac{\partial}{\partial y}\left(-\frac{\partial \phi}{\partial y}\right), \]</p>
+        <p>since \( \phi \) is harmonic. Next,</p>
+        <p>\[ \frac{\partial}{\partial y}\left(\frac{\partial \phi}{\partial x}\right) = \frac{\partial^2 \phi}{\partial y \partial x} = \frac{\partial^2 \phi}{\partial x \partial y} = -\frac{\partial}{\partial x}\left(-\frac{\partial \phi}{\partial y}\right). \]</p>
+
+        <blockquote><p>更令人兴奋的是:假设给定一个在单连通区域 \( D \) 上调和的函数 \( \phi \)。那么存在一个在 \( D \) 上解析的函数 \( f \),使得 \( \operatorname{Re} f = \phi \)。我们来看看为什么。首先,定义 \( g \) 为\[ g(z) = \frac{\partial \phi}{\partial x} - i\frac{\partial \phi}{\partial y}. \]我们通过验证实部和虚部满足柯西-黎曼方程来证明 \( g \) 是解析的:\[ \frac{\partial}{\partial x}\left(\frac{\partial \phi}{\partial x}\right) = \frac{\partial^2 \phi}{\partial x^2} = -\frac{\partial^2 \phi}{\partial y^2} = \frac{\partial}{\partial y}\left(-\frac{\partial \phi}{\partial y}\right), \]因为 \( \phi \) 是调和的。接下来,\[ \frac{\partial}{\partial y}\left(\frac{\partial \phi}{\partial x}\right) = \frac{\partial^2 \phi}{\partial y \partial x} = \frac{\partial^2 \phi}{\partial x \partial y} = -\frac{\partial}{\partial x}\left(-\frac{\partial \phi}{\partial y}\right). \]</p></blockquote>
+
+        <p>Since \( g \) is analytic on the simply connected region \( D \), we know that the integral of \( g \) around any closed curve is zero, and so it has an antiderivative \( G(z) = u + iv \). This antiderivative is, of course, analytic on \( D \), and we know that</p>
+        <p>\[ G'(z) = \frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x} = \frac{\partial \phi}{\partial x} - i\frac{\partial \phi}{\partial y}. \]</p>
+        <p>Thus, \( u(x,y) = \phi(x,y) + h(y) \). From this,</p>
+        <p>\[ \frac{\partial u}{\partial y} = \frac{\partial \phi}{\partial y} + h'(y), \]</p>
+        <p>and so \( h'(y) = 0 \), or \( h = \text{constant} \), from which it follows that \( u(x,y) = \phi(x,y) + c \). In other words, \( \operatorname{Re} G = u \), as we promised to show.</p>
+
+        <blockquote><p>因为 \( g \) 在单连通区域 \( D \) 上解析,我们知道 \( g \) 沿任何闭合曲线的积分为零,因此它有一个原函数 \( G(z) = u + iv \)。这个原函数当然在 \( D \) 上解析,并且\[ G'(z) = \frac{\partial u}{\partial x} + i\frac{\partial v}{\partial x} = \frac{\partial \phi}{\partial x} - i\frac{\partial \phi}{\partial y}. \]因此,\( u(x,y) = \phi(x,y) + h(y) \)。由此得\[ \frac{\partial u}{\partial y} = \frac{\partial \phi}{\partial y} + h'(y), \]所以 \( h'(y) = 0 \),即 \( h = \text{常数} \),从而 \( u(x,y) = \phi(x,y) + c \)。换句话说,\( \operatorname{Re} G = u \),正如我们承诺要证明的。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>The function \( \phi(x,y) = x^3 - 3xy^2 \) is harmonic everywhere. We shall find an analytic function \( G \) so that \( \operatorname{Re} G = \phi \). We know that \( G(z) = x^3 - 3xy^2 + iv \), and so from the Cauchy-Riemann equations:</p>
+            <p>\[ \frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y} = 6xy. \]</p>
+            <p>Hence,</p>
+            <p>\[ v(x,y) = 3x^2 y + k(y). \]</p>
+            <p>To find \( k(y) \), differentiate with respect to \( y \):</p>
+            <p>\[ \frac{\partial v}{\partial y} = 3x^2 + k'(y) = \frac{\partial u}{\partial x} = 3x^2 - 3y^2, \]</p>
+            <p>and so,</p>
+            <p>\[ k'(y) = -3y^2, \quad \text{or} \quad k(y) = -y^3 + \text{any constant}. \]</p>
+            <p>If we choose the constant to be zero, this gives us</p>
+            <p>\[ v = 3x^2 y + k(y) = 3x^2 y - y^3, \]</p>
+            <p>and finally,</p>
+            <p>\[ G(z) = u + iv = (x^3 - 3xy^2) + i(3x^2 y - y^3). \]</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>函数 \( \phi(x,y) = x^3 - 3xy^2 \) 处处调和。我们来找一个解析函数 \( G \) 使得 \( \operatorname{Re} G = \phi \)。我们知道 \( G(z) = x^3 - 3xy^2 + iv \),由柯西-黎曼方程:\[ \frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y} = 6xy. \]因此 \( v(x,y) = 3x^2 y + k(y) \)。对 \( y \) 求导:\[ \frac{\partial v}{\partial y} = 3x^2 + k'(y) = 3x^2 - 3y^2, \]所以 \( k'(y) = -3y^2 \),即 \( k(y) = -y^3 + \text{常数} \)。取常数为零,得 \( v = 3x^2 y - y^3 \),最终\[ G(z) = (x^3 - 3xy^2) + i(3x^2 y - y^3). \]</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item"><strong>1.</strong> Suppose \( \phi \) is harmonic on a simply connected region \( D \). Prove that if \( \phi \) assumes its maximum or its minimum value at some point in \( D \), then \( \phi \) is constant in \( D \).</div>
+            <blockquote><strong>1.</strong> 假设 \( \phi \) 在单连通区域 \( D \) 上调和。证明:如果 \( \phi \) 在 \( D \) 内的某点取到最大值或最小值,则 \( \phi \) 在 \( D \) 中是常数。</blockquote>
+
+            <div class="exercise-item"><strong>2.</strong> Suppose \( \phi \) and \( \psi \) are harmonic in a simply connected region \( D \) bounded by the curve \( C \). Suppose moreover that \( \phi(x,y) = \psi(x,y) \) for all \( (x,y) \in C \). Explain how you know that \( \phi = \psi \) everywhere in \( D \).</div>
+            <blockquote><strong>2.</strong> 假设 \( \phi \) 和 \( \psi \) 在由曲线 \( C \) 围成的单连通区域 \( D \) 中调和。并且假设对所有 \( (x,y) \in C \) 有 \( \phi(x,y) = \psi(x,y) \)。说明你如何知道在 \( D \) 中处处有 \( \phi = \psi \)。</blockquote>
+
+            <div class="exercise-item"><strong>3.</strong> Find an entire function \( f \) such that \( \operatorname{Re} f = x^2 + 3x - y^2 \), or explain why there is no such function \( f \).</div>
+            <blockquote><strong>3.</strong> 找一个整函数 \( f \) 使得 \( \operatorname{Re} f = x^2 + 3x - y^2 \),或者解释为什么不存在这样的函数 \( f \)。</blockquote>
+
+            <div class="exercise-item"><strong>4.</strong> Find an entire function \( f \) such that \( \operatorname{Re} f = x^2 + 3x + y^2 \), or explain why there is no such function \( f \).</div>
+            <blockquote><strong>4.</strong> 找一个整函数 \( f \) 使得 \( \operatorname{Re} f = x^2 + 3x + y^2 \),或者解释为什么不存在这样的函数 \( f \)。</blockquote>
+        </div>
+
+        <h2>7.3 Poisson's Integral Formula</h2>
+        <blockquote><h2>7.3 泊松积分公式</h2></blockquote>
+
+        <p>Let \( \Delta \) be the disk bounded by the circle \( C = \{z : |z| = \rho\} \). Suppose \( \phi \) is harmonic on \( \Delta \) and let \( f \) be a function analytic on \( \Delta \) and such that \( \operatorname{Re} f = \phi \). Now then, for fixed \( z \) with \( |z| < \rho \), the function</p>
+        <p>\[ g(s) = \frac{f(s)\bar{z}}{\rho^2 - \bar{s}z} \]</p>
+        <p>is analytic on \( \Delta \). Thus from Cauchy's Theorem</p>
+        <p>\[ \int_C g(s)\,ds = \int_C \frac{f(s)\bar{z}}{\rho^2 - \bar{s}z}\,ds = 0. \]</p>
+
+        <blockquote><p>设 \( \Delta \) 是由圆 \( C = \{z : |z| = \rho\} \) 围成的圆盘。假设 \( \phi \) 在 \( \Delta \) 上调和,\( f \) 是在 \( \Delta \) 上解析的函数且 \( \operatorname{Re} f = \phi \)。那么,对于固定的 \( z \)(满足 \( |z| < \rho \)),函数\[ g(s) = \frac{f(s)\bar{z}}{\rho^2 - \bar{s}z} \]在 \( \Delta \) 上解析。因此由柯西定理\[ \int_C g(s)\,ds = \int_C \frac{f(s)\bar{z}}{\rho^2 - \bar{s}z}\,ds = 0. \]</p></blockquote>
+
+        <p>We know also that</p>
+        <p>\[ f(z) = \frac{1}{2\pi i}\int_C \frac{f(s)}{s - z}\,ds. \]</p>
+        <p>Adding these two equations gives us</p>
+        <p>\[ f(z) = \frac{1}{2\pi i}\int_C \left(\frac{1}{s - z} + \frac{\bar{z}}{\rho^2 - \bar{s}z}\right) f(s)\,ds = \frac{1}{2\pi i}\int_C \frac{\rho^2 - |z|^2}{(s - z)(\rho^2 - \bar{s}z)} f(s)\,ds. \]</p>
+
+        <blockquote><p>我们还知道\[ f(z) = \frac{1}{2\pi i}\int_C \frac{f(s)}{s - z}\,ds. \]将这两个方程相加得到\[ f(z) = \frac{1}{2\pi i}\int_C \left(\frac{1}{s - z} + \frac{\bar{z}}{\rho^2 - \bar{s}z}\right) f(s)\,ds = \frac{1}{2\pi i}\int_C \frac{\rho^2 - |z|^2}{(s - z)(\rho^2 - \bar{s}z)} f(s)\,ds. \]</p></blockquote>
+
+        <p>Next, let \( s = \rho e^{it} \), and our integral becomes</p>
+        <p>\[ f(z) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - |z|^2) f(\rho e^{it})}{(\rho e^{it} - z)(\rho e^{-it} \cdot e^{it} - z \cdot e^{it}/\rho)}\,dt. \]</p>
+        <p>After simplification, this becomes</p>
+        <p>\[ f(z) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - |z|^2) f(\rho e^{it})}{|\rho e^{it} - z|^2}\,dt. \]</p>
+
+        <blockquote><p>接下来,令 \( s = \rho e^{it} \),经过化简,积分变为\[ f(z) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - |z|^2) f(\rho e^{it})}{|\rho e^{it} - z|^2}\,dt. \]</p></blockquote>
+
+        <p>Now, taking the real part:</p>
+        <p>\[ \phi(x,y) = \operatorname{Re} f = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - |z|^2)\, \phi(\rho e^{it})}{|\rho e^{it} - z|^2}\,dt. \]</p>
+        <p>Next, use polar coordinates: \( z = re^{i\theta} \):</p>
+        <p>\[ \phi(r,\theta) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - r^2)\, \phi(\rho e^{it})}{|\rho e^{it} - re^{i\theta}|^2}\,dt. \]</p>
+        <p>Now,</p>
+        <p>\[ |\rho e^{it} - re^{i\theta}|^2 = (\rho e^{it} - re^{i\theta})(\rho e^{-it} - re^{-i\theta}) = \rho^2 + r^2 - \rho r(e^{i(t-\theta)} + e^{-i(t-\theta)}) = \rho^2 + r^2 - 2\rho r\cos(t - \theta). \]</p>
+
+        <blockquote><p>取实部:\[ \phi(x,y) = \operatorname{Re} f = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - |z|^2)\, \phi(\rho e^{it})}{|\rho e^{it} - z|^2}\,dt. \]使用极坐标 \( z = re^{i\theta} \):\[ \phi(r,\theta) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - r^2)\, \phi(\rho e^{it})}{|\rho e^{it} - re^{i\theta}|^2}\,dt. \]注意到\[ |\rho e^{it} - re^{i\theta}|^2 = \rho^2 + r^2 - 2\rho r\cos(t - \theta). \]</p></blockquote>
+
+        <p>Substituting this in the integral, we have <strong>Poisson's integral formula</strong>:</p>
+        <p>\[ \boxed{\phi(r,\theta) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - r^2)\, \phi(\rho e^{it})}{\rho^2 + r^2 - 2\rho r\cos(t - \theta)}\,dt.} \]</p>
+        <p>This famous formula essentially solves the <strong>Dirichlet problem</strong> for a disk.</p>
+
+        <blockquote><p>代入积分,我们得到<strong>泊松积分公式</strong>:\[ \phi(r,\theta) = \frac{1}{2\pi}\int_0^{2\pi} \frac{(\rho^2 - r^2)\, \phi(\rho e^{it})}{\rho^2 + r^2 - 2\rho r\cos(t - \theta)}\,dt. \]这个著名的公式本质上解决了圆盘的<strong>狄利克雷问题</strong>。</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item"><strong>5.</strong> Evaluate \( \displaystyle\frac{1}{2\pi}\int_0^{2\pi} \frac{1}{\rho^2 + r^2 - 2\rho r\cos(t - \theta)}\,dt \). [Hint: This is easy.]</div>
+            <blockquote><strong>5.</strong> 求 \( \displaystyle\frac{1}{2\pi}\int_0^{2\pi} \frac{1}{\rho^2 + r^2 - 2\rho r\cos(t - \theta)}\,dt \)。[提示:这很简单。]</blockquote>
+
+            <div class="exercise-item"><strong>6.</strong> Suppose \( \phi \) is harmonic in a region \( D \). If \( (x_0, y_0) \in D \) and if \( C \subset D \) is a circle centered at \( (x_0, y_0) \), the inside of which is also in \( D \), then \( \phi(x_0, y_0) \) is the average value of \( \phi \) on the circle \( C \).</div>
+            <blockquote><strong>6.</strong> 假设 \( \phi \) 在区域 \( D \) 中调和。如果 \( (x_0, y_0) \in D \) 且 \( C \subset D \) 是以 \( (x_0, y_0) \) 为圆心的圆,其内部也在 \( D \) 中,则 \( \phi(x_0, y_0) \) 是 \( \phi \) 在圆 \( C \) 上的平均值。</blockquote>
+
+            <div class="exercise-item"><strong>7.</strong> Suppose \( \phi \) is harmonic on the disk \( \Delta = \{z : |z| < \rho\} \). Prove that \[ \phi(0,0) = \frac{1}{\pi\rho^2}\iint_\Delta \phi \, dA. \]</div>
+            <blockquote><strong>7.</strong> 假设 \( \phi \) 在圆盘 \( \Delta = \{z : |z| < \rho\} \) 上调和。证明\[ \phi(0,0) = \frac{1}{\pi\rho^2}\iint_\Delta \phi \, dA. \]</blockquote>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,39 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 9: Applications</title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<style>
-body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
-.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
-h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
-h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
-p{margin:1em 0;text-align:justify}
-blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
-.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
-.exercises h3{color:#e74c3c;margin-top:0}
-.exercise-item{margin:1em 0;padding-left:1.5em}
-.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
-.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
-.figure{text-align:center;margin:2em 0}
-.figure img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;padding:5px}
-.figure-caption{font-style:italic;color:#666;margin-top:0.5em}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 9: Taylor and Laurent Series</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
 </head>
-<body><div class="content"><h1>Chapter 9<br>Applications</h1>
-<blockquote><h1 style="text-align:center;font-size:2.2em;">第9章<br>应用</h1></blockquote>
-<h2>9.1 Real Integrals</h2>
-<blockquote><h2>9.1 实积分</h2></blockquote>
-<p>The residue theorem can be used to evaluate many real integrals by converting them to complex contour integrals.</p>
-<blockquote><p>留数定理可以通过将实积分转换为复围道积分来计算许多实积分。</p></blockquote>
-<h2>9.2 Argument Principle</h2>
-<blockquote><h2>9.2 辐角原理</h2></blockquote>
-<p>The argument principle relates the number of zeros and poles of a meromorphic function to a contour integral.</p>
-<blockquote><p>辐角原理将亚纯函数的零点和极点数量与围道积分联系起来。</p></blockquote>
-<div class="figure"><img src="images/ch9_p5_Im1.png" alt="Argument principle"><div class="figure-caption">Figure: Argument principle illustration</div></div>
-<blockquote><p class="figure-caption">图:辐角原理示意</p></blockquote>
-</div></body></html>
+<body>
+    <div class="content">
+        <h1>Chapter Nine<br>Taylor and Laurent Series</h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">第九章<br>泰勒级数与洛朗级数</h1></blockquote>
+
+        <h2>9.1 Taylor Series</h2>
+        <blockquote><h2>9.1 泰勒级数</h2></blockquote>
+
+        <p>Suppose \( f \) is analytic on the open disk \( |z - z_0| < r \). Let \( z \) be any point in this disk and choose \( C \) to be the positively oriented circle of radius \( \rho \), where \( |z - z_0| < \rho < r \). Then for \( s \in C \) we have</p>
+        <p>\[ \frac{1}{s - z} = \frac{1}{s - z_0 - (z - z_0)} = \frac{1}{s - z_0} \cdot \frac{1}{1 - \frac{z - z_0}{s - z_0}} = \sum_{j=0}^{\infty} \frac{(z - z_0)^j}{(s - z_0)^{j+1}} \]</p>
+        <p>since \( \left|\frac{z - z_0}{s - z_0}\right| < 1 \). The convergence is uniform, so we may integrate:</p>
+        <p>\[ \int_C \frac{f(s)}{s - z}\,ds = \sum_{j=0}^{\infty} \int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j, \]</p>
+        <p>or</p>
+        <p>\[ f(z) = \frac{1}{2\pi i}\int_C \frac{f(s)}{s - z}\,ds = \sum_{j=0}^{\infty} \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j. \]</p>
+
+        <blockquote><p>假设 \( f \) 在开圆盘 \( |z - z_0| < r \) 上解析。设 \( z \) 是该圆盘内的任意一点,选取 \( C \) 为半径为 \( \rho \) 的正向圆,其中 \( |z - z_0| < \rho < r \)。那么对于 \( s \in C \),我们有
+        \[ \frac{1}{s - z} = \frac{1}{s - z_0} \cdot \frac{1}{1 - \frac{z - z_0}{s - z_0}} = \sum_{j=0}^{\infty} \frac{(z - z_0)^j}{(s - z_0)^{j+1}} \]
+        因为 \( \left|\frac{z - z_0}{s - z_0}\right| < 1 \)。收敛是一致的,所以我们可以逐项积分。</p></blockquote>
+
+        <p>We have thus produced a power series having the given analytic function as a limit:</p>
+        <p>\[ f(z) = \sum_{j=0}^{\infty} c_j (z - z_0)^j, \quad |z - z_0| < r, \]</p>
+        <p>where</p>
+        <p>\[ c_j = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds. \]</p>
+        <p>This is the celebrated <strong>Taylor Series</strong> for \( f \) at \( z = z_0 \).</p>
+
+        <blockquote><p>我们因此得到了一个以给定解析函数为极限的幂级数:
+        \[ f(z) = \sum_{j=0}^{\infty} c_j (z - z_0)^j, \quad |z - z_0| < r, \]
+        其中
+        \[ c_j = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds. \]
+        这就是著名的 \( f \) 在 \( z = z_0 \) 处的<strong>泰勒级数</strong>。</p></blockquote>
+
+        <p>We know we may differentiate the series to get</p>
+        <p>\[ f'(z) = \sum_{j=1}^{\infty} j\, c_j (z - z_0)^{j-1} \]</p>
+        <p>and this one converges uniformly where the series for \( f \) does. We can thus differentiate again and again to obtain</p>
+        <p>\[ f^{(n)}(z) = \sum_{j=n}^{\infty} j(j-1)(j-2)\cdots(j-n+1)\, c_j (z - z_0)^{j-n}. \]</p>
+        <p>Hence,</p>
+        <p>\[ f^{(n)}(z_0) = n!\, c_n, \quad \text{or} \quad c_n = \frac{f^{(n)}(z_0)}{n!}. \]</p>
+
+        <blockquote><p>我们知道可以对级数逐项求导,得到
+        \[ f'(z) = \sum_{j=1}^{\infty} j\, c_j (z - z_0)^{j-1}, \]
+        并且此级数在 \( f \) 的级数收敛的地方一致收敛。因此我们可以反复求导,得到
+        \[ f^{(n)}(z_0) = n!\, c_n, \quad \text{即} \quad c_n = \frac{f^{(n)}(z_0)}{n!}. \]</p></blockquote>
+
+        <p>But we also know that</p>
+        <p>\[ c_n = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{n+1}}\,ds. \]</p>
+        <p>This gives us</p>
+        <p>\[ f^{(n)}(z_0) = \frac{n!}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{n+1}}\,ds, \quad \text{for } n = 0, 1, 2, \dots \]</p>
+        <p>This is the famous <strong>Generalized Cauchy Integral Formula</strong>. Recall that we previously derived this formula for \( n = 0 \) and \( n = 1 \).</p>
+
+        <blockquote><p>但我们也知道
+        \[ c_n = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{n+1}}\,ds. \]
+        这给出了
+        \[ f^{(n)}(z_0) = \frac{n!}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{n+1}}\,ds, \quad n = 0, 1, 2, \dots \]
+        这就是著名的<strong>广义柯西积分公式</strong>。回忆我们之前已经对 \( n = 0 \) 和 \( n = 1 \) 的情形推导过此公式。</p></blockquote>
+
+        <p>What does all this tell us about the radius of convergence of a power series? Suppose we have</p>
+        <p>\[ f(z) = \sum_{j=0}^{\infty} c_j (z - z_0)^j, \]</p>
+        <p>and the radius of convergence is \( R \). Then we know, of course, that the limit function \( f \) is analytic for \( |z - z_0| < R \). We showed that if \( f \) is analytic in \( |z - z_0| < r \), then the series converges for \( |z - z_0| < r \). Thus \( r \leq R \), and so \( f \) cannot be analytic at any point \( z \) for which \( |z - z_0| = R \). In other words, the circle of convergence is the largest circle centered at \( z_0 \) inside of which the limit \( f \) is analytic.</p>
+
+        <blockquote><p>这一切告诉我们关于幂级数收敛半径的什么信息?假设我们有
+        \[ f(z) = \sum_{j=0}^{\infty} c_j (z - z_0)^j, \]
+        收敛半径为 \( R \)。那么极限函数 \( f \) 在 \( |z - z_0| < R \) 内解析。我们已经证明,如果 \( f \) 在 \( |z - z_0| < r \) 内解析,则级数在 \( |z - z_0| < r \) 内收敛。因此 \( r \leq R \),所以 \( f \) 在满足 \( |z - z_0| = R \) 的任何点 \( z \) 处都不解析。换句话说,收敛圆是以 \( z_0 \) 为圆心、使得极限 \( f \) 在其内部解析的最大圆。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Let \( f(z) = \exp(z) = e^z \). Then \( f(0) = f'(0) = \cdots = f^{(n)}(0) = 1 \), and the Taylor series for \( f \) at \( z_0 = 0 \) is</p>
+            <p>\[ e^z = \sum_{j=0}^{\infty} \frac{1}{j!}\, z^j \]</p>
+            <p>and this is valid for all values of \( z \) since \( f \) is entire. (We also showed earlier that this particular series has an infinite radius of convergence.)</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>设 \( f(z) = \exp(z) = e^z \)。那么 \( f(0) = f'(0) = \cdots = f^{(n)}(0) = 1 \),\( f \) 在 \( z_0 = 0 \) 处的泰勒级数为
+        \[ e^z = \sum_{j=0}^{\infty} \frac{1}{j!}\, z^j \]
+        这对所有 \( z \) 的值都成立,因为 \( f \) 是整函数。(我们之前也证明了这个特定级数有无穷大的收敛半径。)</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <blockquote><h3 style="color: #e74c3c;">练习</h3></blockquote>
+
+            <div class="exercise-item"><strong>1.</strong> Show that for all \( z \),
+            \[ e^z = e \sum_{j=0}^{\infty} \frac{1}{j!}(z - 1)^j. \]</div>
+            <blockquote><strong>1.</strong> 证明对所有 \( z \),
+            \[ e^z = e \sum_{j=0}^{\infty} \frac{1}{j!}(z - 1)^j. \]</blockquote>
+
+            <div class="exercise-item"><strong>2.</strong> What is the radius of convergence of the Taylor series \( \displaystyle\sum_{j=0}^{\infty} c_j z^j \) for \( \tanh z \)?</div>
+            <blockquote><strong>2.</strong> \( \tanh z \) 的泰勒级数 \( \displaystyle\sum_{j=0}^{\infty} c_j z^j \) 的收敛半径是多少?</blockquote>
+
+            <div class="exercise-item"><strong>3.</strong> Show that
+            \[ \frac{1}{1 - z} = \sum_{j=0}^{\infty} \frac{(z - i)^j}{(1 - i)^{j+1}} \]
+            for \( |z - i| < \sqrt{2} \).</div>
+            <blockquote><strong>3.</strong> 证明
+            \[ \frac{1}{1 - z} = \sum_{j=0}^{\infty} \frac{(z - i)^j}{(1 - i)^{j+1}} \]
+            对 \( |z - i| < \sqrt{2} \) 成立。</blockquote>
+
+            <div class="exercise-item"><strong>4.</strong> If \( f(z) = \dfrac{1}{1+z} \), what is \( f^{(10)}(i) \)?</div>
+            <blockquote><strong>4.</strong> 若 \( f(z) = \dfrac{1}{1+z} \),求 \( f^{(10)}(i) \)。</blockquote>
+
+            <div class="exercise-item"><strong>5.</strong> Suppose \( f \) is analytic at \( z = 0 \) and \( f(0) = f'(0) = f''(0) = 0 \). Prove there is a function \( g \) analytic at 0 such that \( f(z) = z^3 g(z) \) in a neighborhood of 0.</div>
+            <blockquote><strong>5.</strong> 假设 \( f \) 在 \( z = 0 \) 处解析且 \( f(0) = f'(0) = f''(0) = 0 \)。证明存在一个在 0 处解析的函数 \( g \),使得在 0 的邻域内 \( f(z) = z^3 g(z) \)。</blockquote>
+
+            <div class="exercise-item"><strong>6.</strong> Find the Taylor series for \( f(z) = \sin z \) at \( z_0 = 0 \).</div>
+            <blockquote><strong>6.</strong> 求 \( f(z) = \sin z \) 在 \( z_0 = 0 \) 处的泰勒级数。</blockquote>
+
+            <div class="exercise-item"><strong>7.</strong> Show that the function \( f \) defined by
+            \[ f(z) = \begin{cases} \dfrac{\sin z}{z} & \text{for } z \neq 0 \\[6pt] 1 & \text{for } z = 0 \end{cases} \]
+            is analytic at \( z = 0 \), and find \( f'(0) \).</div>
+            <blockquote><strong>7.</strong> 证明由
+            \[ f(z) = \begin{cases} \dfrac{\sin z}{z} & z \neq 0 \text{ 时} \\[6pt] 1 & z = 0 \text{ 时} \end{cases} \]
+            定义的函数 \( f \) 在 \( z = 0 \) 处解析,并求 \( f'(0) \)。</blockquote>
+        </div>
+
+        <h2>9.2 Laurent Series</h2>
+        <blockquote><h2>9.2 洛朗级数</h2></blockquote>
+
+        <p>Suppose \( f \) is analytic in the region \( R_1 < |z - z_0| < R_2 \), and let \( C \) be a positively oriented simple closed curve around \( z_0 \) in this region. (Note: we include the possibilities that \( R_1 \) can be 0, and \( R_2 = \infty \).) We shall show that for \( z \) not on \( C \) in this region</p>
+        <p>\[ f(z) = \sum_{j=0}^{\infty} a_j (z - z_0)^j + \sum_{j=1}^{\infty} \frac{b_j}{(z - z_0)^j}, \]</p>
+        <p>where</p>
+        <p>\[ a_j = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds, \quad \text{for } j = 0, 1, 2, \dots \]</p>
+        <p>and</p>
+        <p>\[ b_j = \frac{1}{2\pi i}\int_C f(s)(s - z_0)^{j-1}\,ds, \quad \text{for } j = 1, 2, \dots \]</p>
+
+        <blockquote><p>假设 \( f \) 在区域 \( R_1 < |z - z_0| < R_2 \) 内解析,设 \( C \) 是该区域内围绕 \( z_0 \) 的正向简单闭合曲线。(注意:我们包括 \( R_1 \) 可以为 0 以及 \( R_2 = \infty \) 的情形。)我们将证明对该区域内不在 \( C \) 上的点 \( z \),
+        \[ f(z) = \sum_{j=0}^{\infty} a_j (z - z_0)^j + \sum_{j=1}^{\infty} \frac{b_j}{(z - z_0)^j}, \]
+        其中
+        \[ a_j = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds, \quad j = 0, 1, 2, \dots \]
+        \[ b_j = \frac{1}{2\pi i}\int_C f(s)(s - z_0)^{j-1}\,ds, \quad j = 1, 2, \dots \]</p></blockquote>
+
+        <p>The sum of the limits of these two series is frequently written</p>
+        <p>\[ f(z) = \sum_{j=-\infty}^{\infty} c_j (z - z_0)^j, \]</p>
+        <p>where</p>
+        <p>\[ c_j = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds, \quad j = 0, \pm 1, \pm 2, \dots \]</p>
+        <p>This recipe for \( f(z) \) is called a <strong>Laurent series</strong>, although it is important to keep in mind that it is really two series.</p>
+
+        <blockquote><p>这两个级数的极限之和通常写成
+        \[ f(z) = \sum_{j=-\infty}^{\infty} c_j (z - z_0)^j, \]
+        其中
+        \[ c_j = \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds, \quad j = 0, \pm 1, \pm 2, \dots \]
+        \( f(z) \) 的这种表示称为<strong>洛朗级数</strong>,但重要的是要记住它实际上是两个级数。</p></blockquote>
+
+        <p>Okay, now let's derive the above formula. First, let \( r_1 \) and \( r_2 \) be so that \( R_1 < r_1 < |z - z_0| < r_2 < R_2 \) and so that the point \( z \) and the curve \( C \) are included in the region \( r_1 < |z - z_0| < r_2 \). Also, let \( \gamma \) be a circle centered at \( z \) and such that \( \gamma \) is included in this region.</p>
+
+        <blockquote><p>现在让我们推导上述公式。首先,设 \( r_1 \) 和 \( r_2 \) 满足 \( R_1 < r_1 < |z - z_0| < r_2 < R_2 \),并使得点 \( z \) 和曲线 \( C \) 都包含在区域 \( r_1 < |z - z_0| < r_2 \) 内。另设 \( \gamma \) 为以 \( z \) 为圆心的圆,使得 \( \gamma \) 也包含在该区域内。</p></blockquote>
+
+        <div class="figure"><img src="images/ch9_p5_Im1.png" alt="Annular region for Laurent series"><div class="figure-caption">Figure: The annular region for the Laurent series derivation</div></div>
+        <blockquote><p class="figure-caption">图:洛朗级数推导中的环形区域</p></blockquote>
+
+        <p>Then \( \frac{f(s)}{s - z} \) is an analytic function (of \( s \)) on the region bounded by \( C_1 \), \( C_2 \), and \( \gamma \), where \( C_1 \) is the circle \( |z - z_0| = r_1 \) and \( C_2 \) is the circle \( |z - z_0| = r_2 \). Thus,</p>
+        <p>\[ \int_{C_2} \frac{f(s)}{s - z}\,ds = \int_{C_1} \frac{f(s)}{s - z}\,ds + \int_{\gamma} \frac{f(s)}{s - z}\,ds. \]</p>
+        <p>(All three circles are positively oriented, of course.) But \( \displaystyle\int_{\gamma} \frac{f(s)}{s - z}\,ds = 2\pi i f(z) \), and so we have</p>
+        <p>\[ 2\pi i\, f(z) = \int_{C_2} \frac{f(s)}{s - z}\,ds - \int_{C_1} \frac{f(s)}{s - z}\,ds. \]</p>
+
+        <blockquote><p>那么 \( \frac{f(s)}{s - z} \) 是在由 \( C_1 \)、\( C_2 \) 和 \( \gamma \) 所围区域上关于 \( s \) 的解析函数,其中 \( C_1 \) 是圆 \( |z - z_0| = r_1 \),\( C_2 \) 是圆 \( |z - z_0| = r_2 \)。因此,
+        \[ \int_{C_2} \frac{f(s)}{s - z}\,ds = \int_{C_1} \frac{f(s)}{s - z}\,ds + \int_{\gamma} \frac{f(s)}{s - z}\,ds. \]
+        (当然,三个圆都是正向的。)但 \( \displaystyle\int_{\gamma} \frac{f(s)}{s - z}\,ds = 2\pi i\, f(z) \),因此
+        \[ 2\pi i\, f(z) = \int_{C_2} \frac{f(s)}{s - z}\,ds - \int_{C_1} \frac{f(s)}{s - z}\,ds. \]</p></blockquote>
+
+        <p>Look at the first of the two integrals on the right-hand side of this equation. For \( s \in C_2 \), we have \( |z - z_0| < |s - z_0| \), and so</p>
+        <p>\[ \frac{1}{s - z} = \frac{1}{s - z_0 - (z - z_0)} = \frac{1}{s - z_0} \cdot \frac{1}{1 - \frac{z - z_0}{s - z_0}} = \sum_{j=0}^{\infty} \frac{(z - z_0)^j}{(s - z_0)^{j+1}}. \]</p>
+        <p>Hence,</p>
+        <p>\[ \int_{C_2} \frac{f(s)}{s - z}\,ds = \sum_{j=0}^{\infty} \int_{C_2} \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j = \sum_{j=0}^{\infty} \int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j. \]</p>
+
+        <blockquote><p>看等式右边两个积分中的第一个。对于 \( s \in C_2 \),我们有 \( |z - z_0| < |s - z_0| \),因此
+        \[ \frac{1}{s - z} = \frac{1}{s - z_0} \cdot \frac{1}{1 - \frac{z - z_0}{s - z_0}} = \sum_{j=0}^{\infty} \frac{(z - z_0)^j}{(s - z_0)^{j+1}}. \]
+        从而
+        \[ \int_{C_2} \frac{f(s)}{s - z}\,ds = \sum_{j=0}^{\infty} \int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j. \]</p></blockquote>
+
+        <p>For the second of these two integrals, note that for \( s \in C_1 \) we have \( |s - z_0| < |z - z_0| \), and so</p>
+        <p>\[ \frac{-1}{s - z} = \frac{1}{z - z_0 - (s - z_0)} = \frac{1}{z - z_0} \cdot \frac{1}{1 - \frac{s - z_0}{z - z_0}} = \sum_{j=0}^{\infty} \frac{(s - z_0)^j}{(z - z_0)^{j+1}} = \sum_{j=1}^{\infty} \frac{(s - z_0)^{j-1}}{(z - z_0)^j}. \]</p>
+        <p>As before,</p>
+        <p>\[ -\int_{C_1} \frac{f(s)}{s - z}\,ds = \sum_{j=1}^{\infty} \int_{C_1} \frac{f(s)\,(s - z_0)^{j-1}}{1}\,ds \cdot \frac{1}{(z - z_0)^j} = \sum_{j=1}^{\infty} \int_C f(s)(s - z_0)^{j-1}\,ds \cdot \frac{1}{(z - z_0)^j}. \]</p>
+
+        <blockquote><p>对于第二个积分,注意对于 \( s \in C_1 \),我们有 \( |s - z_0| < |z - z_0| \),因此
+        \[ \frac{-1}{s - z} = \frac{1}{z - z_0} \cdot \frac{1}{1 - \frac{s - z_0}{z - z_0}} = \sum_{j=0}^{\infty} \frac{(s - z_0)^j}{(z - z_0)^{j+1}} = \sum_{j=1}^{\infty} \frac{(s - z_0)^{j-1}}{(z - z_0)^j}. \]
+        如前所述,
+        \[ -\int_{C_1} \frac{f(s)}{s - z}\,ds = \sum_{j=1}^{\infty} \int_C f(s)(s - z_0)^{j-1}\,ds \cdot \frac{1}{(z - z_0)^j}. \]</p></blockquote>
+
+        <p>Putting this all together, we have the Laurent series:</p>
+        <p>\[ f(z) = \frac{1}{2\pi i}\int_{C_2} \frac{f(s)}{s - z}\,ds - \frac{1}{2\pi i}\int_{C_1} \frac{f(s)}{s - z}\,ds \]</p>
+        <p>\[ = \sum_{j=0}^{\infty} \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j + \sum_{j=1}^{\infty} \frac{1}{2\pi i}\int_C f(s)(s - z_0)^{j-1}\,ds \cdot \frac{1}{(z - z_0)^j}. \]</p>
+
+        <blockquote><p>把这些合在一起,我们得到洛朗级数:
+        \[ f(z) = \sum_{j=0}^{\infty} \frac{1}{2\pi i}\int_C \frac{f(s)}{(s - z_0)^{j+1}}\,ds \cdot (z - z_0)^j + \sum_{j=1}^{\infty} \frac{1}{2\pi i}\int_C f(s)(s - z_0)^{j-1}\,ds \cdot \frac{1}{(z - z_0)^j}. \]</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Let \( f \) be defined by</p>
+            <p>\[ f(z) = \frac{1}{z(z - 1)}. \]</p>
+            <p>First, observe that \( f \) is analytic in the region \( 0 < |z| < 1 \). Let's find the Laurent series for \( f \) valid in this region. First,</p>
+            <p>\[ f(z) = \frac{1}{z(z - 1)} = -\frac{1}{z} \cdot \frac{1}{1 - z}. \]</p>
+            <p>From our vast knowledge of the geometric series, we have</p>
+            <p>\[ f(z) = -\frac{1}{z}\sum_{j=0}^{\infty} z^j = -\sum_{j=0}^{\infty} z^{j-1} = -\frac{1}{z} - 1 - z - z^2 - \cdots \]</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>设 \( f \) 由
+        \[ f(z) = \frac{1}{z(z - 1)} \]
+        定义。首先注意 \( f \) 在区域 \( 0 < |z| < 1 \) 内解析。我们来求 \( f \) 在此区域内有效的洛朗级数。首先,
+        \[ f(z) = -\frac{1}{z} \cdot \frac{1}{1 - z}. \]
+        利用我们对几何级数的丰富知识,
+        \[ f(z) = -\frac{1}{z}\sum_{j=0}^{\infty} z^j = -\sum_{j=0}^{\infty} z^{j-1}. \]</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example (continued)</div>
+            <p>Now let's find another Laurent series for \( f \), the one valid for the region \( 1 < |z| < \infty \). First,</p>
+            <p>\[ \frac{1}{z - 1} = \frac{1}{z} \cdot \frac{1}{1 - \frac{1}{z}}. \]</p>
+            <p>Now since \( \left|\frac{1}{z}\right| < 1 \), we have</p>
+            <p>\[ \frac{1}{z - 1} = \frac{1}{z} \cdot \frac{1}{1 - \frac{1}{z}} = \frac{1}{z}\sum_{j=0}^{\infty} \frac{1}{z^j} = \sum_{j=1}^{\infty} z^{-j}, \]</p>
+            <p>and so</p>
+            <p>\[ f(z) = \frac{1}{z} \cdot \frac{1}{z - 1} = \frac{1}{z}\sum_{j=1}^{\infty} z^{-j} = \sum_{j=2}^{\infty} z^{-j}. \]</p>
+        </div>
+
+        <blockquote><div class="example-title">例子(续)</div><p>现在让我们求 \( f \) 的另一个洛朗级数,即在区域 \( 1 < |z| < \infty \) 内有效的那个。首先,
+        \[ \frac{1}{z - 1} = \frac{1}{z} \cdot \frac{1}{1 - \frac{1}{z}}. \]
+        由于 \( \left|\frac{1}{z}\right| < 1 \),我们有
+        \[ \frac{1}{z - 1} = \frac{1}{z}\sum_{j=0}^{\infty} \frac{1}{z^j} = \sum_{j=1}^{\infty} z^{-j}, \]
+        因此
+        \[ f(z) = \frac{1}{z} \cdot \frac{1}{z - 1} = \frac{1}{z}\sum_{j=1}^{\infty} z^{-j} = \sum_{j=2}^{\infty} z^{-j}. \]</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <blockquote><h3 style="color: #e74c3c;">练习</h3></blockquote>
+
+            <div class="exercise-item"><strong>8.</strong> Find two Laurent series in powers of \( z \) for the function \( f \) defined by
+            \[ f(z) = \frac{1}{z^2(1 - z)} \]
+            and specify the regions in which the series converge to \( f(z) \).</div>
+            <blockquote><strong>8.</strong> 求由
+            \[ f(z) = \frac{1}{z^2(1 - z)} \]
+            定义的函数 \( f \) 关于 \( z \) 的幂的两个洛朗级数,并指出级数收敛到 \( f(z) \) 的区域。</blockquote>
+
+            <div class="exercise-item"><strong>9.</strong> Find two Laurent series in powers of \( z \) for the function \( f \) defined by
+            \[ f(z) = \frac{1}{z(1 - z)^2} \]
+            and specify the regions in which the series converge to \( f(z) \).</div>
+            <blockquote><strong>9.</strong> 求由
+            \[ f(z) = \frac{1}{z(1 - z)^2} \]
+            定义的函数 \( f \) 关于 \( z \) 的幂的两个洛朗级数,并指出级数收敛到 \( f(z) \) 的区域。</blockquote>
+
+            <div class="exercise-item"><strong>10.</strong> Find the Laurent series in powers of \( (z - 1) \) for \( f(z) = \dfrac{1}{z} \) in the region \( 1 < |z - 1| < \infty \).</div>
+            <blockquote><strong>10.</strong> 求 \( f(z) = \dfrac{1}{z} \) 在区域 \( 1 < |z - 1| < \infty \) 内关于 \( (z - 1) \) 的幂的洛朗级数。</blockquote>
+        </div>
+    </div>
+</body>
+</html>

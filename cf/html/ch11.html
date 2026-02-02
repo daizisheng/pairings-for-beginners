@@ -1,37 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 11: Harmonic Functions</title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<style>
-body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
-.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
-h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
-h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
-p{margin:1em 0;text-align:justify}
-blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
-.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
-.exercises h3{color:#e74c3c;margin-top:0}
-.exercise-item{margin:1em 0;padding-left:1.5em}
-.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
-.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
-.figure{text-align:center;margin:2em 0}
-.figure img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;padding:5px}
-.figure-caption{font-style:italic;color:#666;margin-top:0.5em}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 11: Argument Principle</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
 </head>
-<body><div class="content"><h1>Chapter 11<br>Harmonic Functions</h1>
-<blockquote><h1 style="text-align:center;font-size:2.2em;">第11章<br>调和函数</h1></blockquote>
-<h2>11.1 Harmonic Functions</h2>
-<blockquote><h2>11.1 调和函数</h2></blockquote>
-<p>A function \( u(x,y) \) is harmonic if \( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 \). The real and imaginary parts of analytic functions are harmonic.</p>
-<blockquote><p>如果 \( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 \),则函数 \( u(x,y) \) 是调和的。解析函数的实部和虚部都是调和的。</p></blockquote>
-<h2>11.2 The Dirichlet Problem</h2>
-<blockquote><h2>11.2 狄利克雷问题</h2></blockquote>
-<p>The Dirichlet problem is to find a harmonic function in a region with prescribed boundary values. This has important applications in physics and engineering.</p>
-<blockquote><p>狄利克雷问题是在具有规定边界值的区域中找到调和函数。这在物理和工程中有重要应用。</p></blockquote>
-</div></body></html>
+<body>
+    <div class="content">
+        <h1>Chapter Eleven<br>Argument Principle</h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">第十一章<br>辐角原理</h1></blockquote>
+
+        <h2>11.1 Argument Principle</h2>
+        <blockquote><h2>11.1 辐角原理</h2></blockquote>
+
+        <p>Let \( C \) be a simple closed curve, and suppose \( f \) is analytic on \( C \). Suppose moreover that the only singularities of \( f \) inside \( C \) are poles. If \( f(z) \neq 0 \) for all \( z \in C \), then \( \Gamma = f(C) \) is a closed curve which does not pass through the origin. If</p>
+        <p>\[ \gamma(t), \quad \alpha \leq t \leq \beta \]</p>
+        <p>is a complex description of \( C \), then</p>
+        <p>\[ \zeta(t) = f(\gamma(t)), \quad \alpha \leq t \leq \beta \]</p>
+        <p>is a complex description of \( \Gamma \).</p>
+
+        <blockquote><p>设 \( C \) 是一条简单闭合曲线,假设 \( f \) 在 \( C \) 上解析。进一步假设 \( f \) 在 \( C \) 内部的奇点全部是极点。如果对所有 \( z \in C \) 有 \( f(z) \neq 0 \),那么 \( \Gamma = f(C) \) 是一条不经过原点的闭曲线。如果 \( \gamma(t),\; \alpha \leq t \leq \beta \) 是 \( C \) 的复参数描述,那么 \( \zeta(t) = f(\gamma(t)),\; \alpha \leq t \leq \beta \) 是 \( \Gamma \) 的复参数描述。</p></blockquote>
+
+        <p>Now, let's compute</p>
+        <p>\[ \int_C \frac{f'(z)}{f(z)}\,dz = \int_\alpha^\beta \frac{f'(\gamma(t))}{f(\gamma(t))}\,\gamma'(t)\,dt. \]</p>
+        <p>But notice that \( \zeta'(t) = f'(\gamma(t))\,\gamma'(t) \). Hence,</p>
+        <p>\[ \int_C \frac{f'(z)}{f(z)}\,dz = \int_\alpha^\beta \frac{f'(\gamma(t))}{f(\gamma(t))}\,\gamma'(t)\,dt = \int_\alpha^\beta \frac{\zeta'(t)}{\zeta(t)}\,dt = \int_\Gamma \frac{1}{z}\,dz = n \cdot 2\pi i, \]</p>
+        <p>where \( |n| \) is the number of times \( \Gamma \) "winds around" the origin. The integer \( n \) is positive in case \( \Gamma \) is traversed in the positive direction, and negative in case the traversal is in the negative direction.</p>
+
+        <blockquote><p>现在我们来计算
+        \[ \int_C \frac{f'(z)}{f(z)}\,dz = \int_\alpha^\beta \frac{f'(\gamma(t))}{f(\gamma(t))}\,\gamma'(t)\,dt. \]
+        注意到 \( \zeta'(t) = f'(\gamma(t))\,\gamma'(t) \),因此
+        \[ \int_C \frac{f'(z)}{f(z)}\,dz = \int_\alpha^\beta \frac{\zeta'(t)}{\zeta(t)}\,dt = \int_\Gamma \frac{1}{z}\,dz = n \cdot 2\pi i, \]
+        其中 \( |n| \) 是 \( \Gamma \) 绕原点"缠绕"的次数。整数 \( n \) 在 \( \Gamma \) 沿正方向遍历时为正,沿负方向遍历时为负。</p></blockquote>
+
+        <p>Next, we shall use the Residue Theorem to evaluate the integral \( \displaystyle\int_C \frac{f'(z)}{f(z)}\,dz \). The singularities of the integrand \( \dfrac{f'(z)}{f(z)} \) are the poles of \( f \) together with the zeros of \( f \). Let's find the residues at these points.</p>
+
+        <blockquote><p>接下来,我们用留数定理来计算积分 \( \displaystyle\int_C \frac{f'(z)}{f(z)}\,dz \)。被积函数 \( \dfrac{f'(z)}{f(z)} \) 的奇点是 \( f \) 的极点和 \( f \) 的零点。我们来求这些点处的留数。</p></blockquote>
+
+        <h3>Residues at the Zeros of \( f \)</h3>
+        <blockquote><h3>在 \( f \) 的零点处的留数</h3></blockquote>
+
+        <p>First, let \( Z = \{z_1, z_2, \ldots, z_K\} \) be the set of all zeros of \( f \). Suppose the order of the zero \( z_j \) is \( n_j \). Then</p>
+        <p>\[ f(z) = (z - z_j)^{n_j} h(z) \quad \text{and} \quad h(z_j) \neq 0. \]</p>
+        <p>Thus,</p>
+        <p>\[ \frac{f'(z)}{f(z)} = \frac{(z - z_j)^{n_j} h'(z) + n_j (z - z_j)^{n_j - 1} h(z)}{(z - z_j)^{n_j} h(z)} = \frac{h'(z)}{h(z)} + \frac{n_j}{z - z_j}. \]</p>
+        <p>Then</p>
+        <p>\[ \varphi(z) = (z - z_j)\frac{f'(z)}{f(z)} = (z - z_j)\frac{h'(z)}{h(z)} + n_j, \]</p>
+        <p>and</p>
+        <p>\[ \operatorname{Res}_{z = z_j} \frac{f'}{f} = n_j. \]</p>
+        <p>The sum of all these residues is thus</p>
+        <p>\[ N = n_1 + n_2 + \cdots + n_K. \]</p>
+
+        <blockquote><p>设 \( Z = \{z_1, z_2, \ldots, z_K\} \) 是 \( f \) 的所有零点的集合。假设零点 \( z_j \) 的阶为 \( n_j \)。那么
+        \[ f(z) = (z - z_j)^{n_j} h(z), \quad h(z_j) \neq 0. \]
+        因此
+        \[ \frac{f'(z)}{f(z)} = \frac{h'(z)}{h(z)} + \frac{n_j}{z - z_j}. \]
+        从而 \( \displaystyle\operatorname{Res}_{z = z_j} \frac{f'}{f} = n_j \)。所有这些留数之和为 \( N = n_1 + n_2 + \cdots + n_K \)。</p></blockquote>
+
+        <h3>Residues at the Poles of \( f \)</h3>
+        <blockquote><h3>在 \( f \) 的极点处的留数</h3></blockquote>
+
+        <p>Next, we go after the residues at the poles of \( f \). Let the set of poles of \( f \) be \( P = \{p_1, p_2, \ldots, p_J\} \). Suppose \( p_j \) is a pole of order \( m_j \). Then</p>
+        <p>\[ h(z) = (z - p_j)^{m_j} f(z) \]</p>
+        <p>is analytic at \( p_j \). In other words,</p>
+        <p>\[ f(z) = \frac{h(z)}{(z - p_j)^{m_j}}. \]</p>
+        <p>Hence,</p>
+        <p>\[ \frac{f'(z)}{f(z)} = \frac{(z - p_j)^{m_j} h'(z) - m_j (z - p_j)^{m_j - 1} h(z)}{(z - p_j)^{2m_j}} \cdot \frac{(z - p_j)^{m_j}}{h(z)} = \frac{h'(z)}{h(z)} - \frac{m_j}{z - p_j}. \]</p>
+        <p>Now then,</p>
+        <p>\[ \varphi(z) = (z - p_j)\frac{f'(z)}{f(z)} = (z - p_j)\frac{h'(z)}{h(z)} - m_j, \]</p>
+        <p>and so</p>
+        <p>\[ \operatorname{Res}_{z = p_j} \frac{f'}{f} = \varphi(p_j) = -m_j. \]</p>
+        <p>The sum of all these residues is</p>
+        <p>\[ -P = -m_1 - m_2 - \cdots - m_J. \]</p>
+
+        <blockquote><p>接下来求 \( f \) 的极点处的留数。设 \( f \) 的极点集合为 \( P = \{p_1, p_2, \ldots, p_J\} \)。假设 \( p_j \) 是 \( m_j \) 阶极点。那么 \( h(z) = (z - p_j)^{m_j} f(z) \) 在 \( p_j \) 处解析,即
+        \[ f(z) = \frac{h(z)}{(z - p_j)^{m_j}}. \]
+        由此得到
+        \[ \frac{f'(z)}{f(z)} = \frac{h'(z)}{h(z)} - \frac{m_j}{z - p_j}. \]
+        因此 \( \displaystyle\operatorname{Res}_{z = p_j} \frac{f'}{f} = -m_j \)。所有这些留数之和为 \( -P = -m_1 - m_2 - \cdots - m_J \)。</p></blockquote>
+
+        <h3>The Argument Principle</h3>
+        <blockquote><h3>辐角原理</h3></blockquote>
+
+        <p>Then,</p>
+        <p>\[ \int_C \frac{f'(z)}{f(z)}\,dz = 2\pi i(N - P); \]</p>
+        <p>and we already found that</p>
+        <p>\[ \int_C \frac{f'(z)}{f(z)}\,dz = n \cdot 2\pi i, \]</p>
+        <p>where \( n \) is the "winding number", or the number of times \( \Gamma \) winds around the origin -- \( n > 0 \) means \( \Gamma \) winds in the positive sense, and \( n \) negative means it winds in the negative sense. Finally, we have</p>
+        <p>\[ \boxed{n = N - P,} \]</p>
+        <p>where \( N = n_1 + n_2 + \cdots + n_K \) is the number of zeros inside \( C \), counting multiplicity (or the order of the zeros), and \( P = m_1 + m_2 + \cdots + m_J \) is the number of poles, counting the order. This result is the celebrated <strong>Argument Principle</strong>.</p>
+
+        <blockquote><p>于是
+        \[ \int_C \frac{f'(z)}{f(z)}\,dz = 2\pi i(N - P), \]
+        而我们已经得到 \( \displaystyle\int_C \frac{f'(z)}{f(z)}\,dz = n \cdot 2\pi i \)。最终我们得到
+        \[ \boxed{n = N - P,} \]
+        其中 \( N = n_1 + n_2 + \cdots + n_K \) 是 \( C \) 内部零点的个数(计入重数),\( P = m_1 + m_2 + \cdots + m_J \) 是极点的个数(计入阶数)。这就是著名的<strong>辐角原理</strong>。</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <div class="exercise-item"><strong>1.</strong> Let \( C \) be the unit circle \( |z| = 1 \) positively oriented, and let \( f \) be given by \( f(z) = z^3 \). How many times does the curve \( f(C) \) wind around the origin? Explain.</div>
+            <blockquote><strong>1.</strong> 设 \( C \) 是正向的单位圆 \( |z| = 1 \),令 \( f(z) = z^3 \)。曲线 \( f(C) \) 绕原点缠绕多少次?请解释。</blockquote>
+
+            <div class="exercise-item"><strong>2.</strong> Let \( C \) be the unit circle \( |z| = 1 \) positively oriented, and let \( f \) be given by \( f(z) = \dfrac{z^2 + 2}{z^3} \). How many times does the curve \( f(C) \) wind around the origin? Explain.</div>
+            <blockquote><strong>2.</strong> 设 \( C \) 是正向的单位圆 \( |z| = 1 \),令 \( f(z) = \dfrac{z^2 + 2}{z^3} \)。曲线 \( f(C) \) 绕原点缠绕多少次?请解释。</blockquote>
+
+            <div class="exercise-item"><strong>3.</strong> Let \( p(z) = a_n z^n + a_{n-1} z^{n-1} + \cdots + a_1 z + a_0 \), with \( a_n \neq 0 \). Prove there is an \( R > 0 \) so that if \( C \) is the circle \( |z| = R \) positively oriented, then \[ \int_C \frac{p'(z)}{p(z)}\,dz = 2n\pi i. \]</div>
+            <blockquote><strong>3.</strong> 设 \( p(z) = a_n z^n + a_{n-1} z^{n-1} + \cdots + a_1 z + a_0 \),其中 \( a_n \neq 0 \)。证明存在 \( R > 0 \) 使得若 \( C \) 是正向的圆 \( |z| = R \),则 \( \displaystyle\int_C \frac{p'(z)}{p(z)}\,dz = 2n\pi i \)。</blockquote>
+
+            <div class="exercise-item"><strong>4.</strong> Suppose \( f \) is entire and \( f(z) \) is real if and only if \( z \) is real. Explain how you know that \( f \) has at most one zero.</div>
+            <blockquote><strong>4.</strong> 假设 \( f \) 是整函数,且 \( f(z) \) 为实数当且仅当 \( z \) 为实数。请解释为什么 \( f \) 至多有一个零点。</blockquote>
+        </div>
+
+        <h2>11.2 Rouch&eacute;'s Theorem</h2>
+        <blockquote><h2>11.2 儒歇定理</h2></blockquote>
+
+        <p>Suppose \( f \) and \( g \) are analytic on and inside a simple closed contour \( C \). Suppose moreover that \( |f(z)| > |g(z)| \) for all \( z \in C \). Then we shall see that \( f \) and \( f + g \) have the same number of zeros inside \( C \). This result is <strong>Rouch&eacute;'s Theorem</strong>.</p>
+
+        <blockquote><p>假设 \( f \) 和 \( g \) 在简单闭合轮廓 \( C \) 上及其内部解析。进一步假设对所有 \( z \in C \) 有 \( |f(z)| > |g(z)| \)。那么 \( f \) 和 \( f + g \) 在 \( C \) 内部有相同数目的零点。这就是<strong>儒歇定理</strong>。</p></blockquote>
+
+        <p>To see why it is so, start by defining the function \( \Psi(t) \) on the interval \( 0 \leq t \leq 1 \):</p>
+        <p>\[ \Psi(t) = \frac{1}{2\pi i}\int_C \frac{f'(z) + t\,g'(z)}{f(z) + t\,g(z)}\,dz. \]</p>
+        <p>Observe that this is okay -- that is, the denominator of the integrand is never zero:</p>
+        <p>\[ |f(z) + t\,g(z)| \geq \bigl||f(z)| - t|g(z)|\bigr| \geq \bigl||f(z)| - |g(z)|\bigr| > 0. \]</p>
+
+        <blockquote><p>为了说明这一点,我们在区间 \( 0 \leq t \leq 1 \) 上定义函数
+        \[ \Psi(t) = \frac{1}{2\pi i}\int_C \frac{f'(z) + t\,g'(z)}{f(z) + t\,g(z)}\,dz. \]
+        注意被积函数的分母永远不为零:
+        \[ |f(z) + t\,g(z)| \geq \bigl||f(z)| - t|g(z)|\bigr| \geq \bigl||f(z)| - |g(z)|\bigr| > 0. \]</p></blockquote>
+
+        <p>Observe that \( \Psi \) is continuous on the interval \( [0, 1] \) and is integer-valued -- \( \Psi(t) \) is the number of zeros of \( f + tg \) inside \( C \). Being continuous and integer-valued on the connected set \( [0, 1] \), it must be constant. In particular, \( \Psi(0) = \Psi(1) \). This does the job!</p>
+        <p>\[ \Psi(0) = \frac{1}{2\pi i}\int_C \frac{f'(z)}{f(z)}\,dz \]</p>
+        <p>is the number of zeros of \( f \) inside \( C \), and</p>
+        <p>\[ \Psi(1) = \frac{1}{2\pi i}\int_C \frac{f'(z) + g'(z)}{f(z) + g(z)}\,dz \]</p>
+        <p>is the number of zeros of \( f + g \) inside \( C \).</p>
+
+        <blockquote><p>注意 \( \Psi \) 在区间 \( [0, 1] \) 上连续且取整数值 -- \( \Psi(t) \) 是 \( f + tg \) 在 \( C \) 内部的零点个数。在连通集 \( [0, 1] \) 上连续且取整数值的函数必为常数。特别地,\( \Psi(0) = \Psi(1) \)。这就完成了证明!其中
+        \[ \Psi(0) = \frac{1}{2\pi i}\int_C \frac{f'(z)}{f(z)}\,dz \]
+        是 \( f \) 在 \( C \) 内部的零点个数,而
+        \[ \Psi(1) = \frac{1}{2\pi i}\int_C \frac{f'(z) + g'(z)}{f(z) + g(z)}\,dz \]
+        是 \( f + g \) 在 \( C \) 内部的零点个数。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>How many solutions of the equation \( z^6 - 5z^5 + z^3 - 2 = 0 \) are inside the circle \( |z| = 1 \)? Rouch&eacute;'s Theorem makes it quite easy to answer this. Simply let \( f(z) = -5z^5 \) and let \( g(z) = z^6 + z^3 - 2 \). Then \( |f(z)| = 5 \) and \( |g(z)| \leq |z|^6 + |z|^3 + 2 = 4 \) for all \( |z| = 1 \). Hence \( |f(z)| > |g(z)| \) on the unit circle. From Rouch&eacute;'s Theorem we know then that \( f \) and \( f + g \) have the same number of zeros inside \( |z| = 1 \). Thus, there are 5 such solutions.</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>方程 \( z^6 - 5z^5 + z^3 - 2 = 0 \) 在圆 \( |z| = 1 \) 内有多少个解?利用儒歇定理很容易回答。令 \( f(z) = -5z^5 \),\( g(z) = z^6 + z^3 - 2 \)。当 \( |z| = 1 \) 时,\( |f(z)| = 5 \) 而 \( |g(z)| \leq |z|^6 + |z|^3 + 2 = 4 \)。因此在单位圆上 \( |f(z)| > |g(z)| \)。由儒歇定理,\( f \) 和 \( f + g \) 在 \( |z| = 1 \) 内部有相同数目的零点。因此有 5 个解。</p></blockquote>
+
+        <h3>Hurwitz's Theorem</h3>
+        <blockquote><h3>赫尔维茨定理</h3></blockquote>
+
+        <p>The following nice result follows easily from Rouch&eacute;'s Theorem. Suppose \( U \) is an open set (i.e., every point of \( U \) is an interior point) and suppose that a sequence \( \{f_n\} \) of functions analytic on \( U \) converges uniformly to the function \( f \). Suppose further that \( f \) is not zero on the circle \( C = \{z : |z - z_0| = R\} \subset U \). Then there is an integer \( N \) so that for all \( n \geq N \), the functions \( f_n \) and \( f \) have the same number of zeros inside \( C \).</p>
+
+        <blockquote><p>下面这个漂亮的结果很容易从儒歇定理推出。假设 \( U \) 是一个开集(即 \( U \) 的每个点都是内点),假设在 \( U \) 上解析的函数列 \( \{f_n\} \) 一致收敛到函数 \( f \)。进一步假设 \( f \) 在圆 \( C = \{z : |z - z_0| = R\} \subset U \) 上不为零。那么存在整数 \( N \) 使得对所有 \( n \geq N \),函数 \( f_n \) 和 \( f \) 在 \( C \) 内部有相同数目的零点。</p></blockquote>
+
+        <p>This result, called <strong>Hurwitz's Theorem</strong>, is an easy consequence of Rouch&eacute;'s Theorem. Simply observe that for \( z \in C \), we have \( |f(z)| > \varepsilon > 0 \) for some \( \varepsilon \). Now let \( N \) be large enough to insure that \( |f_n(z) - f(z)| < \varepsilon \) on \( C \). It follows from Rouch&eacute;'s Theorem that \( f \) and \( f + (f_n - f) = f_n \) have the same number of zeros inside \( C \).</p>
+
+        <blockquote><p>这个结果称为<strong>赫尔维茨定理</strong>,是儒歇定理的简单推论。只需注意对 \( z \in C \),有 \( |f(z)| > \varepsilon > 0 \) 对某个 \( \varepsilon \) 成立。取 \( N \) 足够大使得在 \( C \) 上 \( |f_n(z) - f(z)| < \varepsilon \)。由儒歇定理,\( f \) 和 \( f + (f_n - f) = f_n \) 在 \( C \) 内部有相同数目的零点。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>On any bounded set, the sequence \( \{f_n\} \), where \( f_n(z) = 1 + z + \dfrac{z^2}{2!} + \cdots + \dfrac{z^n}{n!} \), converges uniformly to \( f(z) = e^z \), and \( f(z) \neq 0 \) for all \( z \). Thus for any \( R \), there is an \( N \) so that for \( n > N \), every zero of \( 1 + z + \dfrac{z^2}{2!} + \cdots + \dfrac{z^n}{n!} \) has modulus \( > R \). Or to put it another way, given any \( R \) there is an \( N \) so that for \( n > N \) no polynomial \( 1 + z + \dfrac{z^2}{2!} + \cdots + \dfrac{z^n}{n!} \) has a zero inside the circle of radius \( R \).</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>在任意有界集上,函数列 \( f_n(z) = 1 + z + \dfrac{z^2}{2!} + \cdots + \dfrac{z^n}{n!} \) 一致收敛到 \( f(z) = e^z \),且对所有 \( z \) 有 \( f(z) \neq 0 \)。因此对任意 \( R \),存在 \( N \) 使得当 \( n > N \) 时,\( 1 + z + \dfrac{z^2}{2!} + \cdots + \dfrac{z^n}{n!} \) 的每个零点的模都大于 \( R \)。换言之,给定任意 \( R \),存在 \( N \) 使得当 \( n > N \) 时,多项式 \( 1 + z + \dfrac{z^2}{2!} + \cdots + \dfrac{z^n}{n!} \) 在半径为 \( R \) 的圆内没有零点。</p></blockquote>
+
+        <div class="exercises">
+            <h3>More Exercises</h3>
+            <div class="exercise-item"><strong>5.</strong> How many solutions of \( 3e^z - z = 0 \) are in the disk \( |z| \leq 1 \)? Explain.</div>
+            <blockquote><strong>5.</strong> 方程 \( 3e^z - z = 0 \) 在圆盘 \( |z| \leq 1 \) 内有多少个解?请解释。</blockquote>
+
+            <div class="exercise-item"><strong>6.</strong> Show that the polynomial \( z^6 + 4z^2 - 1 \) has exactly two zeros inside the circle \( |z| = 1 \).</div>
+            <blockquote><strong>6.</strong> 证明多项式 \( z^6 + 4z^2 - 1 \) 在圆 \( |z| = 1 \) 内恰好有两个零点。</blockquote>
+
+            <div class="exercise-item"><strong>7.</strong> How many solutions of \( 2z^4 - 2z^3 + 2z^2 - 2z + 9 = 0 \) lie inside the circle \( |z| = 1 \)?</div>
+            <blockquote><strong>7.</strong> 方程 \( 2z^4 - 2z^3 + 2z^2 - 2z + 9 = 0 \) 在圆 \( |z| = 1 \) 内有多少个解?</blockquote>
+
+            <div class="exercise-item"><strong>8.</strong> Use Rouch&eacute;'s Theorem to prove that every polynomial of degree \( n \) has exactly \( n \) zeros (counting multiplicity, of course).</div>
+            <blockquote><strong>8.</strong> 用儒歇定理证明每个 \( n \) 次多项式恰好有 \( n \) 个零点(当然要计入重数)。</blockquote>
+
+            <div class="exercise-item"><strong>9.</strong> Let \( C \) be the closed unit disk \( |z| \leq 1 \). Suppose the function \( f \) analytic on \( C \) maps \( C \) into the open unit disk \( |z| < 1 \) -- that is, \( |f(z)| < 1 \) for all \( z \in C \). Prove there is exactly one \( w \in C \) such that \( f(w) = w \). (The point \( w \) is called a <em>fixed point</em> of \( f \).)</div>
+            <blockquote><strong>9.</strong> 设 \( C \) 是闭单位圆盘 \( |z| \leq 1 \)。假设在 \( C \) 上解析的函数 \( f \) 将 \( C \) 映射到开单位圆盘 \( |z| < 1 \) 内,即对所有 \( z \in C \) 有 \( |f(z)| < 1 \)。证明恰好存在一个 \( w \in C \) 使得 \( f(w) = w \)。(点 \( w \) 称为 \( f \) 的<em>不动点</em>。)</blockquote>
+        </div>
+    </div>
+</body>
+</html>

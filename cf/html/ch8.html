@@ -1,41 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 8: Residues</title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<style>
-body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
-.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
-h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
-h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
-p{margin:1em 0;text-align:justify}
-blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
-.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
-.exercises h3{color:#e74c3c;margin-top:0}
-.exercise-item{margin:1em 0;padding-left:1.5em}
-.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
-.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
-.figure{text-align:center;margin:2em 0}
-.figure img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;padding:5px}
-.figure-caption{font-style:italic;color:#666;margin-top:0.5em}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 8: Series</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
 </head>
-<body><div class="content"><h1>Chapter 8<br>Residues</h1>
-<blockquote><h1 style="text-align:center;font-size:2.2em;">第8章<br>留数</h1></blockquote>
-<h2>8.1 Laurent Series</h2>
-<blockquote><h2>8.1 洛朗级数</h2></blockquote>
-<p>A Laurent series is a series of the form \( \sum_{n=-\infty}^\infty a_n(z-z_0)^n \). It represents functions in an annular region.</p>
-<blockquote><p>洛朗级数是形式为 \( \sum_{n=-\infty}^\infty a_n(z-z_0)^n \) 的级数。它表示环形区域中的函数。</p></blockquote>
-<h2>8.2 Residues</h2>
-<blockquote><h2>8.2 留数</h2></blockquote>
-<p>The residue of \( f \) at \( z_0 \) is the coefficient \( a_{-1} \) in the Laurent expansion.</p>
-<blockquote><p>\( f \) 在 \( z_0 \) 处的留数是洛朗展开中的系数 \( a_{-1} \)。</p></blockquote>
-<h2>8.3 The Residue Theorem</h2>
-<blockquote><h2>8.3 留数定理</h2></blockquote>
-<p>If \( C \) is a simple closed curve and \( f \) is analytic inside and on \( C \) except for isolated singularities \( z_1,\ldots,z_n \) inside \( C \), then \( \int_C f(z)\,dz = 2\pi i\sum_{k=1}^n \text{Res}(f,z_k) \).</p>
-<blockquote><p>如果 \( C \) 是简单闭合曲线,\( f \) 在 \( C \) 上及内部解析,除了 \( C \) 内的孤立奇点 \( z_1,\ldots,z_n \),那么 \( \int_C f(z)\,dz = 2\pi i\sum_{k=1}^n \text{Res}(f,z_k) \)。</p></blockquote>
-</div></body></html>
+<body>
+    <div class="content">
+        <h1>Chapter Eight<br>Series</h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">第八章<br>级数</h1></blockquote>
+
+        <h2>8.1 Sequences</h2>
+        <blockquote><h2>8.1 序列</h2></blockquote>
+
+        <p>The basic definitions for complex sequences and series are essentially the same as for the real case. A <strong>sequence</strong> of complex numbers is a function \( g: \mathbb{Z}^+ \to \mathbb{C} \) from the positive integers into the complex numbers. It is traditional to use subscripts to indicate the values of the function. Thus we write \( g(n) = z_n \) and an explicit name for the sequence is seldom used; we write simply \( \{z_n\} \) to stand for the sequence \( g \) which is such that \( g(n) = z_n \). For example, \( \{i^n\} \) is the sequence \( g \) for which \( g(n) = i^n \).</p>
+
+        <blockquote><p>复序列和级数的基本定义与实数情形本质上相同。复数的<strong>序列</strong>是从正整数到复数的函数 \( g: \mathbb{Z}^+ \to \mathbb{C} \)。按照惯例,我们用下标来表示函数的值。因此我们写 \( g(n) = z_n \),序列的显式名称很少使用;我们简单地用 \( \{z_n\} \) 来表示序列 \( g \),其中 \( g(n) = z_n \)。例如,\( \{i^n\} \) 是满足 \( g(n) = i^n \) 的序列 \( g \)。</p></blockquote>
+
+        <p>The number \( L \) is a <strong>limit</strong> of the sequence \( \{z_n\} \) if given an \( \varepsilon > 0 \), there is an integer \( N \) such that \( |z_n - L| < \varepsilon \) for all \( n > N_\varepsilon \). If \( L \) is a limit of \( \{z_n\} \), we sometimes say that \( \{z_n\} \) <strong>converges</strong> to \( L \). We frequently write \( \lim z_n = L \).</p>
+
+        <blockquote><p>数 \( L \) 是序列 \( \{z_n\} \) 的<strong>极限</strong>,如果对于给定的 \( \varepsilon > 0 \),存在整数 \( N \) 使得当 \( n > N_\varepsilon \) 时 \( |z_n - L| < \varepsilon \)。如果 \( L \) 是 \( \{z_n\} \) 的极限,我们有时说 \( \{z_n\} \) <strong>收敛</strong>到 \( L \)。我们经常写作 \( \lim z_n = L \)。</p></blockquote>
+
+        <p>It is relatively easy to see that if the complex sequence \( \{z_n\} = \{u_n + iv_n\} \) converges to \( L \), then the two real sequences \( \{u_n\} \) and \( \{v_n\} \) each have a limit: \( \{u_n\} \) converges to \( \operatorname{Re} L \) and \( \{v_n\} \) converges to \( \operatorname{Im} L \). Conversely, if the two real sequences \( \{u_n\} \) and \( \{v_n\} \) each have a limit, then so also does the complex sequence \( \{u_n + iv_n\} \). All the usual nice properties of limits of sequences are thus true:</p>
+        <p>\[ \lim(z_n + w_n) = \lim z_n + \lim w_n; \]</p>
+        <p>\[ \lim(z_n w_n) = (\lim z_n)(\lim w_n); \quad \text{and} \]</p>
+        <p>\[ \lim \frac{z_n}{w_n} = \frac{\lim z_n}{\lim w_n}, \]</p>
+        <p>provided that \( \lim z_n \) and \( \lim w_n \) exist. (And in the last equation, we must, of course, insist that \( \lim w_n \neq 0 \).)</p>
+
+        <blockquote><p>容易看出,如果复序列 \( \{z_n\} = \{u_n + iv_n\} \) 收敛到 \( L \),那么两个实序列 \( \{u_n\} \) 和 \( \{v_n\} \) 各自有极限:\( \{u_n\} \) 收敛到 \( \operatorname{Re} L \),\( \{v_n\} \) 收敛到 \( \operatorname{Im} L \)。反之,如果两个实序列 \( \{u_n\} \) 和 \( \{v_n\} \) 各自有极限,那么复序列 \( \{u_n + iv_n\} \) 也有极限。序列极限的所有常见性质都成立:
+\[ \lim(z_n + w_n) = \lim z_n + \lim w_n, \]
+\[ \lim(z_n w_n) = (\lim z_n)(\lim w_n), \]
+\[ \lim \frac{z_n}{w_n} = \frac{\lim z_n}{\lim w_n}, \]
+前提是 \( \lim z_n \) 和 \( \lim w_n \) 存在。(在最后一个等式中,当然还要求 \( \lim w_n \neq 0 \)。)</p></blockquote>
+
+        <p>A necessary and sufficient condition for the convergence of a sequence \( \{a_n\} \) is the celebrated <strong>Cauchy criterion</strong>: given \( \varepsilon > 0 \), there is an integer \( N \) so that \( |a_n - a_m| < \varepsilon \) whenever \( n, m > N_\varepsilon \).</p>
+
+        <blockquote><p>序列 \( \{a_n\} \) 收敛的充要条件是著名的<strong>柯西准则</strong>:对于给定的 \( \varepsilon > 0 \),存在整数 \( N \) 使得当 \( n, m > N_\varepsilon \) 时 \( |a_n - a_m| < \varepsilon \)。</p></blockquote>
+
+        <h3>Sequences of Functions</h3>
+        <blockquote><h3>函数序列</h3></blockquote>
+
+        <p>A sequence \( \{f_n\} \) of functions on a domain \( D \) is the obvious thing: a function from the positive integers into the set of complex functions on \( D \). Thus, for each \( z \in D \), we have an ordinary sequence \( \{f_n(z)\} \). If each of the sequences \( \{f_n(z)\} \) converges, then we say the sequence of functions \( \{f_n\} \) converges to the function \( f \) defined by \( f(z) = \lim f_n(z) \). This is pretty obvious stuff.</p>
+
+        <blockquote><p>定义域 \( D \) 上的函数序列 \( \{f_n\} \) 是显而易见的:从正整数到 \( D \) 上复函数集合的函数。因此,对于每个 \( z \in D \),我们有一个普通序列 \( \{f_n(z)\} \)。如果每个序列 \( \{f_n(z)\} \) 都收敛,那么我们说函数序列 \( \{f_n\} \) 收敛到由 \( f(z) = \lim f_n(z) \) 定义的函数 \( f \)。</p></blockquote>
+
+        <p>The sequence \( \{f_n\} \) is said to converge to \( f \) <strong>uniformly</strong> on a set \( S \) if given an \( \varepsilon > 0 \), there is an integer \( N \) so that \( |f_n(z) - f(z)| < \varepsilon \) for all \( n > N_\varepsilon \) and all \( z \in S \).</p>
+
+        <blockquote><p>如果对于给定的 \( \varepsilon > 0 \),存在整数 \( N \) 使得对所有 \( n > N_\varepsilon \) 和所有 \( z \in S \) 都有 \( |f_n(z) - f(z)| < \varepsilon \),则称序列 \( \{f_n\} \) 在集合 \( S \) 上<strong>一致收敛</strong>到 \( f \)。</p></blockquote>
+
+        <p>Note that it is possible for a sequence of continuous functions to have a limit function that is not continuous. This cannot happen if the convergence is uniform. To see this, suppose the sequence \( \{f_n\} \) of continuous functions converges uniformly to \( f \) on a domain \( D \), let \( z_0 \in D \), and let \( \varepsilon > 0 \). We need to show there is a \( \delta \) so that \( |f(z_0) - f(z)| < \varepsilon \) whenever \( |z - z_0| < \delta \). Let's do it.</p>
+
+        <blockquote><p>注意,连续函数的序列可能有一个不连续的极限函数。但如果收敛是一致的,这就不会发生。为了证明这一点,假设连续函数序列 \( \{f_n\} \) 在定义域 \( D \) 上一致收敛到 \( f \),设 \( z_0 \in D \),且 \( \varepsilon > 0 \)。我们需要证明存在 \( \delta \) 使得当 \( |z - z_0| < \delta \) 时 \( |f(z_0) - f(z)| < \varepsilon \)。</p></blockquote>
+
+        <p>First, choose \( N \) so that \( |f_N(z) - f(z)| < \frac{\varepsilon}{3} \). We can do this because of the uniform convergence of the sequence \( \{f_n\} \). Next, choose \( \delta \) so that \( |f_N(z_0) - f_N(z)| < \frac{\varepsilon}{3} \) whenever \( |z - z_0| < \delta \). This is possible because \( f_N \) is continuous. Now then, when \( |z - z_0| < \delta \), we have</p>
+        <p>\[ |f(z_0) - f(z)| = |f(z_0) - f_N(z_0) + f_N(z_0) - f_N(z) + f_N(z) - f(z)| \]</p>
+        <p>\[ \leq |f(z_0) - f_N(z_0)| + |f_N(z_0) - f_N(z)| + |f_N(z) - f(z)| < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon, \]</p>
+        <p>and we have done it!</p>
+
+        <blockquote><p>首先,选择 \( N \) 使得 \( |f_N(z) - f(z)| < \frac{\varepsilon}{3} \)。这可以由序列 \( \{f_n\} \) 的一致收敛性保证。然后,选择 \( \delta \) 使得当 \( |z - z_0| < \delta \) 时 \( |f_N(z_0) - f_N(z)| < \frac{\varepsilon}{3} \)。这是可能的,因为 \( f_N \) 是连续的。于是当 \( |z - z_0| < \delta \) 时,
+\[ |f(z_0) - f(z)| \leq |f(z_0) - f_N(z_0)| + |f_N(z_0) - f_N(z)| + |f_N(z) - f(z)| < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon. \]</p></blockquote>
+
+        <h3>Integration of Uniformly Convergent Sequences</h3>
+        <blockquote><h3>一致收敛序列的积分</h3></blockquote>
+
+        <p>Now suppose we have a sequence \( \{f_n\} \) of continuous functions which converges uniformly on a contour \( C \) to the function \( f \). Then the sequence \( \left\{\int_C f_n(z)\,dz\right\} \) converges to \( \int_C f(z)\,dz \). This is easy to see. Let \( \varepsilon > 0 \). Now let \( N \) be so that \( |f_n(z) - f(z)| < \frac{\varepsilon}{A} \) for \( n > N \), where \( A \) is the length of \( C \). Then,</p>
+        <p>\[ \left|\int_C f_n(z)\,dz - \int_C f(z)\,dz\right| = \left|\int_C (f_n(z) - f(z))\,dz\right| \leq \frac{\varepsilon}{A} \cdot A = \varepsilon \]</p>
+        <p>whenever \( n > N \).</p>
+
+        <blockquote><p>现在假设我们有一个连续函数序列 \( \{f_n\} \),它在曲线 \( C \) 上一致收敛到函数 \( f \)。那么序列 \( \left\{\int_C f_n(z)\,dz\right\} \) 收敛到 \( \int_C f(z)\,dz \)。设 \( \varepsilon > 0 \),选择 \( N \) 使得当 \( n > N \) 时 \( |f_n(z) - f(z)| < \frac{\varepsilon}{A} \),其中 \( A \) 是 \( C \) 的长度。则
+\[ \left|\int_C f_n(z)\,dz - \int_C f(z)\,dz\right| \leq \frac{\varepsilon}{A} \cdot A = \varepsilon. \]</p></blockquote>
+
+        <h3>Uniform Limits of Analytic Functions</h3>
+        <blockquote><h3>解析函数的一致极限</h3></blockquote>
+
+        <p>Now suppose \( \{f_n\} \) is a sequence of functions each analytic on some region \( D \), and suppose the sequence converges uniformly on \( D \) to the function \( f \). Then \( f \) is analytic. This result is in marked contrast to what happens with real functions -- examples of uniformly convergent sequences of differentiable functions with a nondifferentiable limit abound in the real case.</p>
+
+        <blockquote><p>现在假设 \( \{f_n\} \) 是一个函数序列,每个函数在某区域 \( D \) 上解析,并且该序列在 \( D \) 上一致收敛到函数 \( f \)。那么 \( f \) 是解析的。这个结果与实函数的情形形成鲜明对比——在实数情形中,可微函数的一致收敛序列具有不可微极限的例子比比皆是。</p></blockquote>
+
+        <p>To see that this uniform limit is analytic, let \( z_0 \in D \), and let \( S = \{z : |z - z_0| < r\} \subset D \). Now consider any simple closed curve \( C \subset S \). Each \( f_n \) is analytic, and so \( \int_C f_n(z)\,dz = 0 \) for every \( n \). From the uniform convergence of \( \{f_n\} \), we know that \( \int_C f(z)\,dz \) is the limit of the sequence \( \left\{\int_C f_n(z)\,dz\right\} \), and so \( \int_C f(z)\,dz = 0 \). <strong>Morera's theorem</strong> now tells us that \( f \) is analytic on \( S \), and hence at \( z_0 \). Truly a miracle.</p>
+
+        <blockquote><p>为了证明这个一致极限是解析的,设 \( z_0 \in D \),令 \( S = \{z : |z - z_0| < r\} \subset D \)。考虑 \( S \) 中任何简单闭合曲线 \( C \)。每个 \( f_n \) 都是解析的,所以对每个 \( n \) 有 \( \int_C f_n(z)\,dz = 0 \)。由 \( \{f_n\} \) 的一致收敛性,我们知道 \( \int_C f(z)\,dz \) 是序列 \( \left\{\int_C f_n(z)\,dz\right\} \) 的极限,因此 \( \int_C f(z)\,dz = 0 \)。由<strong>莫雷拉定理</strong>可知 \( f \) 在 \( S \) 上解析,从而在 \( z_0 \) 处解析。真是奇迹。</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item"><strong>1.</strong> Prove that a sequence cannot have more than one limit. (We thus speak of <em>the</em> limit of a sequence.)</div>
+            <blockquote><strong>1.</strong> 证明一个序列不能有多于一个极限。(因此我们说序列<em>的</em>极限。)</blockquote>
+
+            <div class="exercise-item"><strong>2.</strong> Give an example of a sequence that does not have a limit, or explain carefully why there is no such sequence.</div>
+            <blockquote><strong>2.</strong> 给出一个没有极限的序列的例子,或者仔细解释为什么不存在这样的序列。</blockquote>
+
+            <div class="exercise-item"><strong>3.</strong> Give an example of a bounded sequence that does not have a limit, or explain carefully why there is no such sequence.</div>
+            <blockquote><strong>3.</strong> 给出一个有界但没有极限的序列的例子,或者仔细解释为什么不存在这样的序列。</blockquote>
+
+            <div class="exercise-item"><strong>4.</strong> Give a sequence \( \{f_n\} \) of functions continuous on a set \( D \) with a limit that is not continuous.</div>
+            <blockquote><strong>4.</strong> 给出一个在集合 \( D \) 上连续的函数序列 \( \{f_n\} \),其极限不是连续的。</blockquote>
+
+            <div class="exercise-item"><strong>5.</strong> Give a sequence of real functions differentiable on an interval which converges uniformly to a nondifferentiable function.</div>
+            <blockquote><strong>5.</strong> 给出一个在某区间上可微的实函数序列,它一致收敛到一个不可微的函数。</blockquote>
+        </div>
+
+        <h2>8.2 Series</h2>
+        <blockquote><h2>8.2 级数</h2></blockquote>
+
+        <p>A <strong>series</strong> is simply a sequence \( \{s_n\} \) in which \( s_n = a_1 + a_2 + \cdots + a_n \). In other words, there is a sequence \( \{a_n\} \) so that \( s_n = s_{n-1} + a_n \). The \( s_n \) are usually called the <strong>partial sums</strong>. Recall from Mrs. Turner's class that if the series \( \sum_{j=1}^{n} a_j \) has a limit, then it must be true that \( \lim_{n \to \infty} a_n = 0 \).</p>
+
+        <blockquote><p><strong>级数</strong>就是一个序列 \( \{s_n\} \),其中 \( s_n = a_1 + a_2 + \cdots + a_n \)。换言之,存在序列 \( \{a_n\} \) 使得 \( s_n = s_{n-1} + a_n \)。\( s_n \) 通常称为<strong>部分和</strong>。回忆一下,如果级数 \( \sum_{j=1}^{n} a_j \) 有极限,那么必有 \( \lim_{n \to \infty} a_n = 0 \)。</p></blockquote>
+
+        <h3>Weierstrass M-test</h3>
+        <blockquote><h3>魏尔斯特拉斯 M-判别法</h3></blockquote>
+
+        <p>Consider a series \( \sum_{j=1}^{n} f_j(z) \) of functions. Chances are this series will converge for some values of \( z \) and not converge for others. A useful result is the celebrated <strong>Weierstrass M-test</strong>:</p>
+
+        <blockquote><p>考虑函数级数 \( \sum_{j=1}^{n} f_j(z) \)。这个级数可能对某些 \( z \) 值收敛,对其他值不收敛。一个有用的结果是著名的<strong>魏尔斯特拉斯 M-判别法</strong>:</p></blockquote>
+
+        <p>Suppose \( \{M_j\} \) is a sequence of real numbers such that \( M_j \geq 0 \) for all \( j \geq J \), where \( J \) is some number, and suppose also that the series \( \sum_{j=1}^{\infty} M_j \) converges. If for all \( z \in D \), we have \( |f_j(z)| \leq M_j \) for all \( j \geq J \), then the series \( \sum_{j=1}^{\infty} f_j(z) \) converges uniformly on \( D \).</p>
+
+        <blockquote><p>假设 \( \{M_j\} \) 是一个实数序列,对所有 \( j \geq J \)(其中 \( J \) 是某个数)有 \( M_j \geq 0 \),并且级数 \( \sum_{j=1}^{\infty} M_j \) 收敛。如果对所有 \( z \in D \),当 \( j \geq J \) 时有 \( |f_j(z)| \leq M_j \),那么级数 \( \sum_{j=1}^{\infty} f_j(z) \) 在 \( D \) 上一致收敛。</p></blockquote>
+
+        <p><strong>Proof:</strong> Begin by letting \( \varepsilon > 0 \) and choosing \( N \geq J \) so that</p>
+        <p>\[ \sum_{j=m}^{n} M_j < \varepsilon \]</p>
+        <p>for all \( n, m > N \). (We can do this because of the famous Cauchy criterion.) Next, observe that</p>
+        <p>\[ \left|\sum_{j=m}^{n} f_j(z)\right| \leq \sum_{j=m}^{n} |f_j(z)| \leq \sum_{j=m}^{n} M_j < \varepsilon. \]</p>
+        <p>This shows that \( \sum_{j=1}^{n} f_j(z) \) converges. To see the uniform convergence, observe that</p>
+        <p>\[ \left|\sum_{j=m}^{n} f_j(z)\right| = \left|\sum_{j=0}^{n} f_j(z) - \sum_{j=0}^{m-1} f_j(z)\right| < \varepsilon \]</p>
+        <p>for all \( z \in D \) and \( n > m > N \). Thus,</p>
+        <p>\[ \left|\sum_{j=0}^{\infty} f_j(z) - \sum_{j=0}^{m-1} f_j(z)\right| \leq \varepsilon \]</p>
+        <p>for \( m > N \). (The limit of a series \( \sum_{j=0}^{n} a_j \) is almost always written as \( \sum_{j=0}^{\infty} a_j \).)</p>
+
+        <blockquote><p><strong>证明:</strong>设 \( \varepsilon > 0 \),选择 \( N \geq J \) 使得当 \( n, m > N \) 时 \( \sum_{j=m}^{n} M_j < \varepsilon \)。(由柯西准则可以做到。)然后注意
+\[ \left|\sum_{j=m}^{n} f_j(z)\right| \leq \sum_{j=m}^{n} |f_j(z)| \leq \sum_{j=m}^{n} M_j < \varepsilon. \]
+这表明 \( \sum_{j=1}^{n} f_j(z) \) 收敛。对于一致收敛性,注意对所有 \( z \in D \) 和 \( n > m > N \),有
+\[ \left|\sum_{j=0}^{\infty} f_j(z) - \sum_{j=0}^{m-1} f_j(z)\right| \leq \varepsilon. \]</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item"><strong>6.</strong> Find the set \( D \) of all \( z \) for which the sequence \( \{z^n\} \) has a limit. Find the limit.</div>
+            <blockquote><strong>6.</strong> 找出使序列 \( \{z^n\} \) 有极限的所有 \( z \) 的集合 \( D \)。求该极限。</blockquote>
+
+            <div class="exercise-item"><strong>7.</strong> Prove that the series \( \sum_{j=1}^{n} a_j \) converges if and only if both the series \( \sum_{j=1}^{n} \operatorname{Re} a_j \) and \( \sum_{j=1}^{n} \operatorname{Im} a_j \) converge.</div>
+            <blockquote><strong>7.</strong> 证明级数 \( \sum_{j=1}^{n} a_j \) 收敛当且仅当级数 \( \sum_{j=1}^{n} \operatorname{Re} a_j \) 和 \( \sum_{j=1}^{n} \operatorname{Im} a_j \) 都收敛。</blockquote>
+
+            <div class="exercise-item"><strong>8.</strong> Explain how you know that the series \( \sum_{j=1}^{n} \left(\frac{1}{z}\right)^j \) converges uniformly on the set \( |z| \geq 5 \).</div>
+            <blockquote><strong>8.</strong> 解释你如何知道级数 \( \sum_{j=1}^{n} \left(\frac{1}{z}\right)^j \) 在集合 \( |z| \geq 5 \) 上一致收敛。</blockquote>
+        </div>
+
+        <h2>8.3 Power Series</h2>
+        <blockquote><h2>8.3 幂级数</h2></blockquote>
+
+        <p>We are particularly interested in series of functions in which the partial sums are polynomials of increasing degree:</p>
+        <p>\[ s_n(z) = c_0 + c_1(z - z_0) + c_2(z - z_0)^2 + \cdots + c_n(z - z_0)^n. \]</p>
+        <p>(We start with \( n = 0 \) for esthetic reasons.) These are the so-called <strong>power series</strong>. Thus, a power series is a series of functions of the form \( \sum_{j=0}^{n} c_j(z - z_0)^j \).</p>
+
+        <blockquote><p>我们特别感兴趣的是部分和为次数递增的多项式的函数级数:
+\[ s_n(z) = c_0 + c_1(z - z_0) + c_2(z - z_0)^2 + \cdots + c_n(z - z_0)^n. \]
+(出于美学原因,我们从 \( n = 0 \) 开始。)这些就是所谓的<strong>幂级数</strong>。因此,幂级数是形如 \( \sum_{j=0}^{n} c_j(z - z_0)^j \) 的函数级数。</p></blockquote>
+
+        <h3>Geometric Series</h3>
+        <blockquote><h3>几何级数</h3></blockquote>
+
+        <p>Let's look first at a very special power series, the so-called <strong>Geometric series</strong>:</p>
+        <p>\[ \sum_{j=0}^{n} z^j. \]</p>
+        <p>Here</p>
+        <p>\[ s_n = 1 + z + z^2 + \cdots + z^n, \quad \text{and} \]</p>
+        <p>\[ zs_n = z + z^2 + z^3 + \cdots + z^{n+1}. \]</p>
+        <p>Subtracting the second of these from the first gives us</p>
+        <p>\[ (1 - z)s_n = 1 - z^{n+1}. \]</p>
+        <p>If \( z = 1 \), then we can't go any further with this, but I hope it's clear that the series does not have a limit in case \( z = 1 \). Suppose now \( z \neq 1 \). Then we have</p>
+        <p>\[ s_n = \frac{1}{1 - z} - \frac{z^{n+1}}{1 - z}. \]</p>
+        <p>Now if \( |z| < 1 \), it should be clear that \( \lim z^{n+1} = 0 \), and so</p>
+        <p>\[ \lim \sum_{j=0}^{n} z^j = \lim s_n = \frac{1}{1 - z}. \]</p>
+        <p>Or,</p>
+        <p>\[ \sum_{j=0}^{\infty} z^j = \frac{1}{1 - z}, \quad \text{for } |z| < 1. \]</p>
+
+        <blockquote><p>让我们先看一个非常特殊的幂级数,即所谓的<strong>几何级数</strong>:
+\[ \sum_{j=0}^{n} z^j. \]
+其中 \( s_n = 1 + z + z^2 + \cdots + z^n \),而 \( zs_n = z + z^2 + \cdots + z^{n+1} \)。从第一个减去第二个得到 \( (1 - z)s_n = 1 - z^{n+1} \)。当 \( z = 1 \) 时,级数没有极限。当 \( z \neq 1 \) 且 \( |z| < 1 \) 时,
+\[ \sum_{j=0}^{\infty} z^j = \frac{1}{1 - z}. \]</p></blockquote>
+
+        <p>There is a bit more to the story. First, note that if \( |z| \geq 1 \), then the Geometric series does not have a limit (why?). Next, note that if \( |z| \leq \rho < 1 \), then the Geometric series converges uniformly to \( \frac{1}{1-z} \). To see this, note that \( \sum_{j=0}^{n} \rho^j \) has a limit and appeal to the Weierstrass M-test.</p>
+
+        <blockquote><p>还有更多内容。首先,注意如果 \( |z| \geq 1 \),则几何级数没有极限(为什么?)。其次,注意如果 \( |z| \leq \rho < 1 \),则几何级数一致收敛到 \( \frac{1}{1-z} \)。这可以通过注意 \( \sum_{j=0}^{n} \rho^j \) 有极限并运用魏尔斯特拉斯 M-判别法来看出。</p></blockquote>
+
+        <h3>Radius of Convergence</h3>
+        <blockquote><h3>收敛半径</h3></blockquote>
+
+        <p>Clearly a power series will have a limit for some values of \( z \) and perhaps not for others. First, note that any power series has a limit when \( z = z_0 \). Let's see what else we can say.</p>
+
+        <blockquote><p>显然,幂级数对某些 \( z \) 值有极限,而对其他值可能没有。首先,注意任何幂级数在 \( z = z_0 \) 时都有极限。让我们看看还能说些什么。</p></blockquote>
+
+        <p>Consider a power series \( \sum_{j=0}^{n} c_j(z - z_0)^j \). Let</p>
+        <p>\[ \alpha = \limsup \sqrt[j]{|c_j|}. \]</p>
+        <p>(Recall from 6th grade that \( \limsup\{a_k\} = \lim_{n \to \infty}\{\sup\{a_k : k \geq n\}\} \).) Now let \( R = \frac{1}{\alpha} \). (We shall say \( R = 0 \) if \( \alpha = \infty \), and \( R = \infty \) if \( \alpha = 0 \).) We are going to show that the series converges uniformly for all \( |z - z_0| \leq \rho < R \) and diverges for all \( |z - z_0| > R \).</p>
+
+        <blockquote><p>考虑幂级数 \( \sum_{j=0}^{n} c_j(z - z_0)^j \)。令
+\[ \alpha = \limsup \sqrt[j]{|c_j|}. \]
+(回忆 \( \limsup\{a_k\} = \lim_{n \to \infty}\{\sup\{a_k : k \geq n\}\} \)。)令 \( R = \frac{1}{\alpha} \)。(如果 \( \alpha = \infty \) 则 \( R = 0 \),如果 \( \alpha = 0 \) 则 \( R = \infty \)。)我们将证明级数在所有 \( |z - z_0| \leq \rho < R \) 上一致收敛,在所有 \( |z - z_0| > R \) 上发散。</p></blockquote>
+
+        <p><strong>Divergence for \( |z - z_0| > R \):</strong> To begin, let \( k \) be so that</p>
+        <p>\[ \frac{1}{|z - z_0|} < k < \frac{1}{R} = \alpha. \]</p>
+        <p>There are an infinite number of \( c_j \) for which \( \sqrt[j]{|c_j|} > k \), otherwise \( \limsup \sqrt[j]{|c_j|} \leq k \). For each of these \( c_j \) we have</p>
+        <p>\[ |c_j(z - z_0)^j| = \left(\sqrt[j]{|c_j|}\right)^j |z - z_0|^j > (k|z - z_0|)^j > 1. \]</p>
+        <p>It is thus not possible for \( \lim_{n \to \infty} |c_n(z - z_0)^n| = 0 \), and so the series does not converge.</p>
+
+        <blockquote><p><strong>当 \( |z - z_0| > R \) 时发散:</strong>选取 \( k \) 使得 \( \frac{1}{|z - z_0|} < k < \frac{1}{R} = \alpha \)。存在无穷多个 \( c_j \) 满足 \( \sqrt[j]{|c_j|} > k \),否则 \( \limsup \sqrt[j]{|c_j|} \leq k \)。对每个这样的 \( c_j \),有
+\[ |c_j(z - z_0)^j| > (k|z - z_0|)^j > 1. \]
+因此 \( \lim_{n \to \infty} |c_n(z - z_0)^n| = 0 \) 不可能成立,所以级数不收敛。</p></blockquote>
+
+        <p><strong>Convergence for \( |z - z_0| \leq \rho < R \):</strong> Let \( k \) be so that</p>
+        <p>\[ \frac{1}{R} = \alpha < k < \frac{1}{\rho}. \]</p>
+        <p>Now, for \( j \) large enough, we have \( \sqrt[j]{|c_j|} < k \). Thus for \( |z - z_0| \leq \rho \), we have</p>
+        <p>\[ |c_j(z - z_0)^j| \leq \left(\sqrt[j]{|c_j|}\right)^j |z - z_0|^j < (k|z - z_0|)^j \leq (k\rho)^j. \]</p>
+        <p>The geometric series \( \sum_{j=0}^{n} (k\rho)^j \) converges because \( k\rho < 1 \), and the uniform convergence of \( \sum_{j=0}^{n} c_j(z - z_0)^j \) follows from the M-test.</p>
+
+        <blockquote><p><strong>当 \( |z - z_0| \leq \rho < R \) 时收敛:</strong>选取 \( k \) 使得 \( \alpha < k < \frac{1}{\rho} \)。对足够大的 \( j \),有 \( \sqrt[j]{|c_j|} < k \)。因此当 \( |z - z_0| \leq \rho \) 时,
+\[ |c_j(z - z_0)^j| < (k\rho)^j. \]
+几何级数 \( \sum_{j=0}^{n} (k\rho)^j \) 收敛(因为 \( k\rho < 1 \)),由 M-判别法可得 \( \sum_{j=0}^{n} c_j(z - z_0)^j \) 的一致收敛性。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Consider the series \( \sum_{j=0}^{\infty} \frac{1}{j!} z^j \). Let's compute \( R = 1/\limsup \sqrt[j]{|c_j|} \). Here \( c_j = 1/j! \), so we need \( \limsup \sqrt[j]{1/j!} = 1/\limsup \sqrt[j]{j!} \). Thus \( R = \limsup \sqrt[j]{j!} \).</p>
+            <p>Let \( K \) be any positive integer and choose an integer \( m \) large enough to ensure that \( 2^m \geq \frac{K^{2K}}{(2K)!} \). Now consider \( \frac{n!}{K^n} \), where \( n = 2K + m \):</p>
+            <p>\[ \frac{n!}{K^n} = \frac{(2K + m)!}{K^{2K+m}} \geq \frac{(2K+m)(2K+m-1)\cdots(2K+1)(2K)!}{K^m \cdot K^{2K}} \geq 2^m \cdot 1. \]</p>
+            <p>Thus \( \sqrt[n]{n!} \geq K \). Reflect on what we have just shown: given any number \( K \), there is a number \( n \) such that \( \sqrt[n]{n!} \) is bigger than it. In other words, \( R = \limsup \sqrt[j]{j!} = \infty \), and so the series \( \sum_{j=0}^{\infty} \frac{1}{j!} z^j \) converges for all \( z \).</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>考虑级数 \( \sum_{j=0}^{\infty} \frac{1}{j!} z^j \)。我们来计算 \( R = 1/\limsup \sqrt[j]{|c_j|} = \limsup \sqrt[j]{j!} \)。设 \( K \) 为任意正整数。通过仔细估计 \( \frac{n!}{K^n} \)(取 \( n = 2K + m \)),可以证明对任何数 \( K \),存在 \( n \) 使得 \( \sqrt[n]{n!} \geq K \)。换言之,\( R = \limsup \sqrt[j]{j!} = \infty \),因此级数 \( \sum_{j=0}^{\infty} \frac{1}{j!} z^j \) 对所有 \( z \) 收敛。</p></blockquote>
+
+        <p>Let's summarize what we have. For any power series \( \sum_{j=0}^{n} c_j(z - z_0)^j \), there is a number</p>
+        <p>\[ R = \frac{1}{\limsup \sqrt[j]{|c_j|}} \]</p>
+        <p>such that the series converges uniformly for \( |z - z_0| \leq \rho < R \) and does not converge for \( |z - z_0| > R \). (Note that we may have \( R = 0 \) or \( R = \infty \).) The number \( R \) is called the <strong>radius of convergence</strong> of the series, and the set \( |z - z_0| < R \) is called the <strong>circle of convergence</strong>. Observe also that the limit of a power series is a function analytic inside the circle of convergence (why?).</p>
+
+        <blockquote><p>总结一下我们的结论。对于任何幂级数 \( \sum_{j=0}^{n} c_j(z - z_0)^j \),存在一个数
+\[ R = \frac{1}{\limsup \sqrt[j]{|c_j|}} \]
+使得级数在 \( |z - z_0| \leq \rho < R \) 上一致收敛,在 \( |z - z_0| > R \) 上不收敛。(注意可能 \( R = 0 \) 或 \( R = \infty \)。)数 \( R \) 称为级数的<strong>收敛半径</strong>,集合 \( |z - z_0| < R \) 称为<strong>收敛圆</strong>。还请注意,幂级数的极限是在收敛圆内部解析的函数(为什么?)。</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item"><strong>9.</strong> Suppose the sequence of real numbers \( \{\alpha_j\} \) has a limit. Prove that \( \limsup \alpha_j = \lim \alpha_j \).</div>
+            <blockquote><strong>9.</strong> 假设实数序列 \( \{\alpha_j\} \) 有极限。证明 \( \limsup \alpha_j = \lim \alpha_j \)。</blockquote>
+
+            <p>For each of the following, find the set \( D \) of points at which the series converges:</p>
+            <blockquote><p>对于以下每题,找出级数收敛的点集 \( D \):</p></blockquote>
+
+            <div class="exercise-item"><strong>10.</strong> \( \displaystyle\sum_{j=0}^{n} j!\, z^j \)</div>
+            <blockquote><strong>10.</strong> \( \displaystyle\sum_{j=0}^{n} j!\, z^j \)</blockquote>
+
+            <div class="exercise-item"><strong>11.</strong> \( \displaystyle\sum_{j=0}^{n} j\, z^j \)</div>
+            <blockquote><strong>11.</strong> \( \displaystyle\sum_{j=0}^{n} j\, z^j \)</blockquote>
+
+            <div class="exercise-item"><strong>12.</strong> \( \displaystyle\sum_{j=0}^{n} \frac{j^2}{3^j}\, z^j \)</div>
+            <blockquote><strong>12.</strong> \( \displaystyle\sum_{j=0}^{n} \frac{j^2}{3^j}\, z^j \)</blockquote>
+
+            <div class="exercise-item"><strong>13.</strong> \( \displaystyle\sum_{j=0}^{n} \frac{(-1)^j}{2^{2j}(j!)^2}\, z^{2j} \)</div>
+            <blockquote><strong>13.</strong> \( \displaystyle\sum_{j=0}^{n} \frac{(-1)^j}{2^{2j}(j!)^2}\, z^{2j} \)</blockquote>
+        </div>
+
+        <h2>8.4 Integration of Power Series</h2>
+        <blockquote><h2>8.4 幂级数的积分</h2></blockquote>
+
+        <p>Inside the circle of convergence, the limit</p>
+        <p>\[ S(z) = \sum_{j=0}^{\infty} c_j(z - z_0)^j \]</p>
+        <p>is an analytic function. We shall show that this series may be integrated "term-by-term" -- that is, the integral of the limit is the limit of the integrals. Specifically, if \( C \) is any contour inside the circle of convergence, and the function \( g \) is continuous on \( C \), then</p>
+        <p>\[ \int_C g(z) S(z)\,dz = \sum_{j=0}^{\infty} c_j \int_C g(z)(z - z_0)^j\,dz. \]</p>
+
+        <blockquote><p>在收敛圆内,极限
+\[ S(z) = \sum_{j=0}^{\infty} c_j(z - z_0)^j \]
+是一个解析函数。我们将证明这个级数可以"逐项积分"——即极限的积分等于积分的极限。具体地,如果 \( C \) 是收敛圆内的任何曲线,函数 \( g \) 在 \( C \) 上连续,则
+\[ \int_C g(z) S(z)\,dz = \sum_{j=0}^{\infty} c_j \int_C g(z)(z - z_0)^j\,dz. \]</p></blockquote>
+
+        <p><strong>Proof:</strong> Let \( \varepsilon > 0 \). Let \( M \) be the maximum of \( |g(z)| \) on \( C \) and let \( L \) be the length of \( C \). Then there is an integer \( N \) so that</p>
+        <p>\[ \left|\sum_{j=n}^{\infty} c_j(z - z_0)^j\right| < \frac{\varepsilon}{ML} \]</p>
+        <p>for all \( n > N \). Thus,</p>
+        <p>\[ \left|\int_C g(z) \sum_{j=n}^{\infty} c_j(z - z_0)^j\,dz\right| \leq ML \cdot \frac{\varepsilon}{ML} = \varepsilon. \]</p>
+        <p>Hence,</p>
+        <p>\[ \int_C g(z) S(z)\,dz - \sum_{j=0}^{n-1} c_j \int_C g(z)(z - z_0)^j\,dz = \int_C g(z) \sum_{j=n}^{\infty} c_j(z - z_0)^j\,dz, \]</p>
+        <p>which has absolute value less than \( \varepsilon \), and we have shown what we promised.</p>
+
+        <blockquote><p><strong>证明:</strong>设 \( \varepsilon > 0 \)。设 \( M \) 为 \( |g(z)| \) 在 \( C \) 上的最大值,\( L \) 为 \( C \) 的长度。则存在整数 \( N \) 使得当 \( n > N \) 时
+\[ \left|\sum_{j=n}^{\infty} c_j(z - z_0)^j\right| < \frac{\varepsilon}{ML}. \]
+因此
+\[ \left|\int_C g(z) \sum_{j=n}^{\infty} c_j(z - z_0)^j\,dz\right| \leq ML \cdot \frac{\varepsilon}{ML} = \varepsilon. \]
+于是
+\[ \left|\int_C g(z) S(z)\,dz - \sum_{j=0}^{n-1} c_j \int_C g(z)(z - z_0)^j\,dz\right| < \varepsilon, \]
+这就证明了我们所承诺的。</p></blockquote>
+
+        <h2>8.5 Differentiation of Power Series</h2>
+        <blockquote><h2>8.5 幂级数的微分</h2></blockquote>
+
+        <p>Again, let</p>
+        <p>\[ S(z) = \sum_{j=0}^{\infty} c_j(z - z_0)^j. \]</p>
+        <p>Now we are ready to show that inside the circle of convergence,</p>
+        <p>\[ S'(z) = \sum_{j=1}^{\infty} jc_j(z - z_0)^{j-1}. \]</p>
+
+        <blockquote><p>再次,令
+\[ S(z) = \sum_{j=0}^{\infty} c_j(z - z_0)^j. \]
+现在我们准备证明在收敛圆内,
+\[ S'(z) = \sum_{j=1}^{\infty} jc_j(z - z_0)^{j-1}. \]</p></blockquote>
+
+        <p>Let \( z \) be a point inside the circle of convergence and let \( C \) be a positively oriented circle centered at \( z \) and inside the circle of convergence. Define</p>
+        <p>\[ g(s) = \frac{1}{2\pi i(s - z)^2}, \]</p>
+        <p>and apply the result of the previous section to conclude that</p>
+        <p>\[ \int_C g(s) S(s)\,ds = \sum_{j=0}^{\infty} c_j \int_C g(s)(s - z_0)^j\,ds, \]</p>
+        <p>or</p>
+        <p>\[ \frac{1}{2\pi i}\int_C \frac{S(s)}{(s - z)^2}\,ds = \sum_{j=0}^{\infty} c_j \frac{1}{2\pi i}\int_C \frac{(s - z_0)^j}{(s - z)^2}\,ds. \]</p>
+        <p>Thus</p>
+        <p>\[ S'(z) = \sum_{j=0}^{\infty} jc_j(z - z_0)^{j-1}, \]</p>
+        <p>as promised!</p>
+
+        <blockquote><p>设 \( z \) 是收敛圆内的一个点,\( C \) 是以 \( z \) 为圆心的正向圆,且在收敛圆内。定义
+\[ g(s) = \frac{1}{2\pi i(s - z)^2}, \]
+应用上一节的结果可得
+\[ \frac{1}{2\pi i}\int_C \frac{S(s)}{(s - z)^2}\,ds = \sum_{j=0}^{\infty} c_j \frac{1}{2\pi i}\int_C \frac{(s - z_0)^j}{(s - z)^2}\,ds. \]
+因此
+\[ S'(z) = \sum_{j=1}^{\infty} jc_j(z - z_0)^{j-1}, \]
+正如所承诺的!</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+
+            <div class="exercise-item"><strong>14.</strong> Find the limit of
+            \[ \sum_{j=0}^{\infty} (j+1)z^j. \]
+            For what values of \( z \) does the series converge?</div>
+            <blockquote><strong>14.</strong> 求 \( \sum_{j=0}^{\infty} (j+1)z^j \) 的极限。该级数对哪些 \( z \) 值收敛?</blockquote>
+
+            <div class="exercise-item"><strong>15.</strong> Find the limit of
+            \[ \sum_{j=1}^{\infty} \frac{z^j}{j}. \]
+            For what values of \( z \) does the series converge?</div>
+            <blockquote><strong>15.</strong> 求 \( \sum_{j=1}^{\infty} \frac{z^j}{j} \) 的极限。该级数对哪些 \( z \) 值收敛?</blockquote>
+
+            <div class="exercise-item"><strong>16.</strong> Find a power series \( \sum_{j=0}^{\infty} c_j(z-1)^j \) such that
+            \[ \frac{1}{z} = \sum_{j=0}^{\infty} c_j(z-1)^j, \quad \text{for } |z-1| < 1. \]</div>
+            <blockquote><strong>16.</strong> 求幂级数 \( \sum_{j=0}^{\infty} c_j(z-1)^j \) 使得
+            \( \frac{1}{z} = \sum_{j=0}^{\infty} c_j(z-1)^j \),当 \( |z-1| < 1 \)。</blockquote>
+
+            <div class="exercise-item"><strong>17.</strong> Find a power series \( \sum_{j=0}^{\infty} c_j(z-1)^j \) such that
+            \[ \operatorname{Log} z = \sum_{j=0}^{\infty} c_j(z-1)^j, \quad \text{for } |z-1| < 1. \]</div>
+            <blockquote><strong>17.</strong> 求幂级数 \( \sum_{j=0}^{\infty} c_j(z-1)^j \) 使得
+            \( \operatorname{Log} z = \sum_{j=0}^{\infty} c_j(z-1)^j \),当 \( |z-1| < 1 \)。</blockquote>
+        </div>
+    </div>
+</body>
+</html>

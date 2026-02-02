@@ -7,6 +7,8 @@ Converts PDF files to HTML with English and Chinese content
 import pdfplumber
 import pypdf
 from pathlib import Path
+from PIL import Image
+import io
 import re
 import os
 
@@ -127,7 +129,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
 
 
 def extract_images_from_pdf(pdf_path, output_dir):
-    """Extract images from PDF using pypdf"""
+    """Extract images from PDF using pypdf and Pillow"""
     images = []
     try:
         reader = pypdf.PdfReader(pdf_path)
@@ -138,14 +140,61 @@ def extract_images_from_pdf(pdf_path, output_dir):
                     obj = x_objects[obj_name]
                     if obj['/Subtype'] == '/Image':
                         try:
-                            # Extract image data
-                            size = (obj['/Width'], obj['/Height'])
+                            width = obj['/Width']
+                            height = obj['/Height']
                             data = obj.get_data()
-                            # Save image
                             img_filename = f"fig{page_num + 1}_{obj_name[1:]}.png"
                             img_path = output_dir / img_filename
-                            with open(img_path, 'wb') as img_file:
-                                img_file.write(data)
+
+                            # Determine color space and build PIL image
+                            cs = obj.get('/ColorSpace')
+                            bpc = obj.get('/BitsPerComponent', 8)
+
+                            # Resolve indirect color space references
+                            if isinstance(cs, list) or (hasattr(cs, '__iter__') and not isinstance(cs, str)):
+                                cs_name = str(cs[0]) if cs else '/DeviceGray'
+                            elif hasattr(cs, 'get_object'):
+                                cs = cs.get_object()
+                                cs_name = str(cs[0]) if isinstance(cs, list) else str(cs)
+                            else:
+                                cs_name = str(cs) if cs else '/DeviceGray'
+
+                            if '/Indexed' in cs_name:
+                                # Indexed (palette) color space
+                                palette_obj = cs if isinstance(cs, list) else obj['/ColorSpace'].get_object()
+                                base_cs = str(palette_obj[1]) if hasattr(palette_obj[1], '__str__') else '/DeviceRGB'
+                                max_index = int(palette_obj[2])
+                                palette_data = palette_obj[3]
+                                if hasattr(palette_data, 'get_data'):
+                                    palette_data = palette_data.get_data()
+                                elif hasattr(palette_data, 'get_object'):
+                                    palette_data = palette_data.get_object()
+                                    if hasattr(palette_data, 'get_data'):
+                                        palette_data = palette_data.get_data()
+                                if isinstance(palette_data, str):
+                                    palette_data = palette_data.encode('latin-1')
+
+                                img = Image.frombytes('P', (width, height), data)
+                                # Set palette (RGB)
+                                palette = list(palette_data)
+                                # Pad palette to 256 entries (768 bytes for RGB)
+                                while len(palette) < 768:
+                                    palette.append(0)
+                                img.putpalette(palette[:768])
+                                img = img.convert('RGBA')
+                            elif '/DeviceCMYK' in cs_name:
+                                img = Image.frombytes('CMYK', (width, height), data)
+                                img = img.convert('RGB')
+                            elif '/DeviceRGB' in cs_name:
+                                img = Image.frombytes('RGB', (width, height), data)
+                            else:
+                                # Default: grayscale
+                                if bpc == 1:
+                                    img = Image.frombytes('1', (width, height), data)
+                                else:
+                                    img = Image.frombytes('L', (width, height), data)
+
+                            img.save(img_path, 'PNG')
                             images.append((page_num, img_filename))
                         except Exception as e:
                             print(f"Could not extract image from page {page_num + 1}: {e}")

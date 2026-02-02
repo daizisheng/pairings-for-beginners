@@ -1,41 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 10: Conformal Mappings</title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<style>
-body{font-family:"Computer Modern","Latin Modern Roman",Georgia,serif;line-height:1.8;max-width:900px;margin:0 auto;padding:20px;background-color:#f9f9f9;color:#333}
-.content{background-color:white;padding:40px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-h1{text-align:center;font-size:2.5em;margin-bottom:0.3em;color:#2c3e50;border-bottom:3px solid #3498db;padding-bottom:0.3em}
-h2{font-size:1.8em;margin-top:2em;margin-bottom:1em;color:#2c3e50}
-h3{font-size:1.3em;margin-top:1.5em;color:#34495e}
-p{margin:1em 0;text-align:justify}
-blockquote{border-left:4px solid #3498db;margin:1em 0;padding:0.5em 1em;background-color:#ecf0f1;font-style:normal;color:#555}
-.exercises{background-color:#f8f9fa;padding:1.5em;margin:2em 0;border-left:4px solid #e74c3c;border-radius:4px}
-.exercises h3{color:#e74c3c;margin-top:0}
-.exercise-item{margin:1em 0;padding-left:1.5em}
-.example{background-color:#fff9e6;padding:1em;margin:1.5em 0;border-left:4px solid #f39c12;border-radius:4px}
-.example-title{font-weight:bold;color:#f39c12;margin-bottom:0.5em}
-.figure{text-align:center;margin:2em 0}
-.figure img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;padding:5px}
-.figure-caption{font-style:italic;color:#666;margin-top:0.5em}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10: Poles, Residues, and All That</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        blockquote {border-left: 4px solid #3498db; margin: 1em 0; padding: 0.5em 1em; background-color: #ecf0f1; font-style: normal; color: #555;}
+        .exercises {background-color: #f8f9fa; padding: 1.5em; margin: 2em 0; border-left: 4px solid #e74c3c; border-radius: 4px;}
+        .exercises h3 {color: #e74c3c; margin-top: 0;}
+        .exercise-item {margin: 1em 0; padding-left: 1.5em;}
+        .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
+    </style>
 </head>
-<body><div class="content"><h1>Chapter 10<br>Conformal Mappings</h1>
-<blockquote><h1 style="text-align:center;font-size:2.2em;">第10章<br>保角映射</h1></blockquote>
-<h2>10.1 Conformal Mappings</h2>
-<blockquote><h2>10.1 保角映射</h2></blockquote>
-<p>An analytic function \( f \) with \( f'(z_0) \neq 0 \) preserves angles at \( z_0 \). Such mappings are called conformal.</p>
-<blockquote><p>解析函数 \( f \) 若 \( f'(z_0) \neq 0 \) 则在 \( z_0 \) 处保持角度。这样的映射称为保角映射。</p></blockquote>
-<div class="figure"><img src="images/ch10_p3_Im1.png" alt="Conformal mapping"><div class="figure-caption">Figure: Example of conformal mapping</div></div>
-<blockquote><p class="figure-caption">图:保角映射例子</p></blockquote>
-<h2>10.2 Linear Fractional Transformations</h2>
-<blockquote><h2>10.2 线性分式变换</h2></blockquote>
-<p>Linear fractional transformations have the form \( f(z) = \frac{az+b}{cz+d} \) where \( ad-bc \neq 0 \). They map circles and lines to circles and lines.</p>
-<blockquote><p>线性分式变换的形式为 \( f(z) = \frac{az+b}{cz+d} \),其中 \( ad-bc \neq 0 \)。它们将圆和直线映射到圆和直线。</p></blockquote>
-<div class="figure"><img src="images/ch10_p5_Im2.png" alt="LFT mapping"><div class="figure-caption">Figure: Linear fractional transformation</div></div>
-<blockquote><p class="figure-caption">图:线性分式变换</p></blockquote>
-</div></body></html>
+<body>
+    <div class="content">
+        <h1>Chapter Ten<br>Poles, Residues, and All That</h1>
+        <blockquote><h1 style="text-align: center; font-size: 2.2em;">第十章<br>极点、留数及其他</h1></blockquote>
+
+        <h2>10.1 Residues</h2>
+        <blockquote><h2>10.1 留数</h2></blockquote>
+
+        <p>A point \( z_0 \) is a <strong>singular point</strong> of a function \( f \) if \( f \) is not analytic at \( z_0 \), but is analytic at some point of each neighborhood of \( z_0 \). A singular point \( z_0 \) of \( f \) is said to be <strong>isolated</strong> if there is a neighborhood of \( z_0 \) which contains no singular points of \( f \) save \( z_0 \) itself. In other words, \( f \) is analytic on some region \( 0 < |z - z_0| < \delta \).</p>
+
+        <blockquote><p>如果函数 \( f \) 在点 \( z_0 \) 不解析,但在 \( z_0 \) 的每个邻域中的某个点处解析,则称 \( z_0 \) 是 \( f \) 的<strong>奇点</strong>。如果 \( z_0 \) 存在一个邻域,其中除 \( z_0 \) 本身外不包含 \( f \) 的其他奇点,则称奇点 \( z_0 \) 是<strong>孤立的</strong>。换句话说,\( f \) 在某个区域 \( 0 < |z - z_0| < \delta \) 上解析。</p></blockquote>
+
+        <h3>Examples</h3>
+        <blockquote><h3>例子</h3></blockquote>
+
+        <p>The function \( f \) given by
+        \[ f(z) = \frac{1}{z(z^2 + 4)} \]
+        has isolated singular points at \( z = 0 \), \( z = 2i \), and \( z = -2i \).</p>
+
+        <blockquote><p>函数 \( f(z) = \frac{1}{z(z^2 + 4)} \) 有孤立奇点 \( z = 0 \)、\( z = 2i \) 和 \( z = -2i \)。</p></blockquote>
+
+        <p>Every point on the negative real axis and the origin is a singular point of \( \operatorname{Log} z \), but there are no isolated singular points.</p>
+
+        <blockquote><p>\( \operatorname{Log}\, z \) 的每个负实轴上的点和原点都是奇点,但没有孤立奇点。</p></blockquote>
+
+        <p>Suppose now that \( z_0 \) is an isolated singular point of \( f \). Then there is a Laurent series
+        \[ f(z) = \sum_{j=-\infty}^{\infty} c_j (z - z_0)^j \]
+        valid for \( 0 < |z - z_0| < R \), for some positive \( R \). The coefficient \( c_{-1} \) of \( (z - z_0)^{-1} \) is called the <strong>residue</strong> of \( f \) at \( z_0 \), and is frequently written
+        \[ \operatorname*{Res}_{z=z_0} f. \]</p>
+
+        <blockquote><p>现在假设 \( z_0 \) 是 \( f \) 的一个孤立奇点。那么存在洛朗级数
+        \[ f(z) = \sum_{j=-\infty}^{\infty} c_j (z - z_0)^j \]
+        在 \( 0 < |z - z_0| < R \) 上有效,其中 \( R \) 为某个正数。\( (z - z_0)^{-1} \) 的系数 \( c_{-1} \) 称为 \( f \) 在 \( z_0 \) 处的<strong>留数</strong>,通常记作
+        \[ \operatorname*{Res}_{z=z_0} f. \]</p></blockquote>
+
+        <p>Now, why do we care enough about \( c_{-1} \) to give it a special name? Well, observe that if \( C \) is any positively oriented simple closed curve in \( 0 < |z - z_0| < R \) which contains \( z_0 \) inside, then
+        \[ c_{-1} = \frac{1}{2\pi i} \oint_C f(z)\,dz. \]</p>
+
+        <blockquote><p>那么,为什么我们要特别关注 \( c_{-1} \) 并给它一个专门的名字呢?请注意,如果 \( C \) 是 \( 0 < |z - z_0| < R \) 中任何包含 \( z_0 \) 在内的正向简单闭合曲线,那么
+        \[ c_{-1} = \frac{1}{2\pi i} \oint_C f(z)\,dz. \]</p></blockquote>
+
+        <p>This provides the key to evaluating many complex integrals.</p>
+
+        <blockquote><p>这为计算许多复积分提供了关键。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>We shall evaluate the integral
+            \[ \oint_C e^{1/z}\,dz \]
+            where \( C \) is the circle \( |z| = 1 \) with the usual positive orientation. Observe that the integrand has an isolated singularity at \( z = 0 \). We know then that the value of the integral is simply \( 2\pi i \) times the residue of \( e^{1/z} \) at 0. Let's find the Laurent series about 0. We already know that
+            \[ e^z = \sum_{j=0}^{\infty} \frac{1}{j!} z^j \]
+            for all \( z \). Thus,
+            \[ e^{1/z} = \sum_{j=0}^{\infty} \frac{1}{j!} z^{-j} = 1 + \frac{1}{z} + \frac{1}{2!}\frac{1}{z^2} + \cdots \]
+            The residue \( c_{-1} = 1 \), and so the value of the integral is simply \( 2\pi i \).</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>我们来计算积分 \( \oint_C e^{1/z}\,dz \),其中 \( C \) 是正向圆 \( |z| = 1 \)。被积函数在 \( z = 0 \) 处有孤立奇点。积分的值就是 \( 2\pi i \) 乘以 \( e^{1/z} \) 在 0 处的留数。利用 \( e^z \) 的级数展开,
+        \[ e^{1/z} = 1 + \frac{1}{z} + \frac{1}{2!z^2} + \cdots \]
+        留数 \( c_{-1} = 1 \),因此积分值为 \( 2\pi i \)。</p></blockquote>
+
+        <p>Now suppose we have a function \( f \) which is analytic everywhere except for isolated singularities, and let \( C \) be a simple closed curve (positively oriented) on which \( f \) is analytic. Then there will be only a finite number of singularities of \( f \) inside \( C \) (why?). Call them \( z_1, z_2, \ldots, z_n \). For each \( k = 1, 2, \ldots, n \), let \( C_k \) be a positively oriented circle centered at \( z_k \) and with radius small enough to ensure that it is inside \( C \) and has no other singular points inside it.</p>
+
+        <blockquote><p>现在假设函数 \( f \) 除孤立奇点外处处解析,设 \( C \) 是一条正向简单闭合曲线,\( f \) 在其上解析。那么 \( C \) 内只有有限个 \( f \) 的奇点(为什么?)。记它们为 \( z_1, z_2, \ldots, z_n \)。对每个 \( k = 1, 2, \ldots, n \),设 \( C_k \) 是以 \( z_k \) 为圆心的正向圆,半径足够小,使其在 \( C \) 内且内部没有其他奇点。</p></blockquote>
+
+        <div class="figure"><img src="images/ch10_p3_Im1.png" alt="Contour enclosing singularities for the Residue Theorem"><div class="figure-caption">Figure: Contour enclosing singularities for the Residue Theorem</div></div>
+        <blockquote><p class="figure-caption">图:留数定理中包围奇点的轮廓</p></blockquote>
+
+        <p>Then,
+        \[ \oint_C f(z)\,dz = \oint_{C_1} f(z)\,dz + \oint_{C_2} f(z)\,dz + \cdots + \oint_{C_n} f(z)\,dz \]
+        \[ = 2\pi i \operatorname*{Res}_{z=z_1} f + 2\pi i \operatorname*{Res}_{z=z_2} f + \cdots + 2\pi i \operatorname*{Res}_{z=z_n} f = 2\pi i \sum_{k=1}^{n} \operatorname*{Res}_{z=z_k} f. \]</p>
+
+        <blockquote><p>那么,
+        \[ \oint_C f(z)\,dz = 2\pi i \sum_{k=1}^{n} \operatorname*{Res}_{z=z_k} f. \]</p></blockquote>
+
+        <p>This is the celebrated <strong>Residue Theorem</strong>. It says that the integral of \( f \) is simply \( 2\pi i \) times the sum of the residues at the singular points enclosed by the contour \( C \).</p>
+
+        <blockquote><p>这就是著名的<strong>留数定理</strong>。它说 \( f \) 的积分就是 \( 2\pi i \) 乘以轮廓 \( C \) 所围奇点处留数之和。</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <blockquote><h3>练习</h3></blockquote>
+            <p>Evaluate the integrals. In each case, \( C \) is the positively oriented circle \( |z| = 2 \).</p>
+            <blockquote><p>计算以下积分。每题中,\( C \) 是正向圆 \( |z| = 2 \)。</p></blockquote>
+
+            <div class="exercise-item"><strong>1.</strong> \( \displaystyle\oint_C e^{1/z^2}\,dz \).</div>
+            <blockquote><strong>1.</strong> \( \displaystyle\oint_C e^{1/z^2}\,dz \)。</blockquote>
+
+            <div class="exercise-item"><strong>2.</strong> \( \displaystyle\oint_C \sin\frac{1}{z}\,dz \).</div>
+            <blockquote><strong>2.</strong> \( \displaystyle\oint_C \sin\frac{1}{z}\,dz \)。</blockquote>
+
+            <div class="exercise-item"><strong>3.</strong> \( \displaystyle\oint_C \cos\frac{1}{z}\,dz \).</div>
+            <blockquote><strong>3.</strong> \( \displaystyle\oint_C \cos\frac{1}{z}\,dz \)。</blockquote>
+
+            <div class="exercise-item"><strong>4.</strong> \( \displaystyle\oint_C \frac{1}{z}\sin\frac{1}{z}\,dz \).</div>
+            <blockquote><strong>4.</strong> \( \displaystyle\oint_C \frac{1}{z}\sin\frac{1}{z}\,dz \)。</blockquote>
+
+            <div class="exercise-item"><strong>5.</strong> \( \displaystyle\oint_C \frac{1}{z}\cos\frac{1}{z}\,dz \).</div>
+            <blockquote><strong>5.</strong> \( \displaystyle\oint_C \frac{1}{z}\cos\frac{1}{z}\,dz \)。</blockquote>
+        </div>
+
+        <h2>10.2 Poles and Other Singularities</h2>
+        <blockquote><h2>10.2 极点和其他奇点</h2></blockquote>
+
+        <p>In order for the Residue Theorem to be of much help in evaluating integrals, there needs to be some better way of computing the residue -- finding the Laurent expansion about each isolated singular point is a chore. We shall now see that in the case of a special but commonly occurring type of singularity the residue is easy to find.</p>
+
+        <blockquote><p>为了使留数定理在计算积分时真正有用,需要有更好的方法来计算留数——求每个孤立奇点处的洛朗展开是一件麻烦事。我们现在将看到,对于一种特殊但常见的奇点类型,留数很容易求得。</p></blockquote>
+
+        <p>Suppose \( z_0 \) is an isolated singularity of \( f \) and suppose that the Laurent series of \( f \) at \( z_0 \) contains only a finite number of terms involving negative powers of \( (z - z_0) \). Thus,
+        \[ f(z) = \frac{c_{-n}}{(z-z_0)^n} + \frac{c_{-n+1}}{(z-z_0)^{n-1}} + \cdots + \frac{c_{-1}}{z-z_0} + c_0 + c_1(z-z_0) + \cdots \]
+        Multiply this expression by \( (z - z_0)^n \):
+        \[ (z-z_0)^n f(z) = c_{-n} + c_{-n+1}(z-z_0) + \cdots + c_{-1}(z-z_0)^{n-1} + \cdots \]
+        What we see is the Taylor series at \( z_0 \) for the function \( \varphi(z) = (z-z_0)^n f(z) \). The coefficient of \( (z-z_0)^{n-1} \) is what we seek, and we know that this is
+        \[ \frac{\varphi^{(n-1)}(z_0)}{(n-1)!}. \]</p>
+
+        <blockquote><p>假设 \( z_0 \) 是 \( f \) 的一个孤立奇点,并且 \( f \) 在 \( z_0 \) 处的洛朗级数只包含有限个关于 \( (z - z_0) \) 的负幂项。即
+        \[ f(z) = \frac{c_{-n}}{(z-z_0)^n} + \frac{c_{-n+1}}{(z-z_0)^{n-1}} + \cdots + \frac{c_{-1}}{z-z_0} + c_0 + c_1(z-z_0) + \cdots \]
+        将此表达式乘以 \( (z - z_0)^n \),得到的就是函数 \( \varphi(z) = (z-z_0)^n f(z) \) 在 \( z_0 \) 处的泰勒级数。\( (z-z_0)^{n-1} \) 的系数正是我们要求的,即 \( \frac{\varphi^{(n-1)}(z_0)}{(n-1)!} \)。</p></blockquote>
+
+        <p>The sought-after residue \( c_{-1} \) is thus
+        \[ c_{-1} = \operatorname*{Res}_{z=z_0} f = \frac{\varphi^{(n-1)}(z_0)}{(n-1)!}, \]
+        where \( \varphi(z) = (z - z_0)^n f(z) \).</p>
+
+        <blockquote><p>因此,所求的留数 \( c_{-1} \) 为
+        \[ c_{-1} = \operatorname*{Res}_{z=z_0} f = \frac{\varphi^{(n-1)}(z_0)}{(n-1)!}, \]
+        其中 \( \varphi(z) = (z - z_0)^n f(z) \)。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>We shall find all the residues of the function
+            \[ f(z) = \frac{e^z}{z^2(z^2+1)}. \]
+            First, observe that \( f \) has isolated singularities at \( 0 \), \( i \), and \( -i \).</p>
+            <p>Let's see about the residue at 0. Here we have
+            \[ \varphi(z) = z^2 f(z) = \frac{e^z}{z^2+1}. \]
+            The residue is simply \( \varphi'(0) \):
+            \[ \varphi'(z) = \frac{(z^2+1)e^z - 2z e^z}{(z^2+1)^2}. \]
+            Hence,
+            \[ \operatorname*{Res}_{z=0} f = \varphi'(0) = 1. \]</p>
+            <p>Next, let's see what we have at \( z = i \):
+            \[ \varphi(z) = (z-i)f(z) = \frac{e^z}{z^2(z+i)}, \]
+            and so
+            \[ \operatorname*{Res}_{z=i} f = \varphi(i) = \frac{e^i}{i^2 \cdot 2i} = \frac{e^i}{-2i}. \]
+            In the same way, we see that
+            \[ \operatorname*{Res}_{z=-i} f = \frac{e^{-i}}{2i}. \]</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>我们来求函数 \( f(z) = \frac{e^z}{z^2(z^2+1)} \) 的所有留数。\( f \) 在 \( 0 \)、\( i \) 和 \( -i \) 处有孤立奇点。在 \( z = 0 \) 处,令 \( \varphi(z) = z^2 f(z) = \frac{e^z}{z^2+1} \),留数为 \( \varphi'(0) = 1 \)。在 \( z = i \) 处,\( \operatorname*{Res}_{z=i} f = \frac{e^i}{-2i} \)。类似地,\( \operatorname*{Res}_{z=-i} f = \frac{e^{-i}}{2i} \)。</p></blockquote>
+
+        <div class="figure"><img src="images/ch10_p5_Im2.png" alt="Contour for the integral example"><div class="figure-caption">Figure: Contour for the integral of \( e^z / [z^2(z^2+1)] \)</div></div>
+        <blockquote><p class="figure-caption">图:\( e^z / [z^2(z^2+1)] \) 积分的轮廓</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example (continued)</div>
+            <p>Let's find the integral \( \displaystyle\oint_C \frac{e^z}{z^2(z^2+1)}\,dz \), where \( C \) is the contour pictured above.</p>
+            <p>This is now easy. The contour is positively oriented and encloses two singularities of \( f \); viz., \( i \) and \( -i \). Hence,
+            \[ \oint_C \frac{e^z}{z^2(z^2+1)}\,dz = 2\pi i\left(\operatorname*{Res}_{z=i} f + \operatorname*{Res}_{z=-i} f\right) = 2\pi i\left(\frac{e^i}{-2i} + \frac{e^{-i}}{2i}\right) = -2\pi \sin 1. \]
+            Miraculously easy!</p>
+        </div>
+
+        <blockquote><div class="example-title">例子(续)</div><p>我们来求积分 \( \oint_C \frac{e^z}{z^2(z^2+1)}\,dz \),其中 \( C \) 是上图所示的轮廓。轮廓正向并围住了 \( f \) 的两个奇点 \( i \) 和 \( -i \)。因此,
+        \[ \oint_C \frac{e^z}{z^2(z^2+1)}\,dz = 2\pi i\left(\frac{e^i}{-2i} + \frac{e^{-i}}{2i}\right) = -2\pi \sin 1. \]
+        奇迹般地简单!</p></blockquote>
+
+        <p>There is some jargon that goes with all this. An isolated singular point \( z_0 \) of \( f \) such that the Laurent series at \( z_0 \) includes only a finite number of terms involving negative powers of \( (z - z_0) \) is called a <strong>pole</strong>. Thus, if \( z_0 \) is a pole, there is an integer \( n \) so that \( \varphi(z) = (z - z_0)^n f(z) \) is analytic at \( z_0 \), and \( \varphi(z_0) \neq 0 \). The number \( n \) is called the <strong>order</strong> of the pole. Thus, in the preceding example, 0 is a pole of order 2, while \( i \) and \( -i \) are poles of order 1. (A pole of order 1 is frequently called a <strong>simple pole</strong>.)</p>
+
+        <blockquote><p>这里有一些相关的术语。如果 \( f \) 的孤立奇点 \( z_0 \) 处的洛朗级数只包含有限个关于 \( (z - z_0) \) 的负幂项,则称 \( z_0 \) 为<strong>极点</strong>。即存在整数 \( n \) 使得 \( \varphi(z) = (z - z_0)^n f(z) \) 在 \( z_0 \) 处解析且 \( \varphi(z_0) \neq 0 \)。数 \( n \) 称为极点的<strong>阶</strong>。在上例中,0 是二阶极点,而 \( i \) 和 \( -i \) 是一阶极点(即<strong>简单极点</strong>)。</p></blockquote>
+
+        <p>We must hedge just a bit here. If \( z_0 \) is an isolated singularity of \( f \) and there are no Laurent series terms involving negative powers of \( (z - z_0) \), then we say \( z_0 \) is a <strong>removable singularity</strong>.</p>
+
+        <blockquote><p>这里要稍加说明。如果 \( z_0 \) 是 \( f \) 的孤立奇点,并且洛朗级数中没有关于 \( (z - z_0) \) 的负幂项,那么我们说 \( z_0 \) 是<strong>可去奇点</strong>。</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Let
+            \[ f(z) = \frac{\sin z}{z}; \]
+            then the singularity \( z = 0 \) is a removable singularity:
+            \[ f(z) = \frac{1}{z}\sin z = \frac{1}{z}\left(z - \frac{z^3}{3!} + \frac{z^5}{5!} - \cdots\right) = 1 - \frac{z^2}{3!} + \frac{z^4}{5!} - \cdots \]
+            and we see that in some sense \( f \) is "really" analytic at \( z = 0 \) if we would just define it to be the right thing there.</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>设 \( f(z) = \frac{\sin z}{z} \),则奇点 \( z = 0 \) 是可去奇点:
+        \[ f(z) = \frac{1}{z}\left(z - \frac{z^3}{3!} + \frac{z^5}{5!} - \cdots\right) = 1 - \frac{z^2}{3!} + \frac{z^4}{5!} - \cdots \]
+        可以看出,如果在 \( z = 0 \) 处适当定义函数值,\( f \) 在该点实际上是解析的。</p></blockquote>
+
+        <p>A singularity that is neither a pole nor removable is called an <strong>essential singularity</strong>.</p>
+
+        <blockquote><p>既不是极点也不是可去奇点的奇点称为<strong>本性奇点</strong>。</p></blockquote>
+
+        <p>Let's look at one more labor-saving trick -- or technique, if you prefer. Suppose \( f \) is a function:
+        \[ f(z) = \frac{p(z)}{q(z)}, \]
+        where \( p \) and \( q \) are analytic at \( z_0 \), and we have \( q(z_0) = 0 \), while \( q'(z_0) \neq 0 \), and \( p(z_0) \neq 0 \). Then
+        \[ f(z) = \frac{p(z)}{q(z)} = \frac{p(z_0) + p'(z_0)(z - z_0) + \cdots}{\frac{q'(z_0)}{1!}(z-z_0) + \frac{q''(z_0)}{2!}(z-z_0)^2 + \cdots}, \]
+        and so
+        \[ (z-z_0)f(z) = \frac{p(z_0) + p'(z_0)(z-z_0) + \cdots}{q'(z_0) + \frac{q''(z_0)}{2}(z-z_0) + \cdots}. \]
+        Thus \( z_0 \) is a simple pole and
+        \[ \operatorname*{Res}_{z=z_0} f = \frac{p(z_0)}{q'(z_0)}. \]</p>
+
+        <blockquote><p>我们来看一个省力的技巧。设 \( f(z) = \frac{p(z)}{q(z)} \),其中 \( p \) 和 \( q \) 在 \( z_0 \) 处解析,且 \( q(z_0) = 0 \)、\( q'(z_0) \neq 0 \)、\( p(z_0) \neq 0 \)。那么 \( z_0 \) 是简单极点,且
+        \[ \operatorname*{Res}_{z=z_0} f = \frac{p(z_0)}{q'(z_0)}. \]</p></blockquote>
+
+        <div class="example">
+            <div class="example-title">Example</div>
+            <p>Find the integral
+            \[ \oint_C \frac{\cos z}{e^z - 1}\,dz, \]
+            where \( C \) is the rectangle with sides \( x = -1 \), \( x = 1 \), \( y = -\pi \), and \( y = 3\pi \).</p>
+            <p>The singularities of the integrand are all the places at which \( e^z = 1 \), or in other words, the points \( z = 0, \pm 2\pi i, \pm 4\pi i, \ldots \). The singularities enclosed by \( C \) are \( 0 \) and \( 2\pi i \). Thus,
+            \[ \oint_C \frac{\cos z}{e^z - 1}\,dz = 2\pi i\left(\operatorname*{Res}_{z=0} f + \operatorname*{Res}_{z=2\pi i} f\right), \]
+            where \( f(z) = \frac{\cos z}{e^z - 1} \).</p>
+            <p>Observe this is precisely the situation just discussed: \( f(z) = \frac{p(z)}{q(z)} \), where \( p \) and \( q \) are analytic, etc. Now,
+            \[ \frac{p(z)}{q'(z)} = \frac{\cos z}{e^z}. \]
+            Thus,
+            \[ \operatorname*{Res}_{z=0} f = \frac{\cos 0}{e^0} = 1, \]
+            and
+            \[ \operatorname*{Res}_{z=2\pi i} f = \frac{\cos(2\pi i)}{e^{2\pi i}} = \frac{e^{2\pi} + e^{-2\pi}}{2} = \cosh(2\pi). \]
+            Finally,
+            \[ \oint_C \frac{\cos z}{e^z - 1}\,dz = 2\pi i\left(1 + \cosh(2\pi)\right). \]</p>
+        </div>
+
+        <blockquote><div class="example-title">例子</div><p>求积分 \( \oint_C \frac{\cos z}{e^z - 1}\,dz \),其中 \( C \) 是边为 \( x = -1 \)、\( x = 1 \)、\( y = -\pi \)、\( y = 3\pi \) 的矩形。被积函数的奇点是 \( e^z = 1 \) 的所有点,即 \( z = 0, \pm 2\pi i, \pm 4\pi i, \ldots \)。\( C \) 围住的奇点为 \( 0 \) 和 \( 2\pi i \)。利用 \( p(z)/q'(z) = \cos z / e^z \) 的公式,得 \( \operatorname*{Res}_{z=0} f = 1 \),\( \operatorname*{Res}_{z=2\pi i} f = \cosh(2\pi) \)。最终,
+        \[ \oint_C \frac{\cos z}{e^z - 1}\,dz = 2\pi i\left(1 + \cosh(2\pi)\right). \]</p></blockquote>
+
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <blockquote><h3>练习</h3></blockquote>
+
+            <div class="exercise-item"><strong>6.</strong> Suppose \( f \) has an isolated singularity at \( z_0 \). Then, of course, the derivative \( f' \) also has an isolated singularity at \( z_0 \). Find the residue \( \operatorname*{Res}_{z=z_0} f' \).</div>
+            <blockquote><strong>6.</strong> 假设 \( f \) 在 \( z_0 \) 处有孤立奇点。那么导数 \( f' \) 在 \( z_0 \) 处也有孤立奇点。求留数 \( \operatorname*{Res}_{z=z_0} f' \)。</blockquote>
+
+            <div class="exercise-item"><strong>7.</strong> Give an example of a function \( f \) with a simple pole at \( z_0 \) such that \( \operatorname*{Res}_{z=z_0} f = 0 \), or explain carefully why there is no such function.</div>
+            <blockquote><strong>7.</strong> 给出一个在 \( z_0 \) 处有简单极点且 \( \operatorname*{Res}_{z=z_0} f = 0 \) 的函数 \( f \) 的例子,或仔细解释为什么不存在这样的函数。</blockquote>
+
+            <div class="exercise-item"><strong>8.</strong> Give an example of a function \( f \) with a pole of order 2 at \( z_0 \) such that \( \operatorname*{Res}_{z=z_0} f = 0 \), or explain carefully why there is no such function.</div>
+            <blockquote><strong>8.</strong> 给出一个在 \( z_0 \) 处有二阶极点且 \( \operatorname*{Res}_{z=z_0} f = 0 \) 的函数 \( f \) 的例子,或仔细解释为什么不存在这样的函数。</blockquote>
+
+            <div class="exercise-item"><strong>9.</strong> Suppose \( g \) is analytic and has a zero of order \( n \) at \( z_0 \). (That is, \( g(z) = (z - z_0)^n h(z) \), where \( h(z_0) \neq 0 \).) Show that the function \( f \) given by
+            \[ f(z) = \frac{1}{g(z)} \]
+            has a pole of order \( n \) at \( z_0 \). What is \( \operatorname*{Res}_{z=z_0} f \)?</div>
+            <blockquote><strong>9.</strong> 假设 \( g \) 解析且在 \( z_0 \) 处有 \( n \) 阶零点(即 \( g(z) = (z - z_0)^n h(z) \),其中 \( h(z_0) \neq 0 \))。证明函数 \( f(z) = \frac{1}{g(z)} \) 在 \( z_0 \) 处有 \( n \) 阶极点。\( \operatorname*{Res}_{z=z_0} f \) 是什么?</blockquote>
+
+            <div class="exercise-item"><strong>10.</strong> Suppose \( g \) is analytic and has a zero of order \( n \) at \( z_0 \). Show that the function \( f \) given by
+            \[ f(z) = \frac{g'(z)}{g(z)} \]
+            has a simple pole at \( z_0 \), and \( \operatorname*{Res}_{z=z_0} f = n \).</div>
+            <blockquote><strong>10.</strong> 假设 \( g \) 解析且在 \( z_0 \) 处有 \( n \) 阶零点。证明函数 \( f(z) = \frac{g'(z)}{g(z)} \) 在 \( z_0 \) 处有简单极点,且 \( \operatorname*{Res}_{z=z_0} f = n \)。</blockquote>
+
+            <div class="exercise-item"><strong>11.</strong> Find
+            \[ \oint_C \frac{\cos z}{z^2 + 4}\,dz, \]
+            where \( C \) is the positively oriented circle \( |z| = 6 \).</div>
+            <blockquote><strong>11.</strong> 求 \( \displaystyle\oint_C \frac{\cos z}{z^2 + 4}\,dz \),其中 \( C \) 是正向圆 \( |z| = 6 \)。</blockquote>
+
+            <div class="exercise-item"><strong>12.</strong> Find
+            \[ \oint_C \tan z\,dz, \]
+            where \( C \) is the positively oriented circle \( |z| = 2 \).</div>
+            <blockquote><strong>12.</strong> 求 \( \displaystyle\oint_C \tan z\,dz \),其中 \( C \) 是正向圆 \( |z| = 2 \)。</blockquote>
+
+            <div class="exercise-item"><strong>13.</strong> Find
+            \[ \oint_C \frac{1}{z^2 + z + 1}\,dz, \]
+            where \( C \) is the positively oriented circle \( |z| = 10 \).</div>
+            <blockquote><strong>13.</strong> 求 \( \displaystyle\oint_C \frac{1}{z^2 + z + 1}\,dz \),其中 \( C \) 是正向圆 \( |z| = 10 \)。</blockquote>
+        </div>
+    </div>
+</body>
+</html>
