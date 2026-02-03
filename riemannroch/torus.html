@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两个球的剪切与拼接：环面的诞生</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 2em;
+        }
+        .controls {
+            text-align: center;
+            margin: 2em 0;
+            padding: 1.5em;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .step-button {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 5px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .step-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .step-button.active {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+        .animation-area {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: #fafafa;
+            border-radius: 15px;
+            margin: 2em 0;
+            overflow: hidden;
+            border: 2px solid #e0e0e0;
+        }
+        .step-description {
+            padding: 2em;
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            border-radius: 10px;
+            margin: 2em 0;
+        }
+        .step-description h2 {
+            color: #e65100;
+            margin-bottom: 0.5em;
+        }
+        .step-description.active {
+            animation: pulse 0.5s;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .branch-point {
+            animation: glow 2s infinite;
+        }
+        @keyframes glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .branch-cut {
+            stroke-dasharray: 10, 5;
+            animation: dash 1s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -15; }
+        }
+        .hidden { display: none; }
+        .key-insight {
+            background: #e3f2fd;
+            padding: 1.5em;
+            border-left: 5px solid #1976d2;
+            border-radius: 8px;
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>两个球的剪切与拼接</h1>
+        <div class="subtitle">黎曼曲面 y² = x³ - x 的几何构造</div>
+
+        <div class="key-insight">
+            <strong>核心思想：</strong>复平面 ℂ 加上无穷远点 ∞ 本身就是一个<strong>球面</strong>（黎曼球面）。<br>
+            所以我们直接从<strong>两个球</strong>开始，通过剪切和拼接得到环面！
+        </div>
+
+        <div class="controls">
+            <button class="step-button active" onclick="showStep(0)">起点</button>
+            <button class="step-button" onclick="showStep(1)">1. 两个球</button>
+            <button class="step-button" onclick="showStep(2)">2. 标记点</button>
+            <button class="step-button" onclick="showStep(3)">3. 剪开</button>
+            <button class="step-button" onclick="showStep(4)">4. 拼接</button>
+            <button class="step-button" onclick="showStep(5)">5. 环面</button>
+        </div>
+
+        <div class="animation-area" id="animationArea"></div>
+
+        <div id="step0" class="step-description active">
+            <h2>起点：黎曼球面 = ℂ ∪ {∞}</h2>
+            <p><strong>关键认识：</strong>复平面 ℂ 加上一个无穷远点 ∞，在拓扑上就是一个<strong>球面</strong>！</p>
+            <ul style="margin-left: 2em;">
+                <li>通过立体投影，球面 S² 与 ℂ ∪ {∞} 建立一一对应</li>
+                <li>球面的北极对应 ∞，其余点对应复平面 ℂ</li>
+                <li>这就是<strong>黎曼球面</strong> ℂℙ¹</li>
+            </ul>
+            <p style="margin-top: 1em;"><strong>方程 y² = x³ - x 的意义：</strong></p>
+            <p>对于每个 x ∈ ℂℙ¹（球面上的点），通常有两个 y 值。这意味着我们需要<strong>两个</strong>黎曼球面来表示所有的 (x, y) 对！</p>
+        </div>
+
+        <div id="step1" class="step-description hidden">
+            <h2>第1步：准备两个黎曼球面</h2>
+            <p>我们需要两个球面：</p>
+            <ul style="margin-left: 2em;">
+                <li><strong>球面 1（蓝色）：</strong>表示 y = +√(x³ - x)</li>
+                <li><strong>球面 2（紫色）：</strong>表示 y = -√(x³ - x)</li>
+            </ul>
+            <p style="margin-top: 1em;">每个球面上都标有 x-坐标，代表复平面 ℂ 的不同点（球面 = ℂ ∪ {∞}）。</p>
+            <p><strong>问题：</strong>这两个球现在是独立的，我们要通过"剪切-拼接"把它们连成一个连通的曲面！</p>
+        </div>
+
+        <div id="step2" class="step-description hidden">
+            <h2>第2步：标记分歧点（Branch Points）</h2>
+            <p><strong>分歧点：</strong>y² = 0 的位置，即 x³ - x = 0。</p>
+            <p>解方程：x(x-1)(x+1) = 0，得到三个有限点：</p>
+            <ul style="margin-left: 2em;">
+                <li>x = <strong>-1</strong></li>
+                <li>x = <strong>0</strong></li>
+                <li>x = <strong>1</strong></li>
+            </ul>
+            <p>加上射影化后的无穷远点：</p>
+            <ul style="margin-left: 2em;">
+                <li>x = <strong>∞</strong></li>
+            </ul>
+            <p style="margin-top: 1em;"><strong>这四个点在两个球面上都有标记</strong>（用红色圆圈表示）。</p>
+            <p class="key-insight" style="margin-top: 1em;">
+                <strong>关键性质：</strong>在这些点，y 的"正值"和"负值"没有区别（都是0），所以两个球面在这里应该"连接"起来！
+            </p>
+        </div>
+
+        <div id="step3" class="step-description hidden">
+            <h2>第3步：在球面上剪开（Branch Cuts）</h2>
+            <p><strong>剪切策略：</strong>将四个分歧点<strong>两两配对</strong>，在每对点之间剪一刀。</p>
+            <p><strong>配对方式：</strong></p>
+            <ul style="margin-left: 2em;">
+                <li><strong>第一刀（绿色）：</strong>从 x = -1 剪到 x = 0</li>
+                <li><strong>第二刀（橙色）：</strong>从 x = 1 剪到 x = ∞</li>
+            </ul>
+            <p style="margin-top: 1em;"><strong>在两个球面上都剪！</strong></p>
+            <ul style="margin-left: 2em;">
+                <li>球面 1 上剪两刀，产生 4 条边（每刀 2 条边）</li>
+                <li>球面 2 上剪两刀，也产生 4 条边</li>
+                <li>总共 8 条边</li>
+            </ul>
+            <p class="key-insight" style="margin-top: 1em;">
+                <strong>为什么这样剪？</strong>因为在剪开的边缘，我们要把一个球的边和另一个球的边<strong>交叉粘合</strong>，让 y 的正负值连续过渡！
+            </p>
+        </div>
+
+        <div id="step4" class="step-description hidden">
+            <h2>第4步：交叉拼接</h2>
+            <p><strong>拼接规则：</strong>一个球的切口的"左边"和另一个球的切口的"右边"粘在一起。</p>
+            <p><strong>具体操作：</strong></p>
+            <ol style="margin-left: 2em;">
+                <li><strong>第一刀（绿色）：</strong>
+                    <ul>
+                        <li>球面 1 的绿色切口左边 ← 粘 → 球面 2 的绿色切口右边</li>
+                        <li>球面 1 的绿色切口右边 ← 粘 → 球面 2 的绿色切口左边</li>
+                    </ul>
+                </li>
+                <li><strong>第二刀（橙色）：</strong>
+                    <ul>
+                        <li>球面 1 的橙色切口左边 ← 粘 → 球面 2 的橙色切口右边</li>
+                        <li>球面 1 的橙色切口右边 ← 粘 → 球面 2 的橙色切口左边</li>
+                    </ul>
+                </li>
+            </ol>
+            <p style="margin-top: 1em;"><strong>结果：</strong>两个球通过<strong>两个"管子"</strong>（handles）连接在一起！</p>
+            <p class="key-insight" style="margin-top: 1em;">
+                <strong>拓扑观察：</strong>
+                <ul style="margin-top: 0.5em;">
+                    <li>两个球面（亏格 g=0 各一个）</li>
+                    <li>通过两个管子连接</li>
+                    <li>= 一个亏格 g=1 的曲面（环面）</li>
+                </ul>
+                <p style="margin-top: 0.5em;"><strong>公式：</strong>两个球 + 两个管子 = 环面（g = 0 + 0 + 2 - 1 = 1）</p>
+            </p>
+        </div>
+
+        <div id="step5" class="step-description hidden">
+            <h2>第5步：环面的诞生 🍩</h2>
+            <p><strong>最终形态：</strong>粘合完成后，得到一个<strong>亏格 g = 1 的黎曼曲面</strong>，拓扑上就是环面（甜甜圈）！</p>
+
+            <p style="margin-top: 1em;"><strong>环面的两个周期：</strong></p>
+            <ul style="margin-left: 2em;">
+                <li><strong>周期 1（绕腰部）：</strong>不穿过切口，在球面表面绕一圈</li>
+                <li><strong>周期 2（穿孔）：</strong>通过管子从一个球到另一个球，再回来</li>
+            </ul>
+
+            <p style="margin-top: 1em;"><strong>回到代数：</strong></p>
+            <p>这个几何构造对应的代数曲线就是：<strong>y² = x³ - x</strong></p>
+            <ul style="margin-left: 2em;">
+                <li>x 坐标在黎曼球面（ℂℙ¹）上</li>
+                <li>对每个 x，有两个 y 值（除了分歧点）</li>
+                <li>两个球 + 交叉粘合 = 环面</li>
+            </ul>
+
+            <div class="key-insight" style="margin-top: 1.5em;">
+                <h3 style="color: #1976d2; margin-bottom: 0.5em;">一般规律：计数分歧点看亏格</h3>
+                <p><strong>对于方程 y² = P(x)，其中 P(x) 是 n 次多项式：</strong></p>
+                <ul style="margin-top: 0.5em;">
+                    <li>分歧点数量 = n 个有限根 + 无穷远点（如果 n 是奇数）≈ n+1 个左右</li>
+                    <li>分歧点两两配对成"管子"</li>
+                    <li><strong>亏格公式：</strong>g = (分歧点数 - 2) / 2</li>
+                </ul>
+                <p style="margin-top: 1em;"><strong>本例：</strong>4 个分歧点 → g = (4-2)/2 = <strong>1</strong> ✓</p>
+                <p style="margin-top: 0.5em;"><strong>更高亏格：</strong></p>
+                <ul>
+                    <li>y² = x⁵ - x → 6 个分歧点 → g = 2（两个洞）</li>
+                    <li>y² = x⁷ - x → 8 个分歧点 → g = 3（三个洞）</li>
+                    <li>只要数分歧点，就知道有几个洞！</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 1.5em; padding: 1.5em; background: #f3e5f5; border-left: 5px solid #7b1fa2; border-radius: 8px;">
+                <strong>🎯 核心直觉：</strong>从球面开始 → 标记分歧点 → 配对剪切 → 交叉拼接 → 看洞的个数！<br>
+                <strong>这就是"不靠算，靠几何"理解黎曼曲面的方法！</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+
+        function showStep(step) {
+            const buttons = document.querySelectorAll('.step-button');
+            buttons.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === step);
+            });
+
+            const descriptions = document.querySelectorAll('.step-description');
+            descriptions.forEach((desc, idx) => {
+                if (idx === step) {
+                    desc.classList.remove('hidden');
+                    desc.classList.add('active');
+                    setTimeout(() => desc.classList.remove('active'), 500);
+                } else {
+                    desc.classList.add('hidden');
+                }
+            });
+
+            currentStep = step;
+            renderAnimation(step);
+        }
+
+        function renderAnimation(step) {
+            const area = document.getElementById('animationArea');
+            const animations = [
+                renderStep0, renderStep1, renderStep2,
+                renderStep3, renderStep4, renderStep5
+            ];
+            area.innerHTML = animations[step]();
+        }
+
+        function renderStep0() {
+            return `
+                <svg width="100%" height="100%" viewBox="0 0 800 600">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                        <radialGradient id="sphereGrad">
+                            <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1976d2;stop-opacity:0.6" />
+                        </radialGradient>
+                    </defs>
+
+                    <text x="400" y="50" font-size="28" font-weight="bold" text-anchor="middle" fill="url(#grad1)">
+                        黎曼球面 = ℂ ∪ {∞}
+                    </text>
+
+                    <!-- 球面 -->
+                    <g transform="translate(400, 320)">
+                        <circle cx="0" cy="0" r="120" fill="url(#sphereGrad)" stroke="#1976d2" stroke-width="3"/>
+                        <ellipse cx="0" cy="0" rx="120" ry="35" fill="none" stroke="#1976d2" stroke-width="2" opacity="0.5"/>
+
+                        <!-- 标注 -->
+                        <circle cx="0" cy="-120" r="6" fill="#e74c3c"/>
+                        <text x="25" y="-115" font-size="14" font-weight="bold" fill="#c62828">∞ (北极)</text>
+
+                        <text x="0" y="10" font-size="16" text-anchor="middle" fill="#0d47a1" font-weight="bold">
+                            复平面 ℂ
+                        </text>
+
+                        <!-- 一些点 -->
+                        <circle cx="40" cy="-30" r="3" fill="#f39c12"/>
+                        <text x="50" y="-25" font-size="12" fill="#f39c12">z₁</text>
+                        <circle cx="-50" cy="20" r="3" fill="#f39c12"/>
+                        <text x="-70" y="15" font-size="12" fill="#f39c12">z₂</text>
+                    </g>
+
+                    <text x="400" y="520" font-size="18" text-anchor="middle" fill="#764ba2" font-weight="bold">
+                        一个球 = 一个 ℂℙ¹
+                    </text>
+                    <text x="400" y="550" font-size="16" text-anchor="middle" fill="#666">
+                        我们需要两个这样的球！
+                    </text>
+                </svg>
+            `;
+        }
+
+        function renderStep1() {
+            return `
+                <svg width="100%" height="100%" viewBox="0 0 800 600">
+                    <text x="400" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#667eea">
+                        第1步：两个黎曼球面
+                    </text>
+
+                    <!-- 球面 1 -->
+                    <g transform="translate(220, 280)">
+                        <circle cx="0" cy="0" r="110" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" opacity="0.8"/>
+                        <ellipse cx="0" cy="0" rx="110" ry="32" fill="none" stroke="#1976d2" stroke-width="2"/>
+
+                        <text x="0" y="-140" font-size="18" font-weight="bold" text-anchor="middle" fill="#0d47a1">
+                            球面 1
+                        </text>
+                        <text x="0" y="0" font-size="15" text-anchor="middle" fill="#1565c0">
+                            y = +√(x³-x)
+                        </text>
+                    </g>
+
+                    <!-- 球面 2 -->
+                    <g transform="translate(580, 280)">
+                        <circle cx="0" cy="0" r="110" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="3" opacity="0.8"/>
+                        <ellipse cx="0" cy="0" rx="110" ry="32" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+
+                        <text x="0" y="-140" font-size="18" font-weight="bold" text-anchor="middle" fill="#6a1b9a">
+                            球面 2
+                        </text>
+                        <text x="0" y="0" font-size="15" text-anchor="middle" fill="#7b1fa2">
+                            y = -√(x³-x)
+                        </text>
+                    </g>
+
+                    <text x="400" y="540" font-size="16" text-anchor="middle" fill="#666">
+                        两个独立的球面，接下来要通过剪切和拼接连接它们
+                    </text>
+                </svg>
+            `;
+        }
+
+        function renderStep2() {
+            return `
+                <svg width="100%" height="100%" viewBox="0 0 800 600">
+                    <text x="400" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#667eea">
+                        第2步：标记分歧点
+                    </text>
+
+                    <!-- 球面 1 with branch points -->
+                    <g transform="translate(220, 280)">
+                        <circle cx="0" cy="0" r="110" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" opacity="0.8"/>
+                        <ellipse cx="0" cy="0" rx="110" ry="32" fill="none" stroke="#1976d2" stroke-width="2"/>
+
+                        <!-- Branch points -->
+                        <circle cx="0" cy="-110" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="20" y="-105" font-size="12" font-weight="bold" fill="#c62828">∞</text>
+
+                        <circle cx="-70" cy="0" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="-70" y="-15" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">-1</text>
+
+                        <circle cx="0" cy="20" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="0" y="40" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">0</text>
+
+                        <circle cx="70" cy="0" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="70" y="-15" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">1</text>
+
+                        <text x="0" y="-140" font-size="16" font-weight="bold" text-anchor="middle" fill="#0d47a1">
+                            球面 1
+                        </text>
+                    </g>
+
+                    <!-- 球面 2 with branch points -->
+                    <g transform="translate(580, 280)">
+                        <circle cx="0" cy="0" r="110" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="3" opacity="0.8"/>
+                        <ellipse cx="0" cy="0" rx="110" ry="32" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+
+                        <!-- Branch points -->
+                        <circle cx="0" cy="-110" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="20" y="-105" font-size="12" font-weight="bold" fill="#c62828">∞</text>
+
+                        <circle cx="-70" cy="0" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="-70" y="-15" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">-1</text>
+
+                        <circle cx="0" cy="20" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="0" y="40" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">0</text>
+
+                        <circle cx="70" cy="0" r="8" fill="#e74c3c" class="branch-point"/>
+                        <text x="70" y="-15" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">1</text>
+
+                        <text x="0" y="-140" font-size="16" font-weight="bold" text-anchor="middle" fill="#6a1b9a">
+                            球面 2
+                        </text>
+                    </g>
+
+                    <text x="400" y="540" font-size="16" text-anchor="middle" fill="#e74c3c" font-weight="bold">
+                        四个分歧点：x = -1, 0, 1, ∞
+                    </text>
+                </svg>
+            `;
+        }
+
+        function renderStep3() {
+            return `
+                <svg width="100%" height="100%" viewBox="0 0 800 600">
+                    <text x="400" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#667eea">
+                        第3步：剪开球面
+                    </text>
+
+                    <!-- 球面 1 with cuts -->
+                    <g transform="translate(220, 280)">
+                        <circle cx="0" cy="0" r="110" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" opacity="0.8"/>
+                        <ellipse cx="0" cy="0" rx="110" ry="32" fill="none" stroke="#1976d2" stroke-width="2"/>
+
+                        <!-- Branch points -->
+                        <circle cx="0" cy="-110" r="8" fill="#e74c3c"/>
+                        <circle cx="-70" cy="0" r="8" fill="#e74c3c"/>
+                        <circle cx="0" cy="20" r="8" fill="#e74c3c"/>
+                        <circle cx="70" cy="0" r="8" fill="#e74c3c"/>
+
+                        <!-- Branch cuts -->
+                        <line x1="-70" y1="0" x2="0" y2="20" stroke="#4caf50" stroke-width="6" class="branch-cut"/>
+                        <text x="-35" y="-5" font-size="13" font-weight="bold" fill="#1b5e20">第一刀</text>
+
+                        <path d="M 70 0 Q 80 -55 0 -110" stroke="#ff9800" stroke-width="6" class="branch-cut"/>
+                        <text x="50" y="-60" font-size="13" font-weight="bold" fill="#e65100">第二刀</text>
+
+                        <text x="0" y="-140" font-size="16" font-weight="bold" text-anchor="middle" fill="#0d47a1">
+                            球面 1
+                        </text>
+                    </g>
+
+                    <!-- 球面 2 with cuts -->
+                    <g transform="translate(580, 280)">
+                        <circle cx="0" cy="0" r="110" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="3" opacity="0.8"/>
+                        <ellipse cx="0" cy="0" rx="110" ry="32" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+
+                        <!-- Branch points -->
+                        <circle cx="0" cy="-110" r="8" fill="#e74c3c"/>
+                        <circle cx="-70" cy="0" r="8" fill="#e74c3c"/>
+                        <circle cx="0" cy="20" r="8" fill="#e74c3c"/>
+                        <circle cx="70" cy="0" r="8" fill="#e74c3c"/>
+
+                        <!-- Branch cuts -->
+                        <line x1="-70" y1="0" x2="0" y2="20" stroke="#4caf50" stroke-width="6" class="branch-cut"/>
+                        <text x="-35" y="-5" font-size="13" font-weight="bold" fill="#1b5e20">第一刀</text>
+
+                        <path d="M 70 0 Q 80 -55 0 -110" stroke="#ff9800" stroke-width="6" class="branch-cut"/>
+                        <text x="50" y="-60" font-size="13" font-weight="bold" fill="#e65100">第二刀</text>
+
+                        <text x="0" y="-140" font-size="16" font-weight="bold" text-anchor="middle" fill="#6a1b9a">
+                            球面 2
+                        </text>
+                    </g>
+
+                    <g transform="translate(400, 510)">
+                        <rect x="-200" y="0" width="400" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="8"/>
+                        <text x="0" y="25" font-size="15" text-anchor="middle" fill="#1b5e20" font-weight="bold">
+                            配对剪切：(-1, 0) 和 (1, ∞)
+                        </text>
+                        <text x="0" y="45" font-size="13" text-anchor="middle" fill="#2e7d32">
+                            每个球剪两刀，产生4条边
+                        </text>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function renderStep4() {
+            return `
+                <svg width="100%" height="100%" viewBox="0 0 800 600">
+                    <text x="400" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#667eea">
+                        第4步：交叉拼接
+                    </text>
+
+                    <!-- 两个球稍微靠近 -->
+                    <g transform="translate(250, 250)">
+                        <circle cx="0" cy="0" r="90" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" opacity="0.7"/>
+                        <text x="0" y="-110" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">球面 1</text>
+
+                        <!-- 简化的切口 -->
+                        <line x1="-50" y1="10" x2="-10" y2="20" stroke="#4caf50" stroke-width="5"/>
+                        <line x1="40" y1="-30" x2="20" y2="-70" stroke="#ff9800" stroke-width="5"/>
+                    </g>
+
+                    <g transform="translate(550, 250)">
+                        <circle cx="0" cy="0" r="90" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="3" opacity="0.7"/>
+                        <text x="0" y="-110" font-size="15" font-weight="bold" text-anchor="middle" fill="#6a1b9a">球面 2</text>
+
+                        <!-- 简化的切口 -->
+                        <line x1="-50" y1="10" x2="-10" y2="20" stroke="#4caf50" stroke-width="5"/>
+                        <line x1="40" y1="-30" x2="20" y2="-70" stroke="#ff9800" stroke-width="5"/>
+                    </g>
+
+                    <!-- 连接的管子 -->
+                    <g opacity="0.6">
+                        <!-- 绿色管子 -->
+                        <path d="M 230 260 Q 300 200 320 260" fill="none" stroke="#4caf50" stroke-width="20"/>
+                        <path d="M 230 280 Q 300 340 320 280" fill="none" stroke="#4caf50" stroke-width="20"/>
+
+                        <!-- 橙色管子 -->
+                        <path d="M 280 180 Q 400 150 480 180" fill="none" stroke="#ff9800" stroke-width="20"/>
+                        <path d="M 280 200 Q 400 230 480 200" fill="none" stroke="#ff9800" stroke-width="20"/>
+                    </g>
+
+                    <g transform="translate(400, 450)">
+                        <rect x="-280" y="0" width="560" height="100" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="8"/>
+                        <text x="0" y="25" font-size="16" text-anchor="middle" fill="#e65100" font-weight="bold">
+                            拼接规则：球1的边 ← 交叉粘 → 球2的边
+                        </text>
+                        <text x="0" y="50" font-size="14" text-anchor="middle" fill="#ef6c00">
+                            绿色管子连接：(-1, 0) 切口
+                        </text>
+                        <text x="0" y="70" font-size="14" text-anchor="middle" fill="#ef6c00">
+                            橙色管子连接：(1, ∞) 切口
+                        </text>
+                        <text x="0" y="90" font-size="15" text-anchor="middle" fill="#c62828" font-weight="bold">
+                            → 两个球通过两根管子连成一体！
+                        </text>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function renderStep5() {
+            return `
+                <svg width="100%" height="100%" viewBox="0 0 800 600">
+                    <defs>
+                        <radialGradient id="torusGrad">
+                            <stop offset="0%" style="stop-color:#ffd54f;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff6f00;stop-opacity:1" />
+                        </radialGradient>
+                        <linearGradient id="titleGrad">
+                            <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+
+                    <text x="400" y="45" font-size="32" font-weight="bold" text-anchor="middle" fill="url(#titleGrad)">
+                        环面诞生！🍩
+                    </text>
+
+                    <!-- 环面 -->
+                    <g transform="translate(400, 280)">
+                        <ellipse cx="0" cy="0" rx="160" ry="100" fill="none" stroke="url(#torusGrad)" stroke-width="5"/>
+                        <ellipse cx="0" cy="0" rx="65" ry="40" fill="white" stroke="url(#torusGrad)" stroke-width="5"/>
+
+                        <!-- 3D 效果 -->
+                        <path d="M 0 -100 Q 90 -60 90 0 Q 90 60 0 100 Q 65 60 65 0 Q 65 -60 0 -100"
+                              fill="#ffe082" opacity="0.7"/>
+                        <path d="M 0 -100 Q -90 -60 -90 0 Q -90 60 0 100 Q -65 60 -65 0 Q -65 -60 0 -100"
+                              fill="#ffb74d" opacity="0.7"/>
+
+                        <!-- 两个周期 -->
+                        <ellipse cx="0" cy="0" rx="160" ry="100" fill="none" stroke="#e91e63" stroke-width="3" stroke-dasharray="12,6" opacity="0.8"/>
+                        <text x="175" y="5" font-size="14" font-weight="bold" fill="#c2185b">周期 1</text>
+
+                        <ellipse cx="0" cy="0" rx="65" ry="40" fill="none" stroke="#1976d2" stroke-width="3" stroke-dasharray="12,6" opacity="0.8"/>
+                        <text x="0" y="60" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">周期 2</text>
+                    </g>
+
+                    <!-- 信息框 -->
+                    <g transform="translate(400, 480)">
+                        <rect x="-300" y="0" width="600" height="100" fill="#e8f5e9" stroke="#4caf50" stroke-width="3" rx="10"/>
+                        <text x="0" y="25" font-size="18" text-anchor="middle" fill="#1b5e20" font-weight="bold">
+                            y² = x³ - x ≅ 环面（Torus, g=1）
+                        </text>
+                        <text x="0" y="50" font-size="14" text-anchor="middle" fill="#2e7d32">
+                            两个球 + 两个管子 = 一个洞的甜甜圈
+                        </text>
+                        <text x="0" y="70" font-size="14" text-anchor="middle" fill="#2e7d32">
+                            分歧点公式：g = (4-2)/2 = 1 ✓
+                        </text>
+                        <text x="0" y="90" font-size="13" text-anchor="middle" fill="#666">
+                            从球面出发 → 数分歧点 → 配对剪切 → 看洞眼！
+                        </text>
+                    </g>
+                </svg>
+            `;
+        }
+
+        window.onload = () => renderAnimation(0);
+    </script>
+</body>
+</html>

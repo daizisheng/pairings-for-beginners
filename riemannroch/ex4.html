@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>例子：椭圆曲线作为黎曼曲面</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        ul {margin: 1em 0; padding-left: 2em;}
+        ol {margin: 1em 0; padding-left: 2em;}
+        li {margin: 0.5em 0;}
+        .example {background-color: #fff9e6; padding: 1.5em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.8em; font-size: 1.2em;}
+        .verification {background-color: #e8f8f5; padding: 1.5em; margin: 1.5em 0; border-left: 4px solid #16a085; border-radius: 4px;}
+        .verification-title {font-weight: bold; color: #16a085; margin-bottom: 0.8em; font-size: 1.1em;}
+        .highlight {background-color: #fef9e7; padding: 2px 6px; border-radius: 3px;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure svg {max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; background: white;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em; font-size: 0.95em;}
+        .important-box {margin: 1.5em 0; padding: 1.5em; background-color: #fff3e0; border: 3px solid #ff9800; border-radius: 8px;}
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>椭圆曲线作为黎曼曲面</h1>
+
+        <p><strong>目标：</strong>理解椭圆曲线的代数定义，为什么需要紧化，以及它与环面 \( \mathbb{C}/\Lambda \) 的深刻联系。</p>
+
+        <h2>什么是椭圆曲线？</h2>
+
+        <div class="example">
+            <div class="example-title">两种视角</div>
+
+            <p>椭圆曲线（Elliptic Curve）可以从两个等价的角度理解：</p>
+
+            <p><strong>1. 代数几何视角：</strong></p>
+            <p>椭圆曲线是由 <strong>Weierstrass 方程</strong>定义的代数曲线：</p>
+            <p>\[
+            E: y^2 = x^3 + ax + b
+            \]</p>
+            <p>其中 \( a, b \in \mathbb{C} \)，且判别式 \( \Delta = -16(4a^3 + 27b^2) \neq 0 \)（保证曲线光滑，无奇点）。</p>
+
+            <p><strong>2. 复分析视角：</strong></p>
+            <p>椭圆曲线同构于环面 \( \mathbb{C}/\Lambda \)（对某个格 \( \Lambda \)）。</p>
+
+            <div class="figure">
+                <svg width="750" height="350" viewBox="0 0 750 350">
+                    <text x="375" y="25" font-size="18" font-weight="bold" text-anchor="middle">椭圆曲线的两种表示</text>
+
+                    <!-- Left: Algebraic view (curve in plane) -->
+                    <g transform="translate(150, 180)">
+                        <text x="80" y="-110" font-size="14" font-weight="bold" text-anchor="middle">代数视角</text>
+                        <text x="80" y="-90" font-size="12" text-anchor="middle" fill="#666">y² = x³ + ax + b</text>
+
+                        <!-- Axes -->
+                        <line x1="-50" y1="0" x2="210" y2="0" stroke="#999" stroke-width="1"/>
+                        <line x1="80" y1="-70" x2="80" y2="70" stroke="#999" stroke-width="1"/>
+                        <text x="215" y="5" font-size="11" fill="#666">x</text>
+                        <text x="85" y="-75" font-size="11" fill="#666">y</text>
+
+                        <!-- Elliptic curve shape (simplified) -->
+                        <path d="M 50 0 Q 60 -30 70 -45 Q 75 -50 80 -50 Q 85 -50 90 -45 Q 100 -30 110 0"
+                              fill="none" stroke="#e74c3c" stroke-width="3"/>
+                        <path d="M 50 0 Q 60 30 70 45 Q 75 50 80 50 Q 85 50 90 45 Q 100 30 110 0"
+                              fill="none" stroke="#e74c3c" stroke-width="3"/>
+
+                        <!-- Extended parts -->
+                        <path d="M 110 0 Q 130 -20 150 -35 Q 170 -45 190 -48"
+                              fill="none" stroke="#e74c3c" stroke-width="3"/>
+                        <path d="M 110 0 Q 130 20 150 35 Q 170 45 190 48"
+                              fill="none" stroke="#e74c3c" stroke-width="3"/>
+
+                        <!-- Point at infinity (conceptual) -->
+                        <circle cx="200" cy="0" r="6" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="220" y="5" font-size="11" fill="#7b1fa2" font-weight="bold">∞</text>
+
+                        <text x="80" y="90" font-size="11" text-anchor="middle" fill="#666">射影平面中的代数曲线</text>
+                    </g>
+
+                    <!-- Arrow -->
+                    <g transform="translate(340, 180)">
+                        <path d="M 0 0 L 60 0" stroke="#333" stroke-width="2" marker-end="url(#arrow-main)"/>
+                        <text x="30" y="-10" font-size="12" text-anchor="middle" fill="#1976d2" font-weight="bold">同构</text>
+                    </g>
+
+                    <!-- Right: Topological view (torus) -->
+                    <g transform="translate(540, 180)">
+                        <text x="80" y="-110" font-size="14" font-weight="bold" text-anchor="middle">拓扑视角</text>
+                        <text x="80" y="-90" font-size="12" text-anchor="middle" fill="#666">环面 ℂ/Λ</text>
+
+                        <!-- Torus -->
+                        <ellipse cx="80" cy="0" rx="70" ry="45" fill="none" stroke="#4caf50" stroke-width="3"/>
+                        <ellipse cx="80" cy="0" rx="30" ry="20" fill="white" stroke="#4caf50" stroke-width="3"/>
+
+                        <!-- Shading for 3D effect -->
+                        <path d="M 80 -45 Q 115 -27 115 0 Q 115 27 80 45 Q 95 27 95 0 Q 95 -27 80 -45" fill="#c8e6c9" opacity="0.6"/>
+                        <path d="M 80 -45 Q 45 -27 45 0 Q 45 27 80 45 Q 65 27 65 0 Q 65 -27 80 -45" fill="#a5d6a7" opacity="0.6"/>
+
+                        <text x="80" y="75" font-size="11" text-anchor="middle" fill="#2e7d32" font-weight="bold">亏格 g = 1</text>
+                        <text x="80" y="90" font-size="11" text-anchor="middle" fill="#666">紧致黎曼曲面</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow-main" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">椭圆曲线：代数曲线 ≈ 环面（作为黎曼曲面）</div>
+            </div>
+
+            <p><strong>名称的由来：</strong></p>
+            <p>尽管叫"椭圆曲线"，它与椭圆（二次曲线）没有直接关系！这个名称源于历史上对<strong>椭圆积分</strong>的研究，而椭圆积分与这类曲线密切相关。</p>
+        </div>
+
+        <h2>为什么需要紧化？</h2>
+
+        <div class="important-box">
+            <h3 style="margin-top: 0; color: #e65100;">从仿射曲线到射影曲线</h3>
+
+            <p><strong>问题：</strong>方程 \( y^2 = x^3 + ax + b \) 定义的是 \( \mathbb{C}^2 \) 中的一条曲线（仿射椭圆曲线），但它<strong>不是紧致的</strong>！</p>
+
+            <p><strong>原因：</strong>当 \( |x| \to \infty \) 时，\( |y| \sim |x|^{3/2} \to \infty \)，曲线"逃向无穷远"。</p>
+
+            <p><strong>解决方法：</strong>通过<strong>射影化</strong>（projectivization）"补上"一个无穷远点：</p>
+            <ul>
+                <li>引入齐次坐标 \( [X:Y:Z] \in \mathbb{CP}^2 \)</li>
+                <li>齐次化方程：\( Y^2Z = X^3 + aXZ^2 + bZ^3 \)</li>
+                <li>当 \( Z \neq 0 \) 时，令 \( x = X/Z, y = Y/Z \) 恢复原方程</li>
+                <li>无穷远点：\( Z = 0 \) 时，方程变为 \( 0 = X^3 \)，即 \( X = 0 \)，所以只有一个无穷远点 \( [0:1:0] \)</li>
+            </ul>
+
+            <p><span class="highlight">记号：</span>紧化后的曲线记作 \( E(\mathbb{C}) = \{(x,y) \in \mathbb{C}^2 : y^2 = x^3 + ax + b\} \cup \{\infty\} \)</p>
+
+            <p style="margin-top: 1em; padding: 1em; background-color: #e8f5e9; border-left: 4px solid #2e7d32;">
+                <strong>关键：</strong>加上无穷远点 \( \infty \) 后，\( E(\mathbb{C}) \) 成为紧致空间，拓扑上同胚于环面！
+            </p>
+        </div>
+
+        <h2>椭圆曲线的黎曼曲面结构</h2>
+
+        <div class="example">
+            <div class="example-title">构造坐标卡</div>
+
+            <p>现在我们给 \( E(\mathbb{C}) \) 赋予黎曼曲面结构。</p>
+
+            <p><strong>坐标卡 1：仿射部分</strong></p>
+            <ul>
+                <li><strong>开集：</strong>\( U_1 = E(\mathbb{C}) \setminus \{\infty\} = \{(x,y) : y^2 = x^3 + ax + b\} \)</li>
+                <li><strong>坐标映射：</strong>\( \varphi_1: U_1 \to \mathbb{C} \) 定义为 \( \varphi_1(x,y) = x \)</li>
+                <li>即：用 \( x \)-坐标作为局部坐标</li>
+            </ul>
+
+            <p><strong>等等，有问题！</strong></p>
+            <p>对于给定的 \( x \)，方程 \( y^2 = x^3 + ax + b \) 通常有<strong>两个解</strong>：\( y = \pm\sqrt{x^3 + ax + b} \)。所以 \( \varphi_1 \) 不是单射！</p>
+
+            <p><span class="highlight">解决方法：</span>我们需要更精细的覆盖，处理曲线的"两层结构"。</p>
+        </div>
+
+        <div class="verification">
+            <div class="verification-title">正确的坐标卡构造</div>
+
+            <p><strong>更好的方法：</strong>使用 \( x \) 作为局部坐标，但要分别处理 \( y > 0 \) 和 \( y < 0 \) 的部分（在实点上），或者用复分析的语言，在每个点附近选择合适的"分支"。</p>
+
+            <p><strong>标准坐标卡集合：</strong></p>
+
+            <ol>
+                <li><strong>卡 1：</strong>覆盖 \( \{(x,y) : y \neq 0\} \)
+                    <ul>
+                        <li>坐标：\( \varphi_1(x,y) = x \)</li>
+                        <li>这里我们隐含地选择了 \( y \) 的一个分支</li>
+                    </ul>
+                </li>
+                <li><strong>卡 2：</strong>覆盖 \( \{(x,y) : y \neq 0\} \)（同一个开集，不同坐标）
+                    <ul>
+                        <li>坐标：\( \varphi_2(x,y) = y \)</li>
+                    </ul>
+                </li>
+                <li><strong>卡 3：</strong>覆盖无穷远点附近
+                    <ul>
+                        <li>开集：\( U_3 = \{(x,y) : |x| > R\} \cup \{\infty\} \)（\(R\) 足够大）</li>
+                        <li>坐标：\( \varphi_3(x,y) = 1/x \)（在有限点），\( \varphi_3(\infty) = 0 \)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <p><strong>过渡映射的验证：</strong></p>
+
+            <p>在 \( U_1 \cap U_3 \)（即 \( |x| > R \) 的点）上：</p>
+            <ul>
+                <li>\( \varphi_3 \circ \varphi_1^{-1}(w) = \varphi_3(w, \pm\sqrt{w^3+aw+b}) = 1/w \)</li>
+                <li>这是全纯的（在 \( w \neq 0 \) 的区域）✓</li>
+            </ul>
+
+            <p>类似地可以验证其他过渡映射都是全纯的。</p>
+
+            <div class="figure">
+                <svg width="700" height="350" viewBox="0 0 700 350">
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">椭圆曲线的坐标覆盖</text>
+
+                    <!-- The curve -->
+                    <g transform="translate(350, 200)">
+                        <!-- Simplified representation of elliptic curve -->
+                        <ellipse cx="0" cy="0" rx="200" ry="100" fill="none" stroke="#e74c3c" stroke-width="3"/>
+
+                        <!-- U₁: x-coordinate covers most -->
+                        <path d="M -200 0 Q -200 -50 -150 -80 Q -100 -100 0 -100 Q 100 -100 150 -80 Q 200 -50 200 0"
+                              fill="none" stroke="#1976d2" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="-100" y="-60" font-size="13" fill="#0d47a1" font-weight="bold">U₁</text>
+                        <text x="-100" y="-45" font-size="11" fill="#1565c0">坐标: x</text>
+
+                        <!-- U₂: y-coordinate -->
+                        <path d="M -200 0 Q -200 50 -150 80 Q -100 100 0 100 Q 100 100 150 80 Q 200 50 200 0"
+                              fill="none" stroke="#7b1fa2" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="100" y="60" font-size="13" fill="#6a1b9a" font-weight="bold">U₂</text>
+                        <text x="100" y="75" font-size="11" fill="#7b1fa2">坐标: y</text>
+
+                        <!-- U₃: near infinity -->
+                        <ellipse cx="0" cy="0" rx="220" ry="110" fill="none" stroke="#2e7d32" stroke-width="2" stroke-dasharray="3,2"/>
+                        <circle cx="220" cy="0" r="8" fill="#4caf50" opacity="0.3"/>
+                        <text x="240" y="5" font-size="13" fill="#1b5e20" font-weight="bold">∞</text>
+                        <text x="150" y="-105" font-size="13" fill="#2e7d32" font-weight="bold">U₃</text>
+                        <text x="130" y="-90" font-size="11" fill="#2e7d32">坐标: 1/x (∞→0)</text>
+
+                        <!-- Some points -->
+                        <circle cx="-80" cy="-50" r="3" fill="#f39c12"/>
+                        <circle cx="60" cy="70" r="3" fill="#f39c12"/>
+                        <circle cx="0" cy="-100" r="3" fill="#f39c12"/>
+                    </g>
+
+                    <text x="350" y="320" font-size="12" text-anchor="middle" fill="#16a085" font-weight="bold">
+                        ✓ 所有过渡映射都是全纯的
+                    </text>
+                </svg>
+                <div class="figure-caption">不同坐标卡覆盖椭圆曲线，包括无穷远点</div>
+            </div>
+        </div>
+
+        <h2>与环面的同构</h2>
+
+        <div class="example">
+            <div class="example-title">Weierstrass ℘-函数建立同构</div>
+
+            <p>椭圆曲线与环面之间的联系通过 <strong>Weierstrass ℘-函数</strong>建立：</p>
+
+            <p><strong>℘-函数的定义：</strong></p>
+            <p>对于格 \( \Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2 \)，定义：</p>
+            <p>\[
+            \wp(z; \Lambda) = \frac{1}{z^2} + \sum_{\lambda \in \Lambda \setminus \{0\}} \left( \frac{1}{(z-\lambda)^2} - \frac{1}{\lambda^2} \right)
+            \]</p>
+
+            <p><strong>关键性质：</strong></p>
+            <ul>
+                <li>℘ 是 \( \Lambda \)-周期的：\( \wp(z + \lambda) = \wp(z) \) 对所有 \( \lambda \in \Lambda \)</li>
+                <li>因此 ℘ 在商空间 \( \mathbb{C}/\Lambda \) 上是良定义的函数</li>
+                <li>℘ 和它的导数 \( \wp' \) 满足微分方程：
+                    \[
+                    (\wp')^2 = 4\wp^3 - g_2\wp - g_3
+                    \]
+                    其中 \( g_2, g_3 \) 由格 \( \Lambda \) 决定
+                </li>
+            </ul>
+
+            <p><strong>同构映射：</strong></p>
+            <p>定义映射 \( \Phi: \mathbb{C}/\Lambda \to E(\mathbb{C}) \)：</p>
+            <p>\[
+            \Phi([z]) = \begin{cases}
+            (\wp(z), \wp'(z)) & \text{if } z \not\equiv 0 \pmod{\Lambda} \\
+            \infty & \text{if } z \equiv 0 \pmod{\Lambda}
+            \end{cases}
+            \]</p>
+
+            <p><span class="highlight">定理：</span>\( \Phi \) 是<strong>双全纯映射</strong>（复解析同构），即：</p>
+            <ul>
+                <li>\( \Phi \) 是双射</li>
+                <li>\( \Phi \) 和 \( \Phi^{-1} \) 都是全纯的</li>
+            </ul>
+
+            <div class="figure">
+                <svg width="700" height="300" viewBox="0 0 700 300">
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">℘-函数建立的同构</text>
+
+                    <!-- Left: Torus -->
+                    <g transform="translate(150, 150)">
+                        <text x="0" y="-90" font-size="14" font-weight="bold" text-anchor="middle">环面 ℂ/Λ</text>
+
+                        <ellipse cx="0" cy="0" rx="60" ry="40" fill="none" stroke="#4caf50" stroke-width="2"/>
+                        <ellipse cx="0" cy="0" rx="25" ry="17" fill="white" stroke="#4caf50" stroke-width="2"/>
+
+                        <!-- Point on torus -->
+                        <circle cx="30" cy="-20" r="3" fill="#f39c12"/>
+                        <text x="45" y="-15" font-size="11" fill="#f39c12">[z]</text>
+
+                        <text x="0" y="70" font-size="11" text-anchor="middle" fill="#2e7d32">紧致</text>
+                        <text x="0" y="85" font-size="11" text-anchor="middle" fill="#666">亏格 g=1</text>
+                    </g>
+
+                    <!-- Arrow with ℘ function -->
+                    <g transform="translate(240, 150)">
+                        <path d="M 0 0 L 200 0" stroke="#e91e63" stroke-width="3" marker-end="url(#arrow-wp)"/>
+
+                        <rect x="50" y="-50" width="100" height="45" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                        <text x="100" y="-32" font-size="13" text-anchor="middle" fill="#880e4f" font-weight="bold">Φ([z]) =</text>
+                        <text x="100" y="-16" font-size="12" text-anchor="middle" fill="#c2185b">(℘(z), ℘'(z))</text>
+
+                        <text x="100" y="25" font-size="12" text-anchor="middle" fill="#16a085" font-weight="bold">双全纯同构</text>
+                    </g>
+
+                    <!-- Right: Elliptic curve -->
+                    <g transform="translate(550, 150)">
+                        <text x="0" y="-90" font-size="14" font-weight="bold" text-anchor="middle">椭圆曲线 E</text>
+
+                        <!-- Curve shape -->
+                        <path d="M -40 0 Q -30 -25 -20 -35 Q -10 -40 0 -40 Q 10 -40 20 -35 Q 30 -25 40 0"
+                              fill="none" stroke="#e74c3c" stroke-width="2"/>
+                        <path d="M -40 0 Q -30 25 -20 35 Q -10 40 0 40 Q 10 40 20 35 Q 30 25 40 0"
+                              fill="none" stroke="#e74c3c" stroke-width="2"/>
+
+                        <!-- Point on curve -->
+                        <circle cx="15" cy="-25" r="3" fill="#f39c12"/>
+                        <text x="30" y="-25" font-size="11" fill="#f39c12">(x,y)</text>
+
+                        <!-- Infinity point -->
+                        <circle cx="45" cy="0" r="5" fill="none" stroke="#9c27b0" stroke-width="1.5" stroke-dasharray="2,2"/>
+                        <text x="55" y="5" font-size="10" fill="#7b1fa2">∞</text>
+
+                        <text x="0" y="70" font-size="11" text-anchor="middle" fill="#c62828">代数曲线</text>
+                        <text x="0" y="85" font-size="11" text-anchor="middle" fill="#666">y²=x³+ax+b</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow-wp" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                            <polygon points="0 0, 12 3, 0 6" fill="#e91e63"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">℘-函数将环面双全纯地映到椭圆曲线</div>
+            </div>
+
+            <p><strong>这意味着什么？</strong></p>
+            <ul>
+                <li>作为<strong>黎曼曲面</strong>，椭圆曲线 \( E \) 和环面 \( \mathbb{C}/\Lambda \) 是<strong>同一个对象</strong>！</li>
+                <li>它们只是用不同的"语言"描述：一个用代数方程，一个用周期格</li>
+                <li>所有在环面上的复分析结论都可以转到椭圆曲线上，反之亦然</li>
+            </ul>
+        </div>
+
+        <h2>椭圆曲线的群结构</h2>
+
+        <div class="example">
+            <div class="example-title">加法群结构</div>
+
+            <p>椭圆曲线还有一个神奇的性质：它自然地构成一个<strong>阿贝尔群</strong>（交换群）！</p>
+
+            <p><strong>几何加法规则：</strong></p>
+            <ol>
+                <li>取椭圆曲线上两点 \( P \) 和 \( Q \)</li>
+                <li>画过 \( P, Q \) 的直线，它与曲线的第三个交点记为 \( R' \)</li>
+                <li>再画过 \( R' \) 和无穷远点 \( \infty \) 的直线（竖直线），与曲线的另一个交点记为 \( R \)</li>
+                <li>定义 \( P + Q = R \)</li>
+            </ol>
+
+            <div class="figure">
+                <svg width="700" height="450" viewBox="0 0 700 450">
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">椭圆曲线上的加法</text>
+
+                    <g transform="translate(350, 250)">
+                        <!-- Axes -->
+                        <line x1="-280" y1="0" x2="280" y2="0" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="-180" x2="0" y2="160" stroke="#999" stroke-width="1"/>
+
+                        <!-- Elliptic curve -->
+                        <path d="M -100 0 Q -80 -60 -50 -90 Q -25 -110 0 -110 Q 25 -110 50 -90 Q 80 -60 100 0"
+                              fill="none" stroke="#3498db" stroke-width="3"/>
+                        <path d="M -100 0 Q -80 60 -50 90 Q -25 110 0 110 Q 25 110 50 90 Q 80 60 100 0"
+                              fill="none" stroke="#3498db" stroke-width="3"/>
+
+                        <!-- Extended parts -->
+                        <path d="M 100 0 Q 120 -40 150 -70 Q 180 -90 220 -100"
+                              fill="none" stroke="#3498db" stroke-width="3"/>
+                        <path d="M 100 0 Q 120 40 150 70 Q 180 90 220 100"
+                              fill="none" stroke="#3498db" stroke-width="3"/>
+
+                        <!-- Points P and Q -->
+                        <circle cx="-60" cy="-75" r="4" fill="#e74c3c"/>
+                        <text x="-75" y="-80" font-size="13" fill="#c62828" font-weight="bold">P</text>
+
+                        <circle cx="60" cy="75" r="4" fill="#e74c3c"/>
+                        <text x="75" y="80" font-size="13" fill="#c62828" font-weight="bold">Q</text>
+
+                        <!-- Line through P and Q -->
+                        <line x1="-150" y1="-125" x2="200" y2="150" stroke="#f39c12" stroke-width="2" stroke-dasharray="5,3"/>
+
+                        <!-- Third intersection point R' -->
+                        <circle cx="120" cy="90" r="4" fill="#9c27b0"/>
+                        <text x="135" y="95" font-size="13" fill="#7b1fa2" font-weight="bold">R'</text>
+
+                        <!-- Vertical line through R' -->
+                        <line x1="120" y1="-120" x2="120" y2="130" stroke="#2e7d32" stroke-width="2" stroke-dasharray="3,2"/>
+
+                        <!-- Final point R = P+Q -->
+                        <circle cx="120" cy="-90" r="4" fill="#4caf50"/>
+                        <text x="135" y="-85" font-size="13" fill="#1b5e20" font-weight="bold">R = P⊕Q</text>
+
+                        <!-- Arrows showing the process -->
+                        <path d="M -40 -50 Q 0 10 40 50" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrow1)"/>
+                        <text x="10" y="15" font-size="11" fill="#e65100">①连线</text>
+
+                        <path d="M 125 70 L 125 -70" stroke="#2e7d32" stroke-width="1.5" marker-end="url(#arrow2)"/>
+                        <text x="135" y="0" font-size="11" fill="#1b5e20">②取关于x轴对称</text>
+
+                        <!-- Identity element -->
+                        <circle cx="0" cy="-170" r="6" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="15" y="-165" font-size="12" fill="#c62828" font-weight="bold">∞ (单位元)</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
+                        </marker>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#2e7d32"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">椭圆曲线上的几何加法：P ⊕ Q 通过"连线-反射"得到</div>
+            </div>
+
+            <p><strong>群的性质：</strong></p>
+            <ul>
+                <li><strong>单位元：</strong>无穷远点 \( \infty \) 是加法单位元，即 \( P + \infty = P \)</li>
+                <li><strong>逆元：</strong>点 \( (x,y) \) 的逆元是 \( (x,-y) \)（关于 x 轴对称）</li>
+                <li><strong>交换律：</strong>\( P + Q = Q + P \)</li>
+                <li><strong>结合律：</strong>\( (P + Q) + R = P + (Q + R) \)</li>
+            </ul>
+
+            <p style="margin-top: 1em; padding: 1em; background-color: #fff3e0; border-left: 4px solid #f57c00;">
+                <strong>应用：</strong>椭圆曲线的群结构是现代<strong>椭圆曲线密码学</strong>（ECC）的基础，广泛应用于网络安全、数字签名等领域！
+            </p>
+        </div>
+
+        <h2>总结</h2>
+
+        <div class="example">
+            <div class="example-title">椭圆曲线的多面性</div>
+
+            <p>椭圆曲线是数学中极其丰富的对象，连接了多个领域：</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1em;">
+                <tr style="background-color: #e3f2fd;">
+                    <th style="border: 1px solid #999; padding: 8px;">视角</th>
+                    <th style="border: 1px solid #999; padding: 8px;">描述</th>
+                    <th style="border: 1px solid #999; padding: 8px;">关键对象</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>代数几何</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px;">光滑代数曲线</td>
+                    <td style="border: 1px solid #999; padding: 8px;">Weierstrass 方程</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>复分析</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px;">紧致黎曼曲面</td>
+                    <td style="border: 1px solid #999; padding: 8px;">环面 ℂ/Λ</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>拓扑</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px;">亏格 1 的曲面</td>
+                    <td style="border: 1px solid #999; padding: 8px;">甜甜圈形状</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>群论</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px;">阿贝尔群</td>
+                    <td style="border: 1px solid #999; padding: 8px;">点的加法</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>数论</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px;">丢番图方程</td>
+                    <td style="border: 1px solid #999; padding: 8px;">整数解、有理点</td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 1.5em;"><strong>作为黎曼曲面：</strong></p>
+            <ul>
+                <li>✓ <strong>连通性：</strong>椭圆曲线显然连通</li>
+                <li>✓ <strong>局部同构于 ℂ：</strong>通过坐标卡 (x 或 y 或 1/x)</li>
+                <li>✓ <strong>过渡映射全纯：</strong>验证了坐标变换是全纯的</li>
+                <li>✓ <strong>紧致性：</strong>加上无穷远点后成为紧致空间</li>
+                <li>✓ <strong>亏格 g = 1：</strong>拓扑上就是环面</li>
+            </ul>
+
+            <p style="margin-top: 1.5em; padding: 1em; background-color: #e8f5e9; border-left: 4px solid #2e7d32;">
+                <strong>深刻联系：</strong>椭圆曲线作为黎曼曲面，通过 ℘-函数与环面 ℂ/Λ 建立双全纯同构，完美展示了<strong>代数几何与复分析的统一</strong>。这种统一性是黎曼-罗赫定理等深刻结果的基础。
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>

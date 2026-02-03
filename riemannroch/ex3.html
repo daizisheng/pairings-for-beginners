@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>例子：环面（Torus）作为黎曼曲面</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        ul {margin: 1em 0; padding-left: 2em;}
+        ol {margin: 1em 0; padding-left: 2em;}
+        li {margin: 0.5em 0;}
+        .example {background-color: #fff9e6; padding: 1.5em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.8em; font-size: 1.2em;}
+        .verification {background-color: #e8f8f5; padding: 1.5em; margin: 1.5em 0; border-left: 4px solid #16a085; border-radius: 4px;}
+        .verification-title {font-weight: bold; color: #16a085; margin-bottom: 0.8em; font-size: 1.1em;}
+        .highlight {background-color: #fef9e7; padding: 2px 6px; border-radius: 3px;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure svg {max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; background: white;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em; font-size: 0.95em;}
+        .important-box {margin: 1.5em 0; padding: 1.5em; background-color: #fff3e0; border: 3px solid #ff9800; border-radius: 8px;}
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>环面作为黎曼曲面</h1>
+
+        <p><strong>目标：</strong>理解环面（torus）\( \mathbb{C}/\Lambda \) 如何成为一个黎曼曲面，并理解为什么它的亏格是 \( g = 1 \)。</p>
+
+        <h2>什么是环面？</h2>
+
+        <div class="example">
+            <div class="example-title">多种视角看环面</div>
+
+            <p>环面可以从多个角度理解：</p>
+
+            <ol>
+                <li><strong>几何直观：</strong>就像甜甜圈的表面，拓扑上是一个有"一个把手"的曲面</li>
+                <li><strong>拓扑构造：</strong>将一个矩形的对边粘合：
+                    <ul>
+                        <li>先将上下边粘合得到一个圆柱</li>
+                        <li>再将圆柱的两端粘合得到环面</li>
+                    </ul>
+                </li>
+                <li><strong>复分析构造：</strong>商空间 \( \mathbb{C}/\Lambda \)，其中 \( \Lambda \) 是 ℂ 中的一个格（lattice）</li>
+            </ol>
+
+            <div class="figure">
+                <svg width="750" height="400" viewBox="0 0 750 400">
+                    <!-- Title -->
+                    <text x="375" y="25" font-size="18" font-weight="bold" text-anchor="middle">环面的三种表示</text>
+
+                    <!-- Left: Parallelogram (fundamental domain) -->
+                    <g transform="translate(100, 150)">
+                        <text x="60" y="-60" font-size="14" font-weight="bold" text-anchor="middle">1. 基本区域</text>
+
+                        <!-- Parallelogram -->
+                        <path d="M 0 0 L 120 0 L 140 -100 L 20 -100 Z" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+
+                        <!-- Arrows showing identification -->
+                        <path d="M 5 -5 L 115 -5" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow-red)"/>
+                        <text x="60" y="-12" font-size="11" fill="#c62828" text-anchor="middle">粘合</text>
+
+                        <path d="M 25 -95 L 145 -95" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow-red)"/>
+                        <text x="85" y="-102" font-size="11" fill="#c62828" text-anchor="middle">粘合</text>
+
+                        <!-- Vertical edges -->
+                        <path d="M 5 -50 L 5 -10" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+                        <text x="-15" y="-30" font-size="11" fill="#1b5e20">粘合</text>
+
+                        <path d="M 125 -50 L 125 -10" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+                        <text x="145" y="-30" font-size="11" fill="#1b5e20">粘合</text>
+
+                        <!-- Lattice vectors -->
+                        <line x1="0" y1="0" x2="120" y2="0" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-orange)"/>
+                        <text x="60" y="20" font-size="12" fill="#f39c12" font-weight="bold" text-anchor="middle">ω₁</text>
+
+                        <line x1="0" y1="0" x2="20" y2="-100" stroke="#9c27b0" stroke-width="2" marker-end="url(#arrow-purple)"/>
+                        <text x="-20" y="-50" font-size="12" fill="#7b1fa2" font-weight="bold">ω₂</text>
+
+                        <text x="60" y="50" font-size="11" text-anchor="middle" fill="#666">平行四边形</text>
+                    </g>
+
+                    <!-- Middle: Cylinder (intermediate step) -->
+                    <g transform="translate(320, 200)">
+                        <text x="60" y="-110" font-size="14" font-weight="bold" text-anchor="middle">2. 圆柱</text>
+
+                        <!-- Cylinder -->
+                        <ellipse cx="60" cy="-80" rx="40" ry="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                        <rect x="20" y="-80" width="80" height="100" fill="#c8e6c9" stroke="none"/>
+                        <ellipse cx="60" cy="20" rx="40" ry="15" fill="none" stroke="#2e7d32" stroke-width="2"/>
+                        <line x1="20" y1="-80" x2="20" y2="20" stroke="#2e7d32" stroke-width="2"/>
+                        <line x1="100" y1="-80" x2="100" y2="20" stroke="#2e7d32" stroke-width="2"/>
+
+                        <!-- Arrows for second gluing -->
+                        <path d="M 30 -85 Q 30 -100 40 -100" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow-red)"/>
+                        <path d="M 70 25 Q 70 40 60 40" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow-red)"/>
+                        <text x="60" y="-105" font-size="10" fill="#c62828" text-anchor="middle">再粘合</text>
+
+                        <text x="60" y="60" font-size="11" text-anchor="middle" fill="#666">上下边已粘合</text>
+                    </g>
+
+                    <!-- Right: Torus -->
+                    <g transform="translate(580, 180)">
+                        <text x="60" y="-90" font-size="14" font-weight="bold" text-anchor="middle">3. 环面</text>
+
+                        <!-- Torus (simplified 2D projection) -->
+                        <ellipse cx="60" cy="0" rx="80" ry="50" fill="none" stroke="#f57c00" stroke-width="3"/>
+                        <ellipse cx="60" cy="0" rx="35" ry="22" fill="white" stroke="#f57c00" stroke-width="3"/>
+
+                        <!-- Shading -->
+                        <path d="M 60 -50 Q 100 -30 100 0 Q 100 30 60 50 Q 80 30 80 0 Q 80 -30 60 -50" fill="#ffe0b2" opacity="0.6"/>
+                        <path d="M 60 -50 Q 20 -30 20 0 Q 20 30 60 50 Q 40 30 40 0 Q 40 -30 60 -50" fill="#ffcc80" opacity="0.6"/>
+
+                        <!-- Hole indication -->
+                        <ellipse cx="60" cy="0" rx="35" ry="22" fill="none" stroke="#bf360c" stroke-width="2" stroke-dasharray="3,3"/>
+
+                        <text x="60" y="80" font-size="11" text-anchor="middle" fill="#666">甜甜圈表面</text>
+                        <text x="60" y="95" font-size="11" text-anchor="middle" fill="#e65100" font-weight="bold">亏格 g = 1</text>
+                    </g>
+
+                    <!-- Arrows showing progression -->
+                    <path d="M 240 200 L 280 200" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+                    <path d="M 440 200 L 510 200" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+
+                    <defs>
+                        <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#e74c3c"/>
+                        </marker>
+                        <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#2e7d32"/>
+                        </marker>
+                        <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
+                        </marker>
+                        <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#9c27b0"/>
+                        </marker>
+                        <marker id="arrow-black" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">从平行四边形通过边的粘合得到环面</div>
+            </div>
+        </div>
+
+        <h2>格（Lattice）与商空间</h2>
+
+        <div class="example">
+            <div class="example-title">复平面上的格</div>
+
+            <p><strong>格的定义：</strong>给定两个 ℂ 上线性无关的复数 \( \omega_1, \omega_2 \)（即 \( \omega_2/\omega_1 \notin \mathbb{R} \)），格 \( \Lambda \) 定义为：</p>
+
+            <p>\[
+            \Lambda = \{m\omega_1 + n\omega_2 : m, n \in \mathbb{Z}\}
+            \]</p>
+
+            <p>这是 ℂ 中所有形如 \( m\omega_1 + n\omega_2 \) 的点的集合，其中 \( m, n \) 是整数。</p>
+
+            <div class="figure">
+                <svg width="600" height="500" viewBox="0 0 600 500">
+                    <text x="300" y="25" font-size="18" font-weight="bold" text-anchor="middle">复平面 ℂ 上的格 Λ</text>
+
+                    <g transform="translate(300, 280)">
+                        <!-- Axes -->
+                        <line x1="-250" y1="0" x2="250" y2="0" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="-230" x2="0" y2="180" stroke="#999" stroke-width="1"/>
+                        <text x="260" y="5" font-size="12" fill="#666">Re</text>
+                        <text x="5" y="-240" font-size="12" fill="#666">Im</text>
+
+                        <!-- Lattice points -->
+                        <g id="lattice-points">
+                            <!-- Define lattice vectors: ω₁ = (100, 0), ω₂ = (30, -80) -->
+                            <circle cx="0" cy="0" r="4" fill="#e74c3c"/>
+                            <text x="10" y="-10" font-size="11" fill="#c62828" font-weight="bold">0</text>
+
+                            <!-- First row -->
+                            <circle cx="100" cy="0" r="3" fill="#1976d2"/>
+                            <circle cx="200" cy="0" r="3" fill="#1976d2"/>
+                            <circle cx="-100" cy="0" r="3" fill="#1976d2"/>
+                            <circle cx="-200" cy="0" r="3" fill="#1976d2"/>
+
+                            <!-- Second row (ω₂ direction) -->
+                            <circle cx="30" cy="-80" r="3" fill="#1976d2"/>
+                            <circle cx="130" cy="-80" r="3" fill="#1976d2"/>
+                            <circle cx="230" cy="-80" r="3" fill="#1976d2"/>
+                            <circle cx="-70" cy="-80" r="3" fill="#1976d2"/>
+                            <circle cx="-170" cy="-80" r="3" fill="#1976d2"/>
+
+                            <!-- Third row -->
+                            <circle cx="60" cy="-160" r="3" fill="#1976d2"/>
+                            <circle cx="160" cy="-160" r="3" fill="#1976d2"/>
+                            <circle cx="-40" cy="-160" r="3" fill="#1976d2"/>
+                            <circle cx="-140" cy="-160" r="3" fill="#1976d2"/>
+
+                            <!-- Negative direction -->
+                            <circle cx="-30" cy="80" r="3" fill="#1976d2"/>
+                            <circle cx="70" cy="80" r="3" fill="#1976d2"/>
+                            <circle cx="170" cy="80" r="3" fill="#1976d2"/>
+                            <circle cx="-130" cy="80" r="3" fill="#1976d2"/>
+
+                            <circle cx="-60" cy="160" r="3" fill="#1976d2"/>
+                            <circle cx="40" cy="160" r="3" fill="#1976d2"/>
+                            <circle cx="140" cy="160" r="3" fill="#1976d2"/>
+                            <circle cx="-160" cy="160" r="3" fill="#1976d2"/>
+                        </g>
+
+                        <!-- Fundamental domain (parallelogram) -->
+                        <path d="M 0 0 L 100 0 L 130 -80 L 30 -80 Z" fill="#fff9e6" opacity="0.7" stroke="#f39c12" stroke-width="3"/>
+                        <text x="65" y="-40" font-size="13" fill="#e65100" font-weight="bold" text-anchor="middle">基本区域</text>
+
+                        <!-- Basis vectors -->
+                        <line x1="0" y1="0" x2="100" y2="0" stroke="#f39c12" stroke-width="3" marker-end="url(#arrow1)"/>
+                        <text x="50" y="20" font-size="13" fill="#f39c12" font-weight="bold" text-anchor="middle">ω₁</text>
+
+                        <line x1="0" y1="0" x2="30" y2="-80" stroke="#9c27b0" stroke-width="3" marker-end="url(#arrow2)"/>
+                        <text x="-20" y="-40" font-size="13" fill="#7b1fa2" font-weight="bold">ω₂</text>
+
+                        <!-- Example: showing equivalence -->
+                        <circle cx="20" cy="-20" r="4" fill="#4caf50"/>
+                        <circle cx="120" cy="-20" r="4" fill="#4caf50" opacity="0.5"/>
+                        <circle cx="50" cy="-100" r="4" fill="#4caf50" opacity="0.5"/>
+                        <path d="M 20 -30 Q 70 -50 115 -25" stroke="#4caf50" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <text x="70" y="-55" font-size="10" fill="#2e7d32">等价点</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow1" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                            <polygon points="0 0, 12 3, 0 6" fill="#f39c12"/>
+                        </marker>
+                        <marker id="arrow2" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                            <polygon points="0 0, 12 3, 0 6" fill="#9c27b0"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">格 Λ 是周期性排列的点集，基本区域是一个平行四边形</div>
+            </div>
+
+            <p><strong>商空间 \( \mathbb{C}/\Lambda \)：</strong></p>
+            <ul>
+                <li>两个点 \( z_1, z_2 \in \mathbb{C} \) <strong>等价</strong>，如果它们相差一个格点，即 \( z_1 - z_2 \in \Lambda \)</li>
+                <li>记作 \( z_1 \sim z_2 \) 当且仅当 \( z_1 - z_2 = m\omega_1 + n\omega_2 \) 对某些 \( m, n \in \mathbb{Z} \)</li>
+                <li>商空间 \( \mathbb{C}/\Lambda \) 是所有等价类的集合</li>
+                <li>每个等价类可以用基本区域（平行四边形）中的一个代表元表示</li>
+            </ul>
+
+            <p><span class="highlight">直观理解：</span>把复平面想象成无限平铺的平行四边形，所有"相同位置"的点都被认为是同一个点，这样就得到了一个环面！</p>
+        </div>
+
+        <h2>为什么 \( \mathbb{C}/\Lambda \) 是环面？</h2>
+
+        <div class="important-box">
+            <h3 style="margin-top: 0; color: #e65100;">拓扑等价性</h3>
+
+            <p>商空间 \( \mathbb{C}/\Lambda \) 拓扑上就是环面，因为：</p>
+
+            <ol>
+                <li>取基本区域：一个由 \( \omega_1, \omega_2 \) 张成的平行四边形</li>
+                <li>对边粘合：
+                    <ul>
+                        <li>点 \( z \) 和 \( z + \omega_1 \) 被认为是同一个点（粘合平行于 \( \omega_2 \) 的边）</li>
+                        <li>点 \( z \) 和 \( z + \omega_2 \) 被认为是同一个点（粘合平行于 \( \omega_1 \) 的边）</li>
+                    </ul>
+                </li>
+                <li>结果：这正是环面的标准构造！</li>
+            </ol>
+
+            <p style="margin-top: 1em; padding: 1em; background-color: #e8f5e9; border-left: 4px solid #2e7d32;">
+                <strong>亏格 g = 1：</strong>环面有一个"洞"（中间的圆孔），拓扑上等价于一个球面加上一个"把手"，因此亏格是 1。
+            </p>
+        </div>
+
+        <h2>环面的黎曼曲面结构</h2>
+
+        <div class="example">
+            <div class="example-title">构造图册</div>
+
+            <p>现在的关键问题：如何给 \( \mathbb{C}/\Lambda \) 赋予黎曼曲面结构？</p>
+
+            <p><strong>自然的坐标卡：</strong></p>
+
+            <p>对于每个点 \( [z] \in \mathbb{C}/\Lambda \)（这里 \( [z] \) 表示 \( z \) 的等价类），我们可以在它周围定义局部坐标：</p>
+
+            <ul>
+                <li><strong>开集：</strong>\( U \subset \mathbb{C}/\Lambda \) 是一个足够小的开集</li>
+                <li><strong>坐标映射：</strong>选择 \( U \) 的一个"提升"到 ℂ 中的开集 \( \tilde{U} \)，使得投影 \( \pi: \mathbb{C} \to \mathbb{C}/\Lambda \) 在 \( \tilde{U} \) 上是同胚</li>
+                <li><strong>局部坐标：</strong>\( \varphi: U \to \tilde{U} \subset \mathbb{C} \) 是 \( \pi \) 的局部逆</li>
+            </ul>
+
+            <p><strong>关键观察：</strong></p>
+            <p class="highlight">如果 \( U \) 足够小（不"绕过"环面一圈），那么投影 \( \pi: \mathbb{C} \to \mathbb{C}/\Lambda \) 限制在 \( U \) 的某个提升上是同胚！</p>
+        </div>
+
+        <div class="verification">
+            <div class="verification-title">验证过渡映射的全纯性</div>
+
+            <p>现在验证最重要的部分：过渡映射是全纯的。</p>
+
+            <p><strong>设置：</strong>假设两个坐标卡 \( (U_1, \varphi_1) \) 和 \( (U_2, \varphi_2) \)，它们的交集 \( U_1 \cap U_2 \neq \emptyset \)。</p>
+
+            <p><strong>提升到复平面：</strong></p>
+            <ul>
+                <li>\( \varphi_1: U_1 \to \tilde{U}_1 \subset \mathbb{C} \) 是第一个坐标</li>
+                <li>\( \varphi_2: U_2 \to \tilde{U}_2 \subset \mathbb{C} \) 是第二个坐标</li>
+            </ul>
+
+            <p><strong>过渡映射：</strong></p>
+            <p>\[
+            \varphi_2 \circ \varphi_1^{-1}: \varphi_1(U_1 \cap U_2) \to \varphi_2(U_1 \cap U_2)
+            \]</p>
+
+            <p><strong>关键点：</strong>对于 \( w \in \varphi_1(U_1 \cap U_2) \)，有：</p>
+            <ul>
+                <li>\( \varphi_1^{-1}(w) = [w] \) 是 \( w \) 在商空间中的等价类</li>
+                <li>\( \varphi_2([w]) \) 是同一个等价类在第二个坐标系中的表示</li>
+                <li>因此 \( \varphi_2([w]) = w + \lambda \)，其中 \( \lambda \in \Lambda \) 是某个格点</li>
+            </ul>
+
+            <p><span class="highlight">结论：</span>过渡映射是：</p>
+            <p>\[
+            \varphi_2 \circ \varphi_1^{-1}(w) = w + \lambda
+            \]</p>
+
+            <p>这是一个<strong>平移</strong>，显然是全纯的！✓</p>
+
+            <div class="figure">
+                <svg width="700" height="300" viewBox="0 0 700 300">
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">过渡映射：平移</text>
+
+                    <!-- Left: First chart -->
+                    <g transform="translate(120, 150)">
+                        <rect x="-80" y="-80" width="160" height="160" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+                        <text x="0" y="-100" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">坐标卡 1</text>
+                        <text x="0" y="105" font-size="12" text-anchor="middle" fill="#666">提升 Ũ₁ ⊂ ℂ</text>
+
+                        <circle cx="-20" cy="10" r="3" fill="#f39c12"/>
+                        <text x="-10" y="5" font-size="12" fill="#f39c12">w</text>
+                    </g>
+
+                    <!-- Middle: transition -->
+                    <g transform="translate(280, 150)">
+                        <path d="M 0 0 L 140 0" stroke="#e91e63" stroke-width="3" marker-end="url(#arrow3)"/>
+                        <rect x="20" y="-45" width="100" height="35" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                        <text x="70" y="-30" font-size="13" text-anchor="middle" fill="#880e4f" font-weight="bold">w ↦ w + λ</text>
+                        <text x="70" y="-15" font-size="11" text-anchor="middle" fill="#c2185b">(λ ∈ Λ)</text>
+
+                        <text x="70" y="30" font-size="12" text-anchor="middle" fill="#16a085" font-weight="bold">✓ 全纯（平移）</text>
+                    </g>
+
+                    <!-- Right: Second chart -->
+                    <g transform="translate(580, 150)">
+                        <rect x="-80" y="-80" width="160" height="160" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+                        <text x="0" y="-100" font-size="14" font-weight="bold" text-anchor="middle" fill="#6a1b9a">坐标卡 2</text>
+                        <text x="0" y="105" font-size="12" text-anchor="middle" fill="#666">提升 Ũ₂ ⊂ ℂ</text>
+
+                        <circle cx="10" cy="-5" r="3" fill="#f39c12"/>
+                        <text x="20" y="-10" font-size="12" fill="#f39c12">w+λ</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow3" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                            <polygon points="0 0, 12 3, 0 6" fill="#e91e63"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">不同坐标卡之间的过渡映射是平移（格向量），因此全纯</div>
+            </div>
+
+            <p><strong>为什么这样就够了？</strong></p>
+            <ul>
+                <li>我们可以用这样的局部坐标覆盖整个 \( \mathbb{C}/\Lambda \)</li>
+                <li>所有过渡映射都是形如 \( w \mapsto w + \lambda \) 的平移</li>
+                <li>平移是全纯的</li>
+                <li>因此 \( \mathbb{C}/\Lambda \) 满足黎曼曲面的定义！✓</li>
+            </ul>
+        </div>
+
+        <h2>与椭圆曲线的联系</h2>
+
+        <div class="example">
+            <div class="example-title">环面与椭圆曲线</div>
+
+            <p>环面 \( \mathbb{C}/\Lambda \) 不仅是黎曼曲面，还与代数几何中的<strong>椭圆曲线</strong>密切相关：</p>
+
+            <p><strong>魏尔斯特拉斯 ℘ 函数：</strong></p>
+            <p>对于格 \( \Lambda \)，定义 Weierstrass ℘-函数：</p>
+            <p>\[
+            \wp(z) = \frac{1}{z^2} + \sum_{\lambda \in \Lambda \setminus \{0\}} \left( \frac{1}{(z-\lambda)^2} - \frac{1}{\lambda^2} \right)
+            \]</p>
+
+            <p><strong>椭圆曲线方程：</strong></p>
+            <p>℘ 函数和它的导数 \( \wp'(z) \) 满足代数关系：</p>
+            <p>\[
+            (\wp')^2 = 4\wp^3 - g_2\wp - g_3
+            \]</p>
+            <p>这正是椭圆曲线的 Weierstrass 方程形式！</p>
+
+            <p><strong>深刻联系：</strong></p>
+            <ul>
+                <li>映射 \( z \mapsto (\wp(z), \wp'(z)) \) 建立了 \( \mathbb{C}/\Lambda \) 与射影平面中椭圆曲线之间的<strong>双全纯映射</strong></li>
+                <li>这表明：环面作为黎曼曲面 ≈ 椭圆曲线作为代数曲线</li>
+                <li>这是复分析与代数几何之间深刻联系的一个例子</li>
+            </ul>
+
+            <p style="margin-top: 1em; padding: 1em; background-color: #f3e5f5; border-left: 4px solid #7b1fa2;">
+                <strong>重要性：</strong>椭圆曲线在数论、密码学中有重要应用（如椭圆曲线密码学 ECC），而它们的复分析理论就建立在环面作为黎曼曲面的基础上。
+            </p>
+        </div>
+
+        <h2>总结</h2>
+
+        <div class="example">
+            <div class="example-title">环面作为黎曼曲面的要点</div>
+
+            <p><strong>我们证明了什么：</strong></p>
+            <ol>
+                <li><strong>拓扑结构：</strong>\( \mathbb{C}/\Lambda \) 拓扑上是环面（亏格 g = 1）</li>
+                <li><strong>黎曼曲面结构：</strong>通过从 ℂ 的投影继承局部坐标，\( \mathbb{C}/\Lambda \) 成为黎曼曲面</li>
+                <li><strong>全纯性：</strong>所有过渡映射都是平移（\( w \mapsto w + \lambda \)），因此全纯</li>
+                <li><strong>紧致性：</strong>商空间 \( \mathbb{C}/\Lambda \) 是紧致的（基本区域是闭平行四边形）</li>
+            </ol>
+
+            <p><strong>关键洞察：</strong></p>
+            <ul>
+                <li><span class="highlight">周期性 = 紧致性：</span>通过按格向量"粘合"，我们把非紧致的 ℂ 变成了紧致的环面</li>
+                <li><span class="highlight">商结构保持复结构：</span>因为平移是全纯的，商掉格 \( \Lambda \) 后复结构仍然保持</li>
+                <li><span class="highlight">第一个非平凡例子：</strong>环面是第一个拓扑非平凡（g > 0）的紧致黎曼曲面</li>
+            </ul>
+
+            <p><strong>与其他例子的对比：</strong></p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1em;">
+                <tr style="background-color: #e3f2fd;">
+                    <th style="border: 1px solid #999; padding: 8px;">黎曼曲面</th>
+                    <th style="border: 1px solid #999; padding: 8px;">亏格</th>
+                    <th style="border: 1px solid #999; padding: 8px;">紧致性</th>
+                    <th style="border: 1px solid #999; padding: 8px;">构造方式</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #999; padding: 8px;">ℂ</td>
+                    <td style="border: 1px solid #999; padding: 8px; text-align: center;">—</td>
+                    <td style="border: 1px solid #999; padding: 8px; text-align: center;">非紧</td>
+                    <td style="border: 1px solid #999; padding: 8px;">平凡图册</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <td style="border: 1px solid #999; padding: 8px;">ℂℙ¹（黎曼球面）</td>
+                    <td style="border: 1px solid #999; padding: 8px; text-align: center;">0</td>
+                    <td style="border: 1px solid #999; padding: 8px; text-align: center;">紧</td>
+                    <td style="border: 1px solid #999; padding: 8px;">ℂ ∪ {∞}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>ℂ/Λ（环面）</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px; text-align: center;"><strong>1</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px; text-align: center;"><strong>紧</strong></td>
+                    <td style="border: 1px solid #999; padding: 8px;"><strong>商空间（格）</strong></td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 1.5em; padding: 1em; background-color: #fff3e0; border-left: 4px solid #f57c00;">
+                <strong>下一步：</strong>有了环面（g=1）的例子，我们可以推广到更高亏格（g ≥ 2）的黎曼曲面，这些曲面在黎曼-罗赫定理中扮演核心角色。
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>例子：为什么黎曼球面是黎曼曲面</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {font-family: "Computer Modern", "Latin Modern Roman", Georgia, serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; color: #333;}
+        .content {background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        h1 {text-align: center; font-size: 2.5em; margin-bottom: 0.3em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.3em;}
+        h2 {font-size: 1.8em; margin-top: 2em; margin-bottom: 1em; color: #2c3e50;}
+        h3 {font-size: 1.3em; margin-top: 1.5em; color: #34495e;}
+        p {margin: 1em 0; text-align: justify;}
+        ul {margin: 1em 0; padding-left: 2em;}
+        ol {margin: 1em 0; padding-left: 2em;}
+        li {margin: 0.5em 0;}
+        .example {background-color: #fff9e6; padding: 1.5em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
+        .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.8em; font-size: 1.2em;}
+        .verification {background-color: #e8f8f5; padding: 1.5em; margin: 1.5em 0; border-left: 4px solid #16a085; border-radius: 4px;}
+        .verification-title {font-weight: bold; color: #16a085; margin-bottom: 0.8em; font-size: 1.1em;}
+        .highlight {background-color: #fef9e7; padding: 2px 6px; border-radius: 3px;}
+        .figure {text-align: center; margin: 2em 0;}
+        .figure svg {max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; background: white;}
+        .figure-caption {font-style: italic; color: #666; margin-top: 0.5em; font-size: 0.95em;}
+        .important-box {margin: 1.5em 0; padding: 1.5em; background-color: #fff3e0; border: 3px solid #ff9800; border-radius: 8px;}
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>为什么黎曼球面是黎曼曲面</h1>
+
+        <p><strong>目标：</strong>证明黎曼球面 \( \mathbb{CP}^1 = \mathbb{C} \cup \{\infty\} \) 满足黎曼曲面的定义，并理解为什么需要<em>至少两个</em>坐标卡。</p>
+
+        <h2>什么是黎曼球面？</h2>
+
+        <div class="example">
+            <div class="example-title">定义与直观</div>
+
+            <p><strong>黎曼球面</strong>（Riemann sphere）有多种等价的描述方式：</p>
+
+            <ol>
+                <li><strong>代数观点：</strong>\( \mathbb{CP}^1 = \mathbb{C} \cup \{\infty\} \)，即复平面加上一个"无穷远点"</li>
+                <li><strong>几何观点：</strong>拓扑上同胚于二维球面 \( S^2 = \{(x,y,z) \in \mathbb{R}^3 : x^2 + y^2 + z^2 = 1\} \)</li>
+                <li><strong>投影观点：</strong>通过<strong>立体投影</strong>（stereographic projection）将 \( S^2 \) 与 \( \mathbb{C} \cup \{\infty\} \) 等同</li>
+            </ol>
+
+            <div class="figure">
+                <svg width="700" height="400" viewBox="0 0 700 400">
+                    <!-- Title -->
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">黎曼球面的几何直观</text>
+
+                    <!-- Left: Sphere S² -->
+                    <g transform="translate(150, 200)">
+                        <!-- Sphere -->
+                        <circle cx="0" cy="0" r="100" fill="none" stroke="#3498db" stroke-width="2"/>
+                        <ellipse cx="0" cy="0" rx="100" ry="30" fill="none" stroke="#3498db" stroke-width="1" opacity="0.5"/>
+
+                        <!-- North pole -->
+                        <circle cx="0" cy="-100" r="4" fill="#e74c3c"/>
+                        <text x="25" y="-95" font-size="12" fill="#e74c3c" font-weight="bold">北极 N</text>
+
+                        <!-- South pole -->
+                        <circle cx="0" cy="100" r="4" fill="#27ae60"/>
+                        <text x="25" y="105" font-size="12" fill="#27ae60" font-weight="bold">南极 S</text>
+
+                        <!-- Point on sphere -->
+                        <circle cx="40" cy="-20" r="3" fill="#f39c12"/>
+                        <text x="48" y="-15" font-size="11" fill="#f39c12">P</text>
+
+                        <!-- Axes hint -->
+                        <text x="0" y="-130" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">球面 S²</text>
+                    </g>
+
+                    <!-- Arrow -->
+                    <g transform="translate(280, 200)">
+                        <path d="M 0 0 L 60 0" stroke="#333" stroke-width="2" marker-end="url(#arrow-main)"/>
+                        <text x="30" y="-10" font-size="12" text-anchor="middle" fill="#666">立体投影</text>
+                    </g>
+
+                    <!-- Right: Extended complex plane -->
+                    <g transform="translate(500, 200)">
+                        <!-- Complex plane (disk representation) -->
+                        <circle cx="0" cy="0" r="100" fill="#e3f2fd" opacity="0.3" stroke="#1976d2" stroke-width="2"/>
+
+                        <!-- Axes -->
+                        <line x1="-110" y1="0" x2="110" y2="0" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="-110" x2="0" y2="110" stroke="#999" stroke-width="1"/>
+                        <text x="115" y="5" font-size="11" fill="#666">Re</text>
+                        <text x="5" y="-115" font-size="11" fill="#666">Im</text>
+
+                        <!-- Point at infinity (represented by circle) -->
+                        <circle cx="0" cy="-90" r="8" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="15" y="-85" font-size="11" fill="#e74c3c" font-weight="bold">∞</text>
+
+                        <!-- Projected point -->
+                        <circle cx="60" cy="20" r="3" fill="#f39c12"/>
+                        <text x="68" y="16" font-size="11" fill="#f39c12">z</text>
+
+                        <text x="0" y="-130" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">ℂ ∪ {∞}</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow-main" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">黎曼球面：几何上是球面，代数上是 ℂ ∪ {∞}</div>
+            </div>
+
+            <p><strong>关键性质：</strong></p>
+            <ul>
+                <li><strong>紧致性：</strong>黎曼球面是紧致的（与复平面 ℂ 不同）</li>
+                <li><strong>连通性：</strong>显然是连通的</li>
+                <li><strong>亏格：</strong>g = 0（拓扑上是球面，没有"把手"）</li>
+            </ul>
+        </div>
+
+        <h2>为什么需要两个坐标卡？</h2>
+
+        <div class="important-box">
+            <h3 style="margin-top: 0; color: #e65100;">★ 关键观察</h3>
+            <p>我们<strong>不能</strong>用单个坐标卡覆盖整个黎曼球面！</p>
+
+            <p><strong>原因：</strong></p>
+            <ul>
+                <li>黎曼曲面的定义要求每个坐标卡 \( \varphi: U \to V \subset \mathbb{C} \) 是到 ℂ 中<em>开集</em>的同胚</li>
+                <li>但 ℂ 的任何开集都是<strong>非紧致</strong>的</li>
+                <li>而黎曼球面是<strong>紧致</strong>的</li>
+                <li>紧致空间不可能同胚于非紧致空间</li>
+            </ul>
+
+            <p style="margin-top: 1em; padding: 1em; background-color: #ffebee; border-left: 4px solid #e53935;">
+                <strong>结论：</strong>我们必须至少用两个坐标卡，每个坐标卡"缺少"至少一个点，这样才能同胚到 ℂ 的开集。
+            </p>
+        </div>
+
+        <h2>标准图册：两个坐标卡</h2>
+
+        <div class="example">
+            <div class="example-title">构造</div>
+
+            <p>黎曼球面的<strong>标准图册</strong>由两个坐标卡组成：</p>
+
+            <p><strong>坐标卡 1（"南极坐标"）：</strong></p>
+            <ul>
+                <li>\( U_1 = \mathbb{CP}^1 \setminus \{\infty\} = \mathbb{C} \)</li>
+                <li>\( \varphi_1: U_1 \to \mathbb{C} \) 定义为 \( \varphi_1(z) = z \)</li>
+                <li>即：用复平面本身作为坐标，覆盖除了 \( \infty \) 以外的所有点</li>
+            </ul>
+
+            <p><strong>坐标卡 2（"北极坐标"）：</strong></p>
+            <ul>
+                <li>\( U_2 = \mathbb{CP}^1 \setminus \{0\} \)</li>
+                <li>\( \varphi_2: U_2 \to \mathbb{C} \) 定义为 \( \varphi_2(z) = \frac{1}{z} \) （对于 \( z \in \mathbb{C}^* \)）且 \( \varphi_2(\infty) = 0 \)</li>
+                <li>即：用"倒数坐标"，把 \( \infty \) 映到 0，覆盖除了 0 以外的所有点</li>
+            </ul>
+
+            <div class="figure">
+                <svg width="700" height="500" viewBox="0 0 700 500">
+                    <!-- Title -->
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">两个坐标卡的覆盖</text>
+
+                    <!-- Top: The Riemann sphere -->
+                    <g transform="translate(350, 120)">
+                        <ellipse cx="0" cy="0" rx="120" ry="80" fill="#fff3e0" stroke="#f57c00" stroke-width="3"/>
+                        <text x="0" y="-100" font-size="16" font-weight="bold" text-anchor="middle" fill="#e65100">黎曼球面 ℂ ∪ {∞}</text>
+
+                        <!-- U₁ region (everything except ∞) -->
+                        <ellipse cx="0" cy="10" rx="110" ry="60" fill="#e3f2fd" opacity="0.6" stroke="#1976d2" stroke-width="2"/>
+                        <text x="-50" y="20" font-size="14" fill="#0d47a1" font-weight="bold">U₁ = ℂ</text>
+                        <text x="-50" y="38" font-size="11" fill="#1565c0">(除了 ∞)</text>
+
+                        <!-- Point at infinity -->
+                        <circle cx="0" cy="-60" r="5" fill="#e74c3c"/>
+                        <text x="15" y="-55" font-size="13" fill="#c62828" font-weight="bold">∞</text>
+                        <path d="M 10 -60 L 30 -80" stroke="#c62828" stroke-width="1"/>
+                        <text x="35" y="-78" font-size="11" fill="#c62828">U₁缺少这点</text>
+
+                        <!-- U₂ region (everything except 0) -->
+                        <ellipse cx="0" cy="-10" rx="110" ry="60" fill="#f3e5f5" opacity="0.5" stroke="#7b1fa2" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="40" y="-5" font-size="14" fill="#6a1b9a" font-weight="bold">U₂</text>
+                        <text x="30" y="10" font-size="11" fill="#6a1b9a">(除了 0)</text>
+
+                        <!-- Point at 0 -->
+                        <circle cx="0" cy="60" r="5" fill="#2e7d32"/>
+                        <text x="15" y="65" font-size="13" fill="#1b5e20" font-weight="bold">0</text>
+                        <path d="M 10 60 L 30 78" stroke="#1b5e20" stroke-width="1"/>
+                        <text x="35" y="82" font-size="11" fill="#1b5e20">U₂缺少这点</text>
+
+                        <!-- Overlap -->
+                        <text x="0" y="0" font-size="12" text-anchor="middle" fill="#e91e63" font-weight="bold">U₁ ∩ U₂ = ℂ*</text>
+                    </g>
+
+                    <!-- Bottom left: φ₁ chart -->
+                    <g transform="translate(120, 350)">
+                        <rect x="-80" y="-60" width="160" height="120" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+                        <text x="0" y="-35" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">坐标卡 1</text>
+                        <text x="0" y="-18" font-size="12" text-anchor="middle" fill="#1565c0">φ₁(z) = z</text>
+                        <text x="0" y="10" font-size="11" text-anchor="middle" fill="#666">定义域: U₁ = ℂ</text>
+                        <text x="0" y="28" font-size="11" text-anchor="middle" fill="#666">值域: ℂ</text>
+                        <text x="0" y="50" font-size="11" text-anchor="middle" fill="#c62828">"标准"坐标</text>
+                    </g>
+
+                    <!-- Bottom right: φ₂ chart -->
+                    <g transform="translate(580, 350)">
+                        <rect x="-80" y="-60" width="160" height="120" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+                        <text x="0" y="-35" font-size="14" font-weight="bold" text-anchor="middle" fill="#6a1b9a">坐标卡 2</text>
+                        <text x="0" y="-18" font-size="12" text-anchor="middle" fill="#7b1fa2">φ₂(z) = 1/z</text>
+                        <text x="0" y="10" font-size="11" text-anchor="middle" fill="#666">定义域: U₂ = ℂ* ∪ {∞}</text>
+                        <text x="0" y="28" font-size="11" text-anchor="middle" fill="#666">值域: ℂ</text>
+                        <text x="0" y="50" font-size="11" text-anchor="middle" fill="#c62828">"倒数"坐标</text>
+                    </g>
+
+                    <!-- Arrows down -->
+                    <path d="M 280 200 L 140 280" stroke="#1976d2" stroke-width="2" marker-end="url(#arrow1)"/>
+                    <path d="M 420 200 L 560 280" stroke="#7b1fa2" stroke-width="2" marker-end="url(#arrow1)"/>
+
+                    <defs>
+                        <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">
+                    U₁ 和 U₂ 一起覆盖整个黎曼球面，它们的交集是 ℂ* = ℂ \ {0}
+                </div>
+            </div>
+
+            <p><strong>验证覆盖条件：</strong></p>
+            <p>\( U_1 \cup U_2 = \mathbb{C} \cup (\mathbb{C}^* \cup \{\infty\}) = \mathbb{C} \cup \{\infty\} = \mathbb{CP}^1 \) ✓</p>
+
+            <p><strong>交集：</strong></p>
+            <p>\( U_1 \cap U_2 = \mathbb{C} \cap (\mathbb{C}^* \cup \{\infty\}) = \mathbb{C}^* = \mathbb{C} \setminus \{0\} \)</p>
+        </div>
+
+        <h2>验证过渡映射的全纯性</h2>
+
+        <div class="verification">
+            <div class="verification-title">计算过渡映射</div>
+
+            <p>现在我们需要验证在交集 \( U_1 \cap U_2 = \mathbb{C}^* \) 上，过渡映射是全纯的。</p>
+
+            <p><strong>过渡映射 \( \varphi_2 \circ \varphi_1^{-1} \)：</strong></p>
+            <ul>
+                <li><strong>定义域：</strong>\( \varphi_1(U_1 \cap U_2) = \varphi_1(\mathbb{C}^*) = \mathbb{C}^* \)</li>
+                <li><strong>计算：</strong>对于 \( w \in \mathbb{C}^* \)：
+                    <ul>
+                        <li>\( \varphi_1^{-1}(w) = w \)（因为 \( \varphi_1 \) 是恒等映射）</li>
+                        <li>\( \varphi_2(w) = \frac{1}{w} \)</li>
+                        <li>因此 \( (\varphi_2 \circ \varphi_1^{-1})(w) = \frac{1}{w} \)</li>
+                    </ul>
+                </li>
+                <li><span class="highlight">这是全纯的！</span>函数 \( w \mapsto 1/w \) 在 \( \mathbb{C}^* \) 上全纯</li>
+                <li><strong>导数：</strong>\( \frac{d}{dw}\left(\frac{1}{w}\right) = -\frac{1}{w^2} \neq 0 \) （在 \( \mathbb{C}^* \) 上）</li>
+            </ul>
+
+            <div class="figure">
+                <svg width="700" height="300" viewBox="0 0 700 300">
+                    <!-- Title -->
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">过渡映射 φ₂ ∘ φ₁⁻¹</text>
+
+                    <!-- Left: Domain in φ₁ coordinates -->
+                    <g transform="translate(120, 150)">
+                        <circle cx="0" cy="0" r="80" fill="#e3f2fd" opacity="0.6" stroke="#1976d2" stroke-width="2"/>
+                        <circle cx="0" cy="0" r="8" fill="white" stroke="#e53935" stroke-width="2"/>
+                        <line x1="-3" y1="-3" x2="3" y2="3" stroke="#e53935" stroke-width="2"/>
+                        <line x1="-3" y1="3" x2="3" y2="-3" stroke="#e53935" stroke-width="2"/>
+
+                        <text x="0" y="-100" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">φ₁-坐标</text>
+                        <text x="0" y="110" font-size="12" text-anchor="middle" fill="#666">ℂ* (去心复平面)</text>
+
+                        <!-- Sample point -->
+                        <circle cx="40" cy="-30" r="3" fill="#f39c12"/>
+                        <text x="50" y="-25" font-size="12" fill="#f39c12">w</text>
+                    </g>
+
+                    <!-- Middle: transition map -->
+                    <g transform="translate(250, 150)">
+                        <path d="M 0 0 L 140 0" stroke="#e91e63" stroke-width="3" marker-end="url(#arrow2)"/>
+                        <rect x="20" y="-50" width="100" height="40" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                        <text x="70" y="-32" font-size="13" text-anchor="middle" fill="#880e4f" font-weight="bold">w ↦ 1/w</text>
+                        <text x="70" y="-15" font-size="11" text-anchor="middle" fill="#c2185b">过渡映射</text>
+
+                        <text x="70" y="30" font-size="12" text-anchor="middle" fill="#16a085" font-weight="bold">✓ 全纯</text>
+                        <text x="70" y="48" font-size="11" text-anchor="middle" fill="#16a085">导数 = -1/w² ≠ 0</text>
+                    </g>
+
+                    <!-- Right: Codomain in φ₂ coordinates -->
+                    <g transform="translate(580, 150)">
+                        <circle cx="0" cy="0" r="80" fill="#f3e5f5" opacity="0.6" stroke="#7b1fa2" stroke-width="2"/>
+                        <circle cx="0" cy="0" r="8" fill="white" stroke="#e53935" stroke-width="2"/>
+                        <line x1="-3" y1="-3" x2="3" y2="3" stroke="#e53935" stroke-width="2"/>
+                        <line x1="-3" y1="3" x2="3" y2="-3" stroke="#e53935" stroke-width="2"/>
+
+                        <text x="0" y="-100" font-size="14" font-weight="bold" text-anchor="middle" fill="#6a1b9a">φ₂-坐标</text>
+                        <text x="0" y="110" font-size="12" text-anchor="middle" fill="#666">ℂ* (去心复平面)</text>
+
+                        <!-- Transformed point -->
+                        <circle cx="-48" cy="36" r="3" fill="#f39c12"/>
+                        <text x="-58" y="32" font-size="12" fill="#f39c12">1/w</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow2" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                            <polygon points="0 0, 12 3, 0 6" fill="#e91e63"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">过渡映射 w ↦ 1/w 在 ℂ* 上全纯（且有全纯逆）</div>
+            </div>
+
+            <p><strong>逆过渡映射 \( \varphi_1 \circ \varphi_2^{-1} \)：</strong></p>
+            <ul>
+                <li>\( (\varphi_1 \circ \varphi_2^{-1})(w) = w \cdot \frac{1}{1} = w \cdot \frac{1}{w^{-1}} = w \cdot w = ... \) 等等，让我们直接计算：</li>
+                <li>如果 \( \varphi_2(z) = w \)，那么 \( z = 1/w \)（即 \( \varphi_2^{-1}(w) = 1/w \)）</li>
+                <li>然后 \( \varphi_1(1/w) = 1/w \)</li>
+                <li>所以 \( (\varphi_1 \circ \varphi_2^{-1})(w) = \frac{1}{w} \)</li>
+            </ul>
+
+            <p><span class="highlight">观察：</span>过渡映射和它的逆是<strong>同一个函数</strong> \( w \mapsto 1/w \)！这是因为 \( 1/(1/w) = w \)。</p>
+
+            <p><strong>结论：</strong>两个过渡映射都是全纯的（实际上是同一个全纯函数），因此黎曼球面的这个图册满足黎曼曲面的定义 ✓</p>
+        </div>
+
+        <h2>深入理解：无穷远点的坐标</h2>
+
+        <div class="example">
+            <div class="example-title">∞ 在两个坐标系中的表现</div>
+
+            <p>让我们理解"无穷远点"在两个坐标卡中是如何被处理的：</p>
+
+            <p><strong>在坐标卡 1（\(\varphi_1\)）中：</strong></p>
+            <ul>
+                <li>\( \infty \notin U_1 \)，所以这个坐标卡根本<strong>看不到</strong> \( \infty \)</li>
+                <li>从 \( \varphi_1 \) 的角度，当点"趋向无穷远"时（即 \( |z| \to \infty \)），这些点"逃出"了我们的视野</li>
+            </ul>
+
+            <p><strong>在坐标卡 2（\(\varphi_2\)）中：</strong></p>
+            <ul>
+                <li>\( \infty \in U_2 \)，并且 \( \varphi_2(\infty) = 0 \)</li>
+                <li>在这个坐标系中，\( \infty \) 被映射到复平面的<strong>原点</strong></li>
+                <li>这个坐标系"看得到"无穷远，并且把它当作一个<strong>普通的点</strong>（就是原点）</li>
+            </ul>
+
+            <div class="figure">
+                <svg width="700" height="350" viewBox="0 0 700 350">
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">无穷远点在两个坐标系中的位置</text>
+
+                    <!-- Left: φ₁ view -->
+                    <g transform="translate(170, 180)">
+                        <text x="0" y="-100" font-size="15" font-weight="bold" text-anchor="middle" fill="#1976d2">坐标卡 1 的视角</text>
+
+                        <!-- Complex plane with points going to infinity -->
+                        <circle cx="0" cy="0" r="90" fill="none" stroke="#1976d2" stroke-width="2" stroke-dasharray="5,3"/>
+
+                        <line x1="-100" y1="0" x2="100" y2="0" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="-100" x2="0" y2="100" stroke="#999" stroke-width="1"/>
+
+                        <!-- Points going outward -->
+                        <circle cx="20" cy="0" r="2" fill="#f39c12"/>
+                        <circle cx="40" cy="0" r="2" fill="#f39c12"/>
+                        <circle cx="60" cy="0" r="2" fill="#f39c12"/>
+                        <circle cx="80" cy="0" r="2" fill="#f39c12"/>
+
+                        <!-- Arrows indicating "going to infinity" -->
+                        <path d="M 85 0 L 105 0" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow3)"/>
+                        <text x="110" y="-10" font-size="12" fill="#e74c3c" font-weight="bold">z → ∞</text>
+                        <text x="80" y="25" font-size="11" fill="#e74c3c">"逃出"视野</text>
+
+                        <text x="0" y="120" font-size="12" text-anchor="middle" fill="#c62828" font-weight="bold">∞ 不在定义域内</text>
+                    </g>
+
+                    <!-- Right: φ₂ view -->
+                    <g transform="translate(530, 180)">
+                        <text x="0" y="-100" font-size="15" font-weight="bold" text-anchor="middle" fill="#7b1fa2">坐标卡 2 的视角</text>
+
+                        <!-- Complex plane -->
+                        <circle cx="0" cy="0" r="90" fill="none" stroke="#7b1fa2" stroke-width="2" stroke-dasharray="5,3"/>
+
+                        <line x1="-100" y1="0" x2="100" y2="0" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="-100" x2="0" y2="100" stroke="#999" stroke-width="1"/>
+
+                        <!-- Origin is special (represents ∞) -->
+                        <circle cx="0" cy="0" r="6" fill="#e74c3c" opacity="0.7"/>
+                        <text x="0" y="-15" font-size="13" fill="#c62828" font-weight="bold" text-anchor="middle">∞ 在这里！</text>
+                        <text x="0" y="-30" font-size="11" fill="#c62828" text-anchor="middle">φ₂(∞) = 0</text>
+
+                        <!-- Points: as z → ∞, φ₂(z) = 1/z → 0 -->
+                        <circle cx="60" cy="0" r="2" fill="#f39c12"/>
+                        <text x="65" y="-5" font-size="10" fill="#666">1/z₁</text>
+
+                        <circle cx="30" cy="0" r="2" fill="#f39c12"/>
+                        <text x="35" y="-5" font-size="10" fill="#666">1/z₂</text>
+
+                        <circle cx="12" cy="0" r="2" fill="#f39c12"/>
+                        <text x="16" y="-5" font-size="10" fill="#666">1/z₃</text>
+
+                        <path d="M 10 -35 Q 5 -25 3 -10" stroke="#16a085" stroke-width="1.5" marker-end="url(#arrow4)"/>
+                        <text x="12" y="-38" font-size="10" fill="#16a085">z → ∞ 时</text>
+                        <text x="12" y="-28" font-size="10" fill="#16a085">1/z → 0</text>
+
+                        <text x="0" y="120" font-size="12" text-anchor="middle" fill="#2e7d32" font-weight="bold">∞ 是普通点（在原点）</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#e74c3c"/>
+                        </marker>
+                        <marker id="arrow4" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto">
+                            <polygon points="0 0, 8 2.5, 0 5" fill="#16a085"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">
+                    坐标卡 2 通过"倒数"把无穷远点带到原点，使其成为可以局部分析的普通点
+                </div>
+            </div>
+
+            <p><strong>这就是为什么我们需要两个坐标卡：</strong></p>
+            <ul>
+                <li>任何一个坐标卡都无法"看到"整个球面（必须缺少至少一个点）</li>
+                <li>坐标卡 1 负责"有限部分"（整个 ℂ）</li>
+                <li>坐标卡 2 负责"无穷远处"（把 ∞ 当作普通点来处理）</li>
+                <li>两者的交集保证了过渡的光滑性（通过全纯的 \( w \mapsto 1/w \)）</li>
+            </ul>
+        </div>
+
+        <h2>几何直观：立体投影</h2>
+
+        <div class="example">
+            <div class="example-title">立体投影连接球面与复平面</div>
+
+            <p>立体投影（stereographic projection）给出了球面 \( S^2 \) 与 \( \mathbb{C} \cup \{\infty\} \) 之间的具体同胚。</p>
+
+            <p><strong>从北极投影：</strong></p>
+            <ul>
+                <li>将 \( S^2 \setminus \{N\} \)（球面去掉北极）投影到复平面 ℂ</li>
+                <li>这对应于坐标卡 1</li>
+                <li>北极 \( N \) 对应于 ∞</li>
+            </ul>
+
+            <p><strong>从南极投影：</strong></p>
+            <ul>
+                <li>将 \( S^2 \setminus \{S\} \)（球面去掉南极）投影到复平面 ℂ</li>
+                <li>这（本质上）对应于坐标卡 2</li>
+                <li>南极 \( S \) 对应于 ∞ 在新坐标系中的位置</li>
+            </ul>
+
+            <div class="figure">
+                <svg width="700" height="450" viewBox="0 0 700 450">
+                    <text x="350" y="25" font-size="18" font-weight="bold" text-anchor="middle">立体投影示意图</text>
+
+                    <!-- Main sphere -->
+                    <g transform="translate(350, 240)">
+                        <!-- Sphere -->
+                        <ellipse cx="0" cy="0" rx="120" ry="120" fill="none" stroke="#3498db" stroke-width="2"/>
+                        <ellipse cx="0" cy="0" rx="120" ry="35" fill="none" stroke="#3498db" stroke-width="1.5" opacity="0.4"/>
+
+                        <!-- North pole -->
+                        <circle cx="0" cy="-120" r="5" fill="#e74c3c"/>
+                        <text x="20" y="-115" font-size="13" fill="#c62828" font-weight="bold">N (北极)</text>
+
+                        <!-- South pole -->
+                        <circle cx="0" cy="120" r="5" fill="#27ae60"/>
+                        <text x="20" y="125" font-size="13" fill="#1e7e34" font-weight="bold">S (南极)</text>
+
+                        <!-- Point P on sphere -->
+                        <circle cx="50" cy="-30" r="4" fill="#f39c12"/>
+                        <text x="65" y="-25" font-size="12" fill="#f39c12" font-weight="bold">P</text>
+
+                        <!-- Projection line from N through P -->
+                        <line x1="0" y1="-120" x2="150" y2="90" stroke="#e91e63" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                        <!-- Complex plane (equatorial plane extended) -->
+                        <line x1="-200" y1="120" x2="200" y2="120" stroke="#999" stroke-width="2"/>
+                        <text x="-210" y="125" font-size="12" fill="#666">ℂ</text>
+
+                        <!-- Projected point on plane -->
+                        <circle cx="100" cy="120" r="4" fill="#9c27b0"/>
+                        <text x="110" y="115" font-size="12" fill="#7b1fa2" font-weight="bold">π(P)</text>
+
+                        <!-- Vertical line from projected point -->
+                        <line x1="100" y1="120" x2="50" y2="-30" stroke="#9c27b0" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+
+                        <!-- Labels -->
+                        <text x="-150" y="150" font-size="11" fill="#666">复平面ℂ（赤道平面）</text>
+                    </g>
+
+                    <!-- Explanation box -->
+                    <g transform="translate(50, 380)">
+                        <rect x="0" y="0" width="600" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+                        <text x="300" y="20" font-size="13" text-anchor="middle" fill="#1b5e20" font-weight="bold">立体投影的性质</text>
+                        <text x="300" y="38" font-size="11" text-anchor="middle" fill="#2e7d32">从北极 N 画一条射线穿过球面上的点 P，射线与赤道平面的交点就是 P 的投影</text>
+                        <text x="300" y="52" font-size="11" text-anchor="middle" fill="#2e7d32">这个映射是双射、连续，且保持角度（共形）！</text>
+                    </g>
+
+                    <!-- Arrow annotation -->
+                    <path d="M 400 180 L 445 210" stroke="#e91e63" stroke-width="2" marker-end="url(#arrow5)"/>
+                    <text x="455" y="195" font-size="11" fill="#c2185b">投影方向</text>
+
+                    <defs>
+                        <marker id="arrow5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#e91e63"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div class="figure-caption">立体投影：从球面到复平面的保角映射</div>
+            </div>
+
+            <p><strong>关键性质：</strong></p>
+            <ul>
+                <li>立体投影是<strong>共形的</strong>（保角的）</li>
+                <li>它建立了 \( S^2 \setminus \{N\} \) 与 ℂ 之间的双射</li>
+                <li>通过"加入"北极对应的点 ∞，得到 \( S^2 \leftrightarrow \mathbb{C} \cup \{\infty\} \)</li>
+            </ul>
+        </div>
+
+        <h2>总结</h2>
+
+        <div class="example">
+            <div class="example-title">为什么黎曼球面是黎曼曲面</div>
+
+            <p>我们已经完整地验证了黎曼球面满足黎曼曲面的所有条件：</p>
+
+            <ol>
+                <li><strong>连通性：</strong>✓ 黎曼球面显然是连通的</li>
+                <li><strong>覆盖：</strong>✓ 两个坐标卡 \( U_1 \cup U_2 = \mathbb{CP}^1 \) 覆盖整个空间</li>
+                <li><strong>同胚：</strong>✓ 每个坐标卡都同胚于 ℂ 中的开集：
+                    <ul>
+                        <li>\( \varphi_1: \mathbb{C} \to \mathbb{C} \) 是同胚</li>
+                        <li>\( \varphi_2: \mathbb{C}^* \cup \{\infty\} \to \mathbb{C} \) 是同胚</li>
+                    </ul>
+                </li>
+                <li><strong>过渡映射全纯：</strong>✓ 过渡映射 \( w \mapsto 1/w \) 在 \( \mathbb{C}^* \) 上全纯</li>
+            </ol>
+
+            <p style="margin-top: 1.5em; padding: 1em; background-color: #fff3e0; border-left: 4px solid #f57c00;">
+                <strong>关键洞察：</strong>黎曼球面展示了一个深刻的思想——通过"用两个局部坐标系拼接"，我们可以：
+                <ul style="margin: 0.5em 0;">
+                    <li>把一个紧致的几何对象（球面 \( S^2 \)）</li>
+                    <li>赋予复分析结构</li>
+                    <li>使其成为最简单的<strong>紧致黎曼曲面</strong>（亏格 g = 0）</li>
+                </ul>
+            </p>
+
+            <p><strong>黎曼球面在数学中的重要性：</strong></p>
+            <ul>
+                <li>它是最简单的紧致黎曼曲面</li>
+                <li>许多重要的函数（如有理函数、莫比乌斯变换）自然地定义在黎曼球面上</li>
+                <li>它是代数几何中<strong>射影直线</strong> \( \mathbb{CP}^1 \) 的复分析实现</li>
+                <li>黎曼-罗赫定理在黎曼球面上有最简单的形式</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>

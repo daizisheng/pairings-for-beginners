@@ -76,6 +76,80 @@
         <blockquote><p>\( \mathbb{C} \) 中的任何连通开集也是一个非紧致黎曼曲面。这类曲面的图册可以只包含一个坐标卡,与更复杂的曲面不同,不需要坐标变换。</p></blockquote>
 
         <div class="example">
+            <div class="example-title">直观理解</div>
+
+            <p><strong>黎曼曲面</strong>本质上是一个"局部看起来像复平面"的空间，这些局部坐标之间的转换必须是<strong>共形的</strong>（保持角度和复结构）。</p>
+
+            <p><strong>拼图类比：</strong>想象用很多小块复平面拼成一个曲面，每块是一个"局部坐标卡"，拼接规则要求重叠区域的对应关系必须是全纯函数（不仅仅是光滑函数）。</p>
+
+            <p><strong>关键区别：</strong><em>共形同构</em>（全纯过渡映射）的要求将黎曼曲面与一般光滑流形区分开来。这意味着黎曼曲面具有复结构，而不仅仅是光滑结构。</p>
+
+            <p><strong>"共形"是什么意思？</strong><em>共形映射</em>就是<strong>保角变换</strong>。这意味着如果两条曲线以某个角度相交，它们在共形映射下的像也以相同的角度相交。</p>
+
+            <p>在复分析的语境中，\( \mathbb{C} \) 中开集之间的映射是共形的，当且仅当它是<strong>全纯的且导数非零</strong>。因此：</p>
+            <ul>
+                <li>共形 = 保角 = 全纯 + 导数非零</li>
+                <li>例子：\( f(z) = z^2 \)（在 \( z=0 \) 之外）、\( f(z) = e^z \)、\( f(z) = \frac{az+b}{cz+d} \)（莫比乌斯变换）</li>
+                <li>反例：\( f(z) = \bar{z} \)（复共轭）保持角度但反转方向，且不是全纯的</li>
+            </ul>
+
+            <p>这就是为什么黎曼曲面的定义要求过渡映射是<em>共形同构</em> — 它们必须是全纯的、双射的，且有全纯的逆。这确保了复结构在坐标卡之间得以保持。</p>
+        </div>
+
+        <div class="example">
+            <div class="example-title">例子与反例</div>
+
+            <p><strong>例1：复平面 \( \mathbb{C} \)</strong> ✓ <em>是黎曼曲面</em></p>
+            <ul>
+                <li>这是非紧致黎曼曲面最简单的例子</li>
+                <li>只需要一个坐标卡（恒等映射）</li>
+                <li>无需坐标变换，全纯性条件自动满足</li>
+                <li>\( \mathbb{C} \) 的任何连通开子集（如单位圆盘 \( \{|z| < 1\} \)、上半平面 \( \{\text{Im}(z) > 0\}\)）也都是非紧致黎曼曲面</li>
+                <li><a href="ex1.html" target="_blank" style="color: #1976d2; font-weight: bold;">→ 详细讲解：为什么 ℂ 是黎曼曲面</a></li>
+            </ul>
+
+            <p><strong>例2：黎曼球面 \( \mathbb{CP}^1 \)</strong> ✓ <em>是黎曼曲面</em></p>
+            <ul>
+                <li><strong>紧致</strong>黎曼曲面最简单的例子</li>
+                <li>可看作 \( \mathbb{C} \cup \{\infty\} \)（复平面加上无穷远点）</li>
+                <li>需要至少两个坐标卡：
+                    <ul>
+                        <li>卡1：覆盖除北极点外的所有点，坐标为 \( z \)</li>
+                        <li>卡2：覆盖除南极点外的所有点，坐标为 \( w = 1/z \)</li>
+                    </ul>
+                </li>
+                <li>在重叠区域（两个卡都有定义的地方），过渡函数 \( w = 1/z \) 是全纯的</li>
+                <li><strong>亏格</strong>为 \( g = 0 \)（没有"把手"）</li>
+                <li><a href="ex2.html" target="_blank" style="color: #7b1fa2; font-weight: bold;">→ 详细讲解：为什么黎曼球面是黎曼曲面</a></li>
+                <li><a href="ex5.html" target="_blank" style="color: #ff5722; font-weight: bold;">→ 补充例子：为什么 x² + y² = 1 也是黎曼球面</a></li>
+            </ul>
+
+            <p><strong>反例：欧几里得平面 \( \mathbb{R}^2 \)</strong> ✗ <em>不是黎曼曲面</em></p>
+            <ul>
+                <li>虽然 \( \mathbb{R}^2 \) 和 \( \mathbb{C} \) 作为集合相同（通过 \( (x,y) \leftrightarrow x + iy \)），但它们的结构不同</li>
+                <li>\( \mathbb{R}^2 \) 只是<strong>实流形</strong>，不是复流形</li>
+                <li>缺少复结构：\( \mathbb{R}^2 \) 上的坐标变换只需光滑（可微），不要求全纯</li>
+                <li><strong>关键区别：</strong>
+                    <ul>
+                        <li>\( \mathbb{C} \)：过渡映射必须全纯（如 \( f(z) = z^2 \)、\( e^z \)）</li>
+                        <li>\( \mathbb{R}^2 \)：过渡映射只需光滑（如旋转、平移、任意光滑映射）</li>
+                    </ul>
+                </li>
+                <li>例如，映射 \( (x,y) \mapsto (x, -y) \)（反射）在 \( \mathbb{R}^2 \) 上是光滑的，但对应于 \( \mathbb{C} \) 上的 \( z \mapsto \bar{z} \)（复共轭），这<em>不是</em>全纯的</li>
+            </ul>
+
+            <p><strong>黎曼曲面的其他例子：</strong></p>
+            <ul>
+                <li><strong>环面</strong> \( \mathbb{C}/\Lambda \)：亏格 \( g = 1 \) 的紧致黎曼曲面（一个"把手"），就像甜甜圈的表面
+                    <br><a href="ex3.html" target="_blank" style="color: #4caf50; font-weight: bold;">→ 详细讲解：环面作为黎曼曲面</a>
+                    <br><a href="torus.html" target="_blank" style="color: #ff6f00; font-weight: bold;">🍩 互动动画：从"两张纸+拉链"到甜甜圈</a></li>
+                <li><strong>椭圆曲线</strong>：由方程 \( y^2 = x^3 + ax + b \) 定义的代数曲线，通过添加无穷远点进行紧化
+                    <br><a href="ex4.html" target="_blank" style="color: #9c27b0; font-weight: bold;">→ 详细讲解：椭圆曲线与黎曼曲面</a></li>
+                <li><strong>超椭圆曲线</strong>：亏格 \( g \geq 2 \) 的椭圆曲线推广</li>
+            </ul>
+        </div>
+
+        <div class="example">
             <div class="example-title">Remark 1.2 (注 1.2)</div>
             <p>In the following, unless explicitly stated otherwise, we assume that our Riemann surfaces are compact topological spaces.</p>
             <blockquote><p>在下文中,除非另有明确说明,我们假设我们的黎曼曲面是紧致拓扑空间。</p></blockquote>
