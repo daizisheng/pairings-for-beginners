@@ -4,8 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>y² = x 的向量场演示</title>
+    <!--
+    ====================================================================
+    黎曼面 y² = x 的参数化说明（第5步：最终合并的黎曼球）
+    ====================================================================
+
+    球面参数：(theta, phi)
+    - theta ∈ [0, π]：纬度（0=北极/∞，π/2=赤道，π=南极/0）
+    - phi ∈ [0, 2π)：经度（俯视角度）
+
+    立体投影（北极投影）：
+    - r = cot(theta/2) = |x|（复数 x 的模）
+    - theta = 2·atan(1/r)
+
+    分支划分和坐标映射：
+
+    1. +√x 分支（蓝色）：phi ∈ [0, π/2] ∪ (3π/2, 2π]
+       - arg(x) = 2·phi
+       - x = r·e^(i·2φ)
+       - y = +√x = √r·e^(i·φ)
+       - 回映射：给定 arg(x)，则 phi = arg(x)/2
+
+    2. -√x 分支（红色）：phi ∈ (π/2, 3π/2]
+       - arg(x) = 2·(phi - π)
+       - x = r·e^(i·2(φ-π))
+       - y = -√x = -√r·e^(i·(φ-π))
+       - 回映射：给定 arg(x)，则 phi = arg(x)/2 + π
+
+    关键点标注（赤道上，|x|=1）：
+    - phi=0:     "1"   → x=1,    y=+√1=1
+    - phi=π/4:   "i"   → x=i,    y=+√i=e^(iπ/4)
+    - phi=π/2:   "-1"  → x=-1,   y=+√(-1)=i
+    - phi=3π/4:  "-i"  → x=-i,   y=-√(-i)=...
+    - phi=π:     "1'"  → x=1,    y=-√1=-1
+    - phi=5π/4:  "i'"  → x=i,    y=-√i=-e^(iπ/4)
+    - phi=3π/2:  "-1'" → x=-1,   y=-√(-1)=-i
+    - phi=7π/4:  "-i'" → x=-i,   y=+√(-i)=...
+
+    ====================================================================
+    -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             margin: 0;
@@ -150,12 +191,37 @@
 <body>
     <h1>复函数 y² = x 的向量场可视化</h1>
 
+    <div class="description" style="background-color: #e8f4f8; padding: 15px; border-left: 4px solid #2196F3; margin-bottom: 20px;">
+        <h3>📐 复平方根函数的两个分支</h3>
+        <p><strong>对于复数 \(x = r \cdot e^{i\theta}\)，其中 \(r = |x|\)，\(\theta = \arg(x) \in (-\pi, \pi]\)</strong></p>
+
+        <h4 style="color: #2563eb; margin-top: 12px;">🔵 主值分支 \(+\sqrt{x}\)（蓝色）</h4>
+        <p style="margin-left: 20px; font-size: 16px;">
+            $$y = +\sqrt{x} = \sqrt{r} \cdot e^{i\theta/2}$$
+            <span style="font-size: 14px;">即：幅角减半，模取算术平方根</span>
+        </p>
+
+        <h4 style="color: #dc2626; margin-top: 12px;">🔴 负值分支 \(-\sqrt{x}\)（红色）</h4>
+        <p style="margin-left: 20px; font-size: 16px;">
+            $$y = -\sqrt{x} = -\sqrt{r} \cdot e^{i\theta/2} = \sqrt{r} \cdot e^{i(\theta/2 + \pi)}$$
+            <span style="font-size: 14px;">即：主值的相反数，等价于幅角加 \(\pi\)</span>
+        </p>
+
+        <p style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-left: 3px solid #ffc107;">
+            <strong>示例：</strong><br>
+            • \(x = 1\) (\(r=1, \theta=0\))：\(+\sqrt{1} = 1\)，\(-\sqrt{1} = -1\)<br>
+            • \(x = i\) (\(r=1, \theta=\pi/2\))：\(+\sqrt{i} = e^{i\pi/4} = \frac{\sqrt{2}}{2}(1+i)\)，\(-\sqrt{i} = -\frac{\sqrt{2}}{2}(1+i)\)<br>
+            • \(x = -1\) (\(r=1, \theta=\pi\))：\(+\sqrt{-1} = e^{i\pi/2} = i\)，\(-\sqrt{-1} = -i\)<br>
+            • \(x = -i\) (\(r=1, \theta=-\pi/2\))：\(+\sqrt{-i} = e^{-i\pi/4} = \frac{\sqrt{2}}{2}(1-i)\)，\(-\sqrt{-i} = -\frac{\sqrt{2}}{2}(1-i)\)
+        </p>
+    </div>
+
     <div class="description">
         <h3>2D 视图说明</h3>
-        <p><strong>函数：</strong>y² = x，即 y = ±√x，其中 x, y ∈ ℂ (复数)</p>
-        <p><strong>双值性：</strong>每个 x（除0外）对应两个 y 值，形成两个分支。</p>
-        <p><strong>颜色区分：</strong>蓝色表示正分支 y = +√x，红色表示负分支 y = -√x。</p>
-        <p><strong>复平面视图：</strong>在复平面上展示函数的向量场。对于每个网格点 x，在该点处绘制两个向量 y = ±√x。</p>
+        <p><strong>函数：</strong>\(y^2 = x\)，即 \(y = \pm\sqrt{x}\)，其中 \(x, y \in \mathbb{C}\)（复数）</p>
+        <p><strong>双值性：</strong>每个 \(x\)（除0外）对应两个 \(y\) 值，形成两个分支。</p>
+        <p><strong>颜色区分：</strong>蓝色表示正分支 \(y = +\sqrt{x}\)，红色表示负分支 \(y = -\sqrt{x}\)。</p>
+        <p><strong>复平面视图：</strong>在复平面上展示函数的向量场。对于每个网格点 \(x\)，在该点处绘制两个向量 \(y = \pm\sqrt{x}\)。</p>
     </div>
 
     <div class="main-container">
@@ -215,19 +281,19 @@
                     </label>
                     <label style="display: block; font-weight: normal; margin-bottom: 5px;">
                         <input type="radio" name="displayMode" value="upperPlus">
-                        上半平面 +√x，下半平面 -√x
+                        上半平面 \(+\sqrt{x}\)，下半平面 \(-\sqrt{x}\)
                     </label>
                     <label style="display: block; font-weight: normal;">
                         <input type="radio" name="displayMode" value="upperMinus">
-                        上半平面 -√x，下半平面 +√x
+                        上半平面 \(-\sqrt{x}\)，下半平面 \(+\sqrt{x}\)
                     </label>
                 </div>
             </div>
 
             <div class="legend">
                 <strong>分支颜色</strong>
-                <p style="color: #2563eb;">• 蓝色：y = +√x</p>
-                <p style="color: #dc2626;">• 红色：y = -√x</p>
+                <p style="color: #2563eb;">• 蓝色：\(y = +\sqrt{x}\)</p>
+                <p style="color: #dc2626;">• 红色：\(y = -\sqrt{x}\)</p>
                 <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
                 <p>• 每个点有两个箭头（两个分支）</p>
                 <p>• 在x=0处，两个分支重合</p>
@@ -243,7 +309,7 @@
         <h3>3D 黎曼球说明</h3>
         <p><strong>立体投影：</strong>复平面通过立体投影从北极映射到球面。复平面上的点 z = x + iy 对应球面上的点。</p>
         <p><strong>特殊点标注：</strong>红色 - 原点(0)，蓝色 - 实轴(±1)，绿色 - 虚轴(±i)，紫色 - 无穷远点(∞)在北极。</p>
-        <p><strong>双分支向量场：</strong>在球面上的每个采样点，显示两个向量 y = ±√x，用蓝色和红色区分。</p>
+        <p><strong>双分支向量场：</strong>在球面上的每个采样点，显示两个向量 \(y = \pm\sqrt{x}\)，用蓝色和红色区分。</p>
         <p><strong>交互：</strong>使用鼠标拖拽旋转，滚轮缩放。</p>
     </div>
 
@@ -298,11 +364,19 @@
                     </label>
                     <label style="display: block; font-weight: normal; margin-bottom: 5px;">
                         <input type="radio" name="displayMode3D" value="upperPlus">
-                        上半平面 +√x，下半平面 -√x
+                        上半平面 \(+\sqrt{x}\)，下半平面 \(-\sqrt{x}\)
+                    </label>
+                    <label style="display: block; font-weight: normal; margin-bottom: 5px;">
+                        <input type="radio" name="displayMode3D" value="upperMinus">
+                        上半平面 \(-\sqrt{x}\)，下半平面 \(+\sqrt{x}\)
+                    </label>
+                    <label style="display: block; font-weight: normal; margin-bottom: 5px;">
+                        <input type="radio" name="displayMode3D" value="onlyPlus">
+                        只显示 \(+\sqrt{x}\)
                     </label>
                     <label style="display: block; font-weight: normal;">
-                        <input type="radio" name="displayMode3D" value="upperMinus">
-                        上半平面 -√x，下半平面 +√x
+                        <input type="radio" name="displayMode3D" value="onlyMinus">
+                        只显示 \(-\sqrt{x}\)
                     </label>
                 </div>
             </div>
@@ -383,14 +457,14 @@
 
             <div class="legend">
                 <strong>构造步骤说明</strong>
-                <p>1. 两个独立的黎曼球（左：+√x，右：-√x）</p>
+                <p>1. 两个独立的黎曼球（左：\(+\sqrt{x}\)，右：\(-\sqrt{x}\)）</p>
                 <p>2. 标记分支切割线</p>
                 <p>3. 沿切割线切开</p>
                 <p>4. 准备交叉缝合</p>
                 <p>5. 完成缝合形成黎曼面</p>
                 <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <p style="color: #2563eb;">• 蓝色箭头：+√x 分支</p>
-                <p style="color: #dc2626;">• 红色箭头：-√x 分支</p>
+                <p style="color: #2563eb;">• 蓝色箭头：\(+\sqrt{x}\) 分支</p>
+                <p style="color: #dc2626;">• 红色箭头：\(-\sqrt{x}\) 分支</p>
             </div>
         </div>
     </div>
@@ -886,6 +960,10 @@
 
                     if (displayMode === 'both') {
                         branchesToShow = [0, 1];
+                    } else if (displayMode === 'onlyPlus') {
+                        branchesToShow = [0];
+                    } else if (displayMode === 'onlyMinus') {
+                        branchesToShow = [1];
                     } else if (displayMode === 'upperPlus') {
                         // 上半平面 +√x，下半平面 -√x
                         if (y > 0) {
@@ -918,22 +996,45 @@
                         }
                     }
 
-                    const epsilon = 0.01;
-
                     // 绘制选定的分支
                     branchesToShow.forEach(branchIndex => {
                         const result = ySolutions[branchIndex];
-                        const x1 = x + result.real * epsilon;
-                        const y1 = y + result.imag * epsilon;
 
-                        const spherePos1 = stereographicProjection(x1, y1);
-                        const target = new THREE.Vector3(spherePos1.x, spherePos1.y, spherePos1.z);
+                        // 用平面方式表示向量：y = result.real + i*result.imag
+                        // 1→右，i→上，-1→左，-i→下（在复平面上）
 
-                        let direction = target.clone().sub(origin);
+                        // 球面切空间的正交基
+                        // e_theta: 径向（对应复平面实部）
+                        const e_theta = new THREE.Vector3(
+                            Math.cos(theta) * Math.cos(phi),
+                            Math.cos(theta) * Math.sin(phi),
+                            -Math.sin(theta)
+                        );
 
-                        const normal = origin.clone().normalize();
-                        const normalComponent = direction.dot(normal);
-                        direction.sub(normal.clone().multiplyScalar(normalComponent));
+                        // e_phi: 角向（对应复平面虚部）
+                        const e_phi = new THREE.Vector3(
+                            -Math.sin(theta) * Math.sin(phi),
+                            Math.sin(theta) * Math.cos(phi),
+                            0
+                        );
+
+                        // 度量缩放因子：北极投影的共形因子 λ = 2/(1+|x|²)
+                        const r = Math.sqrt(x * x + y * y);
+                        const metricFactor = 2 / (1 + r * r);
+
+                        // 纬度衰减：赤道(θ=π/2)处为1，远离赤道指数衰减
+                        const distanceFromEquator = Math.abs(theta - Math.PI / 2);
+                        const latitudeDecay = Math.exp(-2 * distanceFromEquator);
+
+                        // 总缩放 = 度量因子 × 纬度衰减
+                        const totalScale = metricFactor * latitudeDecay;
+
+                        // 将 y 的实部和虚部映射到切向量（用固定的复平面坐标系）
+                        // 在点 (θ, φ) 处，复平面的坐标轴方向：
+                        // 实轴(1)方向 = e_phi 方向（俯视逆时针，从x=1看是向右）
+                        // 虚轴(i)方向 = -e_theta 方向（向外，朝向无穷远）
+                        let direction = e_phi.clone().multiplyScalar(result.real * totalScale)
+                            .add(e_theta.clone().multiplyScalar(-result.imag * totalScale));
 
                         const arrowColor = branchIndex === 0 ? 0x2563eb : 0xdc2626;
 
@@ -1201,13 +1302,16 @@
             const vectorLen = parseFloat(constructionVectorLengthInput.value) / 100;
 
             const thetaSteps = sphereDensity;
-            const phiSteps = sphereDensity * 4; // 4倍，因为要绕两圈
+            const phiSteps = sphereDensity * 2; // 2倍采样密度
 
             for (let i = 0; i <= thetaSteps; i++) {
                 const theta = (Math.PI * i) / thetaSteps;
 
+                // 跳过极点附近（避免无穷大导致的数值问题）
+                if (theta < 0.01 || theta > Math.PI - 0.01) continue;
+
                 for (let j = 0; j < phiSteps; j++) {
-                    const phi = (4 * Math.PI * j) / phiSteps; // phi 从 0 到 4π
+                    const phi = (2 * Math.PI * j) / phiSteps; // phi 从 0 到 2π
 
                     // 球面坐标
                     const X = Math.sin(theta) * Math.cos(phi);
@@ -1216,40 +1320,65 @@
 
                     const origin = new THREE.Vector3(X, Y, Z);
 
-                    // 反向立体投影：phi/2 对应复平面的角度
-                    const complexPhi = phi / 2; // 除以2，使得绕两圈
-                    const r = Math.tan(theta / 2); // 从球面坐标得到复平面的模
-                    const x = r * Math.cos(complexPhi);
-                    const y = r * Math.sin(complexPhi);
+                    // 反向立体投影（北极投影）
+                    const r = Math.cos(theta / 2) / Math.sin(theta / 2); // cot(theta/2)，北极投影
+
+                    // 根据 phi 的范围决定用哪个分支和对应的 arg(x)
+                    let branchIndex;
+                    let argX;
+
+                    if (phi <= Math.PI/2 || phi > 3*Math.PI/2) {
+                        // phi ∈ (-π/2, π/2]：+√x 分支（蓝色）
+                        branchIndex = 0;
+                        argX = 2 * phi;
+                    } else {
+                        // phi ∈ (π/2, 3π/2]：-√x 分支（红色）
+                        branchIndex = 1;
+                        argX = 2 * (phi - Math.PI);
+                    }
+
+                    const x = r * Math.cos(argX);
+                    const y = r * Math.sin(argX);
 
                     // 计算 ±√x
                     const ySolutions = complexSqrt(x, y);
-
-                    // 根据 phi 的范围决定用哪个分支
-                    // phi ∈ [0, 2π): 第一圈，用 +√x（分支0）
-                    // phi ∈ [2π, 4π): 第二圈，用 -√x（分支1）
-                    const branchIndex = (phi < 2 * Math.PI) ? 0 : 1;
                     const result = ySolutions[branchIndex];
 
-                    const epsilon = 0.01;
-                    const x1 = x + result.real * epsilon;
-                    const y1 = y + result.imag * epsilon;
+                    // 用平面方式表示向量：y = result.real + i*result.imag
+                    // 1→右，i→上，-1→左，-i→下（在复平面上）
 
-                    // 将结果映射回球面（使用相同的 phi/2）
-                    const r1 = Math.sqrt(x1*x1 + y1*y1);
-                    const phi1 = Math.atan2(y1, x1);
-                    const theta1 = 2 * Math.atan(r1);
+                    // 球面切空间的正交基（在当前点的切平面）
+                    // e_r: 径向（对应复平面的实部方向，从原点向外）
+                    // e_t: 切向（对应复平面的虚部方向，逆时针旋转90度）
 
-                    const target = new THREE.Vector3(
-                        Math.sin(theta1) * Math.cos(phi1 * 2),
-                        Math.sin(theta1) * Math.sin(phi1 * 2),
-                        Math.cos(theta1)
+                    // 在球面上，复平面的"实部"方向对应 e_theta（径向）
+                    const e_theta = new THREE.Vector3(
+                        Math.cos(theta) * Math.cos(phi),
+                        Math.cos(theta) * Math.sin(phi),
+                        -Math.sin(theta)
                     );
 
-                    let direction = target.clone().sub(origin);
-                    const normal = origin.clone().normalize();
-                    const normalComponent = direction.dot(normal);
-                    direction.sub(normal.clone().multiplyScalar(normalComponent));
+                    // 复平面的"虚部"方向对应 e_phi（角向）
+                    const e_phi = new THREE.Vector3(
+                        -Math.sin(theta) * Math.sin(phi),
+                        Math.sin(theta) * Math.cos(phi),
+                        0
+                    );
+
+                    // 度量缩放因子：北极投影的共形因子 λ = 2/(1+r²)
+                    const metricFactor = 2 / (1 + r * r);
+
+                    // 纬度衰减：赤道(θ=π/2)处为1，远离赤道指数衰减
+                    const distanceFromEquator = Math.abs(theta - Math.PI / 2);
+                    const latitudeDecay = Math.exp(-2 * distanceFromEquator);
+                    const totalScale = metricFactor * latitudeDecay;
+
+                    // 将 y 的实部和虚部映射到切向量
+                    // Re(y) → e_phi 方向（逆时针，从x看是向右）
+                    // Im(y) → -e_theta 方向（径向向外，朝向无穷远）
+                    // 考虑度量缩放 + 纬度衰减
+                    let direction = e_phi.clone().multiplyScalar(result.real * totalScale)
+                        .add(e_theta.clone().multiplyScalar(-result.imag * totalScale));
 
                     const arrowColor = branchIndex === 0 ? 0x2563eb : 0xdc2626;
 
@@ -1278,16 +1407,15 @@
             // 第一圈（phi: 0→2π）包含 1,i,-1,-i（第一个分支）
             // 第二圈（phi: 2π→4π）包含 1',i',-1',-i'（第二个分支）
             const labels = [
-                // 第一圈（第一个分支）
-                { phi: 0, name: '1', color: '#0000ff' },              // complexArg=0, z=1
-                { phi: Math.PI, name: 'i', color: '#00aa00' },        // complexArg=π/2, z=i
-                { phi: 2*Math.PI, name: '-1', color: '#0000ff' },     // complexArg=π, z=-1
-                { phi: 3*Math.PI, name: '-i', color: '#00aa00' },     // complexArg=3π/2, z=-i
-                // 第二圈（第二个分支）
-                { phi: 4*Math.PI, name: "1'", color: '#0000ff' },     // complexArg=2π≈0, z=1 (第二个分支)
-                { phi: 5*Math.PI, name: "i'", color: '#00aa00' },     // complexArg=5π/2, z=i (第二个分支)
-                { phi: 6*Math.PI, name: "-1'", color: '#0000ff' },    // complexArg=3π, z=-1 (第二个分支)
-                { phi: 7*Math.PI, name: "-i'", color: '#00aa00' }     // complexArg=7π/2, z=-i (第二个分支)
+                // 赤道上均匀分布8个标签，间隔45度（π/4）
+                { phi: 0, name: '1', color: '#0000ff' },
+                { phi: Math.PI/4, name: 'i', color: '#00aa00' },
+                { phi: Math.PI/2, name: '-1', color: '#0000ff' },
+                { phi: 3*Math.PI/4, name: '-i', color: '#00aa00' },
+                { phi: Math.PI, name: "1'", color: '#0000ff' },
+                { phi: 5*Math.PI/4, name: "i'", color: '#00aa00' },
+                { phi: 3*Math.PI/2, name: "-1'", color: '#0000ff' },
+                { phi: 7*Math.PI/4, name: "-i'", color: '#00aa00' }
             ];
 
             const theta = Math.PI / 2; // 赤道
@@ -1538,18 +1666,32 @@
                     const y = complex.y;
 
                     const ySolutions = complexSqrt(x, y);
-                    const epsilon = 0.01;
+
+                    // 球面切空间的正交基
+                    const e_theta = new THREE.Vector3(
+                        Math.cos(theta) * Math.cos(phi),
+                        Math.cos(theta) * Math.sin(phi),
+                        -Math.sin(theta)
+                    );
+                    const e_phi = new THREE.Vector3(
+                        -Math.sin(theta) * Math.sin(phi),
+                        Math.sin(theta) * Math.cos(phi),
+                        0
+                    );
+
+                    // 度量缩放因子
+                    const r = Math.sqrt(x * x + y * y);
+                    const metricFactor = 2 / (1 + r * r);
+
+                    // 纬度衰减
+                    const distanceFromEquator = Math.abs(theta - Math.PI / 2);
+                    const latitudeDecay = Math.exp(-2 * distanceFromEquator);
+                    const totalScale = metricFactor * latitudeDecay;
 
                     // 球1：显示 +√x（分支0）
                     const result0 = ySolutions[0];
-                    const x1_0 = x + result0.real * epsilon;
-                    const y1_0 = y + result0.imag * epsilon;
-                    const spherePos1_0 = stereographicProjection(x1_0, y1_0);
-                    const target0 = new THREE.Vector3(spherePos1_0.x, spherePos1_0.y, spherePos1_0.z);
-                    let direction0 = target0.clone().sub(origin);
-                    const normal0 = origin.clone().normalize();
-                    const normalComponent0 = direction0.dot(normal0);
-                    direction0.sub(normal0.clone().multiplyScalar(normalComponent0));
+                    let direction0 = e_phi.clone().multiplyScalar(result0.real * totalScale)
+                        .add(e_theta.clone().multiplyScalar(-result0.imag * totalScale));
 
                     if (direction0.length() > 0.0001) {
                         direction0.normalize();
@@ -1566,14 +1708,8 @@
 
                     // 球2：显示 -√x（分支1）
                     const result1 = ySolutions[1];
-                    const x1_1 = x + result1.real * epsilon;
-                    const y1_1 = y + result1.imag * epsilon;
-                    const spherePos1_1 = stereographicProjection(x1_1, y1_1);
-                    const target1 = new THREE.Vector3(spherePos1_1.x, spherePos1_1.y, spherePos1_1.z);
-                    let direction1 = target1.clone().sub(origin);
-                    const normal1 = origin.clone().normalize();
-                    const normalComponent1 = direction1.dot(normal1);
-                    direction1.sub(normal1.clone().multiplyScalar(normalComponent1));
+                    let direction1 = e_phi.clone().multiplyScalar(result1.real * totalScale)
+                        .add(e_theta.clone().multiplyScalar(-result1.imag * totalScale));
 
                     if (direction1.length() > 0.0001) {
                         direction1.normalize();
