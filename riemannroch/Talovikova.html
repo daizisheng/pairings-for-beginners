@@ -19,6 +19,8 @@
         .exercise-item {margin: 1em 0; padding-left: 1.5em;}
         .example {background-color: #fff9e6; padding: 1em; margin: 1.5em 0; border-left: 4px solid #f39c12; border-radius: 4px;}
         .example-title {font-weight: bold; color: #f39c12; margin-bottom: 0.5em;}
+        .added-content {background-color: #e8f5e9; padding: 1em; margin: 1.5em 0; border-left: 4px solid #4caf50; border-radius: 4px;}
+        .added-content .example-title {color: #2e7d32;}
         .figure {text-align: center; margin: 2em 0;}
         .figure img {max-width: 100%;height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;}
         .figure-caption {font-style: italic; color: #666; margin-top: 0.5em;}
@@ -33,6 +35,139 @@
 
         <blockquote><p><strong>摘要.</strong> 本文简要介绍了代数几何,并提供了若干定理和引理及其证明,以及许多有助于深入直观理解相关内容的例子。在完成必要的预备知识之后,本文给出了黎曼-罗赫定理的初等证明。黎曼-罗赫定理是复分析和代数几何领域的重要工具,用于计算具有指定零点和允许极点的亚纯函数空间的维数。它还将紧致连通黎曼曲面的复分析与曲面的纯拓扑亏格联系起来,并且这种联系可以推广到纯代数的情形。</p></blockquote>
 
+        <div class="added-content">
+            <div class="example-title">预备知识：三类函数的本质区别</div>
+            <p>在数学（特别是复分析）中，这三类函数的区别不仅仅是定义域的不同，更在于它们展现出的<strong>"硬度"</strong>或<strong>"刚性"（Rigidity）</strong>完全不同。我们可以把它们看作是三种不同"等级"的规则约束：</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>1. 普通函数 (Ordinary Functions)</strong></p>
+            <p>通常指实变函数（如 \( f: \mathbb{R} \to \mathbb{R} \)）。</p>
+            <ul>
+                <li><strong>约束极少：</strong>只要有对应关系即可。即便要求连续或可微，它依然可以非常"随意"。</li>
+                <li><strong>局部不决定整体：</strong>你知道一个实函数在 \( x < 0 \) 上的表现，完全无法推断它在 \( x > 0 \) 时是什么样子。</li>
+                <li><strong>光滑度：</strong>即使是一阶可微，也不一定二阶可微。</li>
+            </ul>
+
+            <p><strong>2. 全纯函数 (Holomorphic Functions)</strong></p>
+            <p>这是复分析的灵魂。如果一个复函数 \( f: U \to \mathbb{C} \) 在区域 \( U \) 内每一点都<strong>复可微</strong>，它就是全纯的。</p>
+            <ul>
+                <li><strong>极其强大的约束：</strong>一处可微，处处光滑（无穷阶可微）。</li>
+                <li><strong>解析性：</strong>每一个全纯函数都可以局部展开成幂级数（泰勒级数）。</li>
+                <li><strong>刚性（Identity Theorem）：</strong>如果两个全纯函数在某个小区域甚至一小段弧线上相等，那么它们在整个连通域内都必须完全相等。</li>
+                <li><strong>无孤立奇点：</strong>全纯函数在定义域内不能有任何"坏点"（如无穷大）。</li>
+            </ul>
+
+            <p><strong>3. 亚纯函数 (Meromorphic Functions)</strong></p>
+            <p>亚纯函数是全纯函数的"泛化版"。简单来说，它在定义域内<strong>除了某些孤立的奇点（极点）外</strong>，处处全纯。</p>
+            <ul>
+                <li><strong>允许"极点"：</strong>比如 \( f(z) = 1/z \)。在 \( z = 0 \) 处它会趋于无穷大，但在其他地方它表现得和全纯函数一样完美。</li>
+                <li><strong>本质是比例：</strong>任何亚纯函数都可以看作是两个全纯函数相除的结果（分母不恒为零）。</li>
+                <li><strong>黎曼球面：</strong>如果我们将复平面加上无穷远点组成黎曼球面 \( \hat{\mathbb{C}} \)，亚纯函数其实就是从复平面到黎曼球面的全纯映射。</li>
+            </ul>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>核心区别对比表</strong></p>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.95em;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">特性</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">普通函数 (实函数)</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">全纯函数</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">亚纯函数</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>定义域性质</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">任意实数集</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">复平面上的开集</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">复平面（允许孤立极点）</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>可微性</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">阶数有限（通常）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">无穷阶可微（解析）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">除极点外无穷阶可微</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>奇点表现</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">无定义或不连续</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">不允许有奇点</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">只允许有<strong>极点</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>刚性</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">极弱</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">极强（局部决定整体）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">强（由零点和极点位置决定）</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>直观理解</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">随意勾画的曲线</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">像晶体一样结构严密的整体</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">带有几个"漏洞（极点）"的晶体</td>
+                </tr>
+            </table>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>总结</strong></p>
+            <ul>
+                <li><strong>全纯函数</strong>是复平面上最完美的函数，没有任何瑕疵。</li>
+                <li><strong>亚纯函数</strong>是允许有"极点"的全纯函数，它在极点处会变成无穷大，但这种无穷大是"温和"的（可控的）。</li>
+                <li><strong>普通函数</strong>则缺乏复对称性带来的神奇约束（如柯西-黎曼方程），因此没有上述两者的各种优美性质。</li>
+            </ul>
+
+            <div style="background: #fff3e0; padding: 15px; border-radius: 4px; margin-top: 15px; border-left: 4px solid #ff9800;">
+                <p style="margin: 0;"><strong>点睛之笔：</strong>亚纯函数之所以重要，是因为在紧致黎曼曲面上，除了常数函数外，不存在处处全纯的函数（由刘维尔定理推广而来，即 Proposition 2.2）。此时<strong>亚纯函数</strong>就成了我们研究这些空间最主要的工具。</p>
+            </div>
+        </div>
+
+        <div class="added-content">
+            <div class="example-title">关键洞察：亚纯函数 vs 全纯映射</div>
+
+            <p><strong>问：如果把值域从 \( \mathbb{C} \) 换成黎曼球面 \( \hat{\mathbb{C}} = \mathbb{C} \cup \{\infty\} \)，亚纯函数是不是就变成全纯函数了？</strong></p>
+
+            <p><strong>答：是的！</strong>这正是本文 Proposition 2.4 的核心内容：</p>
+
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 4px; margin: 15px 0; text-align: center; font-size: 1.1em;">
+                <strong>亚纯函数</strong> \( f: X \to \mathbb{C} \) \( \quad\Longleftrightarrow\quad \) <strong>全纯映射</strong> \( \bar{f}: X \to \hat{\mathbb{C}} \)
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">视角</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">值域</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">极点处的情况</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">术语</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">传统视角</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \mathbb{C} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">"爆掉"，未定义（\( \infty \notin \mathbb{C} \)）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">亚纯函数</td>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td style="border: 1px solid #ccc; padding: 8px;">现代视角</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \hat{\mathbb{C}} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( f(x) = \infty \)，完全正常！</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">全纯映射</td>
+                </tr>
+            </table>
+
+            <p><strong>直观理解：</strong></p>
+            <ul>
+                <li>\( f(z) = 1/z \) 在 \( z = 0 \) 处"爆掉"了 → 但如果 \( \infty \) 是合法的值，\( f(0) = \infty \) 就完全正常</li>
+                <li><strong>极点</strong> = 被映射到黎曼球面北极（\( \infty \)）的点</li>
+                <li>不再有"奇点"，全程全纯！</li>
+            </ul>
+
+            <p><strong>结论：</strong></p>
+            <div style="background: #fff3e0; padding: 15px; border-radius: 4px; border-left: 4px solid #ff9800;">
+                <p style="margin: 0;"><strong>"亚纯"这个概念的存在，本质上是因为我们坚持用 \( \mathbb{C} \) 作为值域。</strong></p>
+                <p style="margin: 10px 0 0 0;">如果一开始就用 \( \hat{\mathbb{C}} \) 作为值域，就没有"亚纯函数"这个概念了——只有"全纯映射到黎曼球面"。黎曼球面把"病态"（极点）变成了"正常"（映射到 \( \infty \)）。</p>
+            </div>
+        </div>
+
         <p><strong>Contents</strong></p>
         <p>1. Introduction to Riemann surfaces<br>
         2. Holomorphic and meromorphic functions on Riemann surfaces<br>
@@ -46,7 +181,7 @@
         2. 黎曼曲面上的全纯函数和亚纯函数<br>
         3. 覆盖<br>
         4. 黎曼曲面上的全纯和亚纯1-形式<br>
-        5. 因子<br>
+        5. 除子<br>
         6. 黎曼-罗赫定理</p></blockquote>
 
         <p>Some preliminaries for this article can be found at [1], Preliminaries. Necessary information on coverings can be read at [3], Ch. 5.</p>
@@ -96,33 +231,48 @@
             <p>这就是为什么黎曼曲面的定义要求过渡映射是<em>共形同构</em> — 它们必须是全纯的、双射的，且有全纯的逆。这确保了复结构在坐标卡之间得以保持。</p>
         </div>
 
-        <div class="example">
+        <div class="added-content">
             <div class="example-title">例子与反例</div>
 
-            <p><strong>例1：复平面 \( \mathbb{C} \)</strong> ✓ <em>是黎曼曲面</em></p>
+            <p><strong>Genus 0 的例子（黎曼球面）：</strong></p>
+
+            <p><strong>例1：\( y^2 = x \)</strong> ✓ <em>是黎曼曲面，亏格 \( g = 0 \)</em></p>
             <ul>
-                <li>这是非紧致黎曼曲面最简单的例子</li>
-                <li>只需要一个坐标卡（恒等映射）</li>
-                <li>无需坐标变换，全纯性条件自动满足</li>
-                <li>\( \mathbb{C} \) 的任何连通开子集（如单位圆盘 \( \{|z| < 1\} \)、上半平面 \( \{\text{Im}(z) > 0\}\)）也都是非紧致黎曼曲面</li>
-                <li><a href="ex1.html" target="_blank" style="color: #1976d2; font-weight: bold;">→ 详细讲解：为什么 ℂ 是黎曼曲面</a></li>
+                <li>这是最简单的代数曲线之一，等价于 \( y = \pm\sqrt{x} \)</li>
+                <li>两个分支点：\( x = 0 \) 和 \( x = \infty \)</li>
+                <li>分支切割：沿负实轴</li>
+                <li>黎曼面拓扑：两个黎曼球沿切割线缝合，结果仍是球面</li>
+                <li><a href="top/y_squared_equals_x.html" target="_blank" style="color: #2563eb; font-weight: bold;">→ 互动可视化：\( y^2 = x \) 的黎曼面</a></li>
             </ul>
 
-            <p><strong>例2：黎曼球面 \( \mathbb{CP}^1 \)</strong> ✓ <em>是黎曼曲面</em></p>
+            <p><strong>例2：\( y^3 = x \)</strong> ✓ <em>是黎曼曲面，亏格 \( g = 0 \)</em></p>
             <ul>
-                <li><strong>紧致</strong>黎曼曲面最简单的例子</li>
-                <li>可看作 \( \mathbb{C} \cup \{\infty\} \)（复平面加上无穷远点）</li>
-                <li>需要至少两个坐标卡：
-                    <ul>
-                        <li>卡1：覆盖除北极点外的所有点，坐标为 \( z \)</li>
-                        <li>卡2：覆盖除南极点外的所有点，坐标为 \( w = 1/z \)</li>
-                    </ul>
-                </li>
-                <li>在重叠区域（两个卡都有定义的地方），过渡函数 \( w = 1/z \) 是全纯的</li>
-                <li><strong>亏格</strong>为 \( g = 0 \)（没有"把手"）</li>
-                <li><a href="ex2.html" target="_blank" style="color: #7b1fa2; font-weight: bold;">→ 详细讲解：为什么黎曼球面是黎曼曲面</a></li>
-                <li><a href="ex5.html" target="_blank" style="color: #ff5722; font-weight: bold;">→ 补充例子：为什么 x² + y² = 1 也是黎曼球面</a></li>
+                <li>三次根函数 \( y = \sqrt[3]{x} \)，有三个分支</li>
+                <li>两个分支点：\( x = 0 \) 和 \( x = \infty \)</li>
+                <li>三个黎曼球沿切割线循环缝合</li>
+                <li><a href="top/y_cubed_equals_x.html" target="_blank" style="color: #7b1fa2; font-weight: bold;">→ 互动可视化：\( y^3 = x \) 的黎曼面</a></li>
             </ul>
+
+            <p><strong>例3：\( y^2 = x^2 + 1 \)（双曲线）</strong> ✓ <em>是黎曼曲面，亏格 \( g = 0 \)</em></p>
+            <ul>
+                <li>等价于 \( y = \pm\sqrt{x^2 + 1} \)</li>
+                <li>两个分支点：\( x = i \) 和 \( x = -i \)</li>
+                <li>分支切割：连接 \( i \) 和 \( -i \) 的线段（虚轴上）</li>
+                <li><a href="top/hyperbola_visualization.html" target="_blank" style="color: #059669; font-weight: bold;">→ 互动可视化：双曲线 \( y^2 = x^2 + 1 \) 的黎曼面</a></li>
+            </ul>
+
+            <p><strong>Genus 1 的例子（环面/椭圆曲线）：</strong></p>
+
+            <p><strong>例4：\( y^2 = x^3 - x \)（椭圆曲线）</strong> ✓ <em>是黎曼曲面，亏格 \( g = 1 \)</em></p>
+            <ul>
+                <li>Weierstrass 形式的椭圆曲线：\( y^2 = x(x-1)(x+1) \)</li>
+                <li>四个分支点：\( x = -1, 0, 1, \infty \)（全在实轴上）</li>
+                <li>两条分支切割：\( (-\infty, -1] \) 和 \( [0, 1] \)</li>
+                <li>黎曼面拓扑：两个黎曼球交叉缝合形成<strong>环面（torus）</strong></li>
+                <li><a href="top/y_squared_equals_x_cubed_minus_x.html" target="_blank" style="color: #e74c3c; font-weight: bold;">→ 互动可视化：椭圆曲线 \( y^2 = x^3 - x \) 的黎曼面</a></li>
+            </ul>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px dashed #ccc;">
 
             <p><strong>反例：欧几里得平面 \( \mathbb{R}^2 \)</strong> ✗ <em>不是黎曼曲面</em></p>
             <ul>
@@ -136,16 +286,6 @@
                     </ul>
                 </li>
                 <li>例如，映射 \( (x,y) \mapsto (x, -y) \)（反射）在 \( \mathbb{R}^2 \) 上是光滑的，但对应于 \( \mathbb{C} \) 上的 \( z \mapsto \bar{z} \)（复共轭），这<em>不是</em>全纯的</li>
-            </ul>
-
-            <p><strong>黎曼曲面的其他例子：</strong></p>
-            <ul>
-                <li><strong>环面</strong> \( \mathbb{C}/\Lambda \)：亏格 \( g = 1 \) 的紧致黎曼曲面（一个"把手"），就像甜甜圈的表面
-                    <br><a href="ex3.html" target="_blank" style="color: #4caf50; font-weight: bold;">→ 详细讲解：环面作为黎曼曲面</a>
-                    <br><a href="torus.html" target="_blank" style="color: #ff6f00; font-weight: bold;">🍩 互动动画：从"两张纸+拉链"到甜甜圈</a></li>
-                <li><strong>椭圆曲线</strong>：由方程 \( y^2 = x^3 + ax + b \) 定义的代数曲线，通过添加无穷远点进行紧化
-                    <br><a href="ex4.html" target="_blank" style="color: #9c27b0; font-weight: bold;">→ 详细讲解：椭圆曲线与黎曼曲面</a></li>
-                <li><strong>超椭圆曲线</strong>：亏格 \( g \geq 2 \) 的椭圆曲线推广</li>
             </ul>
         </div>
 
@@ -213,6 +353,17 @@
             <blockquote><p>设 \( X \) 是不一定紧致的黎曼曲面。\( X \) 上的函数 \( f \) 称为<strong>亚纯的</strong>,如果 \( f \) 在 \( X \setminus S \) 上全纯,其中 \( S \subset X \) 是 \( X \) 的一个离散(可能为空的)子集,且 \( f \) 在 \( S \) 中的每个点 \( x \in S \) 处有极点。</p></blockquote>
         </div>
 
+        <div class="added-content">
+            <div class="example-title">关于值域的说明</div>
+            <p>上述定义中没有明确指出函数 \( f \) 的<strong>值域</strong>。隐含的约定是：</p>
+            <ul>
+                <li>在 \( X \setminus S \) 上（非极点处）：\( f \) 取值于 \( \mathbb{C} \)</li>
+                <li>在极点 \( S \) 上：\( f \) 的值为 \( \infty \)</li>
+                <li>因此，亚纯函数的完整值域是<strong>黎曼球面</strong> \( \hat{\mathbb{C}} = \mathbb{C} \cup \{\infty\} \)</li>
+            </ul>
+            <p>这一点由下面的 <strong>Proposition 2.4</strong> 精确表述：亚纯函数等价于到黎曼球面的全纯映射。</p>
+        </div>
+
         <p>Obviously, any holomorphic function is also meromorphic; the sums, differences, products, and quotients of two meromorphic functions are also meromorphic.</p>
 
         <blockquote><p>显然,任何全纯函数也是亚纯的;两个亚纯函数的和、差、积、商也是亚纯的。</p></blockquote>
@@ -256,9 +407,97 @@
             <blockquote><p>设 \( M \) 和 \( M' \) 是流形,局部同胚 \( \pi : M' \to M \) 称为<strong>覆盖</strong>,如果每个 \( x \in M \) 都有一个连通邻域 \( V \),使得 \( \pi^{-1}(V) \) 的每个连通分支都被 \( \pi \) 同胚地映射到 \( V \) 上。若 \( \pi \) 从上下文中清楚,有时也称 \( M' \) 为 \( M \) 的<strong>覆盖空间</strong>,\( \pi \) 为<strong>覆盖映射</strong>。\( M' \) 中连通邻域 \( V \) 的同胚副本称为<strong>层</strong>。对于任意点 \( x \in M \),\( x \) 在 \( M' \) 中的原像称为 \( x \) 上的<strong>纤维</strong>。</p></blockquote>
         </div>
 
+        <div class="added-content">
+            <div class="example-title">直观理解：以 \( \pi(x) = x^2 \) 为例</div>
+            <p>考虑映射 \( \pi: \mathbb{C} \to \mathbb{C} \)，\( \pi(x) = x^2 \)。</p>
+
+            <p><strong>1. 纤维 (Fiber)</strong></p>
+            <p>对于 \( M = \mathbb{C} \) 中的点 \( y \)，纤维 \( \pi^{-1}(y) \) 是所有满足 \( x^2 = y \) 的 \( x \)：</p>
+            <ul>
+                <li>\( y = 4 \)：纤维 = \( \{2, -2\} \)（2个点）</li>
+                <li>\( y = 1 \)：纤维 = \( \{1, -1\} \)（2个点）</li>
+                <li>\( y = -1 \)：纤维 = \( \{i, -i\} \)（2个点）</li>
+                <li style="color: #e74c3c;">\( y = 0 \)：纤维 = \( \{0\} \)（<strong>只有1个点！</strong>）← 问题所在</li>
+            </ul>
+
+            <p><strong>2. 层 (Sheets)</strong></p>
+            <p>在 \( y = 4 \) 附近取一个小邻域 \( V \)（比如半径为1的圆盘）：</p>
+            <ul>
+                <li>\( \pi^{-1}(V) \) 有<strong>两个连通分支</strong>：一个在 \( x = 2 \) 附近，一个在 \( x = -2 \) 附近</li>
+                <li>每个分支都<strong>同胚地映射</strong>到 \( V \)</li>
+                <li>这两个分支就是两个"层"</li>
+            </ul>
+            <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; text-align: center;">
+M' = ℂ:     层1: ●(x=2附近)      层2: ●(x=-2附近)
+              ↘                    ↙
+               π                  π
+                ↘                ↙
+M = ℂ:            ● (y=4附近的V)
+            </pre>
+
+            <p><strong>3. 这是覆盖吗？</strong></p>
+            <p><span style="color: #27ae60;">✓ 在 \( y \neq 0 \) 处：<strong>是！</strong></span></p>
+            <ul>
+                <li>每个纤维有 2 个点</li>
+                <li>\( \pi^{-1}(V) \) 分成两个层，每层同胚于 \( V \)</li>
+                <li>这是一个 <strong>2 重覆盖 (2-fold covering)</strong></li>
+            </ul>
+            <p><span style="color: #e74c3c;">✗ 在 \( y = 0 \) 处：<strong>不是！</strong></span></p>
+            <ul>
+                <li>纤维只有 1 个点（而不是 2 个）</li>
+                <li>\( \pi \) 在 \( x = 0 \) 处不是局部同胚（导数 \( \pi'(0) = 0 \)）</li>
+                <li>\( x = 0 \) 是<strong>分支点 (branch point)</strong></li>
+            </ul>
+
+            <p><strong>4. 去掉分支点后</strong></p>
+            <p>如果我们限制到 \( \mathbb{C}^* = \mathbb{C} \setminus \{0\} \)：</p>
+            <p style="text-align: center; font-size: 1.1em;">\( \pi: \mathbb{C}^* \to \mathbb{C}^* \)，\( \pi(x) = x^2 \)</p>
+            <p>这<strong>是</strong>一个 2 重覆盖！每个点都有恰好 2 个原像。</p>
+
+            <p><strong>5. 与黎曼面可视化的联系</strong></p>
+            <p>这正是 \( y^2 = x \) 的黎曼面结构：</p>
+            <ul>
+                <li>分支点：\( x = 0 \) 和 \( x = \infty \)</li>
+                <li>分支切割：沿负实轴</li>
+                <li>两个层（蓝色和红色）在切割线处"交换"</li>
+            </ul>
+            <p><a href="top/y_squared_equals_x.html" target="_blank" style="color: #2e7d32; font-weight: bold;">→ 互动可视化：\( y^2 = x \) 的覆盖结构</a></p>
+        </div>
+
         <p>For every \( x \in M \), the fiber over \( x \) is a discrete subset of \( M' \). If \( M \) is connected, the fibers are homeomorphic and so there is a discrete space \( F \) such that the fiber over each \( x \in M \) is homeomorphic to \( F \). Moreover, for every \( x \in M \) there is a neighborhood \( V \) of \( x \) such that its full pre-image \( \pi^{-1}(V) \) is homeomorphic to \( V \times F \). In particular, the cardinality of the fiber over \( x \) is equal to the cardinality of \( F \) and it is called the <strong>degree</strong> of the cover \( \pi \). Thus, if every fiber has \( n \) elements, we refer to it as an <strong>\( n \)-fold covering</strong>.</p>
 
         <blockquote><p>对每个 \( x \in M \),\( x \) 上的纤维是 \( M' \) 的一个离散子集。若 \( M \) 连通,则所有纤维同胚,因此存在一个离散空间 \( F \),使得每个 \( x \in M \) 上的纤维都同胚于 \( F \)。此外,对每个 \( x \in M \),存在 \( x \) 的邻域 \( V \) 使得其完全原像 \( \pi^{-1}(V) \) 同胚于 \( V \times F \)。特别地,\( x \) 上纤维的基数等于 \( F \) 的基数,称为覆盖 \( \pi \) 的<strong>度数</strong>。因此,如果每个纤维有 \( n \) 个元素,我们称之为 <strong>\( n \) 重覆盖</strong>。</p></blockquote>
+
+        <div class="added-content">
+            <div class="example-title">为什么连通空间上的纤维大小必须相同？</div>
+            <p><strong>问题：</strong>能不能某些点的纤维有 2 个元素，某些点有 3 个？</p>
+            <p><strong>答案：不能！</strong>原因如下：</p>
+
+            <p><strong>1. 纤维大小是"局部常数"</strong></p>
+            <p>覆盖的定义要求：每个点 \( x \in M \) 有邻域 \( V \)，使得 \( \pi^{-1}(V) \) 是若干个 \( V \) 的同胚副本的不交并。</p>
+            <p>这意味着在 \( V \) 内的<strong>每个点</strong>都有相同数量的原像。所以纤维大小函数 \( n(x) = |\pi^{-1}(x)| \) 在局部是常数。</p>
+
+            <p><strong>2. 连通性 + 局部常数 = 全局常数</strong></p>
+            <p>假设 \( n \) 不是常数，考虑：</p>
+            <ul>
+                <li>集合 \( A = \{x : n(x) = k\} \) 是<strong>开集</strong>（因为 \( n \) 局部常数）</li>
+                <li>集合 \( B = \{x : n(x) \neq k\} \) 也是<strong>开集</strong></li>
+                <li>\( A \cup B = M \)，\( A \cap B = \emptyset \)</li>
+                <li>这与 \( M \) <strong>连通</strong>矛盾！</li>
+            </ul>
+            <p>因此 \( n \) 必须是全局常数。</p>
+
+            <p><strong>3. 回到 \( \pi(x) = x^2 \) 的例子</strong></p>
+            <p>在这个例子中，\( y \neq 0 \) 时纤维大小为 2，但 \( y = 0 \) 时纤维大小为 1。纤维大小<strong>不是常数</strong>！</p>
+            <p>这正是为什么 \( \pi: \mathbb{C} \to \mathbb{C} \) <strong>不是覆盖</strong>——问题出在 \( x = 0 \) 处 \( \pi \) 不是局部同胚（导数为 0），所以不满足覆盖的定义。</p>
+
+            <p><strong>总结：</strong></p>
+            <ul>
+                <li>覆盖的定义（局部同胚 + 邻域分解）自动保证纤维大小局部常数</li>
+                <li>连通性保证局部常数 → 全局常数</li>
+                <li>如果纤维大小不一致 → 说明不是覆盖（存在分支点）</li>
+            </ul>
+        </div>
 
         <p>The following proposition gives a useful criterion to determine if a map is a covering; its proof can be found at page 56 of [2].</p>
 
@@ -284,6 +523,83 @@
             <div class="example-title">Definition 3.3 (定义 3.3)</div>
             <p>Let \( f \) be a holomorphic map from a Riemann surface \( X \) to a Riemann surface \( Y \) and let \( a \) be a point of \( X \). The winding number of \( f(X) \) with respect to the point \( f(a) \) is a positive integer called the <strong>ramification index</strong> of \( a \). If the ramification index is greater than 1, then \( a \) is called a <strong>ramification point</strong> of \( f \), and the corresponding value \( f(a) \) is called an (algebraic) <strong>branch point</strong>. Equivalently, \( a \) is a ramification point with ramification index \( k \) if there exists a holomorphic function \( \varphi \) defined in a neighborhood of \( a \) such that \( f(z) = \varphi(z)(z - a)^k \) for some positive integer \( k > 1 \). If \( z \) is a local coordinate, \( f \) can be presented as \( \varphi(z) z^k \).</p>
             <blockquote><p>设 \( f \) 是从黎曼曲面 \( X \) 到黎曼曲面 \( Y \) 的全纯映射,\( a \) 是 \( X \) 中的一点。\( f(X) \) 关于点 \( f(a) \) 的绕数是一个正整数,称为 \( a \) 的<strong>分歧指数</strong>(或分支指数)。若分歧指数大于1,则 \( a \) 称为 \( f \) 的<strong>分歧点</strong>(或分支点),对应的值 \( f(a) \) 称为(代数)<strong>分支点</strong>。等价地,\( a \) 是分歧指数为 \( k \) 的分歧点,如果存在定义在 \( a \) 的邻域上的全纯函数 \( \varphi \),使得 \( f(z) = \varphi(z)(z - a)^k \),其中 \( k > 1 \) 是正整数。若 \( z \) 是局部坐标,则 \( f \) 可以表示为 \( \varphi(z) z^k \)。</p></blockquote>
+        </div>
+
+        <div class="added-content">
+            <div class="example-title">用例子理解分歧指数</div>
+
+            <p><strong>核心概念：</strong>分歧指数描述映射在某点"缠绕"了多少次。</p>
+            <p><strong>直观理解：</strong>在点 \( a \) 附近画一个小圆，看它的像绑着 \( f(a) \) 绑了几圈。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 1：\( f(z) = z^2 \) 在 \( z = 0 \) 处</strong></p>
+            <ul>
+                <li>小圆 \( |z| = \varepsilon \) 映射到 \( |w| = \varepsilon^2 \)</li>
+                <li>当 \( z \) 绑原点<strong>一圈</strong>（\( 0 \to 2\pi \)）时，\( w = z^2 \) 绑原点<strong>两圈</strong>（\( 0 \to 4\pi \)）</li>
+                <li><strong>分歧指数 = 2</strong></li>
+                <li>\( z = 0 \) 是<strong>分歧点 (ramification point)</strong></li>
+                <li>\( f(0) = 0 \) 是<strong>分支点 (branch point)</strong></li>
+            </ul>
+            <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; text-align: center;">
+z 平面:  ● → 绕一圈 (θ: 0→2π)
+         ↓ f(z)=z²
+w 平面:  ● → 绕两圈 (θ: 0→4π)
+            </pre>
+
+            <p><strong>例子 2：\( f(z) = z^3 \) 在 \( z = 0 \) 处</strong></p>
+            <ul>
+                <li>当 \( z \) 绑原点一圈时，\( w = z^3 \) 绑原点<strong>三圈</strong></li>
+                <li><strong>分歧指数 = 3</strong></li>
+            </ul>
+
+            <p><strong>例子 3：\( f(z) = z^2 \) 在 \( z = 1 \) 处</strong></p>
+            <ul>
+                <li>在 \( z = 1 \) 附近，\( f(z) = z^2 = ((z-1)+1)^2 = (z-1)^2 + 2(z-1) + 1 \)</li>
+                <li>主要项是 \( 2(z-1) \)（一次项），不是 \( (z-1)^k \) 的形式（\( k > 1 \)）</li>
+                <li>当 \( z \) 绕 1 一圈时，\( w \) 也绕 \( f(1)=1 \) <strong>一圈</strong></li>
+                <li><strong>分歧指数 = 1</strong>（不是分歧点！）</li>
+            </ul>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>与 Proposition 3.4 的联系：分歧指数之和 = 度数</strong></p>
+            <p>对于 \( f(z) = z^2 \)（度数 \( n = 2 \)）：</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">\( y \) 的值</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">原像 \( f^{-1}(y) \)</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">分歧指数</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">总和</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( y = 4 \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \{2, -2\} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( e_1=1, e_2=1 \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( 1+1=2 \) ✓</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( y = 1 \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \{1, -1\} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( e_1=1, e_2=1 \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( 1+1=2 \) ✓</td>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>\( y = 0 \)</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>\( \{0\} \)</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>\( e_1=2 \)</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>\( 2 \)</strong> ✓</td>
+                </tr>
+            </table>
+            <p>无论 \( y \) 是什么，分歧指数之和总是等于度数 \( n = 2 \)！</p>
+
+            <p><strong>总结：</strong></p>
+            <ul>
+                <li><strong>分歧指数</strong> = 映射在该点的"缠绕次数"</li>
+                <li><strong>分歧点</strong> = 分歧指数 &gt; 1 的点（映射在此"压缩"了多个方向）</li>
+                <li><strong>分支点</strong> = 分歧点的像（在值域中）</li>
+                <li>在分支点处，纤维的元素个数减少，但分歧指数之和保持不变</li>
+            </ul>
         </div>
 
         <div class="example">
@@ -336,6 +652,156 @@
 
         <blockquote><p><strong>证明.</strong> 根据命题2.4,亚纯函数 \( f \) 对应从黎曼曲面 \( X \) 到 \( \hat{\mathbb{C}} \) 的全纯映射 \( \bar{f} \)。根据命题3.4,\( \bar{f} \) 对应从 \( X \) 到 \( \hat{\mathbb{C}} \) 的覆盖映射,覆盖映射的度数等于 \( \hat{\mathbb{C}} \) 中任意点按重数(分歧指数)计算的原像数。</p>
         <p>度数对每个点都相同,特别是对 \( 0 \) 和 \( \infty \) 也是如此。因此,\( 0 \) 的按重数计算的原像数(\( f \) 的零点)等于 \( \infty \) 的按重数计算的原像数(\( f \) 的极点)。&#9633;</p></blockquote>
+
+        <div class="added-content">
+            <div class="example-title">用例子理解这个证明</div>
+
+            <p><strong>证明的核心思路：</strong></p>
+            <ol>
+                <li>亚纯函数 \( f \) 可以看作全纯映射 \( \bar{f}: X \to \hat{\mathbb{C}} \)（值域是黎曼球面）</li>
+                <li>这个映射（去掉分支点后）是一个覆盖，有固定的<strong>度数 \( n \)</strong></li>
+                <li>度数 = 任意点的原像数（按重数计算）</li>
+                <li>\( 0 \) 的原像 = 零点，\( \infty \) 的原像 = 极点</li>
+                <li>因为度数对所有点相同，所以零点数 = 极点数</li>
+            </ol>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 1：\( f(z) = z^2 \) 在黎曼球面 \( \hat{\mathbb{C}} \) 上</strong></p>
+            <p>映射 \( \bar{f}: \hat{\mathbb{C}} \to \hat{\mathbb{C}} \)，\( \bar{f}(z) = z^2 \)</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">目标点 \( w \)</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">原像 \( \bar{f}^{-1}(w) \)</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">重数</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">总计</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( w = 4 \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \{2, -2\} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">1 + 1</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>2</strong></td>
+                </tr>
+                <tr style="background: #e3f2fd;">
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( w = 0 \)（零点）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \{0\} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">2（二重零点）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>2</strong></td>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( w = \infty \)（极点）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( \{\infty\} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">2（二阶极点）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>2</strong></td>
+                </tr>
+            </table>
+            <p>度数 = 2，零点数 = 2，极点数 = 2 ✓</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 2：\( f(z) = \dfrac{(z-1)(z-2)}{z-3} \) 在黎曼球面上</strong></p>
+            <ul>
+                <li><strong>零点：</strong>\( z = 1 \)（重数 1），\( z = 2 \)（重数 1）→ 总计 <strong>2</strong></li>
+                <li><strong>有限极点：</strong>\( z = 3 \)（重数 1）</li>
+                <li><strong>无穷远处：</strong>当 \( z \to \infty \) 时，\( f(z) \approx \frac{z^2}{z} = z \to \infty \)，所以 \( z = \infty \) 是一阶极点</li>
+                <li><strong>极点总计：</strong>1 + 1 = <strong>2</strong> ✓</li>
+            </ul>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 3：\( f(z) = \dfrac{(z-1)^2}{(z-i)(z+i)} \) 在黎曼球面上</strong></p>
+            <ul>
+                <li><strong>零点：</strong>\( z = 1 \)（重数 2）→ 总计 <strong>2</strong></li>
+                <li><strong>极点：</strong>\( z = i \)（重数 1），\( z = -i \)（重数 1）→ 总计 <strong>2</strong></li>
+                <li><strong>无穷远处：</strong>\( f(z) \to \frac{z^2}{z^2} = 1 \)，既不是零点也不是极点</li>
+            </ul>
+            <p>零点数 = 极点数 = 2 ✓</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>关键洞察：</strong></p>
+            <ul>
+                <li>在黎曼球面上，\( \infty \) 是一个"普通的点"</li>
+                <li>计算极点时<strong>必须包括无穷远点</strong></li>
+                <li>对于有理函数 \( f(z) = \frac{P(z)}{Q(z)} \)：
+                    <ul>
+                        <li>若 \( \deg P > \deg Q \)：\( \infty \) 是极点</li>
+                        <li>若 \( \deg P < \deg Q \)：\( \infty \) 是零点</li>
+                        <li>若 \( \deg P = \deg Q \)：\( \infty \) 既不是零点也不是极点</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>问：必须是有理函数吗？有没有非有理函数的例子？</strong></p>
+
+            <p>答案取决于黎曼曲面：</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">黎曼曲面</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Genus</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">亚纯函数的类型</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">黎曼球面 \( \hat{\mathbb{C}} \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">0</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>只有</strong>有理函数</td>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td style="border: 1px solid #ccc; padding: 8px;">环面 \( \mathbb{C}/\Lambda \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">1</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">椭圆函数（双周期函数）</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">更高亏格曲面</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">≥ 2</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">更复杂的函数</td>
+                </tr>
+            </table>
+
+            <p><strong>在黎曼球面上：</strong>所有亚纯函数都是有理函数（这是一个重要定理）。</p>
+
+            <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin: 15px 0; border-left: 4px solid #2196F3;">
+                <p><strong>直观证明：为什么 \( \hat{\mathbb{C}} \) 上的亚纯函数都是有理函数？</strong></p>
+
+                <p><strong>第一步：极点只有有限个</strong></p>
+                <p>\( \hat{\mathbb{C}} \) 是<strong>紧致</strong>的，而极点是孤立的，所以极点只能有<strong>有限个</strong>。设 \( f \) 在 \( z_1, z_2, \ldots, z_n \) 处有极点。</p>
+
+                <p><strong>第二步：减去"主部"消除极点</strong></p>
+                <p>每个极点 \( z_i \) 处的<strong>主部</strong>（Laurent 展开的负幂次部分）是：</p>
+                <p style="text-align: center;">\( \displaystyle P_i(z) = \frac{a_{-k}}{(z-z_i)^k} + \cdots + \frac{a_{-1}}{z-z_i} \)</p>
+                <p>构造：\( g(z) = f(z) - P_1(z) - P_2(z) - \cdots - P_n(z) \)</p>
+
+                <p><strong>第三步：g 是全纯函数</strong></p>
+                <p>在每个 \( z_i \) 处，主部被减掉了，所以 \( g \) 在 \( z_i \) 处<strong>没有极点</strong>。因此 \( g \) 在 \( \hat{\mathbb{C}} \) 上处处全纯！</p>
+
+                <p><strong>第四步：用 Proposition 2.2</strong></p>
+                <p style="background: #e8f5e9; padding: 8px; border-radius: 4px;"><strong>Proposition 2.2</strong>：紧致黎曼曲面上的全纯函数必是常数。</p>
+                <p>所以 \( g(z) = c \)（常数）！</p>
+
+                <p><strong>第五步：结论</strong></p>
+                <p style="text-align: center;">\( f(z) = c + P_1(z) + P_2(z) + \cdots + P_n(z) \)</p>
+                <p>这是<strong>常数 + 有限个分式的和</strong> = <strong>有理函数</strong>！ □</p>
+
+                <p><strong>核心洞察：</strong>紧致黎曼曲面上"没有非常数的全纯函数"，所以亚纯函数的"全纯部分"只能是常数，剩下的就是极点部分（有理函数的分式）。</p>
+            </div>
+
+            <p><strong>在环面上（非有理函数的例子）：</strong></p>
+            <p>环面可以表示为 \( \mathbb{C}/\Lambda \)，其中 \( \Lambda \) 是一个格（lattice）。<strong>Weierstrass ℘ 函数</strong>是环面上的亚纯函数：</p>
+            <p style="text-align: center;">\( \displaystyle \wp(z) = \frac{1}{z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \left( \frac{1}{(z-\omega)^2} - \frac{1}{\omega^2} \right) \)</p>
+            <p>这<strong>不是</strong>有理函数！它是<strong>椭圆函数</strong>（双周期函数）。</p>
+
+            <p><strong>验证 Proposition 3.5：</strong></p>
+            <ul>
+                <li><strong>极点：</strong>在 \( z = 0 \)（即格点）处有<strong>二阶极点</strong>，重数 = 2</li>
+                <li><strong>零点：</strong>在基本域内有<strong>两个零点</strong>，总重数 = 2</li>
+                <li>零点数 = 极点数 = 2 ✓</li>
+            </ul>
+
+            <p><strong>结论：Proposition 3.5 对所有紧致黎曼曲面都成立</strong>，不仅仅是有理函数！黎曼球面上恰好只有有理函数，但在环面等更复杂的曲面上，存在非有理的亚纯函数，定理依然成立。</p>
+        </div>
 
         <div class="example">
             <div class="example-title">Theorem 3.1 — Fundamental Theorem of Algebra (定理 3.1 — 代数基本定理)</div>
@@ -391,8 +857,210 @@
         \[ 2 - 2g(X) = V' - E' + F' = nV - \sum_{i=1}^{m}(e_i - 1) - nE + nF = n(2 - 2g(Y)) - \sum_{i=1}^{m}(e_i - 1). \]
         &#9633;</p></blockquote>
 
+        <div class="added-content">
+            <div class="example-title">用例子理解黎曼-赫尔维茨公式</div>
+
+            <p><strong>公式回顾：</strong></p>
+            <p style="text-align: center; font-size: 1.1em; background: #f5f5f5; padding: 10px; border-radius: 4px;">
+                \( 2 - 2g(X) = n(2 - 2g(Y)) - \sum_{i=1}^{m}(e_i - 1) \)
+            </p>
+            <p>其中：\( n \) = 映射度数，\( g(X) \)、\( g(Y) \) = 亏格，\( e_i \) = 第 \( i \) 个分歧点的分歧指数</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 1：\( f(z) = z^2 \)，从 \( \hat{\mathbb{C}} \) 到 \( \hat{\mathbb{C}} \)</strong></p>
+            <ul>
+                <li>度数 \( n = 2 \)</li>
+                <li>\( g(X) = g(Y) = 0 \)（都是黎曼球面）</li>
+                <li>分歧点：\( z = 0 \)（\( e_1 = 2 \)）和 \( z = \infty \)（\( e_2 = 2 \)）</li>
+                <li>\( \sum(e_i - 1) = (2-1) + (2-1) = 2 \)</li>
+            </ul>
+            <p><strong>验证：</strong></p>
+            <p style="text-align: center;">左边 = \( 2 - 2(0) = 2 \)</p>
+            <p style="text-align: center;">右边 = \( 2 \cdot (2 - 2 \cdot 0) - 2 = 4 - 2 = 2 \) ✓</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 2：\( f(z) = z^3 \)，从 \( \hat{\mathbb{C}} \) 到 \( \hat{\mathbb{C}} \)</strong></p>
+            <ul>
+                <li>度数 \( n = 3 \)</li>
+                <li>\( g(X) = g(Y) = 0 \)</li>
+                <li>分歧点：\( z = 0 \)（\( e_1 = 3 \)）和 \( z = \infty \)（\( e_2 = 3 \)）</li>
+                <li>\( \sum(e_i - 1) = (3-1) + (3-1) = 4 \)</li>
+            </ul>
+            <p><strong>验证：</strong></p>
+            <p style="text-align: center;">左边 = \( 2 \)，右边 = \( 3 \cdot 2 - 4 = 2 \) ✓</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>例子 3：椭圆曲线 \( y^2 = x^3 - x \)（环面覆盖球面）</strong></p>
+            <ul>
+                <li>映射 \( \pi: X \to \hat{\mathbb{C}} \)，\( (x, y) \mapsto x \)</li>
+                <li>度数 \( n = 2 \)（每个 \( x \) 对应 \( y = \pm\sqrt{x^3-x} \)）</li>
+                <li>\( g(Y) = 0 \)（黎曼球面）</li>
+                <li>\( g(X) = 1 \)（环面）← <strong>要验证这个！</strong></li>
+                <li>分歧点：\( x = -1, 0, 1, \infty \)（共 4 个，每个 \( e_i = 2 \)）</li>
+                <li>\( \sum(e_i - 1) = 4 \times (2-1) = 4 \)</li>
+            </ul>
+            <p><strong>验证：</strong></p>
+            <p style="text-align: center;">左边 = \( 2 - 2(1) = 0 \)</p>
+            <p style="text-align: center;">右边 = \( 2 \cdot (2 - 0) - 4 = 4 - 4 = 0 \) ✓</p>
+            <p><a href="top/y_squared_equals_x_cubed_minus_x.html" target="_blank" style="color: #2e7d32; font-weight: bold;">→ 互动可视化：椭圆曲线 \( y^2 = x^3 - x \)</a></p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>应用：用公式计算亏格</strong></p>
+            <p>对于超椭圆曲线 \( y^2 = (x - a_1)(x - a_2) \cdots (x - a_{2g+2}) \)（\( 2g+2 \) 个不同的根）：</p>
+            <ul>
+                <li>度数 \( n = 2 \)，\( g(Y) = 0 \)</li>
+                <li>分歧点：\( 2g+2 \) 个有限点（每个 \( e_i = 2 \)），\( \infty \) 不是分歧点（因为根的个数是偶数）</li>
+                <li>\( \sum(e_i - 1) = (2g+2) \times 1 = 2g+2 \)</li>
+            </ul>
+            <p><strong>代入公式：</strong></p>
+            <p style="text-align: center;">\( 2 - 2g(X) = 2 \cdot 2 - (2g+2) = 4 - 2g - 2 = 2 - 2g \)</p>
+            <p style="text-align: center;">所以 \( g(X) = g \) ✓</p>
+
+            <p><strong>结论：</strong>黎曼-赫尔维茨公式可以用来<strong>计算曲线的亏格</strong>！只需要知道分歧点的位置和分歧指数。</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">曲线</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">分歧点数</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">亏格</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">拓扑</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( y^2 = x \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">2（\( 0, \infty \)）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">0</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">球面</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( y^2 = x^2 + 1 \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">2（\( i, -i \)）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">0</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">球面</td>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( y^2 = x^3 - x \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">4（\( -1, 0, 1, \infty \)）</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">1</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">环面</td>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( y^2 = x^5 - x \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">6</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">2</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">双环面</td>
+                </tr>
+            </table>
+        </div>
+
         <h2>4. Holomorphic and meromorphic 1-forms on Riemann surfaces</h2>
         <blockquote><h2>4. 黎曼曲面上的全纯与亚纯1-形式</h2></blockquote>
+
+        <div class="added-content">
+            <div class="example-title">预备知识：什么是 1-form 和 2-form？</div>
+
+            <p><strong>从"能积分什么"来理解：</strong></p>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background: #e8f5e9;">
+                    <th style="border: 1px solid #ccc; padding: 8px;">形式</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">积分区域</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">例子</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">物理意义</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>0-form</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">点</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( f(x,y) \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">点的"值"</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>1-form</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">曲线</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( f\,dx + g\,dy \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">沿路径的"功"</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>2-form</strong></td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">曲面</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">\( h\,dx \wedge dy \)</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">通过面的"通量"</td>
+                </tr>
+            </table>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>0-form（函数）</strong></p>
+            <p>就是普通的函数 \( f(x, y) \)。</p>
+            <ul>
+                <li><strong>输入</strong>：一个点</li>
+                <li><strong>输出</strong>：一个数</li>
+                <li><strong>例子</strong>：温度场 \( T(x, y) = x^2 + y^2 \)</li>
+            </ul>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>1-form（线性微分形式）</strong></p>
+            <p>形如 \( \omega = f(x,y)\,dx + g(x,y)\,dy \)</p>
+            <ul>
+                <li><strong>输入</strong>：一个点 + 一个方向（向量）</li>
+                <li><strong>输出</strong>：一个数</li>
+                <li><strong>直观理解</strong>：在每个点放一个"测量仪"，测量沿某方向移动时的"贡献"</li>
+                <li><strong>积分</strong>：沿曲线积分 → \( \int_C \omega = \int_C (f\,dx + g\,dy) \)</li>
+            </ul>
+            <p><strong>物理例子</strong>：力场 \( \mathbf{F} = (F_1, F_2) \) 做的功 = \( \int_C F_1\,dx + F_2\,dy \)</p>
+            <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace;">
+     ↗ 向量 v
+    /
+   ●───→  1-form 告诉你：沿 v 方向走，"收获"多少
+            </pre>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>2-form（面积微分形式）</strong></p>
+            <p>形如 \( \eta = h(x,y)\,dx \wedge dy \)</p>
+            <ul>
+                <li><strong>输入</strong>：一个点 + 两个方向（构成平行四边形）</li>
+                <li><strong>输出</strong>：一个数（带符号的"面积"）</li>
+                <li><strong>直观理解</strong>：测量"通过一小块面积的通量"</li>
+                <li><strong>积分</strong>：在曲面上积分 → \( \iint_S \eta \)</li>
+            </ul>
+            <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace;">
+      ↑ v₂
+      |
+   ●──→ v₁    2-form 告诉你：v₁ 和 v₂ 围成的面积的"权重"
+            </pre>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>楔积 \( \wedge \) 是什么？</strong></p>
+            <p>\( dx \wedge dy \) 表示"有向面积元"：</p>
+            <ul>
+                <li>\( dx \wedge dy = -dy \wedge dx \)（交换顺序变号，因为方向反了）</li>
+                <li>\( dx \wedge dx = 0 \)（同一方向围不成面积）</li>
+            </ul>
+            <p>这就像向量叉积：\( \mathbf{u} \times \mathbf{v} = -\mathbf{v} \times \mathbf{u} \)</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>在复分析中</strong></p>
+            <p>复平面上的 1-form：</p>
+            <p style="text-align: center;">\( \omega = f(z)\,dz = f(z)(dx + i\,dy) \)</p>
+            <p><strong>全纯 1-form</strong>：\( f(z) \) 是全纯函数。例如：\( dz \)，\( z\,dz \)，\( z^2\,dz \)，\( dz/z \)，...</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>总结：外微分 \( d \) 连接各级形式</strong></p>
+            <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; text-align: center;">
+0-form (函数)  ──d──→  1-form  ──d──→  2-form
+    f(x,y)              df = ∂f/∂x dx + ∂f/∂y dy       d(df) = 0
+
+积分在：点        积分在：曲线 ∫_C      积分在：曲面 ∬_S
+            </pre>
+            <p><strong>关键性质</strong>：\( d(df) = 0 \)（精确形式的外微分是零）</p>
+        </div>
 
         <div class="example">
             <div class="example-title">Definition 4.1 (Holomorphic 1-form / 全纯1-形式)</div>
@@ -504,10 +1172,10 @@
         <!-- ==================== Section 5 ==================== -->
 
         <h2>5. Divisors</h2>
-        <blockquote><h2>5. 因子</h2></blockquote>
+        <blockquote><h2>5. 除子</h2></blockquote>
 
         <div class="example">
-            <div class="example-title">Definition 5.1 (Divisor / 因子)</div>
+            <div class="example-title">Definition 5.1 (Divisor / 除子)</div>
             <p>A <strong>divisor</strong> is an element of a free abelian group generated by the points of a Riemann surface. More simply stated, a divisor is a linear combination of a finite number of points with integer coefficients.</p>
             <p>Since divisors are elements of an abelian group, they can be added, subtracted, and multiplied by integers. If \( D_1 = \sum_a n_a \cdot a \) and \( D_2 = \sum_a m_a \cdot a \) are divisors, then
             \[ D_1 + D_2 = \sum_a (n_a + m_a) \cdot a. \]
@@ -515,21 +1183,21 @@
         </div>
 
         <blockquote>
-        <div class="example-title">定义 5.1（因子）</div>
-        <p><strong>因子</strong>是由黎曼曲面上的点生成的自由阿贝尔群的元素。更简单地说，因子是有限个点的整数系数线性组合。</p>
-        <p>由于因子是阿贝尔群的元素，它们可以进行加法、减法和整数倍乘运算。若 \( D_1 = \sum_a n_a \cdot a \)，\( D_2 = \sum_a m_a \cdot a \) 是因子，则 \( D_1 + D_2 = \sum_a (n_a + m_a) \cdot a \)。我们还可以比较因子：\( D_1 \leq D_2 \) 当且仅当对所有 \( a \) 都有 \( n_a \leq m_a \)。</p>
+        <div class="example-title">定义 5.1（除子）</div>
+        <p><strong>除子</strong>是由黎曼曲面上的点生成的自由阿贝尔群的元素。更简单地说，除子是有限个点的整数系数线性组合。</p>
+        <p>由于除子是阿贝尔群的元素，它们可以进行加法、减法和整数倍乘运算。若 \( D_1 = \sum_a n_a \cdot a \)，\( D_2 = \sum_a m_a \cdot a \) 是除子，则 \( D_1 + D_2 = \sum_a (n_a + m_a) \cdot a \)。我们还可以比较除子：\( D_1 \leq D_2 \) 当且仅当对所有 \( a \) 都有 \( n_a \leq m_a \)。</p>
         </blockquote>
 
         <div class="example">
-            <div class="example-title">Definition 5.2 (Degree of a divisor / 因子的次数)</div>
+            <div class="example-title">Definition 5.2 (Degree of a divisor / 除子的次数)</div>
             <p>If \( D = \sum_a n_a \cdot a \) is a divisor, then the <strong>degree</strong> of \( D \) is the sum
             \[ \deg(D) = \sum_a n_a. \]
             Because \( \deg(D_1 + D_2) = \deg(D_1) + \deg(D_2) \), we see that \( \deg \) is a homomorphism from the abelian group of divisors to the abelian group \( \mathbb{Z} \).</p>
         </div>
 
         <blockquote>
-        <div class="example-title">定义 5.2（因子的次数）</div>
-        <p>若 \( D = \sum_a n_a \cdot a \) 是因子，则 \( D \) 的<strong>次数</strong>为 \( \deg(D) = \sum_a n_a \)。由于 \( \deg(D_1 + D_2) = \deg(D_1) + \deg(D_2) \)，\( \deg \) 是从因子的阿贝尔群到阿贝尔群 \( \mathbb{Z} \) 的同态。</p>
+        <div class="example-title">定义 5.2（除子的次数）</div>
+        <p>若 \( D = \sum_a n_a \cdot a \) 是除子，则 \( D \) 的<strong>次数</strong>为 \( \deg(D) = \sum_a n_a \)。由于 \( \deg(D_1 + D_2) = \deg(D_1) + \deg(D_2) \)，\( \deg \) 是从除子的阿贝尔群到阿贝尔群 \( \mathbb{Z} \) 的同态。</p>
         </blockquote>
 
         <div class="example">
@@ -542,18 +1210,18 @@
         <blockquote>
         <div class="example-title">定义 5.3（函数的阶）</div>
         <p>若 \( f \) 是（不一定紧的）黎曼曲面 \( X \) 上的亚纯函数，\( a \) 是 \( X \) 的一个点，则定义 \( f \) 在 \( a \) 处的<strong>阶</strong>为：若 \( f \) 在 \( a \) 处有 \( k \) 重零点则 \( \operatorname{ord}_a(f) = k \)；若 \( f \) 在 \( a \) 处有 \( k \) 重极点则 \( \operatorname{ord}_a(f) = -k \)。</p>
-        <p>对于紧黎曼曲面上的每个亚纯函数 \( f \)，对应一个因子 \( \sum_a \operatorname{ord}_a(f) \cdot a \)，其中求和取遍 \( f \) 有零点和极点的（离散的因而有限的）点集。</p>
+        <p>对于紧黎曼曲面上的每个亚纯函数 \( f \)，对应一个除子 \( \sum_a \operatorname{ord}_a(f) \cdot a \)，其中求和取遍 \( f \) 有零点和极点的（离散的因而有限的）点集。</p>
         </blockquote>
 
         <div class="example">
-            <div class="example-title">Definition 5.4 (Principal divisor / 主因子)</div>
+            <div class="example-title">Definition 5.4 (Principal divisor / 主除子)</div>
             <p>The divisor \( \sum_a \operatorname{ord}_a(f) \cdot a \) is denoted as \( (f) \) and called the <strong>principal divisor</strong> for \( f \).</p>
             <p>It is obvious that \( (f \cdot g) = (f) + (g) \) and \( (f/g) = (f) - (g) \).</p>
         </div>
 
         <blockquote>
-        <div class="example-title">定义 5.4（主因子）</div>
-        <p>因子 \( \sum_a \operatorname{ord}_a(f) \cdot a \) 记作 \( (f) \)，称为 \( f \) 的<strong>主因子</strong>。</p>
+        <div class="example-title">定义 5.4（主除子）</div>
+        <p>除子 \( \sum_a \operatorname{ord}_a(f) \cdot a \) 记作 \( (f) \)，称为 \( f \) 的<strong>主除子</strong>。</p>
         <p>显然 \( (f \cdot g) = (f) + (g) \) 且 \( (f/g) = (f) - (g) \)。</p>
         </blockquote>
 
@@ -584,17 +1252,17 @@
         </blockquote>
 
         <div class="example">
-            <div class="example-title">Definition 5.6 (Canonical divisor / 典范因子)</div>
+            <div class="example-title">Definition 5.6 (Canonical divisor / 典范除子)</div>
             <p>The divisor \( \sum_a \operatorname{ord}_a(\omega) \cdot a \) is denoted as \( (\omega) \) and called the <strong>canonical divisor</strong> of the meromorphic 1-form \( \omega \).</p>
             <p>It is obvious from the given definitions that if \( f \) is a meromorphic function and \( \omega \) is a meromorphic 1-form, then \( (f \cdot \omega) = (f) + (\omega) \). Due to additivity of \( \deg \) and the previous lemma, we see that \( \deg((f\,\omega)) = \deg((f)) + \deg((\omega)) = \deg((\omega)) \).</p>
             <p>Since any meromorphic 1-form can be presented as any other meromorphic 1-form multiplied by some meromorphic function, we see that all canonical divisors have the same degree.</p>
         </div>
 
         <blockquote>
-        <div class="example-title">定义 5.6（典范因子）</div>
-        <p>因子 \( \sum_a \operatorname{ord}_a(\omega) \cdot a \) 记作 \( (\omega) \)，称为亚纯1-形式 \( \omega \) 的<strong>典范因子</strong>。</p>
+        <div class="example-title">定义 5.6（典范除子）</div>
+        <p>除子 \( \sum_a \operatorname{ord}_a(\omega) \cdot a \) 记作 \( (\omega) \)，称为亚纯1-形式 \( \omega \) 的<strong>典范除子</strong>。</p>
         <p>由定义显然可得，若 \( f \) 是亚纯函数而 \( \omega \) 是亚纯1-形式，则 \( (f \cdot \omega) = (f) + (\omega) \)。由 \( \deg \) 的可加性和前面的引理得 \( \deg((f\,\omega)) = \deg((f)) + \deg((\omega)) = \deg((\omega)) \)。</p>
-        <p>由于任何亚纯1-形式都可以表示为另一个亚纯1-形式乘以某个亚纯函数，所以所有典范因子具有相同的次数。</p>
+        <p>由于任何亚纯1-形式都可以表示为另一个亚纯1-形式乘以某个亚纯函数，所以所有典范除子具有相同的次数。</p>
         </blockquote>
 
         <div class="example">
@@ -631,7 +1299,7 @@
 
         <blockquote>
         <div class="example-title">定义 5.7（空间 \( L(D) \) 和 \( I(D) \)）</div>
-        <p>若 \( D \) 是因子，定义 \( L(D) \) 为满足 \( (f) + D \geq 0 \) 的所有亚纯函数 \( f \) 的集合。显然 \( L(D) \) 是 \( \mathbb{C} \) 上的向量空间，定义 \( l(D) \) 为该向量空间的维数。</p>
+        <p>若 \( D \) 是除子，定义 \( L(D) \) 为满足 \( (f) + D \geq 0 \) 的所有亚纯函数 \( f \) 的集合。显然 \( L(D) \) 是 \( \mathbb{C} \) 上的向量空间，定义 \( l(D) \) 为该向量空间的维数。</p>
         <p>类似地，\( I(D) \) 定义为满足 \( (\omega) \geq D \) 的所有亚纯1-形式 \( \omega \) 的集合。显然 \( I(D) \) 是 \( \mathbb{C} \) 上的线性空间，\( i(D) \) 定义为 \( \dim_{\mathbb{C}}(I(D)) \)。</p>
         </blockquote>
 
@@ -656,7 +1324,7 @@
 
         <blockquote>
         <div class="example-title">推论 5.4</div>
-        <p>若因子 \( D = 0 \)，则 \( l(D) = 1 \)。</p>
+        <p>若除子 \( D = 0 \)，则 \( l(D) = 1 \)。</p>
         </blockquote>
 
         <p><strong>Proof.</strong> Indeed, the space of meromorphic functions \( f \) such that \( (f) \geq 0 \) is just the space of all holomorphic functions (no poles), i.e., the space of constants, which is isomorphic to \( \mathbb{C} \). &#x25A1;</p>
@@ -670,7 +1338,7 @@
 
         <blockquote>
         <div class="example-title">引理 5.5</div>
-        <p>线性空间 \( I(D) \) 同构于空间 \( L(K - D) \)，其中 \( K \) 是典范因子。线性空间 \( I(K - D) \) 同构于空间 \( L(D) \)。</p>
+        <p>线性空间 \( I(D) \) 同构于空间 \( L(K - D) \)，其中 \( K \) 是典范除子。线性空间 \( I(K - D) \) 同构于空间 \( L(D) \)。</p>
         </blockquote>
 
         <p><strong>Proof.</strong> We shall prove that \( I(K - D) \) is isomorphic to \( L(D) \) first. We assume that \( K = (\omega) \) for some meromorphic 1-form \( \omega \).</p>
@@ -690,7 +1358,7 @@
 
         <blockquote>
         <div class="example-title">引理 5.6</div>
-        <p>线性空间 \( L(K) \)（其中 \( K \) 是典范因子）同构于同一黎曼曲面上所有全纯1-形式的线性空间。</p>
+        <p>线性空间 \( L(K) \)（其中 \( K \) 是典范除子）同构于同一黎曼曲面上所有全纯1-形式的线性空间。</p>
         </blockquote>
 
         <p>From the previous lemma, \( L(K) \) is isomorphic to \( I(K - K) = I(0) = \{\omega \mid (\omega) \geq 0\} \), which is obviously the space of all holomorphic 1-forms. From the previous lemma and Theorem 4.1 it follows that \( l(K) = \dim(L(K)) = g \).</p>
@@ -704,7 +1372,7 @@
 
         <blockquote>
         <div class="example-title">定义 5.8（线性等价）</div>
-        <p>黎曼曲面上的两个因子 \( D_1 \) 和 \( D_2 \) 称为<strong>线性等价</strong>的，如果存在定义在同一曲面上的亚纯函数 \( f \) 使得 \( D_1 \) 和 \( D_2 \) 相差其主因子 \( (f) \)，即 \( D_2 = D_1 + (f) \)。</p>
+        <p>黎曼曲面上的两个除子 \( D_1 \) 和 \( D_2 \) 称为<strong>线性等价</strong>的，如果存在定义在同一曲面上的亚纯函数 \( f \) 使得 \( D_1 \) 和 \( D_2 \) 相差其主除子 \( (f) \)，即 \( D_2 = D_1 + (f) \)。</p>
         </blockquote>
 
         <div class="example">
@@ -714,7 +1382,7 @@
 
         <blockquote>
         <div class="example-title">引理 5.7</div>
-        <p>线性等价的因子具有相同的次数。</p>
+        <p>线性等价的除子具有相同的次数。</p>
         </blockquote>
 
         <p><strong>Proof.</strong> If \( D_2 = D_1 + (f) \), then \( \deg(D_2) = \deg(D_1 + (f)) = \deg(D_1) + \deg((f)) = \deg(D_1) \), since \( \deg((f)) = 0 \). &#x25A1;</p>
@@ -728,7 +1396,7 @@
 
         <blockquote>
         <div class="example-title">引理 5.8</div>
-        <p>若因子 \( D_1 \) 和 \( D_2 \) 线性等价，则空间 \( L(D_1) \) 同构于 \( L(D_2) \)，空间 \( I(D_1) \) 同构于 \( I(D_2) \)。</p>
+        <p>若除子 \( D_1 \) 和 \( D_2 \) 线性等价，则空间 \( L(D_1) \) 同构于 \( L(D_2) \)，空间 \( I(D_1) \) 同构于 \( I(D_2) \)。</p>
         </blockquote>
 
         <p><strong>Proof.</strong> Let us assume that \( D_2 = D_1 + (f) \) for a certain meromorphic function \( f \). If \( g \) is a meromorphic function and \( g \in L(D_2) \), then \( (fg) + D_1 = (f) + (g) + D_1 = (g) + D_1 + (f) = (g) + D_2 \). It follows that \( (g) + D_2 \geq 0 \) if and only if \( (fg) + D_1 \geq 0 \). Therefore, we have a map \( L(D_2) \to L(D_1) \). Since \( f \) is a meromorphic function, its inverse \( f^{-1} \) also is a meromorphic function, which clearly provides us with the inverse map \( L(D_1) \to L(D_2) \). Since linearity is also obvious, we have an isomorphism between \( L(D_1) \) and \( L(D_2) \). The fact that \( I(D_1) \) is isomorphic to \( I(D_2) \) is proved similarly. &#x25A1;</p>
@@ -748,7 +1416,7 @@
 
         <blockquote>
         <div class="example-title">定理 6.1（黎曼&ndash;罗赫定理）</div>
-        <p>若 \( D \) 是亏格为 \( g \) 的紧黎曼曲面上的因子，则 \( l(D) - i(D) = \deg(D) + 1 - g \)。</p>
+        <p>若 \( D \) 是亏格为 \( g \) 的紧黎曼曲面上的除子，则 \( l(D) - i(D) = \deg(D) + 1 - g \)。</p>
         </blockquote>
 
         <p>There are several obvious implications of the Riemann&ndash;Roch Theorem. If we assume that it is valid (without proof), we actually can prove the theorem that there exist exactly \( g \) holomorphic 1-forms on the Riemann surface \( X \) with genus \( g \).</p>
@@ -765,7 +1433,7 @@
         \[ 1 - i(0) = 0 + 1 - g, \]
         and we conclude that \( i(0) = g \) is equal to the dimension of the space \( I(0) = \{\omega \mid (\omega) \geq 0\} \) of all holomorphic 1-forms.</p>
 
-        <blockquote><p>\( i(0) = l(K) \)，其中 \( K \) 是典范因子。如我们所知，\( L(K) \) 同构于空间 \( I(0) = \{\omega \mid (\omega) \geq 0\} \)，即所有全纯1-形式的空间。因此公式给出 \( 1 - i(0) = 0 + 1 - g \)，从而 \( i(0) = g \)，即全纯1-形式空间的维数。</p></blockquote>
+        <blockquote><p>\( i(0) = l(K) \)，其中 \( K \) 是典范除子。如我们所知，\( L(K) \) 同构于空间 \( I(0) = \{\omega \mid (\omega) \geq 0\} \)，即所有全纯1-形式的空间。因此公式给出 \( 1 - i(0) = 0 + 1 - g \)，从而 \( i(0) = g \)，即全纯1-形式空间的维数。</p></blockquote>
 
         <p>Furthermore, if we substitute \( D = K \) into the Riemann&ndash;Roch formula, we get:
         \[ l(K) - i(K) = \deg(K) + 1 - g. \]
@@ -785,7 +1453,7 @@
         \[ D = \sum_{i=1}^{n} m_i a_i \]
         with \( D \geq 0 \).</p>
 
-        <blockquote><p><strong>第一部分.</strong> 首先证明 \( \deg(D) \geq 0 \) 的情形。考虑因子 \( D = \sum_{i=1}^{n} m_i a_i \)，其中 \( D \geq 0 \)。</p></blockquote>
+        <blockquote><p><strong>第一部分.</strong> 首先证明 \( \deg(D) \geq 0 \) 的情形。考虑除子 \( D = \sum_{i=1}^{n} m_i a_i \)，其中 \( D \geq 0 \)。</p></blockquote>
 
         <p>Let \( V \) be the set of all tuples \( \{f_1, \ldots, f_n\} \) of principal parts of the form
         \[ f_i = \frac{c_{-m_i}}{z^{m_i}} + \cdots + \frac{c_{-1}}{z}. \]
@@ -846,12 +1514,12 @@
         \[ l(D - a) - i(D - a) \geq 1 + \deg(D - a) - g = \deg(D) + 1 - g - 1 = l(D) - i(D) - 1, \]
         and the inequality is true for the divisor \( D - a \) too.</p>
 
-        <blockquote><p><strong>第二部分.</strong> 接下来证明对所有 \( D \) 都有 \( l(D) - i(D) \geq \deg(D) + 1 - g \)。设 \( a \in X \) 为曲面上的一个点。显然 \( \deg(D - a) = \deg(D) - 1 \)，因此如果对某个因子 \( D \) 不等式成立，则 \( l(D - a) - i(D - a) \geq l(D) - i(D) - 1 \)，不等式对 \( D - a \) 也成立。</p></blockquote>
+        <blockquote><p><strong>第二部分.</strong> 接下来证明对所有 \( D \) 都有 \( l(D) - i(D) \geq \deg(D) + 1 - g \)。设 \( a \in X \) 为曲面上的一个点。显然 \( \deg(D - a) = \deg(D) - 1 \)，因此如果对某个除子 \( D \) 不等式成立，则 \( l(D - a) - i(D - a) \geq l(D) - i(D) - 1 \)，不等式对 \( D - a \) 也成立。</p></blockquote>
 
         <p>The idea is to take some divisor \( \geq 0 \) and subtract from it point-by-point. In fact, taking into account the equality established in Part I, in order to establish our inequality, we just need to show that
         \[ l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1. \]</p>
 
-        <blockquote><p>其思路是取某个 \( \geq 0 \) 的因子，然后逐点减去。事实上，考虑到第一部分建立的等式，为了建立我们的不等式，只需证明 \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \)。</p></blockquote>
+        <blockquote><p>其思路是取某个 \( \geq 0 \) 的除子，然后逐点减去。事实上，考虑到第一部分建立的等式，为了建立我们的不等式，只需证明 \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \)。</p></blockquote>
 
         <p>It is obvious that \( l(D) \geq l(D - a) \geq l(D) - 1 \) and \( i(D) + 1 \geq i(D - a) \geq i(D) \) (since we only add/remove at most one coefficient/member at a single point \( a \)), so the worst case scenario occurs when \( l(D - a) = l(D) - 1 \) and \( i(D) + 1 = i(D - a) \), because only in this case
         \[ l(D - a) - i(D - a) = (l(D) - i(D)) - 2 \]
@@ -876,7 +1544,7 @@
         \[ l(D) - i(D) \geq \deg(D) + 1 - g. \]</p>
 
         <blockquote><p>但现在我们同时有 \( \sum \operatorname{Res}_{a_i} f\omega = 0 \) 和 \( \operatorname{Res}_a(f\omega) = c_{-1} \neq 0 \)（因为有恰好一阶的极点），而 \( a \) 是 \( f\omega \) 可能有（且确实有）非零留数的唯一点；这是一个矛盾，说明最坏情形不可能发生。</p>
-        <p>因此 \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \)，从而对所有因子 \( D \) 都有 \( l(D) - i(D) \geq \deg(D) + 1 - g \)。</p></blockquote>
+        <p>因此 \( l(D - a) - i(D - a) \geq (l(D) - i(D)) - 1 \)，从而对所有除子 \( D \) 都有 \( l(D) - i(D) \geq \deg(D) + 1 - g \)。</p></blockquote>
 
         <p><strong>Part III.</strong> Finally, for the last part of the proof we use a clever trick to obtain the desired equality for an arbitrary divisor \( D \). We substitute \( K - D \) for \( D \) in the inequality proved in Part II. Since \( l(K - D) = i(D) \) (see Lemma 5.5):
         \begin{align}
@@ -885,7 +1553,7 @@
         i(D) - l(D) &\geq \deg(K) - \deg(D) + 1 - g.
         \end{align}</p>
 
-        <blockquote><p><strong>第三部分.</strong> 最后，我们用一个巧妙的技巧来得到对任意因子 \( D \) 的等式。在第二部分证明的不等式中以 \( K - D \) 代替 \( D \)。由 \( l(K - D) = i(D) \)（见引理5.5）：
+        <blockquote><p><strong>第三部分.</strong> 最后，我们用一个巧妙的技巧来得到对任意除子 \( D \) 的等式。在第二部分证明的不等式中以 \( K - D \) 代替 \( D \)。由 \( l(K - D) = i(D) \)（见引理5.5）：
         \begin{align}
         l(K - D) - i(K - D) &\geq \deg(K - D) + 1 - g \\
         i(D) - l(D) &\geq \deg(K) - \deg(D) + 1 - g.
@@ -905,7 +1573,7 @@
         i(D) - l(D) &\geq 2g - 2 - \deg(D) + 1 - g = g - 1 - \deg(D) \\
         l(D) - i(D) &\leq \deg(D) + 1 - g.
         \end{align}
-        将此与第二部分的不等式结合，得到 \( l(D) - i(D) = \deg(D) + 1 - g \)。这就证明了对任意因子 \( D \) 的定理。&#x25A1;</p></blockquote>
+        将此与第二部分的不等式结合，得到 \( l(D) - i(D) = \deg(D) + 1 - g \)。这就证明了对任意除子 \( D \) 的定理。&#x25A1;</p></blockquote>
 
         <!-- ==================== Acknowledgments ==================== -->
 
