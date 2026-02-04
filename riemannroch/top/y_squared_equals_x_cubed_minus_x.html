@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>y² = x³ - x 的向量场演示（椭圆曲线）</title>
+    <!--
+    ====================================================================
+    黎曼面 y² = x³ - x 的参数化说明
+    ====================================================================
+
+    方程：y² = x³ - x = x(x-1)(x+1)，即 y = ±√(x(x-1)(x+1))
+
+    这是一条椭圆曲线！（Weierstrass 标准形式）
+
+    关键特点：
+    - 分支点是 x³ - x = 0 的三个实根，加上无穷远点：
+      * x = -1
+      * x = 0
+      * x = 1
+      * ∞
+    - 四个分支点都在实轴上（包括 ∞）
+
+    分支切割（基于 x³ - x 为负的区间）：
+    - x < -1 时：x³ - x < 0
+    - -1 < x < 0 时：x³ - x > 0
+    - 0 < x < 1 时：x³ - x < 0
+    - x > 1 时：x³ - x > 0
+
+    因此分支切割为：
+    - 切割1：从 -1 到 -∞（实轴左半部分）
+    - 切割2：从 0 到 1（实轴上的线段）
+
+    两个分支：
+    1. +√(x³-x)（蓝色）：主值分支
+    2. -√(x³-x)（红色）：负值分支
+
+    黎曼面构造：
+    - 两个黎曼球沿两条分支切割线切开
+    - 交叉缝合后形成 genus 1 的黎曼面（环面/torus）
+
+    ====================================================================
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { color: #333; margin-bottom: 10px; }
+        h2 { color: #333; margin-top: 40px; margin-bottom: 10px; }
+
+        .description {
+            max-width: 1400px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .description h3 { margin-top: 0; color: #2c3e50; font-size: 18px; }
+        .description p { margin: 5px 0; color: #555; line-height: 1.6; }
+
+        .main-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .canvas-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .canvas-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            min-width: 250px;
+        }
+
+        .control-group { margin-bottom: 15px; }
+        .control-group label { display: block; margin-bottom: 5px; color: #333; font-weight: bold; }
+        .control-group input[type="range"] { width: 100%; }
+        .control-group .value { color: #666; font-size: 14px; }
+
+        svg { border: 1px solid #ddd; }
+        svg text { text-rendering: geometricPrecision; font-family: Arial, sans-serif; }
+
+        .legend {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .legend p { margin: 5px 0; font-size: 13px; line-height: 1.5; }
+
+        #threejs-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sphere-container { display: flex; gap: 20px; align-items: flex-start; }
+
+        .separator {
+            width: 100%;
+            max-width: 1400px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+            margin: 40px 0;
+        }
+
+        .highlight-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .genus-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .real-axis-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>复函数 y² = x³ - x 的向量场可视化</h1>
+    <h2 style="color: #e74c3c; margin-top: 0;">椭圆曲线 - Genus 1 黎曼面</h2>
+
+    <div class="description" style="background-color: #e8f4f8; padding: 15px; border-left: 4px solid #2196F3; margin-bottom: 20px;">
+        <h3>📐 椭圆曲线的两个分支</h3>
+        <p><strong>方程：\(y^2 = x^3 - x = x(x-1)(x+1)\)（Weierstrass 形式）</strong></p>
+
+        <h4 style="color: #2563eb; margin-top: 12px;">🔵 主值分支 \(+\sqrt{x^3-x}\)（蓝色）</h4>
+        <p style="margin-left: 20px; font-size: 16px;">
+            $$y = +\sqrt{x^3 - x} = +\sqrt{x(x-1)(x+1)}$$
+        </p>
+
+        <h4 style="color: #dc2626; margin-top: 12px;">🔴 负值分支 \(-\sqrt{x^3-x}\)（红色）</h4>
+        <p style="margin-left: 20px; font-size: 16px;">
+            $$y = -\sqrt{x^3 - x}$$
+        </p>
+
+        <div class="real-axis-box">
+            <strong>🔵 特点：所有分支点都在实轴上！</strong><br>
+            • \(x = -1\)（分支点）<br>
+            • \(x = 0\)（分支点）<br>
+            • \(x = 1\)（分支点）<br>
+            • \(\infty\)（分支点，在黎曼球北极）
+        </div>
+
+        <div class="highlight-box">
+            <strong>两条分支切割线（都在实轴上）：</strong><br>
+            • <span style="color: #9333ea;">切割1（紫色）</span>：从 \(-1\) 到 \(-\infty\)（实轴左边）<br>
+            • <span style="color: #059669;">切割2（绿色）</span>：从 \(0\) 到 \(1\)（实轴上的线段）<br><br>
+            <strong>原因：</strong>\(x^3 - x < 0\) 当 \(x < -1\) 或 \(0 < x < 1\)
+        </div>
+
+        <div class="genus-box">
+            <strong>🔴 Genus 1 黎曼面（环面）</strong><br>
+            椭圆曲线 \(y^2 = x^3 - x\) 的黎曼面是一个<strong>环面（torus）</strong>。
+        </div>
+
+        <p style="margin-top: 15px; padding: 10px; background-color: #f5f5f5; border-left: 3px solid #999;">
+            <strong>实轴上的值：</strong><br>
+            • \(x < -1\)：\(x^3 - x < 0\)，\(y\) 是纯虚数<br>
+            • \(-1 < x < 0\)：\(x^3 - x > 0\)，\(y\) 是实数<br>
+            • \(0 < x < 1\)：\(x^3 - x < 0\)，\(y\) 是纯虚数<br>
+            • \(x > 1\)：\(x^3 - x > 0\)，\(y\) 是实数
+        </p>
+
+        <p style="margin-top: 15px; padding: 10px; background-color: #e3f2fd; border-left: 3px solid #2196F3;">
+            <strong>示例计算：</strong><br>
+            • \(x = -2\)：\(y = \pm\sqrt{-6} = \pm i\sqrt{6}\)<br>
+            • \(x = -0.5\)：\(y = \pm\sqrt{0.375} \approx \pm 0.612\)<br>
+            • \(x = 0.5\)：\(y = \pm\sqrt{-0.375} = \pm i\sqrt{0.375}\)<br>
+            • \(x = 2\)：\(y = \pm\sqrt{6}\)
+        </p>
+    </div>
+
+    <div class="description">
+        <h3>2D 视图说明</h3>
+        <p><strong>函数：</strong>\(y^2 = x^3 - x\)，即 \(y = \pm\sqrt{x(x-1)(x+1)}\)</p>
+        <p><strong>颜色区分：</strong>蓝色（\(+\sqrt{x^3-x}\)），红色（\(-\sqrt{x^3-x}\)）</p>
+        <p><strong>分支切割：</strong>紫色虚线（\(-1\) 到 \(-\infty\)），绿色虚线（\(0\) 到 \(1\)）</p>
+    </div>
+
+    <div class="main-container">
+        <div class="canvas-container">
+            <div class="canvas-title">复平面向量场（两个分支）</div>
+            <svg id="canvas1" width="600" height="600"></svg>
+        </div>
+
+        <div class="controls">
+            <h3 style="margin-top: 0;">2D 控制面板</h3>
+
+            <div class="control-group">
+                <label>网格密度</label>
+                <input type="range" id="gridDensity" min="5" max="30" value="18" step="1">
+                <div class="value">当前: <span id="gridDensityValue">18</span></div>
+            </div>
+
+            <div class="control-group">
+                <label>缩放因子</label>
+                <input type="range" id="scale" min="20" max="120" value="80" step="5">
+                <div class="value">当前: <span id="scaleValue">80</span></div>
+            </div>
+
+            <div class="control-group">
+                <label>箭头长度比例</label>
+                <input type="range" id="arrowScale" min="1" max="100" value="15" step="1">
+                <div class="value">当前: <span id="arrowScaleValue">15</span>%</div>
+            </div>
+
+            <div class="control-group">
+                <label><input type="checkbox" id="showGrid" checked> 显示网格</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="showAxes" checked> 显示坐标轴</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="showCircles" checked> 显示参考圆</label>
+            </div>
+
+            <div class="control-group">
+                <label>显示模式</label>
+                <div style="margin-top: 8px;">
+                    <label style="display: block; font-weight: normal; margin-bottom: 5px;">
+                        <input type="radio" name="displayMode" value="both" checked> 全部显示
+                    </label>
+                    <label style="display: block; font-weight: normal; margin-bottom: 5px;">
+                        <input type="radio" name="displayMode" value="onlyPlus"> 只显示 \(+\sqrt{x^3-x}\)
+                    </label>
+                    <label style="display: block; font-weight: normal;">
+                        <input type="radio" name="displayMode" value="onlyMinus"> 只显示 \(-\sqrt{x^3-x}\)
+                    </label>
+                </div>
+            </div>
+
+            <div class="legend">
+                <strong>分支颜色</strong>
+                <p style="color: #2563eb;">• 蓝色：\(+\sqrt{x^3-x}\)</p>
+                <p style="color: #dc2626;">• 红色：\(-\sqrt{x^3-x}\)</p>
+                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+                <strong>分支切割（实轴上）</strong>
+                <p style="color: #9333ea;">• 紫色：\(-1\) → \(-\infty\)</p>
+                <p style="color: #059669;">• 绿色：\(0\) → \(1\)</p>
+                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="color: #f59e0b;">• 橙色点：分支点 \(-1, 0, 1\)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <h2>3D 黎曼球可视化</h2>
+
+    <div class="description">
+        <h3>3D 黎曼球说明</h3>
+        <p><strong>四个分支点：</strong>\(-1, 0, 1\)（赤道附近）和 \(\infty\)（北极）</p>
+        <p><strong>两条分支切割：</strong>紫色（\(-1\) 到 \(\infty\)）和绿色（\(0\) 到 \(1\)）</p>
+        <p><strong>交互：</strong>拖拽旋转，滚轮缩放</p>
+    </div>
+
+    <div class="sphere-container">
+        <div id="threejs-container">
+            <div class="canvas-title" style="margin-bottom: 15px;">3D 黎曼球（可交互）</div>
+            <div id="threejs-canvas"></div>
+        </div>
+
+        <div class="controls">
+            <h3 style="margin-top: 0;">3D 控制面板</h3>
+
+            <div class="control-group">
+                <label>球面采样密度</label>
+                <input type="range" id="samplingRange" min="8" max="32" value="16" step="2">
+                <div class="value">当前: <span id="samplingRangeValue">16</span></div>
+            </div>
+
+            <div class="control-group">
+                <label>向量长度</label>
+                <input type="range" id="vectorLength" min="5" max="50" value="20" step="1">
+                <div class="value">当前: <span id="vectorLengthValue">20</span>%</div>
+            </div>
+
+            <div class="control-group">
+                <label><input type="checkbox" id="showSphere" checked> 显示球面</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="showWireframe" checked> 显示网格线</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="showAxesHelper" checked> 显示坐标轴</label>
+            </div>
+
+            <div class="control-group">
+                <label>显示模式</label>
+                <div style="margin-top: 8px;">
+                    <label style="display: block; font-weight: normal; margin-bottom: 5px;">
+                        <input type="radio" name="displayMode3D" value="both" checked> 全部显示
+                    </label>
+                    <label style="display: block; font-weight: normal; margin-bottom: 5px;">
+                        <input type="radio" name="displayMode3D" value="onlyPlus"> 只显示 \(+\sqrt{x^3-x}\)
+                    </label>
+                    <label style="display: block; font-weight: normal;">
+                        <input type="radio" name="displayMode3D" value="onlyMinus"> 只显示 \(-\sqrt{x^3-x}\)
+                    </label>
+                </div>
+            </div>
+
+            <div class="legend">
+                <strong>分支点</strong>
+                <p style="color: #f59e0b;">• -1, 0, 1（橙色）</p>
+                <p style="color: #aa00aa;">• ∞（紫色，北极）</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <h2>黎曼面构造过程</h2>
+
+    <div class="description">
+        <h3>黎曼面的拓扑构造 - 环面（Torus）</h3>
+        <p><strong>四个分支点：</strong>\(-1, 0, 1, \infty\)（全在实轴上）</p>
+        <p><strong>两条分支切割：</strong></p>
+        <ul>
+            <li>切割1：从 \(-1\) 到 \(-\infty\)（连接到北极）</li>
+            <li>切割2：从 \(0\) 到 \(1\)（实轴上的线段）</li>
+        </ul>
+        <div class="genus-box">
+            <strong>结果：形成 genus 1 的黎曼面（环面/torus）</strong>
+        </div>
+    </div>
+
+    <div class="sphere-container">
+        <div id="threejs-container">
+            <div class="canvas-title" style="margin-bottom: 15px;">黎曼面构造动画</div>
+            <div id="construction-canvas"></div>
+        </div>
+
+        <div class="controls">
+            <h3 style="margin-top: 0;">构造步骤控制</h3>
+
+            <div class="control-group">
+                <div id="stepLabel" style="margin-bottom: 15px; color: #333; font-size: 14px; line-height: 1.6; font-weight: bold;">
+                    步骤 1/4：两个独立的黎曼球
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button id="prevStep" style="flex: 1; padding: 10px; font-size: 14px; background-color: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer;">← 上一步</button>
+                    <button id="nextStep" style="flex: 1; padding: 10px; font-size: 14px; background-color: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer;">下一步 →</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>球面采样密度</label>
+                <input type="range" id="constructionSampling" min="8" max="32" value="12" step="2">
+                <div class="value">当前: <span id="constructionSamplingValue">12</span></div>
+            </div>
+
+            <div class="control-group">
+                <label>向量长度</label>
+                <input type="range" id="constructionVectorLength" min="5" max="50" value="15" step="1">
+                <div class="value">当前: <span id="constructionVectorLengthValue">15</span>%</div>
+            </div>
+
+            <div class="control-group">
+                <label><input type="checkbox" id="constructionShowSphere" checked> 显示球面</label>
+            </div>
+            <div class="control-group">
+                <label><input type="checkbox" id="constructionShowWireframe" checked> 显示网格线</label>
+            </div>
+
+            <div class="legend">
+                <strong>构造步骤</strong>
+                <p>1. 两个独立的黎曼球</p>
+                <p>2. 标记两条分支切割线</p>
+                <p>3. 沿切割线切开</p>
+                <p>4. 交叉缝合形成环面</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 常量定义 ====================
+        // 三个有限分支点（都在实轴上）
+        const bp1 = { real: -1, imag: 0 };  // x = -1
+        const bp2 = { real: 0, imag: 0 };   // x = 0
+        const bp3 = { real: 1, imag: 0 };   // x = 1
+
+        // ==================== 通用函数 ====================
+        function complexSqrt(re, im) {
+            const r = Math.sqrt(re * re + im * im);
+            const theta = Math.atan2(im, re);
+            const sqrtR = Math.sqrt(r);
+            const halfTheta = theta / 2;
+            return { real: sqrtR * Math.cos(halfTheta), imag: sqrtR * Math.sin(halfTheta) };
+        }
+
+        function complexMult(a, b) {
+            return { real: a.real * b.real - a.imag * b.imag, imag: a.real * b.imag + a.imag * b.real };
+        }
+
+        // 计算 x³ - x = x(x-1)(x+1)
+        function xCubedMinusX(a, b) {
+            const x = { real: a, imag: b };
+            const xMinus1 = { real: a - 1, imag: b };
+            const xPlus1 = { real: a + 1, imag: b };
+            return complexMult(complexMult(x, xMinus1), xPlus1);
+        }
+
+        // 计算 √(x³ - x)，返回两个分支
+        function sqrtXCubedMinusX(a, b) {
+            const w = xCubedMinusX(a, b);
+            const sqrtW = complexSqrt(w.real, w.imag);
+            return [
+                { real: sqrtW.real, imag: sqrtW.imag },
+                { real: -sqrtW.real, imag: -sqrtW.imag }
+            ];
+        }
+
+        // 检查点是否接近分支切割线
+        function isNearBranchCut(a, b, threshold) {
+            // 切割1：从 -1 到 -∞（实轴上 x < -1）
+            if (Math.abs(b) < threshold && a < -1 + threshold) return true;
+            // 切割2：从 0 到 1（实轴上 0 < x < 1）
+            if (Math.abs(b) < threshold && a > -threshold && a < 1 + threshold) return true;
+            return false;
+        }
+
+        // 检查点是否接近分支点
+        function isNearBranchPoint(a, b, threshold) {
+            const dist1 = Math.sqrt((a - bp1.real) ** 2 + (b - bp1.imag) ** 2);
+            const dist2 = Math.sqrt((a - bp2.real) ** 2 + (b - bp2.imag) ** 2);
+            const dist3 = Math.sqrt((a - bp3.real) ** 2 + (b - bp3.imag) ** 2);
+            return dist1 < threshold || dist2 < threshold || dist3 < threshold;
+        }
+
+        // ==================== 2D 部分 ====================
+        const svg1 = document.getElementById('canvas1');
+        const width = 600, height = 600;
+        const centerX = width / 2, centerY = height / 2;
+
+        const gridDensityInput = document.getElementById('gridDensity');
+        const scaleInput = document.getElementById('scale');
+        const arrowScaleInput = document.getElementById('arrowScale');
+        const showGridCheckbox = document.getElementById('showGrid');
+        const showAxesCheckbox = document.getElementById('showAxes');
+        const showCirclesCheckbox = document.getElementById('showCircles');
+
+        function updateValues() {
+            document.getElementById('gridDensityValue').textContent = gridDensityInput.value;
+            document.getElementById('scaleValue').textContent = scaleInput.value;
+            document.getElementById('arrowScaleValue').textContent = arrowScaleInput.value;
+        }
+
+        function getVectorColor(branchIndex) {
+            return branchIndex === 0 ? '#2563eb' : '#dc2626';
+        }
+
+        function drawArrow(svg, x1, y1, x2, y2, color) {
+            const dx = x2 - x1, dy = y2 - y1;
+            const length = Math.sqrt(dx * dx + dy * dy);
+            if (length < 0.5) return;
+
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+            line.setAttribute('stroke', color);
+            line.setAttribute('stroke-width', '1.5');
+            line.setAttribute('opacity', '0.7');
+            svg.appendChild(line);
+
+            const angle = Math.atan2(dy, dx);
+            const arrowLen = 6, arrowAngle = Math.PI / 6;
+
+            for (const sign of [-1, 1]) {
+                const arr = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                arr.setAttribute('x1', x2); arr.setAttribute('y1', y2);
+                arr.setAttribute('x2', x2 - arrowLen * Math.cos(angle + sign * arrowAngle));
+                arr.setAttribute('y2', y2 - arrowLen * Math.sin(angle + sign * arrowAngle));
+                arr.setAttribute('stroke', color);
+                arr.setAttribute('stroke-width', '1.5');
+                arr.setAttribute('opacity', '0.7');
+                svg.appendChild(arr);
+            }
+        }
+
+        function drawAxes(svg) {
+            if (!showAxesCheckbox.checked) return;
+            for (const [x1, y1, x2, y2] of [[0, centerY, width, centerY], [centerX, 0, centerX, height]]) {
+                const axis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                axis.setAttribute('x1', x1); axis.setAttribute('y1', y1);
+                axis.setAttribute('x2', x2); axis.setAttribute('y2', y2);
+                axis.setAttribute('stroke', '#999');
+                axis.setAttribute('stroke-width', '2');
+                svg.appendChild(axis);
+            }
+        }
+
+        function drawReferenceCircles(svg) {
+            if (!showCirclesCheckbox.checked) return;
+            const scale = parseFloat(scaleInput.value);
+            [1, 2].forEach(r => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', centerX); circle.setAttribute('cy', centerY);
+                circle.setAttribute('r', r * scale);
+                circle.setAttribute('fill', 'none');
+                circle.setAttribute('stroke', '#ddd');
+                circle.setAttribute('stroke-dasharray', '4,4');
+                svg.appendChild(circle);
+            });
+        }
+
+        function drawGrid(svg) {
+            if (!showGridCheckbox.checked) return;
+            const scale = parseFloat(scaleInput.value);
+            for (let i = -width/2; i <= width/2; i += scale) {
+                const vLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                vLine.setAttribute('x1', centerX + i); vLine.setAttribute('y1', 0);
+                vLine.setAttribute('x2', centerX + i); vLine.setAttribute('y2', height);
+                vLine.setAttribute('stroke', '#f0f0f0');
+                svg.appendChild(vLine);
+            }
+            for (let i = -height/2; i <= height/2; i += scale) {
+                const hLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                hLine.setAttribute('x1', 0); hLine.setAttribute('y1', centerY + i);
+                hLine.setAttribute('x2', width); hLine.setAttribute('y2', centerY + i);
+                hLine.setAttribute('stroke', '#f0f0f0');
+                svg.appendChild(hLine);
+            }
+        }
+
+        function drawBranchCuts(svg) {
+            const scale = parseFloat(scaleInput.value);
+
+            // 切割1：从 -1 到 -∞（紫色）
+            const cut1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            cut1.setAttribute('x1', centerX + bp1.real * scale);
+            cut1.setAttribute('y1', centerY);
+            cut1.setAttribute('x2', 0);
+            cut1.setAttribute('y2', centerY);
+            cut1.setAttribute('stroke', '#9333ea');
+            cut1.setAttribute('stroke-width', '4');
+            cut1.setAttribute('stroke-dasharray', '8,4');
+            cut1.setAttribute('opacity', '0.7');
+            svg.appendChild(cut1);
+
+            // 切割2：从 0 到 1（绿色）
+            const cut2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            cut2.setAttribute('x1', centerX + bp2.real * scale);
+            cut2.setAttribute('y1', centerY);
+            cut2.setAttribute('x2', centerX + bp3.real * scale);
+            cut2.setAttribute('y2', centerY);
+            cut2.setAttribute('stroke', '#059669');
+            cut2.setAttribute('stroke-width', '4');
+            cut2.setAttribute('stroke-dasharray', '8,4');
+            cut2.setAttribute('opacity', '0.7');
+            svg.appendChild(cut2);
+        }
+
+        function drawBranchPoints(svg) {
+            const scale = parseFloat(scaleInput.value);
+            const bps = [
+                { ...bp1, label: '-1' },
+                { ...bp2, label: '0' },
+                { ...bp3, label: '1' }
+            ];
+
+            bps.forEach(bp => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', centerX + bp.real * scale);
+                circle.setAttribute('cy', centerY - bp.imag * scale);
+                circle.setAttribute('r', '8');
+                circle.setAttribute('fill', '#f59e0b');
+                circle.setAttribute('stroke', '#fff');
+                circle.setAttribute('stroke-width', '2');
+                svg.appendChild(circle);
+
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', centerX + bp.real * scale);
+                label.setAttribute('y', centerY - bp.imag * scale - 15);
+                label.setAttribute('fill', '#333');
+                label.setAttribute('font-size', '14');
+                label.setAttribute('text-anchor', 'middle');
+                label.textContent = bp.label;
+                svg.appendChild(label);
+            });
+        }
+
+        function drawVectorField(svg) {
+            const gridDensity = parseInt(gridDensityInput.value);
+            const scale = parseFloat(scaleInput.value);
+            const arrowScaleFactor = parseFloat(arrowScaleInput.value) / 100;
+            const displayMode = document.querySelector('input[name="displayMode"]:checked').value;
+
+            const range = 3;
+            const step = (2 * range) / gridDensity;
+
+            for (let i = 0; i <= gridDensity; i++) {
+                for (let j = 0; j <= gridDensity; j++) {
+                    const a = -range + i * step;
+                    const b = range - j * step;
+
+                    if (isNearBranchCut(a, b, 0.12)) continue;
+                    if (isNearBranchPoint(a, b, 0.15)) continue;
+
+                    const ySolutions = sqrtXCubedMinusX(a, b);
+                    const screenX = centerX + a * scale;
+                    const screenY = centerY - b * scale;
+
+                    let branches = displayMode === 'both' ? [0, 1] :
+                                   displayMode === 'onlyPlus' ? [0] : [1];
+
+                    branches.forEach(idx => {
+                        const y = ySolutions[idx];
+                        const endX = screenX + y.real * scale * arrowScaleFactor;
+                        const endY = screenY - y.imag * scale * arrowScaleFactor;
+                        drawArrow(svg, screenX, screenY, endX, endY, getVectorColor(idx));
+                    });
+
+                    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    dot.setAttribute('cx', screenX); dot.setAttribute('cy', screenY);
+                    dot.setAttribute('r', '2'); dot.setAttribute('fill', '#333');
+                    dot.setAttribute('opacity', '0.6');
+                    svg.appendChild(dot);
+                }
+            }
+        }
+
+        function render2D() {
+            svg1.innerHTML = '';
+            drawGrid(svg1);
+            drawReferenceCircles(svg1);
+            drawAxes(svg1);
+            drawBranchCuts(svg1);
+            drawVectorField(svg1);
+            drawBranchPoints(svg1);
+            updateValues();
+        }
+
+        [gridDensityInput, scaleInput, arrowScaleInput].forEach(el => el.addEventListener('input', render2D));
+        [showGridCheckbox, showAxesCheckbox, showCirclesCheckbox].forEach(el => el.addEventListener('change', render2D));
+        document.querySelectorAll('input[name="displayMode"]').forEach(r => r.addEventListener('change', render2D));
+        render2D();
+
+        // ==================== 3D 部分 ====================
+        const vectorLengthInput = document.getElementById('vectorLength');
+        const samplingRangeInput = document.getElementById('samplingRange');
+        const showSphereCheckbox = document.getElementById('showSphere');
+        const showWireframeCheckbox = document.getElementById('showWireframe');
+        const showAxesHelperCheckbox = document.getElementById('showAxesHelper');
+
+        function updateValues3D() {
+            document.getElementById('vectorLengthValue').textContent = vectorLengthInput.value;
+            document.getElementById('samplingRangeValue').textContent = samplingRangeInput.value;
+        }
+
+        let scene, camera, renderer, controls;
+        let sphereMesh, wireframeMesh, axesHelper, vectorGroup;
+
+        function initThreeJS() {
+            const container = document.getElementById('threejs-canvas');
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf5f5f5);
+
+            camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+            camera.position.set(0, -3, 0);
+            camera.up.set(0, 0, 1);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(700, 700);
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+            dirLight.position.set(5, 5, 5);
+            scene.add(dirLight);
+
+            sphereMesh = new THREE.Mesh(
+                new THREE.SphereGeometry(1, 64, 64),
+                new THREE.MeshPhongMaterial({ color: 0xd0d0d0, side: THREE.DoubleSide, shininess: 30 })
+            );
+            scene.add(sphereMesh);
+
+            wireframeMesh = new THREE.Mesh(
+                new THREE.SphereGeometry(1.001, 32, 32),
+                new THREE.MeshBasicMaterial({ color: 0x666666, wireframe: true, transparent: true, opacity: 0.5 })
+            );
+            scene.add(wireframeMesh);
+
+            axesHelper = new THREE.AxesHelper(1.5);
+            scene.add(axesHelper);
+
+            vectorGroup = new THREE.Group();
+            scene.add(vectorGroup);
+
+            addSpecialPoints();
+            addBranchCutLines();
+            animate();
+        }
+
+        function stereographicProjection(x, y) {
+            const rSq = x * x + y * y;
+            const d = 1 + rSq;
+            return { x: 2 * x / d, y: 2 * y / d, z: (rSq - 1) / d };
+        }
+
+        function inverseStereographicProjection(X, Y, Z) {
+            if (Math.abs(Z - 1) < 0.001) return { x: 0, y: 0, isInfinity: true };
+            const d = 1 - Z;
+            return { x: X / d, y: Y / d, isInfinity: false };
+        }
+
+        function createTextSprite(text, color) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 256; canvas.height = 128;
+            ctx.font = 'Bold 48px Arial';
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, 128, 64);
+            const texture = new THREE.CanvasTexture(canvas);
+            const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+            sprite.scale.set(0.4, 0.2, 1);
+            return sprite;
+        }
+
+        function addSpecialPoints() {
+            const bps = [
+                { name: '-1', ...bp1, color: '#f59e0b' },
+                { name: '0', ...bp2, color: '#f59e0b' },
+                { name: '1', ...bp3, color: '#f59e0b' },
+                { name: '∞', real: null, imag: null, color: '#aa00aa' }
+            ];
+
+            bps.forEach(bp => {
+                const pos = bp.name === '∞' ? { x: 0, y: 0, z: 1 } : stereographicProjection(bp.real, bp.imag);
+                const dot = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.06, 16, 16),
+                    new THREE.MeshBasicMaterial({ color: bp.color })
+                );
+                dot.position.set(pos.x, pos.y, pos.z);
+                scene.add(dot);
+
+                const label = createTextSprite(bp.name, bp.color);
+                label.position.set(pos.x * 1.25, pos.y * 1.25, pos.z * 1.25);
+                scene.add(label);
+            });
+        }
+
+        function addBranchCutLines() {
+            const numPoints = 50;
+
+            // 切割1：从 -1 到 -∞（紫色）
+            const points1 = [];
+            for (let i = 0; i <= numPoints; i++) {
+                const t = i / numPoints;
+                const x = -1 - t * 20;
+                const pos = stereographicProjection(x, 0);
+                points1.push(new THREE.Vector3(pos.x, pos.y, pos.z));
+            }
+            const line1 = new THREE.Line(
+                new THREE.BufferGeometry().setFromPoints(points1),
+                new THREE.LineDashedMaterial({ color: 0x9333ea, dashSize: 0.1, gapSize: 0.05 })
+            );
+            line1.computeLineDistances();
+            scene.add(line1);
+
+            // 切割2：从 0 到 1（绿色）
+            const points2 = [];
+            for (let i = 0; i <= numPoints; i++) {
+                const t = i / numPoints;
+                const x = t;
+                const pos = stereographicProjection(x, 0);
+                points2.push(new THREE.Vector3(pos.x, pos.y, pos.z));
+            }
+            const line2 = new THREE.Line(
+                new THREE.BufferGeometry().setFromPoints(points2),
+                new THREE.LineDashedMaterial({ color: 0x059669, dashSize: 0.1, gapSize: 0.05 })
+            );
+            line2.computeLineDistances();
+            scene.add(line2);
+        }
+
+        function createArrow3D(origin, direction, length, color) {
+            const dir = new THREE.Vector3(direction.x, direction.y, direction.z).normalize();
+            return new THREE.ArrowHelper(dir, origin, length, color, length * 0.2, length * 0.15);
+        }
+
+        function draw3DVectorField() {
+            while (vectorGroup.children.length > 0) vectorGroup.remove(vectorGroup.children[0]);
+
+            const density = parseInt(samplingRangeInput.value);
+            const vecLen = parseFloat(vectorLengthInput.value) / 100;
+            const displayMode = document.querySelector('input[name="displayMode3D"]:checked').value;
+
+            for (let i = 0; i <= density; i++) {
+                const theta = (Math.PI * i) / density;
+                for (let j = 0; j < density * 2; j++) {
+                    const phi = (2 * Math.PI * j) / (density * 2);
+
+                    const X = Math.sin(theta) * Math.cos(phi);
+                    const Y = Math.sin(theta) * Math.sin(phi);
+                    const Z = Math.cos(theta);
+
+                    const complex = inverseStereographicProjection(X, Y, Z);
+                    if (complex.isInfinity) continue;
+
+                    const { x, y } = complex;
+                    if (isNearBranchCut(x, y, 0.2)) continue;
+                    if (isNearBranchPoint(x, y, 0.25)) continue;
+
+                    const ySolutions = sqrtXCubedMinusX(x, y);
+                    const origin = new THREE.Vector3(X, Y, Z);
+
+                    const e_theta = new THREE.Vector3(
+                        Math.cos(theta) * Math.cos(phi),
+                        Math.cos(theta) * Math.sin(phi),
+                        -Math.sin(theta)
+                    );
+                    const e_phi = new THREE.Vector3(
+                        -Math.sin(theta) * Math.sin(phi),
+                        Math.sin(theta) * Math.cos(phi),
+                        0
+                    );
+
+                    const r = Math.sqrt(x * x + y * y);
+                    const metricFactor = 2 / (1 + r * r);
+                    const latDecay = Math.exp(-2 * Math.abs(theta - Math.PI / 2));
+                    const scale = metricFactor * latDecay;
+
+                    let branches = displayMode === 'both' ? [0, 1] : displayMode === 'onlyPlus' ? [0] : [1];
+
+                    branches.forEach(idx => {
+                        const res = ySolutions[idx];
+                        let dir = e_phi.clone().multiplyScalar(res.real * scale)
+                            .add(e_theta.clone().multiplyScalar(-res.imag * scale));
+
+                        if (dir.length() > 0.0001) {
+                            dir.normalize();
+                            vectorGroup.add(createArrow3D(origin, dir, vecLen, idx === 0 ? 0x2563eb : 0xdc2626));
+                        }
+                    });
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function update3DVisibility() {
+            sphereMesh.visible = showSphereCheckbox.checked;
+            wireframeMesh.visible = showWireframeCheckbox.checked;
+            axesHelper.visible = showAxesHelperCheckbox.checked;
+        }
+
+        function render3D() {
+            draw3DVectorField();
+            update3DVisibility();
+            updateValues3D();
+        }
+
+        [samplingRangeInput, vectorLengthInput].forEach(el => el.addEventListener('input', render3D));
+        [showSphereCheckbox, showWireframeCheckbox, showAxesHelperCheckbox].forEach(el => el.addEventListener('change', update3DVisibility));
+        document.querySelectorAll('input[name="displayMode3D"]').forEach(r => r.addEventListener('change', render3D));
+
+        initThreeJS();
+        render3D();
+
+        // ==================== 构造动画部分 ====================
+        const constructionCanvas = document.getElementById('construction-canvas');
+        let cScene, cCamera, cRenderer, cControls;
+        let sphere1Group, sphere2Group;
+        let vectorGroup1, vectorGroup2;
+        let sphereMesh1, sphereMesh2, wireframeMesh1, wireframeMesh2;
+        let cutLines1, cutLines2;
+        let stitchLines;
+        let currentStep = 0;
+        const maxSteps = 3;
+
+        const cSamplingInput = document.getElementById('constructionSampling');
+        const cVectorLengthInput = document.getElementById('constructionVectorLength');
+        const cShowSphereCheckbox = document.getElementById('constructionShowSphere');
+        const cShowWireframeCheckbox = document.getElementById('constructionShowWireframe');
+
+        function updateConstructionValues() {
+            document.getElementById('constructionSamplingValue').textContent = cSamplingInput.value;
+            document.getElementById('constructionVectorLengthValue').textContent = cVectorLengthInput.value;
+        }
+
+        function initConstructionScene() {
+            cScene = new THREE.Scene();
+            cScene.background = new THREE.Color(0xf5f5f5);
+
+            cCamera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+            cCamera.position.set(0, -5, 0.5);
+            cCamera.up.set(0, 0, 1);
+            cCamera.lookAt(0, 0, 0);
+
+            cRenderer = new THREE.WebGLRenderer({ antialias: true });
+            cRenderer.setSize(700, 700);
+            constructionCanvas.appendChild(cRenderer.domElement);
+
+            cControls = new THREE.OrbitControls(cCamera, cRenderer.domElement);
+            cControls.enableDamping = true;
+
+            cScene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+            dirLight.position.set(5, 5, 5);
+            cScene.add(dirLight);
+
+            sphere1Group = new THREE.Group();
+            sphere2Group = new THREE.Group();
+            cScene.add(sphere1Group);
+            cScene.add(sphere2Group);
+
+            sphereMesh1 = new THREE.Mesh(
+                new THREE.SphereGeometry(1, 64, 64),
+                new THREE.MeshPhongMaterial({ color: 0xc0d0e8, transparent: true, opacity: 0.8, side: THREE.DoubleSide })
+            );
+            sphere1Group.add(sphereMesh1);
+
+            sphereMesh2 = new THREE.Mesh(
+                new THREE.SphereGeometry(1, 64, 64),
+                new THREE.MeshPhongMaterial({ color: 0xe8c0c0, transparent: true, opacity: 0.8, side: THREE.DoubleSide })
+            );
+            sphere2Group.add(sphereMesh2);
+
+            const wfGeom = new THREE.SphereGeometry(1.001, 32, 32);
+            wireframeMesh1 = new THREE.Mesh(wfGeom.clone(), new THREE.MeshBasicMaterial({ color: 0x4444aa, wireframe: true, transparent: true, opacity: 0.3 }));
+            wireframeMesh2 = new THREE.Mesh(wfGeom.clone(), new THREE.MeshBasicMaterial({ color: 0xaa4444, wireframe: true, transparent: true, opacity: 0.3 }));
+            sphere1Group.add(wireframeMesh1);
+            sphere2Group.add(wireframeMesh2);
+
+            vectorGroup1 = new THREE.Group();
+            vectorGroup2 = new THREE.Group();
+            sphere1Group.add(vectorGroup1);
+            sphere2Group.add(vectorGroup2);
+
+            cutLines1 = createConstructionCutLines();
+            cutLines2 = createConstructionCutLines();
+            sphere1Group.add(cutLines1);
+            sphere2Group.add(cutLines2);
+            cutLines1.visible = false;
+            cutLines2.visible = false;
+
+            stitchLines = new THREE.Group();
+            cScene.add(stitchLines);
+            stitchLines.visible = false;
+
+            addConstructionBranchPoints(sphere1Group);
+            addConstructionBranchPoints(sphere2Group);
+
+            drawConstructionVectorFields();
+            updateConstructionStep();
+            animateConstruction();
+        }
+
+        function createConstructionCutLines() {
+            const group = new THREE.Group();
+            const numPoints = 50;
+            const tubeRadius = 0.025;  // 粗线条
+
+            // 切割1：-1 到 -∞
+            const points1 = [];
+            for (let i = 0; i <= numPoints; i++) {
+                const t = i / numPoints;
+                const x = -1 - t * 20;
+                const pos = stereographicProjection(x, 0);
+                points1.push(new THREE.Vector3(pos.x, pos.y, pos.z));
+            }
+            const curve1 = new THREE.CatmullRomCurve3(points1);
+            const tube1 = new THREE.Mesh(
+                new THREE.TubeGeometry(curve1, numPoints, tubeRadius, 8, false),
+                new THREE.MeshBasicMaterial({ color: 0x9333ea })
+            );
+            group.add(tube1);
+
+            // 切割2：0 到 1
+            const points2 = [];
+            for (let i = 0; i <= numPoints; i++) {
+                const t = i / numPoints;
+                const pos = stereographicProjection(t, 0);
+                points2.push(new THREE.Vector3(pos.x, pos.y, pos.z));
+            }
+            const curve2 = new THREE.CatmullRomCurve3(points2);
+            const tube2 = new THREE.Mesh(
+                new THREE.TubeGeometry(curve2, numPoints, tubeRadius, 8, false),
+                new THREE.MeshBasicMaterial({ color: 0x059669 })
+            );
+            group.add(tube2);
+
+            return group;
+        }
+
+        function addConstructionBranchPoints(group) {
+            const bps = [
+                { name: '-1', ...bp1, color: '#f59e0b' },
+                { name: '0', ...bp2, color: '#f59e0b' },
+                { name: '1', ...bp3, color: '#f59e0b' }
+            ];
+
+            bps.forEach(bp => {
+                const pos = stereographicProjection(bp.real, bp.imag);
+                const dot = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.05, 16, 16),
+                    new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+                );
+                dot.position.set(pos.x, pos.y, pos.z);
+                group.add(dot);
+
+                // 添加标签
+                const label = createTextSprite(bp.name, bp.color);
+                label.position.set(pos.x * 1.2, pos.y * 1.2, pos.z + 0.15);
+                group.add(label);
+            });
+
+            // ∞
+            const dotInf = new THREE.Mesh(
+                new THREE.SphereGeometry(0.05, 16, 16),
+                new THREE.MeshBasicMaterial({ color: 0xaa00aa })
+            );
+            dotInf.position.set(0, 0, 1);
+            group.add(dotInf);
+
+            // ∞ 标签
+            const labelInf = createTextSprite('∞', '#aa00aa');
+            labelInf.position.set(0, 0, 1.25);
+            group.add(labelInf);
+        }
+
+        function drawConstructionVectorFields() {
+            while (vectorGroup1.children.length > 0) vectorGroup1.remove(vectorGroup1.children[0]);
+            while (vectorGroup2.children.length > 0) vectorGroup2.remove(vectorGroup2.children[0]);
+
+            const density = parseInt(cSamplingInput.value);
+            const vecLen = parseFloat(cVectorLengthInput.value) / 100;
+
+            for (let i = 0; i <= density; i++) {
+                const theta = (Math.PI * i) / density;
+                for (let j = 0; j < density * 2; j++) {
+                    const phi = (2 * Math.PI * j) / (density * 2);
+
+                    const X = Math.sin(theta) * Math.cos(phi);
+                    const Y = Math.sin(theta) * Math.sin(phi);
+                    const Z = Math.cos(theta);
+
+                    const complex = inverseStereographicProjection(X, Y, Z);
+                    if (complex.isInfinity) continue;
+
+                    const { x, y } = complex;
+                    if (isNearBranchCut(x, y, 0.2)) continue;
+                    if (isNearBranchPoint(x, y, 0.25)) continue;
+
+                    const ySolutions = sqrtXCubedMinusX(x, y);
+                    const origin = new THREE.Vector3(X, Y, Z);
+
+                    const e_theta = new THREE.Vector3(
+                        Math.cos(theta) * Math.cos(phi),
+                        Math.cos(theta) * Math.sin(phi),
+                        -Math.sin(theta)
+                    );
+                    const e_phi = new THREE.Vector3(
+                        -Math.sin(theta) * Math.sin(phi),
+                        Math.sin(theta) * Math.cos(phi),
+                        0
+                    );
+
+                    const r = Math.sqrt(x * x + y * y);
+                    const metricFactor = 2 / (1 + r * r);
+                    const latDecay = Math.exp(-2 * Math.abs(theta - Math.PI / 2));
+                    const scale = metricFactor * latDecay;
+
+                    // 球1：正分支
+                    const res1 = ySolutions[0];
+                    let dir1 = e_phi.clone().multiplyScalar(res1.real * scale)
+                        .add(e_theta.clone().multiplyScalar(-res1.imag * scale));
+                    if (dir1.length() > 0.0001) {
+                        dir1.normalize();
+                        vectorGroup1.add(createArrow3D(origin.clone(), dir1, vecLen, 0x2563eb));
+                    }
+
+                    // 球2：负分支
+                    const res2 = ySolutions[1];
+                    let dir2 = e_phi.clone().multiplyScalar(res2.real * scale)
+                        .add(e_theta.clone().multiplyScalar(-res2.imag * scale));
+                    if (dir2.length() > 0.0001) {
+                        dir2.normalize();
+                        vectorGroup2.add(createArrow3D(origin.clone(), dir2, vecLen, 0xdc2626));
+                    }
+                }
+            }
+        }
+
+        function createStitchLines() {
+            while (stitchLines.children.length > 0) stitchLines.remove(stitchLines.children[0]);
+
+            const numPoints = 8;
+            const offset = 0.12;  // 切口张开的偏移量
+
+            // 旋转后，原来的 (x, 0, z) 变成 (0, -x, z)
+            // sphere1 在 (-1.2, 0, 0)，sphere2 在 (1.2, 0, 0)
+            // 所以 sphere1 上的点 (0, -x, z) 世界坐标是 (-1.2, -x, z)
+            // sphere2 上的点 (0, -x, z) 世界坐标是 (1.2, -x, z)
+
+            // 切割1的缝合线（-1 到 -∞，旋转后 y 从 1 到更大）
+            for (let i = 0; i <= numPoints; i++) {
+                const t = i / numPoints;
+                const x = -1 - t * 3;
+                const pos = stereographicProjection(x, 0);
+                // 旋转后：y = -x（原来的x变成-y）
+                const rotY = -pos.x;
+                const rotZ = pos.z;
+
+                // 交叉缝合：sphere1 的 +x 边连到 sphere2 的 -x 边
+                const geom1 = new THREE.BufferGeometry().setFromPoints([
+                    new THREE.Vector3(-1.2 + offset, rotY, rotZ),
+                    new THREE.Vector3(0, rotY, rotZ + 0.1),
+                    new THREE.Vector3(1.2 - offset, rotY, rotZ)
+                ]);
+                stitchLines.add(new THREE.Line(geom1, new THREE.LineBasicMaterial({ color: 0x9333ea })));
+
+                const geom2 = new THREE.BufferGeometry().setFromPoints([
+                    new THREE.Vector3(-1.2 - offset, rotY, rotZ),
+                    new THREE.Vector3(0, rotY, rotZ - 0.1),
+                    new THREE.Vector3(1.2 + offset, rotY, rotZ)
+                ]);
+                stitchLines.add(new THREE.Line(geom2, new THREE.LineBasicMaterial({ color: 0x00aa00 })));
+            }
+
+            // 切割2的缝合线（0 到 1，旋转后 y 从 0 到 -1）
+            for (let i = 0; i <= numPoints; i++) {
+                const t = i / numPoints;
+                const pos = stereographicProjection(t, 0);
+                const rotY = -pos.x;
+                const rotZ = pos.z;
+
+                const geom1 = new THREE.BufferGeometry().setFromPoints([
+                    new THREE.Vector3(-1.2 + offset, rotY, rotZ),
+                    new THREE.Vector3(0, rotY, rotZ + 0.1),
+                    new THREE.Vector3(1.2 - offset, rotY, rotZ)
+                ]);
+                stitchLines.add(new THREE.Line(geom1, new THREE.LineBasicMaterial({ color: 0x059669 })));
+
+                const geom2 = new THREE.BufferGeometry().setFromPoints([
+                    new THREE.Vector3(-1.2 - offset, rotY, rotZ),
+                    new THREE.Vector3(0, rotY, rotZ - 0.1),
+                    new THREE.Vector3(1.2 + offset, rotY, rotZ)
+                ]);
+                stitchLines.add(new THREE.Line(geom2, new THREE.LineBasicMaterial({ color: 0x00aa00 })));
+            }
+        }
+
+        function updateConstructionStep() {
+            const step = currentStep;
+            const stepLabel = document.getElementById('stepLabel');
+            const prevBtn = document.getElementById('prevStep');
+            const nextBtn = document.getElementById('nextStep');
+
+            prevBtn.disabled = (step === 0);
+            nextBtn.disabled = (step === maxSteps);
+
+            if (step === 0) {
+                stepLabel.textContent = '步骤 1/4：两个独立的黎曼球，左边 +√(x³-x)，右边 -√(x³-x)';
+                sphere1Group.position.set(-1.5, 0, 0);
+                sphere2Group.position.set(1.5, 0, 0);
+                sphere1Group.rotation.set(0, 0, 0);
+                sphere2Group.rotation.set(0, 0, 0);
+                cutLines1.visible = false;
+                cutLines2.visible = false;
+                stitchLines.visible = false;
+            } else if (step === 1) {
+                stepLabel.textContent = '步骤 2/4：标记两条分支切割线（紫色：-1→-∞，绿色：0→1）';
+                cutLines1.visible = true;
+                cutLines2.visible = true;
+                stitchLines.visible = false;
+            } else if (step === 2) {
+                stepLabel.textContent = '步骤 3/4：沿切割线切开，准备交叉缝合';
+                sphere1Group.position.set(-1.2, 0, 0);
+                sphere2Group.position.set(1.2, 0, 0);
+                // 旋转球体：1 指向屏幕外，-1 指向屏幕内
+                sphere1Group.rotation.set(0, 0, -Math.PI / 2);
+                sphere2Group.rotation.set(0, 0, -Math.PI / 2);
+                stitchLines.visible = false;
+            } else if (step === 3) {
+                stepLabel.textContent = '步骤 4/4：交叉缝合形成 genus 1 黎曼面（环面）';
+                sphere1Group.position.set(-1.2, 0, 0);
+                sphere2Group.position.set(1.2, 0, 0);
+                // 旋转球体：1 指向屏幕外，-1 指向屏幕内
+                sphere1Group.rotation.set(0, 0, -Math.PI / 2);
+                sphere2Group.rotation.set(0, 0, -Math.PI / 2);
+                createStitchLines();
+                stitchLines.visible = true;
+            }
+        }
+
+        function updateConstructionVisibility() {
+            sphereMesh1.visible = cShowSphereCheckbox.checked;
+            sphereMesh2.visible = cShowSphereCheckbox.checked;
+            wireframeMesh1.visible = cShowWireframeCheckbox.checked;
+            wireframeMesh2.visible = cShowWireframeCheckbox.checked;
+        }
+
+        function animateConstruction() {
+            requestAnimationFrame(animateConstruction);
+            cControls.update();
+            cRenderer.render(cScene, cCamera);
+        }
+
+        document.getElementById('prevStep').addEventListener('click', () => {
+            if (currentStep > 0) { currentStep--; updateConstructionStep(); }
+        });
+        document.getElementById('nextStep').addEventListener('click', () => {
+            if (currentStep < maxSteps) { currentStep++; updateConstructionStep(); }
+        });
+
+        cSamplingInput.addEventListener('input', () => { drawConstructionVectorFields(); updateConstructionValues(); });
+        cVectorLengthInput.addEventListener('input', () => { drawConstructionVectorFields(); updateConstructionValues(); });
+        cShowSphereCheckbox.addEventListener('change', updateConstructionVisibility);
+        cShowWireframeCheckbox.addEventListener('change', updateConstructionVisibility);
+
+        initConstructionScene();
+    </script>
+</body>
+</html>
