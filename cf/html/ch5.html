@@ -106,13 +106,34 @@
             <h1 style="text-align: center; font-size: 2.2em;">第五章<br>柯西定理</h1>
         </blockquote>
 
-        <h2>5.1 Homotopy</h2>
+        <h2>5.1 Homotopy（同伦）</h2>
+
+        <h3>同伦的定义与直观理解</h3>
 
         <p>Suppose \( D \) is a connected subset of the plane such that every point of \( D \) is an interior point—we call such a set a <strong>region</strong>—and let \( C_1 \) and \( C_2 \) be oriented closed curves in \( D \). We say \( C_1 \) is <strong>homotopic</strong> to \( C_2 \) in \( D \) if there is a continuous function \( H: S \to D \), where \( S \) is the square \( S = \{(t,s) : 0 \leq s,t \leq 1\} \), such that \( H(t,0) \) describes \( C_1 \) and \( H(t,1) \) describes \( C_2 \), and for each fixed \( s \), the function \( H(t,s) \) describes a closed curve \( C_s \) in \( D \). The function \( H \) is called a <strong>homotopy</strong> between \( C_1 \) and \( C_2 \). Note that if \( C_1 \) is homotopic to \( C_2 \) in \( D \), then \( C_2 \) is homotopic to \( C_1 \) in \( D \). Just observe that the function \( K(t,s) = H(t,1-s) \) is a homotopy.</p>
 
         <blockquote>
             <p>假设 \( D \) 是平面的连通子集,使得 \( D \) 的每个点都是内点——我们称这样的集合为<strong>区域</strong>——设 \( C_1 \) 和 \( C_2 \) 是 \( D \) 中的定向闭合曲线。如果存在连续函数 \( H: S \to D \),其中 \( S \) 是正方形 \( S = \{(t,s) : 0 \leq s,t \leq 1\} \),使得 \( H(t,0) \) 描述 \( C_1 \),\( H(t,1) \) 描述 \( C_2 \),并且对于每个固定的 \( s \),函数 \( H(t,s) \) 描述 \( D \) 中的闭合曲线 \( C_s \),我们就说 \( C_1 \) 在 \( D \) 中<strong>同伦</strong>于 \( C_2 \)。函数 \( H \) 称为 \( C_1 \) 和 \( C_2 \) 之间的<strong>同伦</strong>。注意如果 \( C_1 \) 在 \( D \) 中同伦于 \( C_2 \),那么 \( C_2 \) 在 \( D \) 中同伦于 \( C_1 \)。只需观察函数 \( K(t,s) = H(t,1-s) \) 是一个同伦。</p>
         </blockquote>
+
+        <div style="background-color: #e8f4f8; padding: 15px; margin: 20px 0; border-left: 4px solid #17a2b8;">
+            <h4 style="margin-top: 0; color: #17a2b8;">直观理解同伦</h4>
+            <p><strong>形象比喻</strong>：想象 \( C_1 \) 是一根橡皮筋的形状，\( C_2 \) 是另一个形状。如果你能在区域 \( D \) 内连续地变形这根橡皮筋从 \( C_1 \) 到 \( C_2 \)，而不离开 \( D \) 也不撕断它，那么 \( C_1 \) 和 \( C_2 \) 就是同伦的。</p>
+
+            <p><strong>参数理解</strong>：</p>
+            <ul>
+                <li>\( t \)：描述曲线上的位置（\( 0 \leq t \leq 1 \) 走一圈）</li>
+                <li>\( s \)：描述变形的进度（\( s=0 \) 是起始曲线，\( s=1 \) 是终止曲线）</li>
+                <li>\( H(t, s) \)：在变形进度 \( s \) 时，曲线上位置 \( t \) 的点的坐标</li>
+            </ul>
+
+            <p><strong>关键条件</strong>：</p>
+            <ol>
+                <li><strong>连续性</strong>：\( H \) 必须连续，不能突然"跳跃"</li>
+                <li><strong>闭合性</strong>：对每个固定的 \( s \)，\( H(0, s) = H(1, s) \)（曲线是闭合的）</li>
+                <li><strong>留在 \( D \) 内</strong>：整个变形过程中，\( H(t, s) \in D \) 对所有 \( t, s \)</li>
+            </ol>
+        </div>
 
         <p>It is convenient to consider a point to be a closed curve. The point \( c \) is described by a constant function \( \phi(t) = c \). We thus speak of a closed curve \( C \) being homotopic to a constant—we sometimes say \( C \) is <strong>contractible</strong> to a point.</p>
 
@@ -125,9 +146,38 @@
         </blockquote>
 
         <div class="example">
-            <div class="example-title">Example</div>
+            <div class="example-title">Example 1: Annular Region（环形区域中的同伦）</div>
 
-            <p>Let \( D \) be the annular region \( D = \{z : 1 < |z| < 5\} \). Suppose \( C_1 \) is the circle described by \( \phi_1(t) = 2e^{i2\pi t} \), \( 0 \leq t \leq 1 \); and \( C_2 \) is the circle described by \( \phi_2(t) = 4e^{i2\pi t} \), \( 0 \leq t \leq 1 \). Then \( H(t,s) = (2+2s)e^{i2\pi t} \) is a homotopy in \( D \) between \( C_1 \) and \( C_2 \). Suppose \( C_3 \) is the same circle as \( C_2 \) but with the opposite orientation; that is, a description is given by \( \phi_3(t) = 4e^{-i2\pi t} \), \( 0 \leq t \leq 1 \). A homotopy between \( C_1 \) and \( C_3 \) is not too easy to construct—in fact, it is not possible! The moral: orientation counts. From now on, the term "closed curve" will mean an oriented closed curve.</p>
+            <p>Let \( D \) be the annular region \( D = \{z : 1 < |z| < 5\} \). Suppose \( C_1 \) is the circle described by \( \phi_1(t) = 2e^{i2\pi t} \), \( 0 \leq t \leq 1 \); and \( C_2 \) is the circle described by \( \phi_2(t) = 4e^{i2\pi t} \), \( 0 \leq t \leq 1 \). Then \( H(t,s) = (2+2s)e^{i2\pi t} \) is a homotopy in \( D \) between \( C_1 \) and \( C_2 \). </p>
+
+            <p><strong>验证这是一个同伦：</strong></p>
+            <ol>
+                <li><strong>起点和终点</strong>：
+                    <ul>
+                        <li>\( H(t, 0) = 2e^{i2\pi t} = \phi_1(t) \)（描述 \( C_1 \)）</li>
+                        <li>\( H(t, 1) = 4e^{i2\pi t} = \phi_2(t) \)（描述 \( C_2 \)）</li>
+                    </ul>
+                </li>
+                <li><strong>中间状态</strong>：对于 \( 0 < s < 1 \)，\( H(t, s) = (2+2s)e^{i2\pi t} \) 描述半径为 \( 2+2s \) 的圆（在 \( 2 \) 到 \( 4 \) 之间）</li>
+                <li><strong>留在 \( D \) 内</strong>：对所有 \( 0 \leq s \leq 1 \)，半径 \( 2+2s \in [2, 4] \subset (1, 5) \)，所以 \( H(t,s) \in D \) ✓</li>
+                <li><strong>闭合性</strong>：\( H(0, s) = (2+2s)e^0 = 2+2s = (2+2s)e^{i2\pi} = H(1, s) \) ✓</li>
+            </ol>
+
+            <p><strong>几何图像</strong>：这个同伦就像一个气球在慢慢充气——从半径 2 的圆逐渐扩大到半径 4 的圆，整个过程中都保持在环形区域内。</p>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <p><strong>方向的重要性</strong>：Suppose \( C_3 \) is the same circle as \( C_2 \) but with the opposite orientation; that is, a description is given by \( \phi_3(t) = 4e^{-i2\pi t} \), \( 0 \leq t \leq 1 \). A homotopy between \( C_1 \) and \( C_3 \) is not too easy to construct—in fact, it is not possible! The moral: <strong>orientation counts</strong>. From now on, the term "closed curve" will mean an oriented closed curve.</p>
+
+            <p><strong>为什么 \( C_1 \) 和 \( C_3 \) 不同伦？</strong></p>
+            <ul>
+                <li>\( C_1 \)：逆时针绕原点一圈（正方向）</li>
+                <li>\( C_3 \)：顺时针绕原点一圈（负方向）</li>
+                <li>在环形区域 \( D \)（中心有"洞"）中，无法在不穿过洞的情况下将逆时针的圈变成顺时针的圈</li>
+                <li>直观理解：像莫比乌斯带一样，改变方向需要"翻转"，而在环形区域中这是不可能的</li>
+            </ul>
+
+            <p><strong>关键洞察</strong>：同伦不仅关心曲线的形状，也关心<strong>方向</strong>。两条相同形状但方向相反的曲线在有洞的区域中一般不同伦。</p>
         </div>
 
         <div class="figure">

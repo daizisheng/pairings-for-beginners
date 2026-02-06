@@ -1078,6 +1078,67 @@ w 平面:  ● → 绕两圈 (θ: 0→4π)
         因此，如果一个1-形式在某个坐标 \( z \) 下可以写成全纯函数 \( f \) 乘以 \( dz \)，那么它在任何坐标下都可以如此表示。</p>
         </blockquote>
 
+        <div class="added-content">
+            <div class="example-title">例子：全纯1-形式的坐标变换</div>
+
+            <p><strong>例 1：黎曼球面上的全纯1-形式</strong></p>
+
+            <p>考虑<strong>黎曼球面</strong> \( \mathbb{CP}^1 \)，用两个坐标卡覆盖：</p>
+            <ul>
+                <li>坐标卡 \( U_1 \)：使用坐标 \( z \)（覆盖除了北极点外的区域）</li>
+                <li>坐标卡 \( U_2 \)：使用坐标 \( w \)（覆盖除了南极点外的区域）</li>
+            </ul>
+
+            <p><strong>坐标变换关系</strong>：在重叠区域 \( U_1 \cap U_2 \)（\( z \neq 0, w \neq 0 \)）上，
+            \[ w = \frac{1}{z} \]</p>
+
+            <p><strong>定义一个全纯1-形式</strong>：在坐标 \( z \) 下，考虑1-形式
+            \[ \omega = \frac{dz}{z^2} \]
+            这里 \( f(z) = \frac{1}{z^2} \) 在 \( U_1 \setminus \{0\} \) 上是全纯的。</p>
+
+            <p><strong>验证坐标变换性质</strong>：</p>
+            <ol>
+                <li>由 \( w = \frac{1}{z} \)，得到 \( z = \frac{1}{w} \)</li>
+                <li>求微分：\( dz = d\left(\frac{1}{w}\right) = -\frac{1}{w^2}dw \)</li>
+                <li>代入原形式：
+                \[ \omega = \frac{dz}{z^2} = \frac{-\frac{1}{w^2}dw}{\left(\frac{1}{w}\right)^2} = \frac{-\frac{1}{w^2}dw}{w^{-2}} = -dw \]
+                </li>
+            </ol>
+
+            <p><strong>结果</strong>：在坐标 \( w \) 下，同一个1-形式写成
+            \[ \omega = -dw = g(w) \cdot dw \]
+            其中 \( g(w) = -1 \) 是关于 \( w \) 的全纯函数（常数函数）。</p>
+
+            <p><strong>关键观察</strong>：</p>
+            <ul>
+                <li>在 \( z \) 坐标下：\( \omega = \frac{1}{z^2} dz \)，系数 \( \frac{1}{z^2} \) 是全纯函数</li>
+                <li>在 \( w \) 坐标下：\( \omega = -1 \cdot dw \)，系数 \( -1 \) 也是全纯函数</li>
+                <li>虽然具体的函数形式不同（\( \frac{1}{z^2} \) vs \( -1 \)），但都是相应坐标的全纯函数</li>
+            </ul>
+
+            <p>这正是<strong>全纯1-形式的坐标无关性</strong>：全纯性质在坐标变换下保持不变。</p>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 2：复平面上的全纯1-形式</strong></p>
+
+            <p>在复平面 \( \mathbb{C} \) 上，考虑：
+            \[ \omega = e^z dz \]</p>
+
+            <p>坐标变换 \( w = z + 1 \)（平移）：</p>
+            <ul>
+                <li>\( z = w - 1 \)</li>
+                <li>\( dz = dw \)</li>
+                <li>\( \omega = e^{w-1} dw \)</li>
+            </ul>
+
+            <p>在两个坐标系中，系数函数 \( e^z \) 和 \( e^{w-1} \) 都是全纯的。这再次验证了全纯1-形式在坐标变换下保持其全纯性质。</p>
+
+            <p><strong>一般原理</strong>：如果 \( \omega = f(z)dz \) 在坐标 \( z \) 下是全纯的，且坐标变换 \( z = z(w) \) 是全纯的，那么通过链式法则：
+            \[ \omega = f(z(w)) \cdot z'(w) dw \]
+            其中 \( f(z(w)) \) 是全纯函数的复合（仍然全纯），\( z'(w) \) 也是全纯的（全纯函数的导数），因此它们的乘积 \( f(z(w)) \cdot z'(w) \) 仍然是 \( w \) 的全纯函数。</p>
+        </div>
+
         <div class="example">
             <div class="example-title">Definition 4.2 (Meromorphic 1-form / 亚纯1-形式)</div>
             <p>A <strong>meromorphic 1-form</strong> on a Riemann surface \( X \) is a complex differential form of degree 1 on \( X \) that is holomorphic on \( X \setminus S \), where \( S \subset X \) is a discrete (possibly empty) subset of \( X \), such that any point \( a \in S \) has a neighborhood \( U \) on which the restriction of \( \omega \) can be written as \( f\,\omega' \), where \( f \) is a meromorphic function on \( U \) with a pole at \( a \), and \( \omega' \) is a holomorphic 1-form on \( U \).</p>
@@ -1089,6 +1150,100 @@ w 平面:  ● → 绕两圈 (θ: 0→4π)
         <p>黎曼曲面 \( X \) 上的<strong>亚纯1-形式</strong>是 \( X \) 上的一个复微分1-形式，它在 \( X \setminus S \) 上是全纯的，其中 \( S \subset X \) 是 \( X \) 的一个离散（可能为空的）子集，使得任何点 \( a \in S \) 都有一个邻域 \( U \)，在其上 \( \omega \) 的限制可以写成 \( f\,\omega' \)，其中 \( f \) 是 \( U \) 上在 \( a \) 处有极点的亚纯函数，\( \omega' \) 是 \( U \) 上的全纯1-形式。</p>
         <p>非形式地说，亚纯1-形式 \( \omega \) 是可以在局部坐标下写成 \( f(z)\,dz \) 的对象，其中 \( f \) 是亚纯函数。\( \omega \) 在点 \( a \) 处有极点当且仅当 \( f(z) \) 在 \( a \) 处有极点，只要 \( \omega \) 在 \( a \) 的邻域内可以写成 \( f(z)\,dz \)。</p>
         </blockquote>
+
+        <div class="added-content">
+            <div class="example-title">例子：亚纯1-形式及其极点</div>
+
+            <p><strong>例 1：复平面上最简单的亚纯1-形式</strong></p>
+
+            <p>在复平面 \( \mathbb{C} \) 上，考虑最经典的例子：
+            \[ \omega = \frac{dz}{z} \]</p>
+
+            <ul>
+                <li><strong>极点：</strong>在 \( z = 0 \) 处有一个<strong>一阶极点</strong>（简单极点）</li>
+                <li><strong>留数：</strong>\( \operatorname{Res}_{z=0}(\omega) = 1 \)</li>
+                <li><strong>全纯区域：</strong>在 \( \mathbb{C} \setminus \{0\} \) 上是全纯的</li>
+            </ul>
+
+            <p>这个形式与对数函数密切相关：如果我们沿着一条路径积分 \( \int \frac{dz}{z} \)，得到的是对数函数 \( \log z \)（多值）。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 2：高阶极点的亚纯1-形式</strong></p>
+
+            <p>考虑：
+            \[ \omega = \frac{dz}{z^n} \quad (n \geq 1) \]</p>
+
+            <ul>
+                <li><strong>极点：</strong>在 \( z = 0 \) 处有一个 <strong>\( n \) 阶极点</strong></li>
+                <li><strong>留数：</strong>
+                    \[ \operatorname{Res}_{z=0}(\omega) = \begin{cases} 1 & \text{如果 } n = 1 \\ 0 & \text{如果 } n > 1 \end{cases} \]
+                </li>
+            </ul>
+
+            <p><strong>特殊情况</strong>：</p>
+            <ul>
+                <li>\( n = 1 \)：\( \omega = \frac{dz}{z} \)，留数为 1</li>
+                <li>\( n = 2 \)：\( \omega = \frac{dz}{z^2} \)，留数为 0（二阶极点）</li>
+                <li>\( n = 3 \)：\( \omega = \frac{dz}{z^3} \)，留数为 0（三阶极点）</li>
+            </ul>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 3：黎曼球面上的亚纯1-形式</strong></p>
+
+            <p>在黎曼球面 \( \mathbb{CP}^1 \) 上，使用两个坐标卡 \( z \) 和 \( w = 1/z \)，考虑：
+            \[ \omega = \frac{dz}{z} \]</p>
+
+            <p><strong>在坐标 \( z \) 下</strong>：
+            \[ \omega = \frac{dz}{z} \]
+            在 \( z = 0 \) 处有一阶极点。</p>
+
+            <p><strong>在坐标 \( w \) 下</strong>：由 \( z = 1/w \)，得 \( dz = -\frac{1}{w^2}dw \)，因此：
+            \[ \omega = \frac{dz}{z} = \frac{-\frac{1}{w^2}dw}{\frac{1}{w}} = -\frac{dw}{w} \]</p>
+
+            <p>在 \( w = 0 \)（对应于 \( z = \infty \)）处也有一阶极点。</p>
+
+            <p><strong>观察</strong>：这个亚纯1-形式在黎曼球面上有两个一阶极点：\( z = 0 \) 和 \( z = \infty \)。根据留数定理，所有极点的留数之和为零：
+            \[ \operatorname{Res}_{z=0}\left(\frac{dz}{z}\right) + \operatorname{Res}_{z=\infty}\left(\frac{dz}{z}\right) = 1 + (-1) = 0 \]</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 4：多个极点的亚纯1-形式</strong></p>
+
+            <p>考虑有理函数对应的1-形式：
+            \[ \omega = \frac{z+2}{(z-1)(z-2)} dz \]</p>
+
+            <p><strong>极点分析</strong>：</p>
+            <ul>
+                <li>在 \( z = 1 \) 处有一阶极点，留数为 \( \operatorname{Res}_{z=1}(\omega) = \frac{3}{-1} = -3 \)</li>
+                <li>在 \( z = 2 \) 处有一阶极点，留数为 \( \operatorname{Res}_{z=2}(\omega) = \frac{4}{1} = 4 \)</li>
+                <li>在无穷远点 \( z = \infty \) 处的留数为 \( \operatorname{Res}_{z=\infty}(\omega) = -1 \)</li>
+            </ul>
+
+            <p><strong>验证留数和</strong>：
+            \[ -3 + 4 + (-1) = 0 \]
+            这验证了命题 4.4：紧黎曼曲面上亚纯1-形式的所有留数之和为零。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 5：亚纯1-形式与全纯1-形式的关系</strong></p>
+
+            <p>全纯1-形式是亚纯1-形式的特殊情况（没有极点）：</p>
+            <ul>
+                <li>\( \omega = dz \)：在整个复平面上全纯（没有极点）</li>
+                <li>\( \omega = e^z dz \)：在整个复平面上全纯</li>
+                <li>\( \omega = \sin(z) dz \)：在整个复平面上全纯</li>
+            </ul>
+
+            <p>但是：</p>
+            <ul>
+                <li>\( \omega = \frac{dz}{z} \)：亚纯但不全纯（在 \( z = 0 \) 有极点）</li>
+                <li>\( \omega = \tan(z) dz = \frac{\sin(z)}{\cos(z)} dz \)：亚纯（在 \( z = \frac{\pi}{2} + n\pi \) 处有极点）</li>
+            </ul>
+
+            <p><strong>关键区别</strong>：全纯1-形式处处有限，而亚纯1-形式允许在孤立点处趋于无穷（极点）。</p>
+        </div>
 
         <div class="example">
             <div class="example-title">Proposition 4.3</div>
@@ -1302,6 +1457,142 @@ w 平面:  ● → 绕两圈 (θ: 0→4π)
         <p>若 \( D \) 是除子，定义 \( L(D) \) 为满足 \( (f) + D \geq 0 \) 的所有亚纯函数 \( f \) 的集合。显然 \( L(D) \) 是 \( \mathbb{C} \) 上的向量空间，定义 \( l(D) \) 为该向量空间的维数。</p>
         <p>类似地，\( I(D) \) 定义为满足 \( (\omega) \geq D \) 的所有亚纯1-形式 \( \omega \) 的集合。显然 \( I(D) \) 是 \( \mathbb{C} \) 上的线性空间，\( i(D) \) 定义为 \( \dim_{\mathbb{C}}(I(D)) \)。</p>
         </blockquote>
+
+        <div class="added-content">
+            <div class="example-title">例子：空间 \( L(D) \) 和 \( I(D) \) 的具体计算</div>
+
+            <p><strong>理解条件 \( (f) + D \geq 0 \)</strong></p>
+            <p>条件 \( (f) + D \geq 0 \) 意味着：对于每个点 \( p \)，我们有 \( \operatorname{ord}_p(f) + \operatorname{ord}_p(D) \geq 0 \)，即
+            \[ \operatorname{ord}_p(f) \geq -\operatorname{ord}_p(D) \]</p>
+            <p>换句话说：</p>
+            <ul>
+                <li>如果 \( D \) 在点 \( p \) 处有 \( n \) 阶<strong>零点</strong>（\( \operatorname{ord}_p(D) = n > 0 \)），则 \( f \) 在 \( p \) 处可以有至多 \( n \) 阶<strong>极点</strong></li>
+                <li>如果 \( D \) 在点 \( p \) 处有 \( m \) 阶<strong>极点</strong>（\( \operatorname{ord}_p(D) = -m < 0 \)），则 \( f \) 在 \( p \) 处至少要有 \( m \) 阶<strong>零点</strong></li>
+            </ul>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 1：黎曼球面上的 \( L(D) \) —— 零除子</strong></p>
+
+            <p>在黎曼球面 \( \mathbb{CP}^1 \) 上，考虑<strong>零除子</strong> \( D = 0 \)。</p>
+
+            <p><strong>空间 \( L(0) \)</strong>：满足 \( (f) + 0 \geq 0 \) 的所有亚纯函数，即 \( (f) \geq 0 \)。</p>
+
+            <p>这意味着 \( f \) 在所有点的阶都非负，即 \( f \) 没有极点。在紧黎曼曲面（特别是黎曼球面）上，没有极点的亚纯函数只能是<strong>常函数</strong>（由刘维尔定理）。</p>
+
+            <p><strong>结论</strong>：\( L(0) = \mathbb{C} \)（所有常函数），因此 \( l(0) = \dim(L(0)) = 1 \)。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 2：黎曼球面上的 \( L(D) \) —— 单点除子</strong></p>
+
+            <p>考虑除子 \( D = [0] \)（在 \( z = 0 \) 处有一阶零点）。</p>
+
+            <p><strong>空间 \( L([0]) \)</strong>：满足 \( (f) + [0] \geq 0 \) 的所有亚纯函数。</p>
+
+            <p>这意味着：</p>
+            <ul>
+                <li>在 \( z = 0 \) 处：\( \operatorname{ord}_0(f) + 1 \geq 0 \)，即 \( \operatorname{ord}_0(f) \geq -1 \)，所以 \( f \) 在 \( z = 0 \) 处<strong>可以有至多一阶极点</strong></li>
+                <li>在其他有限点处：\( \operatorname{ord}_p(f) \geq 0 \)，即 \( f \) 在其他有限点<strong>没有极点</strong></li>
+                <li><strong>重要</strong>：这个条件<strong>不限制零点</strong>！\( f \) 可以在任何地方有零点</li>
+            </ul>
+
+            <p>在黎曼球面上，满足这些条件的函数可以写成：
+            \[ f = a + \frac{b}{z} \quad (a, b \in \mathbb{C}) \]</p>
+
+            <p><strong>检验这些函数</strong>：</p>
+            <ul>
+                <li><strong>常函数</strong> \( f = a \)（\( b = 0 \)）：在任何地方都没有极点，满足条件 ✓</li>
+                <li><strong>函数</strong> \( f = \frac{b}{z} \)（\( a = 0, b \neq 0 \)）：
+                    <ul>
+                        <li>在 \( z = 0 \) 有一阶极点 ✓</li>
+                        <li>在其他有限点没有极点 ✓</li>
+                        <li>在 \( z = \infty \) 处：用坐标 \( w = 1/z \)，\( f = bw \)，在 \( w = 0 \) 有一阶零点</li>
+                        <li>\( \deg((f)) = -1 + 1 = 0 \) ✓（一个极点，一个零点）</li>
+                    </ul>
+                </li>
+                <li><strong>一般函数</strong> \( f = a + \frac{b}{z} \)（\( a, b \neq 0 \)）：
+                    <ul>
+                        <li>在 \( z = 0 \) 有一阶极点 ✓</li>
+                        <li>在某个有限点 \( z = -b/a \) 有一阶零点（使得分子为零）</li>
+                        <li>\( \deg((f)) = 0 \) ✓</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>结论</strong>：\( L([0]) \) 是所有形如 \( a + \frac{b}{z} \) 的函数，这是一个<strong>二维空间</strong>，基为 \( \{1, \frac{1}{z}\} \)，因此 \( l([0]) = 2 \)。</p>
+
+            <p><strong>验证黎曼-罗赫定理</strong>：
+            \[ l([0]) - i([0]) = \deg([0]) + 1 - g = 1 + 1 - 0 = 2 \]
+            由于黎曼球面上 \( g = 0 \)，没有全纯1-形式，\( i([0]) = 0 \)，因此 \( l([0]) = 2 \) ✓</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 3：黎曼球面上的 \( L(D) \) —— 允许更多极点</strong></p>
+
+            <p>考虑除子 \( D = 2[\infty] \)（在 \( z = \infty \) 处有二阶零点）。</p>
+
+            <p><strong>空间 \( L(2[\infty]) \)</strong>：满足 \( (f) + 2[\infty] \geq 0 \) 的所有亚纯函数。</p>
+
+            <p>这意味着：</p>
+            <ul>
+                <li>在 \( z = \infty \) 处：\( \operatorname{ord}_\infty(f) + 2 \geq 0 \)，即 \( \operatorname{ord}_\infty(f) \geq -2 \)，所以 \( f \) 在 \( \infty \) 处可以有至多二阶极点</li>
+                <li>在其他点处：\( f \) 没有极点</li>
+            </ul>
+
+            <p>这样的函数是<strong>多项式</strong>，次数至多为 2：
+            \[ f = a + bz + cz^2 \quad (a, b, c \in \mathbb{C}) \]</p>
+
+            <p><strong>结论</strong>：\( L(2[\infty]) \) 是所有次数 \( \leq 2 \) 的多项式，\( l(2[\infty]) = 3 \)（基为 \( \{1, z, z^2\} \)）。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 4：一般情况 —— 黎曼球面上的 \( L(n[\infty]) \)</strong></p>
+
+            <p>对于除子 \( D = n[\infty] \)（\( n \geq 0 \)）：
+            \[ L(n[\infty]) = \{\text{次数} \leq n \text{ 的多项式}\} \]
+            \[ l(n[\infty]) = n + 1 \]</p>
+
+            <p>基为 \( \{1, z, z^2, \ldots, z^n\} \)。</p>
+
+            <p><strong>验证黎曼-罗赫定理</strong>：对于黎曼球面（\( g = 0 \)），黎曼-罗赫定理给出：
+            \[ l(D) - i(D) = \deg(D) + 1 - g = n + 1 - 0 = n + 1 \]
+            由于黎曼球面上没有全纯1-形式（\( g = 0 \)），有 \( i(D) = 0 \)，因此 \( l(n[\infty]) = n + 1 \)，与上面的结果一致！</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 5：空间 \( I(D) \) —— 全纯1-形式的空间</strong></p>
+
+            <p>考虑零除子 \( D = 0 \)。</p>
+
+            <p><strong>空间 \( I(0) \)</strong>：满足 \( (\omega) \geq 0 \) 的所有亚纯1-形式，即没有极点的1-形式，也就是<strong>全纯1-形式</strong>。</p>
+
+            <p><strong>在黎曼球面上</strong>：\( I(0) = \{0\} \)（唯一的全纯1-形式是零），因此 \( i(0) = 0 \)。这与黎曼球面的亏格 \( g = 0 \) 一致（定理 4.1 说亏格为 \( g \) 的黎曼曲面上恰有 \( g \) 个独立的全纯1-形式）。</p>
+
+            <p><strong>在亏格为 1 的复环面上</strong>：\( I(0) \) 是一维的，\( i(0) = 1 \)。例如在复环面 \( \mathbb{C}/\Lambda \) 上，\( \omega = dz \) 是一个全纯1-形式。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>例 6：负度除子</strong></p>
+
+            <p>考虑除子 \( D = -[0] \)（在 \( z = 0 \) 处有一阶极点）。</p>
+
+            <p><strong>空间 \( L(-[0]) \)</strong>：满足 \( (f) - [0] \geq 0 \) 的所有亚纯函数，即 \( \operatorname{ord}_0(f) \geq 1 \)（在 \( z = 0 \) 处至少有一阶零点）且在其他点没有极点。</p>
+
+            <p>在紧黎曼曲面上，这样的函数必须在某处有极点（否则它是全纯且有界的，只能是常数，但常数在 \( z = 0 \) 处没有零点）。因此不存在这样的函数。</p>
+
+            <p><strong>结论</strong>：\( L(-[0]) = \emptyset \)，\( l(-[0]) = 0 \)。这验证了推论 5.3：当 \( \deg(D) < 0 \) 时，\( l(D) = 0 \)。</p>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #4caf50;">
+
+            <p><strong>总结</strong></p>
+            <ul>
+                <li>\( L(D) \) 描述了<strong>允许在特定点有特定阶数极点</strong>的亚纯函数空间</li>
+                <li>\( I(D) \) 描述了<strong>在特定点有特定阶数零点</strong>的亚纯1-形式空间</li>
+                <li>这些空间的维数 \( l(D) \) 和 \( i(D) \) 通过<strong>黎曼-罗赫定理</strong>联系起来</li>
+                <li>除子的度数 \( \deg(D) \) 越大，\( L(D) \) 中允许的函数越多，维数 \( l(D) \) 越大</li>
+            </ul>
+        </div>
 
         <div class="example">
             <div class="example-title">Corollary 5.3</div>
