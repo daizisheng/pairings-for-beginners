@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Miller's Algorithm - Part 1</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .definition {
+            background-color: #f0f8ff;
+            border: 2px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .theorem {
+            background-color: #fff9e6;
+            border: 2px solid #ffa500;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        figure {
+            text-align: center;
+            margin: 30px 0;
+        }
+        figcaption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="../../ch4/sections/ch4-2.html">← 上一章：配对类型</a>
+    <a href="ch5-2.html">下一部分：Weil 配对 →</a>
+</div>
+
+<h1>Chapter 5: Miller's Algorithm for the Weil and Tate Pairings</h1>
+<h2>第五章：计算 Weil 和 Tate 配对的 Miller 算法</h2>
+
+<div class="page-marker">— 67 —</div>
+
+<blockquote>
+<strong>本章概述</strong>：
+<p>本章定义 Weil 和 Tate 配对，并介绍计算它们的 Miller 算法。像往常一样，我们在有限域上的椭圆曲线的背景下陈述定义，但更一般的定义是类似的（见 [Sil09, Gal05]）。</p>
+
+<p><strong>记号</strong>：在本章中，我们将使用记号 $w_r(P, Q)$ 表示 $P$ 和 $Q$ 的（$r$ 阶）Weil 配对，使用 $t_r(P, Q)$ 表示它们的（$r$ 阶）Tate 配对。这将有助于讨论它们之间的差异和关系。在本章之后，配对的类型和 $r$ 的值将总是清楚的（$r$ 是 $\#E(\mathbb{F}_q)$ 的最大素因子），所以我们将回到文献中最常见的记号，简单地写 $e(P, Q)$。</p>
+</blockquote>
+
+<h2>引言：为什么需要高效的配对计算？</h2>
+
+<p>在前面的章节中，我们了解了配对的定义和性质。但是，如何在实践中<strong>计算</strong>配对呢？朴素的方法（直接从定义计算）会非常低效。Miller 在 1986 年提出了一个巧妙的算法，使得配对计算变得实际可行，从而开启了配对密码学的时代。</p>
+
+<blockquote>
+<strong>历史背景</strong>：
+<ul>
+<li><strong>1986</strong>：Victor Miller 提出 Miller 算法，用于计算 Weil 配对</li>
+<li><strong>1999-2000</strong>：Frey-Rück 和 Menezes-Okamoto-Vanstone 将其应用于密码学</li>
+<li><strong>2001</strong>：Boneh-Franklin 的 IBE（身份基加密）方案引爆配对密码学</li>
+<li><strong>至今</strong>：Miller 算法仍然是所有配对计算实现的核心</li>
+</ul>
+</blockquote>
+
+<h2>Miller 算法的核心思想</h2>
+
+<p>Miller 算法的巧妙之处在于利用了椭圆曲线上的<strong>除子</strong>（divisor）和<strong>函数</strong>（function）的关系。回顾第 3 章，一个除子 $D = \sum_P n_P(P)$ 是主除子（principal）当且仅当：</p>
+<ol>
+<li>$\sum_P n_P = 0$（度为零）</li>
+<li>$\sum_P [n_P]P = \mathcal{O}$（和为零）</li>
+</ol>
+
+<p>对于任意 $m \in \mathbb{Z}$ 和 $P \in E$，存在一个函数 $f_{m,P}$ 其除子为：</p>
+$$\boxed{(f_{m,P}) = m(P) - ([m]P) - (m-1)(\mathcal{O})}$$
+
+<blockquote>
+<strong>关键洞察</strong>：
+<ul>
+<li>这个函数的零点在 $m$ 个 $P$ 的位置（重数为 $m$）</li>
+<li>极点在 $[m]P$ 的位置和无穷远点 $\mathcal{O}$（重数为 $m-1$）</li>
+<li>验证主除子条件：
+  <ul>
+  <li>度：$m - 1 - (m-1) = 0$ ✓</li>
+  <li>和：$[m]P - [m]P - (m-1)\mathcal{O} = \mathcal{O}$ ✓</li>
+  </ul>
+</li>
+</ul>
+</blockquote>
+
+<p><strong>特殊情况</strong>：当 $m = 0$ 时，我们取 $f_{0,P} = 1$（零除子对应常函数）。</p>
+
+<h3>函数的递推构造</h3>
+
+<p>Miller 算法的核心是利用<strong>弦切法</strong>（chord-tangent addition）来递推构造函数 $f_{m,P}$。</p>
+
+<div class="theorem">
+<strong>递推关系</strong>：观察除子的关系
+$$(f_{m+1,P}) - (f_{m,P}) = (P) + ([m]P) - ([m+1]P) - (\mathcal{O})$$
+
+<p>这<strong>恰好</strong>是在椭圆曲线加法 $[m]P + P = [m+1]P$ 中使用的弦和竖线函数的除子！</p>
+
+<p>具体地，设 $\ell_{[m]P,P}$ 是过 $[m]P$ 和 $P$ 的直线，$v_{[m+1]P}$ 是过 $[m+1]P$ 的竖线，则：</p>
+$$f_{m+1,P} = f_{m,P} \cdot \frac{\ell_{[m]P,P}}{v_{[m+1]P}}$$
+</div>
+
+<blockquote>
+<strong>几何直观</strong>：
+<ul>
+<li>$\ell_{[m]P,P}$：过 $[m]P$ 和 $P$ 的弦（或切线），零点在 $[m]P$、$P$ 和它们和的反元 $-([m+1]P)$</li>
+<li>$v_{[m+1]P}$：过 $[m+1]P$ 的竖直线，零点在 $[m+1]P$ 和 $-([m+1]P)$</li>
+<li>除以 $v_{[m+1]P}$ "消除"了 $-([m+1]P)$ 的零点，使其变成极点</li>
+</ul>
+</blockquote>
+
+<h3>详细的除子验证</h3>
+
+<p>让我们详细验证递推关系。$\ell_{[m]P,P}$ 和 $v_{[m+1]P}$ 的除子是：</p>
+$$(\ell_{[m]P,P}) = ([m]P) + (P) + (-[m+1]P) - 3(\mathcal{O})$$
+$$（v_{[m+1]P}) = ([m+1]P) + (-[m+1]P) - 2(\mathcal{O})$$
+
+<p>因此：</p>
+$$\left(\frac{\ell_{[m]P,P}}{v_{[m+1]P}}\right) = ([m]P) + (P) + (-[m+1]P) - ([m+1]P) - (-[m+1]P) - (\mathcal{O})$$
+$$= ([m]P) + (P) - ([m+1]P) - (\mathcal{O})$$
+
+<p>所以：</p>
+$$\left(f_{m,P} \cdot \frac{\ell_{[m]P,P}}{v_{[m+1]P}}\right) = (f_{m,P}) + \left(\frac{\ell_{[m]P,P}}{v_{[m+1]P}}\right)$$
+$$= m(P) - ([m]P) - (m-1)(\mathcal{O}) + ([m]P) + (P) - ([m+1]P) - (\mathcal{O})$$
+$$= (m+1)(P) - ([m+1]P) - m(\mathcal{O}) = (f_{m+1,P})$$
+
+<p>完美！这证明了递推关系的正确性。</p>
+
+<div class="page-marker">— 68 —</div>
+
+<h2>Example 5.0.1：逐步构造函数 $f_{5,P}$</h2>
+
+<div class="example">
+<div class="example-title">Example 5.0.1 (Magma script)</div>
+
+<p><strong>设置</strong>：设 $q = 23$，考虑 $E/\mathbb{F}_{23} : y^2 = x^3 + 17x + 6$。</p>
+<ul>
+<li>$\#E(\mathbb{F}_{23}) = 30$</li>
+<li>$P = (10, 7)$ 是一个 5 阶点</li>
+</ul>
+
+<p><strong>目标</strong>：构造函数 $f_{5,P}$，其除子为 $(f_{5,P}) = 5(P) - 5(\mathcal{O})$。</p>
+
+<p><strong>步骤 1：从 $f_{1,P}$ 开始</strong></p>
+<p>根据定义，$f_{1,P}$ 的除子是 $(f_{1,P}) = (P) - (P) = 0$，所以 $f_{1,P}$ 是零除子，我们可以取 $f_{1,P} = 1$。</p>
+
+<p><strong>步骤 2：构造 $f_{2,P}$</strong></p>
+<p>使用递推：$f_{2,P} = f_{1,P} \cdot \frac{\ell_{P,P}}{v_{[2]P}}$。</p>
+
+<p>计算 $[2]P$：使用倍点公式</p>
+$$\lambda = \frac{3x_P^2 + a}{2y_P} = \frac{3 \cdot 10^2 + 17}{2 \cdot 7} = \frac{317}{14} \equiv \frac{18}{14} \equiv 18 \cdot 5 \equiv 21 \pmod{23}$$
+$$x_{[2]P} = \lambda^2 - 2x_P = 21^2 - 20 \equiv 441 - 20 \equiv 6 \pmod{23}$$
+$$y_{[2]P} = \lambda(x_P - x_{[2]P}) - y_P = 21(10 - 6) - 7 \equiv 84 - 7 \equiv 8 \pmod{23}$$
+
+<p>所以 $[2]P = (6, 8)$。</p>
+
+<p>现在构造函数：</p>
+<ul>
+<li><strong>切线</strong> $\ell_{P,P}$：过 $P = (10, 7)$ 的切线，斜率 $\lambda = 21$
+  $$\ell_{P,P}(x, y) = y - 7 - 21(x - 10) = y - 21x + 203 \equiv y - 21x + 19 \pmod{23}$$
+</li>
+<li><strong>竖线</strong> $v_{[2]P}$：过 $[2]P = (6, 8)$ 的竖线
+  $$v_{[2]P}(x, y) = x - 6$$
+</li>
+</ul>
+
+<p>因此：</p>
+$$f_{2,P}(x, y) = \frac{y - 21x + 19}{x - 6}$$
+
+<p>让我们验证除子 $(f_{2,P}) = 2(P) - ([2]P) - (\mathcal{O})$：</p>
+<ul>
+<li>零点：$y - 21x + 19 = 0$ 与曲线的交点是 $P$（重数 2）和 $-[2]P$</li>
+<li>极点：$x - 6 = 0$ 给出 $[2]P$ 和 $-[2]P$</li>
+<li>在无穷远点：$f_{2,P}$ 有一个极点（因为分子次数小于分母）</li>
+</ul>
+
+<blockquote>
+<strong>具体数值</strong>：$f_{2,P}(x, y) = \frac{y + 2x + 19}{x + 17} \pmod{23}$（简化后）
+</blockquote>
+
+<p><strong>步骤 3：构造 $f_{3,P}$</strong></p>
+<p>使用递推：$f_{3,P} = f_{2,P} \cdot \frac{\ell_{[2]P,P}}{v_{[3]P}}$。</p>
+
+<p>首先计算 $[3]P = [2]P + P$：</p>
+$$\lambda = \frac{y_P - y_{[2]P}}{x_P - x_{[2]P}} = \frac{7 - 8}{10 - 6} = \frac{-1}{4} \equiv 22 \cdot 6 \equiv 17 \pmod{23}$$
+$$x_{[3]P} = \lambda^2 - x_P - x_{[2]P} = 17^2 - 10 - 6 \equiv 289 - 16 \equiv 20 \pmod{23}$$
+$$y_{[3]P} = \lambda(x_P - x_{[3]P}) - y_P = 17(10 - 20) - 7 \equiv -177 \equiv 7 \pmod{23}$$
+
+<p>所以 $[3]P = (20, 7)$。</p>
+
+<p>函数：</p>
+<ul>
+<li><strong>弦</strong> $\ell_{[2]P,P}$：过 $[2]P = (6, 8)$ 和 $P = (10, 7)$，斜率 $17$
+  $$\ell_{[2]P,P}(x, y) = y - 8 - 17(x - 6) = y - 17x + 94 \equiv y - 17x + 2 \pmod{23}$$
+</li>
+<li><strong>竖线</strong> $v_{[3]P}$：过 $[3]P = (20, 7)$
+  $$v_{[3]P}(x, y) = x - 20 \equiv x + 3 \pmod{23}$$
+</li>
+</ul>
+
+<p>因此：</p>
+$$f_{3,P} = f_{2,P} \cdot \frac{\ell_{[2]P,P}}{v_{[3]P}} = \frac{y + 2x + 19}{x + 17} \cdot \frac{y + 6x + 2}{x + 3}$$
+
+<blockquote>
+<strong>简化</strong>：在实际实现中，我们不需要完全展开这些表达式。Miller 算法只需要在特定点求值，而不是构造完整的符号表达式。
+</blockquote>
+
+<p><strong>步骤 4 和 5</strong>：继续类似地构造 $f_{4,P}$ 和 $f_{5,P}$...</p>
+
+<p>最终，$f_{5,P}$ 有除子 $(f_{5,P}) = 5(P) - 5(\mathcal{O})$，满足 $[5]P = \mathcal{O}$（因为 $P$ 是 5 阶点）。</p>
+
+</div>
+
+<h3>从构造函数到计算配对</h3>
+
+<p>你可能会问：这些函数 $f_{m,P}$ 和配对有什么关系？</p>
+
+<blockquote>
+<strong>核心联系</strong>：Weil 和 Tate 配对的定义都涉及到<strong>在特定点求值函数</strong>，而这些函数恰好就是 $f_{m,P}$ 类型的函数！Miller 算法通过递推构造这些函数，并在构造过程中同时完成求值，从而高效计算配对。
+</blockquote>
+
+<p>下一节我们将看到 Weil 配对的精确定义，以及如何使用 Miller 算法计算它。</p>
+
+<h2>Miller 算法的效率</h2>
+
+<p>为什么 Miller 算法比朴素方法快得多？</p>
+
+<table>
+<tr>
+<th>方法</th>
+<th>复杂度</th>
+<th>说明</th>
+</tr>
+<tr>
+<td>朴素方法</td>
+<td>$O(r^2)$</td>
+<td>需要显式构造整个除子并计算所有交点</td>
+</tr>
+<tr>
+<td>Miller 算法</td>
+<td>$O(\log r)$</td>
+<td>利用二进制展开和递推，只需 $O(\log r)$ 次椭圆曲线加法</td>
+</tr>
+</table>
+
+<blockquote>
+<strong>类比</strong>：Miller 算法与计算 $g^n$ 的快速幂算法类似——都利用二进制展开和"倍增"策略，将线性复杂度降低到对数复杂度！
+</blockquote>
+
+<p>对于实际的密码学参数（$r \approx 2^{256}$），$O(\log r) \approx 256$ 步 vs $O(r) \approx 2^{256}$ 步的差别是<strong>天文数字般的</strong>！</p>
+
+<div class="nav-links">
+    <a href="../../ch4/sections/ch4-2.html">← 上一章：配对类型</a>
+    <a href="ch5-2.html">下一部分：Weil 配对 →</a>
+</div>
+
+</body>
+</html>

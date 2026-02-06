@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 6: Pairing-Friendly Curves</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .definition {
+            background-color: #f0f8ff;
+            border: 2px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="../../ch5/sections/ch5-2.html">← 上一章：Weil 配对</a>
+    <a href="ch6-2.html">下一部分：曲线构造方法 →</a>
+</div>
+
+<h1>Chapter 6: Pairing-Friendly Curves</h1>
+<h2>第六章：配对友好曲线</h2>
+
+<div class="page-marker">— 81 —</div>
+
+<blockquote>
+<strong>本章目标</strong>：
+
+<p>要在实践中实现基于配对的密码学，我们需要两样东西 [Sco07a]：</p>
+<ul>
+<li>计算配对的<strong>高效算法</strong>（上一章已介绍）</li>
+<li><strong>合适的椭圆曲线</strong>（本章重点）</li>
+</ul>
+
+<p>前者在上一章中简要概述（下一章将深入探讨），而本章专门讨论后者。</p>
+</blockquote>
+
+<h2>6.1 A Balancing Act（平衡行为）</h2>
+<h3>安全性与效率的权衡</h3>
+
+<p>配对在根本上不同于传统的数论基础密码原语，因为它们需要在<strong>不同设置</strong>中定义的多个群：</p>
+<ul>
+<li>$\mathbb{G}_1$ 和 $\mathbb{G}_2$ 是椭圆曲线群</li>
+<li>$\mathbb{G}_T$ 是有限域的乘法子群</li>
+</ul>
+
+<p>所有三个群都必须对各自离散对数问题（DLP）的实例保持安全，这意味着攻击者可以通过以下方式破坏系统：</p>
+<ul>
+<li>在 $\mathbb{G}_T$ 中求解 DLP，或</li>
+<li>在 $\mathbb{G}_1$ 或 $\mathbb{G}_2$ 中求解 ECDLP（椭圆曲线离散对数问题）</li>
+</ul>
+
+<blockquote>
+<strong>关键不平衡</strong>：
+
+<p>如第 2.1 节所讨论的，椭圆曲线群目前在每比特安全性上比有限域获得<strong>更高的安全性</strong>。这是因为：</p>
+<ul>
+<li>ECDLP 的最佳攻击仍然是<strong>一般性攻击</strong>（如 Pollard rho [Pol78]），具有<strong>指数复杂度</strong></li>
+<li>有限域 DLP 的最佳攻击具有<strong>亚指数复杂度</strong>（如数域筛法）</li>
+</ul>
+
+<p>换句话说，要达到相同的安全性，有限域群需要比椭圆曲线群<strong>大得多的基数</strong>。</p>
+</blockquote>
+
+<h3>对称密钥大小与群大小的关系</h3>
+
+<p>标准做法是用<strong>等价对称密钥大小</strong>来表述不对称原语的复杂度。例如，最近的 ECRYPT 建议（见 http://www.keylength.com/en/3/）指出：</p>
+
+<blockquote>
+<p>要达到与 AES-128（即 128 位安全性）相当的安全性，我们需要：</p>
+<ul>
+<li>约 <strong>256 位</strong>的椭圆曲线群 $\mathbb{G}_1, \mathbb{G}_2$</li>
+<li>约 <strong>3248 位</strong>的有限域 $\mathbb{G}_T$</li>
+</ul>
+</blockquote>
+
+<p>我们在配对的背景下给出一个满足这些特定要求的曲线示例。</p>
+
+<div class="example">
+<div class="example-title">Example 6.1.1 (Magma script)</div>
+
+<p><strong>实际参数示例</strong>：设 $E/\mathbb{F}_q : y^2 = x^3 + 14$，其中 $q$ 和 $r$ 的值为：</p>
+
+<pre style="background-color: #f5f5f5; padding: 10px; overflow-x: auto; font-size: 0.85em;">
+q = 4219433269001672285392043941410381394151124415325915112513812877775317
+    50501669240803479679804426315490332966  (369 bits),
+
+r = 2236970611075786789503882736578627885610300038964062138513913737656
+    98070267786  (271 bits).
+</pre>
+
+<p>曲线阶数 $\#E(\mathbb{F}_q)$ 有大素因子 $r$。</p>
+
+<p><strong>嵌入度</strong>：$k = 9$，即 $q^9 - 1 \equiv 0 \pmod{r}$。</p>
+
+<p>因此，两个椭圆曲线群 $\mathbb{G}_1 \in E[r]$ 和 $\mathbb{G}_2 \in E[r]$ 的阶为 <strong>271 位</strong>，满足 128 位安全性的当前要求。</p>
+
+<p>虽然 $\mathbb{G}_T$ 是 $\mathbb{F}_{q^9}^*$ 的阶为 $r$ 的子群，但攻击复杂度由域 $\mathbb{F}_{q^9}$ 的<strong>完整大小</strong>决定，即 <strong>3248 位</strong>，也满足 128 位安全性的要求。</p>
+</div>
+
+<h3>为什么不能任意增大嵌入度 $k$？</h3>
+
+<div class="warning">
+<strong>重要讨论</strong>：嵌入度 $k$ 的选择
+
+<p>关于上面的例子，我们讨论一个重要的点。如果我们使用与 Example 6.1.1 相同位大小的素数 $q$ 和 $r$，但对应于<strong>更大嵌入度</strong> $k$ 的曲线，这会<strong>不会</strong>提高配对提供的安全级别？</p>
+
+<p><strong>表面上看</strong>：例如，即使 $k = 18$ 给出 6496 位的有限域，其本身对应于更难的 DLP（约 175 位安全性），但攻击协议的整体复杂度<strong>保持不变</strong>，因为 ECDLP 的攻击复杂度没有改变。</p>
+
+<p><strong>效率代价</strong>：$k$ 的增加不必要地<strong>阻碍了配对的效率</strong>，因为 Miller 算法中最昂贵的操作发生在 $\mathbb{F}_{q^k}$ 中。</p>
+
+<p><strong>理想方法</strong>：优化 $r$ 和 $\mathbb{F}_{q^k}$ 之间的平衡，使两者都尽可能小，同时满足特定的安全级别要求。</p>
+
+<p><strong>成功案例</strong>：Example 6.1.1 成功地实现了这一点，其中 $\mathbb{F}_{q^k}$ 恰好是推荐的大小，而 $r$ 仅比声称 128 位安全性所需的大几位。</p>
+</div>
+
+<h3>配对友好曲线的定义</h3>
+
+<div class="definition">
+<strong>Definition：配对友好曲线（Pairing-Friendly Curve）</strong>
+
+<p>一条椭圆曲线 $E/\mathbb{F}_q$ 被称为<strong>配对友好</strong>的，如果：</p>
+<ol>
+<li><strong>大素数子群</strong>：$\#E(\mathbb{F}_q)$ 有一个大的素因子 $r$</li>
+<li><strong>小嵌入度</strong>：嵌入度 $k$ 相对于 $r$ 的大小来说<strong>足够小</strong>，使得：
+   <ul>
+   <li>$\mathbb{F}_{q^k}$ 中的运算是可行的</li>
+   <li>$q^k$ 的大小足以抵抗有限域 DLP 攻击</li>
+   </ul>
+</li>
+<li><strong>平衡性</strong>：$r$ 和 $q^k$ 的大小在给定的安全级别下达到良好的平衡</li>
+</ol>
+</div>
+
+<h3>为什么普通随机曲线不适合配对？</h3>
+
+<p>对于一般的椭圆曲线，嵌入度 $k$ 通常非常大（约 $O(r)$），这使得 $\mathbb{F}_{q^k}$ 大到无法进行实际计算。</p>
+
+<blockquote>
+<strong>Hasse 定理提示</strong>：
+
+<p>回顾 Hasse 定理：$|\#E(\mathbb{F}_q) - (q + 1)| \leq 2\sqrt{q}$。</p>
+
+<p>对于素数阶群 $\#E(\mathbb{F}_q) = r$，我们有 $r \approx q$。</p>
+
+<p>嵌入度 $k$ 是使得 $r | (q^k - 1)$ 的最小正整数。对于随机曲线，$k$ 的期望值约为 $r/2$（巨大！）。</p>
+
+<p><strong>结论</strong>：我们需要<strong>特殊构造</strong>的曲线，使得 $k$ 相对较小（如 $k \in \{9, 12, 18, 24\}$）。</p>
+</blockquote>
+
+<h2>配对友好曲线的构造方法</h2>
+
+<p>如何找到具有小嵌入度的曲线？主要有几类方法：</p>
+
+<table>
+<tr>
+<th>方法类型</th>
+<th>代表性曲线族</th>
+<th>特点</th>
+</tr>
+<tr>
+<td><strong>超奇异曲线</strong></td>
+<td>$y^2 = x^3 + ax$ (特征 $p > 3$)</td>
+<td>$k \in \{2, 3, 4, 6\}$，但效率低（Type 1 配对）</td>
+</tr>
+<tr>
+<td><strong>复乘构造（CM）</strong></td>
+<td>MNT 曲线、Freeman 曲线</td>
+<td>$k \in \{3, 4, 6\}$，灵活性有限</td>
+</tr>
+<tr>
+<td><strong>完全参数化</strong></td>
+<td><strong>BN 曲线</strong>、<strong>BLS 曲线</strong></td>
+<td>$k = 12$ (BN), $k \in \{12, 24, 48\}$ (BLS)，最流行</td>
+</tr>
+<tr>
+<td><strong>Cocks-Pinch 方法</strong></td>
+<td>任意 $k$</td>
+<td>$\rho \approx 2$（效率较低）</td>
+</tr>
+</table>
+
+<blockquote>
+<strong>$\rho$ 值</strong>：衡量曲线质量的重要指标
+$$\rho = \frac{\log q}{\log r}$$
+
+<ul>
+<li>$\rho = 1$：理想情况（$q \approx r$），素数阶群</li>
+<li>$\rho < 2$：良好的曲线</li>
+<li>$\rho = 2$：可接受但效率较低（辅因子较大）</li>
+</ul>
+</blockquote>
+
+<h2>流行的配对友好曲线族</h2>
+
+<h3>BN 曲线（Barreto-Naehrig，2006）</h3>
+
+<div class="definition">
+<strong>BN 曲线定义</strong>
+
+<p>由单个参数 $u \in \mathbb{Z}$ 定义：</p>
+<ul>
+<li>$q(u) = 36u^4 + 36u^3 + 24u^2 + 6u + 1$（基域大小）</li>
+<li>$r(u) = 36u^4 + 36u^3 + 18u^2 + 6u + 1$（子群阶）</li>
+<li>曲线形式：$E/\mathbb{F}_q : y^2 = x^3 + b$（其中 $b \in \mathbb{F}_q^*$）</li>
+<li>嵌入度：$k = 12$（固定）</li>
+<li>$\rho \approx 1$（接近理想）</li>
+</ul>
+
+<p><strong>优点</strong>：</p>
+<ul>
+<li>素数阶群（$\#E(\mathbb{F}_q) = r$，辅因子为 1）</li>
+<li>支持六次扭曲（$d = 6$），极大提升 $\mathbb{G}_2$ 运算效率</li>
+<li>$k = 12$ 在 128 位安全级别下平衡良好</li>
+<li>参数生成简单：选择 $u$ 使得 $q(u)$ 和 $r(u)$ 都是素数</li>
+</ul>
+</div>
+
+<div class="example">
+<div class="example-title">Example：BN254（alt-bn128）</div>
+
+<p><strong>参数</strong>：$u = 4965661367192848881$</p>
+<ul>
+<li>$q \approx 2^{254}$（254 位素数）</li>
+<li>$r \approx 2^{254}$（254 位素数）</li>
+<li>曲线：$E/\mathbb{F}_q : y^2 = x^3 + 3$</li>
+<li>$k = 12$，$|\mathbb{F}_{q^{12}}| \approx 2^{3048}$</li>
+</ul>
+
+<p><strong>应用</strong>：</p>
+<ul>
+<li>以太坊智能合约（EVM 预编译）</li>
+<li>Zcash（早期版本）</li>
+<li>许多 zk-SNARK 库</li>
+</ul>
+
+<p><strong>注意</strong>：BN254 在新的攻击进展下安全性略有下降（约 100 位），更高安全性应用转向 BLS12-381。</p>
+</div>
+
+<h3>BLS 曲线（Barreto-Lynn-Scott）</h3>
+
+<div class="definition">
+<strong>BLS 曲线族</strong>
+
+<p>BLS 曲线提供多种嵌入度选择：$k \in \{12, 24, 48, \ldots\}$。</p>
+
+<p><strong>BLS12 曲线</strong>（$k = 12$）：</p>
+<ul>
+<li>$r(u) = \Phi_{12}(u) = u^4 - u^2 + 1$（$\Phi_{12}$ 是第 12 个分圆多项式）</li>
+<li>$q(u)$ 需满足特定条件以使 $E$ 有阶为 $r$ 的子群</li>
+<li>曲线形式：$E/\mathbb{F}_q : y^2 = x^3 + b$</li>
+<li>$\rho \approx 1.5$（稍大于 BN，但仍良好）</li>
+</ul>
+</div>
+
+<div class="example">
+<div class="example-title">Example：BLS12-381</div>
+
+<p><strong>参数</strong>：$u = -2^{63} - 2^{62} - 2^{60} - 2^{57} - 2^{48} - 2^{16}$</p>
+<ul>
+<li>$q \approx 2^{381}$（381 位素数）</li>
+<li>$r \approx 2^{255}$（255 位素数）</li>
+<li>曲线：$E/\mathbb{F}_q : y^2 = x^3 + 4$</li>
+<li>$k = 12$，$|\mathbb{F}_{q^{12}}| \approx 2^{4572}$</li>
+</ul>
+
+<p><strong>优点</strong>：</p>
+<ul>
+<li>约 <strong>128 位安全性</strong>（考虑最新攻击进展）</li>
+<li>$u$ 的选择使得快速 Frobenius 和标量乘法</li>
+<li>良好的 $\rho$ 值平衡</li>
+</ul>
+
+<p><strong>应用</strong>：</p>
+<ul>
+<li>Ethereum 2.0（信标链签名）</li>
+<li>Zcash Sapling（隐私交易）</li>
+<li>Filecoin（存储证明）</li>
+<li>Dfinity（随机性）</li>
+</ul>
+
+<p><strong>BLS12-381 已成为 128 位安全级别的事实标准。</strong></p>
+</div>
+
+<h2>扭曲曲线与配对友好曲线的关系</h2>
+
+<p>回顾第 4 章，扭曲曲线对 $\mathbb{G}_2$ 的效率至关重要。配对友好曲线的构造通常考虑：</p>
+
+<table>
+<tr>
+<th>曲线形式</th>
+<th>支持的扭曲度数</th>
+<th>适用曲线族</th>
+</tr>
+<tr>
+<td>$y^2 = x^3 + b$</td>
+<td>$d \in \{2, 3, 6\}$</td>
+<td>BN、BLS12、KSS</td>
+</tr>
+<tr>
+<td>$y^2 = x^3 + ax$</td>
+<td>$d \in \{2, 4\}$</td>
+<td>某些 MNT 曲线</td>
+</tr>
+</table>
+
+<blockquote>
+<strong>最佳组合</strong>：$y^2 = x^3 + b$ + $k = 12$ + $d = 6$
+<ul>
+<li>$\mathbb{G}_2$ 运算在 $\mathbb{F}_{q^2}$ 中（而非 $\mathbb{F}_{q^{12}}$）</li>
+<li>效率提升约 <strong>36 倍</strong>！</li>
+<li>BN 和 BLS12 曲线都满足这一组合</li>
+</ul>
+</blockquote>
+
+<h2>本章小结</h2>
+
+<p>配对友好曲线的选择是配对密码学实践中的核心问题。关键考虑因素：</p>
+<ol>
+<li><strong>安全性平衡</strong>：$r$ 和 $q^k$ 都要足够大以抵抗相应的 DLP 攻击</li>
+<li><strong>效率优化</strong>：$k$ 要足够小，$\rho$ 接近 1</li>
+<li><strong>扭曲支持</strong>：曲线形式要支持高度数扭曲（$d = 6$ 最佳）</li>
+<li><strong>实现友好</strong>：参数选择要便于快速运算</li>
+</ol>
+
+<p><strong>当前推荐</strong>（2024）：</p>
+<ul>
+<li><strong>128 位安全</strong>：BLS12-381（首选）、BN254（已广泛部署）</li>
+<li><strong>192 位安全</strong>：BLS24</li>
+<li><strong>256 位安全</strong>：BLS48</li>
+</ul>
+
+<p>下一章将深入探讨配对计算的最新优化技术。</p>
+
+<div class="nav-links">
+    <a href="../../ch5/sections/ch5-2.html">← 上一章：Weil 配对</a>
+    <a href="../ch7/sections/ch7-1.html">下一章：配对计算优化 →</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Weil Pairing - Part 2</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .definition {
+            background-color: #f0f8ff;
+            border: 2px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="ch5-1.html">← 上一部分：Miller 算法基础</a>
+    <a href="ch5-3.html">下一部分：Tate 配对 →</a>
+</div>
+
+<h1>5.1 The Weil Pairing</h1>
+<h2>5.1 Weil 配对</h2>
+
+<div class="page-marker">— 69 —</div>
+
+<p>对于点 $P \in E[r]$，函数 $f_{r,P}$ 的除子为 $r(P) - r(\mathcal{O})$ 是 Weil 和 Tate 配对定义的核心。</p>
+
+<div class="definition">
+<strong>Definition 5.1（有限域上的 Weil 配对）</strong>
+
+<p>设 $P, Q \in E(\mathbb{F}_{q^k})[r]$，设 $D_P$ 和 $D_Q$ 是<strong>不交支撑</strong>（disjoint supports）的度零除子，满足 $D_P \sim (P) - (\mathcal{O})$ 和 $D_Q \sim (Q) - (\mathcal{O})$。</p>
+
+<p>存在函数 $f$ 和 $g$ 使得 $(f) = rD_P$ 和 $(g) = rD_Q$。</p>
+
+<p><strong>Weil 配对</strong> $w_r$ 是一个映射：</p>
+$$w_r : E(\mathbb{F}_{q^k})[r] \times E(\mathbb{F}_{q^k})[r] \to \mu_r$$
+
+<p>定义为：</p>
+$$\boxed{w_r(P, Q) = \frac{f(D_Q)}{g(D_P)}}$$
+
+<p>其中 $\mu_r$ 是 $\mathbb{F}_{q^k}^*$ 中的 $r$ 次单位根群。</p>
+</div>
+
+<blockquote>
+<strong>关键性质</strong>：
+<ul>
+<li><strong>双线性</strong>：$w_r([a]P, [b]Q) = w_r(P, Q)^{ab}$ 对所有 $a, b \in \mathbb{Z}$</li>
+<li><strong>非退化</strong>：如果 $w_r(P, Q) = 1$ 对所有 $Q \in E[r]$，则 $P = \mathcal{O}$</li>
+<li><strong>反对称</strong>：$w_r(P, Q) = w_r(Q, P)^{-1}$</li>
+<li><strong>良定义</strong>：结果不依赖于 $D_P$ 和 $D_Q$ 的具体选择（只要满足条件）</li>
+</ul>
+
+<p>完整的性质列表和证明参见 [Sil09, Ch. III, Prop. 8.1-8.2]。</p>
+</blockquote>
+
+<h3>为什么不能简单定义为 $w_r(P, Q) = f_{r,P}(D_Q) / f_{r,Q}(D_P)$？</h3>
+
+<div class="warning">
+<strong>重要注意</strong>：
+
+<p>你可能会想：既然 $f_{r,P}$ 有除子 $(f_{r,P}) = r(P) - r(\mathcal{O})$，为什么不直接定义 Weil 配对为：</p>
+$$w_r(P, Q) = \frac{f_{r,P}(D_Q)}{f_{r,Q}(D_P)}?$$
+
+<p><strong>问题</strong>：因为 $(f_{r,P}) = r(P) - r(\mathcal{O})$ 和 $(f_{r,Q}) = r(Q) - r(\mathcal{O})$，这对应于除子 $D_P = (P) - (\mathcal{O})$ 和 $D_Q = (Q) - (\mathcal{O})$。</p>
+
+<p>但这<strong>不满足不交支撑的要求</strong>：$D_P$ 和 $D_Q$ 都包含 $(\mathcal{O})$，它们的支撑相交！</p>
+
+<p>因此，我们需要使用<strong>移位</strong>的除子，使得支撑不相交。</p>
+</div>
+
+<h3>Example 5.1.1：超奇异曲线上的 Weil 配对计算</h3>
+
+<div class="example">
+<div class="example-title">Example 5.1.1 (Magma script)</div>
+
+<p><strong>设置</strong>：设 $q = 23$，考虑 $E/\mathbb{F}_{23} : y^2 = x^3 - x$，这是一条超奇异曲线。</p>
+<ul>
+<li>$\#E(\mathbb{F}_{23}) = q + 1 = 24$（超奇异曲线的迹 $t = 0$）</li>
+<li>$P = (2, 11)$ 是一个 3 阶点（即 $[3]P = \mathcal{O}$）</li>
+<li>嵌入度 $k = 2$（因为 $3 | (23^2 - 1) = 528$ 但 $3 \nmid (23 - 1) = 22$）</li>
+</ul>
+
+<p><strong>扩域构造</strong>：$\mathbb{F}_{23^2} = \mathbb{F}_{23}(i)$，其中 $i^2 + 1 = 0$。</p>
+
+<p><strong>选择第二个点 $Q$</strong>：取 $Q = (21, 12i) \in E(\mathbb{F}_{23^2})[3]$，这实际上在迹零子群中（满足 $\pi(Q) = [q]Q$）。</p>
+
+<p>验证 $Q$ 在曲线上：$(12i)^2 = 144i^2 = -144 \equiv 2 \pmod{23}$，而 $21^3 - 21 = 9240 \equiv 2 \pmod{23}$ ✓</p>
+
+<h4>步骤 1：构造函数 $f_{r,P}$ 和 $f_{r,Q}$</h4>
+
+<p><strong>计算 $f_{3,P}$</strong>：按照 Miller 算法的递推</p>
+
+<p>首先，计算所需的点：</p>
+<ul>
+<li>$P = (2, 11)$</li>
+<li>$[2]P = (2, 12)$（计算倍点）</li>
+<li>$[3]P = \mathcal{O}$（3 阶点）</li>
+</ul>
+
+<p>递推构造：</p>
+<ol>
+<li>$f_{1,P} = 1$</li>
+<li>$f_{2,P} = f_{1,P} \cdot \frac{\ell_{P,P}}{v_{[2]P}}$
+   <ul>
+   <li>切线 $\ell_{P,P}(x,y) = y + 11x + 13$（过 $P$ 的切线）</li>
+   <li>竖线 $v_{[2]P}(x,y) = x - 2$</li>
+   <li>$f_{2,P}(x,y) = \frac{y + 11x + 13}{x - 2}$</li>
+   </ul>
+</li>
+<li>$f_{3,P} = f_{2,P} \cdot \frac{\ell_{[2]P,P}}{v_{\mathcal{O}}}$
+   <ul>
+   <li>弦 $\ell_{[2]P,P}(x,y) = y - 11$（过 $[2]P = (2,12)$ 和 $P = (2,11)$ 的"竖线"）</li>
+   <li>$v_{\mathcal{O}} = 1$（无穷远点处的竖线可以取为常数）</li>
+   <li>$f_{3,P}(x,y) = \frac{y + 11x + 13}{x - 2} \cdot (y - 11) = \frac{(y + 11x + 13)(y - 11)}{x - 2}$</li>
+   </ul>
+</li>
+</ol>
+
+<p>类似地构造 $f_{3,Q}$...</p>
+
+<h4>步骤 2：选择不交除子</h4>
+
+<p>我们需要选择 $D_P$ 和 $D_Q$ 使得支撑不相交。一个标准选择是：</p>
+<ul>
+<li>$D_P = (P) - (\mathcal{O})$</li>
+<li>$D_Q = (Q + S) - (S)$，其中 $S$ 是一个随机点（不等于 $P, Q, -P, -Q, \mathcal{O}$）</li>
+</ul>
+
+<p>例如，取 $S = (1, 0)$。</p>
+
+<h4>步骤 3：计算配对值</h4>
+
+<p>$$w_3(P, Q) = \frac{f_{3,P}(Q + S) / f_{3,P}(S)}{f_{3,Q}(P) / f_{3,Q}(\mathcal{O})}$$</p>
+
+<p>代入计算（需要在 $\mathbb{F}_{23^2}$ 中进行）：</p>
+<ul>
+<li>$f_{3,P}(Q + S)$：先计算 $Q + S$，然后求值</li>
+<li>$f_{3,P}(S)$：将 $S = (1, 0)$ 代入 $f_{3,P}$</li>
+<li>$f_{3,Q}(P)$：将 $P = (2, 11)$ 代入 $f_{3,Q}$</li>
+<li>$f_{3,Q}(\mathcal{O})$：在无穷远点的值</li>
+</ul>
+
+<p><strong>结果</strong>：经过计算（使用 Magma 或类似工具），得到：</p>
+$$w_3(P, Q) = \omega \in \mu_3 \subset \mathbb{F}_{23^2}^*$$
+
+<p>其中 $\omega$ 是一个原始 3 次单位根，满足 $\omega^3 = 1$ 且 $\omega \neq 1$。</p>
+
+<p>在 $\mathbb{F}_{23^2}$ 中，3 次单位根为 $1, \omega, \omega^2$，其中 $\omega$ 可以表示为 $\mathbb{F}_{23^2}$ 的某个元素。</p>
+
+</div>
+
+<h3>Weil 配对的双线性验证</h3>
+
+<div class="example">
+<div class="example-title">验证双线性性质</div>
+
+<p>使用上面的例子，验证 $w_3([2]P, Q) = w_3(P, Q)^2$：</p>
+
+<p>计算 $[2]P = (2, 12)$，然后计算 $w_3([2]P, Q)$...</p>
+
+<p>如果双线性性质成立，应该有：</p>
+$$w_3([2]P, Q) = \omega^2$$
+
+<p>这可以通过实际计算验证（留作练习）。</p>
+
+<p>类似地，验证反对称性：$w_3(P, Q) \cdot w_3(Q, P) = 1$。</p>
+</div>
+
+<h2>Miller 算法计算 Weil 配对的优化</h2>
+
+<p>在实际实现中，我们不需要完全构造函数 $f_{3,P}$ 和 $f_{3,Q}$ 的符号表达式。Miller 算法的巧妙之处在于：</p>
+
+<blockquote>
+<strong>核心优化</strong>：在递推构造 $f_{m,P}$ 的同时，<strong>维护</strong>其在目标点 $Q$ 处的值 $f_{m,P}(Q)$，而不是构造整个函数。
+</blockquote>
+
+<p><strong>Miller 算法伪代码</strong>（计算 $w_r(P, Q)$）：</p>
+
+<pre style="background-color: #f5f5f5; padding: 15px; border-radius: 5px;">
+输入: P, Q ∈ E[r], r 的二进制表示
+输出: w_r(P, Q)
+
+1. 选择随机点 S 使得支撑不相交
+2. 初始化 f_P ← 1, f_Q ← 1, T ← P, U ← Q
+3. 对于 r 的每一位（从高到低，跳过最高位）:
+   a. f_P ← f_P² · (ℓ_{T,T}(Q+S)/ℓ_{T,T}(S)) · (v_{[2]T}(S)/v_{[2]T}(Q+S))
+   b. f_Q ← f_Q² · (ℓ_{U,U}(P)/ℓ_{U,U}(O)) · (v_{[2]U}(O)/v_{[2]U}(P))
+   c. T ← [2]T, U ← [2]U
+   d. 如果当前位是 1:
+      i.  f_P ← f_P · (ℓ_{T,P}(Q+S)/ℓ_{T,P}(S)) · (v_{T+P}(S)/v_{T+P}(Q+S))
+      ii. f_Q ← f_Q · (ℓ_{U,Q}(P)/ℓ_{U,Q}(O)) · (v_{U+Q}(O)/v_{U+Q}(P))
+      iii. T ← T + P, U ← U + Q
+4. 返回 f_P / f_Q
+</pre>
+
+<blockquote>
+<strong>复杂度</strong>：
+<ul>
+<li><strong>椭圆曲线运算</strong>：$O(\log r)$ 次倍点和加点</li>
+<li><strong>有限域运算</strong>：$O(\log r)$ 次乘法和除法（在 $\mathbb{F}_{q^k}$ 中）</li>
+<li><strong>总体</strong>：$O((\log r) \cdot M(k))$，其中 $M(k)$ 是 $\mathbb{F}_{q^k}$ 中乘法的代价</li>
+</ul>
+</blockquote>
+
+<h2>Weil 配对 vs 朴素方法的效率对比</h2>
+
+<p>以 128 位安全级别为例（$r \approx 2^{256}$）：</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 20px 0;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px;">方法</th>
+<th style="border: 1px solid #ddd; padding: 8px;">运算次数</th>
+<th style="border: 1px solid #ddd; padding: 8px;">实际时间（估计）</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px;">朴素定义</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$O(r) \approx 2^{256}$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">宇宙年龄的数倍</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px;">Miller 算法</td>
+<td style="border: 1px solid #ddd; padding: 8px;">$O(\log r) \approx 256$</td>
+<td style="border: 1px solid #ddd; padding: 8px;">约 1-2 毫秒</td>
+</tr>
+</table>
+
+<p><strong>Miller 算法使不可能变为可能！</strong></p>
+
+<h2>Weil 配对的应用</h2>
+
+<blockquote>
+<strong>密码学应用</strong>：
+<ol>
+<li><strong>攻击</strong>：MOV 攻击（将 ECDLP 归约到有限域 DLP）</li>
+<li><strong>构造</strong>：身份基加密（IBE）、短签名（BLS 签名）</li>
+<li><strong>协议</strong>：三方密钥交换（Joux 协议）</li>
+<li><strong>证明系统</strong>：zk-SNARKs（简洁的零知识证明）</li>
+</ol>
+</blockquote>
+
+<p>下一节我们将学习 Tate 配对，它在实际应用中比 Weil 配对更常用，因为计算略微更快。</p>
+
+<div class="nav-links">
+    <a href="ch5-1.html">← 上一部分：Miller 算法基础</a>
+    <a href="ch5-3.html">下一部分：Tate 配对 →</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 7: State-of-the-Art Pairing Computation</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .highlight {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffa500;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .timeline {
+            border-left: 3px solid #007acc;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        .timeline-item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .timeline-year {
+            font-weight: bold;
+            color: #007acc;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="../../ch6/sections/ch6-1.html">← 上一章：配对友好曲线</a>
+    <a href="../../ch8/sections/ch8-1.html">下一章：总结 →</a>
+</div>
+
+<h1>Chapter 7: The State-of-the-Art</h1>
+<h2>第七章：配对计算的最新技术</h2>
+
+<div class="page-marker">— 95 —</div>
+
+<blockquote>
+<strong>本章概述</strong>：
+
+<p>本章总结过去十年配对计算的演进。我们展示了将早期实现从"几分钟"[Men93] 加速到当前实现"不到一毫秒"[AKL+11] 的里程碑式成就。</p>
+
+<p>配对计算的初步改进由以下证据引领：计算 Tate 配对 $f_{r,P}(D_Q)^{(q^k-1)/r}$ 比计算 Weil 配对 $f_{r,P}(D_Q)/f_{r,Q}(D_P)$ 更高效。乍一看，将两次计算比较为指数 $(q^k-1)/r$ 的幂运算与（第二次）Miller 算法运行的比较，在高达 128 位的安全级别上，这种比较确实有利于 Tate 配对（参见 [SCA06, Tab. 1-5], [Sco07c]）。然而，正如我们将在 7.1 节看到的，指数 $(q^k-1)/r$ 实际上促进了许多"Tate 特定"的优化。正是这些增强给了配对计算领域第一次大的推动。</p>
+</blockquote>
+
+<h2>配对计算的演进历程</h2>
+
+<div class="timeline">
+<div class="timeline-item">
+<span class="timeline-year">1986</span>: Victor Miller 提出 Miller 算法
+<p style="margin-left: 20px; color: #666;">理论突破，但尚无实际实现</p>
+</div>
+
+<div class="timeline-item">
+<span class="timeline-year">1993</span>: 首次实现 [Men93]
+<p style="margin-left: 20px; color: #666;">一次配对计算：约 <strong>几分钟</strong></p>
+</div>
+
+<div class="timeline-item">
+<span class="timeline-year">2000-2001</span>: MOV/Frey-Rück 攻击 + Boneh-Franklin IBE
+<p style="margin-left: 20px; color: #666;">配对从攻击工具变为构造工具，激发优化研究</p>
+</div>
+
+<div class="timeline-item">
+<span class="timeline-year">2004-2006</span>: Tate 配对 + 分母消除
+<p style="margin-left: 20px; color: #666;">一次配对：约 <strong>10-20 毫秒</strong>（100× 加速）</p>
+</div>
+
+<div class="timeline-item">
+<span class="timeline-year">2007-2008</span>: Ate 配对 + 最终幂优化
+<p style="margin-left: 20px; color: #666;">一次配对：约 <strong>2-5 毫秒</strong>（再快 5×）</p>
+</div>
+
+<div class="timeline-item">
+<span class="timeline-year">2010-2012</span>: Optimal Ate + 扭曲曲线优化
+<p style="margin-left: 20px; color: #666;">一次配对：约 <strong>1-2 毫秒</strong>（再快 2×）</p>
+</div>
+
+<div class="timeline-item">
+<span class="timeline-year">2015+</span>: BLS12-381 标准化 + 硬件加速
+<p style="margin-left: 20px; color: #666;">一次配对：<strong>< 1 毫秒</strong>（软件），<strong>< 0.1 毫秒</strong>（专用硬件）</p>
+</div>
+</div>
+
+<blockquote>
+<strong>惊人的进步</strong>：从 1993 年到 2015 年，配对计算速度提升了约 <strong>100,000 倍</strong>！这使得配对密码学从理论好奇变为实用技术。
+</blockquote>
+
+<h2>7.1 Irrelevant Factors (a.k.a. Denominator Elimination)</h2>
+<h3>7.1 无关因子消除（又名分母消除）</h3>
+
+<p>本节将逐步推导出针对大素数域上配对的 Miller 算法的精炼版本，这主要归功于以下改进建议...</p>
+
+<div class="highlight">
+<strong>核心洞察：分母可以被忽略！</strong>
+
+<p>回顾 Miller 算法中，我们构造函数：</p>
+$$f_{m+1,P} = f_{m,P} \cdot \frac{\ell_{[m]P,P}}{v_{[m+1]P}}$$
+
+<p>其中 $v_{[m+1]P}$ 是竖直线函数（分母）。</p>
+
+<p><strong>关键观察</strong>：在计算 Tate 配对 $f_{r,P}(Q)^{(q^k-1)/r}$ 时，分母的贡献会被最终幂运算<strong>消除</strong>！</p>
+</div>
+
+<h3>为什么分母会被消除？</h3>
+
+<div class="example">
+<div class="example-title">数学证明</div>
+
+<p>设 $v$ 是一个竖直线函数，$Q \in \mathbb{G}_2$。考虑 $v(Q)^{(q^k-1)/r}$：</p>
+
+<p><strong>步骤 1</strong>：$Q \in \mathbb{G}_2 = \mathcal{G}_2$ 意味着 $\pi(Q) = [q]Q$（迹零子群）。</p>
+
+<p><strong>步骤 2</strong>：竖直线 $v$ 具有形式 $v(x, y) = x - x_0$（不依赖于 $y$）。</p>
+
+<p><strong>步骤 3</strong>：应用 Frobenius $\pi$：
+$$v(\pi(Q)) = v(Q^q) = v(Q)^q$$
+
+<p><strong>步骤 4</strong>：由于 $\pi(Q) = [q]Q$，而 $v$ 关于 $x$ 坐标是函数，且 $[q]Q$ 与 $Q$ 的 $x$ 坐标相同或相关...</p>
+
+<p><strong>关键结论</strong>：经过详细分析（见原书），$v(Q)^{(q^k-1)/r} = 1$ 对所有 $Q \in \mathbb{G}_2$！</p>
+
+<p>因此，分母在最终幂运算后<strong>总是等于 1</strong>，可以在 Miller 循环中完全忽略！</p>
+</div>
+
+<h3>优化后的 Miller 算法（无分母版本）</h3>
+
+<pre style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;">
+<strong>算法：分母消除的 Ate 配对</strong>
+
+输入: Q ∈ 𝔾₂, P ∈ 𝔾₁, t 的二进制表示
+输出: a(Q, P) ∈ μᵣ
+
+1. f ← 1, T ← Q
+2. 对于 t 的每一位（从次高位到最低位）:
+   a. f ← f² · ℓ_{T,T}(P)        <span style="color: #00aa00;">// 只保留分子！</span>
+   b. T ← [2]T
+   c. 如果当前位是 1:
+      i.  f ← f · ℓ_{T,Q}(P)     <span style="color: #00aa00;">// 只保留分子！</span>
+      ii. T ← T + Q
+3. f ← f^((q^k-1)/r)  <span style="color: #888;">// 最终幂</span>
+4. 返回 f
+
+<span style="color: #00aa00;">// 节省约 30% 的计算时间！</span>
+</pre>
+
+<blockquote>
+<strong>效率提升</strong>：
+<ul>
+<li>每次迭代省去一次除法（或一次竖直线求值 + 一次有限域除法）</li>
+<li>除法通常比乘法慢 3-5 倍</li>
+<li>总体加速约 <strong>25-30%</strong></li>
+</ul>
+</blockquote>
+
+<h2>7.2 稀疏乘法（Sparse Multiplication）</h2>
+
+<p>Miller 循环中的直线函数 $\ell_{T,Q}(P)$ 具有<strong>稀疏</strong>形式，可以利用这一点优化乘法。</p>
+
+<h3>直线函数的稀疏性</h3>
+
+<p>过两点 $T = (x_T, y_T)$ 和 $Q = (x_Q, y_Q)$ 的直线：</p>
+$$\ell_{T,Q}(x, y) = y - y_T - \lambda(x - x_T)$$
+
+<p>在点 $P = (x_P, y_P)$ 处求值：</p>
+$$\ell_{T,Q}(P) = y_P - y_T - \lambda(x_P - x_T) = \alpha y_P + \beta x_P + \gamma$$
+
+<p>这是一个关于 $P$ 的坐标的<strong>一次多项式</strong>，只有 3 个非零系数！</p>
+
+<div class="highlight">
+<strong>稀疏乘法优化</strong>
+
+<p>在 $\mathbb{F}_{q^{12}}$ 中，一般的乘法需要 $O(k^2) = O(144)$ 次 $\mathbb{F}_q$ 乘法。</p>
+
+<p>但如果一个操作数是稀疏的（如 $\alpha y_P + \beta x_P + \gamma$），可以优化为约 $O(k) = O(12)$ 次乘法。</p>
+
+<p><strong>加速比</strong>：稀疏乘法比一般乘法快约 <strong>10-12 倍</strong>！</p>
+</div>
+
+<h3>扩域表示和稀疏性</h3>
+
+<p>对于 $k = 12$，$\mathbb{F}_{q^{12}}$ 常用<strong>塔式扩张</strong>表示：</p>
+$$\mathbb{F}_{q^{12}} = \mathbb{F}_{q^2}[w]/(w^6 - \xi)$$
+
+<p>其中 $\mathbb{F}_{q^2} = \mathbb{F}_q[u]/(u^2 - \beta)$。</p>
+
+<p>元素 $c \in \mathbb{F}_{q^{12}}$ 表示为：</p>
+$$c = c_0 + c_1 w + c_2 w^2 + c_3 w^3 + c_4 w^4 + c_5 w^5, \quad c_i \in \mathbb{F}_{q^2}$$
+
+<p>直线函数求值后的形式通常只有 2-3 个非零的 $c_i$，这就是<strong>稀疏性的来源</strong>。</p>
+
+<table>
+<tr>
+<th>乘法类型</th>
+<th>$\mathbb{F}_q$ 乘法次数</th>
+<th>相对速度</th>
+</tr>
+<tr>
+<td>一般 × 一般</td>
+<td>~144</td>
+<td>1.0×</td>
+</tr>
+<tr>
+<td>一般 × 稀疏(3项)</td>
+<td>~36</td>
+<td>4.0×</td>
+</tr>
+<tr>
+<td>一般 × 稀疏(2项)</td>
+<td>~24</td>
+<td>6.0×</td>
+</tr>
+</table>
+
+<h2>7.3 Frobenius 映射的利用</h2>
+
+<p>Frobenius 映射 $\pi : (x, y) \mapsto (x^q, y^q)$ 在配对友好曲线上可以<strong>极其高效</strong>地计算。</p>
+
+<h3>为什么 Frobenius 快？</h3>
+
+<blockquote>
+<strong>核心事实</strong>：在适当的扩域表示下，Frobenius 映射<strong>几乎是免费的</strong>！
+
+<p>对于 $\mathbb{F}_{q^k} = \mathbb{F}_q(\omega)$，其中 $\omega^k = \beta \in \mathbb{F}_q$：</p>
+<ul>
+<li>$\omega^q$ 可以预计算为 $\mathbb{F}_q$ 中的常数</li>
+<li>$(a_0 + a_1\omega + \cdots + a_{k-1}\omega^{k-1})^q = a_0 + a_1\omega^q + \cdots + a_{k-1}\omega^{q(k-1)}$</li>
+<li>只需要<strong>常数乘法</strong>，无需幂运算！</li>
+</ul>
+</blockquote>
+
+<h3>Frobenius 在最终幂中的应用</h3>
+
+<p>回顾最终幂的简单部分：$(q^{12}-1) = (q^6-1)(q^2+1)$。</p>
+
+<p>计算 $f^{q^6-1}$：</p>
+$$f^{q^6-1} = \frac{f^{q^6}}{f} = \frac{\pi^6(f)}{f}$$
+
+<p>其中 $\pi^6(f)$ 只需 6 次 Frobenius 映射（几乎免费）+ 1 次求逆 + 1 次乘法！</p>
+
+<p>类似地，$f^{q^2+1} = f^{q^2} \cdot f = \pi^2(f) \cdot f$。</p>
+
+<blockquote>
+<strong>效率对比</strong>：
+<ul>
+<li><strong>朴素方法</strong>：$f^{(q^6-1)(q^2+1)}$ 需要 $O(\log q)$ 次扩域乘法</li>
+<li><strong>Frobenius 方法</strong>：只需 <strong>常数次</strong>乘法！</li>
+<li>对于 BN 曲线，这部分从 ~100 次乘法降到 <strong>~10 次</strong></li>
+</ul>
+</blockquote>
+
+<h2>7.4 Optimal Ate 配对</h2>
+
+<p>Ate 配对已经将 Miller 循环从 $\log r$ 减少到 $\log |t|$。Optimal Ate 进一步优化！</p>
+
+<div class="example">
+<div class="example-title">Optimal Ate 的想法</div>
+
+<p>对于 BN 曲线，Ate 配对使用循环长度 $|6u^2|$（其中 $r \approx 36u^4$）。</p>
+
+<p><strong>优化观察</strong>：注意到 $r = 36u^4 + 36u^3 + 18u^2 + 6u + 1$，可以写成：</p>
+$$r \equiv 6u^2 + 1 \pmod{\text{某些同余式}}$$
+
+<p>Optimal Ate 利用这种关系，将循环长度进一步减少到约 $|u|$（而非 $|6u^2|$）！</p>
+
+<p><strong>加速</strong>：对于 256 位 $r$，Miller 循环从 ~130 次迭代减少到 <strong>~64 次</strong>！</p>
+</div>
+
+<h2>7.5 现代实现的综合优化</h2>
+
+<table>
+<tr>
+<th>优化技术</th>
+<th>加速比</th>
+<th>应用阶段</th>
+</tr>
+<tr>
+<td>Tate → Ate</td>
+<td>~2×</td>
+<td>整体</td>
+</tr>
+<tr>
+<td>分母消除</td>
+<td>~1.3×</td>
+<td>Miller 循环</td>
+</tr>
+<tr>
+<td>稀疏乘法</td>
+<td>~2-3×</td>
+<td>Miller 循环</td>
+</tr>
+<tr>
+<td>扭曲曲线（$d=6$）</td>
+<td>~6×</td>
+<td>$\mathbb{G}_2$ 运算</td>
+</tr>
+<tr>
+<td>Frobenius 最终幂</td>
+<td>~10×</td>
+<td>最终幂简单部分</td>
+</tr>
+<tr>
+<td>Optimal Ate</td>
+<td>~2×</td>
+<td>Miller 循环长度</td>
+</tr>
+<tr>
+<td><strong>累积效果</strong></td>
+<td><strong>~300-500×</strong></td>
+<td>相对朴素实现</td>
+</tr>
+</table>
+
+<h2>7.6 硬件加速</h2>
+
+<p>配对计算的规律性使其非常适合硬件加速：</p>
+
+<blockquote>
+<strong>硬件实现</strong>：
+<ul>
+<li><strong>FPGA</strong>：可达 10-100× 加速</li>
+<li><strong>GPU</strong>：批量配对可达 1000+ 配对/秒</li>
+<li><strong>ASIC</strong>：专用芯片可达 <1 微秒/配对</li>
+</ul>
+
+<p><strong>应用</strong>：</p>
+<ul>
+<li>区块链验证节点（批量签名验证）</li>
+<li>零知识证明系统（zk-SNARK 验证器）</li>
+<li>物联网设备（轻量级配对）</li>
+</ul>
+</blockquote>
+
+<h2>7.7 实际性能基准</h2>
+
+<div class="example">
+<div class="example-title">BLS12-381 性能（2024 年）</div>
+
+<p><strong>软件实现</strong>（单核，Intel i9）：</p>
+<table>
+<tr>
+<th>操作</th>
+<th>时间</th>
+</tr>
+<tr>
+<td>$\mathbb{G}_1$ 标量乘法</td>
+<td>~0.3 ms</td>
+</tr>
+<tr>
+<td>$\mathbb{G}_2$ 标量乘法</td>
+<td>~0.9 ms</td>
+</tr>
+<tr>
+<td>Ate 配对（单次）</td>
+<td>~1.5 ms</td>
+</tr>
+<tr>
+<td>批量配对（10次）</td>
+<td>~10 ms（均摊 1 ms/次）</td>
+</tr>
+</table>
+
+<p><strong>库推荐</strong>：</p>
+<ul>
+<li><strong>blst</strong>（Supranational）：最快的 C/Assembly 实现</li>
+<li><strong>mcl</strong>（CyboLab）：优秀的 C++ 实现</li>
+<li><strong>arkworks</strong>（Rust）：对 zk-SNARK 友好</li>
+</ul>
+</div>
+
+<h2>本章小结</h2>
+
+<p>配对计算优化是一个持续的研究领域，过去20年取得了惊人的进展：</p>
+
+<ol>
+<li><strong>算法层面</strong>：Miller → Tate → Ate → Optimal Ate（~1000× 加速）</li>
+<li><strong>代数层面</strong>：分母消除、稀疏乘法、Frobenius 利用（~100× 加速）</li>
+<li><strong>曲线层面</strong>：扭曲曲线、配对友好参数（~10× 加速）</li>
+<li><strong>实现层面</strong>：SIMD、硬件加速、并行化（~100× 加速）</li>
+</ol>
+
+<p><strong>累积效果</strong>：配对计算从"几分钟"（1993）到"不到一毫秒"（2024），加速<strong>超过 100,000 倍</strong>！</p>
+
+<p>下一章将总结整本书的核心内容。</p>
+
+<div class="nav-links">
+    <a href="../../ch6/sections/ch6-1.html">← 上一章：配对友好曲线</a>
+    <a href="../../ch8/sections/ch8-1.html">下一章：总结 →</a>
+</div>
+
+</body>
+</html>

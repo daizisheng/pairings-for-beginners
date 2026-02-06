@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Tate Pairing - Part 3</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #007acc;
+        }
+        blockquote {
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: normal;
+        }
+        .definition {
+            background-color: #f0f8ff;
+            border: 2px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .theorem {
+            background-color: #fff9e6;
+            border: 2px solid #ffa500;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .page-marker {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .nav-links a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="ch5-2.html">← 上一部分：Weil 配对</a>
+    <a href="../../ch6/sections/ch6-1.html">下一章：配对友好曲线 →</a>
+</div>
+
+<h1>5.2 The Tate Pairing</h1>
+<h2>5.2 Tate 配对</h2>
+
+<div class="page-marker">— 70 —</div>
+
+<p>Tate 配对是另一种重要的双线性配对，在实践中比 Weil 配对<strong>更常用</strong>，因为它的计算略微更快（省去一次 Miller 循环）。</p>
+
+<div class="definition">
+<strong>Definition 5.2（Tate 配对）</strong>
+
+<p>设 $P \in E(\mathbb{F}_{q^k})[r]$ 和 $Q \in E(\mathbb{F}_{q^k})$。设 $f$ 是一个函数，其除子为 $(f) = r(P) - r(\mathcal{O})$（即 $f = f_{r,P}$）。</p>
+
+<p><strong>Tate 配对</strong> $t_r$ 定义为：</p>
+$$t_r : E(\mathbb{F}_{q^k})[r] \times E(\mathbb{F}_{q^k}) / rE(\mathbb{F}_{q^k}) \to \mathbb{F}_{q^k}^* / (\mathbb{F}_{q^k}^*)^r$$
+
+<p>对于 $P \in E[r]$ 和 $Q \in E(\mathbb{F}_{q^k})$ 的等价类 $[Q]$：</p>
+$$t_r(P, [Q]) = f_{r,P}(Q) \mod (\mathbb{F}_{q^k}^*)^r$$
+
+<p><strong>简化的 Tate 配对</strong>（更实用）：通过最终幂运算归约到 $\mu_r$：</p>
+$$\boxed{\tilde{t}_r(P, Q) = f_{r,P}(Q)^{(q^k-1)/r} \in \mu_r \subset \mathbb{F}_{q^k}^*}$$
+</div>
+
+<blockquote>
+<strong>关键观察</strong>：
+<ul>
+<li>Tate 配对只需要<strong>一次</strong> Miller 循环（计算 $f_{r,P}$），而 Weil 配对需要两次</li>
+<li>但需要额外的<strong>最终幂运算</strong>（final exponentiation）：$(q^k-1)/r$ 次幂</li>
+<li>最终幂运算的代价通常远小于一次 Miller 循环</li>
+<li>第二个参数 $Q$ 不需要在 $E[r]$ 中，只需在 $E(\mathbb{F}_{q^k})$ 中</li>
+</ul>
+</blockquote>
+
+<h3>Tate 配对的性质</h3>
+
+<div class="theorem">
+<strong>Tate 配对的基本性质</strong>
+
+<ol>
+<li><strong>双线性</strong>：$\tilde{t}_r([a]P, [b]Q) = \tilde{t}_r(P, Q)^{ab}$</li>
+<li><strong>非退化</strong>：如果 $\tilde{t}_r(P, Q) = 1$ 对所有 $Q \in E(\mathbb{F}_{q^k})$，则 $P = \mathcal{O}$</li>
+<li><strong>良定义</strong>：结果不依赖于 $Q$ 在其等价类中的选择</li>
+<li><strong>计算优势</strong>：比 Weil 配对快约 <strong>30-40%</strong></li>
+</ol>
+</div>
+
+<h3>Tate vs Weil 配对的对比</h3>
+
+<table>
+<tr>
+<th>特性</th>
+<th>Weil 配对 $w_r(P, Q)$</th>
+<th>Tate 配对 $\tilde{t}_r(P, Q)$</th>
+</tr>
+<tr>
+<td><strong>参数要求</strong></td>
+<td>$P, Q \in E[r]$</td>
+<td>$P \in E[r]$，$Q \in E(\mathbb{F}_{q^k})$</td>
+</tr>
+<tr>
+<td><strong>Miller 循环</strong></td>
+<td>2 次（$f_{r,P}$ 和 $f_{r,Q}$）</td>
+<td>1 次（仅 $f_{r,P}$）</td>
+</tr>
+<tr>
+<td><strong>最终幂运算</strong></td>
+<td>不需要</td>
+<td>需要：$(q^k-1)/r$ 次幂</td>
+</tr>
+<tr>
+<td><strong>对称性</strong></td>
+<td>反对称：$w_r(P,Q) = w_r(Q,P)^{-1}$</td>
+<td>不对称</td>
+</tr>
+<tr>
+<td><strong>值域</strong></td>
+<td>$\mu_r$（$r$ 次单位根）</td>
+<td>$\mu_r$（通过最终幂）</td>
+</tr>
+<tr>
+<td><strong>相对速度</strong></td>
+<td>基准（1.0×）</td>
+<td>约 <strong>1.5× 更快</strong></td>
+</tr>
+</table>
+
+<blockquote>
+<strong>为什么 Tate 更快？</strong>
+
+<p>虽然 Tate 配对需要最终幂运算，但它通常比第二次 Miller 循环快得多：</p>
+<ul>
+<li><strong>Miller 循环</strong>：约 $\log r$ 次椭圆曲线运算 + $\log r$ 次扩域乘法</li>
+<li><strong>最终幂</strong>：约 $\log(q^k-1)/r$ 次扩域乘法</li>
+<li>由于椭圆曲线运算比扩域运算慢，省去一次 Miller 循环的收益大于增加最终幂的代价</li>
+</ul>
+</blockquote>
+
+<h2>Tate 配对的计算示例</h2>
+
+<div class="example">
+<div class="example-title">Example 5.2.1：小参数示例</div>
+
+<p><strong>设置</strong>：使用与 Weil 配对例子相同的曲线参数</p>
+<ul>
+<li>$q = 23$，$E/\mathbb{F}_{23} : y^2 = x^3 - x$（超奇异）</li>
+<li>$r = 3$，$k = 2$</li>
+<li>$P = (2, 11) \in E[3]$</li>
+<li>$Q = (21, 12i) \in E(\mathbb{F}_{23^2})$（不一定在 $E[3]$ 中）</li>
+</ul>
+
+<h4>步骤 1：计算 $f_{3,P}(Q)$</h4>
+
+<p>使用 Miller 算法构造 $f_{3,P}$（与 Weil 配对中相同）：</p>
+
+<ol>
+<li>$f_{1,P} = 1$</li>
+<li>$f_{2,P} = \frac{\ell_{P,P}(x,y)}{v_{[2]P}(x,y)}$</li>
+<li>$f_{3,P} = f_{2,P} \cdot \ell_{[2]P,P}(x,y)$（因为 $[3]P = \mathcal{O}$）</li>
+</ol>
+
+<p>在 $Q = (21, 12i)$ 处求值：</p>
+$$f_{3,P}(Q) = f_{\text{intermediate}} \in \mathbb{F}_{23^2}$$
+
+<p>假设计算得到 $f_{3,P}(Q) = \alpha$（某个 $\mathbb{F}_{23^2}$ 中的元素）。</p>
+
+<h4>步骤 2：最终幂运算</h4>
+
+<p>计算最终幂：</p>
+$$\tilde{t}_3(P, Q) = f_{3,P}(Q)^{(q^2-1)/r} = \alpha^{(23^2-1)/3} = \alpha^{528/3} = \alpha^{176}$$
+
+<p>由于 $\alpha^{528} = 1$（Fermat 小定理：$\mathbb{F}_{23^2}^*$ 的阶为 $23^2 - 1 = 528$），我们有：</p>
+$$\alpha^{176} \in \mu_3$$
+
+<p>即结果是一个原始 3 次单位根。</p>
+
+<h4>验证双线性</h4>
+
+<p>验证 $\tilde{t}_3([2]P, Q) = \tilde{t}_3(P, Q)^2$：</p>
+<ul>
+<li>计算 $[2]P = (2, 12)$</li>
+<li>计算 $f_{3,[2]P}(Q)$ 并应用最终幂</li>
+<li>应该得到 $\tilde{t}_3(P, Q)^2$</li>
+</ul>
+</div>
+
+<h3>最终幂运算的优化</h3>
+
+<p>最终幂运算 $f^{(q^k-1)/r}$ 看似代价高昂，但可以高效计算：</p>
+
+<div class="theorem">
+<strong>最终幂的分解</strong>
+
+<p>对于嵌入度 $k$，$(q^k - 1)/r$ 可以分解为：</p>
+$$\frac{q^k - 1}{r} = \frac{q^k - 1}{\Phi_k(q)} \cdot \frac{\Phi_k(q)}{r}$$
+
+<p>其中 $\Phi_k$ 是第 $k$ 个分圆多项式。</p>
+
+<p><strong>第一部分</strong>：$f^{(q^k-1)/\Phi_k(q)}$ 称为<strong>简单部分</strong>（easy part）</p>
+<ul>
+<li>对于 $k = 12$：$(q^{12}-1)/\Phi_{12}(q) = (q^6-1)(q^2+1)$</li>
+<li>可以通过 Frobenius 和少量乘法快速计算</li>
+</ul>
+
+<p><strong>第二部分</strong>：$f^{\Phi_k(q)/r}$ 称为<strong>困难部分</strong>（hard part）</p>
+<ul>
+<li>需要仔细优化，使用加法链等技术</li>
+<li>但指数 $\Phi_k(q)/r$ 通常比 $(q^k-1)/r$ 小很多</li>
+</ul>
+</div>
+
+<blockquote>
+<strong>实际性能</strong>：
+
+<p>对于 BN 曲线（$k = 12$）：</p>
+<ul>
+<li><strong>简单部分</strong>：约 10 次 $\mathbb{F}_{q^{12}}$ 乘法</li>
+<li><strong>困难部分</strong>：约 30-40 次 $\mathbb{F}_{q^{12}}$ 乘法</li>
+<li><strong>总计</strong>：约 50 次乘法，相比 Miller 循环（约 150 次乘法）仍然便宜</li>
+</ul>
+</blockquote>
+
+<h2>Ate 配对：Tate 的进一步优化</h2>
+
+<p>Ate 配对是 Tate 配对的一个变体，通过利用 Frobenius 的特殊性质进一步减少 Miller 循环的长度。</p>
+
+<div class="definition">
+<strong>Ate 配对</strong>
+
+<p>对于 Type 3 配对（$P \in \mathbb{G}_1 = \mathcal{G}_1$，$Q \in \mathbb{G}_2 = \mathcal{G}_2$）：</p>
+$$a(Q, P) = f_{T, Q}(P)^{(q^k-1)/r}$$
+
+<p>其中 $T = t = q - \#E(\mathbb{F}_q) + 1$ 是 Frobenius 迹。</p>
+
+<p><strong>关键优势</strong>：Miller 循环长度从 $\log r$ 减少到 $\log |t|$！</p>
+</div>
+
+<blockquote>
+<strong>为什么 Ate 更快？</strong>
+
+<p>对于配对友好曲线（如 BN 曲线），通常有 $|t| \ll r$：</p>
+<ul>
+<li>BN 曲线：$t = 6u^2$，而 $r \approx 36u^4$，所以 $|t| \approx \sqrt{r}$</li>
+<li>Miller 循环长度：从 $\log r \approx 256$ 减少到 $\log |t| \approx 128$</li>
+<li><strong>速度提升约 2 倍！</strong></li>
+</ul>
+</blockquote>
+
+<div class="example">
+<div class="example-title">Example：BN254 上的配对类型和速度</div>
+
+<p>在 BN254 曲线上（$r \approx 2^{254}$，$t \approx 2^{62}$）：</p>
+
+<table>
+<tr>
+<th>配对类型</th>
+<th>Miller 循环长度</th>
+<th>最终幂</th>
+<th>相对速度</th>
+</tr>
+<tr>
+<td>Weil</td>
+<td>2 × 254 = 508</td>
+<td>无</td>
+<td>1.0× （最慢）</td>
+</tr>
+<tr>
+<td>Tate</td>
+<td>254</td>
+<td>$(q^{12}-1)/r$</td>
+<td>1.5×</td>
+</tr>
+<tr>
+<td><strong>Ate</strong></td>
+<td><strong>62</strong></td>
+<td>$(q^{12}-1)/r$</td>
+<td><strong>3.0×（最快）</strong></td>
+</tr>
+</table>
+
+<p><strong>实际测量</strong>（单核，优化实现）：</p>
+<ul>
+<li>Weil 配对：约 3.0 ms</li>
+<li>Tate 配对：约 2.0 ms</li>
+<li>Ate 配对：约 <strong>1.0 ms</strong></li>
+</ul>
+</div>
+
+<h2>配对的选择建议</h2>
+
+<blockquote>
+<strong>实践指南</strong>：
+
+<p><strong>理论学习</strong>：</p>
+<ul>
+<li>从 <strong>Weil 配对</strong>开始理解双线性配对的概念</li>
+<li>Weil 配对定义最对称、最容易理解</li>
+</ul>
+
+<p><strong>实际实现</strong>：</p>
+<ul>
+<li>总是使用 <strong>Ate 配对</strong>（或其变体，如 optimal Ate）</li>
+<li>所有现代配对库（libff、mcl、blst）都默认使用 Ate</li>
+</ul>
+
+<p><strong>协议分析</strong>：</p>
+<ul>
+<li>协议论文常用符号 $e(P, Q)$，不指定具体配对类型</li>
+<li>实现时替换为最快的变体（通常是 Ate）</li>
+<li>双线性和非退化性在所有变体中都成立</li>
+</ul>
+</blockquote>
+
+<h2>Tate/Ate 配对的 Miller 算法伪代码</h2>
+
+<pre style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto;">
+<strong>算法：Ate 配对计算 a(Q, P)</strong>
+
+输入: Q ∈ 𝔾₂, P ∈ 𝔾₁, t 的二进制表示
+输出: a(Q, P) ∈ μᵣ
+
+1. f ← 1, T ← Q
+2. 对于 t 的每一位（从次高位到最低位）:
+   a. f ← f² · (ℓ_{T,T}(P) / v_{[2]T}(P))
+   b. T ← [2]T
+   c. 如果当前位是 1:
+      i.  f ← f · (ℓ_{T,Q}(P) / v_{T+Q}(P))
+      ii. T ← T + Q
+   d. 如果当前位是 -1（对于 NAF 表示）:
+      i.  f ← f · (ℓ_{T,-Q}(P) / v_{T-Q}(P))
+      ii. T ← T - Q
+3. <span style="color: #ff6600;">/* 最终幂运算 */</span>
+4. f ← f^((q^k-1)/r)  <span style="color: #888;">// 分两步：简单部分 + 困难部分</span>
+5. 返回 f
+</pre>
+
+<blockquote>
+<strong>优化要点</strong>：
+<ol>
+<li><strong>使用 NAF 表示</strong>：$t$ 的非相邻形式，减少加法次数</li>
+<li><strong>扭曲曲线</strong>：$Q$ 在 $E'(\mathbb{F}_{q^{k/d}})$ 上表示</li>
+<li><strong>稀疏乘法</strong>：直线函数求值结果稀疏，优化乘法</li>
+<li><strong>最终幂优化</strong>：利用 Frobenius 和分圆多项式结构</li>
+</ol>
+</blockquote>
+
+<h2>本章总结</h2>
+
+<p>我们学习了两种主要的双线性配对：</p>
+
+<table>
+<tr>
+<th>方面</th>
+<th>Weil 配对</th>
+<th>Tate/Ate 配对</th>
+</tr>
+<tr>
+<td><strong>理论价值</strong></td>
+<td>⭐⭐⭐⭐⭐ 最对称、最容易理解</td>
+<td>⭐⭐⭐ 定义稍复杂</td>
+</tr>
+<tr>
+<td><strong>实践价值</strong></td>
+<td>⭐⭐ 较慢，很少使用</td>
+<td>⭐⭐⭐⭐⭐ 最快，广泛使用</td>
+</tr>
+<tr>
+<td><strong>计算复杂度</strong></td>
+<td>$2 \log r$ Miller 循环</td>
+<td>$\log |t| + $ 最终幂</td>
+</tr>
+<tr>
+<td><strong>优化空间</strong></td>
+<td>有限</td>
+<td>大（Ate、optimal Ate）</td>
+</tr>
+</table>
+
+<p><strong>核心要点</strong>：</p>
+<ul>
+<li>Miller 算法使配对计算从不可行变为实用（$O(r)$ → $O(\log r)$）</li>
+<li>Tate 比 Weil 快约 50%（省一次 Miller 循环）</li>
+<li>Ate 比 Tate 再快约 2 倍（利用小的 Frobenius 迹）</li>
+<li>现代实现都基于 Ate 或其变体</li>
+</ul>
+
+<p>下一章将探讨如何选择和构造配对友好的椭圆曲线。</p>
+
+<div class="nav-links">
+    <a href="ch5-2.html">← 上一部分：Weil 配对</a>
+    <a href="../../ch6/sections/ch6-1.html">下一章：配对友好曲线 →</a>
+</div>
+
+</body>
+</html>
